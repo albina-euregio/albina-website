@@ -30,12 +30,12 @@ interface Field {
 }
 
 /** Renders a titled table of label/value rows, skipping empty values. */
-function Section({ title, fields }: { title: ReactNode; fields: Field[] }) {
+function Section({ title, fields }: { title?: ReactNode; fields: Field[] }) {
   const rows = fields.filter(f => f.value || f.value === 0);
   if (!rows.length) return null;
   return (
     <section className="incident-details-section">
-      <h3>{title}</h3>
+      {title && <h3>{title}</h3>}
       <table className="pure-table pure-table-striped pure-table-small">
         <tbody>
           {rows.map((f, i) => (
@@ -64,17 +64,14 @@ function localizedText(
  */
 function AvalancheProblems({
   problems,
-  label,
   intl
 }: {
   problems: IncidentAvalancheProblem[];
-  label: (key: string) => string;
   intl: IntlApi;
 }) {
   if (!problems?.length) return null;
   return (
     <section className="incident-details-section">
-      <h3>{label("avalancheProblem")}</h3>
       <ul className="list-plain list-bulletin-report-pictos incident-details-problems">
         {problems.map((p, i) => (
           <AvalancheProblemRow key={i} problem={p} intl={intl} />
@@ -267,38 +264,59 @@ function aspectLabel(
     .join(", ");
 }
 
-function Attachments({
-  attachments,
-  label
+/** Renders a grid of attachment figures (images or download links). */
+function AttachmentGrid({
+  attachments
 }: {
-  attachments: IncidentAttachmentView[];
-  label: (key: string) => string;
+  attachments: IncidentAttachmentView[] | undefined;
 }) {
-  if (!attachments.length) return null;
+  if (!attachments?.length) return null;
   return (
-    <section className="incident-details-section">
-      <h3>{label("incidentAttachments")}</h3>
-      <div className="incident-details-attachments">
-        {attachments.map(a => (
-          <figure key={a.id} className="incident-details-attachment">
-            <a href={a.url} target="_blank" rel="noreferrer">
-              {a.mediaType?.startsWith("image/") ? (
-                <img src={a.url} alt={a.altText || a.caption || a.fileName} />
-              ) : (
-                (a.fileName ?? a.url)
-              )}
-            </a>
-            {(a.caption || a.credit) && (
-              <figcaption>
-                {a.caption}
-                {a.credit && <span className="credit"> © {a.credit}</span>}
-              </figcaption>
+    <div className="incident-details-attachments">
+      {attachments.map(a => (
+        <figure key={a.id} className="incident-details-attachment">
+          <a href={a.url} target="_blank" rel="noreferrer">
+            {a.mediaType?.startsWith("image/") ? (
+              <img src={a.url} alt={a.altText || a.caption || a.fileName} />
+            ) : (
+              (a.fileName ?? a.url)
             )}
-          </figure>
-        ))}
-      </div>
-    </section>
+          </a>
+          {(a.caption || a.credit) && (
+            <figcaption>
+              {a.caption}
+              {a.credit && <span className="credit"> © {a.credit}</span>}
+            </figcaption>
+          )}
+        </figure>
+      ))}
+    </div>
   );
+}
+
+/**
+ * Maps an attachment's category onto the rich-text section it is shown under.
+ * Categories without an entry (`Group`, `Person`) — and attachments with no
+ * category — are rendered at the bottom of the dialog instead.
+ */
+const ATTACHMENT_CATEGORY_SECTION: Record<string, string> = {
+  Incident: "incidentDescription",
+  Avalanche: "avalancheDescription",
+  Snowpack: "snowpackDescription",
+  Weather: "weatherDescription"
+};
+
+/** Buckets attachments by the section key they belong to, plus a `bottom` list. */
+function groupAttachmentsByCategory(attachments: IncidentAttachmentView[]) {
+  const bySection: Record<string, IncidentAttachmentView[]> = {};
+  const bottom: IncidentAttachmentView[] = [];
+  for (const a of attachments) {
+    const key =
+      a.attachmentCategory && ATTACHMENT_CATEGORY_SECTION[a.attachmentCategory];
+    if (key) (bySection[key] ??= []).push(a);
+    else bottom.push(a);
+  }
+  return { bySection, bottom };
 }
 
 /**
@@ -306,15 +324,27 @@ function Attachments({
  * fragments (e.g. `<p>Very&nbsp;windy…<strong>☀️</strong></p>`), so we render
  * them as markup — same trusted-content convention as the bulletin report.
  */
-function RichText({ title, html }: { title: ReactNode; html?: string }) {
-  if (!html?.trim()) return null;
+function RichText({
+  title,
+  html,
+  attachments
+}: {
+  title: ReactNode;
+  html?: string;
+  attachments?: IncidentAttachmentView[];
+}) {
+  const hasHtml = !!html?.trim();
+  if (!hasHtml && !attachments?.length) return null;
   return (
     <section className="incident-details-section">
       <h3>{title}</h3>
-      <div
-        className="incident-details-richtext"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
+      {hasHtml && (
+        <div
+          className="incident-details-richtext"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      )}
+      <AttachmentGrid attachments={attachments} />
     </section>
   );
 }
@@ -352,21 +382,53 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     publicFlag?: boolean
   ) => (publicFlag === false ? undefined : localizedText(record, intl.locale));
 
+  const { bySection: attachments, bottom: bottomAttachments } =
+    groupAttachmentsByCategory(incident.attachments);
+
+  const ledeHtml = textBlock(d.incidentLede, d.incidentLedePublic);
+  const dateTime =
+    incident.dateTime && intl.formatDate(incident.dateTime, DATE_TIME_FORMAT);
+  const timeAccuracy = tr("timeAccuracy", d.timeAccuracy);
+
   return (
     <div className="modal-container incident-details">
+      <header className="incident-details-header">
+        {incident.location && <h2>{incident.location}</h2>}
+        {ledeHtml?.trim() && (
+          <div
+            className="incident-details-richtext incident-details-lede"
+            dangerouslySetInnerHTML={{ __html: ledeHtml }}
+          />
+        )}
+        {dateTime && (
+          <p className="incident-details-datetime">
+            <span className="label">{label("dateTime")}: </span>
+            {dateTime}
+            {timeAccuracy && (
+              <span className="time-accuracy"> ({timeAccuracy})</span>
+            )}
+          </p>
+        )}
+        {incident.publishedAt && (
+          <p className="incident-details-updated">
+            <span className="label">{label("updatedAt")}: </span>
+            {intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT)}
+          </p>
+        )}
+        {incident.personInvolvement && (
+          <p className="incident-details-involvement">
+            <span className="label">{label("personInvolvement")}: </span>
+            {incident.personInvolvement}
+          </p>
+        )}
+      </header>
+
+      {d.avalancheProblems && (
+        <AvalancheProblems problems={d.avalancheProblems} intl={intl} />
+      )}
+
       <Section
-        title={label("generalInformation")}
         fields={[
-          {
-            label: label("dateTime"),
-            value:
-              incident.dateTime &&
-              intl.formatDate(incident.dateTime, DATE_TIME_FORMAT)
-          },
-          {
-            label: label("timeAccuracy"),
-            value: tr("timeAccuracy", d.timeAccuracy)
-          },
           {
             label: label("dangerRating"),
             value:
@@ -374,10 +436,6 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
               intl.formatMessage({
                 id: `danger-level:${incident.dangerRating}` as MessageId
               })
-          },
-          {
-            label: label("personInvolvement"),
-            value: incident.personInvolvement
           },
           {
             label: label("otherDamages"),
@@ -491,14 +549,6 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         ]}
       />
 
-      {d.avalancheProblems && (
-        <AvalancheProblems
-          problems={d.avalancheProblems}
-          label={label}
-          intl={intl}
-        />
-      )}
-
       <Section
         title={label("incidentAnalysis")}
         fields={[
@@ -526,24 +576,24 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       />
 
       <RichText
-        title={label("incidentLede")}
-        html={textBlock(d.incidentLede, d.incidentLedePublic)}
-      />
-      <RichText
         title={label("incidentDescription")}
         html={textBlock(d.incidentDescription, d.incidentDescriptionPublic)}
+        attachments={attachments.incidentDescription}
       />
       <RichText
         title={label("avalancheDescription")}
         html={textBlock(d.avalancheDescription, d.avalancheDescriptionPublic)}
+        attachments={attachments.avalancheDescription}
       />
       <RichText
         title={label("snowpackDescription")}
         html={textBlock(d.snowpackDescription, d.snowpackDescriptionPublic)}
+        attachments={attachments.snowpackDescription}
       />
       <RichText
         title={label("weatherDescription")}
         html={textBlock(d.weatherDescription, d.weatherDescriptionPublic)}
+        attachments={attachments.weatherDescription}
       />
       <RichText
         title={label("takeAways")}
@@ -555,7 +605,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         links={d.publicExternalLinks}
       />
 
-      <Attachments attachments={incident.attachments} label={label} />
+      <AttachmentGrid attachments={bottomAttachments} />
     </div>
   );
 }
