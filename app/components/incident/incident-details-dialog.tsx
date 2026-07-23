@@ -353,7 +353,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   ) => (publicFlag === false ? undefined : localizedText(record, intl.locale));
 
   return (
-    <div className="incident-details">
+    <div className="modal-container incident-details">
       <Section
         title={label("generalInformation")}
         fields={[

@@ -450,26 +450,60 @@ button.mfp-arrow {
 }
 
 .incident-details {
+  // Keep long content readable and away from the dialog edges. The outer
+  // padding comes from the shared `.modal-container`; this caps line length.
+  max-width: 60rem;
+  margin: 0 auto;
+
   .incident-details-section {
-    margin-bottom: variables.$margin-bottom;
+    margin-bottom: (variables.$margin-bottom * 1.5);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     h3 {
-      margin-bottom: (variables.$padding);
+      margin-bottom: variables.$padding;
+      padding-bottom: (variables.$padding * 0.5);
+      border-bottom: variables.$border-width variables.$border-style
+        variables.$brand-very-light;
     }
 
     table {
       width: 100%;
     }
 
-    p {
-      margin-bottom: (variables.$padding);
+    // Give the label/value rows room to breathe and align them to the top so
+    // multi-line values stay tidy next to their label.
+    th,
+    td {
+      padding: (variables.$padding * 0.75) variables.$padding;
+      vertical-align: top;
     }
+
+    th {
+      width: 34%;
+      text-align: left;
+    }
+
+    p {
+      margin-bottom: variables.$padding;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .incident-details-richtext {
+    line-height: 1.6;
   }
 
   .incident-details-attachments {
     display: flex;
     flex-wrap: wrap;
     gap: (variables.$padding * 2);
+    margin-top: variables.$padding;
 
     .incident-details-attachment {
       max-width: 16rem;
@@ -480,6 +514,7 @@ button.mfp-arrow {
       }
 
       figcaption {
+        margin-top: (variables.$padding * 0.5);
         font-size: 0.85em;
 
         .credit {
