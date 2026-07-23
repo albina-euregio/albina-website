@@ -3,10 +3,13 @@ import Modal from "../dialogs/albina-modal";
 import { useIntl, type MessageId } from "../../i18n";
 import {
   useIncidentReportMessages,
-  translateIncidentValue,
-  type IncidentReportMessages
+  translateIncidentValue
 } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT } from "../../util/date";
+import ProblemIcon from "../icons/problem-icon";
+import ExpositionIcon from "../icons/exposition-icon";
+import ElevationIcon from "../icons/elevation-icon";
+import type { Aspect, AvalancheProblemType } from "../../stores/bulletin";
 import type {
   IncidentAttachmentView,
   IncidentAvalancheProblem,
@@ -56,57 +59,185 @@ function localizedText(
   return record[locale] || record.en || Object.values(record).find(Boolean);
 }
 
+/**
+ * Renders avalanche problems as pictograms, mirroring the bulletin report.
+ */
 function AvalancheProblems({
   problems,
   label,
-  intl,
-  t
+  intl
 }: {
   problems: IncidentAvalancheProblem[];
   label: (key: string) => string;
   intl: IntlApi;
-  t: IncidentReportMessages;
 }) {
   if (!problems?.length) return null;
   return (
     <section className="incident-details-section">
       <h3>{label("avalancheProblem")}</h3>
-      {problems.map((p, i) => (
-        <Section
-          key={i}
-          title={
-            p.problemType
-              ? intl.formatMessage({ id: problemTypeMessageId(p.problemType) })
-              : `#${i + 1}`
-          }
-          fields={[
-            { label: label("aspects"), value: aspectLabel(p.aspects, intl) },
-            {
-              label: label("elevationLowerBound"),
-              value: p.elevationLowerBound
-            },
-            {
-              label: label("elevationUpperBound"),
-              value: p.elevationUpperBound
-            },
-            {
-              label: label("snowpackStability"),
-              value:
-                p.snowpackStability &&
-                intl.formatMessage({
-                  id: `bulletin:report:problem:snowpack-stability:${p.snowpackStability}` as MessageId
-                })
-            },
-            {
-              label: label("frequency"),
-              value: translateIncidentValue(t, "frequency", p.frequency)
-            },
-            { label: label("avalancheSize"), value: p.avalancheSize }
-          ]}
-        />
-      ))}
+      <ul className="list-plain list-bulletin-report-pictos incident-details-problems">
+        {problems.map((p, i) => (
+          <AvalancheProblemRow key={i} problem={p} intl={intl} />
+        ))}
+      </ul>
     </section>
   );
+}
+
+function AvalancheProblemRow({
+  problem,
+  intl
+}: {
+  problem: IncidentAvalancheProblem;
+  intl: IntlApi;
+}) {
+  const problemType = problem.problemType;
+  const aspects = (
+    Array.isArray(problem.aspects) ? problem.aspects : [problem.aspects]
+  ).filter((a): a is Aspect => Boolean(a));
+
+  const aspectTitle =
+    intl.formatMessage({ id: "bulletin:report:exposition" }) +
+    (aspects.length
+      ? ": " +
+        aspects
+          .map(a =>
+            intl.formatMessage({
+              id: `bulletin:report:problem:aspect:${a.toLowerCase()}` as MessageId
+            })
+          )
+          .join(", ")
+      : "");
+
+  const elevation = elevationIconProps(
+    problem.elevationLowerBound,
+    problem.elevationUpperBound,
+    intl
+  );
+
+  return (
+    <li>
+      {problemType && (
+        <div className="bulletin-report-picto avalanche-situation">
+          <a
+            href={`/education/avalanche-problems#${problemType}`}
+            className="img"
+          >
+            <div className="picto-img">
+              <ProblemIcon
+                problem={problemType as AvalancheProblemType}
+                alt={intl.formatMessage({
+                  id: problemTypeMessageId(problemType)
+                })}
+                active={true}
+              />
+            </div>
+            <div className="picto-caption">
+              {intl.formatMessage({
+                id: `${problemTypeMessageId(problemType)}:short` as MessageId
+              })}
+            </div>
+          </a>
+        </div>
+      )}
+
+      {aspects.length > 0 && (
+        <div>
+          <ExpositionIcon expositions={aspects} title={aspectTitle} />
+        </div>
+      )}
+
+      {elevation && (
+        <div>
+          <ElevationIcon {...elevation} />
+        </div>
+      )}
+
+      <ProblemMatrix problem={problem} intl={intl} />
+    </li>
+  );
+}
+
+/** Text matrix of snowpack stability / frequency / avalanche size. */
+function ProblemMatrix({
+  problem,
+  intl
+}: {
+  problem: IncidentAvalancheProblem;
+  intl: IntlApi;
+}) {
+  const { snowpackStability, frequency, avalancheSize } = problem;
+  if (!snowpackStability && !frequency && !avalancheSize) return null;
+  const row = (name: string, value: ReactNode) => (
+    <div className="matrix-info">
+      <span className="matrix-info-name">{name}:</span>
+      <span className="matrix-info-value">{value}</span>
+    </div>
+  );
+  return (
+    <div className="bulletin-report-picto matrix-information">
+      {snowpackStability &&
+        row(
+          intl.formatMessage({
+            id: "bulletin:report:problem:snowpack-stability"
+          }),
+          intl.formatMessage({
+            id: `bulletin:report:problem:snowpack-stability:${snowpackStability}` as MessageId
+          })
+        )}
+      {frequency &&
+        row(
+          intl.formatMessage({ id: "bulletin:report:problem:frequency" }),
+          intl.formatMessage({
+            id: `bulletin:report:problem:frequency:${frequency}` as MessageId
+          })
+        )}
+      {avalancheSize &&
+        row(
+          intl.formatMessage({ id: "bulletin:report:problem:avalanche-size" }),
+          avalancheSize
+        )}
+    </div>
+  );
+}
+
+/** Maps the incident's numeric elevation bounds onto {@link ElevationIcon}. */
+function elevationIconProps(
+  lower: string | undefined,
+  upper: string | undefined,
+  intl: IntlApi
+) {
+  if (lower && upper) {
+    return {
+      where: "middle" as const,
+      text: `${lower}–${upper}m`,
+      title: intl.formatMessage(
+        { id: "bulletin:report:problem:elevation:between:m-m:hover" },
+        { elevationLow: lower, elevationHigh: upper }
+      )
+    };
+  }
+  if (lower) {
+    return {
+      where: "above" as const,
+      text: `${lower}m`,
+      title: intl.formatMessage(
+        { id: "bulletin:report:problem:elevation:above:m:hover" },
+        { elevationLow: lower }
+      )
+    };
+  }
+  if (upper) {
+    return {
+      where: "below" as const,
+      text: `${upper}m`,
+      title: intl.formatMessage(
+        { id: "bulletin:report:problem:elevation:below:m:hover" },
+        { elevationHigh: upper }
+      )
+    };
+  }
+  return null;
 }
 
 function problemTypeMessageId(problemType: string): MessageId {
@@ -365,7 +496,6 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           problems={d.avalancheProblems}
           label={label}
           intl={intl}
-          t={t}
         />
       )}
 
