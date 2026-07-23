@@ -454,10 +454,9 @@ button.mfp-arrow {
   // padding comes from the shared `.modal-container`; this caps line length.
   max-width: 60rem;
   margin: 0 auto;
+  padding-top: 1.25rem;
 
   .incident-details-header {
-    margin-bottom: (variables.$margin-bottom * 1.2);
-
     h2 {
       margin-bottom: (variables.$padding * 0.75);
       @include mixins.font-heavy;
@@ -465,12 +464,14 @@ button.mfp-arrow {
       // title; its larger size keeps it above them in the hierarchy.
       color: variables.$brand-dark;
     }
+  }
 
-    .incident-details-lede {
-      margin-bottom: (variables.$padding * 1.5);
-      color: variables.$grey-dark;
-      font-size: variables.$medium-font-size;
-    }
+  // The lede now sits below the opening facts table (date, involvement, …) as a
+  // short intro to the rich-text descriptions that follow it.
+  .incident-details-lede {
+    margin-bottom: (variables.$margin-bottom * 1.5);
+    color: variables.$grey-dark;
+    font-size: variables.$medium-font-size;
   }
 
   .incident-details-section {
@@ -546,15 +547,18 @@ button.mfp-arrow {
 
     .incident-details-attachment {
       max-width: 16rem;
+      margin: 0;
 
       img {
         max-width: 100%;
         height: auto;
+        margin-bottom: 0;
       }
 
       figcaption {
         margin-top: (variables.$padding * 0.5);
         font-size: 0.85em;
+        text-align: center;
 
         .credit {
           color: variables.$grey-light;

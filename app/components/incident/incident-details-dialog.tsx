@@ -51,14 +51,31 @@ function Section({
           <tbody>
             {rows.map((f, i) => (
               <tr key={i}>
-                <th>{f.label}</th>
-                <td>{f.value}</td>
+                {f.label ? (
+                  <>
+                    <th>{f.label}</th>
+                    <td>{f.value}</td>
+                  </>
+                ) : (
+                  <td colSpan={2}>{f.value}</td>
+                )}
               </tr>
             ))}
           </tbody>
         </table>
       )}
     </section>
+  );
+}
+
+/** Renders `value (accuracy)`, with the accuracy in parentheses beside the value. */
+function withAccuracy(value: ReactNode, accuracy: ReactNode): ReactNode {
+  if (!value && value !== 0) return value;
+  return (
+    <>
+      {value}
+      {accuracy && <span> ({accuracy})</span>}
+    </>
   );
 }
 
@@ -385,6 +402,15 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const label = (key: string) => t.incidentReport?.[key] ?? key;
   const tr = (category: string, value: string | undefined) =>
     translateIncidentValue(t, category, value);
+  /** Translates each entry of a list and joins them, dropping empty values. */
+  const trList = (
+    category: string,
+    values: (string | undefined)[] | undefined
+  ) =>
+    values
+      ?.map(v => tr(category, v))
+      .filter(Boolean)
+      .join(", ");
 
   const d: IncidentPublicData = incident.publicData;
   const number = (value: number | undefined, unit?: string) =>
@@ -406,26 +432,13 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     <div className="modal-container incident-details">
       <header className="incident-details-header">
         {incident.location && <h2>{incident.location}</h2>}
-        {ledeHtml?.trim() && (
-          <div
-            className="incident-details-richtext incident-details-lede"
-            dangerouslySetInnerHTML={{ __html: ledeHtml }}
-          />
-        )}
       </header>
 
       <Section
         fields={[
           {
             label: label("dateTime"),
-            value: dateTime && (
-              <>
-                {dateTime}
-                {timeAccuracy && (
-                  <span className="time-accuracy"> ({timeAccuracy})</span>
-                )}
-              </>
-            )
+            value: dateTime && withAccuracy(dateTime, timeAccuracy)
           },
           {
             label: label("updatedAt"),
@@ -436,47 +449,44 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           {
             label: label("personInvolvement"),
             value: incident.personInvolvement
-          }
-        ]}
-      />
-
-      {d.avalancheProblems && (
-        <AvalancheProblems problems={d.avalancheProblems} intl={intl} />
-      )}
-
-      <Section
-        fields={[
-          {
-            label: label("dangerRating"),
-            value:
-              incident.dangerRating &&
-              intl.formatMessage({
-                id: `danger-level:${incident.dangerRating}` as MessageId
-              })
           },
           {
             label: label("otherDamages"),
             value: tr("otherDamages", d.otherDamages)
-          },
-          {
-            label: label("damagedAssets"),
-            value: d.damagedAssets?.map(a => tr("damagedAssets", a)).join(", ")
-          },
-          {
-            label: label("otherDamagesComment"),
-            value: d.otherDamagesComment
-          },
-          {
-            label: label("sourceOfInformation"),
-            value: d.sourceOfInformation
-              ?.map(s => tr("sourceOfInformation", s))
-              .join(", ")
-          },
-          {
-            label: label("generalInformationComment"),
-            value: d.generalInformationComment
           }
         ]}
+      />
+
+      {ledeHtml?.trim() && (
+        <div
+          className="incident-details-richtext incident-details-lede"
+          dangerouslySetInnerHTML={{ __html: ledeHtml }}
+        />
+      )}
+
+      <RichText
+        title={label("incidentDescription")}
+        html={textBlock(d.incidentDescription, d.incidentDescriptionPublic)}
+        attachments={attachments.incidentDescription}
+      />
+      <RichText
+        title={label("avalancheDescription")}
+        html={textBlock(d.avalancheDescription, d.avalancheDescriptionPublic)}
+        attachments={attachments.avalancheDescription}
+      />
+      <RichText
+        title={label("snowpackDescription")}
+        html={textBlock(d.snowpackDescription, d.snowpackDescriptionPublic)}
+        attachments={attachments.snowpackDescription}
+      />
+      <RichText
+        title={label("weatherDescription")}
+        html={textBlock(d.weatherDescription, d.weatherDescriptionPublic)}
+        attachments={attachments.weatherDescription}
+      />
+      <RichText
+        title={label("takeAways")}
+        html={textBlock(d.takeAways, d.takeAwaysPublic)}
       />
 
       <Section
@@ -499,11 +509,10 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             value:
               typeof d.latitude === "number" &&
               typeof d.longitude === "number" &&
-              `${intl.formatNumber(d.latitude, 5)}, ${intl.formatNumber(d.longitude, 5)}`
-          },
-          {
-            label: label("locationAccuracy"),
-            value: tr("locationAccuracy", d.locationAccuracy)
+              withAccuracy(
+                `${intl.formatNumber(d.latitude, 5)}, ${intl.formatNumber(d.longitude, 5)}`,
+                tr("locationAccuracy", d.locationAccuracy)
+              )
           }
         ]}
       >
@@ -511,29 +520,34 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       </Section>
 
       <Section
+        title={label("bulletinInformation")}
+        fields={[
+          {
+            label: label("publicAvalancheWarningService"),
+            value: d.publicAvalancheWarningService
+          },
+          {
+            label: label("dangerPattern"),
+            value: d.dangerPattern
+              ?.map(a =>
+                intl.formatMessage({
+                  id: `danger-patterns:${a.toLowerCase()}` as MessageId
+                })
+              )
+              .join(", ")
+          }
+        ]}
+      >
+        {d.avalancheProblems && (
+          <AvalancheProblems problems={d.avalancheProblems} intl={intl} />
+        )}
+      </Section>
+
+      <Section
         title={label("avalancheInformation")}
         fields={[
-          { label: label("avalancheType"), value: incident.avalancheType },
           { label: label("avalancheSize"), value: incident.avalancheSize },
-          { label: label("trigger"), value: tr("trigger", d.trigger) },
-          { label: label("natural"), value: tr("natural", d.natural) },
-          { label: label("person"), value: tr("person", d.person) },
-          {
-            label: label("accidentalControlled"),
-            value: tr("accidentalControlled", d.accidentalControlled)
-          },
-          {
-            label: label("additionalLoad"),
-            value: tr("additionalLoad", d.additionalLoad)
-          },
-          {
-            label: label("remoteTriggering"),
-            value: tr("remoteTriggering", d.remoteTriggering)
-          },
-          {
-            label: label("multipleAvalanches"),
-            value: tr("multipleAvalanches", d.multipleAvalanches)
-          },
+          { label: label("avalancheType"), value: incident.avalancheType },
           {
             label: label("relevantAvalancheProblem"),
             value:
@@ -543,18 +557,21 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
               })
           },
           {
+            label: label("avalancheLength"),
+            value: number(d.avalancheLength, "m")
+          },
+          {
             label: label("startZoneAspect"),
-            value: aspectLabel(d.startZoneAspect, intl)
+            value: withAccuracy(
+              aspectLabel(d.startZoneAspect, intl),
+              tr("startZoneAspectAccuracy", d.startZoneAspectAccuracy)
+            )
           },
           {
             label: label("startZoneElevation"),
-            value: number(d.startZoneElevation, "m")
-          },
-          {
-            label: label("startZoneElevationAccuracy"),
-            value: tr(
-              "startZoneElevationAccuracy",
-              d.startZoneElevationAccuracy
+            value: withAccuracy(
+              number(d.startZoneElevation, "m"),
+              tr("startZoneElevationAccuracy", d.startZoneElevationAccuracy)
             )
           },
           {
@@ -565,18 +582,66 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             label: label("startZoneMoisture"),
             value: tr("startZoneMoisture", d.startZoneMoisture)
           },
-          { label: label("slabWidth"), value: number(d.slabWidth, "m") },
+          { label: label("trigger"), value: tr("trigger", d.trigger) },
           {
-            label: label("avalancheLength"),
-            value: number(d.avalancheLength, "m")
+            label: label("weakLayerGrainType1"),
+            value: tr("weakLayerGrainType", d.weakLayerGrainType1)
           },
           {
-            label: label("depositMoisture"),
-            value: tr("depositMoisture", d.depositMoisture)
+            label: label("weakLayerGrainType2"),
+            value: tr("weakLayerGrainType", d.weakLayerGrainType2)
           },
           {
-            label: label("avalancheDetailsComment"),
-            value: d.avalancheDetailsComment
+            label: label("weakLayerLocation"),
+            value: tr("weakLayerLocation", d.weakLayerLocation)
+          }
+        ]}
+      />
+
+      <Section
+        title={label("involvementsFatalitiesBurials")}
+        fields={[
+          {
+            label: label("numberInvolved"),
+            value: d.involvementsFatalitiesBurials?.numberInvolved
+          },
+          {
+            label: label("activities"),
+            value: trList(
+              "incidentActivity",
+              d.involvementsFatalitiesBurials?.incidentActivity
+            )
+          },
+          {
+            label: label("terrainTypes"),
+            value: tr(
+              "incidentTerrainType",
+              d.involvementsFatalitiesBurials?.incidentTerrainType
+            )
+          },
+          {
+            label: label("fatalities"),
+            value: d.involvementsFatalitiesBurials?.fatalities
+          },
+          {
+            label: label("injuredSurvivors"),
+            value: d.involvementsFatalitiesBurials?.injuredSurvivors
+          },
+          {
+            label: label("uninjuredSurvivors"),
+            value: d.involvementsFatalitiesBurials?.uninjuredSurvivors
+          },
+          {
+            label: label("caughtOnly"),
+            value: d.involvementsFatalitiesBurials?.caughtOnly
+          },
+          {
+            label: label("fullyBuried"),
+            value: d.involvementsFatalitiesBurials?.fullyBuried
+          },
+          {
+            label: label("partlyBuried"),
+            value: d.involvementsFatalitiesBurials?.partlyBuried
           }
         ]}
       />
@@ -607,33 +672,8 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         ]}
       />
 
-      <RichText
-        title={label("incidentDescription")}
-        html={textBlock(d.incidentDescription, d.incidentDescriptionPublic)}
-        attachments={attachments.incidentDescription}
-      />
-      <RichText
-        title={label("avalancheDescription")}
-        html={textBlock(d.avalancheDescription, d.avalancheDescriptionPublic)}
-        attachments={attachments.avalancheDescription}
-      />
-      <RichText
-        title={label("snowpackDescription")}
-        html={textBlock(d.snowpackDescription, d.snowpackDescriptionPublic)}
-        attachments={attachments.snowpackDescription}
-      />
-      <RichText
-        title={label("weatherDescription")}
-        html={textBlock(d.weatherDescription, d.weatherDescriptionPublic)}
-        attachments={attachments.weatherDescription}
-      />
-      <RichText
-        title={label("takeAways")}
-        html={textBlock(d.takeAways, d.takeAwaysPublic)}
-      />
-
       <ExternalLinks
-        title={label("publicExternalLinks")}
+        title={label("incidentAttachments")}
         links={d.publicExternalLinks}
       />
 
