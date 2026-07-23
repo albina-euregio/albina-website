@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../i18n";
 import { useIncidentData } from "../stores/incidentDataStore";
@@ -26,7 +26,9 @@ function IncidentDashboard() {
   const setViewMode = (view: "map" | "table") =>
     redirectPageQuery({ view: view === DEFAULT_VIEW_MODE ? "" : view });
 
-  const [selectedId, setSelectedId] = useState<string>();
+  const selectedId = router?.search?.incident || undefined;
+  const setSelectedId = (id: string | undefined) =>
+    redirectPageQuery({ incident: id ?? "" });
   const { filterRef, offsetStyle, topStyle } = useFilterBarOffset();
 
   const {
