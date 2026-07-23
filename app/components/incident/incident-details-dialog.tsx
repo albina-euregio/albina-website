@@ -9,6 +9,7 @@ import { DATE_TIME_FORMAT } from "../../util/date";
 import ProblemIcon from "../icons/problem-icon";
 import ExpositionIcon from "../icons/exposition-icon";
 import ElevationIcon from "../icons/elevation-icon";
+import IncidentLocationMap from "./incident-location-map";
 import type { Aspect, AvalancheProblemType } from "../../stores/bulletin";
 import type {
   IncidentAttachmentView,
@@ -30,22 +31,33 @@ interface Field {
 }
 
 /** Renders a titled table of label/value rows, skipping empty values. */
-function Section({ title, fields }: { title?: ReactNode; fields: Field[] }) {
+function Section({
+  title,
+  fields,
+  children
+}: {
+  title?: ReactNode;
+  fields: Field[];
+  children?: ReactNode;
+}) {
   const rows = fields.filter(f => f.value || f.value === 0);
-  if (!rows.length) return null;
+  if (!rows.length && !children) return null;
   return (
     <section className="incident-details-section">
       {title && <h3>{title}</h3>}
-      <table className="pure-table pure-table-striped pure-table-small">
-        <tbody>
-          {rows.map((f, i) => (
-            <tr key={i}>
-              <th>{f.label}</th>
-              <td>{f.value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {children}
+      {rows.length > 0 && (
+        <table className="pure-table pure-table-striped pure-table-small">
+          <tbody>
+            {rows.map((f, i) => (
+              <tr key={i}>
+                <th>{f.label}</th>
+                <td>{f.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </section>
   );
 }
@@ -468,15 +480,30 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           { label: label("location"), value: incident.location },
           { label: label("country"), value: tr("country", d.country) },
           { label: label("municipality"), value: d.municipality },
-          { label: label("avalancheRegion"), value: d.avalancheRegion },
-          { label: label("latitude"), value: number(d.latitude) },
-          { label: label("longitude"), value: number(d.longitude) },
+          {
+            label: label("avalancheRegion"),
+            value:
+              d.avalancheRegion &&
+              (intl.formatMessage({
+                id: `region:${d.avalancheRegion}` as MessageId
+              }) ||
+                d.avalancheRegion)
+          },
+          {
+            label: `${label("latitude")} / ${label("longitude")}`,
+            value:
+              typeof d.latitude === "number" &&
+              typeof d.longitude === "number" &&
+              `${intl.formatNumber(d.latitude, 5)}, ${intl.formatNumber(d.longitude, 5)}`
+          },
           {
             label: label("locationAccuracy"),
             value: tr("locationAccuracy", d.locationAccuracy)
           }
         ]}
-      />
+      >
+        <IncidentLocationMap incident={incident} />
+      </Section>
 
       <Section
         title={label("avalancheInformation")}

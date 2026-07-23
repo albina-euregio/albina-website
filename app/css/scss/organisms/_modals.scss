@@ -499,6 +499,16 @@ button.mfp-arrow {
     line-height: 1.6;
   }
 
+  .incident-details-map {
+    // Undo the site-wide vertical (rotated, no-wrap) attribution so the compact
+    // "ⓘ" panel reads horizontally and wraps to the next line within the map.
+    .maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib {
+      transform: none;
+      white-space: normal;
+      max-width: calc(100% - #{variables.$padding * 2});
+    }
+  }
+
   .incident-details-attachments {
     display: flex;
     flex-wrap: wrap;
