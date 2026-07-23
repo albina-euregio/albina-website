@@ -412,28 +412,33 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             dangerouslySetInnerHTML={{ __html: ledeHtml }}
           />
         )}
-        {dateTime && (
-          <p className="incident-details-datetime">
-            <span className="label">{label("dateTime")}: </span>
-            {dateTime}
-            {timeAccuracy && (
-              <span className="time-accuracy"> ({timeAccuracy})</span>
-            )}
-          </p>
-        )}
-        {incident.publishedAt && (
-          <p className="incident-details-updated">
-            <span className="label">{label("updatedAt")}: </span>
-            {intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT)}
-          </p>
-        )}
-        {incident.personInvolvement && (
-          <p className="incident-details-involvement">
-            <span className="label">{label("personInvolvement")}: </span>
-            {incident.personInvolvement}
-          </p>
-        )}
       </header>
+
+      <Section
+        fields={[
+          {
+            label: label("dateTime"),
+            value: dateTime && (
+              <>
+                {dateTime}
+                {timeAccuracy && (
+                  <span className="time-accuracy"> ({timeAccuracy})</span>
+                )}
+              </>
+            )
+          },
+          {
+            label: label("updatedAt"),
+            value:
+              incident.publishedAt &&
+              intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT)
+          },
+          {
+            label: label("personInvolvement"),
+            value: incident.personInvolvement
+          }
+        ]}
+      />
 
       {d.avalancheProblems && (
         <AvalancheProblems problems={d.avalancheProblems} intl={intl} />
