@@ -6,7 +6,8 @@
       "download": "GeoJSON herunterladen"
     },
     "tooltip": {
-      "edit": "Ereignis bearbeiten"
+      "edit": "Ereignis bearbeiten",
+      "preview": "View incident"
     },
     "empty": "Keine Ereignisse für diese Region.",
     "loading": "Ereignisse werden geladen...",
@@ -35,6 +36,7 @@
     "drawPolygon": "Polygon zeichnen",
     "drawPolygonInstructions": "Mit Klick auf die Karte werden die Eckpunkte des Polygons festgelegt.",
     "dropAttachment": "Drop Anhang {{fileName}}?",
+    "dropAvalancheProblem": "Drop avalanche problem {{number}}?",
     "dropGroup": "Drop Gruppe {{number}}?",
     "dropVictim": "Person {{number}} löschen?",
     "fetchPublishedBulletin": "Aus veröffentlichtem CAAML-Bulletin übernehmen.",
@@ -63,7 +65,6 @@
     "removeAvalancheProblem": "Lawinenproblem löschen",
     "removeGroup": "Gruppe löschen",
     "removeVictim": "Person löschen",
-    "requiredFieldsMissingTitle": "Pflichtfelder wurden nicht ausgefüllt",
     "requiredFieldsMissingHint": "Die Dokumentation kann erst gespeichert und der Status erst geändert werden, wenn alle Pflichtfelder (im Formular gekennzeichnet) ausgefüllt sind.",
     "displayMode": {
       "edit": "Bearbeiten",
@@ -73,7 +74,6 @@
       "filledOut": "Vorschau nur ausgefüllte"
     },
     "victimName": "Person {{name}}",
-    "saveStateIdle": "Alle Änderungen gespeichert",
     "saveStateSaving": "Speichern ...",
     "saveStateSaved": "Erfolgreich gespeichert",
     "saveStateError": "Fehler beim Speichern",
@@ -422,6 +422,11 @@
     "MountainRescue": "Bergrettung",
     "Other": "Andere"
   },
+  "personInvolvement": {
+    "Yes": "Ereignis mit Personenbeteiligung",
+    "No": "Keine Personenbeteiligung",
+    "Unknown": "Ereignis (unbekannt)"
+  },
   "otherDamages": {
     "Yes": "Ja",
     "No": "Nein"
@@ -630,6 +635,25 @@
     "Yes": "Ja",
     "No": "Nein"
   },
+  "avalancheType": {
+    "slab": "Schneebrett",
+    "loose": "Lockerschneelawine",
+    "glide": "Gleitschneelawine",
+    "cornice": "Wechte",
+    "unknown": "unbekannt"
+  },
+  "avalancheSize": {
+    "small": "klein",
+    "small_medium": "klein–mittel",
+    "medium": "mittel",
+    "medium_large": "mittel–groß",
+    "large": "groß",
+    "large_very_large": "groß–sehr groß",
+    "very_large": "sehr groß",
+    "very_large_extreme": "sehr groß–extrem",
+    "extreme": "extrem",
+    "unknown": "unbekannt"
+  },
   "trigger": {
     "natural": "Spontan",
     "person": "Person",
@@ -706,7 +730,7 @@
   "professionalCertification": {
     "None": "Keiner",
     "IFMGAGuide": "IVBV Bergführer:in",
-    "FullSkiGuide": "Bergführer:in",
+    "FullSkiGuide": "Skiführer:in",
     "SkiInstructor": "Skilehrer:in",
     "ApprenticeGuide": "Bergführer:in Anwärter",
     "AvalancheProfessional": "Lawinenprofessionist",

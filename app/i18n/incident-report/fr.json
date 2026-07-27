@@ -6,7 +6,8 @@
       "download": "Télécharger GeoJSON"
     },
     "tooltip": {
-      "edit": "Éditer incident"
+      "edit": "Éditer incident",
+      "preview": "View incident"
     },
     "empty": "Pas d'incidents pour cette région.",
     "loading": "Charger incidents…",
@@ -35,6 +36,7 @@
     "drawPolygon": "Tracer polygone",
     "drawPolygonInstructions": "Cliquer sur la carte pour définir les sommets du polygone.",
     "dropAttachment": "Déposer pièce jointe {{fileName}} ?",
+    "dropAvalancheProblem": "Drop avalanche problem {{number}}?",
     "dropGroup": "Déposer groupe {{number}} ?",
     "dropVictim": "Déposer personne {{number}} ?",
     "fetchPublishedBulletin": "Récupérer depuis le bulletin CAAML publié ",
@@ -63,7 +65,6 @@
     "removeAvalancheProblem": "Supprimer situation avalancheuse typique",
     "removeGroup": "Supprimer groupe",
     "removeVictim": "Supprimer cette personne",
-    "requiredFieldsMissingTitle": "Champs obligatoires non renseignés",
     "requiredFieldsMissingHint": "Impossible d'enregistrer le rapport et de modifier son statut tant que tous les champs obligatoires (indiqués dans le formulaire) n'ont pas été renseignés.",
     "displayMode": {
       "edit": "Éditer",
@@ -73,7 +74,6 @@
       "filledOut": "Aperçu champs renseignés seulement"
     },
     "victimName": "Personne {{name}}",
-    "saveStateIdle": "Toutes les modifications ont été enregistrées",
     "saveStateSaving": "Enregistrer...",
     "saveStateSaved": "Enregistré avec succès",
     "saveStateError": "Échec de l'enregistrement",
@@ -422,6 +422,11 @@
     "MountainRescue": "Mountain Rescue",
     "Other": "Autres"
   },
+  "personInvolvement": {
+    "Yes": "Event involving persons",
+    "No": "Event not involving persons",
+    "Unknown": "Event (unknown)"
+  },
   "otherDamages": {
     "Yes": "Oui",
     "No": "Non"
@@ -629,6 +634,25 @@
   "multipleAvalanches": {
     "Yes": "Oui",
     "No": "Non"
+  },
+  "avalancheType": {
+    "slab": "slab",
+    "loose": "loose",
+    "glide": "glide",
+    "cornice": "cornice",
+    "unknown": "unknown"
+  },
+  "avalancheSize": {
+    "small": "small",
+    "small_medium": "small–medium",
+    "medium": "medium",
+    "medium_large": "medium–large",
+    "large": "large",
+    "large_very_large": "large–very large",
+    "very_large": "very large",
+    "very_large_extreme": "very large–extreme",
+    "extreme": "extreme",
+    "unknown": "unknown"
   },
   "trigger": {
     "natural": "Natural",
