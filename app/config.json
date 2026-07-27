@@ -641,7 +641,10 @@
     "maxResults": 31
   },
   "incidents": {
-    "minYear": 2015
+    "minYear": 2015,
+    "minYearByRegion": {
+      "AT-07": 1992
+    }
   },
   "languageHostSettings": {
     "en": "avalanche.report",

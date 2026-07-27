@@ -48,6 +48,14 @@ function IncidentDashboard() {
     incident => incident.id === selectedId
   );
 
+  const minYearByRegion = config.incidents.minYearByRegion as Record<
+    string,
+    number
+  >;
+  const minYear = activeRegion
+    ? (minYearByRegion[activeRegion] ?? config.incidents.minYear)
+    : Math.min(config.incidents.minYear, ...Object.values(minYearByRegion));
+
   const mapView = (
     <section id="section-incident-map" className="section section-weather-map">
       <div className="section-map">
@@ -87,7 +95,7 @@ function IncidentDashboard() {
             <div className="station-dashboard-filter__season">
               <YearFilter
                 title={intl.formatMessage({ id: "archive:filter:year" })}
-                minYear={config.incidents.minYear}
+                minYear={minYear}
                 maxYear={currentSeasonYear()}
                 formatter={y => `${y}/${y + 1}`}
                 handleChange={setSeasonYear}
