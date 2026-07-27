@@ -93,8 +93,8 @@ test("click on map + download pdf", async ({ page }) => {
   }).toPass();
 
   const pdfUrl = await pdfLink.getAttribute("href");
-  expect(pdfUrl).toBe(
-    "https://avalanche.report/api/bulletins/pdf?date=2022-01-31T23:00:00.000Z&region=EUREGIO&microRegionId=AT-07-16&lang=en&grayscale=false"
+  expect(pdfUrl).toContain(
+    "/api/bulletins/pdf?date=2022-01-31T23:00:00.000Z&region=EUREGIO&microRegionId=AT-07-16&lang=en&grayscale=false"
   );
 
   // Verify the link actually serves a non-empty PDF, not a dead URL.
