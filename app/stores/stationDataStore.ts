@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { $router, redirectPageQuery } from "../components/router";
 import {
   Feature,
+  FeatureCollection,
   FeatureCollectionSchema
 } from "@albina-euregio/linea/listing";
 import { fetchJSON } from "../util/fetch";
@@ -363,10 +364,17 @@ export async function _loadStationData({
     });
   }
 
-  const json = await fetchJSON(url);
-  const collection = await FeatureCollectionSchema.parseAsync(json);
+  let collection: FeatureCollection;
 
-  const all = window.config.stations.map(
+  try {
+    const json = await fetchJSON(url);
+    collection = await FeatureCollectionSchema.parseAsync(json);
+  } catch (e) {
+    console.error("Failed fetching station data from " + url, e);
+    return [];
+  }
+
+  return window.config.stations.flatMap(
     ({
       dataProviderID,
       smetOperators,
@@ -423,7 +431,4 @@ export async function _loadStationData({
       }
     }
   );
-
-  const data = await Promise.all(all);
-  return data.flat();
 }
