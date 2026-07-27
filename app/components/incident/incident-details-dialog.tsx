@@ -448,7 +448,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           },
           {
             label: label("personInvolvement"),
-            value: incident.personInvolvement
+            value: tr("personInvolvement", d.personInvolvement)
           },
           {
             label: label("otherDamages"),
@@ -546,8 +546,14 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       <Section
         title={label("avalancheInformation")}
         fields={[
-          { label: label("avalancheSize"), value: incident.avalancheSize },
-          { label: label("avalancheType"), value: incident.avalancheType },
+          {
+            label: label("avalancheSize"),
+            value: tr("avalancheSize", d.avalancheSize)
+          },
+          {
+            label: label("avalancheType"),
+            value: tr("avalancheType", d.avalancheType)
+          },
           {
             label: label("relevantAvalancheProblem"),
             value:
