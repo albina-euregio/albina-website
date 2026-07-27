@@ -1,0 +1,111 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
+.incident-details {
+  // Keep long content readable and away from the dialog edges. The outer
+  // padding comes from the shared `.modal-container`; this caps line length.
+  max-width: 60rem;
+  margin: 0 auto;
+  padding-top: 1.25rem;
+
+  .incident-details-header {
+    h2 {
+      margin-bottom: (variables.$padding * 0.75);
+    }
+  }
+
+  // The lede now sits below the opening facts table (date, involvement, …) as a
+  // short intro to the rich-text descriptions that follow it.
+  .incident-details-lede {
+    margin-bottom: (variables.$margin-bottom * 1.5);
+    color: variables.$grey-dark;
+    font-size: variables.$medium-font-size;
+  }
+
+  .incident-details-section {
+    margin-bottom: (variables.$margin-bottom * 1.5);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    h3 {
+      margin-bottom: variables.$padding;
+      font-size: variables.$medium-font-size;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    // Give the label/value rows room to breathe and align them to the top so
+    // multi-line values stay tidy next to their label.
+    th,
+    td {
+      padding: (variables.$padding * 0.6) variables.$padding;
+      vertical-align: top;
+    }
+
+    th {
+      width: 34%;
+      text-align: left;
+      @include mixins.font-bold;
+      font-size: variables.$tiny-font-size;
+      color: variables.$grey;
+    }
+
+    td {
+      color: variables.$text-color;
+    }
+
+    p {
+      margin-bottom: variables.$padding;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .incident-details-richtext {
+    line-height: 1.6;
+  }
+
+  .incident-details-map {
+    // Undo the site-wide vertical (rotated, no-wrap) attribution so the compact
+    // "ⓘ" panel reads horizontally and wraps to the next line within the map.
+    .maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib {
+      transform: none;
+      white-space: normal;
+      max-width: calc(100% - #{variables.$padding * 2});
+    }
+  }
+
+  .incident-details-attachments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: (variables.$padding * 2);
+    margin-top: variables.$padding;
+
+    .incident-details-attachment {
+      max-width: 16rem;
+      margin: 0;
+
+      img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 0;
+      }
+
+      figcaption {
+        margin-top: (variables.$padding * 0.5);
+        font-size: 0.85em;
+        text-align: center;
+
+        .credit {
+          color: variables.$grey-light;
+        }
+      }
+    }
+  }
+}
