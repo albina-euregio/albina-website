@@ -459,10 +459,6 @@ button.mfp-arrow {
   .incident-details-header {
     h2 {
       margin-bottom: (variables.$padding * 0.75);
-      @include mixins.font-heavy;
-      // Brand-coloured like the section headings so it reads as the dialog's
-      // title; its larger size keeps it above them in the hierarchy.
-      color: variables.$brand-dark;
     }
   }
 
@@ -483,12 +479,7 @@ button.mfp-arrow {
 
     h3 {
       margin-bottom: variables.$padding;
-      padding-bottom: (variables.$padding * 0.5);
       font-size: variables.$medium-font-size;
-      @include mixins.font-heavy;
-      color: variables.$brand-dark;
-      border-bottom: (variables.$border-width * 2) variables.$border-style
-        variables.$brand-very-light;
     }
 
     table {
@@ -507,7 +498,6 @@ button.mfp-arrow {
       width: 34%;
       text-align: left;
       @include mixins.font-bold;
-      @include mixins.uppercase(0.06em);
       font-size: variables.$tiny-font-size;
       color: variables.$grey;
     }
