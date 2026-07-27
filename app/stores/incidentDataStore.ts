@@ -1,33 +1,30 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useStore } from "@nanostores/react";
+import * as v from "valibot";
+import {
+  vIncidentsAttachment,
+  vIncidentsAvalancheProblem,
+  vIncidentsIncidentSchema
+} from "../api/valibot.gen";
 import { $router, redirectPageQuery } from "../components/router";
 import { fetchJSON } from "../util/fetch";
 import { currentSeasonYear } from "../util/date-season";
 import { getWarnlevelNumber, WARNLEVEL_COLORS } from "../util/warn-levels";
 import type { DangerRatingValue } from "./bulletin";
 
-/**
- * Shape of `Incident.publicData` as returned by GET /incidents. The OpenAPI
- * spec (https://dev.avalanche.report/api/openapi.json) types this as a bare
- * `object` (the backend keeps it generic), so this interface is inferred from
- * observed responses rather than a generated schema.
- */
-export interface IncidentPublicData {
-  dateTime?: string;
-  location?: string;
-  latitude?: number;
-  longitude?: number;
-  locationAccuracy?: string;
-  avalancheRegion?: string | null;
-  dangerRating?: DangerRatingValue;
-  avalancheType?: string;
-  avalancheSize?: string;
-  trigger?: string;
-  remoteTriggering?: string;
-  personInvolvement?: string;
-  otherDamages?: string;
-  startZoneElevation?: number;
-}
+/** The full incident schema (all fields) as generated from the OpenAPI spec. */
+export type IncidentSchema = v.InferOutput<typeof vIncidentsIncidentSchema>;
+export type IncidentAvalancheProblem = v.InferOutput<
+  typeof vIncidentsAvalancheProblem
+>;
+export type IncidentAttachment = v.InferOutput<typeof vIncidentsAttachment>;
+
+/** A public attachment with a resolved download URL, ready for rendering. */
+export type IncidentAttachmentView = Partial<IncidentAttachment> & {
+  url: string;
+};
+
+export type IncidentPublicData = Partial<IncidentSchema>;
 
 interface RawIncident {
   id: string;
@@ -84,6 +81,20 @@ export class IncidentData {
 
   get personInvolvement(): string | undefined {
     return this.publicData.personInvolvement;
+  }
+
+  /**
+   * Public attachments with resolved download URLs. The public JSON omits the
+   * binary; it is served (unauthenticated) from
+   * `/incidents/{id}/attachment/{attachmentId}`.
+   */
+  get attachments(): IncidentAttachmentView[] {
+    return (this.publicData.attachments ?? [])
+      .filter(a => a.public !== false && a.id)
+      .map(a => ({
+        ...a,
+        url: `${config.apis.incidents}/${this.id}/attachment/${a.id}`
+      }));
   }
 
   /** Marker/legend color, reusing the standard avalanche danger scale colors. */

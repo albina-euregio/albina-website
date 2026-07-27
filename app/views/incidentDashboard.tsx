@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../i18n";
 import { useIncidentData } from "../stores/incidentDataStore";
@@ -26,7 +26,9 @@ function IncidentDashboard() {
   const setViewMode = (view: "map" | "table") =>
     redirectPageQuery({ view: view === DEFAULT_VIEW_MODE ? "" : view });
 
-  const [selectedId, setSelectedId] = useState<string>();
+  const selectedId = router?.search?.incident || undefined;
+  const setSelectedId = (id: string | undefined) =>
+    redirectPageQuery({ incident: id ?? "" });
   const { filterRef, offsetStyle, topStyle } = useFilterBarOffset();
 
   const {
@@ -45,6 +47,14 @@ function IncidentDashboard() {
   const selectedIncident = sortedFilteredData.find(
     incident => incident.id === selectedId
   );
+
+  const minYearByRegion = config.incidents.minYearByRegion as Record<
+    string,
+    number
+  >;
+  const minYear = activeRegion
+    ? (minYearByRegion[activeRegion] ?? config.incidents.minYear)
+    : Math.min(config.incidents.minYear, ...Object.values(minYearByRegion));
 
   const mapView = (
     <section id="section-incident-map" className="section section-weather-map">
@@ -85,7 +95,7 @@ function IncidentDashboard() {
             <div className="station-dashboard-filter__season">
               <YearFilter
                 title={intl.formatMessage({ id: "archive:filter:year" })}
-                minYear={config.incidents.minYear}
+                minYear={minYear}
                 maxYear={currentSeasonYear()}
                 formatter={y => `${y}/${y + 1}`}
                 handleChange={setSeasonYear}
