@@ -96,11 +96,15 @@ function AvalancheProblems({
 }: {
   problems: IncidentAvalancheProblem[];
 }) {
-  if (!problems?.length) return null;
+  // Skip empty entries, they would only render blank space.
+  const visible = (problems ?? []).filter(
+    p => p && Object.values(p).some(Boolean)
+  );
+  if (!visible.length) return null;
   return (
     <section className="incident-details-section">
       <ul className="list-plain list-bulletin-report-pictos incident-details-problems">
-        {problems.map((p, i) => (
+        {visible.map((p, i) => (
           <AvalancheProblemRow key={i} problem={p} />
         ))}
       </ul>

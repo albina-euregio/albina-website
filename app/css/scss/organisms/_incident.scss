@@ -49,9 +49,7 @@
     th {
       width: 34%;
       text-align: left;
-      @include mixins.font-bold;
       font-size: variables.$tiny-font-size;
-      color: variables.$grey;
     }
 
     td {
