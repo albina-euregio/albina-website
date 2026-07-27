@@ -92,18 +92,16 @@ function localizedText(
  * Renders avalanche problems as pictograms, mirroring the bulletin report.
  */
 function AvalancheProblems({
-  problems,
-  intl
+  problems
 }: {
   problems: IncidentAvalancheProblem[];
-  intl: IntlApi;
 }) {
   if (!problems?.length) return null;
   return (
     <section className="incident-details-section">
       <ul className="list-plain list-bulletin-report-pictos incident-details-problems">
         {problems.map((p, i) => (
-          <AvalancheProblemRow key={i} problem={p} intl={intl} />
+          <AvalancheProblemRow key={i} problem={p} />
         ))}
       </ul>
     </section>
@@ -111,12 +109,11 @@ function AvalancheProblems({
 }
 
 function AvalancheProblemRow({
-  problem,
-  intl
+  problem
 }: {
   problem: IncidentAvalancheProblem;
-  intl: IntlApi;
 }) {
+  const intl = useIntl();
   const problemType = problem.problemType;
   const aspects = (
     Array.isArray(problem.aspects) ? problem.aspects : [problem.aspects]
@@ -179,19 +176,14 @@ function AvalancheProblemRow({
         </div>
       )}
 
-      <ProblemMatrix problem={problem} intl={intl} />
+      <ProblemMatrix problem={problem} />
     </li>
   );
 }
 
 /** Text matrix of snowpack stability / frequency / avalanche size. */
-function ProblemMatrix({
-  problem,
-  intl
-}: {
-  problem: IncidentAvalancheProblem;
-  intl: IntlApi;
-}) {
+function ProblemMatrix({ problem }: { problem: IncidentAvalancheProblem }) {
+  const intl = useIntl();
   const { snowpackStability, frequency, avalancheSize } = problem;
   if (!snowpackStability && !frequency && !avalancheSize) return null;
   const row = (name: string, value: ReactNode) => (
@@ -539,7 +531,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         ]}
       >
         {d.avalancheProblems && (
-          <AvalancheProblems problems={d.avalancheProblems} intl={intl} />
+          <AvalancheProblems problems={d.avalancheProblems} />
         )}
       </Section>
 
