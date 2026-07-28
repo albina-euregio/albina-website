@@ -920,7 +920,7 @@ export const vIncidentsInvolvementsFatalitiesBurials = v.object({
   fatalities: v.number(),
   fullyBuried: v.number(),
   incidentActivity: v.array(v.string()),
-  incidentTerrainType: vIncidentsIncidentTerrainType,
+  incidentTerrainType: v.array(vIncidentsIncidentTerrainType),
   injuredSurvivors: v.number(),
   involvementsFatalitiesBurialsComment: v.string(),
   numberInvolved: v.number(),
@@ -998,7 +998,7 @@ export const vIncidentsStartZoneAspect = v.picklist([
 ]);
 
 export const vIncidentsAvalancheProblem = v.object({
-  aspects: vIncidentsStartZoneAspect,
+  aspects: v.array(vIncidentsStartZoneAspect),
   avalancheSize: vIncidentsAvalancheProblemAvalancheSize,
   elevationLowerBound: v.string(),
   elevationUpperBound: v.string(),
@@ -1129,7 +1129,7 @@ export const vIncidentsIncidentSchema = v.object({
   crownDepthMax: v.number(),
   crownDepthMin: v.number(),
   damagedAssets: v.array(v.string()),
-  dangerPattern: vIncidentsDangerPattern,
+  dangerPattern: v.array(vIncidentsDangerPattern),
   dangerRating: vIncidentsDangerRating,
   dateTime: v.pipe(v.string(), v.isoTimestamp()),
   debrisDensity: v.number(),

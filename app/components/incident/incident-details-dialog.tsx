@@ -10,7 +10,7 @@ import ProblemIcon from "../icons/problem-icon";
 import ExpositionIcon from "../icons/exposition-icon";
 import ElevationIcon from "../icons/elevation-icon";
 import IncidentLocationMap from "./incident-location-map";
-import type { Aspect, AvalancheProblemType } from "../../stores/bulletin";
+import type { AvalancheProblemType } from "../../stores/bulletin";
 import type {
   IncidentAttachmentView,
   IncidentAvalancheProblem,
@@ -119,9 +119,7 @@ function AvalancheProblemRow({
 }) {
   const intl = useIntl();
   const problemType = problem.problemType;
-  const aspects = (
-    Array.isArray(problem.aspects) ? problem.aspects : [problem.aspects]
-  ).filter((a): a is Aspect => Boolean(a));
+  const aspects = (problem.aspects ?? []).filter(Boolean);
 
   const aspectTitle =
     intl.formatMessage({ id: "bulletin:report:exposition" }) +
@@ -363,7 +361,7 @@ function RichText({
   return (
     <section className="incident-details-section">
       <h3>{title}</h3>
-      {hasHtml && (
+      {html && hasHtml && (
         <div
           className="incident-details-richtext"
           dangerouslySetInnerHTML={{ __html: html }}
@@ -506,7 +504,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
               typeof d.latitude === "number" &&
               typeof d.longitude === "number" &&
               withAccuracy(
-                `${intl.formatNumber(d.latitude, 5)}, ${intl.formatNumber(d.longitude, 5)}`,
+                `${intl.formatNumber(d.latitude, 5)} / ${intl.formatNumber(d.longitude, 5)}`,
                 tr("locationAccuracy", d.locationAccuracy)
               )
           }
@@ -616,7 +614,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           },
           {
             label: label("terrainTypes"),
-            value: tr(
+            value: trList(
               "incidentTerrainType",
               d.involvementsFatalitiesBurials?.incidentTerrainType
             )
