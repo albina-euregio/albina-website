@@ -28,7 +28,7 @@ export default function StationArchiveTable(props: Props) {
 
   function title(id: keyof StationData) {
     return intl.formatMessage({
-      id: `measurements:table:header:${id}`
+      id: `measurements-archive:table:header:${id}`
     });
   }
 
