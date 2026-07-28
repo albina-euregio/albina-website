@@ -214,7 +214,7 @@ export default function StationArchiveTable(props: Props) {
   }
 
   return (
-    <table className="pure-table pure-table-striped pure-table-small table-measurements">
+    <table className="pure-table pure-table-striped pure-table-small data-table table-measurements">
       <thead>
         <tr>
           {displayColumns.map(col => (

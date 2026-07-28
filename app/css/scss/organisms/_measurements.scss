@@ -10,72 +10,11 @@
     #MEASUREMENTS
 \*------------------------------------*/
 
-.table-measurements,
-.data-table {
-  position: relative;
+/* Domain-specific styling for the weather-station measurements table. Generic
+   table chrome (sort buttons, header/cell layout) lives in molecules/_data-table.scss.  */
 
-  thead {
-    position: relative;
-    tr {
-      position: relative;
-    }
-    th {
-      position: relative;
-      padding: (variables.$padding * 2) variables.$padding variables.$padding
-        variables.$padding;
-      line-height: 1;
-      //vertical-align: middle;
-      text-align: center;
-      &:first-child {
-        text-align: left;
-      }
-    }
-    .measure {
-      display: block;
-      font-size: variables.$micro-font-size;
-      @include mixins.font-normal;
-      @include mixins.letter-spacing;
-    }
-  }
-
-  // Sort arrows stacked below the header label, redundant arrow hidden on the
-  // active column.
-  .sort-buttons {
-    display: flex;
-    flex-direction: column;
-    margin-top: 0.5em;
-    a {
-      align-self: center;
-      max-height: 1em;
-      overflow: hidden;
-      &:before {
-        display: block;
-        top: -0.25em;
-        margin-right: 0;
-      }
-    }
-
-    //from alien app.scss
-    .sort-disabled {
-      visibility: hidden;
-    }
-  }
-
+.table-measurements {
   tbody {
-    position: relative;
-    tr {
-      position: relative;
-      cursor: pointer;
-    }
-    td {
-      position: relative;
-      line-height: 1;
-      text-align: center;
-      &:first-child {
-        text-align: left;
-      }
-    }
-
     //from alien app.scss
     td.mb-wind {
       white-space: nowrap;
@@ -127,36 +66,9 @@
     }
   }
 
-  .m-name,
-  .m-72,
-  .m-ltmin {
+  .m-name {
     margin-right: variables.$border-width;
     border-right: variables.$border-color variables.$border-style
       variables.$border-width;
   }
-
-  &.js-hide-mb-snow {
-    .mb-snow {
-      display: none;
-    }
-  }
-  &.js-hide-mb-temp {
-    .mb-temp {
-      display: none;
-    }
-  }
-  &.js-hide-mb-wind {
-    .mb-wind {
-      display: none;
-    }
-  }
-}
-
-/* Danger-rating badge in the incidents table; colour + text contrast come from
-   the shared `.bg-warning-level-*` classes. */
-.incident-danger-rating {
-  display: inline-block;
-  padding: 0 0.5em;
-  border-radius: 0.75em;
-  white-space: nowrap;
 }
