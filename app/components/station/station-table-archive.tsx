@@ -2,8 +2,7 @@ import React from "react";
 import { useIntl } from "../../i18n";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
-
-type SortDir = "desc" | "asc";
+import DataTable, { type ColumnDef, type SortDir } from "../table/data-table";
 
 interface Props {
   activeData: {
@@ -20,181 +19,12 @@ interface Props {
   activeRegion: string;
 }
 
+interface ArchiveColumn extends ColumnDef<StationData> {
+  group?: keyof Props["activeData"];
+}
+
 export default function StationArchiveTable(props: Props) {
   const intl = useIntl();
-
-  type RenderFun = (
-    _value: number,
-    row: StationData,
-    digits?: number
-  ) => string | JSX.Element;
-
-  interface Column {
-    data: keyof StationData;
-    parameter?: string;
-    subtitle?: string;
-    render?: RenderFun;
-    sortable?: boolean;
-    className?: string;
-    unit?: string;
-    group?: keyof Props["activeData"];
-    digits?: number;
-  }
-
-  const columns: Column[] = [
-    {
-      // Station (Operator)
-      data: "name",
-      render: (_value, row) => (
-        <span>
-          <strong>{row.name}</strong>{" "}
-        </span>
-      ),
-      sortable: true,
-      className: "mb-station m-name"
-    },
-    {
-      data: "operator",
-      render: (_value, row) => (
-        <a
-          className="region"
-          target="_blank"
-          href={row.properties.operatorLink ?? ""}
-        >
-          {row.operator ?? ""}
-        </a>
-      ),
-      className: "mb-station m-name"
-    },
-    {
-      // Region name <br> (Province)
-      data: "microRegion",
-      render: (_value, row) => (
-        <span className="region" title={row.microRegion}>
-          {intl.formatMessage({ id: `region:${row.microRegion}` })}
-          {row.province &&
-            config.regionCodes.includes(row.province as string) && (
-              <span className={`region region-${row.province}`}>
-                ({intl.formatMessage({ id: `region:${row.province}` })})
-              </span>
-            )}
-        </span>
-      ),
-      className: "mb-station m-name"
-    },
-    {
-      // Observation start
-      data: "startYear",
-      render: (_value, row) => <span>{row.startYear}</span>,
-      sortable: true,
-      className: "mb-station m-name"
-    },
-    {
-      // Snow height
-      group: "snow",
-      data: "HS",
-      parameter: "HS",
-      sortable: false
-    },
-    {
-      // Temperature
-      group: "temp",
-      data: "TA",
-      parameter: "LT",
-      sortable: false
-    },
-    {
-      // Surface temperature
-      group: "temp",
-      data: "TSS",
-      parameter: "T0",
-      sortable: false
-    },
-    {
-      // Dew point temperature
-      group: "temp",
-      data: "TD",
-      parameter: "TP",
-      sortable: false
-    },
-    {
-      // Relative humidity
-      group: "temp",
-      data: "RH",
-      parameter: "LF",
-      sortable: false
-    },
-    {
-      // Wind speed
-      group: "wind",
-      data: "VW",
-      parameter: "WG",
-      sortable: false
-    },
-    {
-      // Wind direction
-      group: "wind",
-      data: "DW",
-      parameter: "WR",
-      sortable: false
-    },
-    {
-      // Wind gust
-      group: "wind",
-      data: "VW_MAX",
-      parameter: "WG.Boe",
-      sortable: false
-    },
-    {
-      // Global radiation above
-      group: "radiation",
-      data: "ISWR",
-      parameter: "GS",
-      sortable: false
-    },
-    {
-      // Global radiation below
-      group: "radiation",
-      data: "RSWR",
-      parameter: "GS.unten",
-      sortable: false
-    }
-  ];
-  const displayColumns = columns.filter(
-    c => !c.group || props.activeData[c.group]
-  );
-
-  const sortClasses = (id: keyof StationData, dir: SortDir) => {
-    const cls: string[] = [];
-    if (dir == "asc") {
-      cls.push("sort-ascending");
-      cls.push("icon-up-open");
-    } else {
-      cls.push("sort-descending");
-      cls.push("icon-down-open");
-    }
-    if (props.sortValue == id && props.sortDir != dir) {
-      cls.push("sort-disabled");
-    }
-    return cls.join(" ");
-  };
-
-  const handleSort = (e: React.MouseEvent, col: Column, dir: SortDir) => {
-    e.preventDefault();
-    e.stopPropagation();
-    props.handleSort(
-      col.data,
-      props.sortValue == col.data ? (dir == "asc" ? "desc" : "asc") : dir
-    );
-  };
-
-  const sortTitle = (id: keyof StationData, dir: SortDir) =>
-    intl.formatMessage({
-      id:
-        props.sortValue == id
-          ? "measurements:table:sort-toggle"
-          : `measurements:table:sort-${dir}`
-    });
 
   function title(id: keyof StationData) {
     return intl.formatMessage({
@@ -213,98 +43,149 @@ export default function StationArchiveTable(props: Props) {
     }
   }
 
-  return (
-    <table className="pure-table pure-table-striped pure-table-small data-table table-measurements">
-      <thead>
-        <tr>
-          {displayColumns.map(col => (
-            <th key={col.data}>
-              {title(col.data)}
-              {col.subtitle && <br />}
-              {col.subtitle ? col.subtitle : ""}
-              {col.sortable !== false && (
-                <span className="sort-buttons">
-                  {(["asc", "desc"] as SortDir[]).map(dir => (
-                    <Tooltip key={dir} label={sortTitle(col.data, dir)}>
-                      <a
-                        href="#"
-                        className={sortClasses(col.data, dir)}
-                        onClick={e => handleSort(e, col, dir)}
-                      >
-                        <span className="is-visually-hidden">
-                          {title(col.data)}: {sortTitle(col.data, dir)}
-                        </span>
-                      </a>
-                    </Tooltip>
-                  ))}
-                </span>
-              )}
-            </th>
-          ))}
-          <th>
-            <Tooltip label="Download as SMET Weather Station Meteorological Data Format">
-              <span>SMET</span>
-            </Tooltip>
-          </th>
-        </tr>
-      </thead>
+  // Per-parameter cell: a download button for the archived measurement file,
+  // shown only when the station has a value and an archive file for the season.
+  const archiveColumn = (
+    id: keyof StationData,
+    parameter: string,
+    group: keyof Props["activeData"]
+  ): ArchiveColumn => ({
+    id,
+    group,
+    title: title(id),
+    sortable: false,
+    render: row =>
+      typeof row[id] === "number" && row.$stationsArchiveFile ? (
+        <span title={title(id)}>
+          <Tooltip
+            label={intl.formatMessage(
+              { id: "measurements-archive:table:button:tooltip" },
+              {
+                parameter: title(id),
+                station: row.name,
+                season: season(props.activeYear, "/")
+              }
+            )}
+          >
+            <a
+              href={config.template(row.$stationsArchiveFile, {
+                shortName: row.properties.shortName || row.id,
+                parameter,
+                file: season(props.activeYear, "_")
+              })}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pure-button secondary small"
+            >
+              {intl.formatMessage({
+                id: "measurements-archive:table:button:title"
+              })}
+            </a>
+          </Tooltip>
+        </span>
+      ) : null
+  });
 
-      <tbody>
-        {props.sortedFilteredData.map((row: StationData) => (
-          <tr key={row.id}>
-            {displayColumns.map(col => (
-              <td key={row.id + "-" + col.data} className={col.className}>
-                {col.render?.(row[col.data], row, col.unit)}
-                {!col.render &&
-                  typeof row[col.data] === "number" &&
-                  row.$stationsArchiveFile && (
-                    <span title={title(col.data)}>
-                      <Tooltip
-                        label={intl.formatMessage(
-                          { id: "measurements-archive:table:button:tooltip" },
-                          {
-                            parameter: title(col.data),
-                            station: row.name,
-                            season: season(props.activeYear, "/")
-                          }
-                        )}
-                      >
-                        <a
-                          href={config.template(row.$stationsArchiveFile, {
-                            shortName: row.properties.shortName || row.id,
-                            parameter: col.parameter,
-                            file: season(props.activeYear, "_")
-                          })}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="pure-button secondary small"
-                        >
-                          {intl.formatMessage({
-                            id: "measurements-archive:table:button:title"
-                          })}
-                        </a>
-                      </Tooltip>
-                    </span>
-                  )}
-              </td>
-            ))}
-            <td>
-              {row.properties.dataURLs?.[0] && (
-                <a
-                  href={config.template(row.properties.dataURLs?.[0], {
-                    id: row.properties.shortName || row.id
-                  })}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="pure-button secondary small"
-                >
-                  SMET
-                </a>
-              )}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+  const columns: ArchiveColumn[] = [
+    {
+      // Station (Operator)
+      id: "name",
+      title: title("name"),
+      sortable: true,
+      className: "mb-station m-name",
+      render: row => (
+        <span>
+          <strong>{row.name}</strong>{" "}
+        </span>
+      )
+    },
+    {
+      id: "operator",
+      title: title("operator"),
+      className: "mb-station m-name",
+      render: row => (
+        <a
+          className="region"
+          target="_blank"
+          href={row.properties.operatorLink ?? ""}
+        >
+          {row.operator ?? ""}
+        </a>
+      )
+    },
+    {
+      // Region name (Province)
+      id: "microRegion",
+      title: title("microRegion"),
+      className: "mb-station m-name",
+      render: row => (
+        <span className="region" title={row.microRegion}>
+          {intl.formatMessage({ id: `region:${row.microRegion}` })}
+          {row.province &&
+            config.regionCodes.includes(row.province as string) && (
+              <span className={`region region-${row.province}`}>
+                ({intl.formatMessage({ id: `region:${row.province}` })})
+              </span>
+            )}
+        </span>
+      )
+    },
+    {
+      // Observation start
+      id: "startYear",
+      title: title("startYear"),
+      sortable: true,
+      className: "mb-station m-name",
+      render: row => <span>{row.startYear}</span>
+    },
+    archiveColumn("HS", "HS", "snow"),
+    archiveColumn("TA", "LT", "temp"),
+    archiveColumn("TSS", "T0", "temp"),
+    archiveColumn("TD", "TP", "temp"),
+    archiveColumn("RH", "LF", "temp"),
+    archiveColumn("VW", "WG", "wind"),
+    archiveColumn("DW", "WR", "wind"),
+    archiveColumn("VW_MAX", "WG.Boe", "wind"),
+    archiveColumn("ISWR", "GS", "radiation"),
+    archiveColumn("RSWR", "GS.unten", "radiation"),
+    {
+      // SMET raw-file download; not tied to a measurement parameter.
+      id: "smet",
+      sortable: false,
+      title: (
+        <Tooltip label="Download as SMET Weather Station Meteorological Data Format">
+          <span>SMET</span>
+        </Tooltip>
+      ),
+      render: row =>
+        row.properties.dataURLs?.[0] ? (
+          <a
+            href={config.template(row.properties.dataURLs?.[0], {
+              id: row.properties.shortName || row.id
+            })}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pure-button secondary small"
+          >
+            SMET
+          </a>
+        ) : null
+    }
+  ];
+
+  const displayColumns = columns.filter(
+    c => !c.group || props.activeData[c.group]
+  );
+
+  return (
+    <DataTable
+      columns={displayColumns}
+      rows={props.sortedFilteredData}
+      getRowKey={row => String(row.id)}
+      sortValue={props.sortValue}
+      sortDir={props.sortDir}
+      onSort={(id, dir) => props.handleSort(id as keyof StationData, dir)}
+      tableClassName="table-measurements"
+    />
   );
 }
