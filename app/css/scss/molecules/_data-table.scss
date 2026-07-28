@@ -10,6 +10,12 @@
    `.data-table`; domain-specific styling lives in the per-table organism
    (e.g. `.table-measurements` in _measurements.scss). */
 
+/* Cap the height of the enclosing `.table-container` so a wide/long DataTable becomes 
+   a self-contained scroll viewport. */
+.table-container:has(> .data-table) {
+  max-height: 80vh;
+}
+
 .data-table {
   position: relative;
 
@@ -19,7 +25,12 @@
       position: relative;
     }
     th {
-      position: relative;
+      // Stick the header row to the top of the scrolling `.table-container`
+      // so column labels stay visible while the body scrolls vertically.
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background-color: variables.$table-head-bg;
       // Extra top padding leaves room for the stacked sort arrows below the
       // header label.
       padding: (variables.$padding * 2) variables.$padding variables.$padding
