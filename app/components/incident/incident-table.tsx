@@ -1,12 +1,16 @@
-import React, { type MouseEvent, type ReactNode } from "react";
+import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { useIncidentReportMessages } from "../../i18n/incident-report";
+import {
+  translateIncidentValue,
+  useIncidentReportMessages
+} from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
-import type { IncidentData } from "../../stores/incidentDataStore";
-import { Tooltip } from "../tooltips/tooltip";
-
-type SortDir = "asc" | "desc";
-type SortableField = "location" | "dateTime" | "region";
+import { getWarnlevelNumber } from "../../util/warn-levels";
+import type {
+  IncidentData,
+  SortableField
+} from "../../stores/incidentDataStore";
+import DataTable, { type ColumnDef, type SortDir } from "../table/data-table";
 
 interface Props {
   sortedFilteredData: IncidentData[];
@@ -16,19 +20,17 @@ interface Props {
   onIncidentSelected: (id: string) => void;
 }
 
-interface Column {
-  data: SortableField;
-  title: string;
-  render: (row: IncidentData) => ReactNode;
-}
-
 export default function IncidentTable(props: Props) {
   const intl = useIntl();
-  const incidentReportMessages = useIncidentReportMessages();
+  const messages = useIncidentReportMessages();
+  // Column headers come from the async-loaded `incident-report` Transifex
+  // resource (see i18n/incident-report.ts); fall back to the raw field name
+  // until it loads / if a label is missing.
+  const label = (field: string) => messages.incidentReport?.[field] ?? field;
 
-  const columns: Column[] = [
+  const columns: ColumnDef<IncidentData>[] = [
     {
-      data: "dateTime",
+      id: "dateTime",
       title: intl.formatMessage({ id: "archive:table-header:date" }),
       render: row =>
         row.dateTime
@@ -36,81 +38,70 @@ export default function IncidentTable(props: Props) {
           : ""
     },
     {
-      data: "location",
+      id: "location",
       title:
-        incidentReportMessages.incidentReport?.location ??
+        messages.incidentReport?.location ??
         intl.formatMessage({ id: "incidents:table:header:location" }),
       render: row => row.location
     },
     {
-      data: "region",
+      id: "region",
       title: intl.formatMessage({
         id: "measurements:table:header:microRegion"
       }),
       render: row => <FormattedMessage id={`region:${row.region}`} />
+    },
+    {
+      id: "dangerRating",
+      title: label("dangerRating"),
+      render: row => {
+        if (!row.dangerRating) return "";
+        const level = getWarnlevelNumber(row.dangerRating);
+        return (
+          <span
+            className={`incident-danger-rating${level ? ` bg-warning-level-${level}` : ""}`}
+          >
+            <FormattedMessage id={`danger-level:${row.dangerRating}`} />
+          </span>
+        );
+      }
+    },
+    {
+      id: "avalancheType",
+      title: label("avalancheType"),
+      render: row =>
+        translateIncidentValue(messages, "avalancheType", row.avalancheType) ??
+        ""
+    },
+    {
+      id: "avalancheSize",
+      title: label("avalancheSize"),
+      render: row =>
+        translateIncidentValue(messages, "avalancheSize", row.avalancheSize) ??
+        ""
+    },
+    {
+      id: "personInvolvement",
+      title: label("personInvolvement"),
+      render: row =>
+        translateIncidentValue(
+          messages,
+          "personInvolvement",
+          row.personInvolvement
+        ) ?? ""
     }
   ];
 
-  const sortClasses = (id: SortableField, dir: SortDir) => {
-    const cls = [dir === "asc" ? "icon-up-open" : "icon-down-open"];
-    if (props.sortValue === id && props.sortDir !== dir) {
-      cls.push("sort-disabled");
-    }
-    return cls.join(" ");
-  };
-
-  const handleSort = (e: MouseEvent, col: Column, dir: SortDir) => {
-    e.preventDefault();
-    e.stopPropagation();
-    props.handleSort(
-      col.data,
-      props.sortValue === col.data ? (dir === "asc" ? "desc" : "asc") : dir
-    );
-  };
-
-  const sortTitle = (id: SortableField, dir: SortDir) =>
-    intl.formatMessage({
-      id:
-        props.sortValue === id
-          ? "measurements:table:sort-toggle"
-          : `measurements:table:sort-${dir}`
-    });
-
   return (
-    <table className="pure-table pure-table-striped pure-table-small table-incidents">
-      <thead>
-        <tr>
-          {columns.map(col => (
-            <th key={col.data}>
-              {col.title}
-              <span className="sort-buttons">
-                {(["asc", "desc"] as SortDir[]).map(dir => (
-                  <Tooltip key={dir} label={sortTitle(col.data, dir)}>
-                    <a
-                      href="#"
-                      className={sortClasses(col.data, dir)}
-                      onClick={e => handleSort(e, col, dir)}
-                    >
-                      <span className="is-visually-hidden">
-                        {col.title}: {sortTitle(col.data, dir)}
-                      </span>
-                    </a>
-                  </Tooltip>
-                ))}
-              </span>
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {props.sortedFilteredData.map(row => (
-          <tr key={row.id} onClick={() => props.onIncidentSelected(row.id)}>
-            {columns.map(col => (
-              <td key={row.id + "-" + col.data}>{col.render(row)}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <DataTable
+      columns={columns}
+      rows={props.sortedFilteredData}
+      getRowKey={row => row.id}
+      sortValue={props.sortValue}
+      sortDir={props.sortDir}
+      onSort={(id, dir) => props.handleSort(id as SortableField, dir)}
+      onRowClick={row => props.onIncidentSelected(row.id)}
+      tableClassName="table-incidents"
+    />
   );
 }

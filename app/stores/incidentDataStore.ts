@@ -129,8 +129,43 @@ export async function loadIncidentData(
   return all.flat();
 }
 
-type SortableField = "location" | "dateTime" | "region";
+export type SortableField =
+  | "location"
+  | "dateTime"
+  | "region"
+  | "dangerRating"
+  | "avalancheType"
+  | "avalancheSize"
+  | "personInvolvement";
 type SortDir = "asc" | "desc";
+
+/** EAWS avalanche-size ordering (smallest first); `unknown` sorts last. */
+const AVALANCHE_SIZE_ORDER: Record<string, number> = {
+  small: 0,
+  small_medium: 1,
+  medium: 2,
+  medium_large: 3,
+  large: 4,
+  large_very_large: 5,
+  very_large: 6,
+  very_large_extreme: 7,
+  extreme: 8
+};
+
+/**
+ * Per-column value accessors for fields that must sort by meaning rather than
+ * alphabetically.
+ */
+const SORT_ACCESSORS: Partial<
+  Record<SortableField, (r: IncidentData) => unknown>
+> = {
+  dangerRating: r =>
+    r.dangerRating ? getWarnlevelNumber(r.dangerRating) : undefined,
+  avalancheSize: r =>
+    r.avalancheSize ? AVALANCHE_SIZE_ORDER[r.avalancheSize] : undefined
+};
+
+const collator = new Intl.Collator("de");
 
 function compareIncidentData(
   a: IncidentData,
@@ -139,15 +174,20 @@ function compareIncidentData(
   sortDir: SortDir
 ): number {
   const order = sortDir === "asc" ? [-1, 1] : [1, -1];
-  const va = a[sortValue];
-  const vb = b[sortValue];
+  const accessor =
+    SORT_ACCESSORS[sortValue] ?? ((r: IncidentData) => r[sortValue]);
+  const va = accessor(a);
+  const vb = accessor(b);
   if (va === vb) return 0;
-  if (va === undefined) return order[1];
-  if (vb === undefined) return order[0];
+  if (va === undefined || va === null) return order[1];
+  if (vb === undefined || vb === null) return order[0];
   if (va instanceof Date && vb instanceof Date) {
     return va < vb ? order[0] : order[1];
   }
-  return String(va) < String(vb) ? order[0] : order[1];
+  if (typeof va === "number" && typeof vb === "number") {
+    return va < vb ? order[0] : order[1];
+  }
+  return collator.compare(String(va), String(vb)) < 0 ? order[0] : order[1];
 }
 
 export function useIncidentData() {
