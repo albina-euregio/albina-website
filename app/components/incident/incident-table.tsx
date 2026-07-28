@@ -1,11 +1,11 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "../../i18n";
+import { FormattedMessage, useIntl, type MessageId } from "../../i18n";
 import {
   translateIncidentValue,
   useIncidentReportMessages
 } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
-import { getWarnlevelNumber } from "../../util/warn-levels";
+import { getDangerRatingLabel } from "../../util/warn-levels";
 import type {
   IncidentData,
   SortableField
@@ -54,17 +54,15 @@ export default function IncidentTable(props: Props) {
     {
       id: "dangerRating",
       title: label("dangerRating"),
-      render: row => {
-        if (!row.dangerRating) return "";
-        const level = getWarnlevelNumber(row.dangerRating);
-        return (
-          <span
-            className={`incident-danger-rating${level ? ` bg-warning-level-${level}` : ""}`}
-          >
-            <FormattedMessage id={`danger-level:${row.dangerRating}`} />
-          </span>
-        );
-      }
+      render: row =>
+        row.dangerRating
+          ? getDangerRatingLabel(
+              row.dangerRating,
+              intl.formatMessage({
+                id: `danger-level:${row.dangerRating}` as MessageId
+              })
+            )
+          : ""
     },
     {
       id: "avalancheType",

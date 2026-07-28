@@ -10,6 +10,10 @@ import ProblemIcon from "../icons/problem-icon";
 import ExpositionIcon from "../icons/exposition-icon";
 import ElevationIcon from "../icons/elevation-icon";
 import IncidentLocationMap from "./incident-location-map";
+import {
+  getDangerRatingIconFile,
+  getDangerRatingLabel
+} from "../../util/warn-levels";
 import type { AvalancheProblemType } from "../../stores/bulletin";
 import type {
   IncidentAttachmentView,
@@ -421,6 +425,11 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const dateTime =
     incident.dateTime && intl.formatDate(incident.dateTime, DATE_TIME_FORMAT);
   const timeAccuracy = tr("timeAccuracy", d.timeAccuracy);
+  const dangerRatingText =
+    d.dangerRating &&
+    intl.formatMessage({
+      id: `danger-level:${d.dangerRating}` as MessageId
+    });
 
   return (
     <div className="modal-container incident-details">
@@ -519,6 +528,18 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           {
             label: label("publicAvalancheWarningService"),
             value: d.publicAvalancheWarningService
+          },
+          {
+            label: label("dangerRating"),
+            value: d.dangerRating && dangerRatingText && (
+              <span className="incident-details-danger-rating">
+                <img
+                  src={`${window.config.projectRoot}images/pro/danger-levels/${getDangerRatingIconFile(d.dangerRating)}`}
+                  alt={dangerRatingText}
+                />
+                {getDangerRatingLabel(d.dangerRating, dangerRatingText)}
+              </span>
+            )
           },
           {
             label: label("dangerPattern"),

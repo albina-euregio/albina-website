@@ -108,11 +108,16 @@
   }
 }
 
-/* Danger-rating badge in the incidents table; colour + text contrast come from
-   the shared `.bg-warning-level-*` classes. */
-.incident-danger-rating {
-  display: inline-block;
-  padding: 0 0.5em;
-  border-radius: 0.75em;
-  white-space: nowrap;
+.incident-details-danger-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+
+  img {
+    display: block;
+    margin: 0;
+    height: 2.5em;
+    width: auto;
+    aspect-ratio: 2268 / 1664;
+  }
 }

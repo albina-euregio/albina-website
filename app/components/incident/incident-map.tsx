@@ -11,6 +11,10 @@ import {
   useIncidentReportMessages
 } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
+import {
+  getDangerRatingIconFile,
+  getDangerRatingLabel
+} from "../../util/warn-levels";
 import type { IncidentData } from "../../stores/incidentDataStore.ts";
 
 const SOURCE_ID = "incidents";
@@ -90,12 +94,16 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
           ? intl.formatDate(incident.dateTime, DATE_TIME_FORMAT_SHORT)
           : undefined
       );
-      const dangerRating = incident.dangerRating
-        ? esc(
-            intl.formatMessage({
-              id: `danger-level:${incident.dangerRating}` as MessageId
-            })
-          )
+      const dangerRating = incident.dangerRating;
+      const dangerRatingLine = dangerRating
+        ? `<span class="incident-tooltip__danger-icon"><img src="${window.config.projectRoot}images/pro/danger-levels/${getDangerRatingIconFile(dangerRating)}" alt="" /></span>${esc(
+            getDangerRatingLabel(
+              dangerRating,
+              intl.formatMessage({
+                id: `danger-level:${dangerRating}` as MessageId
+              })
+            )
+          )}`
         : undefined;
       // Type and size share the avalanche line, with no labels. An `unknown`
       // value carries no information, so it is dropped rather than shown.
@@ -125,9 +133,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
       const lines = [
         line("icon-location", esc(incident.location)),
         line("icon-calendar", dateTime),
-        // A color swatch stands in for the danger-rating icon, matching the marker.
-        dangerRating &&
-          `<span class="incident-tooltip__swatch" style="background:${incident.color}"></span>${dangerRating}`,
+        dangerRatingLine,
         line("icon-snow", avalanche || undefined),
         line(personIcon, personInvolvement)
       ].filter(Boolean);

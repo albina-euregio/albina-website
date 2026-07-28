@@ -1,6 +1,9 @@
 import React from "react";
 import { useIntl } from "../../i18n";
-import { getWarnlevelNumber } from "../../util/warn-levels";
+import {
+  getDangerRatingLabel,
+  getWarnlevelNumber
+} from "../../util/warn-levels";
 import { Tooltip } from "../tooltips/tooltip.tsx";
 import { DangerRatingValue } from "../../stores/bulletin";
 
@@ -13,18 +16,13 @@ interface Props {
 
 const WarnLevelIcon = (props: Props) => {
   const intl = useIntl();
-  const getWarnlevelText = (warnLevel: DangerRatingValue) => {
-    if (warnLevel) {
-      const number = getWarnlevelNumber(warnLevel);
-      return (
-        (number ? number + "–" : "") +
-        intl.formatMessage({
-          id: `danger-level:${warnLevel}`
-        })
-      );
-    }
-    return "";
-  };
+  const getWarnlevelText = (warnLevel: DangerRatingValue) =>
+    warnLevel
+      ? getDangerRatingLabel(
+          warnLevel,
+          intl.formatMessage({ id: `danger-level:${warnLevel}` })
+        )
+      : "";
 
   const below = props.elevation || props.treeline ? props.below : props.above;
 
