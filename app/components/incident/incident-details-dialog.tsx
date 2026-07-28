@@ -92,27 +92,29 @@ function localizedText(
   return record[locale] || record.en || Object.values(record).find(Boolean);
 }
 
+/** Entries with at least one populated field; empty ones only render blank space. */
+function visibleProblems(
+  problems: IncidentAvalancheProblem[] | undefined
+): IncidentAvalancheProblem[] {
+  return (problems ?? []).filter(p => p && Object.values(p).some(Boolean));
+}
+
 /**
  * Renders avalanche problems as pictograms, mirroring the bulletin report.
+ * Shown as the value of a labelled row inside the bulletin-information table.
  */
 function AvalancheProblems({
   problems
 }: {
   problems: IncidentAvalancheProblem[];
 }) {
-  // Skip empty entries, they would only render blank space.
-  const visible = (problems ?? []).filter(
-    p => p && Object.values(p).some(Boolean)
-  );
-  if (!visible.length) return null;
+  if (!problems.length) return null;
   return (
-    <section className="incident-details-section">
-      <ul className="list-plain list-bulletin-report-pictos incident-details-problems">
-        {visible.map((p, i) => (
-          <AvalancheProblemRow key={i} problem={p} />
-        ))}
-      </ul>
-    </section>
+    <ul className="list-plain list-bulletin-report-pictos incident-details-problems">
+      {problems.map((p, i) => (
+        <AvalancheProblemRow key={i} problem={p} />
+      ))}
+    </ul>
   );
 }
 
@@ -430,6 +432,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     intl.formatMessage({
       id: `danger-level:${d.dangerRating}` as MessageId
     });
+  const problems = visibleProblems(d.avalancheProblems);
 
   return (
     <div className="modal-container incident-details">
@@ -541,8 +544,19 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
               </span>
             )
           },
+
           {
-            label: label("dangerPattern"),
+            label: intl.formatMessage({
+              id: "menu:education:avalanche-problems"
+            }),
+            value: problems.length ? (
+              <AvalancheProblems problems={problems} />
+            ) : undefined
+          },
+          {
+            label: intl.formatMessage({
+              id: "bulletin:report:danger-patterns"
+            }),
             value: d.dangerPattern
               ?.map(a =>
                 intl.formatMessage({
@@ -552,11 +566,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
               .join(", ")
           }
         ]}
-      >
-        {d.avalancheProblems && (
-          <AvalancheProblems problems={d.avalancheProblems} />
-        )}
-      </Section>
+      />
 
       <Section
         title={label("avalancheInformation")}
