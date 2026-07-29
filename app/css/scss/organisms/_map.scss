@@ -1349,6 +1349,54 @@ a.weather-map-details-button {
   }
 }
 
+// Rich incident marker tooltip
+.maplibre-incident-tooltip {
+  .maplibregl-popup-content {
+    padding: 0.5em 0.7em 0.5em 0;
+  }
+
+  .incident-tooltip__facts {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      margin: 0;
+    }
+  }
+
+  [class^="icon-"] {
+    flex: 0 0 2em;
+    color: variables.$grey-dark;
+    text-align: center;
+
+    &:before {
+      margin: 0;
+      font-size: 2em;
+      line-height: 1;
+    }
+  }
+
+  .icon-location:before {
+    font-size: 1em;
+  }
+
+  .incident-tooltip__danger-icon {
+    flex: 0 0 auto;
+
+    img {
+      display: block;
+      margin: 0;
+      height: 2em;
+      width: auto;
+      aspect-ratio: 2268 / 1664;
+    }
+  }
+}
+
 .maplibregl-ctrl-top-left.maplibregl-ctrl-top-left.maplibregl-ctrl-top-left {
   top: var(--station-dashboard-filter-offset, 0px);
 }

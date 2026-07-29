@@ -369,6 +369,7 @@
   "measurements-archive:table:sort-desc": "Sort descending",
   "measurements-archive:table:sort-toggle": "Invert sort",
   "measurements-archive:table:header:name": "Station",
+  "measurements-archive:table:header:operator": "Operator",
   "measurements-archive:table:header:microRegion": "Region",
   "measurements-archive:table:header:startYear": "Observation Start",
   "measurements-archive:table:header:HS": "Snow Height",

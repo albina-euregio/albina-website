@@ -10,6 +10,10 @@ import ProblemIcon from "../icons/problem-icon";
 import ExpositionIcon from "../icons/exposition-icon";
 import ElevationIcon from "../icons/elevation-icon";
 import IncidentLocationMap from "./incident-location-map";
+import {
+  getDangerRatingIconFile,
+  getDangerRatingLabel
+} from "../../util/warn-levels";
 import type { AvalancheProblemType } from "../../stores/bulletin";
 import type {
   IncidentAttachmentView,
@@ -88,27 +92,29 @@ function localizedText(
   return record[locale] || record.en || Object.values(record).find(Boolean);
 }
 
+/** Entries with at least one populated field; empty ones only render blank space. */
+function visibleProblems(
+  problems: IncidentAvalancheProblem[] | undefined
+): IncidentAvalancheProblem[] {
+  return (problems ?? []).filter(p => p && Object.values(p).some(Boolean));
+}
+
 /**
  * Renders avalanche problems as pictograms, mirroring the bulletin report.
+ * Shown as the value of a labelled row inside the bulletin-information table.
  */
 function AvalancheProblems({
   problems
 }: {
   problems: IncidentAvalancheProblem[];
 }) {
-  // Skip empty entries, they would only render blank space.
-  const visible = (problems ?? []).filter(
-    p => p && Object.values(p).some(Boolean)
-  );
-  if (!visible.length) return null;
+  if (!problems.length) return null;
   return (
-    <section className="incident-details-section">
-      <ul className="list-plain list-bulletin-report-pictos incident-details-problems">
-        {visible.map((p, i) => (
-          <AvalancheProblemRow key={i} problem={p} />
-        ))}
-      </ul>
-    </section>
+    <ul className="list-plain list-bulletin-report-pictos incident-details-problems">
+      {problems.map((p, i) => (
+        <AvalancheProblemRow key={i} problem={p} />
+      ))}
+    </ul>
   );
 }
 
@@ -421,6 +427,12 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const dateTime =
     incident.dateTime && intl.formatDate(incident.dateTime, DATE_TIME_FORMAT);
   const timeAccuracy = tr("timeAccuracy", d.timeAccuracy);
+  const dangerRatingText =
+    d.dangerRating &&
+    intl.formatMessage({
+      id: `danger-level:${d.dangerRating}` as MessageId
+    });
+  const problems = visibleProblems(d.avalancheProblems);
 
   return (
     <div className="modal-container incident-details">
@@ -521,7 +533,30 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             value: d.publicAvalancheWarningService
           },
           {
-            label: label("dangerPattern"),
+            label: label("dangerRating"),
+            value: d.dangerRating && dangerRatingText && (
+              <span className="incident-details-danger-rating">
+                <img
+                  src={`${window.config.projectRoot}images/pro/danger-levels/${getDangerRatingIconFile(d.dangerRating)}`}
+                  alt={dangerRatingText}
+                />
+                {getDangerRatingLabel(d.dangerRating, dangerRatingText)}
+              </span>
+            )
+          },
+
+          {
+            label: intl.formatMessage({
+              id: "menu:education:avalanche-problems"
+            }),
+            value: problems.length ? (
+              <AvalancheProblems problems={problems} />
+            ) : undefined
+          },
+          {
+            label: intl.formatMessage({
+              id: "bulletin:report:danger-patterns"
+            }),
             value: d.dangerPattern
               ?.map(a =>
                 intl.formatMessage({
@@ -531,11 +566,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
               .join(", ")
           }
         ]}
-      >
-        {d.avalancheProblems && (
-          <AvalancheProblems problems={d.avalancheProblems} />
-        )}
-      </Section>
+      />
 
       <Section
         title={label("avalancheInformation")}

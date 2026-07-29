@@ -65,6 +65,16 @@
     }
   }
 
+  .incident-details-problems {
+    // The shared picto list gives the first row's first cell a divider
+    // (padding-right + border-right) for the bulletin-report layout. It looks
+    // out of place on a single problem here, so drop it.
+    li:first-child > div:first-child {
+      padding-right: 0;
+      border-right: none;
+    }
+  }
+
   .incident-details-richtext {
     line-height: 1.6;
   }
@@ -105,5 +115,19 @@
         }
       }
     }
+  }
+}
+
+.incident-details-danger-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+
+  img {
+    display: block;
+    margin: 0;
+    height: 2.5em;
+    width: auto;
+    aspect-ratio: 2268 / 1664;
   }
 }
