@@ -17,9 +17,9 @@ const INVOLVEMENT_LABELS: Record<
 > = {
   fatal: ["incidentReport", "fatalities"],
   injured: ["incidentReport", "injuredSurvivors"],
-  involved: ["caught", "Involved"],
-  uninvolved: ["caught", "NotInvolved"],
-  unknown: ["caught", "Unknown"]
+  involved: ["personInvolvement", "Yes"],
+  uninvolved: ["personInvolvement", "No"],
+  unknown: ["personInvolvement", "Unknown"]
 };
 
 export function involvementLabel(
@@ -32,8 +32,8 @@ export function involvementLabel(
 
 /**
  * The persons of an incident as one phrase — "4 persons involved (2 fatal, 1
- * injured)". If no person count is available the involvement category is
- * used instead ("Not Involved", "Unknown", …). Shared by the dashboard map's
+ * injured)". If no person count is available the involvement category is used
+ * instead ("Event not involving persons", …). Shared by the dashboard map's
  * marker tooltip and the incident table.
  */
 export function involvementText(
