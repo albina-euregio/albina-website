@@ -221,7 +221,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
       ]
         .filter(Boolean)
         .join(" · ");
-      const involvementLine = `<span class="incident-tooltip__person-icon">${PERSON_ICON}</span>${esc(involvementText(incident, intl, messages))}`;
+      const involvementLine = `<span class="incident-tooltip__person-icon" style="color: var(${involvementColorProperty(incident.involvement)})">${PERSON_ICON}</span>${esc(involvementText(incident, intl, messages))}`;
 
       const lines = [
         line("icon-location", esc(incident.location)),
