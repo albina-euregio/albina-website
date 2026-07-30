@@ -189,7 +189,7 @@
 // The marker's hover tooltip. A MapLibre popup, hence outside `.incident-map`.
 .maplibre-incident-tooltip {
   .maplibregl-popup-content {
-    padding: 0.5em 0.7em 0.5em 0;
+    padding: 0.5em 1.1em 0.5em 0;
   }
 
   .incident-tooltip__facts {
@@ -202,6 +202,10 @@
       align-items: center;
       gap: 0.4em;
       margin: 0;
+      // Each fact is a short single line; keep it from wrapping so the popup
+      // (maxWidth: "none") sizes to content instead of breaking e.g. "Event
+      // involving persons" across two lines.
+      white-space: nowrap;
     }
   }
 

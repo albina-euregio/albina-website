@@ -8,16 +8,20 @@ import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 import { useIntl, type MessageId } from "../../i18n";
 import {
   translateIncidentValue,
-  useIncidentReportMessages,
-  type IncidentReportMessages
+  useIncidentReportMessages
 } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
+import {
+  involvementLabel,
+  involvementText
+} from "../../util/incident-involvement.ts";
 import {
   getDangerRatingIconFile,
   getDangerRatingLabel
 } from "../../util/warn-levels";
 import {
   INCIDENT_INVOLVEMENTS,
+  involvementSeverity,
   type IncidentData,
   type IncidentInvolvement
 } from "../../stores/incidentDataStore.ts";
@@ -34,28 +38,6 @@ function involvementColor(): (involvement: IncidentInvolvement) => string {
   return involvement =>
     styles.getPropertyValue(involvementColorProperty(involvement)).trim() ||
     "#fff";
-}
-
-/**
- * Involvement categories are labelled from the shared incident-report resource.
- */
-const INVOLVEMENT_LABELS: Record<
-  IncidentInvolvement,
-  [category: string, value: string]
-> = {
-  fatal: ["incidentReport", "fatalities"],
-  injured: ["incidentReport", "injuredSurvivors"],
-  involved: ["caught", "Involved"],
-  uninvolved: ["caught", "NotInvolved"],
-  unknown: ["caught", "Unknown"]
-};
-
-function involvementLabel(
-  messages: IncidentReportMessages,
-  involvement: IncidentInvolvement
-): string {
-  const [category, value] = INVOLVEMENT_LABELS[involvement];
-  return translateIncidentValue(messages, category, value) ?? value;
 }
 
 interface Props {
@@ -77,38 +59,6 @@ function escapeHtml(value: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
-}
-
-/**
- * The persons of an incident as one phrase — "4 persons involved (2 fatal, 1
- * injured)". If no person count is available the involvement category is
- * used instead ("Not Involved", "Unknown", …).
- */
-function involvementText(
-  incident: IncidentData,
-  intl: ReturnType<typeof useIntl>,
-  messages: IncidentReportMessages
-): string {
-  const { fatalities, injuredSurvivors } = incident;
-  // Reports name the fatalities and injured without always totalling them up.
-  const involved =
-    incident.numberInvolved || fatalities + injuredSurvivors || undefined;
-  if (!involved) return involvementLabel(messages, incident.involvement);
-  const count = (id: MessageId, value: number): string =>
-    intl.formatMessage({ id }, { count: intl.formatNumber(value) });
-  const persons = count(
-    involved === 1
-      ? "incidents:map:tooltip:involved:one"
-      : "incidents:map:tooltip:involved",
-    involved
-  );
-  const severities = [
-    fatalities && count("incidents:map:tooltip:fatal", fatalities),
-    injuredSurvivors && count("incidents:map:tooltip:injured", injuredSurvivors)
-  ]
-    .filter(Boolean)
-    .join(", ");
-  return severities ? `${persons} (${severities})` : persons;
 }
 
 function IncidentMapLegend() {
@@ -152,9 +102,7 @@ function toFeatureCollection(
           color: markerColor(incident.involvement),
           // Draw the more severe markers on top of the lighter ones, so
           // fatalities stay visible where incidents pile up.
-          severity:
-            INCIDENT_INVOLVEMENTS.length -
-            INCIDENT_INVOLVEMENTS.indexOf(incident.involvement),
+          severity: involvementSeverity(incident.involvement),
           tooltip: renderTooltip(incident)
         }
       }))

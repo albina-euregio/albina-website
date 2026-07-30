@@ -39,6 +39,13 @@ export const INCIDENT_INVOLVEMENTS = [
 
 export type IncidentInvolvement = (typeof INCIDENT_INVOLVEMENTS)[number];
 
+/** Ranks an involvement, most severe highest. */
+export function involvementSeverity(involvement: IncidentInvolvement): number {
+  return (
+    INCIDENT_INVOLVEMENTS.length - INCIDENT_INVOLVEMENTS.indexOf(involvement)
+  );
+}
+
 interface RawIncident {
   id: string;
   publishedAt?: string;
@@ -190,7 +197,8 @@ const SORT_ACCESSORS: Partial<
   dangerRating: r =>
     r.dangerRating ? getWarnlevelNumber(r.dangerRating) : undefined,
   avalancheSize: r =>
-    r.avalancheSize ? AVALANCHE_SIZE_ORDER[r.avalancheSize] : undefined
+    r.avalancheSize ? AVALANCHE_SIZE_ORDER[r.avalancheSize] : undefined,
+  personInvolvement: r => -involvementSeverity(r.involvement)
 };
 
 const collator = new Intl.Collator("de");
