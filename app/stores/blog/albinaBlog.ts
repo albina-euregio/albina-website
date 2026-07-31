@@ -61,7 +61,7 @@ export class AlbinaProcessor implements BlogProcessor {
     return new BlogPostPreviewItem(
       config.name,
       item.id,
-      "",
+      `https://${config.params.id}/?p=${item.id}`,
       "",
       new Date(item.published),
       item.title,

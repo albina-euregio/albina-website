@@ -268,43 +268,64 @@
       "lang": "de",
       "name": "at-02-de",
       "apiType": "albina",
-      "regions": ["AT-02"]
+      "regions": ["AT-02"],
+      "params": {
+        "id": "blog.avalanche.report/at-02"
+      }
     },
     {
       "lang": "de",
       "name": "at-07-de",
       "apiType": "albina",
-      "regions": ["AT-07"]
+      "regions": ["AT-07"],
+      "params": {
+        "id": "blog.avalanche.report/at-07"
+      }
     },
     {
       "lang": "en",
       "name": "at-07-en",
       "apiType": "albina",
-      "regions": ["AT-07"]
+      "regions": ["AT-07"],
+      "params": {
+        "id": "blog.avalanche.report/at-07"
+      }
     },
     {
       "lang": "it",
       "name": "at-07-it",
       "apiType": "albina",
-      "regions": ["AT-07"]
+      "regions": ["AT-07"],
+      "params": {
+        "id": "blog.avalanche.report/at-07"
+      }
     },
     {
       "lang": "de",
       "name": "it-32-bz-de",
       "apiType": "albina",
-      "regions": ["IT-32-BZ"]
+      "regions": ["IT-32-BZ"],
+      "params": {
+        "id": "blog.avalanche.report/it-32-bz"
+      }
     },
     {
       "lang": "it",
       "name": "it-32-bz-it",
       "apiType": "albina",
-      "regions": ["IT-32-BZ"]
+      "regions": ["IT-32-BZ"],
+      "params": {
+        "id": "blog.avalanche.report/it-32-bz"
+      }
     },
     {
       "lang": "it",
       "name": "it-32-tn-it",
       "apiType": "albina",
-      "regions": ["IT-32-TN"]
+      "regions": ["IT-32-TN"],
+      "params": {
+        "id": "blog.avalanche.report/it-32-tn"
+      }
     },
     {
       "lang": "de",
