@@ -27,7 +27,10 @@ const timeZone = Temporal.Now.timeZoneId();
 let activeLoadId = 0;
 
 export interface BlogStore {
+  /** Provider specific category IDs, keyed by blog name. */
   searchCategory: Record<string, string>;
+  /** The selected category as displayed, for providers that cannot resolve IDs. */
+  searchCategoryName: string;
   searchText: string;
   year: number | "";
   startDate: Temporal.Instant | undefined;
@@ -233,14 +236,15 @@ export async function load() {
     const configs = categoryName
       ? blogConfigs // filter out providers that do not have the requested category
           .get()
-          .filter(cfg =>
-            (categoriesByBlog[cfg.name] ?? []).some(
-              c => c.name === categoryName
-            )
-          )
+          .filter(cfg => {
+            // providers without a category listing filter on their own
+            const cats = categoriesByBlog[cfg.name];
+            return !cats || cats.some(c => c.name === categoryName);
+          })
       : blogConfigs.get(); // get all providers if no specific category is selected ("ALL") in the dropdown menu
     const requestState = {
       searchCategory: searchCategoryIds,
+      searchCategoryName: categoryName,
       searchText: searchText.get(),
       year: year.get(),
       startDate: startDate.get()?.toZonedDateTime(timeZone).toInstant(),

@@ -30,7 +30,6 @@ export class AlbinaProcessor implements BlogProcessor {
       region: config.regions[0],
       lang: config.lang as Language,
       searchText: state?.searchText,
-      searchCategory: state?.searchCategory?.[config.name],
       startDate: state?.year ? state.startDate.toString() : undefined,
       endDate: state?.year ? state.endDate.toString() : undefined
     } satisfies GetBlogPostsQuery);
@@ -38,7 +37,12 @@ export class AlbinaProcessor implements BlogProcessor {
       `${window.config.apis.blogs}/posts?${params}`,
       {}
     );
-    return items.map(item => this.newItem(item, config));
+    const posts = items.map(item => this.newItem(item, config));
+    // searchCategory expects WordPress term IDs, which no endpoint exposes
+    const category = state?.searchCategoryName;
+    return category
+      ? posts.filter(post => post.categories.includes(category))
+      : posts;
   }
 
   async loadBlogPost(
