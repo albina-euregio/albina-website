@@ -43,6 +43,17 @@ export default function SnowProfileTable(props: Props) {
         row.region ? <FormattedMessage id={`region:${row.region}`} /> : ""
     },
     {
+      id: "elevation",
+      title: intl.formatMessage({ id: "measurements:table:header:altitude" }),
+      render: row =>
+        row.elevation != null ? intl.formatNumberUnit(row.elevation, "m") : ""
+    },
+    {
+      id: "aspect",
+      title: intl.formatMessage({ id: "measurements:table:header:aspect" }),
+      render: row => row.aspect ?? ""
+    },
+    {
       id: "stability",
       title: intl.formatMessage({ id: "profiles:table:header:stability" }),
       className: "table-profiles__stability",

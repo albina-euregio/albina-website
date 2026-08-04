@@ -326,6 +326,7 @@
   "measurements:table:header:operator": "Operator",
   "measurements:table:header:microRegion": "Region",
   "measurements:table:header:altitude": "Elevation",
+  "measurements:table:header:aspect": "Aspect",
   "measurements:table:header:HS": "Snow Height",
   "measurements:table:header:HSD_24": "24h Snow Height Diff",
   "measurements:table:header:HSD_48": "48h Snow Height Diff",

@@ -53,6 +53,14 @@ export class SnowProfileData {
     return this.raw.location ?? "";
   }
 
+  get elevation(): number | undefined {
+    return this.raw.elevation;
+  }
+
+  get aspect(): string | undefined {
+    return this.raw.aspect;
+  }
+
   get lat(): number | undefined {
     return this.raw.latitude ?? undefined;
   }
