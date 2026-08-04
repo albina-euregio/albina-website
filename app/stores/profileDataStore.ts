@@ -50,7 +50,7 @@ export class SnowProfileData {
   get region(): string | undefined {
     const regionId = this.raw.regionId;
     return regionId
-      ? config.regionCodes.find(code => regionId.startsWith(code))
+      ? config.stationRegions.find(code => regionId.startsWith(code))
       : undefined;
   }
 }
@@ -73,7 +73,7 @@ async function fetchSnowProfiles(
   dateFrom: string,
   dateTo: string
 ): Promise<SnowProfileData[]> {
-  const url = `${config.apis.profiles}/profiles/export?format=json&regions=${encodeURIComponent(config.regionCodes.join(","))}&dateFrom=${encodeURIComponent(dateFrom)}&dateTo=${encodeURIComponent(dateTo)}`;
+  const url = `${config.apis.profiles}/profiles/export?format=json&dateFrom=${encodeURIComponent(dateFrom)}&dateTo=${encodeURIComponent(dateTo)}`;
   try {
     const raw = await fetchJSON<RawSnowProfile[]>(url);
     return raw.map(r => new SnowProfileData(r));

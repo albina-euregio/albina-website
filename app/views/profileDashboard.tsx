@@ -100,7 +100,7 @@ function SnowProfileDashboard() {
                   })}
                   all={intl.formatMessage({ id: "filter:all" })}
                   handleChange={val => setActiveRegion(val)}
-                  regionCodes={config.regionCodes}
+                  regionCodes={config.stationRegions}
                   value={activeRegion}
                 />
               </div>
