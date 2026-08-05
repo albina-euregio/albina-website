@@ -7,17 +7,14 @@ import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
 import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
-import { useIntl, type MessageId } from "../../i18n";
-import {
-  translateIncidentValue,
-  useIncidentReportMessages
-} from "../../i18n/incident-report";
+import { useIntl } from "../../i18n";
+import { useIncidentReportMessages } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import {
   involvementLabel,
   involvementText
 } from "../../util/incident-involvement.ts";
-import { getWarnlevelNumber } from "../../util/warn-levels";
+import { incidentBadges } from "../../util/incident-badges.ts";
 import {
   INCIDENT_INVOLVEMENTS,
   involvementSeverity,
@@ -140,39 +137,9 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
         ? `<p class="incident-tooltip__outcome">${nowrapTrailingParenthetical(outcomeText)}</p>`
         : undefined;
 
-      const dangerRating = incident.dangerRating;
-      const warnlevelNumber = dangerRating && getWarnlevelNumber(dangerRating);
-      const dangerText = dangerRating
-        ? warnlevelNumber
-          ? intl.formatMessage(
-              { id: "incidents:danger-level" },
-              { number: String(warnlevelNumber) }
-            )
-          : intl.formatMessage({
-              id: `danger-level:${dangerRating}` as MessageId
-            })
-        : undefined;
-      const dangerBadge = dangerText
-        ? `<span class="incident-tooltip__badge">${esc(dangerText)}</span>`
-        : undefined;
-
-      // The avalanche type and size are each their own badge
-      const avalanchePart = (
-        field: "avalancheType" | "avalancheSize"
-      ): string | undefined =>
-        incident[field] && incident[field] !== "unknown"
-          ? translateIncidentValue(messages, field, incident[field])
-          : undefined;
-      const avalancheBadges = (["avalancheType", "avalancheSize"] as const).map(
-        field => {
-          const text = esc(avalanchePart(field));
-          return text
-            ? `<span class="incident-tooltip__badge">${text}</span>`
-            : undefined;
-        }
+      const badges = incidentBadges(incident, intl, messages).map(
+        badge => `<span class="incident-badge">${esc(badge.text)}</span>`
       );
-
-      const badges = [dangerBadge, ...avalancheBadges].filter(Boolean);
       const header = [
         title ? `<p class="incident-tooltip__title">${title}</p>` : undefined,
         dateTime
@@ -185,7 +152,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
         ? `<div class="incident-tooltip__header">${header.join("")}</div>`
         : "";
       const badgesHtml = badges.length
-        ? `<div class="incident-tooltip__badges">${badges.join("")}</div>`
+        ? `<div class="incident-badges">${badges.join("")}</div>`
         : "";
       const bodyHtml =
         outcome || badgesHtml

@@ -152,6 +152,26 @@
   }
 }
 
+// The danger rating and the avalanche's character as small badges. Shared by
+// the map's marker tooltip (below) and the incident table.
+.incident-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 0;
+}
+
+.incident-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.2em 0.6em;
+  border-radius: 1em;
+  background: variables.$grey-very-light;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
 // The marker's hover tooltip
 .maplibre-incident-tooltip {
   .maplibregl-popup-content {
@@ -195,31 +215,12 @@
     margin: 0;
     font-size: 0.9em;
 
-    & + .incident-tooltip__badges {
+    & + .incident-badges {
       margin-top: 0.5em;
     }
   }
 
   .incident-tooltip__nowrap {
-    white-space: nowrap;
-  }
-
-  // The danger rating and the avalanche's character as small badges
-  .incident-tooltip__badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4em;
-    margin: 0;
-  }
-
-  .incident-tooltip__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35em;
-    padding: 0.2em 0.6em;
-    border-radius: 1em;
-    background: variables.$grey-very-light;
-    font-size: 0.85em;
     white-space: nowrap;
   }
 }
