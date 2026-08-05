@@ -7,6 +7,7 @@ import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
 import { useIntl } from "../../i18n";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
+import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
 import {
   SNOW_PROFILE_STABILITIES,
   snowProfileStabilitySeverity,
@@ -23,20 +24,18 @@ function stabilityColorProperty(stability: SnowProfileStability): string {
   return `--snowprofile-stability-${stability}`;
 }
 
-/** Reads the stability marker colors from CSS (`--snowprofile-stability-*`). */
+/**
+ * Reads the stability marker colors from CSS (`--snowprofile-stability-*`),
+ * treating a missing stability as "no test".
+ */
 function stabilityColor(): (
   stability: SnowProfileStability | undefined
 ) => string {
   const styles = getComputedStyle(document.documentElement);
-  const noTest = styles
-    .getPropertyValue(stabilityColorProperty("no-test"))
-    .trim();
   return stability =>
-    (stability
-      ? styles.getPropertyValue(stabilityColorProperty(stability)).trim()
-      : noTest) ||
-    noTest ||
-    "#fff";
+    styles
+      .getPropertyValue(stabilityColorProperty(stability ?? "no-test"))
+      .trim() || "#fff";
 }
 
 interface Props {
@@ -127,20 +126,7 @@ function SnowProfileMapLibreMap({
     map.on("load", () => {
       map.addSource(SOURCE_ID, { type: "geojson", data: dataRef.current });
 
-      map.addLayer({
-        id: CIRCLE_LAYER_ID,
-        type: "circle",
-        source: SOURCE_ID,
-        layout: {
-          "circle-sort-key": ["get", "severity"]
-        },
-        paint: {
-          "circle-radius": 8,
-          "circle-color": ["get", "color"],
-          "circle-stroke-color": "#000",
-          "circle-stroke-width": 1
-        }
-      });
+      map.addLayer(coloredCircleLayer(CIRCLE_LAYER_ID, SOURCE_ID));
 
       map.on("click", CIRCLE_LAYER_ID, e => {
         const id = e.features?.[0]?.properties?.id;

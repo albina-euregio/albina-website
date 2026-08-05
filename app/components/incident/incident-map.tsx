@@ -6,6 +6,7 @@ import { $focusRegions } from "../../appStore.ts";
 import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
+import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
 import { useIntl, type MessageId } from "../../i18n";
 import {
   translateIncidentValue,
@@ -211,20 +212,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
     map.on("load", () => {
       map.addSource(SOURCE_ID, { type: "geojson", data: dataRef.current });
 
-      map.addLayer({
-        id: CIRCLE_LAYER_ID,
-        type: "circle",
-        source: SOURCE_ID,
-        layout: {
-          "circle-sort-key": ["get", "severity"]
-        },
-        paint: {
-          "circle-radius": 8,
-          "circle-color": ["get", "color"],
-          "circle-stroke-color": "#000",
-          "circle-stroke-width": 1
-        }
-      });
+      map.addLayer(coloredCircleLayer(CIRCLE_LAYER_ID, SOURCE_ID));
 
       map.on("click", CIRCLE_LAYER_ID, e => {
         const id = e.features?.[0]?.properties?.id;
