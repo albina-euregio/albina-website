@@ -131,3 +131,117 @@
     aspect-ratio: 2268 / 1664;
   }
 }
+
+// Marker colors of the dashboard map, keyed by person involvement.
+// Reuse accessible colors from snow profile palette.
+:root {
+  --incident-involvement-fatal: #a6611a;
+  --incident-involvement-injured: #dfc27d;
+  --incident-involvement-involved: #018571;
+  --incident-involvement-uninvolved: #80cdc1;
+  --incident-involvement-unknown: #f5f5f5;
+}
+
+.incident-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .incident-map__canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  .incident-map__legend {
+    z-index: 2;
+    position: absolute;
+    left: variables.$padding;
+    bottom: variables.$padding;
+    pointer-events: none;
+    margin: 0;
+    padding: (variables.$padding * 0.5) variables.$padding;
+    color: variables.$text-color;
+    font-size: variables.$tiny-font-size;
+    line-height: 1.6;
+    background-color: rgba(variables.$white, 0.9);
+    @include mixins.box-shadow(0.15);
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: (variables.$padding * 0.5);
+      margin: 0;
+    }
+  }
+
+  .incident-map__legend-swatch {
+    flex: 0 0 auto;
+    width: 0.9em;
+    height: 0.9em;
+    border: 1px solid variables.$black;
+    border-radius: 50%;
+  }
+}
+
+// The marker's hover tooltip. A MapLibre popup, hence outside `.incident-map`.
+.maplibre-incident-tooltip {
+  .maplibregl-popup-content {
+    padding: 0.5em 1.1em 0.5em 0;
+  }
+
+  .incident-tooltip__facts {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      margin: 0;
+      // Each fact is a short single line; keep it from wrapping so the popup
+      // (maxWidth: "none") sizes to content instead of breaking e.g. "Event
+      // involving persons" across two lines.
+      white-space: nowrap;
+    }
+  }
+
+  // One icon column for the fontello glyphs and the inline person SVG alike.
+  [class^="icon-"],
+  .incident-tooltip__person-icon {
+    flex: 0 0 2em;
+    color: variables.$grey-dark;
+    text-align: center;
+  }
+
+  [class^="icon-"]:before {
+    margin: 0;
+    font-size: 2em;
+    line-height: 1;
+  }
+
+  .icon-location:before {
+    font-size: 1em;
+  }
+
+  .incident-tooltip__person-icon svg {
+    height: 1.4em;
+    width: auto;
+    fill: currentColor;
+    stroke: variables.$black;
+    stroke-width: 1px;
+    vertical-align: middle;
+  }
+
+  .incident-tooltip__danger-icon {
+    flex: 0 0 auto;
+
+    img {
+      display: block;
+      margin: 0;
+      height: 2em;
+      width: auto;
+      aspect-ratio: 2268 / 1664;
+    }
+  }
+}

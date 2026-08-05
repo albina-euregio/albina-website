@@ -43,12 +43,3 @@ export function getDangerRatingValue(n: WarnLevelNumber): DangerRatingValue {
     ] as const
   )[n];
 }
-
-export const WARNLEVEL_COLORS = Object.freeze([
-  "#ffffff",
-  "#ccff66",
-  "#ffff00",
-  "#ff9900",
-  "#ff0000",
-  "#000000"
-]);

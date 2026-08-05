@@ -10,6 +10,7 @@ import ProblemIcon from "../icons/problem-icon";
 import ExpositionIcon from "../icons/exposition-icon";
 import ElevationIcon from "../icons/elevation-icon";
 import IncidentLocationMap from "./incident-location-map";
+import { involvementText } from "../../util/incident-involvement";
 import {
   getDangerRatingIconFile,
   getDangerRatingLabel
@@ -454,7 +455,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           },
           {
             label: label("personInvolvement"),
-            value: tr("personInvolvement", d.personInvolvement)
+            value: involvementText(incident, intl, t)
           },
           {
             label: label("otherDamages"),

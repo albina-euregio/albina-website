@@ -9,7 +9,7 @@ import {
 import { $router, redirectPageQuery } from "../components/router";
 import { fetchJSON } from "../util/fetch";
 import { currentSeasonYear } from "../util/date-season";
-import { getWarnlevelNumber, WARNLEVEL_COLORS } from "../util/warn-levels";
+import { getWarnlevelNumber } from "../util/warn-levels";
 import type { DangerRatingValue } from "./bulletin";
 
 /** The full incident schema (all fields) as generated from the OpenAPI spec. */
@@ -25,6 +25,26 @@ export type IncidentAttachmentView = Partial<IncidentAttachment> & {
 };
 
 export type IncidentPublicData = Partial<IncidentSchema>;
+
+/**
+ * How people were affected by an incident, ordered from most to least severe.
+ */
+export const INCIDENT_INVOLVEMENTS = [
+  "fatal",
+  "injured",
+  "involved",
+  "uninvolved",
+  "unknown"
+] as const;
+
+export type IncidentInvolvement = (typeof INCIDENT_INVOLVEMENTS)[number];
+
+/** Ranks an involvement, most severe highest. */
+export function involvementSeverity(involvement: IncidentInvolvement): number {
+  return (
+    INCIDENT_INVOLVEMENTS.length - INCIDENT_INVOLVEMENTS.indexOf(involvement)
+  );
+}
 
 interface RawIncident {
   id: string;
@@ -83,6 +103,18 @@ export class IncidentData {
     return this.publicData.personInvolvement;
   }
 
+  get numberInvolved(): number {
+    return this.publicData.involvementsFatalitiesBurials?.numberInvolved ?? 0;
+  }
+
+  get fatalities(): number {
+    return this.publicData.involvementsFatalitiesBurials?.fatalities ?? 0;
+  }
+
+  get injuredSurvivors(): number {
+    return this.publicData.involvementsFatalitiesBurials?.injuredSurvivors ?? 0;
+  }
+
   /**
    * Public attachments with resolved download URLs. The public JSON omits the
    * binary; it is served (unauthenticated) from
@@ -97,10 +129,13 @@ export class IncidentData {
       }));
   }
 
-  /** Marker/legend color, reusing the standard avalanche danger scale colors. */
-  get color(): string {
-    const rating = this.dangerRating;
-    return WARNLEVEL_COLORS[rating ? getWarnlevelNumber(rating) : 0];
+  get involvement(): IncidentInvolvement {
+    if (this.fatalities) return "fatal";
+    if (this.injuredSurvivors) return "injured";
+    if (this.personInvolvement === "Yes" || this.numberInvolved)
+      return "involved";
+    if (this.personInvolvement === "No") return "uninvolved";
+    return "unknown";
   }
 }
 
@@ -162,7 +197,8 @@ const SORT_ACCESSORS: Partial<
   dangerRating: r =>
     r.dangerRating ? getWarnlevelNumber(r.dangerRating) : undefined,
   avalancheSize: r =>
-    r.avalancheSize ? AVALANCHE_SIZE_ORDER[r.avalancheSize] : undefined
+    r.avalancheSize ? AVALANCHE_SIZE_ORDER[r.avalancheSize] : undefined,
+  personInvolvement: r => -involvementSeverity(r.involvement)
 };
 
 const collator = new Intl.Collator("de");

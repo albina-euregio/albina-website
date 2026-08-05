@@ -5,6 +5,7 @@ import {
   useIncidentReportMessages
 } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
+import { involvementText } from "../../util/incident-involvement";
 import { getDangerRatingLabel } from "../../util/warn-levels";
 import type {
   IncidentData,
@@ -81,12 +82,7 @@ export default function IncidentTable(props: Props) {
     {
       id: "personInvolvement",
       title: label("personInvolvement"),
-      render: row =>
-        translateIncidentValue(
-          messages,
-          "personInvolvement",
-          row.personInvolvement
-        ) ?? ""
+      render: row => involvementText(row, intl, messages)
     }
   ];
 

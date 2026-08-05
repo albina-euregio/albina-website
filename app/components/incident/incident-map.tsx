@@ -12,18 +12,45 @@ import {
 } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import {
+  involvementLabel,
+  involvementText
+} from "../../util/incident-involvement.ts";
+import {
   getDangerRatingIconFile,
   getDangerRatingLabel
 } from "../../util/warn-levels";
-import type { IncidentData } from "../../stores/incidentDataStore.ts";
+import {
+  INCIDENT_INVOLVEMENTS,
+  involvementSeverity,
+  type IncidentData,
+  type IncidentInvolvement
+} from "../../stores/incidentDataStore.ts";
 
 const SOURCE_ID = "incidents";
 const CIRCLE_LAYER_ID = "incidents-circles";
+
+function involvementColorProperty(involvement: IncidentInvolvement): string {
+  return `--incident-involvement-${involvement}`;
+}
+
+function involvementColor(): (involvement: IncidentInvolvement) => string {
+  const styles = getComputedStyle(document.documentElement);
+  return involvement =>
+    styles.getPropertyValue(involvementColorProperty(involvement)).trim() ||
+    "#fff";
+}
 
 interface Props {
   incidents: IncidentData[];
   onIncidentSelected: (id: string) => void;
 }
+
+/**
+ * Marks the tooltip's person line. Inline SVG rather than a fontello glyph: the
+ * icon font carries no person. Sized and colored by `.maplibre-incident-tooltip`
+ * alongside the glyphs it sits with.
+ */
+const PERSON_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="7" r="4.25" /><path d="M12 13.5c-4.6 0-8.25 3-8.25 6.75V21h16.5v-.75c0-3.75-3.65-6.75-8.25-6.75z" /></svg>`;
 
 /** Escapes text before it is interpolated into the tooltip's HTML string. */
 function escapeHtml(value: string): string {
@@ -34,10 +61,30 @@ function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
+function IncidentMapLegend() {
+  const messages = useIncidentReportMessages();
+  return (
+    <ul className="list-plain incident-map__legend">
+      {INCIDENT_INVOLVEMENTS.map(involvement => (
+        <li key={involvement}>
+          <span
+            className="incident-map__legend-swatch"
+            style={{
+              backgroundColor: `var(${involvementColorProperty(involvement)})`
+            }}
+          />
+          {involvementLabel(messages, involvement)}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function toFeatureCollection(
   incidents: IncidentData[],
   renderTooltip: (incident: IncidentData) => string
 ): GeoJSON.FeatureCollection<GeoJSON.Point> {
+  const markerColor = involvementColor();
   return {
     type: "FeatureCollection",
     features: incidents
@@ -52,7 +99,10 @@ function toFeatureCollection(
         properties: {
           id: incident.id,
           location: incident.location,
-          color: incident.color,
+          color: markerColor(incident.involvement),
+          // Draw the more severe markers on top of the lighter ones, so
+          // fatalities stay visible where incidents pile up.
+          severity: involvementSeverity(incident.involvement),
           tooltip: renderTooltip(incident)
         }
       }))
@@ -119,23 +169,14 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
       ]
         .filter(Boolean)
         .join(" · ");
-      const personInvolvement = esc(
-        translateIncidentValue(
-          messages,
-          "personInvolvement",
-          incident.personInvolvement
-        )
-      );
-      // Alert icon when persons were involved; neutral info icon otherwise.
-      const personIcon =
-        incident.personInvolvement === "Yes" ? "icon-attention" : "icon-info";
+      const involvementLine = `<span class="incident-tooltip__person-icon" style="color: var(${involvementColorProperty(incident.involvement)})">${PERSON_ICON}</span>${esc(involvementText(incident, intl, messages))}`;
 
       const lines = [
         line("icon-location", esc(incident.location)),
         line("icon-calendar", dateTime),
         dangerRatingLine,
         line("icon-snow", avalanche || undefined),
-        line(personIcon, personInvolvement)
+        involvementLine
       ].filter(Boolean);
 
       return lines.length
@@ -182,6 +223,9 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
         id: CIRCLE_LAYER_ID,
         type: "circle",
         source: SOURCE_ID,
+        layout: {
+          "circle-sort-key": ["get", "severity"]
+        },
         paint: {
           "circle-radius": 8,
           "circle-color": ["get", "color"],
@@ -241,7 +285,12 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
     }
   }, [incidents, renderTooltip]);
 
-  return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
+  return (
+    <div className="incident-map">
+      <div ref={containerRef} className="incident-map__canvas" />
+      <IncidentMapLegend />
+    </div>
+  );
 }
 
 export default IncidentMapLibreMap;
