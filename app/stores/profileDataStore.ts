@@ -1,20 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useStore } from "@nanostores/react";
-import type { MessageId } from "../i18n";
+import * as v from "valibot";
+import {
+  vExportProfilesResponse,
+  vProfileListItem,
+  vStability
+} from "../api-profiles/valibot.gen";
 import { $router, redirectPageQuery } from "../components/router";
 import { fetchJSON } from "../util/fetch";
 
 const DEFAULT_RANGE_DAYS = 30;
 
-export const SNOW_PROFILE_STABILITIES = [
-  "good",
-  "fair",
-  "poor",
-  "very-poor",
-  "no-test"
-] as const;
+export const SNOW_PROFILE_STABILITIES = vStability.options;
 
-export type SnowProfileStability = (typeof SNOW_PROFILE_STABILITIES)[number];
+export type SnowProfileStability = v.InferOutput<typeof vStability>;
 
 /**
  * Ranks a stability so the least stable draws on top of the map / sorts first.
@@ -39,18 +38,7 @@ export function stabilityLabelId(stability: SnowProfileStability): MessageId {
   return `profiles:stability:${stability}` as MessageId;
 }
 
-interface RawSnowProfile {
-  id: string;
-  dateTime?: string;
-  latitude?: number;
-  longitude?: number;
-  region?: string;
-  regionId?: string;
-  location?: string;
-  elevation?: number;
-  snowHeight?: number;
-  stability?: string;
-}
+type RawSnowProfile = v.InferOutput<typeof vProfileListItem>;
 
 export class SnowProfileData {
   readonly id: string;
@@ -66,11 +54,11 @@ export class SnowProfileData {
   }
 
   get lat(): number | undefined {
-    return this.raw.latitude;
+    return this.raw.latitude ?? undefined;
   }
 
   get lon(): number | undefined {
-    return this.raw.longitude;
+    return this.raw.longitude ?? undefined;
   }
 
   get hasLocation(): boolean {
@@ -82,11 +70,8 @@ export class SnowProfileData {
   }
 
   get stability(): SnowProfileStability | undefined {
-    const stability = this.raw.stability;
-    return stability &&
-      (SNOW_PROFILE_STABILITIES as readonly string[]).includes(stability)
-      ? (stability as SnowProfileStability)
-      : undefined;
+    // Already validated against the schema's picklist by `v.parse` on fetch.
+    return this.raw.stability;
   }
 
   /** Macro-region code (config.regionCodes) derived from lawis' hierarchical regionId. */
@@ -118,7 +103,7 @@ async function fetchSnowProfiles(
 ): Promise<SnowProfileData[]> {
   const url = `${config.apis.profiles}/profiles/export?format=json&dateFrom=${encodeURIComponent(dateFrom)}&dateTo=${encodeURIComponent(dateTo)}`;
   try {
-    const raw = await fetchJSON<RawSnowProfile[]>(url);
+    const raw = v.parse(vExportProfilesResponse, await fetchJSON(url));
     return raw.map(r => new SnowProfileData(r));
   } catch (e) {
     console.error("Failed fetching snow profiles", e);
