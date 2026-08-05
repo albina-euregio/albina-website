@@ -5,6 +5,7 @@ import { useStore } from "@nanostores/react";
 import { $focusRegions } from "../../appStore.ts";
 import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
+import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
 import { useIntl, type MessageId } from "../../i18n";
 import {
   translateIncidentValue,
@@ -63,21 +64,12 @@ function escapeHtml(value: string): string {
 
 function IncidentMapLegend() {
   const messages = useIncidentReportMessages();
-  return (
-    <ul className="list-plain incident-map__legend">
-      {INCIDENT_INVOLVEMENTS.map(involvement => (
-        <li key={involvement}>
-          <span
-            className="incident-map__legend-swatch"
-            style={{
-              backgroundColor: `var(${involvementColorProperty(involvement)})`
-            }}
-          />
-          {involvementLabel(messages, involvement)}
-        </li>
-      ))}
-    </ul>
-  );
+  const items: MapLegendItem[] = INCIDENT_INVOLVEMENTS.map(involvement => ({
+    key: involvement,
+    color: `var(${involvementColorProperty(involvement)})`,
+    label: involvementLabel(messages, involvement)
+  }));
+  return <MapLegend items={items} />;
 }
 
 function toFeatureCollection(
