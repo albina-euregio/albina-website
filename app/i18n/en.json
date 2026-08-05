@@ -350,6 +350,7 @@
   "incidents:persons:involved:one": "1 person involved",
   "incidents:persons:fatal": "{count} fatal",
   "incidents:persons:injured": "{count} injured",
+  "incidents:danger-level": "danger level {number}",
   "profiles:filter:date-from": "From",
   "profiles:filter:date-to": "To",
   "profiles:detail:loading": "Loading snow profile…",
