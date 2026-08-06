@@ -81,6 +81,11 @@ $snowprofile-stabilities: (
   }
 }
 
+.snowprofile-details {
+  // keep the close/flipper controls in the dialog's top right corner off the profile
+  padding-top: calc(#{variables.$icon-font-size} + #{variables.$padding} * 3);
+}
+
 .snowprofile-detail {
   overflow: auto;
   text-align: center;
