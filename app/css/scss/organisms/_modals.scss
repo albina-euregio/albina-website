@@ -243,6 +243,51 @@ button.mfp-arrow {
   }
 }
 
+//flipper, sitting left of the close button
+$modal-control-size: calc(#{variables.$icon-font-size} + #{variables.$padding});
+
+.modal-flipper {
+  position: fixed;
+  z-index: 42;
+  top: variables.$padding;
+  right: calc(#{$modal-control-size} + #{variables.$padding} * 1.5);
+  display: flex;
+  gap: (variables.$padding * 0.5);
+  font-size: 1rem;
+}
+
+button.modal-flipper__button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $modal-control-size;
+  width: $modal-control-size;
+  margin: 0;
+  padding: 0;
+  color: variables.$brand;
+  background-color: rgba(variables.$white, 0.75);
+  border: 0;
+  border-radius: variables.$global-radius;
+  @include mixins.rollout;
+
+  span:before {
+    margin-right: 0;
+    line-height: 1;
+  }
+
+  &:hover:not(:disabled) {
+    color: variables.$brand-dark;
+    background-color: variables.$white;
+    @include mixins.rollover;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.35;
+  }
+}
+
 .modal-header {
   padding-bottom: variables.$all-v-padding;
 
