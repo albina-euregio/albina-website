@@ -24,20 +24,6 @@ function stabilityColorProperty(stability: SnowProfileStability): string {
   return `--snowprofile-stability-${stability}`;
 }
 
-/**
- * Reads the stability marker colors from CSS (`--snowprofile-stability-*`),
- * treating a missing stability as "no test".
- */
-function stabilityColor(): (
-  stability: SnowProfileStability | undefined
-) => string {
-  const styles = getComputedStyle(document.documentElement);
-  return stability =>
-    styles
-      .getPropertyValue(stabilityColorProperty(stability ?? "no-test"))
-      .trim() || "#fff";
-}
-
 interface Props {
   snowProfiles: SnowProfileData[];
   onSnowProfileSelected: (id: string) => void;
@@ -56,7 +42,13 @@ function SnowProfileMapLegend() {
 function toFeatureCollection(
   snowProfiles: SnowProfileData[]
 ): GeoJSON.FeatureCollection<GeoJSON.Point> {
-  const markerColor = stabilityColor();
+  // Read the stability marker colors from CSS (`--snowprofile-stability-*`) once
+  // per rebuild, treating a missing stability as "no test".
+  const styles = getComputedStyle(document.documentElement);
+  const markerColor = (stability: SnowProfileStability | undefined): string =>
+    styles
+      .getPropertyValue(stabilityColorProperty(stability ?? "no-test"))
+      .trim() || "#fff";
   return {
     type: "FeatureCollection",
     features: snowProfiles
@@ -73,9 +65,7 @@ function toFeatureCollection(
           location: profile.location,
           color: markerColor(profile.stability),
           // Draw the less stable markers on top of the rest where they pile up.
-          severity: profile.stability
-            ? snowProfileStabilitySeverity(profile.stability)
-            : 0
+          severity: snowProfileStabilitySeverity(profile.stability ?? "no-test")
         }
       }))
   };
