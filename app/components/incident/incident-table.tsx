@@ -43,6 +43,23 @@ export default function IncidentTable(props: Props) {
           : ""
     },
     {
+      id: "personInvolvement",
+      title: label("personInvolvement"),
+      // A severity dot — the same circle as the map marker and legend swatch —
+      // sits before the outcome so colour and wording agree.
+      render: row => (
+        <span className="incident-involvement">
+          <span
+            className="incident-involvement-dot"
+            style={{
+              background: `var(--incident-involvement-${row.involvement})`
+            }}
+          />
+          {involvementText(row, intl, messages)}
+        </span>
+      )
+    },
+    {
       id: "location",
       title:
         messages.incidentReport?.location ??
@@ -79,11 +96,6 @@ export default function IncidentTable(props: Props) {
         const text = avalancheBadgeText(row, messages, "avalancheSize");
         return text ? <IncidentBadge>{text}</IncidentBadge> : "";
       }
-    },
-    {
-      id: "personInvolvement",
-      title: label("personInvolvement"),
-      render: row => involvementText(row, intl, messages)
     }
   ];
 

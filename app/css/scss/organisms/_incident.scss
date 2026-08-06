@@ -7,9 +7,21 @@
   margin: 0 auto;
   padding-top: 1.25rem;
 
+  // The header mirrors the map tooltip: a severity spine, the location title,
+  // a date · outcome meta line, then the shared badge cluster.
   .incident-details-header {
+    margin-bottom: (variables.$margin-bottom * 1.5);
+    padding-left: variables.$padding;
+    border-left: 3px solid var(--incident-involvement-color, transparent);
+
     h2 {
+      margin-bottom: (variables.$padding * 0.5);
+    }
+
+    .incident-details-header__meta {
       margin-bottom: (variables.$padding * 0.75);
+      color: variables.$grey-dark;
+      font-size: variables.$small-font-size;
     }
   }
 
@@ -168,8 +180,27 @@
   padding: 0.2em 0.6em;
   border-radius: 1em;
   background: variables.$grey-very-light;
+  color: variables.$grey-dark;
   font-size: 0.85em;
   white-space: nowrap;
+}
+
+// A severity dot in the incident table's involvement cell — the same circle as
+// the map marker and legend swatch, so the colour reads identically wherever an
+// incident's involvement appears. The 1px ring keeps the light `unknown` /
+// `uninvolved` colours visible, matching the marker's stroke.
+.incident-involvement {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.incident-involvement-dot {
+  flex: 0 0 auto;
+  width: 0.7em;
+  height: 0.7em;
+  border: 1px solid variables.$black;
+  border-radius: 50%;
 }
 
 // The marker's hover tooltip
@@ -200,20 +231,22 @@
   }
 
   .incident-tooltip__meta {
+    // Match the details dialog header's date/involvement line.
     margin: 0.15em 0 0;
-    color: variables.$grey;
-    font-size: 0.85em;
+    color: variables.$grey-dark;
+    font-size: variables.$tiny-font-size;
   }
 
   .incident-tooltip__body {
-    margin: (variables.$padding * 0.6) 0 0;
-    padding-top: (variables.$padding * 0.6);
-    border-top: 1px solid variables.$grey-very-light;
+    // No divider — the same open, rule-free rhythm the details dialog uses.
+    margin: (variables.$padding * 0.2) 0 0;
   }
 
   .incident-tooltip__outcome {
+    // Match the details dialog header's involvement line.
     margin: 0;
-    font-size: 0.9em;
+    color: variables.$grey-dark;
+    font-size: variables.$tiny-font-size;
 
     & + .incident-badges {
       margin-top: 0.5em;

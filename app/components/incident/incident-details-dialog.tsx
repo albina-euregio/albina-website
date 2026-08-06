@@ -5,12 +5,13 @@ import {
   useIncidentReportMessages,
   translateIncidentValue
 } from "../../i18n/incident-report";
-import { DATE_TIME_FORMAT } from "../../util/date";
+import { DATE_TIME_FORMAT, DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import ProblemIcon from "../icons/problem-icon";
 import ExpositionIcon from "../icons/exposition-icon";
 import ElevationIcon from "../icons/elevation-icon";
 import IncidentLocationMap from "./incident-location-map";
 import { involvementText } from "../../util/incident-involvement";
+import { incidentBadges } from "../../util/incident-badges";
 import {
   getDangerRatingIconFile,
   getDangerRatingLabel
@@ -428,6 +429,16 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const dateTime =
     incident.dateTime && intl.formatDate(incident.dateTime, DATE_TIME_FORMAT);
   const timeAccuracy = tr("timeAccuracy", d.timeAccuracy);
+  // The header mirrors the map's tooltip card: date · outcome, then the same
+  // neutral badge cluster (danger level, avalanche type/size). The header's
+  // date is the short glanceable form; the authoritative date with its
+  // `(accuracy)` qualifier stays in the facts table below.
+  const headerDate =
+    incident.dateTime &&
+    intl.formatDate(incident.dateTime, DATE_TIME_FORMAT_SHORT);
+  const outcome = involvementText(incident, intl, t);
+  const headerMeta = [headerDate, outcome].filter(Boolean).join(" · ");
+  const badges = incidentBadges(incident, intl, t);
   const dangerRatingText =
     d.dangerRating &&
     intl.formatMessage({
@@ -436,9 +447,28 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const problems = visibleProblems(d.avalancheProblems);
 
   return (
-    <div className="modal-container incident-details">
+    <div
+      className="modal-container incident-details"
+      style={
+        {
+          "--incident-involvement-color": `var(--incident-involvement-${incident.involvement})`
+        } as React.CSSProperties
+      }
+    >
       <header className="incident-details-header">
         {incident.location && <h2>{incident.location}</h2>}
+        {headerMeta && (
+          <p className="incident-details-header__meta">{headerMeta}</p>
+        )}
+        {badges.length > 0 && (
+          <div className="incident-badges">
+            {badges.map(badge => (
+              <span key={badge.key} className="incident-badge">
+                {badge.text}
+              </span>
+            ))}
+          </div>
+        )}
       </header>
 
       <Section
@@ -452,10 +482,6 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             value:
               incident.publishedAt &&
               intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT)
-          },
-          {
-            label: label("personInvolvement"),
-            value: involvementText(incident, intl, t)
           },
           {
             label: label("otherDamages"),
