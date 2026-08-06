@@ -98,4 +98,9 @@ $snowprofile-stabilities: (
     height: auto;
     margin: 0 auto;
   }
+
+  img.is-stale {
+    opacity: 0.5;
+    transition: opacity variables.$transition-duration ease-in-out 0.3s;
+  }
 }
