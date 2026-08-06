@@ -1,4 +1,4 @@
-import React, { type ReactNode } from "react";
+import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { useIncidentReportMessages } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
@@ -7,15 +7,12 @@ import {
   avalancheBadgeText,
   dangerRatingBadgeText
 } from "../../util/incident-badges";
+import { IncidentBadge } from "./incident-badge";
 import type {
   IncidentData,
   SortableField
 } from "../../stores/incidentDataStore";
 import DataTable, { type ColumnDef, type SortDir } from "../table/data-table";
-
-function IncidentBadge({ children }: { children: ReactNode }) {
-  return <span className="incident-badge">{children}</span>;
-}
 
 interface Props {
   sortedFilteredData: IncidentData[];

@@ -12,6 +12,7 @@ import ElevationIcon from "../icons/elevation-icon";
 import IncidentLocationMap from "./incident-location-map";
 import { involvementText } from "../../util/incident-involvement";
 import { incidentBadges } from "../../util/incident-badges";
+import { IncidentBadges } from "./incident-badge";
 import {
   getDangerRatingIconFile,
   getDangerRatingLabel
@@ -466,15 +467,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         {headerMeta && (
           <p className="incident-details-header__meta">{headerMeta}</p>
         )}
-        {badges.length > 0 && (
-          <div className="incident-badges">
-            {badges.map(badge => (
-              <span key={badge.key} className="incident-badge">
-                {badge.text}
-              </span>
-            ))}
-          </div>
-        )}
+        <IncidentBadges badges={badges} />
       </header>
 
       <Section

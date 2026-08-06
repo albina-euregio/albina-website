@@ -6,7 +6,7 @@ import {
 import { getWarnlevelNumber } from "./warn-levels";
 import type { IncidentData } from "../stores/incidentDataStore";
 
-export interface IncidentBadge {
+export interface IncidentBadgeData {
   key: string;
   text: string;
 }
@@ -47,8 +47,8 @@ export function incidentBadges(
   incident: IncidentData,
   intl: ReturnType<typeof useIntl>,
   messages: IncidentReportMessages
-): IncidentBadge[] {
-  const badges: IncidentBadge[] = [];
+): IncidentBadgeData[] {
+  const badges: IncidentBadgeData[] = [];
   const dangerText = dangerRatingBadgeText(incident, intl);
   if (dangerText) badges.push({ key: "dangerRating", text: dangerText });
   for (const field of AVALANCHE_BADGE_FIELDS) {
