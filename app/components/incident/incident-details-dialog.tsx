@@ -438,9 +438,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     incident.dateTime && intl.formatDate(incident.dateTime, DATE_TIME_FORMAT);
   const timeAccuracy = tr("timeAccuracy", d.timeAccuracy);
   // The header mirrors the map's tooltip card: date · outcome, then the same
-  // neutral badge cluster (danger level, avalanche type/size). The header's
-  // date is the short glanceable form; the authoritative date with its
-  // `(accuracy)` qualifier stays in the facts table below.
+  // neutral badge cluster (danger level, avalanche type/size).
   const headerDate =
     incident.dateTime &&
     intl.formatDate(incident.dateTime, DATE_TIME_FORMAT_SHORT);

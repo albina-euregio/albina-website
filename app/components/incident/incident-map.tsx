@@ -127,10 +127,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
       );
 
       // Only show the outcome when a persons count is known.
-      const involved =
-        incident.numberInvolved ||
-        incident.fatalities + incident.injuredSurvivors;
-      const outcomeText = involved
+      const outcomeText = incident.numberInvolved
         ? esc(involvementText(incident, intl, messages))
         : undefined;
       const outcome = outcomeText

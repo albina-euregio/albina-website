@@ -185,10 +185,7 @@
   white-space: nowrap;
 }
 
-// A severity dot in the incident table's involvement cell — the same circle as
-// the map marker and legend swatch, so the colour reads identically wherever an
-// incident's involvement appears. The 1px ring keeps the light `unknown` /
-// `uninvolved` colours visible, matching the marker's stroke.
+// A severity dot for the incident table's involvement cell
 .incident-involvement {
   display: inline-flex;
   align-items: center;
