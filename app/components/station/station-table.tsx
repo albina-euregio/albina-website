@@ -2,8 +2,8 @@ import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
-import { Tooltip } from "../tooltips/tooltip";
 import WeatherStationDialog, { useStationId } from "./station-dialog";
+import DataTable, { type ColumnDef } from "../table/data-table";
 
 type SortDir = "desc" | "asc";
 
@@ -19,25 +19,25 @@ interface Props {
   sortedFilteredData: StationData[];
 }
 
-interface Column {
-  data: keyof StationData;
-  subtitle?: string;
-  render: (row: StationData) => React.ReactElement;
-  sortable?: boolean;
-  className: string;
-  unit?: string;
+interface StationColumn extends ColumnDef<StationData> {
   group?: keyof Props["activeData"];
-  digits?: number;
 }
 
 export default function StationTable(props: Props) {
   const intl = useIntl();
   const [stationId, setStationId] = useStationId();
 
-  const columns: Column[] = [
+  function title(id: keyof StationData) {
+    return intl.formatMessage({
+      id: `measurements:table:header:${id}`
+    });
+  }
+
+  const columns: StationColumn[] = [
     {
       // Station (Betreiber) <br> Zeitstempel
-      data: "name",
+      id: "name",
+      title: title("name"),
       render: row => (
         <span>
           <strong>{row.name}</strong>{" "}
@@ -46,11 +46,11 @@ export default function StationTable(props: Props) {
           </span>
         </span>
       ),
-      sortable: true,
       className: "mb-station m-name"
     },
     {
-      data: "operator",
+      id: "operator",
+      title: title("operator"),
       render: row => (
         <a
           className="region"
@@ -64,7 +64,8 @@ export default function StationTable(props: Props) {
     },
     {
       // Regionsname <br> (Tirol)
-      data: "microRegion",
+      id: "microRegion",
+      title: title("microRegion"),
       render: row =>
         row.microRegion ? (
           <span className="region" title={row.microRegion}>
@@ -83,29 +84,25 @@ export default function StationTable(props: Props) {
     },
     {
       // Seehöhe [m]
-      data: "altitude",
-      render(row) {
-        return (
-          <span className={this.data} title={title(this.data)}>
-            {intl.formatNumberUnit(row[this.data], this.unit)}
-          </span>
-        );
-      },
-      unit: "m",
+      id: "altitude",
+      title: title("altitude"),
+      render: row => (
+        <span className="altitude" title={title("altitude")}>
+          {intl.formatNumberUnit(row.altitude, "m")}
+        </span>
+      ),
       className: "mb-snow m-altitude-1"
     },
     {
       // Schneehöhe [cm]
       group: "snow",
-      data: "HS",
-      render(row) {
-        return (
-          <span className={this.data} title={title(this.data)}>
-            {intl.formatNumberUnit(row[this.data], this.unit)}
-          </span>
-        );
-      },
-      unit: "cm",
+      id: "HS",
+      title: title("HS"),
+      render: row => (
+        <span className="HS" title={title("HS")}>
+          {intl.formatNumberUnit(row.HS, "cm")}
+        </span>
+      ),
       className: "mb-snow m-snowheight"
     },
     ...(
@@ -115,172 +112,117 @@ export default function StationTable(props: Props) {
         ["HSD_72", "PSUM_72"]
       ] as const
     ).map(
-      ([hsd, psum]): Column => ({
-        // 24h Differenz Schneehöhe <br> (24h Niederschlag)
-        // 48h Differenz Schneehöhe <br> (48h Niederschlag)
-        // 72h Differenz Schneehöhe <br> (72h Niederschlag)
+      ([hsd, psum]): StationColumn => ({
+        // 24h/48h/72h Differenz Schneehöhe <br> (24h/48h/72h Niederschlag)
         group: "snow",
-        data: hsd,
+        id: hsd,
+        title: title(hsd),
         subtitle: "(" + title(psum) + ")",
-        render(row) {
-          return (
-            <>
-              <span className={hsd} title={title(hsd)}>
-                {intl.formatNumberUnit(row[hsd], this.unit)}
+        render: row => (
+          <>
+            <span className={hsd} title={title(hsd)}>
+              {intl.formatNumberUnit(row[hsd], "cm")}
+            </span>
+            {isFinite(row[psum]) && (
+              <span className={psum} title={title(psum)}>
+                {"("}
+                {intl.formatNumberUnit(row[psum], "mm")}
+                {")"}
               </span>
-              {isFinite(row[psum]) && (
-                <span className={psum} title={title(psum)}>
-                  {"("}
-                  {intl.formatNumberUnit(row[psum], "mm")}
-                  {")"}
-                </span>
-              )}
-            </>
-          );
-        },
-        unit: "cm",
+            )}
+          </>
+        ),
         className: `mb-snow m-${hsd}`
       })
     ),
     {
       // <b>Temperatur jetzt</b> <br> (Temperatur min / Temperatur max)
       group: "temp",
-      data: "TA",
+      id: "TA",
+      title: title("TA"),
       subtitle: "(" + title("TA_MIN") + " / " + title("TA_MAX") + ")",
-      render(row) {
-        return (
-          <>
-            <span className="temp" title={title(this.data)}>
-              {intl.formatNumberUnit(row.TA, this.unit, 1)}
-            </span>
-            {isFinite(row.TA_MIN) && (
-              <span
-                className="TA_MIN_max"
-                title={title("TA_MIN") + " / " + title("TA_MAX")}
-              >
-                {"("}
-                <span className="TA_MIN">
-                  {intl.formatNumberUnit(row.TA_MIN, undefined, 1)}
-                </span>
-                <span className="TA_MAX">
-                  {intl.formatNumberUnit(row.TA_MAX, undefined, 1)}
-                </span>
-                {")"}
+      render: row => (
+        <>
+          <span className="temp" title={title("TA")}>
+            {intl.formatNumberUnit(row.TA, "℃", 1)}
+          </span>
+          {isFinite(row.TA_MIN) && (
+            <span
+              className="TA_MIN_max"
+              title={title("TA_MIN") + " / " + title("TA_MAX")}
+            >
+              {"("}
+              <span className="TA_MIN">
+                {intl.formatNumberUnit(row.TA_MIN, undefined, 1)}
               </span>
-            )}
-          </>
-        );
-      },
-      digits: 1,
-      unit: "℃",
+              <span className="TA_MAX">
+                {intl.formatNumberUnit(row.TA_MAX, undefined, 1)}
+              </span>
+              {")"}
+            </span>
+          )}
+        </>
+      ),
       className: "mb-temp m-ltnow"
     },
     {
       // Surface Temp.
       group: "temp",
-      data: "TSS",
-      render(row) {
-        return (
-          <>
-            <span className="TSS" title={title("TSS")}>
-              {intl.formatNumberUnit(row.TSS, this.unit)}
-            </span>
-          </>
-        );
-      },
-      unit: "℃",
+      id: "TSS",
+      title: title("TSS"),
+      render: row => (
+        <span className="TSS" title={title("TSS")}>
+          {intl.formatNumberUnit(row.TSS, "℃")}
+        </span>
+      ),
       className: "mb-temp"
     },
     {
       // Rel. humidity [%]
       group: "temp",
-      data: "RH",
-      render(row) {
-        return (
-          <>
-            <span className="RH" title={title("RH")}>
-              {intl.formatNumberUnit(row.RH, this.unit)}
-            </span>
-          </>
-        );
-      },
-      unit: "%",
+      id: "RH",
+      title: title("RH"),
+      render: row => (
+        <span className="RH" title={title("RH")}>
+          {intl.formatNumberUnit(row.RH, "%")}
+        </span>
+      ),
       className: "mb-temp"
     },
     {
       // Wind Geschw. / Wind Böe <br> (i18n Wind Richtung)
       group: "wind",
-      data: "VW",
+      id: "VW",
+      title: title("VW"),
       subtitle: "(" + title("DW") + ")",
-      render(row) {
-        return (
-          <>
-            <span className="VW" title={title("VW")}>
-              {intl.formatNumberUnit(row.VW, row.VW_MAX ? "" : this.unit)}
+      render: row => (
+        <>
+          <span className="VW" title={title("VW")}>
+            {intl.formatNumberUnit(row.VW, row.VW_MAX ? "" : "km/h")}
+          </span>
+          {row.VW_MAX && (
+            <span className="VW_MAX" title={title("VW_MAX")}>
+              {intl.formatNumberUnit(row.VW_MAX, "km/h")}
             </span>
-            {row.VW_MAX && (
-              <span className="VW_MAX" title={title("VW_MAX")}>
-                {intl.formatNumberUnit(row.VW_MAX, this.unit)}
-              </span>
-            )}
-            {row.aspectDW && (
-              <span className="DW" title={title("DW")}>
-                <FormattedMessage
-                  id={
-                    "bulletin:report:problem:aspect:" +
-                    row.aspectDW.toLowerCase()
-                  }
-                />
-              </span>
-            )}
-          </>
-        );
-      },
-      unit: "km/h",
+          )}
+          {row.aspectDW && (
+            <span className="DW" title={title("DW")}>
+              <FormattedMessage
+                id={
+                  "bulletin:report:problem:aspect:" + row.aspectDW.toLowerCase()
+                }
+              />
+            </span>
+          )}
+        </>
+      ),
       className: "mb-wind m-windspeed"
     }
   ];
+
   const displayColumns = columns.filter(
     c => !c.group || props.activeData[c.group]
   );
-
-  const sortClasses = (id: keyof StationData, dir: SortDir) => {
-    const cls: string[] = [];
-    if (dir == "asc") {
-      cls.push("sort-ascending");
-      cls.push("icon-up-open");
-    } else {
-      cls.push("sort-descending");
-      cls.push("icon-down-open");
-    }
-    if (props.sortValue == id && props.sortDir != dir) {
-      cls.push("sort-disabled");
-    }
-    return cls.join(" ");
-  };
-
-  const handleSort = (e: React.MouseEvent, col: Column, dir: SortDir) => {
-    e.preventDefault();
-    e.stopPropagation();
-    props.handleSort(
-      col.data,
-      props.sortValue == col.data ? (dir == "asc" ? "desc" : "asc") : dir
-    );
-  };
-
-  const sortTitle = (id: keyof StationData, dir: SortDir) =>
-    intl.formatMessage({
-      id:
-        props.sortValue == id
-          ? "measurements:table:sort-toggle"
-          : `measurements:table:sort-${dir}`
-    });
-
-  function title(id: keyof StationData) {
-    return intl.formatMessage({
-      id: `measurements:table:header:${id}`
-    });
-  }
 
   return (
     <>
@@ -291,91 +233,16 @@ export default function StationTable(props: Props) {
           setStationId={setStationId}
         />
       )}
-      <table className="pure-table pure-table-striped pure-table-small table-measurements">
-        <thead>
-          <StationTableHeaderRow
-            displayColumns={displayColumns}
-            handleSort={handleSort}
-            sortClasses={sortClasses}
-            sortTitle={sortTitle}
-            title={title}
-          />
-        </thead>
-
-        <tbody>
-          {props.sortedFilteredData.map((row: StationData) => (
-            <StationTableDataRow
-              displayColumns={displayColumns}
-              key={row.id}
-              row={row}
-              setStationId={setStationId}
-            />
-          ))}
-        </tbody>
-      </table>
+      <DataTable
+        columns={displayColumns}
+        rows={props.sortedFilteredData}
+        getRowKey={row => String(row.id)}
+        sortValue={props.sortValue}
+        sortDir={props.sortDir}
+        onSort={(id, dir) => props.handleSort(id as keyof StationData, dir)}
+        onRowClick={row => setStationId(String(row.id))}
+        tableClassName="table-measurements"
+      />
     </>
-  );
-}
-
-function StationTableHeaderRow({
-  displayColumns,
-  title,
-  sortTitle,
-  sortClasses,
-  handleSort
-}: {
-  displayColumns: Column[];
-  title: (id: keyof StationData) => string;
-  sortTitle: (id: keyof StationData, dir: SortDir) => string;
-  sortClasses: (id: keyof StationData, dir: SortDir) => string;
-  handleSort: (e: React.MouseEvent, col: Column, dir: SortDir) => void;
-}) {
-  return (
-    <tr>
-      {displayColumns.map(col => (
-        <th key={col.data}>
-          {title(col.data)}
-          {col.subtitle && <br />}
-          {col.subtitle ? col.subtitle : ""}
-          {col.sortable !== false && (
-            <span className="sort-buttons">
-              {(["asc", "desc"] as SortDir[]).map(dir => (
-                <Tooltip key={dir} label={sortTitle(col.data, dir)}>
-                  <a
-                    href="#"
-                    className={sortClasses(col.data, dir)}
-                    onClick={e => handleSort(e, col, dir)}
-                  >
-                    <span className="is-visually-hidden">
-                      {title(col.data)}: {sortTitle(col.data, dir)}
-                    </span>
-                  </a>
-                </Tooltip>
-              ))}
-            </span>
-          )}
-        </th>
-      ))}
-    </tr>
-  );
-}
-
-function StationTableDataRow({
-  row,
-  setStationId,
-  displayColumns
-}: {
-  row: StationData;
-  setStationId: (value: ((prevState: string) => string) | string) => void;
-  displayColumns: Column[];
-}) {
-  return (
-    <tr key={row.id} onClick={() => setStationId(row.id)}>
-      {displayColumns.map(col => (
-        <td key={row.id + "-" + col.data} className={col.className}>
-          {col.render(row)}
-        </td>
-      ))}
-    </tr>
   );
 }

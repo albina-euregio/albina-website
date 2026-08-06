@@ -4,7 +4,6 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite-plus";
-import { viteStaticCopy } from "vite-plugin-static-copy";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -42,10 +41,7 @@ Object.assign(process.env, {
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
-    alias: {
-      "leaflet.vectorgrid":
-        "leaflet.vectorgrid/dist/Leaflet.VectorGrid.bundled.js"
-    }
+    alias: {}
   },
   build: {
     rolldownOptions: {
@@ -73,19 +69,7 @@ export default defineConfig({
     }
   },
   envPrefix: ["APP_", "VITE_"],
-  plugins: [
-    viteStaticCopy({
-      targets: [
-        {
-          src: "node_modules/@eaws/pbf/**",
-          dest: "pbf",
-          rename: { stripBase: 3 }
-        }
-      ]
-    }),
-
-    react()
-  ],
+  plugins: [react()],
   server: {
     watch: {
       // Ignore pnpm store to prevent ELOOP errors in CI where store is inside project
@@ -93,6 +77,26 @@ export default defineConfig({
     },
     port: 3000,
     proxy: {
+      ...Object.fromEntries(
+        [
+          "/albina-basemap.pmtiles",
+          "/api",
+          "/bulletins",
+          "/eaws_bulletins",
+          "/eaws_weather_stations",
+          "/profiles-app",
+          "/simple"
+        ].map(path => [
+          path,
+          {
+            target:
+              process.env.APP_REGION === "DEV"
+                ? "https://dev.avalanche.report/"
+                : "https://avalanche.report/",
+            changeOrigin: true
+          }
+        ])
+      ),
       "/smet.hydrographie.info": {
         target: "https://smet.hydrographie.info/",
         changeOrigin: true,

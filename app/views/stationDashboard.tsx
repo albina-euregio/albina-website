@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useIntl } from "../i18n";
 import { useStationData } from "../stores/stationDataStore";
-import StationOverlay from "../components/station/station-overlay";
-import { LeafletMapOpenTopo } from "../components/leaflet/leaflet-map";
+import MapLibreMap, {
+  PinDisplayMode,
+  type MarkerItem
+} from "../components/station/station-map-maplibre";
 import HTMLHeader from "../components/organisms/html-header";
 import WeatherStationDialog, {
   useStationId
@@ -24,6 +26,7 @@ import { $router, redirectPageQuery } from "../components/router";
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
 import { useHiddenFooter } from "./useHiddenFooter.tsx";
+import { useFilterBarOffset } from "./useFilterBarOffset.ts";
 
 const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
 const DATE_TIME_INPUT_LENGTH = "2006-01-02T12".length;
@@ -99,9 +102,9 @@ export const observers: Feature[] = [...BeobachterAT, ...BeobachterIT].map(
       dataProviderID: "ALBINA",
       dataURLs: BeobachterAT.includes(observer)
         ? [
-            `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
-            `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
-            `https://api.avalanche.report/lawine/grafiken/smet/all/${observer.number}.smet.gz`
+            `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
+            `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
+            `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`
           ]
         : undefined,
       plot: `https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/${observer["plot.id"]}{year}.png?{t}`,
@@ -130,11 +133,8 @@ function StationDashboard() {
   const selectedDateTime = parseDateTimeSearchParam(dateTimeQuery);
   const setSelectedDateTime = (nextDateTime: string) =>
     redirectPageQuery({ dateTime: nextDateTime });
-  const [showMarkersWithoutValue, setShowMarkersWithoutValue] = useState(true);
   const [isFiltersExpanded, setIsFiltersExpanded] = useState(false);
-  const [filterHeight, setFilterHeight] = useState(0);
-  const [filterTop, setFilterTop] = useState(0);
-  const filterRef = useRef<HTMLElement | null>(null);
+  const { filterRef, offsetStyle, topStyle } = useFilterBarOffset();
 
   const {
     activeData,
@@ -186,91 +186,45 @@ function StationDashboard() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   });
 
-  useEffect(() => {
-    const filterElement = filterRef.current;
-    if (!filterElement || typeof ResizeObserver === "undefined") return;
-
-    const updateFilterHeight = () => {
-      const rect = filterElement.getBoundingClientRect();
-      setFilterHeight(rect.height);
-      // Measure actual position at scroll=0 so sticky threshold matches exactly
-      if (document.documentElement.scrollTop === 0) {
-        setFilterTop(rect.top);
-      }
-    };
-
-    updateFilterHeight();
-
-    const observer = new ResizeObserver(() => {
-      updateFilterHeight();
-    });
-
-    observer.observe(filterElement);
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  const currentParameterConfig =
-    AVAILABLE_PARAMETERS.find(p => p.id === selectedParameter) ||
-    AVAILABLE_PARAMETERS[0];
   const selectedRegion = config.stationRegions.includes(activeRegion)
     ? activeRegion
     : undefined;
 
   const normalizedSearch = (searchText || "").trim().toLowerCase();
-  const regionFilteredObservers = observers
-    .filter(
-      observer =>
-        !normalizedSearch ||
-        observer.properties.name.toLowerCase().includes(normalizedSearch)
-    )
-    .filter(
-      observer =>
-        !selectedRegion || observer.properties.microRegionID === selectedRegion
-    )
-    .filter(
-      observer =>
-        typeof observer.geometry?.coordinates?.[2] !== "number" ||
-        (observer.geometry.coordinates[2] >= elevationRange[0] &&
-          observer.geometry.coordinates[2] <= elevationRange[1])
-    );
-
-  const stationOverlay = (
-    <StationOverlay
-      key={`stations-${selectedParameter}-${activeRegion}-${normalizedSearch}`}
-      onMarkerSelected={id => void setStationId(id)}
-      itemId={selectedParameter}
-      item={{
-        id: selectedParameter,
-        colors: currentParameterConfig.colors,
-        thresholds: currentParameterConfig.thresholds,
-        units: currentParameterConfig.unit,
-        direction: currentParameterConfig.direction || false,
-        clusterOperation: "none"
-      }}
-      features={sortedFilteredData}
-      showMarkersWithoutValue={showMarkersWithoutValue}
-    />
+  const regionFilteredObservers = useMemo(
+    () =>
+      observers
+        .filter(
+          observer =>
+            !normalizedSearch ||
+            observer.properties.name.toLowerCase().includes(normalizedSearch)
+        )
+        .filter(
+          observer =>
+            !selectedRegion ||
+            observer.properties.microRegionID === selectedRegion
+        )
+        .filter(
+          observer =>
+            typeof observer.geometry?.coordinates?.[2] !== "number" ||
+            (observer.geometry.coordinates[2] >= elevationRange[0] &&
+              observer.geometry.coordinates[2] <= elevationRange[1])
+        ),
+    [normalizedSearch, selectedRegion, elevationRange]
   );
 
-  const observerOverlay = (
-    <StationOverlay
-      key={`observers-${activeRegion}-${normalizedSearch}`}
-      onMarkerSelected={id => void setStationId(id)}
-      itemId="any"
-      item={{
-        id: "name",
-        colors: { 1: [100, 100, 100] },
-        thresholds: [],
-        clusterOperation: "none"
-      }}
-      features={regionFilteredObservers}
-      showMarkersWithoutValue={showMarkersWithoutValue}
-    />
+  const currentParameterConfig =
+    AVAILABLE_PARAMETERS.find(p => p.id === selectedParameter) ||
+    AVAILABLE_PARAMETERS[0];
+  const mapItem = useMemo<MarkerItem>(
+    () => ({
+      colors: currentParameterConfig.colors,
+      thresholds: currentParameterConfig.thresholds,
+      unit: currentParameterConfig.unit,
+      direction: currentParameterConfig.direction || false
+    }),
+    [currentParameterConfig]
   );
-
-  const overlays = [stationOverlay, observerOverlay];
 
   const mapView = (
     <section id="section-weather-map" className="section section-weather-map">
@@ -279,19 +233,13 @@ function StationDashboard() {
         onParameterChange={setSelectedParameter}
       />
       <div className="section-map">
-        <LeafletMapOpenTopo
-          loaded={true}
-          gestureHandling={false}
-          controls={null}
-          enableStationPinsToggle={true}
-          showMarkersWithoutValue={showMarkersWithoutValue}
-          onToggleMarkersWithoutValue={nextValue => {
-            setShowMarkersWithoutValue(nextValue);
-          }}
-          onInit={e => {
-            e.invalidateSize();
-          }}
-          overlays={overlays}
+        <MapLibreMap
+          features={sortedFilteredData}
+          observers={regionFilteredObservers}
+          item={mapItem}
+          itemId={selectedParameter}
+          pinDisplayModes={[PinDisplayMode.All, PinDisplayMode.WithValue]}
+          onMarkerSelected={id => void setStationId(id)}
         />
       </div>
     </section>
@@ -301,11 +249,7 @@ function StationDashboard() {
     <section
       ref={filterRef}
       className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode}${isFiltersExpanded ? " is-expanded" : ""}`}
-      style={
-        {
-          "--station-dashboard-filter-top": `${filterTop}px`
-        } as React.CSSProperties
-      }
+      style={topStyle}
     >
       <div className="section-centered station-dashboard-filter__inner">
         <div className="station-dashboard-filter__bar">
@@ -474,12 +418,7 @@ function StationDashboard() {
 
       <div
         className={`station-dashboard-content station-dashboard-content--${viewMode}`}
-        style={
-          {
-            "--station-dashboard-filter-offset": `${filterHeight}px`,
-            "--station-dashboard-filter-top": `${filterTop}px`
-          } as React.CSSProperties
-        }
+        style={offsetStyle}
       >
         {viewMode === "map" && mapView}
         {viewMode === "table" && tableView}
@@ -487,12 +426,7 @@ function StationDashboard() {
       <button
         type="button"
         className="station-view-control"
-        style={
-          {
-            "--station-dashboard-filter-offset": `${filterHeight}px`,
-            "--station-dashboard-filter-top": `${filterTop}px`
-          } as React.CSSProperties
-        }
+        style={offsetStyle}
         onClick={() => setViewMode(viewMode === "map" ? "table" : "map")}
         title={intl.formatMessage({
           id: viewMode === "map" ? "stations:view:table" : "stations:view:map"

@@ -69,28 +69,44 @@
   "eawsRegionsExclude": [],
   "staticContentNamespace": [],
   "menu": [
-    { "url": "/bulletin" },
-    { "url": "/blog", "showNumberNewPosts": true },
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog",
+      "showNumberNewPosts": true
+    },
+    {
+      "url": "/incidents"
+    },
+    {
+      "url": "/profiles"
+    },
     {
       "url": "/weather",
       "children": [
-        { "url": "/weather/map/" },
-        { "url": "" },
-        { "url": "/weather/stations" },
-        { "url": "/weather/archive" },
-        { "url": "" },
         {
-          "key": "lawis:incident",
-          "url": "https://www.lawis.at/incident?lang=en",
-          "url:de": "https://www.lawis.at/incident?lang=de"
+          "url": "/weather/map/"
         },
         {
-          "key": "lawis:profile",
-          "url": "https://www.lawis.at/profile?lang=en",
-          "url:de": "https://www.lawis.at/profile?lang=de"
+          "url": ""
         },
-        { "key": "webcam", "url": "https://www.foto-webcam.eu" },
-        { "url": "" },
+        {
+          "url": "/weather/stations"
+        },
+        {
+          "url": "/weather/archive"
+        },
+        {
+          "url": ""
+        },
+        {
+          "key": "webcam",
+          "url": "https://www.foto-webcam.eu"
+        },
+        {
+          "url": ""
+        },
         {
           "key": "meteo-report",
           "url": "https://meteo.report/mountains/",
@@ -115,7 +131,9 @@
           "url": "/education/danger-patterns",
           "img": "/content_files/feature_danger-pattern.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "url": "/education/matrix",
           "img": "/content_files/feature_matrix.webp"
@@ -136,7 +154,9 @@
           "url": "/education/workflow",
           "img": "/content_files/feature_workflow.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "url": "/education/handbook",
           "img": "/content_files/feature_handbook.webp"
@@ -145,7 +165,9 @@
           "url": "/education/spatio-temporal-scale",
           "img": "/content_files/feature_spatio-temporal-scale.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "key": "glossary",
           "indexKey": "education:overview:glossary",
@@ -154,7 +176,9 @@
           "url:it": "https://www.avalanches.org/glossary/?lang=it",
           "img": "/content_files/feature_glossary.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "url": "/education/virtual-reality-project",
           "img": "/content_files/feature_vr.webp"
@@ -182,7 +206,9 @@
           "url": "/more/open-data",
           "img": "/content_files/feature_open_data.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "url": "/more/about",
           "img": "/content_files/feature_about.webp"
@@ -200,17 +226,41 @@
     }
   ],
   "menuFooter": [
-    { "url": "/more/imprint" },
-    { "url": "/more/privacy" },
-    { "url": "/more/accessibility" },
-    { "url": "/more/contact" }
+    {
+      "url": "/more/imprint"
+    },
+    {
+      "url": "/more/privacy"
+    },
+    {
+      "url": "/more/accessibility"
+    },
+    {
+      "url": "/more/contact"
+    }
   ],
   "menuFooterMain": [
-    { "url": "/bulletin" },
-    { "url": "/blog" },
-    { "url": "/weather", "showSub": true },
-    { "url": "/education", "showSub": true },
-    { "url": "/more", "showSub": true }
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog"
+    },
+    {
+      "url": "/incidents"
+    },
+    {
+      "url": "/weather",
+      "showSub": true
+    },
+    {
+      "url": "/education",
+      "showSub": true
+    },
+    {
+      "url": "/more",
+      "showSub": true
+    }
   ],
   "blogsMinYear": 2011,
   "blogs": [
@@ -339,132 +389,140 @@
     }
   },
   "apis": {
+    "baseUrl": "",
     "bulletin": {
-      "simple": "https://static.avalanche.report/simple/{date}/EUREGIO_{lang}.html",
-      "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
-      "map": "https://static.avalanche.report/bulletins/{date}/{publication}/{file}.webp",
-      "pdf": "https://api.avalanche.report/albina/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
-      "xml": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
-      "json": "https://static.avalanche.report/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
-      "jsonPublicationDate": "https://static.avalanche.report/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
-      "mp3": "https://static.avalanche.report/bulletins/{date}/{region}_{lang}.mp3",
-      "archive": "https://static.avalanche.report/bulletins/archive/"
+      "simple": "/simple/{date}/EUREGIO_{lang}.html",
+      "eaws": "/eaws_bulletins/{date}/{date}{region}.ratings.json",
+      "eawsProblems": "/eaws_bulletins/{date}/{date}.problems.json",
+      "map": "/bulletins/{date}/{publication}/{file}.webp",
+      "pdf": "/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
+      "xml": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
+      "json": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
+      "jsonPublicationDate": "/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
+      "mp3": "/bulletins/{date}/{region}_{lang}.mp3",
+      "archive": "/bulletins/archive/"
     },
-    "push": "https://api.avalanche.report/albina/api/push",
-    "subscribe": "https://api.avalanche.report/albina/api/email",
-    "blogger": "https://api.avalanche.report/blog/",
+    "push": "/api/push",
+    "subscribe": "/api/email",
+    "incidents": "/api/incidents",
+    "profiles": "/profiles-app/api",
+    "snobs": "https://static.avalanche.report/snobs.json",
+    "weatherOverlay": [
+      "https://static.avalanche.report/zamg_meteo/overlays/{domain}/",
+      "https://static.avalanche.report/zamg_meteo/overlays/{domain}/{year}/{date}/"
+    ],
     "linea": {
-      "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
-      "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"
-    },
-    "stations": [
-      {
-        "dataProviderID": "ALBINA",
-        "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe|BOKU|GeoSphere Austria",
-        "licenseCCBY": "LWD Tirol",
-        "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-        "pngOperators": "Firma Hella|Diverse|Esercito-Meteomont|Eurac Research",
-        "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{shortName}/{shortName}_{parameter}_{file}.csv",
-        "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
-      },
-      {
-        "dataProviderID": "AT-02",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "LWD Kärnten"
-      },
-      {
-        "dataProviderID": "IT-36",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "ARPA FVG"
-      },
-      {
-        "dataProviderID": "AT-05",
-        "smetOperators": "",
-        "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
-        "pngOperators": "LWD Salzburg.*",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "---"
-      },
-      {
-        "dataProviderID": "OEBB",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "---"
-      },
-      {
-        "dataProviderID": "AT-06",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "AT-03",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "AT-04",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "AT-08",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "DE-BY",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "SI",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": ""
-      },
-      {
-        "dataProviderID": "SLF",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "---"
-      },
-      {
-        "dataProviderID": "IT-34",
-        "smetOperators": "",
-        "png": "",
-        "pngOperators": "---",
-        "stationsArchiveFile": "",
-        "stationsArchiveOperators": "---"
-      }
-    ]
+      "stations": "/eaws_weather_stations/linea.geojson",
+      "stationsDateTime": "/eaws_weather_stations/{date}/{dateTime}_linea.geojson"
+    }
   },
+  "stations": [
+    {
+      "dataProviderID": "ALBINA",
+      "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe|BOKU|GeoSphere Austria",
+      "licenseCCBY": "LWD Tirol",
+      "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
+      "pngOperators": "Firma Hella|Diverse|Esercito-Meteomont|Eurac Research",
+      "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{shortName}/{shortName}_{parameter}_{file}.csv",
+      "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
+    },
+    {
+      "dataProviderID": "AT-02",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "LWD Kärnten"
+    },
+    {
+      "dataProviderID": "IT-36",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "ARPA FVG"
+    },
+    {
+      "dataProviderID": "AT-05",
+      "smetOperators": "",
+      "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
+      "pngOperators": "LWD Salzburg.*",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
+      "dataProviderID": "OEBB",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
+      "dataProviderID": "AT-06",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "AT-03",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "AT-04",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "AT-08",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "DE-BY",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "SI",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "SLF",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
+      "dataProviderID": "IT-34",
+      "smetOperators": "",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    }
+  ],
   "apiKeys": {
     "vapidPublicKey": "BIcUWrlcmeIOMajxtb2CPESjCXypy4AEuEFbGb73PcwWMQFEMXcQhcsTuyDfcAdr0uLBXBDMbJeKGm5XNLQu2WM",
     "google": "AIzaSyB3ntlnBwq6w7kgaRJcI18SQvosSncxogU"
@@ -537,7 +595,12 @@
       "username": "avalanche.report",
       "zoomLevel": null,
       "maxresults": 5,
-      "bbox": { "east": 13.2, "west": 9.5, "north": 48, "south": 45 },
+      "bbox": {
+        "east": 13.2,
+        "west": 9.5,
+        "north": 48,
+        "south": 45
+      },
       "className": "tooltip leaflet-geonames-icon",
       "workingClass": "leaflet-geonames-icon-working",
       "featureClasses": ["A", "H", "L", "P", "R", "T", "U", "V"],
@@ -548,70 +611,8 @@
       "alwaysOpen": false,
       "clearOnPopupClose": true,
       "enablePostalCodes": false
-    },
-    "regionStyling": {
-      "all": {
-        "color": "#aaaaaa",
-        "opacity": 1.0,
-        "weight": 1
-      },
-      "hidden": {
-        "stroke": false,
-        "fill": false,
-        "fillOpacity": 0.0
-      },
-      "clickable": {
-        "stroke": false,
-        "fill": true,
-        "fillColor": "black",
-        "fillOpacity": 0.0
-      },
-      "default": {
-        "fillOpacity": 0.0,
-        "fillColor": "white"
-      },
-      "dehighlighted": {
-        "fillColor": "white",
-        "fillOpacity": 0.75
-      },
-      "mouseOver": {
-        "stroke": true,
-        "weight": 2.0,
-        "color": "#555555"
-      },
-      "dimmed": {
-        "fillColor": "white",
-        "fillOpacity": 0.5
-      },
-      "selected": {
-        "stroke": true,
-        "weight": 2.0,
-        "color": "#555555",
-        "fillColor": "none"
-      },
-      "highlighted": {
-        "fillOpacity": 0.0,
-        "fillColor": "white"
-      },
-      "noData": {
-        "fillColor": "#19abff",
-        "fillOpacity": 0.5
-      },
-      "noDataMouseOver": {
-        "fillColor": "#19abff",
-        "fillOpacity": 0.75
-      },
-      "noDataGrey": {
-        "fillColor": "#888888",
-        "fillOpacity": 0.5
-      },
-      "noDataGreyMouseOver": {
-        "fillColor": "#888888",
-        "fillOpacity": 0.75
-      }
     }
   },
-
   "footer": {
     "icons": [
       {
@@ -635,10 +636,15 @@
     ],
     "iconsHidden": false
   },
-
   "archive": {
     "minYear": 1960,
     "maxResults": 31
+  },
+  "incidents": {
+    "minYear": 2015,
+    "minYearByRegion": {
+      "AT-07": 1992
+    }
   },
   "languageHostSettings": {
     "en": "avalanche.report",

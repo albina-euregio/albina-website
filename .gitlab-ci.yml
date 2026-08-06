@@ -16,8 +16,11 @@ workflow:
     - if: $CI_COMMIT_BRANCH
 
 .build:
-  image: node:24
+  image: node:26.4.0
   stage: build
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    GIT_SUBMODULE_FORCE_HTTPS: "true"
   cache:
     key:
       files:
@@ -25,8 +28,7 @@ workflow:
     paths:
       - .pnpm-store
   before_script:
-    - corepack enable
-    - corepack prepare pnpm@latest-10 --activate
+    - command -v pnpm || npm install --global pnpm@11.17.0
     - pnpm config set store-dir .pnpm-store
     - pnpm install --frozen-lockfile
   script:
@@ -135,7 +137,7 @@ deploy:www2:
 
 .playwright:
   stage: playwright
-  image: mcr.microsoft.com/playwright:v1.57.0
+  image: mcr.microsoft.com/playwright:v1.61.1
   artifacts:
     when: always
     paths:
@@ -144,8 +146,7 @@ deploy:www2:
     reports:
       junit: test-results/junit-results.xml
   before_script:
-    - corepack enable
-    - corepack prepare pnpm@latest-10 --activate
+    - command -v pnpm || npm install --global pnpm@11.17.0
     - pnpm config set store-dir .pnpm-store
     - pnpm install --frozen-lockfile
   script:

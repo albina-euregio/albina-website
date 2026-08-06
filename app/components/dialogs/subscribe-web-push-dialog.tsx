@@ -6,15 +6,8 @@ import { isWebPushSupported } from "../../util/isWebPushSupported";
 import { $province } from "../../appStore";
 import { useStore } from "@nanostores/react";
 
-import { z } from "zod/mini";
-
-const PushSubscriptionSchema = z.object({
-  endpoint: z.string(),
-  auth: z.string(),
-  p256dh: z.string(),
-  language: z.nullish(z.string().check(z.minLength(2))),
-  region: z.nullish(z.string().check(z.minLength(2)))
-});
+import * as v from "valibot";
+import { vPushSubscription } from "../../api/valibot.gen";
 
 function updatePushSubscription(
   subscription: PushSubscription,
@@ -29,7 +22,7 @@ function updatePushSubscription(
       "Content-Type": "application/json"
     },
     body: JSON.stringify(
-      PushSubscriptionSchema.parse({
+      v.parse(vPushSubscription, {
         endpoint: endpoint,
         auth: keys.auth,
         p256dh: keys.p256dh,

@@ -63,12 +63,13 @@ const config: PlaywrightTestConfig = {
       }
     },
 
-    {
-      name: "firefox",
-      use: {
-        ...devices["Desktop Firefox"]
-      }
-    },
+    // Firefox headless doesn't support WebGL, so we skip it for now.
+    // {
+    //   name: "firefox",
+    //   use: {
+    //     ...devices["Desktop Firefox"]
+    //   }
+    // },
 
     {
       name: "webkit",

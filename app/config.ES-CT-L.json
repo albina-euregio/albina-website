@@ -43,12 +43,19 @@
     "/terrain/class-terreny"
   ],
   "menu": [
-    { "url": "/bulletin" },
-    { "url": "/blog", "showNumberNewPosts": true },
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog",
+      "showNumberNewPosts": true
+    },
     {
       "url": "/conditions",
       "children": [
-        { "url": "/conditions/mapa" },
+        {
+          "url": "/conditions/mapa"
+        },
         {
           "key": "conditions:estacions",
           "indexKey": "conditions:estacions",
@@ -63,7 +70,9 @@
           "url:ca": "https://www.conselharan.org/ca/meteo",
           "url:es": "https://www.conselharan.org/es/meteo"
         },
-        { "url": "/conditions/pistes" },
+        {
+          "url": "/conditions/pistes"
+        },
         {
           "url": "/conditions/profiles",
           "indexKey": "conditions:profiles",
@@ -94,7 +103,9 @@
           "url": "/education/avalanche-problems",
           "img": "/content_files/feature_avalanche-problem.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "key": "eaws-matrix",
           "url": "/education/matrix",
@@ -116,7 +127,9 @@
           "url": "/education/workflow",
           "img": "/content_files/feature_workflow.webp"
         },
-        { "url": "" },
+        {
+          "url": ""
+        },
         {
           "url": "/education/handbook",
           "img": "/content_files/feature_handbook.webp"
@@ -125,9 +138,15 @@
           "url": "/education/spatio-temporal-scale",
           "img": "/content_files/feature_spatio-temporal-scale.webp"
         },
-        { "url": "" },
-        { "url": "/education/xarxa-observacions" },
-        { "url": "/education/bons-habits" },
+        {
+          "url": ""
+        },
+        {
+          "url": "/education/xarxa-observacions"
+        },
+        {
+          "url": "/education/bons-habits"
+        },
         {
           "key": "glossary",
           "indexKey": "education:overview:glossary",
@@ -139,7 +158,9 @@
           "url:it": "https://www.avalanches.org/glossary/?lang=it",
           "url:fr": "https://www.avalanches.org/glossary/?lang=fr"
         },
-        { "url": "/education/articles" }
+        {
+          "url": "/education/articles"
+        }
       ]
     },
     {
@@ -150,13 +171,19 @@
           "url": "/more/archive",
           "img": "/content_files/feature_archive.webp"
         },
-        { "url": "/more/about" },
-        { "url": "/more/albina-project" },
+        {
+          "url": "/more/about"
+        },
+        {
+          "url": "/more/albina-project"
+        },
         {
           "url": "/more/contact",
           "img": "/content_files/feature_contact.webp"
         },
-        { "url": "/more/legal" },
+        {
+          "url": "/more/legal"
+        },
         {
           "url": "/more/open-data",
           "img": "/content_files/feature_open_data.webp"
@@ -179,8 +206,12 @@
     }
   ],
   "menuFooterMain": [
-    { "url": "/bulletin" },
-    { "url": "/blog" },
+    {
+      "url": "/bulletin"
+    },
+    {
+      "url": "/blog"
+    },
     {
       "key": "weather",
       "url": "https://www.conselharan.org/meteo",
@@ -188,8 +219,14 @@
       "url:es": "https://www.conselharan.org/es/meteo",
       "showSub": true
     },
-    { "url": "/education", "showSub": true },
-    { "url": "/more", "showSub": true }
+    {
+      "url": "/education",
+      "showSub": true
+    },
+    {
+      "url": "/more",
+      "showSub": true
+    }
   ],
   "blogsMinYear": 2013,
   "blogs": [
@@ -242,7 +279,8 @@
   "apis": {
     "bulletin": {
       "simple": "https://static.lauegi.report/simple/{date}/ES-CT-L_{lang}.html",
-      "eaws": "https://static.lauegi.report/eaws_bulletins/{date}/{date}-{region}.ratings.json",
+      "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}{region}.ratings.json",
+      "eawsProblems": "https://static.avalanche.report/eaws_bulletins/{date}/{date}.problems.json",
       "map": "https://static.lauegi.report/albina_files_local/{date}/{publication}/{file}.webp",
       "pdf": "https://static.lauegi.report/albina_files_local/{date}/{date}_{region}{lang}{bw}.pdf",
       "xml": "https://static.lauegi.report/albina_files_local/{date}/{date}_{region}{lang}_CAAMLv6.xml",
@@ -263,20 +301,20 @@
       "stationsDateTime": "https://static.lauegi.report/weather_stations/{dateTime}stations.geojson",
       "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
       "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
-    },
-    "stations": [
-      {
-        "smet": "",
-        "smetOperators": "$^",
-        "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-        "pngOperators": ".*",
-        "stations": "https://static.lauegi.report/weather_stations/stations.geojson",
-        "stationsDateTime": "https://static.lauegi.report/weather_stations/{dateTime}stations.geojson",
-        "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
-        "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
-      }
-    ]
+    }
   },
+  "stations": [
+    {
+      "smet": "",
+      "smetOperators": "$^",
+      "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
+      "pngOperators": ".*",
+      "stations": "https://static.lauegi.report/weather_stations/stations.geojson",
+      "stationsDateTime": "https://static.lauegi.report/weather_stations/{dateTime}stations.geojson",
+      "stationsArchiveFile": "https://wiski.tirol.gv.at/lawine/produkte/ogd/{LWD-Nummer}/{LWD-Nummer}_{parameter}_{file}.csv",
+      "stationsArchiveOperators": "LWD Tirol|Südtirol - Alto Adige"
+    }
+  ],
   "apiKeys": {
     "vapidPublicKey": "BIcUWrlcmeIOMajxtb2CPESjCXypy4AEuEFbGb73PcwWMQFEMXcQhcsTuyDfcAdr0uLBXBDMbJeKGm5XNLQu2WM",
     "google": "AIzaSyCFRRKGXXxLMk4Iup6NPxQDFwudAw973dE"
@@ -482,51 +520,6 @@
       "alwaysOpen": false,
       "clearOnPopupClose": true,
       "enablePostalCodes": false
-    },
-    "regionStyling": {
-      "all": {
-        "color": "#aaaaaa",
-        "opacity": 1.0,
-        "weight": 1
-      },
-      "hidden": {
-        "stroke": false,
-        "fill": false,
-        "fillOpacity": 0.0
-      },
-      "clickable": {
-        "stroke": false,
-        "fill": true,
-        "fillColor": "black",
-        "fillOpacity": 0.0
-      },
-      "default": {
-        "fillOpacity": 0.0,
-        "fillColor": "white"
-      },
-      "dehighlighted": {
-        "fillColor": "white",
-        "fillOpacity": 0.75
-      },
-      "mouseOver": {
-        "stroke": true,
-        "weight": 2.0,
-        "color": "#555555"
-      },
-      "dimmed": {
-        "fillColor": "white",
-        "fillOpacity": 0.5
-      },
-      "selected": {
-        "stroke": true,
-        "weight": 2.0,
-        "color": "#555555",
-        "fillColor": "none"
-      },
-      "highlighted": {
-        "fillOpacity": 0.0,
-        "fillColor": "white"
-      }
     }
   },
   "archive": {

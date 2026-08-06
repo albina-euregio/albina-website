@@ -21,7 +21,8 @@ import {
   BulletinPhoto,
   hasDaytimeDependency,
   getDangerPatterns,
-  getBulletinPhotos
+  getBulletinPhotos,
+  getMaxMainValue
 } from "../../stores/bulletin";
 import { wordDiff } from "../../util/wordDiff";
 import { Tooltip } from "../tooltips/tooltip.tsx";
@@ -183,11 +184,7 @@ function BulletinReport({
     bulletin.publicationTime && bulletin170000?.publicationTime
   );
 
-  const maxWarnlevel = bulletin.dangerRatings
-    .map(r => r.mainValue)
-    .reduce((v1, v2) =>
-      getWarnlevelNumber(v1) > getWarnlevelNumber(v2) ? v1 : v2
-    );
+  const maxWarnlevel = getMaxMainValue(bulletin.dangerRatings);
   const classes =
     "panel field callout warning-level-" + getWarnlevelNumber(maxWarnlevel);
 

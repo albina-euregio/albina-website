@@ -2,7 +2,8 @@ import { clamp } from "../util/clamp";
 import { BlogConfig, BlogPostPreviewItem, Category } from "./blog";
 import { mappedCategoryName } from "./blog/blogConfig";
 import { atom, computed, onMount, StoreValue } from "nanostores";
-import { AvalancheProblemTypeSchema } from "./bulletin";
+import * as v from "valibot";
+import { vCaamlAvalancheProblemType } from "../api/valibot.gen";
 import { Language } from "../appStore";
 
 export const isTechBlog = atom<boolean>(false);
@@ -163,7 +164,7 @@ export function validateLanguage(
 }
 
 export function validateProblem(valueToValidate: string): string {
-  return AvalancheProblemTypeSchema.safeParse(valueToValidate).success
+  return v.safeParse(vCaamlAvalancheProblemType, valueToValidate).success
     ? valueToValidate
     : "all";
 }

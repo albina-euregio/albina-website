@@ -1,4 +1,5 @@
 import { atom, computed } from "nanostores";
+import { LngLatBounds, MercatorCoordinate, type LngLatLike } from "maplibre-gl";
 import {
   _loadStationData as loadStationData,
   type StationData
@@ -8,20 +9,10 @@ import { getDefaultTime, snapToSlot } from "./weatherMapSlots";
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 
 export const config = {
-  overlayURLs: [
-    "https://static.avalanche.report/zamg_meteo/overlays/{domain}/",
-    "https://static.avalanche.report/zamg_meteo/overlays/{domain}/{year}/{date}/"
-  ] satisfies [string, string],
   settings: {
     timeRange: ["-17520", "+72"],
-    mapOptionsOverride: {
-      maxZoom: 12,
-      minZoom: 7
-    },
-    bbox: [
-      [45.6167, 9.4],
-      [47.8167, 13.0333]
-    ],
+    // [sw, ne] as [lng, lat].
+    bbox: new LngLatBounds([9.4, 45.6167], [13.0333, 47.8167]),
     debugModus: false
   },
   domains: {
@@ -46,8 +37,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         metaFiles: {
           agl: "agl.ok",
@@ -82,8 +72,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: false,
-          grid: false
+          stations: false
         },
         metaFiles: {
           agl: "agl.ok",
@@ -133,8 +122,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_{domain}_{timespan}h_V2.gif" },
         dataOverlays: [
@@ -175,16 +163,11 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: false,
-          grid: false
+          stations: false
         },
         imageOverlay: { file: "{date}/{date}_00-00_REL.gif" },
         dataOverlays: [
-          {
-            file: "{date}/{date}_00-00_REL.png",
-            type: "snowHeight",
-            smooth: false
-          }
+          { file: "{date}/{date}_00-00_REL.png", type: "snowHeight" }
         ],
         direction: false,
         clusterOperation: "max",
@@ -243,8 +226,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: false,
-          grid: false
+          stations: false
         },
         imageOverlay: { file: "{date}_{time}_{domain}_V3.gif" },
         dataOverlays: [
@@ -284,8 +266,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_{domain}_V3.gif" },
         dataOverlays: [
@@ -319,8 +300,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_wind_V3.gif" },
         dataOverlays: [
@@ -358,8 +338,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_gust_V3.gif" },
         dataOverlays: [
@@ -398,8 +377,7 @@ export const config = {
         },
         layer: {
           overlay: true,
-          stations: true,
-          grid: false
+          stations: true
         },
         imageOverlay: { file: "{date}_{time}_wind700hpa.gif" },
         dataOverlays: [
@@ -433,7 +411,6 @@ type TimeSpans = Domain["item"]["timeSpans"];
 type TimeSpan = TimeSpans[number];
 
 export const stations = atom<StationData[]>([]);
-export const grid = atom([]);
 /*
  * returns the active domain id
  */
@@ -478,19 +455,26 @@ export const domain = computed(
  * returns domain
  */
 export const domainConfig = computed([domain], domain => domain?.item);
-export const dataOverlays = atom([]);
-
-interface DataOverlayCoordinates {
-  x: number;
-  y: number;
+/** A loaded data overlay image, sampled by `valueForPixel` at a coordinate. */
+export interface DataOverlay {
+  type: OverlayType;
+  valueForPixel(lngLat: LngLatLike): Promise<number | null>;
 }
+export const dataOverlays = atom<DataOverlay[]>([]);
 
-function getDomainOverlayBaseURLs(domain: DomainId | null): [string, string] {
-  if (!domain) return config.overlayURLs;
-  const cfg = config.domains[domain]?.item as
-    | { overlayURLs?: [string, string] }
+function getDomainOverlayBaseURLs(
+  domain: DomainId | null
+): [string, string] | null {
+  const cfg = domain
+    ? (config.domains[domain]?.item as
+        | { overlayURLs?: [string, string] }
+        | undefined)
+    : undefined;
+  if (cfg?.overlayURLs) return cfg.overlayURLs;
+  const urls = window.config.apis.weatherOverlay as
+    | [string, string]
     | undefined;
-  return cfg?.overlayURLs || config.overlayURLs;
+  return urls ?? null;
 }
 
 /**
@@ -516,15 +500,13 @@ function _updateDataOverlays() {
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = () => {
-        const canvas = new OffscreenCanvas(
-          img.naturalWidth * 2,
-          img.naturalHeight * 2
-        );
+        // Data PNGs encode values in their pixels, so draw them 1:1 with
+        // smoothing off: reads must return exact source pixels. Any scaling or
+        // interpolation blends neighbouring pixels and corrupts the encoding.
+        const canvas = new OffscreenCanvas(img.naturalWidth, img.naturalHeight);
         const ctx = canvas.getContext("2d", { willReadFrequently: true });
-        ctx.imageSmoothingEnabled =
-          (o as { smooth?: boolean }).smooth !== false;
-        if (ctx.imageSmoothingEnabled) ctx.imageSmoothingQuality = "high";
-        ctx.drawImage(img, 0, 0, img.naturalWidth * 2, img.naturalHeight * 2);
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(img, 0, 0);
         resolve(ctx);
       };
       img.onerror = e => {
@@ -539,19 +521,22 @@ function _updateDataOverlays() {
 
     return {
       ...o,
+      type: o.type as OverlayType,
       ctx,
-      async valueForPixel(
-        coordinates: DataOverlayCoordinates
-      ): Promise<number | null> {
+      async valueForPixel(lngLat: LngLatLike): Promise<number | null> {
         const resolvedCtx = await ctx;
         const w = resolvedCtx.canvas.width;
         const h = resolvedCtx.canvas.height;
-        const pixelX = Math.round(
-          Math.max(0, Math.min(1, coordinates.x)) * (w - 1)
-        );
-        const pixelY = Math.round(
-          Math.max(0, Math.min(1, coordinates.y)) * (h - 1)
-        );
+        // Normalized position within the bbox, in Web Mercator (linear in lng,
+        // non-linear in lat) — matching how the overlay images are projected.
+        const bbox = config.settings.bbox;
+        const sw = MercatorCoordinate.fromLngLat(bbox.getSouthWest());
+        const ne = MercatorCoordinate.fromLngLat(bbox.getNorthEast());
+        const p0 = MercatorCoordinate.fromLngLat(lngLat);
+        const fx = (p0.x - sw.x) / (ne.x - sw.x);
+        const fy = (p0.y - ne.y) / (sw.y - ne.y);
+        const pixelX = Math.round(Math.max(0, Math.min(1, fx)) * (w - 1));
+        const pixelY = Math.round(Math.max(0, Math.min(1, fy)) * (h - 1));
         const p = resolvedCtx.getImageData(pixelX, pixelY, 1, 1);
         return valueForPixel(o.type as OverlayType, {
           r: p.data[0],
@@ -581,7 +566,6 @@ let _loadIndexGeneration = 0;
 async function _loadIndexData() {
   const generation = ++_loadIndexGeneration;
   stations.set([]);
-  grid.set([]);
 
   if (!domainConfig.get()?.layer.stations) return;
   const currentTime0 = currentTime.get();
@@ -678,12 +662,12 @@ export async function initDomain(
 
   // 5. Fetch metadata only when domain or timeSpan actually changed
   if (needsMetadata) {
-    const baseUrl = getDomainOverlayBaseURLs(newDomain)[0];
+    const baseUrl = getDomainOverlayBaseURLs(newDomain)?.[0];
     const absSpan = Math.abs(
       parseInt(String(resolvedTimeSpan).replace("+-", ""), 10)
     );
 
-    if (!hasMetaFiles) {
+    if (!hasMetaFiles || !baseUrl) {
       const fallback = SIMULATE_START
         ? Temporal.Instant.from(SIMULATE_START)
         : Temporal.Now.zonedDateTimeISO()
@@ -845,6 +829,7 @@ function getOverlayURLs(
 ): [string, string] {
   if (!currentTime) return ["", ""];
   const baseUrls = getDomainOverlayBaseURLs(domain);
+  if (!baseUrls) return ["", ""];
   const effectiveTime =
     domain === "relative-snow"
       ? currentTime.subtract({ hours: 24 })

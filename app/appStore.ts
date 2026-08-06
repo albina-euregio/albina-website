@@ -1,16 +1,8 @@
 import { atom, computed } from "nanostores";
-import { z } from "zod/mini";
+import * as v from "valibot";
+import { vLanguageCode } from "./api/valibot.gen";
 
-export const LanguageSchema = z.enum([
-  "ca",
-  "en",
-  "de",
-  "es",
-  "fr",
-  "it",
-  "oc"
-]);
-export type Language = z.infer<typeof LanguageSchema>;
+export type Language = v.InferOutput<typeof vLanguageCode>;
 
 // i18n
 const translationImports = import.meta.glob("./i18n/*.json", {
@@ -30,7 +22,10 @@ export const $messages = atom(
 );
 
 async function loadMessages(newLanguage: Language) {
-  const [messages, regions] = await Promise.all([
+  const [fallbackMessages, messages, regions] = await Promise.all([
+    // en.json is the source of truth, the other locales are synced from
+    // Transifex and lag behind it — untranslated keys fall back to English.
+    translationImports["./i18n/en.json"](),
     translationImports[`./i18n/${newLanguage}.json`](),
     regionTranslationImports[
       `../node_modules/@eaws/micro-regions_names/${newLanguage}.json`
@@ -38,7 +33,7 @@ async function loadMessages(newLanguage: Language) {
   ]);
   const allMessages = Object.freeze(
     Object.assign(
-      { ...messages },
+      { ...fallbackMessages, ...messages },
       { "region:Kärnten": regions["AT-02"] }, // for StationTable
       { "region:Salzburg": regions["AT-05"] }, // for StationTable
       { "region:Vorarlberg": regions["AT-08"] }, // for StationTable

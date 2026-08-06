@@ -135,16 +135,26 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
   await page.getByRole("button", { name: "Close" }).click();
 });
 
-test("bulletin/2022-02-01 pdf", async ({ page }) => {
-  test.fixme();
+test("click on map + download pdf", async ({ page }) => {
   await page.goto("bulletin/2022-02-01");
-  const pagePromise = page.waitForEvent("popup");
-  await page.getByRole("link", { name: "PDF" }).first().click();
-  const pdfPage = await pagePromise;
-  await expect(pdfPage).toHaveURL(
-    "https://api.avalanche.report/albina/api/bulletins/0646104c-4d4c-4e4a-896b-ce3a45d0b61b/pdf?region=EUREGIO&lang=en&grayscale=false"
+
+  const map = page.getByLabel("Map").nth(1);
+  const pdfLink = page.getByRole("link", { name: "PDF" }).first();
+  await expect(async () => {
+    await map.click({ position: { x: 671, y: 91 } });
+    await expect(pdfLink).toHaveAttribute("href", /microRegionId=AT-07-16/);
+  }).toPass();
+
+  const pdfUrl = await pdfLink.getAttribute("href");
+  expect(pdfUrl).toContain(
+    "/api/bulletins/pdf?date=2022-01-31T23:00:00.000Z&region=EUREGIO&microRegionId=AT-07-16&lang=en&grayscale=false"
   );
-  await pdfPage.close();
+
+  // Verify the link actually serves a non-empty PDF, not a dead URL.
+  const pdfResponse = await page.request.get(pdfUrl ?? "");
+  expect(pdfResponse.status()).toBe(200);
+  expect(pdfResponse.headers()["content-type"]).toContain("application/pdf");
+  expect((await pdfResponse.body()).byteLength).toBeGreaterThan(0);
 });
 
 test("bulletin/2022-02-01 headless", async ({ page }) => {

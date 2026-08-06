@@ -11,7 +11,7 @@ declare global {
     categoryNameMap: Record<string, string>;
   };
 
-  declare let config: Config;
+  let config: Config;
 
   interface Window {
     config: Config;

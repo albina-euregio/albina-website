@@ -10,41 +10,42 @@ import {
   toAmPm,
   ValidTimePeriod
 } from ".";
+import * as v from "valibot";
 import { $extraRegions, $focusRegions } from "../../appStore";
 import { eawsRegion } from "../eawsRegions";
 import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
-import { getWarnlevelNumber, WarnLevelNumber } from "../../util/warn-levels";
-import { atom } from "nanostores";
+import {
+  getDangerRatingValue,
+  getWarnlevelNumber,
+  WarnLevelNumber
+} from "../../util/warn-levels";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
 type RegionID = string;
 type LowHigh = "low" | "high";
 type ColonLowHigh = "" | `:${LowHigh}`;
+type RegionLowHighAmPm = `${RegionID}${ColonLowHigh}${ColonAmPm}`;
 
-export type MaxDangerRatings = Record<
-  `${RegionID}${ColonLowHigh}${ColonAmPm}`,
-  WarnLevelNumber
->;
+export type MaxWarnLevels = Record<RegionLowHighAmPm, WarnLevelNumber>;
+export type MaxDangerRatings = Record<RegionLowHighAmPm, DangerRatingValue>;
 
 export type EawsAvalancheProblems = Record<
-  `${RegionID}${ColonLowHigh}${ColonAmPm}`,
+  RegionLowHighAmPm,
   AvalancheProblemType[]
 >;
 
-export const isOneDangerRating = atom(
-  new URL(document.location.href).searchParams.get("one-danger-rating") === "1"
-);
-
 export function getMaxMainValue(
-  dangerRatings: DangerRating[] = []
+  dangerRatings: DangerRating[] | DangerRatingValue[] = []
 ): DangerRatingValue {
-  return dangerRatings.reduce(
-    (a, b): DangerRatingValue =>
-      getWarnlevelNumber(a) > getWarnlevelNumber(b.mainValue) ? a : b.mainValue,
-    "low" as DangerRatingValue
-  );
+  return dangerRatings
+    .map(r => (typeof r === "object" ? r.mainValue : r))
+    .reduce(
+      (a, b): DangerRatingValue =>
+        getWarnlevelNumber(a) > getWarnlevelNumber(b) ? a : b,
+      "low" as DangerRatingValue
+    );
 }
 
 /**
@@ -103,7 +104,7 @@ class BulletinCollection {
 
   private async fetchFromURL(url: string): Promise<Bulletins> {
     const response = await fetchJSON<unknown>(url, { cache: "no-cache" });
-    return await BulletinsSchema.parseAsync(response);
+    return await v.parseAsync(BulletinsSchema, response);
   }
 
   private async fetchAndMergeRegions(
@@ -204,15 +205,6 @@ class BulletinCollection {
           try {
             let url0 = aws.url["api:date"];
             if (!url0?.endsWith("CAAMLv6.json")) return;
-            if (
-              import.meta.env.APP_REGION === "DEV" &&
-              url0.startsWith("https://static.avalanche.report/bulletins/")
-            ) {
-              url0 = url0.replace(
-                "https://static.avalanche.report/bulletins/",
-                "https://dev.avalanche.report/bulletins/"
-              );
-            }
             let data: Bulletins;
             let url: string;
             try {
@@ -279,19 +271,22 @@ class BulletinCollection {
       return;
     }
     try {
-      const url =
-        config.eawsRegions.length === 1 // this.date < "2023-11-01"
-          ? `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}-${config.eawsRegions[0]}.ratings.json`
-          : `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}.ratings.json`;
+      const url = config.template(config.apis.bulletin.eaws, {
+        date: this.date,
+        region:
+          config.eawsRegions.length === 1 // this.date < "2023-11-01"
+            ? `-${config.eawsRegions[0]}`
+            : ""
+      });
       const { maxDangerRatings } = await fetchJSON<{
-        maxDangerRatings: MaxDangerRatings;
+        maxDangerRatings: MaxWarnLevels;
       }>(url, {
         cache: "no-cache"
       });
       this.eawsMaxDangerRatings = Object.fromEntries(
-        Object.entries(maxDangerRatings).filter(([r]) =>
-          config.eawsRegionsRegex.test(r)
-        )
+        Object.entries(maxDangerRatings)
+          .filter(([r]) => config.eawsRegionsRegex.test(r))
+          .map(([r, v]) => [r, getDangerRatingValue(v)])
       );
     } catch (error) {
       console.warn(`Cannot load EAWS bulletins for date ${this.date}`, error);
@@ -304,7 +299,9 @@ class BulletinCollection {
       return;
     }
     try {
-      const url = `https://static.avalanche.report/eaws_bulletins/${this.date}/${this.date}.problems.json`;
+      const url = config.template(config.apis.bulletin.eawsProblems, {
+        date: this.date
+      });
       const { avalancheProblems } = await fetchJSON<{
         avalancheProblems: EawsAvalancheProblems;
       }>(url, {
@@ -353,9 +350,7 @@ class BulletinCollection {
   }
 
   private upgradeLegacyCAAML(b: Bulletin) {
-    if (isOneDangerRating.get()) {
-      b.dangerRatings?.forEach(b => (b.elevation = undefined));
-    }
+    b.dangerRatings?.forEach(b => (b.elevation = undefined));
     b.avalancheProblems?.forEach(p => {
       if (p.problemType === ("wind_drifted_snow" as string)) {
         p.problemType = "wind_slab" as AvalancheProblemType;
@@ -369,18 +364,17 @@ class BulletinCollection {
         (b.regions ?? []).flatMap(({ regionID }) =>
           (["all_day", "earlier", "later"] as ValidTimePeriod[]).flatMap(
             validTimePeriod => [
-              ...[
-                isOneDangerRating.get()
-                  ? [
-                      `${regionID}${toAmPm[validTimePeriod]}`,
-                      this.getWarnLevel(regionID, validTimePeriod, b, undefined)
-                    ]
-                  : []
-              ],
-              ...(["low", "high"] as const).map(elevation => [
-                `${regionID}:${elevation}${toAmPm[validTimePeriod]}`,
-                this.getWarnLevel(regionID, validTimePeriod, b, elevation)
-              ])
+              [
+                `${regionID}${toAmPm[validTimePeriod]}`,
+                this.mainValue(regionID, validTimePeriod, b, undefined)
+              ] satisfies [RegionLowHighAmPm, DangerRatingValue],
+              ...(["low", "high"] as const).map(
+                elevation =>
+                  [
+                    `${regionID}:${elevation}${toAmPm[validTimePeriod]}`,
+                    this.mainValue(regionID, validTimePeriod, b, elevation)
+                  ] satisfies [RegionLowHighAmPm, DangerRatingValue]
+              )
             ]
           )
         )
@@ -388,16 +382,14 @@ class BulletinCollection {
     );
   }
 
-  private getWarnLevel(
+  private mainValue(
     regionID: string,
     validTimePeriod: ValidTimePeriod,
     b: Bulletin,
     elevation: LowHigh | undefined
-  ): WarnLevelNumber {
+  ): DangerRatingValue {
     const dangerRatings = this.dangerRatings(validTimePeriod, b, elevation);
-    const warnlevel = dangerRatings
-      .map(danger => getWarnlevelNumber(danger.mainValue))
-      .reduce((w1, w2) => Math.max(w1, w2) as WarnLevelNumber, 0);
+    const mainValue = getMaxMainValue(dangerRatings);
 
     if (elevation === "high") {
       // take "low" when lowerBound exceeds region threshold
@@ -409,11 +401,11 @@ class BulletinCollection {
           .map(e => e.elevation?.lowerBound)
           .some(bound => +bound > threshold)
       ) {
-        return this.getWarnLevel(regionID, validTimePeriod, b, "low");
+        return this.mainValue(regionID, validTimePeriod, b, "low");
       }
     }
 
-    return warnlevel;
+    return mainValue;
   }
 
   private dangerRatings(

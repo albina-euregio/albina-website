@@ -138,6 +138,7 @@ const Timeline = () => {
         clearInterval(intervalId);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerIsActive]);
 
   useEffect(() => {
@@ -165,12 +166,14 @@ const Timeline = () => {
       );
       setRulerEndDay(Math.min(maxEndDay + rulerPadding, targetDay + daysBuild));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeSpanInt, targetDate, showBar, maxEndDay]);
 
   useEffect(() => {
     if (markersReady.current) {
       calcIndicatorOffset();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [markerPosition]);
 
   // After ruler markers are (re-)rendered, snap the ruler to the current date.
@@ -180,6 +183,7 @@ const Timeline = () => {
       markersReady.current = true;
       snapToDate(targetDate);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]);
 
   useEffect(() => {
@@ -384,6 +388,7 @@ const Timeline = () => {
         <span className="cp-scale-forecast">{markingsForecast}</span>
       </div>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]);
 
   const updateTimelinePosition = (newTranslateX: number, snap: boolean) => {

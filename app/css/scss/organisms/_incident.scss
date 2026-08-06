@@ -1,0 +1,216 @@
+@use "../abstracts/variables";
+
+.incident-details {
+  // Keep long content readable and away from the dialog edges. The outer
+  // padding comes from the shared `.modal-container`; this caps line length.
+  max-width: 60rem;
+  margin: 0 auto;
+  padding-top: 1.25rem;
+
+  .incident-details-header {
+    h2 {
+      margin-bottom: (variables.$padding * 0.75);
+    }
+  }
+
+  // The lede now sits below the opening facts table (date, involvement, …) as a
+  // short intro to the rich-text descriptions that follow it.
+  .incident-details-lede {
+    margin-bottom: (variables.$margin-bottom * 1.5);
+    color: variables.$grey-dark;
+    font-size: variables.$medium-font-size;
+  }
+
+  .incident-details-section {
+    margin-bottom: (variables.$margin-bottom * 1.5);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    h3 {
+      margin-bottom: variables.$padding;
+      font-size: variables.$medium-font-size;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    // Give the label/value rows room to breathe and align them to the top so
+    // multi-line values stay tidy next to their label.
+    th,
+    td {
+      padding: (variables.$padding * 0.6) variables.$padding;
+      vertical-align: top;
+    }
+
+    th {
+      width: 34%;
+      text-align: left;
+      font-size: variables.$tiny-font-size;
+    }
+
+    td {
+      color: variables.$text-color;
+    }
+
+    p {
+      margin-bottom: variables.$padding;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .incident-details-problems {
+    // The shared picto list gives the first row's first cell a divider
+    // (padding-right + border-right) for the bulletin-report layout. It looks
+    // out of place on a single problem here, so drop it.
+    li:first-child > div:first-child {
+      padding-right: 0;
+      border-right: none;
+    }
+  }
+
+  .incident-details-richtext {
+    line-height: 1.6;
+  }
+
+  .incident-details-map {
+    // Undo the site-wide vertical (rotated, no-wrap) attribution so the compact
+    // "ⓘ" panel reads horizontally and wraps to the next line within the map.
+    .maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib {
+      transform: none;
+      white-space: normal;
+      max-width: calc(100% - #{variables.$padding * 2});
+    }
+  }
+
+  .incident-details-attachments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: (variables.$padding * 2);
+    margin-top: variables.$padding;
+
+    .incident-details-attachment {
+      max-width: 16rem;
+      margin: 0;
+
+      img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 0;
+      }
+
+      figcaption {
+        margin-top: (variables.$padding * 0.5);
+        font-size: 0.85em;
+        text-align: center;
+
+        .credit {
+          color: variables.$grey-light;
+        }
+      }
+    }
+  }
+}
+
+.incident-details-danger-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+
+  img {
+    display: block;
+    margin: 0;
+    height: 2.5em;
+    width: auto;
+    aspect-ratio: 2268 / 1664;
+  }
+}
+
+// Marker colors of the dashboard map, keyed by person involvement.
+// Reuse accessible colors from snow profile palette.
+:root {
+  --incident-involvement-fatal: #a6611a;
+  --incident-involvement-injured: #dfc27d;
+  --incident-involvement-involved: #018571;
+  --incident-involvement-uninvolved: #80cdc1;
+  --incident-involvement-unknown: #f5f5f5;
+}
+
+.incident-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .incident-map__canvas {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// The marker's hover tooltip. A MapLibre popup, hence outside `.incident-map`.
+.maplibre-incident-tooltip {
+  .maplibregl-popup-content {
+    padding: 0.5em 1.1em 0.5em 0;
+  }
+
+  .incident-tooltip__facts {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      margin: 0;
+      // Each fact is a short single line; keep it from wrapping so the popup
+      // (maxWidth: "none") sizes to content instead of breaking e.g. "Event
+      // involving persons" across two lines.
+      white-space: nowrap;
+    }
+  }
+
+  // One icon column for the fontello glyphs and the inline person SVG alike.
+  [class^="icon-"],
+  .incident-tooltip__person-icon {
+    flex: 0 0 2em;
+    color: variables.$grey-dark;
+    text-align: center;
+  }
+
+  [class^="icon-"]:before {
+    margin: 0;
+    font-size: 2em;
+    line-height: 1;
+  }
+
+  .icon-location:before {
+    font-size: 1em;
+  }
+
+  .incident-tooltip__person-icon svg {
+    height: 1.4em;
+    width: auto;
+    fill: currentColor;
+    stroke: variables.$black;
+    stroke-width: 1px;
+    vertical-align: middle;
+  }
+
+  .incident-tooltip__danger-icon {
+    flex: 0 0 auto;
+
+    img {
+      display: block;
+      margin: 0;
+      height: 2em;
+      width: auto;
+      aspect-ratio: 2268 / 1664;
+    }
+  }
+}

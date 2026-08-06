@@ -1,26 +1,13 @@
 catalog:
-  vite: npm:@voidzero-dev/vite-plus-core@latest
-  vite-plus: ^0.1.19
-  vitest: npm:@voidzero-dev/vite-plus-test@latest
+  vite: npm:@voidzero-dev/vite-plus-core@0.2.5
+  vite-plus: 0.2.5
 ignoredOptionalDependencies:
   - "@parcel/watcher"
   - fsevents
 overrides:
   vite: 'catalog:'
-  vitest: 'catalog:'
-
-patchedDependencies:
-  "@react-leaflet/core": patches/react-leaflet-core.patch
-  leaflet: patches/leaflet.patch
-  leaflet-geonames: patches/leaflet-geonames.patch
-  leaflet-gesture-handling: patches/leaflet-gesture-handling.patch
-  leaflet.locatecontrol: patches/leaflet.locatecontrol.patch
-  leaflet.sync: patches/leaflet.sync.patch
-  leaflet.vectorgrid: patches/leaflet.vectorgrid.patch
 peerDependencyRules:
   allowAny:
     - vite
-    - vitest
   allowedVersions:
     vite: '*'
-    vitest: '*'

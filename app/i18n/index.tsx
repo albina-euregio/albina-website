@@ -114,11 +114,12 @@ export function useIntl() {
       | Record<string, React.ReactElement>
       | undefined = undefined
   ): string | ReactNode[] {
+    const message = t[id];
     return typeof values !== "object"
-      ? t[id]
+      ? message
       : Object.values(values).some(v => typeof v === "object")
-        ? reactStringReplace(t[id], templateRe, match => values[match])
-        : t[id].replace(templateRe, (_, match) => values[match]);
+        ? reactStringReplace(message, templateRe, match => values[match])
+        : message.replace(templateRe, (_, match) => values[match]);
   }
 
   return {
@@ -154,7 +155,7 @@ export const FormattedMessage = ({
   html
 }: FormattedMessageProps) => {
   const t = useStore($messages);
-  let message = t[id] ?? id;
+  let message = t[id];
   if (typeof values !== "object") {
     return <>{message}</>;
   } else if (html) {
@@ -167,7 +168,7 @@ export const FormattedMessage = ({
       }
     });
   } else {
-    return reactStringReplace(t[id], templateRe, match => values[match]);
+    return reactStringReplace(message, templateRe, match => values[match]);
   }
 };
 

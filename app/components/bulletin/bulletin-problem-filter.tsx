@@ -1,6 +1,6 @@
 import React from "react";
 import BulletinProblemFilterItem from "./bulletin-problem-filter-item.jsx";
-import { AvalancheProblemType } from "../../stores/bulletin/CAAMLv6.js";
+import { AvalancheProblemType } from "../../stores/bulletin";
 
 interface Props {
   handleSelectRegion: (id?: string) => void;

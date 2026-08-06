@@ -17,12 +17,14 @@ const Dragger = ({
   useEffect(() => {
     if (!dragging && coordinates.x && draggableRef.current)
       setCurrentX(coordinates.x);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates]);
 
   useEffect(() => {
     if (!dragging && dragging != null) {
       if (onDragEnd) onDragEnd(currentX, currentY);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dragging]);
 
   const onDragStart = (event, getXInit, getYInit, getXOnMove, getYOnMove) => {

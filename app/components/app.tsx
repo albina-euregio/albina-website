@@ -17,9 +17,14 @@ const Bulletin = React.lazy(() => import("../views/bulletin"));
 const BlogPostList = React.lazy(() => import("../views/blogPostList"));
 const BlogPost = React.lazy(() => import("../views/blogPost"));
 const Weather = React.lazy(() => import("../views/weather"));
+const IncidentDashboard = React.lazy(
+  () => import("../views/incidentDashboard")
+);
 const StationDashboard = React.lazy(() => import("../views/stationDashboard"));
+const SnowProfileDashboard = React.lazy(
+  () => import("../views/profileDashboard.js")
+);
 const StationArchive = React.lazy(() => import("../views/stationArchive"));
-const SnowProfileMap = React.lazy(() => import("../views/snowProfileMap"));
 const StaticPageLinkbox = React.lazy(
   () => import("../views/staticPageLinkbox")
 );
@@ -94,6 +99,10 @@ const App = () => {
       case "bulletinDate":
       case "bulletinLatest":
         return <Bulletin />;
+      case "incidents":
+        return <IncidentDashboard />;
+      case "snowProfiles":
+        return <SnowProfileDashboard />;
       case "weather":
         redirectPage($router, "weatherMap");
         break;
@@ -106,8 +115,6 @@ const App = () => {
         return <StationDashboard />;
       case "weatherArchive":
         return <StationArchive />;
-      case "weatherSnowProfiles":
-        return <SnowProfileMap />;
       case "conditionsProfiles":
         return <BlogPostList isTechBlog={false} isProfileBlog={true} />;
       case "conditions":
