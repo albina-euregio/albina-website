@@ -1,21 +1,44 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useStore } from "@nanostores/react";
+import * as v from "valibot";
+import {
+  vExportProfilesResponse,
+  vProfileListItem,
+  vStability
+} from "../api-profiles/valibot.gen";
 import { $router, redirectPageQuery } from "../components/router";
 import { fetchJSON } from "../util/fetch";
 
 const DEFAULT_RANGE_DAYS = 30;
 
-interface RawSnowProfile {
-  id: string;
-  dateTime?: string;
-  latitude?: number;
-  longitude?: number;
-  region?: string;
-  regionId?: string;
-  location?: string;
-  elevation?: number;
-  snowHeight?: number;
+export const SNOW_PROFILE_STABILITIES = vStability.options;
+
+export type SnowProfileStability = v.InferOutput<typeof vStability>;
+
+/**
+ * Ranks a stability so the least stable draws on top of the map / sorts first.
+ * "No test" carries no assessment and ranks below all graded profiles.
+ */
+const STABILITY_SEVERITY: Record<SnowProfileStability, number> = {
+  "very-poor": 4,
+  poor: 3,
+  fair: 2,
+  good: 1,
+  "no-test": 0
+};
+
+export function snowProfileStabilitySeverity(
+  stability: SnowProfileStability
+): number {
+  return STABILITY_SEVERITY[stability];
 }
+
+/** i18n message id for a stability's human label. */
+export function stabilityLabelId(stability: SnowProfileStability): MessageId {
+  return `profiles:stability:${stability}` as MessageId;
+}
+
+type RawSnowProfile = v.InferOutput<typeof vProfileListItem>;
 
 export class SnowProfileData {
   readonly id: string;
@@ -30,12 +53,20 @@ export class SnowProfileData {
     return this.raw.location ?? "";
   }
 
+  get elevation(): number | undefined {
+    return this.raw.elevation;
+  }
+
+  get aspect(): string | undefined {
+    return this.raw.aspect;
+  }
+
   get lat(): number | undefined {
-    return this.raw.latitude;
+    return this.raw.latitude ?? undefined;
   }
 
   get lon(): number | undefined {
-    return this.raw.longitude;
+    return this.raw.longitude ?? undefined;
   }
 
   get hasLocation(): boolean {
@@ -44,6 +75,11 @@ export class SnowProfileData {
 
   get dateTime(): Date | undefined {
     return this.raw.dateTime ? new Date(this.raw.dateTime) : undefined;
+  }
+
+  get stability(): SnowProfileStability | undefined {
+    // Already validated against the schema's picklist by `v.parse` on fetch.
+    return this.raw.stability;
   }
 
   /** Macro-region code (config.regionCodes) derived from lawis' hierarchical regionId. */
@@ -75,7 +111,7 @@ async function fetchSnowProfiles(
 ): Promise<SnowProfileData[]> {
   const url = `${config.apis.profiles}/profiles/export?format=json&dateFrom=${encodeURIComponent(dateFrom)}&dateTo=${encodeURIComponent(dateTo)}`;
   try {
-    const raw = await fetchJSON<RawSnowProfile[]>(url);
+    const raw = v.parse(vExportProfilesResponse, await fetchJSON(url));
     return raw.map(r => new SnowProfileData(r));
   } catch (e) {
     console.error("Failed fetching snow profiles", e);
@@ -83,8 +119,19 @@ async function fetchSnowProfiles(
   }
 }
 
-type SortableField = "location" | "dateTime" | "region";
+export type SortableField = "location" | "dateTime" | "region" | "stability";
 type SortDir = "asc" | "desc";
+
+/**
+ * Per-column value accessors for fields that must sort by meaning rather than
+ * alphabetically. Stability sorts by severity (least stable first).
+ */
+const SORT_ACCESSORS: Partial<
+  Record<SortableField, (r: SnowProfileData) => unknown>
+> = {
+  stability: r =>
+    r.stability ? -snowProfileStabilitySeverity(r.stability) : undefined
+};
 
 function compareSnowProfileData(
   a: SnowProfileData,
@@ -93,12 +140,17 @@ function compareSnowProfileData(
   sortDir: SortDir
 ): number {
   const order = sortDir === "asc" ? [-1, 1] : [1, -1];
-  const va = a[sortValue];
-  const vb = b[sortValue];
+  const accessor =
+    SORT_ACCESSORS[sortValue] ?? ((r: SnowProfileData) => r[sortValue]);
+  const va = accessor(a);
+  const vb = accessor(b);
   if (va === vb) return 0;
   if (va === undefined) return order[1];
   if (vb === undefined) return order[0];
   if (va instanceof Date && vb instanceof Date) {
+    return va < vb ? order[0] : order[1];
+  }
+  if (typeof va === "number" && typeof vb === "number") {
     return va < vb ? order[0] : order[1];
   }
   return String(va) < String(vb) ? order[0] : order[1];

@@ -1,10 +1,13 @@
 import React, { type ReactNode } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
-import type { SnowProfileData } from "../../stores/profileDataStore";
+import {
+  stabilityLabelId,
+  type SnowProfileData
+} from "../../stores/profileDataStore";
 import DataTable, { type ColumnDef, type SortDir } from "../table/data-table";
 
-type SortableField = "location" | "dateTime" | "region";
+type SortableField = "location" | "dateTime" | "region" | "stability";
 
 interface Props {
   sortedFilteredData: SnowProfileData[];
@@ -38,6 +41,32 @@ export default function SnowProfileTable(props: Props) {
       }),
       render: (row): ReactNode =>
         row.region ? <FormattedMessage id={`region:${row.region}`} /> : ""
+    },
+    {
+      id: "elevation",
+      title: intl.formatMessage({ id: "measurements:table:header:altitude" }),
+      render: row =>
+        row.elevation != null ? intl.formatNumberUnit(row.elevation, "m") : ""
+    },
+    {
+      id: "aspect",
+      title: intl.formatMessage({ id: "measurements:table:header:aspect" }),
+      render: row => row.aspect ?? ""
+    },
+    {
+      id: "stability",
+      title: intl.formatMessage({ id: "profiles:table:header:stability" }),
+      className: "table-profiles__stability",
+      render: (row): ReactNode =>
+        row.stability ? (
+          <span
+            className={`snowprofile-stability-badge snowprofile-stability-badge--${row.stability}`}
+          >
+            {intl.formatMessage({ id: stabilityLabelId(row.stability) })}
+          </span>
+        ) : (
+          ""
+        )
     }
   ];
 
