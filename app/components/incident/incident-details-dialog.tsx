@@ -74,13 +74,21 @@ function Section({
   );
 }
 
-/** Renders `value (accuracy)`, with the accuracy in parentheses beside the value. */
-function withAccuracy(value: ReactNode, accuracy: ReactNode): ReactNode {
+function withAccuracy(
+  value: ReactNode,
+  accuracy: ReactNode,
+  accuracyLabel: string
+): ReactNode {
   if (!value && value !== 0) return value;
   return (
     <>
       {value}
-      {accuracy && <span> ({accuracy})</span>}
+      {accuracy && (
+        <span>
+          {" "}
+          ({accuracyLabel}: {accuracy})
+        </span>
+      )}
     </>
   );
 }
@@ -475,7 +483,9 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         fields={[
           {
             label: label("dateTime"),
-            value: dateTime && withAccuracy(dateTime, timeAccuracy)
+            value:
+              dateTime &&
+              withAccuracy(dateTime, timeAccuracy, label("accuracy"))
           },
           {
             label: label("updatedAt"),
@@ -544,7 +554,8 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
               typeof d.longitude === "number" &&
               withAccuracy(
                 `${intl.formatNumber(d.latitude, 5)} / ${intl.formatNumber(d.longitude, 5)}`,
-                tr("locationAccuracy", d.locationAccuracy)
+                tr("locationAccuracy", d.locationAccuracy),
+                label("accuracy")
               )
           }
         ]}
@@ -622,14 +633,16 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             label: label("startZoneAspect"),
             value: withAccuracy(
               aspectLabel(d.startZoneAspect, intl),
-              tr("startZoneAspectAccuracy", d.startZoneAspectAccuracy)
+              tr("startZoneAspectAccuracy", d.startZoneAspectAccuracy),
+              label("accuracy")
             )
           },
           {
             label: label("startZoneElevation"),
             value: withAccuracy(
               number(d.startZoneElevation, "m"),
-              tr("startZoneElevationAccuracy", d.startZoneElevationAccuracy)
+              tr("startZoneElevationAccuracy", d.startZoneElevationAccuracy),
+              label("accuracy")
             )
           },
           {
