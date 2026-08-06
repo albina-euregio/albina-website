@@ -34,14 +34,23 @@ export default function IncidentTable(props: Props) {
     {
       id: "dateTime",
       title: intl.formatMessage({ id: "archive:table-header:date" }),
+      align: "right",
       render: row =>
         row.dateTime
           ? intl.formatDate(row.dateTime, DATE_TIME_FORMAT_SHORT)
           : ""
     },
     {
+      id: "location",
+      title:
+        messages.incidentReport?.location ??
+        intl.formatMessage({ id: "incidents:table:header:location" }),
+      render: row => row.location
+    },
+    {
       id: "personInvolvement",
       title: label("personInvolvement"),
+      align: "left",
       // A severity dot — the same circle as the map marker and legend swatch —
       // sits before the outcome so colour and wording agree.
       render: row => (
@@ -55,13 +64,6 @@ export default function IncidentTable(props: Props) {
           {involvementText(row, intl, messages)}
         </span>
       )
-    },
-    {
-      id: "location",
-      title:
-        messages.incidentReport?.location ??
-        intl.formatMessage({ id: "incidents:table:header:location" }),
-      render: row => row.location
     },
     {
       id: "region",
