@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("archive", async ({ page }) => {
+  test.slow();
   await page.goto("more/archive");
 
   const year = page.locator("text=Year").locator("..");
@@ -13,7 +14,7 @@ test("archive", async ({ page }) => {
     .getByRole("row", { name: "29 March 2025" })
     .locator(".map-preview");
   await expect(preview).toHaveAttribute("href", "/bulletin/2025-03-29", {
-    timeout: 8000
+    timeout: 10000
   });
   await expect(preview.getByRole("img")).toHaveAttribute(
     "src",

@@ -11,9 +11,18 @@ import { fetchJSON } from "../util/fetch";
 
 const DEFAULT_RANGE_DAYS = 30;
 
-export const SNOW_PROFILE_STABILITIES = vStability.options;
-
 export type SnowProfileStability = v.InferOutput<typeof vStability>;
+
+/**
+ * Legend display order, most severe (least stable) first, matching the incident legend's ordering.
+ */
+export const SNOW_PROFILE_STABILITIES = [
+  "very-poor",
+  "poor",
+  "fair",
+  "good",
+  "no-test"
+] as const satisfies readonly SnowProfileStability[];
 
 /**
  * Ranks a stability so the least stable draws on top of the map / sorts first.

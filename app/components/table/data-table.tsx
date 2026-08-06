@@ -13,6 +13,11 @@ export interface ColumnDef<T> {
   subtitle?: ReactNode;
   /** CSS class(es) applied to the `<td>`. */
   className?: string;
+  /**
+   * Horizontal alignment for this column's header and cells. Overrides the
+   * table's default (first column left, the rest centered).
+   */
+  align?: "left" | "center" | "right";
   render: (row: T) => ReactNode;
   /** Defaults to `true`; set `false` to render a header without sort controls. */
   sortable?: boolean;
@@ -65,7 +70,10 @@ export default function DataTable<T>(props: DataTableProps<T>) {
       <thead>
         <tr>
           {props.columns.map(col => (
-            <th key={col.id}>
+            <th
+              key={col.id}
+              style={col.align ? { textAlign: col.align } : undefined}
+            >
               {col.title}
               {col.subtitle && <br />}
               {col.subtitle}
@@ -96,7 +104,11 @@ export default function DataTable<T>(props: DataTableProps<T>) {
           return (
             <tr key={key} onClick={() => props.onRowClick?.(row)}>
               {props.columns.map(col => (
-                <td key={key + "-" + col.id} className={col.className}>
+                <td
+                  key={key + "-" + col.id}
+                  className={col.className}
+                  style={col.align ? { textAlign: col.align } : undefined}
+                >
                   {col.render(row)}
                 </td>
               ))}

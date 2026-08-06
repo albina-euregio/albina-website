@@ -7,20 +7,14 @@ import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
 import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
-import { useIntl, type MessageId } from "../../i18n";
-import {
-  translateIncidentValue,
-  useIncidentReportMessages
-} from "../../i18n/incident-report";
+import { useIntl } from "../../i18n";
+import { useIncidentReportMessages } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import {
   involvementLabel,
   involvementText
 } from "../../util/incident-involvement.ts";
-import {
-  getDangerRatingIconFile,
-  getDangerRatingLabel
-} from "../../util/warn-levels";
+import { incidentBadges } from "../../util/incident-badges.ts";
 import {
   INCIDENT_INVOLVEMENTS,
   involvementSeverity,
@@ -47,13 +41,6 @@ interface Props {
   onIncidentSelected: (id: string) => void;
 }
 
-/**
- * Marks the tooltip's person line. Inline SVG rather than a fontello glyph: the
- * icon font carries no person. Sized and colored by `.maplibre-incident-tooltip`
- * alongside the glyphs it sits with.
- */
-const PERSON_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="7" r="4.25" /><path d="M12 13.5c-4.6 0-8.25 3-8.25 6.75V21h16.5v-.75c0-3.75-3.65-6.75-8.25-6.75z" /></svg>`;
-
 /** Escapes text before it is interpolated into the tooltip's HTML string. */
 function escapeHtml(value: string): string {
   return value
@@ -61,6 +48,18 @@ function escapeHtml(value: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+/**
+ * Wraps a trailing "(…)" clause of an already-escaped string in a
+ * non-breaking span, so e.g. "3 persons involved (1 fatal, 1 injured)" can
+ * only wrap before the opening parenthesis, never inside it.
+ */
+function nowrapTrailingParenthetical(text: string): string {
+  const match = text.match(/^(.*\S)(\s+)(\([^)]*\))$/);
+  return match
+    ? `${match[1]}${match[2]}<span class="incident-tooltip__nowrap">${match[3]}</span>`
+    : text;
 }
 
 function IncidentMapLegend() {
@@ -115,68 +114,49 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
   const intl = useIntl();
   const messages = useIncidentReportMessages();
 
-  /**
-   * Builds the hover-tooltip HTML for an incident marker. Empty lines are
-   * dropped, and all text is translated the same way as the incident table and
-   * details dialog. Kept as a closure so it reads `intl`/`messages` from this
-   * component's hooks rather than receiving them as arguments.
-   */
   const renderTooltip = useCallback(
     (incident: IncidentData): string => {
       const esc = (value: string | undefined): string | undefined =>
         value ? escapeHtml(value) : undefined;
-      /** An icon-prefixed line; `icon` is a fontello glyph class or a raw marker. */
-      const line = (
-        icon: string,
-        value: string | undefined
-      ): string | undefined =>
-        value ? `<span class="${icon}"></span>${value}` : undefined;
 
+      const title = esc(incident.location);
       const dateTime = esc(
         incident.dateTime
           ? intl.formatDate(incident.dateTime, DATE_TIME_FORMAT_SHORT)
           : undefined
       );
-      const dangerRating = incident.dangerRating;
-      const dangerRatingLine = dangerRating
-        ? `<span class="incident-tooltip__danger-icon"><img src="${window.config.projectRoot}images/pro/danger-levels/${getDangerRatingIconFile(dangerRating)}" alt="" /></span>${esc(
-            getDangerRatingLabel(
-              dangerRating,
-              intl.formatMessage({
-                id: `danger-level:${dangerRating}` as MessageId
-              })
-            )
-          )}`
-        : undefined;
-      // Type and size share the avalanche line, with no labels. An `unknown`
-      // value carries no information, so it is dropped rather than shown.
-      const avalanchePart = (
-        field: "avalancheType" | "avalancheSize"
-      ): string | undefined =>
-        incident[field] && incident[field] !== "unknown"
-          ? esc(translateIncidentValue(messages, field, incident[field]))
-          : undefined;
-      const avalanche = [
-        avalanchePart("avalancheType"),
-        avalanchePart("avalancheSize")
-      ]
-        .filter(Boolean)
-        .join(" · ");
-      const involvementLine = `<span class="incident-tooltip__person-icon" style="color: var(${involvementColorProperty(incident.involvement)})">${PERSON_ICON}</span>${esc(involvementText(incident, intl, messages))}`;
 
-      const lines = [
-        line("icon-location", esc(incident.location)),
-        line("icon-calendar", dateTime),
-        dangerRatingLine,
-        line("icon-snow", avalanche || undefined),
-        involvementLine
+      // Only show the outcome when a persons count is known.
+      const outcomeText = incident.numberInvolved
+        ? esc(involvementText(incident, intl, messages))
+        : undefined;
+      const outcome = outcomeText
+        ? `<p class="incident-tooltip__outcome">${nowrapTrailingParenthetical(outcomeText)}</p>`
+        : undefined;
+
+      const badges = incidentBadges(incident, intl, messages).map(
+        badge => `<span class="incident-badge">${esc(badge.text)}</span>`
+      );
+      const header = [
+        title ? `<p class="incident-tooltip__title">${title}</p>` : undefined,
+        dateTime
+          ? `<p class="incident-tooltip__meta">${dateTime}</p>`
+          : undefined
       ].filter(Boolean);
 
-      return lines.length
-        ? `<ul class="incident-tooltip__facts">${lines
-            .map(l => `<li>${l}</li>`)
-            .join("")}</ul>`
+      if (!header.length && !outcome && !badges.length) return "";
+      const headerHtml = header.length
+        ? `<div class="incident-tooltip__header">${header.join("")}</div>`
         : "";
+      const badgesHtml = badges.length
+        ? `<div class="incident-badges">${badges.join("")}</div>`
+        : "";
+      const bodyHtml =
+        outcome || badgesHtml
+          ? `<div class="incident-tooltip__body">${outcome ?? ""}${badgesHtml}</div>`
+          : "";
+      // Thread the marker's involvement colour into the card via a custom property
+      return `<div class="incident-tooltip" style="--incident-involvement-color: var(--incident-involvement-${incident.involvement})">${headerHtml}${bodyHtml}</div>`;
     },
     [intl, messages]
   );
