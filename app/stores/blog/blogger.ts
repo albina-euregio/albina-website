@@ -49,9 +49,9 @@ export class BloggerProcessor implements BlogProcessor {
       if (state?.problem && state?.problem !== "all") {
         params.set("labels", state.problem);
       }
-      if (state?.year) {
-        params.set("startDate", state.startDate.toISOString());
-        params.set("endDate", state.endDate.toISOString());
+      if (state?.year && state.startDate && state.endDate) {
+        params.set("startDate", state.startDate.toString());
+        params.set("endDate", state.endDate.toString());
       }
     }
     const url = baseUrl + "?" + params;
