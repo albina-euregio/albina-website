@@ -228,7 +228,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   // station markers live on the separate map above, so they stay unaffected.
   useEffect(() => {
     const map = overlayRef.current;
-    const [url] = overlayURLs;
+    const [, url] = overlayURLs;
     if (!overlayReady || !map || !url) return;
 
     // MapLibre image sources want the four corners as `[lng, lat]` in

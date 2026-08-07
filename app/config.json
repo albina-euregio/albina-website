@@ -408,8 +408,8 @@
     "profiles": "/profiles-app/api",
     "snobs": "https://static.avalanche.report/snobs.json",
     "weatherOverlay": [
-      "https://static.avalanche.report/zamg_meteo/overlays/{domain}/",
-      "https://static.avalanche.report/zamg_meteo/overlays/{domain}/{year}/{date}/"
+      "/zamg_meteo/overlays/{domain}/",
+      "/zamg_meteo/overlays/{domain}/{year}/{date}/"
     ],
     "linea": {
       "stations": "/eaws_weather_stations/linea.geojson",
