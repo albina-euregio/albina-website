@@ -125,8 +125,8 @@ function SnowProfileDetail({ profiles, profileId, setProfileId }: Props) {
     >
       <DialogFlipperButtons
         flipper={flipper}
-        previousLabel={intl.formatMessage({ id: "profiles:detail:previous" })}
-        nextLabel={intl.formatMessage({ id: "profiles:detail:next" })}
+        previousLabel={intl.formatMessage({ id: "dialog:flipper:previous" })}
+        nextLabel={intl.formatMessage({ id: "dialog:flipper:next" })}
       />
       <div className="snowprofile-detail" ref={scrollRef} aria-busy={pending}>
         {error && <p>{intl.formatMessage({ id: "profiles:detail:error" })}</p>}
