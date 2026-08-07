@@ -243,7 +243,21 @@ button.mfp-arrow {
   }
 }
 
-//flipper, sitting left of the close button
+.modal-header {
+  padding-bottom: variables.$all-v-padding;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin-bottom: 0;
+  }
+}
+
+// flipper, sitting left of the close button and sharing its metrics
 $modal-control-size: calc(#{variables.$icon-font-size} + #{variables.$padding});
 
 .modal-flipper {
@@ -285,20 +299,6 @@ button.modal-flipper__button {
   &:disabled {
     cursor: default;
     opacity: 0.35;
-  }
-}
-
-.modal-header {
-  padding-bottom: variables.$all-v-padding;
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    margin-bottom: 0;
   }
 }
 
