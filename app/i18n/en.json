@@ -355,6 +355,8 @@
   "profiles:filter:date-to": "To",
   "profiles:detail:loading": "Loading snow profile…",
   "profiles:detail:error": "Failed to load snow profile.",
+  "profiles:detail:previous": "Previous snow profile",
+  "profiles:detail:next": "Next snow profile",
   "profiles:add": "New snow profile",
   "profiles:table:header:stability": "Snowpack stability",
   "profiles:stability:good": "Good",

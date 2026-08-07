@@ -81,6 +81,11 @@ $snowprofile-stabilities: (
   }
 }
 
+.snowprofile-details {
+  // keep the close/flipper controls in the dialog's top right corner off the profile
+  padding-top: calc(#{variables.$icon-font-size} + #{variables.$padding} * 3);
+}
+
 .snowprofile-detail {
   overflow: auto;
   text-align: center;
@@ -92,5 +97,10 @@ $snowprofile-stabilities: (
     width: 210mm;
     height: auto;
     margin: 0 auto;
+  }
+
+  img.is-stale {
+    opacity: 0.5;
+    transition: opacity variables.$transition-duration ease-in-out 0.3s;
   }
 }
