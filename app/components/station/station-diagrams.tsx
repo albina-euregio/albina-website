@@ -270,12 +270,7 @@ const StationDiagramImage: React.FC<{
     );
   }
 
-  if (
-    !(station instanceof StationData) &&
-    station.properties.plot &&
-    (import.meta.env.DEV || import.meta.env.APP_REGION === "DEV")
-  ) {
-    const url = station.properties.plot;
+  if (!(station instanceof StationData)) {
     const today = Temporal.Now.plainDateISO();
     const startDate = selectedYear
       ? new Temporal.PlainDate(selectedYear, 9, 1)
@@ -284,7 +279,7 @@ const StationDiagramImage: React.FC<{
         : new Temporal.PlainDate(today.year - 1, 9, 1);
     return (
       <linea-plot
-        key={url + startDate.toString()}
+        key={station.id + startDate.toString()}
         features={JSON.stringify([station])}
         showdatepicker
         showonlywinter

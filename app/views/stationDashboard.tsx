@@ -100,14 +100,11 @@ export const observers: Feature[] = [...BeobachterAT, ...BeobachterIT].map(
     properties: {
       name: observer.name,
       dataProviderID: "ALBINA",
-      dataURLs: BeobachterAT.includes(observer)
-        ? [
-            `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
-            `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
-            `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`
-          ]
-        : undefined,
-      plot: `https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/${observer["plot.id"]}{year}.png?{t}`,
+      dataURLs: [
+        `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
+        `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`,
+        `https://wiski.tirol.gv.at/lawine/grafiken/smet/all/${observer.number}.smet.gz`
+      ],
       microRegionID: getObserverProvince(observer)
     }
   })
