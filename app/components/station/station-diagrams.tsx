@@ -31,29 +31,6 @@ function hasInteractivePlot(station: StationData | Feature) {
   return station instanceof StationData && station.properties.dataURLs?.length;
 }
 
-type LineaPlotElement = HTMLElement & {
-  view?: {
-    charts: unknown[];
-    select(
-      startDate: Temporal.ZonedDateTime,
-      endDate: Temporal.ZonedDateTime
-    ): void;
-  };
-};
-
-/**
- * Date range of a winter season, matching the range used by the winter view of `<linea-plot>`.
- */
-function winterSeason(
-  year: number
-): [Temporal.ZonedDateTime, Temporal.ZonedDateTime] {
-  const timeZone = Temporal.Now.timeZoneId();
-  return [
-    new Temporal.PlainDate(year, 10, 1).toZonedDateTime(timeZone),
-    new Temporal.PlainDate(year + 1, 7, 1).toZonedDateTime(timeZone)
-  ];
-}
-
 const timeRanges = {
   day: "tag",
   threedays: "dreitage",
@@ -272,44 +249,6 @@ const TimeRangeButtons: React.FC<{
   );
 };
 
-const ObserverPlot: React.FC<{
-  station: Feature;
-  selectedYear: number | null;
-}> = ({ station, selectedYear }) => {
-  const ref = useRef<LineaPlotElement>(null);
-
-  useEffect(() => {
-    const plot = ref.current;
-    if (!plot) return;
-    const [startDate, endDate] = winterSeason(
-      selectedYear ?? currentSeasonYear()
-    );
-    // <linea-plot> fetches its data asynchronously without emitting an event,
-    // therefore retry until its charts have been created.
-    let timeout = 0;
-    let attempts = 100;
-    const select = () => {
-      if (plot.view?.charts.length) {
-        plot.view.select(startDate, endDate);
-      } else if (attempts-- > 0) {
-        timeout = window.setTimeout(select, 100);
-      }
-    };
-    select();
-    return () => window.clearTimeout(timeout);
-  }, [selectedYear]);
-
-  return (
-    <linea-plot
-      ref={ref}
-      features={JSON.stringify([station])}
-      showdatepicker
-      showonlywinter
-      forecast-latlon={`${station.geometry.coordinates[1]},${station.geometry.coordinates[0]}`}
-    />
-  );
-};
-
 const StationDiagramImage: React.FC<{
   station: StationData | Feature;
   clientWidth: number;
@@ -332,11 +271,19 @@ const StationDiagramImage: React.FC<{
   }
 
   if (!(station instanceof StationData)) {
+    const today = Temporal.Now.plainDateISO();
+    const startDate = selectedYear
+      ? new Temporal.PlainDate(selectedYear, 9, 1)
+      : today.month >= 9
+        ? new Temporal.PlainDate(today.year, 9, 1)
+        : new Temporal.PlainDate(today.year - 1, 9, 1);
     return (
-      <ObserverPlot
-        key={station.id}
-        station={station}
-        selectedYear={selectedYear}
+      <linea-plot
+        key={station.id + startDate.toString()}
+        features={JSON.stringify([station])}
+        showdatepicker
+        showonlywinter
+        forecast-latlon={`${station.geometry.coordinates[1]},${station.geometry.coordinates[0]}`}
       />
     );
   }
