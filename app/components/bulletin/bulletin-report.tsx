@@ -142,6 +142,79 @@ const BulletinReportPictureCard: FunctionComponent<{
   );
 };
 
+// Nav-style micro-region switcher: inline text + chevron toggle revealing a
+// floating list. Selecting a region navigates (URL-driven), re-driving the
+// per-region view. Used in the report header and the tendency section.
+const RegionDropdown: FunctionComponent<{
+  region: string;
+  options: { id: string; name: string }[];
+  onSelect: (id: string) => void;
+}> = ({ region, options, onSelect }) => {
+  const intl = useIntl();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (e: MouseEvent) => {
+      if (!ref.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  return (
+    <span
+      ref={ref}
+      className={"bulletin-report-region-dropdown" + (open ? " is-open" : "")}
+    >
+      <button
+        type="button"
+        className="bulletin-report-region-toggle text"
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        aria-label={intl.formatMessage({
+          id: "bulletin:report:selected-region:hover"
+        })}
+        onClick={() => setOpen(o => !o)}
+      >
+        <FormattedMessage id={`region:${region}` as MessageId} />
+        <span className="icon icon-down-open"></span>
+      </button>
+      {open && (
+        <ul className="list-plain bulletin-report-region-menu" role="listbox">
+          {options.map(o => (
+            <li key={o.id}>
+              <button
+                type="button"
+                role="option"
+                aria-selected={o.id === region}
+                className={
+                  "bulletin-report-region-option" +
+                  (o.id === region ? " active" : "")
+                }
+                onClick={() => {
+                  setOpen(false);
+                  onSelect(o.id);
+                }}
+              >
+                {o.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </span>
+  );
+};
+
 // TODO: trend source — LWD confirmed (2026-07-14) the "Letzte 7 Tage" series is
 // the per-micro-region daily-max danger level, extracted from the last 7 days'
 // bulletins (no dedicated endpoint yet). Deterministic placeholder per region so
@@ -169,32 +242,11 @@ function BulletinReport({
   const intl = useIntl();
   const province = useStore($province);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
-  const [regionOpen, setRegionOpen] = useState(false);
-  const regionDropdownRef = useRef<HTMLDivElement>(null);
   const [audioOpen, setAudioOpen] = useState(false);
   const [audioUrl, clearAudioUrl] = useSynthesizedBulletinUrl(date, bulletin);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
   const bulletinPhotos = getBulletinPhotos(bulletin.customData);
-
-  // Close the region dropdown on outside click or Escape.
-  useEffect(() => {
-    if (!regionOpen) return;
-    const onPointerDown = (e: MouseEvent) => {
-      if (!regionDropdownRef.current?.contains(e.target as Node)) {
-        setRegionOpen(false);
-      }
-    };
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setRegionOpen(false);
-    };
-    document.addEventListener("mousedown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("mousedown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [regionOpen]);
 
   if (!bulletin || !bulletin) {
     return <div />;
@@ -286,55 +338,11 @@ function BulletinReport({
                 <span className="text-icon bulletin-report-region-name-country">
                   <span className="icon icon-location-small"></span>
                   {showRegionSwitcher ? (
-                    <span
-                      ref={regionDropdownRef}
-                      className={
-                        "bulletin-report-region-dropdown" +
-                        (regionOpen ? " is-open" : "")
-                      }
-                    >
-                      <button
-                        type="button"
-                        className="bulletin-report-region-toggle text"
-                        aria-expanded={regionOpen}
-                        aria-haspopup="listbox"
-                        aria-label={intl.formatMessage({
-                          id: "bulletin:report:selected-region:hover"
-                        })}
-                        onClick={() => setRegionOpen(o => !o)}
-                      >
-                        <FormattedMessage
-                          id={`region:${region}` as MessageId}
-                        />
-                        <span className="icon icon-down-open"></span>
-                      </button>
-                      {regionOpen && (
-                        <ul
-                          className="list-plain bulletin-report-region-menu"
-                          role="listbox"
-                        >
-                          {regionOptions.map(o => (
-                            <li key={o.id}>
-                              <button
-                                type="button"
-                                role="option"
-                                aria-selected={o.id === region}
-                                className={
-                                  "bulletin-report-region-option" +
-                                  (o.id === region ? " active" : "")
-                                }
-                                onClick={() => {
-                                  setRegionOpen(false);
-                                  handleSelectRegion(o.id);
-                                }}
-                              >
-                                {o.name}
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </span>
+                    <RegionDropdown
+                      region={region}
+                      options={regionOptions}
+                      onSelect={handleSelectRegion}
+                    />
                   ) : (
                     <span className="text">
                       <FormattedMessage id={`region:${region}` as MessageId} />
@@ -624,11 +632,19 @@ function BulletinReport({
                   <div className="bulletin-additional-tendency-header">
                     <span className="text-icon bulletin-report-region-name-country">
                       <span className="icon icon-location-small"></span>
-                      <span className="text">
-                        <FormattedMessage
-                          id={`region:${region}` as MessageId}
+                      {showRegionSwitcher ? (
+                        <RegionDropdown
+                          region={region}
+                          options={regionOptions}
+                          onSelect={handleSelectRegion}
                         />
-                      </span>
+                      ) : (
+                        <span className="text">
+                          <FormattedMessage
+                            id={`region:${region}` as MessageId}
+                          />
+                        </span>
+                      )}
                     </span>
                     <h2 className="subheader">
                       <FormattedMessage id="bulletin:report:tendency:development:headline" />

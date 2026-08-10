@@ -64,10 +64,14 @@ test("bulletin/2022-02-01", async ({ page }) => {
 
   // Micro-region switcher: nav-style dropdown lists the report's regions and
   // navigates on selection
-  const regionToggle = bulletin.locator(".bulletin-report-region-toggle");
+  const regionToggle = bulletin.locator(
+    ".bulletin-report-header .bulletin-report-region-toggle"
+  );
   await expect(regionToggle).toBeVisible();
   await regionToggle.click();
-  const options = bulletin.locator(".bulletin-report-region-option");
+  const options = bulletin.locator(
+    ".bulletin-report-header .bulletin-report-region-option"
+  );
   expect(await options.count()).toBeGreaterThan(1);
   const other = options.filter({ hasNotText: "Karwendel Mountains" }).first();
   await other.click();
