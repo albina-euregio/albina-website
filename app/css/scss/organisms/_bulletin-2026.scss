@@ -242,12 +242,14 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
         padding: 0;
       }
     }
-    audio {
-      display: none;
+    .bulletin-report-audio {
       width: 100%;
       order: 1;
       @media #{$bulletin-report-header-breakpoint} {
         order: 2;
+      }
+      audio {
+        width: 100%;
       }
     }
   }

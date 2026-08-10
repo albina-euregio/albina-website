@@ -9,7 +9,7 @@ import DiffMatchPatch from "diff-match-patch";
 import { FormattedMessage, MessageId, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
-import SynthesizedBulletin from "./synthesized-bulletin";
+import { useSynthesizedBulletinUrl } from "./synthesized-bulletin";
 import { LONG_DATE_FORMAT, LONG_DATE_FORMAT_NO_WEEKDAY } from "../../util/date";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 import TendencyIcon from "../icons/tendency-icon";
@@ -171,6 +171,8 @@ function BulletinReport({
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const [regionOpen, setRegionOpen] = useState(false);
   const regionDropdownRef = useRef<HTMLDivElement>(null);
+  const [audioOpen, setAudioOpen] = useState(false);
+  const [audioUrl, clearAudioUrl] = useSynthesizedBulletinUrl(date, bulletin);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
   const bulletinPhotos = getBulletinPhotos(bulletin.customData);
@@ -399,10 +401,30 @@ function BulletinReport({
                       </Tooltip>
                     </li>
                   )}
-                  <SynthesizedBulletin
-                    date={date}
-                    bulletin={bulletin}
-                  ></SynthesizedBulletin>
+                  {audioUrl && (
+                    <li>
+                      <Tooltip
+                        label={intl.formatMessage({
+                          id: "bulletin:report:listen:hover"
+                        })}
+                      >
+                        <button
+                          type="button"
+                          className={
+                            "pure-button inverse tooltip pure-button-icon-text" +
+                            (audioOpen ? " active" : "")
+                          }
+                          aria-expanded={audioOpen}
+                          onClick={() => setAudioOpen(o => !o)}
+                        >
+                          <span className="icon icon-listen-small"></span>
+                          <span className="text">
+                            <FormattedMessage id="bulletin:report:listen" />
+                          </span>
+                        </button>
+                      </Tooltip>
+                    </li>
+                  )}
                   {bulletin.regions?.some(
                     r =>
                       r.regionID.match(config.regionsRegex) ||
@@ -434,6 +456,18 @@ function BulletinReport({
                     </li>
                   )}
                 </ul>
+                {audioUrl && audioOpen && (
+                  <div className="bulletin-report-audio">
+                    <audio
+                      controls={true}
+                      autoPlay={true}
+                      src={audioUrl}
+                      onError={clearAudioUrl}
+                    >
+                      <a href={audioUrl}></a>
+                    </audio>
+                  </div>
+                )}
               </div>
             </header>
 

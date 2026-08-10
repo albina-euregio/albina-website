@@ -1,25 +1,21 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { Bulletin } from "../../stores/bulletin";
 import type { Language } from "../../appStore";
-import { FormattedMessage, useIntl } from "../../i18n";
-import { Tooltip } from "../tooltips/tooltip.tsx";
-
-interface Props {
-  date: Temporal.PlainDate;
-  bulletin: Bulletin;
-}
 
 const ENABLED_LANGUAGES: Language[] = ["de", "en", "it"];
 
-function SynthesizedBulletin({ date, bulletin }: Props) {
-  const intl = useIntl();
+/** The synthesized-bulletin mp3 URL for this bulletin (or null when unavailable
+ *  or the language has no audio), plus a callback to clear it on playback error.
+ *  The "Hören" button and the audio player live in different DOM places, so the
+ *  URL/availability is exposed as a hook and the UI is rendered by the caller. */
+export function useSynthesizedBulletinUrl(
+  date: Temporal.PlainDate,
+  bulletin: Bulletin
+): [string | null, () => void] {
   const [audioFileUrl, setAudioFileUrl] = useState<string | null>(null);
-  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    setPlaying(false);
-    if (!ENABLED_LANGUAGES.includes(bulletin.lang as Language)) {
+    if (!bulletin || !ENABLED_LANGUAGES.includes(bulletin.lang as Language)) {
       setAudioFileUrl(null);
       return;
     }
@@ -33,37 +29,5 @@ function SynthesizedBulletin({ date, bulletin }: Props) {
     );
   }, [bulletin, date]);
 
-  if (!audioFileUrl) return null;
-
-  // "Hören" button toggles the player: clicking reveals the audio and hides the button.
-  return (
-    <li className="synthesizedReport">
-      {playing ? (
-        <audio
-          controls={true}
-          autoPlay={true}
-          src={audioFileUrl}
-          onError={() => setAudioFileUrl(null)}
-        >
-          <a href={audioFileUrl}></a>
-        </audio>
-      ) : (
-        <Tooltip
-          label={intl.formatMessage({ id: "bulletin:report:listen:hover" })}
-        >
-          <button
-            type="button"
-            className="pure-button inverse tooltip pure-button-icon-text"
-            onClick={() => setPlaying(true)}
-          >
-            <span className="icon icon-listen-small"></span>
-            <span className="text">
-              <FormattedMessage id="bulletin:report:listen" />
-            </span>
-          </button>
-        </Tooltip>
-      )}
-    </li>
-  );
+  return [audioFileUrl, () => setAudioFileUrl(null)];
 }
-export default SynthesizedBulletin;
