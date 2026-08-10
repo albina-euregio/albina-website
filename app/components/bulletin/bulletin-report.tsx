@@ -495,11 +495,6 @@ function BulletinReport({
                     </h2>
                     {dangerPatterns.length > 0 && (
                       <ul className="list-inline list-labels">
-                        <li>
-                          <span className="tiny heavy letterspace">
-                            <FormattedMessage id="bulletin:report:danger-patterns" />
-                          </span>
-                        </li>
                         {dangerPatterns.map((dp, index) => (
                           <li key={index}>
                             <DangerPatternItem
