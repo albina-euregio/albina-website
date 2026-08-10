@@ -389,7 +389,13 @@ function BulletinReport({
             </header>
 
             {(bulletin.highlights || bulletin.travelAdvisory?.comment) && (
-              <div className="bulletin-report-recommendation is-alert is-recommendation">
+              <div
+                className={
+                  "bulletin-report-recommendation" +
+                  (bulletin.highlights ? " is-alert" : "") +
+                  (bulletin.travelAdvisory?.comment ? " is-recommendation" : "")
+                }
+              >
                 {bulletin.highlights && (
                   <p className="bulletin-report-public-alert">
                     <span className="icon-attention bulletin-report-public-alert-icon"></span>
