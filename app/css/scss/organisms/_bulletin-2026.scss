@@ -19,6 +19,76 @@
 $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
 
 [data-bulletin-version="2026"] {
+  // Region switcher: a nav-style dropdown (custom, not a native <select>) —
+  // inline text + chevron toggle, revealing a floating panel like the main nav.
+  // Shared by the report header and the tendency section.
+  .bulletin-report-region-name-country {
+    .bulletin-report-region-dropdown {
+      position: relative;
+      display: inline-flex;
+      &.is-open .icon-down-open {
+        rotate: 180deg;
+      }
+    }
+    .bulletin-report-region-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0 0.25em;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: none;
+      box-shadow: none;
+      font: inherit;
+      color: variables.$brand;
+      @include mixins.letter-spacing;
+      line-height: 1;
+      cursor: pointer;
+      .icon-down-open {
+        color: variables.$brand;
+      }
+      &:hover {
+        color: variables.$brand-dark;
+      }
+      &:focus-visible {
+        outline: 1px dotted currentColor;
+        outline-offset: 2px;
+      }
+    }
+    .bulletin-report-region-menu {
+      z-index: 5;
+      position: absolute;
+      top: 100%;
+      left: -1em;
+      min-width: 100%;
+      margin: 0.25em 0 0;
+      padding: 0.5em 0;
+      background-color: variables.$white;
+      @include mixins.font-normal;
+      @include mixins.box-shadow;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .bulletin-report-region-option {
+      display: block;
+      width: 100%;
+      margin: 0;
+      border: 0;
+      background: none;
+      box-shadow: none;
+      font: inherit;
+      text-align: left;
+      white-space: nowrap;
+      padding: 0.25em 2em 0.25em 1em;
+      color: variables.$grey;
+      cursor: pointer;
+      &:hover,
+      &.active {
+        color: variables.$anchor-font-color;
+      }
+    }
+  }
+
   .bulletin-map-cta {
     position: absolute;
     top: variables.$padding;
@@ -65,75 +135,6 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       gap: variables.$margin-bottom;
       > *:nth-child(2) {
         margin-top: -(variables.$all-v-padding);
-      }
-    }
-
-    // Region switcher: a nav-style dropdown (custom, not a native <select>) —
-    // inline text + chevron toggle, revealing a floating panel like the main nav.
-    .bulletin-report-region-name-country {
-      .bulletin-report-region-dropdown {
-        position: relative;
-        display: inline-flex;
-        &.is-open .icon-down-open {
-          rotate: 180deg;
-        }
-      }
-      .bulletin-report-region-toggle {
-        display: inline-flex;
-        align-items: center;
-        gap: 0 0.25em;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        background: none;
-        box-shadow: none;
-        font: inherit;
-        color: variables.$brand;
-        @include mixins.letter-spacing;
-        line-height: 1;
-        cursor: pointer;
-        .icon-down-open {
-          color: variables.$brand;
-        }
-        &:hover {
-          color: variables.$brand-dark;
-        }
-        &:focus-visible {
-          outline: 1px dotted currentColor;
-          outline-offset: 2px;
-        }
-      }
-      .bulletin-report-region-menu {
-        z-index: 5;
-        position: absolute;
-        top: 100%;
-        left: -1em;
-        min-width: 100%;
-        margin: 0.25em 0 0;
-        padding: 0.5em 0;
-        background-color: variables.$white;
-        @include mixins.font-normal;
-        @include mixins.box-shadow;
-        max-height: 60vh;
-        overflow-y: auto;
-      }
-      .bulletin-report-region-option {
-        display: block;
-        width: 100%;
-        margin: 0;
-        border: 0;
-        background: none;
-        box-shadow: none;
-        font: inherit;
-        text-align: left;
-        white-space: nowrap;
-        padding: 0.25em 2em 0.25em 1em;
-        color: variables.$grey;
-        cursor: pointer;
-        &:hover,
-        &.active {
-          color: variables.$anchor-font-color;
-        }
       }
     }
 
