@@ -339,7 +339,7 @@ function BulletinReport({
                       >
                         <button
                           type="button"
-                          className="pure-button inverse error tooltip pure-button-icon-text bulletin-report-header-diff"
+                          className="pure-button inverse error tooltip pure-button-icon-text"
                           onClick={() => setShowDiff(2)}
                         >
                           <span className="icon icon-show-small"></span>
