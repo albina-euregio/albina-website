@@ -54,6 +54,7 @@ function BulletinDaytimeReport({
       <h2 className="subheader bulletin-report-problems-headline">
         <FormattedMessage id="bulletin:report:problems:headline" />
         <Tooltip
+          html={true}
           label={intl.formatMessage({
             id: "bulletin:report:problems:kernzone:info"
           })}
