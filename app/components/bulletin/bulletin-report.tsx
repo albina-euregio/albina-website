@@ -1,6 +1,7 @@
 import React, {
   type FunctionComponent,
   Suspense,
+  useEffect,
   useRef,
   useState
 } from "react";
@@ -168,10 +169,30 @@ function BulletinReport({
   const intl = useIntl();
   const province = useStore($province);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
-  const regionSelectRef = useRef<HTMLSelectElement>(null);
+  const [regionOpen, setRegionOpen] = useState(false);
+  const regionDropdownRef = useRef<HTMLDivElement>(null);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
   const bulletinPhotos = getBulletinPhotos(bulletin.customData);
+
+  // Close the region dropdown on outside click or Escape.
+  useEffect(() => {
+    if (!regionOpen) return;
+    const onPointerDown = (e: MouseEvent) => {
+      if (!regionDropdownRef.current?.contains(e.target as Node)) {
+        setRegionOpen(false);
+      }
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setRegionOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [regionOpen]);
 
   if (!bulletin || !bulletin) {
     return <div />;
@@ -263,27 +284,55 @@ function BulletinReport({
                 <span className="text-icon bulletin-report-region-name-country">
                   <span className="icon icon-location-small"></span>
                   {showRegionSwitcher ? (
-                    <>
-                      <select
-                        ref={regionSelectRef}
-                        className="bulletin-report-region-select"
-                        value={region}
-                        onChange={e => handleSelectRegion(e.target.value)}
+                    <span
+                      ref={regionDropdownRef}
+                      className={
+                        "bulletin-report-region-dropdown" +
+                        (regionOpen ? " is-open" : "")
+                      }
+                    >
+                      <button
+                        type="button"
+                        className="bulletin-report-region-toggle text"
+                        aria-expanded={regionOpen}
+                        aria-haspopup="listbox"
                         aria-label={intl.formatMessage({
                           id: "bulletin:report:selected-region:hover"
                         })}
+                        onClick={() => setRegionOpen(o => !o)}
                       >
-                        {regionOptions.map(o => (
-                          <option key={o.id} value={o.id}>
-                            {o.name}
-                          </option>
-                        ))}
-                      </select>
-                      <span
-                        className="icon icon-down-open"
-                        onClick={() => regionSelectRef.current?.showPicker?.()}
-                      ></span>
-                    </>
+                        <FormattedMessage
+                          id={`region:${region}` as MessageId}
+                        />
+                        <span className="icon icon-down-open"></span>
+                      </button>
+                      {regionOpen && (
+                        <ul
+                          className="list-plain bulletin-report-region-menu"
+                          role="listbox"
+                        >
+                          {regionOptions.map(o => (
+                            <li key={o.id}>
+                              <button
+                                type="button"
+                                role="option"
+                                aria-selected={o.id === region}
+                                className={
+                                  "bulletin-report-region-option" +
+                                  (o.id === region ? " active" : "")
+                                }
+                                onClick={() => {
+                                  setRegionOpen(false);
+                                  handleSelectRegion(o.id);
+                                }}
+                              >
+                                {o.name}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </span>
                   ) : (
                     <span className="text">
                       <FormattedMessage id={`region:${region}` as MessageId} />

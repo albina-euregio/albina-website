@@ -6,7 +6,7 @@ test("bulletin/2022-02-01", async ({ page }) => {
   const header = page.locator("#section-bulletin-header");
   await expect(header).toContainText(/Tuesday,? 1 February 2022/);
   await expect(header.locator(".bulletin-datetime-update")).toHaveText(
-    "Updated 01/02/2022, 08:35"
+    "Updated: 01/02/2022, 08:35"
   );
 
   const bulletin = page.locator(
@@ -62,21 +62,16 @@ test("bulletin/2022-02-01", async ({ page }) => {
       .getByRole("button", { name: "Listen" })
   ).toBeVisible();
 
-  // Micro-region switcher: lists the report's regions and navigates on change
-  const regionSelect = bulletin.locator(".bulletin-report-region-select");
-  await expect(regionSelect).toBeVisible();
-  const otherRegions = await regionSelect
-    .locator("option")
-    .evaluateAll(
-      (opts, current) =>
-        (opts as HTMLOptionElement[])
-          .map(o => o.value)
-          .filter(v => v !== current),
-      "AT-07-04"
-    );
-  expect(otherRegions.length).toBeGreaterThan(0);
-  await regionSelect.selectOption(otherRegions[0]);
-  await expect(page).toHaveURL(new RegExp("region=" + otherRegions[0]));
+  // Micro-region switcher: nav-style dropdown lists the report's regions and
+  // navigates on selection
+  const regionToggle = bulletin.locator(".bulletin-report-region-toggle");
+  await expect(regionToggle).toBeVisible();
+  await regionToggle.click();
+  const options = bulletin.locator(".bulletin-report-region-option");
+  expect(await options.count()).toBeGreaterThan(1);
+  const other = options.filter({ hasNotText: "Karwendel Mountains" }).first();
+  await other.click();
+  await expect(page).toHaveURL(/region=AT-07-/);
   await expect(bulletin.locator("p").nth(0)).toContainText(
     "The danger exists in particular in alpine snow sports terrain."
   );
