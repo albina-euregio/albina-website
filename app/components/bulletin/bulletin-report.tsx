@@ -9,7 +9,7 @@ import { FormattedMessage, MessageId, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
 import SynthesizedBulletin from "./synthesized-bulletin";
-import { LONG_DATE_FORMAT } from "../../util/date";
+import { LONG_DATE_FORMAT, LONG_DATE_FORMAT_NO_WEEKDAY } from "../../util/date";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 import TendencyIcon from "../icons/tendency-icon";
 
@@ -584,7 +584,7 @@ function BulletinReport({
                         {todayLevel}
                       </div>
                       <div className="progression-legend">
-                        {intl.formatDate(date, LONG_DATE_FORMAT)}
+                        {intl.formatDate(date, LONG_DATE_FORMAT_NO_WEEKDAY)}
                       </div>
                     </div>
 
