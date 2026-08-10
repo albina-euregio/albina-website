@@ -159,6 +159,15 @@ test("click on map + download pdf", async ({ page }) => {
   expect((await pdfResponse.body()).byteLength).toBeGreaterThan(0);
 });
 
+test("map hint appears on hover when no region selected", async ({ page }) => {
+  await page.goto("bulletin/2022-02-01");
+  const cta = page.locator(".bulletin-map-cta");
+  // hidden until the mouse is over the map
+  await expect(cta).toHaveCount(0);
+  await page.locator(".bulletin-map-cta-container").first().hover();
+  await expect(cta.first()).toContainText("Select region on map");
+});
+
 test("bulletin/2022-02-01 headless", async ({ page }) => {
   await page.goto("bulletin/2022-02-01?headless=1&region=AT-07-04");
 

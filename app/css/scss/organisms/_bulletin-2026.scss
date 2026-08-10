@@ -89,11 +89,17 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     }
   }
 
+  .bulletin-map-cta-container {
+    position: relative;
+  }
+
   .bulletin-map-cta {
     position: absolute;
     top: variables.$padding;
     left: 50%;
     transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 1000;
     padding: (variables.$padding * 0.5) (variables.$padding);
     @media #{variables.breakpoint-up(medium)} {
       top: variables.$padding * 2;
