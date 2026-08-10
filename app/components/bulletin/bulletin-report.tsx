@@ -243,7 +243,7 @@ function BulletinReport({
   const province = useStore($province);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const [audioOpen, setAudioOpen] = useState(false);
-  const [audioUrl, clearAudioUrl] = useSynthesizedBulletinUrl(date, bulletin);
+  const audioUrl = useSynthesizedBulletinUrl(date, bulletin);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
   const bulletinPhotos = getBulletinPhotos(bulletin.customData);
@@ -466,12 +466,7 @@ function BulletinReport({
                 </ul>
                 {audioUrl && audioOpen && (
                   <div className="bulletin-report-audio">
-                    <audio
-                      controls={true}
-                      autoPlay={true}
-                      src={audioUrl}
-                      onError={clearAudioUrl}
-                    >
+                    <audio controls={true} autoPlay={true} src={audioUrl}>
                       <a href={audioUrl}></a>
                     </audio>
                   </div>

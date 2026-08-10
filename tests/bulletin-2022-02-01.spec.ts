@@ -56,11 +56,14 @@ test("bulletin/2022-02-01", async ({ page }) => {
   await expect(
     bulletin.locator(".bulletin-report-header-buttons audio")
   ).toHaveCount(0);
-  await expect(
-    bulletin
-      .locator(".bulletin-report-header-buttons")
-      .getByRole("button", { name: "Listen" })
-  ).toBeVisible();
+  const listenButton = bulletin
+    .locator(".bulletin-report-header-buttons")
+    .getByRole("button", { name: "Listen" });
+  await expect(listenButton).toBeVisible();
+  // clicking Listen reveals the full-width player; the button stays
+  await listenButton.click();
+  await expect(bulletin.locator(".bulletin-report-audio audio")).toBeVisible();
+  await expect(listenButton).toBeVisible();
 
   // Micro-region switcher: nav-style dropdown lists the report's regions and
   // navigates on selection
