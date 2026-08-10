@@ -250,7 +250,7 @@ const Bulletin = () => {
             status === "ok" &&
             mapHover && (
               <div className="bulletin-map-cta">
-                <span className="icon-arrow-up"></span>
+                <span className="icon-info"></span>
                 <span className="text">
                   <FormattedMessage id="bulletin:select-region:title" />
                 </span>
