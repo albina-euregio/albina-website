@@ -218,16 +218,10 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       order: 2;
     }
   }
-  // Show the danger level as coloured text, not the legacy highlight box the
-  // shared panel mixin applies to light levels (headline-bg). Keep the span's
-  // left padding (it offsets the h1 negative margin for alignment); only drop
-  // the background and colour the text with the warning-level colour.
-  @for $level from 1 through variables.$warning-level-count {
-    .panel.warning-level-#{$level} .bulletin-report-header-danger-level span {
-      background: none;
-      color: variables.warning-level-color($level);
-    }
-  }
+  // The danger-level headline colour is left to the shared panel mixin
+  // (apply-panel-variant): dark text on a coloured box for the light levels 1-2,
+  // the warning colour as text for 3-5. Tinting the text with the level colour
+  // made levels 1-2 (light green/yellow) unreadable on white. Matches PatternLab.
   .bulletin-report-header-buttons {
     display: flex;
     flex-direction: column;
