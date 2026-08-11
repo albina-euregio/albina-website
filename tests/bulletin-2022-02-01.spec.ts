@@ -52,18 +52,14 @@ test("bulletin/2022-02-01", async ({ page }) => {
       .first()
   ).toHaveText("4");
 
-  // B3: the audio player is hidden behind a "Listen" toggle, not shown by default
+  // B3: the "Listen" button only appears when a synthesized audio file exists.
+  // No mp3 is served for this fixture, so neither the button nor a player shows.
   await expect(
-    bulletin.locator(".bulletin-report-header-buttons audio")
+    bulletin
+      .locator(".bulletin-report-header-buttons")
+      .getByRole("button", { name: "Listen" })
   ).toHaveCount(0);
-  const listenButton = bulletin
-    .locator(".bulletin-report-header-buttons")
-    .getByRole("button", { name: "Listen" });
-  await expect(listenButton).toBeVisible();
-  // clicking Listen reveals the full-width player; the button stays
-  await listenButton.click();
-  await expect(bulletin.locator(".bulletin-report-audio audio")).toBeVisible();
-  await expect(listenButton).toBeVisible();
+  await expect(bulletin.locator(".bulletin-report-audio audio")).toHaveCount(0);
 
   // Micro-region switcher: nav-style dropdown lists the report's regions and
   // navigates on selection
