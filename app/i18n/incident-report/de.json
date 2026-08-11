@@ -180,7 +180,7 @@
     "burialDepth": "Verschüttungstiefe",
     "burialDuration": "Verschüttungsdauer",
     "primaryLocationMethod": "Primäre Auffindungsmethode",
-    "rescuedBy": "Gerettet durch",
+    "rescuedBy": "Gerettet/Geborgen durch",
     "medicalIntervention": "Medizinische Versorgung",
     "estimatedTimeOfDeath": "Todeszeitpunkt (geschätzt)",
     "causeOfDeath": "Todesursache",
@@ -437,6 +437,7 @@
     "Agriculture": "Landwirtschaft",
     "Livestock": "Vieh",
     "UtilitiesTechnicalInfrastructure": "Technische Infrastruktur und Versorgungseinrichtungen",
+    "ResidentialBuilding": "Wohngebäude",
     "Other": "Andere"
   },
   "timeAccuracy": {
@@ -490,7 +491,7 @@
     "Unknown": "unbekannt"
   },
   "incidentTerrainType": {
-    "FreeTerrain": "Ungesichertes Gelände",
+    "FreeTerrain": "Freies Gelände",
     "ControlledTerrainOpen": "Gesichertes Gelände: Geöffnet",
     "ControlledTerrainClosed": "Gesichertes Gelände: Gesperrt",
     "Unknown": "unbekannt"
@@ -671,8 +672,8 @@
     "No": "Nein"
   },
   "additionalLoad": {
-    "High": "Hoch",
-    "Low": "Tief"
+    "High": "Groß",
+    "Low": "Gering"
   },
   "accidentalControlled": {
     "Accidental": "Zufällig",

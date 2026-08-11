@@ -348,7 +348,7 @@
   "incidents:persons:fatal": "{count} Tote",
   "incidents:persons:injured": "{count} Verletzte",
   "incidents:danger-level": "Gefahrenstufe {number}",
-  "incidents:accuracy": "accuracy",
+  "incidents:accuracy": "Genauigkeit",
   "profiles:filter:date-from": "Von",
   "profiles:filter:date-to": "Bis",
   "profiles:detail:loading": "Schneeprofil wird geladen...",

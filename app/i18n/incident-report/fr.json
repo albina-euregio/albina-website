@@ -180,7 +180,7 @@
     "burialDepth": "Profondeur d'ensevelissement",
     "burialDuration": "Durée de l'ensevelissement",
     "primaryLocationMethod": "Méthode principale de recherche",
-    "rescuedBy": "Sauvée par",
+    "rescuedBy": "Rescued/Recovered by",
     "medicalIntervention": "Prise en charge médicale",
     "estimatedTimeOfDeath": "Heure estimée du décès",
     "causeOfDeath": "Cause du décès",
@@ -437,6 +437,7 @@
     "Agriculture": "Agriculture",
     "Livestock": "Bétail",
     "UtilitiesTechnicalInfrastructure": "Services publics ou infrastructures techniques",
+    "ResidentialBuilding": "Residential Building",
     "Other": "Autres"
   },
   "timeAccuracy": {
