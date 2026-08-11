@@ -452,6 +452,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       id: `danger-level:${d.dangerRating}` as MessageId
     });
   const problems = visibleProblems(d.avalancheProblems);
+  const accuracyLabel = intl.formatMessage({ id: "incidents:accuracy" });
 
   return (
     <div
@@ -475,8 +476,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           {
             label: label("dateTime"),
             value:
-              dateTime &&
-              withAccuracy(dateTime, timeAccuracy, label("accuracy"))
+              dateTime && withAccuracy(dateTime, timeAccuracy, accuracyLabel)
           },
           {
             label: label("updatedAt"),
@@ -546,7 +546,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
               withAccuracy(
                 `${intl.formatNumber(d.latitude, 5)} / ${intl.formatNumber(d.longitude, 5)}`,
                 tr("locationAccuracy", d.locationAccuracy),
-                label("accuracy")
+                accuracyLabel
               )
           }
         ]}
@@ -625,7 +625,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             value: withAccuracy(
               aspectLabel(d.startZoneAspect, intl),
               tr("startZoneAspectAccuracy", d.startZoneAspectAccuracy),
-              label("accuracy")
+              accuracyLabel
             )
           },
           {
@@ -633,7 +633,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             value: withAccuracy(
               number(d.startZoneElevation, "m"),
               tr("startZoneElevationAccuracy", d.startZoneElevationAccuracy),
-              label("accuracy")
+              accuracyLabel
             )
           },
           {
