@@ -55,9 +55,9 @@ function BulletinDaytimeReport({
         <FormattedMessage id="bulletin:report:problems:headline" />
         <Tooltip
           html={true}
-          label={intl.formatMessage({
+          label={`<p>${intl.formatMessage({
             id: "bulletin:report:problems:kernzone:info"
-          })}
+          })}</p>`}
         >
           <span className="tooltip-trigger icon-info"></span>
         </Tooltip>
