@@ -645,10 +645,11 @@ function BulletinReport({
                       <FormattedMessage id="bulletin:report:tendency:development:headline" />
                       {tendencyInfo && (
                         <Tooltip
-                          label={tendencyInfo.replace(
+                          html={true}
+                          label={`<p>${tendencyInfo.replace(
                             /\{\s*region\s*\}/g,
                             tendencyRegionName
-                          )}
+                          )}</p>`}
                         >
                           <span className="tooltip-trigger icon-info"></span>
                         </Tooltip>
