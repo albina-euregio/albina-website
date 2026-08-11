@@ -60,7 +60,6 @@ const Bulletin = () => {
   const [collection, setCollection] = useState<BulletinCollection>();
   const [selectedTimePeriod, setSelectedTimePeriod] =
     useState<string>("earlier");
-  const [mapHover, setMapHover] = useState(false);
   if (["de", "en"].includes(router.search.language || "")) {
     setLanguage(router.search.language as Language);
   }
@@ -200,11 +199,7 @@ const Bulletin = () => {
       )}
 
       <Suspense fallback={<div>...</div>}>
-        <div
-          className="bulletin-map-cta-container"
-          onMouseEnter={() => setMapHover(true)}
-          onMouseLeave={() => setMapHover(false)}
-        >
+        <div className="bulletin-map-cta-container">
           {daytimeDependency ? (
             <div
               className={
@@ -245,17 +240,14 @@ const Bulletin = () => {
               problems={problems}
             />
           )}
-          {!config.bulletin.showAllBulletins &&
-            !region &&
-            status === "ok" &&
-            mapHover && (
-              <div className="bulletin-map-cta">
-                <span className="icon-info"></span>
-                <span className="text">
-                  <FormattedMessage id="bulletin:select-region:title" />
-                </span>
-              </div>
-            )}
+          {!config.bulletin.showAllBulletins && !region && status === "ok" && (
+            <div className="bulletin-map-cta">
+              <span className="icon-info"></span>
+              <span className="text">
+                <FormattedMessage id="bulletin:select-region:title" />
+              </span>
+            </div>
+          )}
         </div>
         <BulletinLegend
           handleSelectRegion={handleSelectRegion}

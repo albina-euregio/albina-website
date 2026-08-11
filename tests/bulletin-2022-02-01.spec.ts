@@ -159,13 +159,17 @@ test("click on map + download pdf", async ({ page }) => {
   expect((await pdfResponse.body()).byteLength).toBeGreaterThan(0);
 });
 
-test("map hint appears on hover when no region selected", async ({ page }) => {
+test("map hint shows until a region is selected", async ({ page }) => {
+  // visible immediately once the map is ready, no hover needed
   await page.goto("bulletin/2022-02-01");
-  const cta = page.locator(".bulletin-map-cta");
-  // hidden until the mouse is over the map
-  await expect(cta).toHaveCount(0);
-  await page.locator(".bulletin-map-cta-container").first().hover();
-  await expect(cta.first()).toContainText("Select region on map");
+  await expect(page.locator(".bulletin-map-cta").first()).toContainText(
+    "Select region on map"
+  );
+
+  // gone once a region is selected
+  await page.goto("bulletin/2022-02-01?region=AT-07-04");
+  await page.locator(".page-loading-screen").waitFor({ state: "hidden" });
+  await expect(page.locator(".bulletin-map-cta")).toHaveCount(0);
 });
 
 test("bulletin/2022-02-01 headless", async ({ page }) => {
