@@ -31,10 +31,7 @@
       top: 0;
       z-index: 2;
       background-color: variables.$table-head-bg;
-      // Extra top padding leaves room for the stacked sort arrows below the
-      // header label.
-      padding: (variables.$padding * 2) variables.$padding variables.$padding
-        variables.$padding;
+      padding: variables.$padding;
       line-height: 1;
       text-align: center;
       &:first-child {
@@ -43,25 +40,23 @@
     }
   }
 
-  // Sort arrows stacked below the header label, redundant arrow hidden on the
-  // active column.
-  .sort-buttons {
-    display: flex;
-    flex-direction: column;
-    margin-top: 0.5em;
-    a {
-      align-self: center;
-      max-height: 1em;
-      overflow: hidden;
-      &:before {
-        display: block;
-        top: -0.25em;
-        margin-right: 0;
-      }
-    }
+  // The whole header label is the sort control; the caret only appears on the currently active column.
+  .sort-header {
+    color: inherit;
+    cursor: pointer;
+  }
 
-    .sort-disabled {
-      visibility: hidden;
+  .sort-header-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25em;
+  }
+
+  .sort-caret {
+    color: variables.$brand;
+    &:before {
+      display: block;
+      margin-right: 0;
     }
   }
 

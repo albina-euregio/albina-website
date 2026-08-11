@@ -35,6 +35,7 @@ export default function IncidentTable(props: Props) {
       id: "dateTime",
       title: intl.formatMessage({ id: "archive:table-header:date" }),
       align: "right",
+      defaultSortDir: "desc",
       render: row =>
         row.dateTime
           ? intl.formatDate(row.dateTime, DATE_TIME_FORMAT_SHORT)
