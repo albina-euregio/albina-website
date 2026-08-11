@@ -6,12 +6,12 @@
       "download": "GeoJSON herunterladen"
     },
     "tooltip": {
-      "edit": "Ereignis bearbeiten",
-      "preview": "View incident"
+      "edit": "Lawinenereignis bearbeiten",
+      "preview": "Lawinenereignis anzeigen"
     },
-    "empty": "Keine Ereignisse für diese Region.",
-    "loading": "Ereignisse werden geladen...",
-    "error": "Ereignisse konnten nicht geladen werden",
+    "empty": "Keine Lawinenereignisse für diese Region.",
+    "loading": "Lawinenereignisse werden geladen...",
+    "error": "Lawinenereignisse konnten nicht geladen werden",
     "retry": "Wiederholen",
     "filter": {
       "anyStatus": "Status auswählen"
@@ -27,8 +27,8 @@
     "clearPoint": "Punkt löschen",
     "clearPolygon": "Polygon löschen",
     "controls": "Regler Geometrie",
-    "deleteIncident": "Ereignis löschen",
-    "deleteIncidentConfirm": "Willst du wirklich dieses Ereignis löschen?",
+    "deleteIncident": "Lawinenereignis löschen",
+    "deleteIncidentConfirm": "Willst du wirklich dieses Lawinenereignis löschen?",
     "drawLine": "Linie zeichnen",
     "drawLineInstructions": "Um der Linie Punkte hinzuzufügen, bitte In die Karte klicken.",
     "drawPoint": "Punkt zeichnen",
@@ -36,7 +36,7 @@
     "drawPolygon": "Polygon zeichnen",
     "drawPolygonInstructions": "Mit Klick auf die Karte werden die Eckpunkte des Polygons festgelegt.",
     "dropAttachment": "Drop Anhang {{fileName}}?",
-    "dropAvalancheProblem": "Drop avalanche problem {{number}}?",
+    "dropAvalancheProblem": "Lawinenproblem {{number}} löschen?",
     "dropGroup": "Drop Gruppe {{number}}?",
     "dropVictim": "Person {{number}} löschen?",
     "fetchPublishedBulletin": "Aus veröffentlichtem CAAML-Bulletin übernehmen.",
@@ -55,12 +55,12 @@
     "polygon": "Polygon",
     "publishIncident": "Publizieren",
     "publishIncidentConfirm": "Willst du dieses Lawinenereignis publizieren?",
-    "publishIncidentSuccess": "Ereignisdokumentation wurde erfolgreich publiziert",
+    "publishIncidentSuccess": "Lawinenereignis wurde erfolgreich publiziert",
     "republishIncident": "Erneut publizieren:",
     "republishIncidentConfirm": "Willst du dieses Lawinenereignis erneut publizieren?",
     "unpublishIncident": "Löschen",
     "unpublishIncidentConfirm": "Willst du dieses Lawinenereignis löschen?",
-    "unpublishIncidentSuccess": "Die Ereignisdokumentation wurde erfolgreich gelöscht.",
+    "unpublishIncidentSuccess": "Die Lawinenereignis wurde erfolgreich gelöscht.",
     "removeAttachment": "Anhang löschen",
     "removeAvalancheProblem": "Lawinenproblem löschen",
     "removeGroup": "Gruppe löschen",
@@ -477,7 +477,7 @@
   "groupType": {
     "RecreationalFamilyFriends": "Freizeit Familie/Freunde",
     "Club": "Verein",
-    "Commercial": "Kommerziel",
+    "Commercial": "Kommerziell",
     "Industrial": "Industrie",
     "Solo": "Solo",
     "Unknown": "unbekannt",
@@ -733,7 +733,7 @@
     "FullSkiGuide": "Skiführer:in",
     "SkiInstructor": "Skilehrer:in",
     "ApprenticeGuide": "Bergführer:in Anwärter",
-    "AvalancheProfessional": "Lawinenprofessionist",
+    "AvalancheProfessional": "Professionell ausgebildete Fachkraft für Lawinensicherheit",
     "AvalancheEducator": "Ausbildner Lawine",
     "Other": "Andere"
   },

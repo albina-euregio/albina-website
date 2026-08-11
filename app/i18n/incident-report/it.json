@@ -7,7 +7,7 @@
     },
     "tooltip": {
       "edit": "Modifica evento valanghivo",
-      "preview": "View incident"
+      "preview": "Visualizza l'evento valanghivo"
     },
     "empty": "Nessun evento valanghivo in questa meteo-nivo zona.",
     "loading": "Caricamento eventi valanghivi...",
@@ -36,7 +36,7 @@
     "drawPolygon": "Disegna poligono",
     "drawPolygonInstructions": "Clicca sulla mappa per definire gli angoli/i vertici del poligono.",
     "dropAttachment": "Rimuovere l'allegato {{fileName}}?",
-    "dropAvalancheProblem": "Drop avalanche problem {{number}}?",
+    "dropAvalancheProblem": "Elimina problema valanghivo {{numero}}?",
     "dropGroup": "Rimuovere il gruppo {{number}}?",
     "dropVictim": "Rimuovere la persona {{number}}?",
     "fetchPublishedBulletin": "Recupera dal bollettino CAAML pubblicato",
@@ -480,14 +480,14 @@
     "Commercial": "Commerciale",
     "Industrial": "Industriale",
     "Solo": "Solo",
-    "Unknown": "Ignoto",
+    "Unknown": "Sconosciuto",
     "Other": "Altro"
   },
   "groupSizeAccuracy": {
     "Exact": "Esatto",
     "Approximately": "All'incirca",
     "AtLeast": "Almeno",
-    "Unknown": "Ignoto"
+    "Unknown": "Sconosciuto"
   },
   "incidentTerrainType": {
     "FreeTerrain": "Fuori pista",
@@ -496,7 +496,7 @@
     "Unknown": "Sconosciuto"
   },
   "typeOfControlledTerrain": {
-    "IndoorInsideBuilding": "All'interno di un edificio",
+    "IndoorInsideBuilding": "All'interno (di un edificio)",
     "Street": "Strada",
     "TrainTrack": "Binari del treno",
     "SkiAreaResort": "Comprensorio sciistico",
