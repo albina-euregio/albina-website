@@ -305,8 +305,6 @@
   },
   "stations": [
     {
-      "smet": "",
-      "smetOperators": "$^",
       "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
       "pngOperators": ".*",
       "stations": "https://static.lauegi.report/weather_stations/stations.geojson",
