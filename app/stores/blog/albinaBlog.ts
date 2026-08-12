@@ -71,10 +71,33 @@ export class AlbinaProcessor implements BlogProcessor {
       item.title,
       item.content,
       config.lang,
-      [],
+      this.langLinks(item, config),
       config.regions,
       item.attachmentUrl,
       item.categories
     );
+  }
+
+  private langLinks(
+    item: BlogItem,
+    config: BlogConfig
+  ): { lang: string; link: string }[] {
+    const blogNames = new Set(window.config.blogs.map(blog => blog.name));
+    return Object.entries(item.translations)
+      .filter(([lang, postId]) => !!postId && lang !== config.lang)
+      .map(([lang, postId]) => ({
+        lang,
+        // blogs are named `<region>-<lang>`, e.g. at-07-de, at-07-en, at-07-it
+        blogName: config.name.replace(
+          new RegExp(`-${config.lang}$`),
+          `-${lang}`
+        ),
+        postId
+      }))
+      .filter(({ blogName }) => blogNames.has(blogName))
+      .map(({ lang, blogName, postId }) => ({
+        lang,
+        link: `/blog/${blogName}/${postId}`
+      }));
   }
 }
