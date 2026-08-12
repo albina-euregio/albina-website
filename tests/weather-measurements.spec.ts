@@ -8,10 +8,11 @@ test("weather/stations?view=table", async ({ page }) => {
   await firstRow.waitFor({ state: "visible", timeout: 10000 });
   await expect(firstRow).toHaveText(/^A/);
 
-  await page.getByRole("link", { name: "Station: Invert sort" }).click();
+  await page.getByRole("link", { name: "Station", exact: true }).click();
   await expect(firstRow).toHaveText(/^Z/);
 
-  await page.getByRole("link", { name: "Elevation: Sort descending" }).click();
+  await page.getByRole("link", { name: "Elevation" }).click();
+  await page.getByRole("link", { name: "Elevation" }).click();
   await expect(firstRow).toHaveText(/Weißseespitze|Erzherzog-Johann-Hütte/);
 
   await expect(await page.getByRole("row").count()).toBeGreaterThan(300);
