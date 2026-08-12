@@ -40,6 +40,11 @@ function profileImageSrc(profileId: string, language: string): string {
   );
 }
 
+/** CAAML XML representation of the profile, for download. */
+function profileXmlSrc(profileId: string): string {
+  return `${config.apis.profiles}/profiles/${encodeURIComponent(profileId)}?format=xml`;
+}
+
 /**
  * Loads `src` off-screen and only hands it over once it is ready to paint, so
  * that flipping to another profile keeps the current one on screen instead of
@@ -98,9 +103,8 @@ function SnowProfileDetail({ profiles, profileId, setProfileId }: Props) {
     canSwipe
   });
 
-  const { loaded, pending, error } = usePreloadedImage(
-    profileImageSrc(profileId, language)
-  );
+  const imageSrc = profileImageSrc(profileId, language);
+  const { loaded, pending, error } = usePreloadedImage(imageSrc);
 
   // Start the shown profile from the top left, not wherever its predecessor was
   // panned to.
@@ -128,6 +132,29 @@ function SnowProfileDetail({ profiles, profileId, setProfileId }: Props) {
         previousLabel={intl.formatMessage({ id: "dialog:flipper:previous" })}
         nextLabel={intl.formatMessage({ id: "dialog:flipper:next" })}
       />
+      <div className="snowprofile-detail__actions">
+        <a
+          className="snowprofile-detail__action"
+          href={profileXmlSrc(profileId)}
+          download={`${profileId}.xml`}
+          title={intl.formatMessage({ id: "profiles:detail:download-xml" })}
+          aria-label={intl.formatMessage({
+            id: "profiles:detail:download-xml"
+          })}
+        >
+          <span className="icon-download" aria-hidden="true" />
+        </a>
+        <a
+          className="snowprofile-detail__action"
+          href={imageSrc}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={intl.formatMessage({ id: "profiles:detail:open-tab" })}
+          aria-label={intl.formatMessage({ id: "profiles:detail:open-tab" })}
+        >
+          <span className="icon-external" aria-hidden="true" />
+        </a>
+      </div>
       <div className="snowprofile-detail" ref={scrollRef} aria-busy={pending}>
         {error && <p>{intl.formatMessage({ id: "profiles:detail:error" })}</p>}
         {!loaded && !error && (

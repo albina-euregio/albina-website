@@ -1,5 +1,6 @@
 @use "sass:map";
 @use "../abstracts/variables";
+@use "../abstracts/mixins";
 
 /*------------------------------------*\
 	#SNOWPROFILE
@@ -83,9 +84,54 @@ $snowprofile-stabilities: (
   }
 }
 
-// keep the close/flipper controls in the dialog's top right corner off the profile
+// The flipper and close controls sit fixed in the top-right corner; the actions
+// row fills the same band on the left, so the top reads as one toolbar.
 .modal-container.snowprofile-details {
-  padding-top: calc(#{variables.$icon-font-size} + #{variables.$padding} * 3);
+  padding-top: variables.$padding;
+}
+
+// Edge length of the fixed close/flipper controls (see `$modal-control-size` in
+// _modals.scss), kept local so this feature stays self-contained.
+$snowprofile-control-size: calc(
+  #{variables.$icon-font-size} + #{variables.$padding}
+);
+
+// Actions above the profile image: open in a new tab, download the CAAML XML.
+.snowprofile-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: $snowprofile-control-size;
+  gap: calc(#{variables.$padding} * 0.5);
+  // stay clear of the fixed flipper + close controls in the opposite corner
+  padding-right: calc(
+    #{$snowprofile-control-size} * 3 + #{variables.$padding} * 3
+  );
+  margin-bottom: variables.$padding;
+}
+
+// Icon-only controls that mirror the flipper/close buttons opposite them.
+a.snowprofile-detail__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $snowprofile-control-size;
+  width: $snowprofile-control-size;
+  color: variables.$brand;
+  background-color: rgba(variables.$white, 0.75);
+  border-radius: variables.$global-radius;
+  @include mixins.rollout;
+
+  span:before {
+    margin-right: 0;
+    line-height: 1;
+  }
+
+  &:hover {
+    color: variables.$brand-dark;
+    background-color: variables.$white;
+    @include mixins.rollover;
+  }
 }
 
 .snowprofile-detail {

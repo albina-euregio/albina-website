@@ -353,6 +353,8 @@
   "profiles:filter:date-to": "To",
   "profiles:detail:loading": "Loading snow profile…",
   "profiles:detail:error": "Failed to load snow profile.",
+  "profiles:detail:open-tab": "Open in new tab",
+  "profiles:detail:download-xml": "Download XML",
   "profiles:add": "New snow profile",
   "profiles:table:header:stability": "Snowpack stability",
   "profiles:stability:good": "Good",
