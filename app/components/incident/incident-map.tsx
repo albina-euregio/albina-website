@@ -10,6 +10,7 @@ import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
 import { useIntl } from "../../i18n";
 import { useIncidentReportMessages } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
+import { escapeHtml } from "../../util/escape-html.ts";
 import {
   involvementLabel,
   involvementText
@@ -39,15 +40,6 @@ function involvementColor(): (involvement: IncidentInvolvement) => string {
 interface Props {
   incidents: IncidentData[];
   onIncidentSelected: (id: string) => void;
-}
-
-/** Escapes text before it is interpolated into the tooltip's HTML string. */
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
 }
 
 /**

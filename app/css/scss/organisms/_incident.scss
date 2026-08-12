@@ -1,4 +1,5 @@
 @use "../abstracts/variables";
+@use "../abstracts/mixins";
 
 .incident-details {
   // Keep long content readable and away from the dialog edges. The outer
@@ -174,15 +175,7 @@
 }
 
 .incident-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  padding: 0.2em 0.6em;
-  border-radius: 1em;
-  background: variables.$grey-very-light;
-  color: variables.$grey-dark;
-  font-size: 0.85em;
-  white-space: nowrap;
+  @include mixins.neutral-chip;
 }
 
 // A severity dot for the incident table's involvement cell
@@ -200,39 +193,13 @@
   border-radius: 50%;
 }
 
-// The marker's hover tooltip
+// The marker's hover tooltip — the shared spine card, coloured by person
+// involvement. Only the outcome/badge `__body` below is incident-specific.
 .maplibre-incident-tooltip {
-  .maplibregl-popup-content {
-    // Let the card own its padding so the colour spine can sit flush to the
-    // left edge; clip the spine to the popup's rounded corners.
-    padding: 0;
-    overflow: hidden;
-    border-radius: 6px;
-  }
-
-  .incident-tooltip {
-    max-width: 20rem;
-    padding: (variables.$padding * 0.75) variables.$padding;
-    font-size: variables.$tiny-font-size;
-    line-height: 1.4;
-    color: variables.$text-color;
-    border-left: 3px solid var(--incident-involvement-color, transparent);
-  }
-
-  .incident-tooltip__title {
-    margin: 0;
-    color: variables.$grey-very-dark;
-    font-size: 1em;
-    font-weight: 700;
-    line-height: 1.25;
-  }
-
-  .incident-tooltip__meta {
-    // Match the details dialog header's date/involvement line.
-    margin: 0.15em 0 0;
-    color: variables.$grey-dark;
-    font-size: variables.$tiny-font-size;
-  }
+  @include mixins.map-tooltip-card(
+    "incident-tooltip",
+    --incident-involvement-color
+  );
 
   .incident-tooltip__body {
     // No divider — the same open, rule-free rhythm the details dialog uses.

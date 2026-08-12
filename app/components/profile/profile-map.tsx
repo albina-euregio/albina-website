@@ -1,10 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useStore } from "@nanostores/react";
 import { $focusRegions } from "../../appStore.ts";
 import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
 import { useIntl } from "../../i18n";
+import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
+import { escapeHtml } from "../../util/escape-html.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
 import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
@@ -40,7 +42,8 @@ function SnowProfileMapLegend() {
 }
 
 function toFeatureCollection(
-  snowProfiles: SnowProfileData[]
+  snowProfiles: SnowProfileData[],
+  renderTooltip: (profile: SnowProfileData) => string
 ): GeoJSON.FeatureCollection<GeoJSON.Point> {
   // Read the stability marker colors from CSS (`--snowprofile-stability-*`) once
   // per rebuild, treating a missing stability as "no test".
@@ -65,7 +68,10 @@ function toFeatureCollection(
           location: profile.location,
           color: markerColor(profile.stability),
           // Draw the less stable markers on top of the rest where they pile up.
-          severity: snowProfileStabilitySeverity(profile.stability ?? "no-test")
+          severity: snowProfileStabilitySeverity(
+            profile.stability ?? "no-test"
+          ),
+          tooltip: renderTooltip(profile)
         }
       }))
   };
@@ -84,6 +90,58 @@ function SnowProfileMapLibreMap({
   });
   const onSnowProfileSelectedRef = useRef(onSnowProfileSelected);
   const focusRegions = useStore($focusRegions);
+  const intl = useIntl();
+
+  // Mirror the incident map's marker tooltip: a stability-coloured spine, the
+  // location title, a date/time meta line, then the elevation and an aspect chip.
+  const renderTooltip = useCallback(
+    (profile: SnowProfileData): string => {
+      const esc = (value: string | undefined): string | undefined =>
+        value ? escapeHtml(value) : undefined;
+
+      const title = esc(profile.location);
+      const dateTime = esc(
+        profile.dateTime
+          ? intl.formatDate(profile.dateTime, DATE_TIME_FORMAT_SHORT)
+          : undefined
+      );
+      const elevation =
+        profile.elevation != null
+          ? esc(intl.formatNumberUnit(profile.elevation, "m"))
+          : undefined;
+      const aspect = esc(profile.aspect);
+
+      const header = [
+        title
+          ? `<p class="snowprofile-tooltip__title">${title}</p>`
+          : undefined,
+        dateTime
+          ? `<p class="snowprofile-tooltip__meta">${dateTime}</p>`
+          : undefined
+      ].filter(Boolean);
+
+      const facts = [
+        elevation
+          ? `<span class="snowprofile-fact-badge">${elevation}</span>`
+          : undefined,
+        aspect
+          ? `<span class="snowprofile-fact-badge">${aspect}</span>`
+          : undefined
+      ].filter(Boolean);
+
+      if (!header.length && !facts.length) return "";
+      const headerHtml = header.length
+        ? `<div class="snowprofile-tooltip__header">${header.join("")}</div>`
+        : "";
+      const bodyHtml = facts.length
+        ? `<div class="snowprofile-tooltip__body">${facts.join("")}</div>`
+        : "";
+      // Thread the marker's stability colour into the card via a custom property.
+      const stability = profile.stability ?? "no-test";
+      return `<div class="snowprofile-tooltip" style="--snowprofile-stability-color: var(${stabilityColorProperty(stability)})">${headerHtml}${bodyHtml}</div>`;
+    },
+    [intl]
+  );
 
   useEffect(() => {
     onSnowProfileSelectedRef.current = onSnowProfileSelected;
@@ -132,10 +190,11 @@ function SnowProfileMapLibreMap({
       map.on("mousemove", CIRCLE_LAYER_ID, e => {
         const feature = e.features?.[0];
         if (feature?.geometry.type !== "Point") return;
-        const location = feature.properties?.location;
+        const tooltip = feature.properties?.tooltip;
+        if (typeof tooltip !== "string" || !tooltip) return;
         tooltipRef.current
           ?.setLngLat(feature.geometry.coordinates as [number, number])
-          .setText(typeof location === "string" ? location : "")
+          .setHTML(tooltip)
           .addTo(map);
       });
     });
@@ -158,7 +217,7 @@ function SnowProfileMapLibreMap({
   }, []);
 
   useEffect(() => {
-    const data = toFeatureCollection(snowProfiles);
+    const data = toFeatureCollection(snowProfiles, renderTooltip);
     dataRef.current = data;
 
     const map = mapRef.current;
@@ -166,7 +225,7 @@ function SnowProfileMapLibreMap({
     if (map && source instanceof maplibregl.GeoJSONSource) {
       source.setData(data);
     }
-  }, [snowProfiles]);
+  }, [snowProfiles, renderTooltip]);
 
   return (
     <div className="snowprofile-map">

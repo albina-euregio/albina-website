@@ -63,17 +63,11 @@ $snowprofile-stabilities: (
   }
 }
 
-// Same pill chip as the incident table's `.incident-badge` (shape, padding,
-// font, outline) — only the colour is the snowpack stability's own.
+// The same chip geometry as every other badge, carrying the snowpack
+// stability's own colours and a solid outline.
 .snowprofile-stability-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  padding: 0.2em 0.6em;
+  @include mixins.chip-shape;
   border: 1px solid;
-  border-radius: 1em;
-  font-size: 0.85em;
-  white-space: nowrap;
 
   @each $name, $spec in $snowprofile-stabilities {
     &--#{$name} {
@@ -81,6 +75,29 @@ $snowprofile-stabilities: (
       border-color: map.get($spec, "border");
       color: map.get($spec, "text");
     }
+  }
+}
+
+// Neutral pill for a single profile fact (aspect, elevation). Shares the
+// incident badges' shape and colours via `neutral-chip`.
+.snowprofile-fact-badge {
+  @include mixins.neutral-chip;
+}
+
+// The marker's hover tooltip — the shared spine card, coloured by snowpack
+// stability instead of person involvement. Only `__body` is profile-specific.
+.maplibre-snowprofile-tooltip {
+  @include mixins.map-tooltip-card(
+    "snowprofile-tooltip",
+    --snowprofile-stability-color
+  );
+
+  .snowprofile-tooltip__body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4em;
+    margin: (variables.$padding * 0.4) 0 0;
   }
 }
 

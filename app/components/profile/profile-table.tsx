@@ -47,13 +47,24 @@ export default function SnowProfileTable(props: Props) {
     {
       id: "elevation",
       title: intl.formatMessage({ id: "measurements:table:header:altitude" }),
-      render: row =>
-        row.elevation != null ? intl.formatNumberUnit(row.elevation, "m") : ""
+      render: (row): ReactNode =>
+        row.elevation != null ? (
+          <span className="snowprofile-fact-badge">
+            {intl.formatNumberUnit(row.elevation, "m")}
+          </span>
+        ) : (
+          ""
+        )
     },
     {
       id: "aspect",
       title: intl.formatMessage({ id: "measurements:table:header:aspect" }),
-      render: row => row.aspect ?? ""
+      render: (row): ReactNode =>
+        row.aspect ? (
+          <span className="snowprofile-fact-badge">{row.aspect}</span>
+        ) : (
+          ""
+        )
     },
     {
       id: "stability",
