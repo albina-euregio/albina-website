@@ -6,6 +6,7 @@ import { useStationData } from "../../stores/stationDataStore";
 import { microRegionBounds } from "../../stores/microRegions";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
+import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import { Bulletin } from "../../stores/bulletin";
 import { fetchJSON } from "../../util/fetch.ts";
 import Modal from "../dialogs/albina-modal.tsx";
@@ -171,6 +172,7 @@ function BulletinMiniMap({
   onStationClick: (id: string) => void;
   onObservationClick: (url: string) => void;
 }) {
+  const intl = useIntl();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const tooltipRef = useRef<maplibregl.Popup | null>(null);
@@ -208,6 +210,33 @@ function BulletinMiniMap({
       className: "maplibre-station-tooltip"
     });
 
+    map.addControl(
+      new maplibregl.NavigationControl({ showCompass: false }),
+      "top-left"
+    );
+    map.addControl(
+      new GeonamesControl({
+        ...config.map.geonames,
+        lang: intl.locale.slice(0, 2),
+        title: intl.formatMessage({ id: "bulletin:map:search" }),
+        placeholder: intl.formatMessage({ id: "bulletin:map:search:hover" }),
+        noResults: intl.formatMessage({ id: "bulletin:map:search:no-results" })
+      }),
+      "top-left"
+    );
+    map.addControl(
+      new maplibregl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: false,
+        showAccuracyCircle: true
+      }),
+      "top-left"
+    );
+    map.addControl(
+      new maplibregl.ScaleControl({ unit: "metric" }),
+      "bottom-left"
+    );
+
     map.on("load", () => {
       map.addSource(STATIONS_SOURCE, {
         type: "geojson",
@@ -228,6 +257,9 @@ function BulletinMiniMap({
         paint: {
           "circle-radius": 10,
           "circle-color": STATION_COLOR,
+          // Hollow ring: faint fill + full-opacity stroke (matches the old
+          // Leaflet CircleMarker's default fillOpacity of 0.2).
+          "circle-opacity": 0.2,
           "circle-stroke-color": STATION_COLOR,
           "circle-stroke-width": 1
         }
@@ -242,6 +274,7 @@ function BulletinMiniMap({
         paint: {
           "circle-radius": 12,
           "circle-color": OBSERVATION_COLOR,
+          "circle-opacity": 0.2,
           "circle-stroke-color": OBSERVATION_COLOR,
           "circle-stroke-width": 1
         }
@@ -330,7 +363,13 @@ function BulletinMiniMap({
     );
   }, [showObservations]);
 
-  return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
+  return (
+    <div
+      ref={containerRef}
+      className="bulletin-report-mini-map"
+      style={{ width: "100%", height: "100%" }}
+    />
+  );
 }
 
 export function AdditionalBulletinInformation({
