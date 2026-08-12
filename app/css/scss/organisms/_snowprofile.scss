@@ -62,14 +62,16 @@ $snowprofile-stabilities: (
   }
 }
 
+// Same pill chip as the incident table's `.incident-badge` (shape, padding,
+// font, outline) — only the colour is the snowpack stability's own.
 .snowprofile-stability-badge {
-  display: inline-block;
-  padding: 0.25rem 0.625rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.2em 0.6em;
   border: 1px solid;
-  border-radius: 0.25rem;
-  font-size: variables.$tiny-font-size;
-  font-weight: 500;
-  line-height: 1.4;
+  border-radius: 1em;
+  font-size: 0.85em;
   white-space: nowrap;
 
   @each $name, $spec in $snowprofile-stabilities {
