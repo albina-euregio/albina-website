@@ -410,6 +410,14 @@ $search-width-wide: 300px;
 // search and a subtle scale bar. Scoped to the bulletin map so the weather and
 // station maps keep the default MapLibre controls.
 #section-bulletin-map {
+  // The overlay map's region fills blend into the base map via multiply. Apply
+  // that blend to the canvas only — not the whole overlay div, whose control
+  // container is a sibling of the canvas: white buttons under multiply would
+  // otherwise blend away to transparent and show the map through them.
+  .bulletin-map-overlay .maplibregl-canvas {
+    mix-blend-mode: multiply;
+  }
+
   .maplibregl-ctrl-top-left {
     top: variables.$padding * 0.5;
     left: variables.$padding * 0.5;
@@ -427,7 +435,7 @@ $search-width-wide: 300px;
   // Control-group boxes and their buttons (zoom + geolocate).
   .maplibregl-ctrl-group {
     border-radius: 0;
-    background: rgba(variables.$white, 0.95);
+    background: variables.$white;
     @include mixins.box-shadow(0.15);
 
     button {
@@ -436,7 +444,7 @@ $search-width-wide: 300px;
       justify-content: center;
       width: $controls-width-height;
       height: $controls-width-height;
-      background: transparent;
+      background: variables.$white;
       border-radius: 0;
 
       .maplibregl-ctrl-icon {
@@ -482,7 +490,7 @@ $search-width-wide: 300px;
       justify-content: center;
       width: $controls-width-height;
       height: $controls-width-height;
-      background: transparent;
+      background: variables.$white;
       border: none;
       cursor: pointer;
       .geonames-ctrl-icon:before {

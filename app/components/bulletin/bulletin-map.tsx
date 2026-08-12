@@ -970,7 +970,8 @@ function MapLibreMap({
       />
       <div
         ref={overlayRef}
-        style={{ position: "absolute", inset: 0, mixBlendMode: "multiply" }}
+        className="bulletin-map-overlay"
+        style={{ position: "absolute", inset: 0 }}
       />
     </div>
   );
