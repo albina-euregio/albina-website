@@ -1,5 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import maplibregl from "maplibre-gl";
+import {
+  LngLatBounds,
+  Map as MlMap,
+  Marker,
+  NavigationControl
+} from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 import type { IncidentData } from "../../stores/incidentDataStore.ts";
@@ -33,7 +38,7 @@ function hasGeometry(incident: IncidentData): boolean {
  */
 function IncidentLocationMap({ incident }: { incident: IncidentData }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
+  const mapRef = useRef<MlMap | null>(null);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -75,7 +80,7 @@ function IncidentLocationMap({ incident }: { incident: IncidentData }) {
       allPoints.push([incident.lon as number, incident.lat as number]);
     }
 
-    const map = new maplibregl.Map({
+    const map = new MlMap({
       dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
@@ -84,10 +89,7 @@ function IncidentLocationMap({ incident }: { incident: IncidentData }) {
       maxZoom: 17,
       attributionControl: { compact: true }
     });
-    map.addControl(
-      new maplibregl.NavigationControl({ showCompass: false }),
-      "top-left"
-    );
+    map.addControl(new NavigationControl({ showCompass: false }), "top-left");
 
     map.on("load", () => {
       map.addSource(SOURCE_ID, {
@@ -117,7 +119,7 @@ function IncidentLocationMap({ incident }: { incident: IncidentData }) {
       });
 
       if (incident.hasLocation) {
-        new maplibregl.Marker({ color: "#2a81cb" })
+        new Marker({ color: "#2a81cb" })
           .setLngLat([incident.lon as number, incident.lat as number])
           .addTo(map);
       }
@@ -125,7 +127,7 @@ function IncidentLocationMap({ incident }: { incident: IncidentData }) {
       if (allPoints.length === 1) {
         map.jumpTo({ center: allPoints[0], zoom: 15 });
       } else if (allPoints.length > 1) {
-        const bounds = new maplibregl.LngLatBounds();
+        const bounds = new LngLatBounds();
         for (const p of allPoints) bounds.extend(p);
         map.fitBounds(bounds, { maxZoom: 15, animate: false, padding: 40 });
       }

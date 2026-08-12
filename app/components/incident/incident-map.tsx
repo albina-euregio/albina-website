@@ -1,5 +1,10 @@
 import React, { useCallback, useEffect, useRef } from "react";
-import maplibregl from "maplibre-gl";
+import {
+  GeoJSONSource,
+  Map as MlMap,
+  NavigationControl,
+  Popup
+} from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useStore } from "@nanostores/react";
 import { $focusRegions } from "../../appStore.ts";
@@ -95,8 +100,8 @@ function toFeatureCollection(
 
 function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
-  const tooltipRef = useRef<maplibregl.Popup | null>(null);
+  const mapRef = useRef<MlMap | null>(null);
+  const tooltipRef = useRef<Popup | null>(null);
   const dataRef = useRef<GeoJSON.FeatureCollection<GeoJSON.Point>>({
     type: "FeatureCollection",
     features: []
@@ -162,19 +167,16 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
 
     const bounds = padBounds(eawsRegionsBounds(focusRegions), 0.1);
 
-    const map = new maplibregl.Map({
+    const map = new MlMap({
       dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
       bounds
     });
 
-    map.addControl(
-      new maplibregl.NavigationControl({ showCompass: false }),
-      "top-left"
-    );
+    map.addControl(new NavigationControl({ showCompass: false }), "top-left");
 
-    tooltipRef.current = new maplibregl.Popup({
+    tooltipRef.current = new Popup({
       closeButton: false,
       closeOnClick: false,
       offset: 14,
@@ -232,7 +234,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
 
     const map = mapRef.current;
     const source = map?.getSource(SOURCE_ID);
-    if (map && source instanceof maplibregl.GeoJSONSource) {
+    if (map && source instanceof GeoJSONSource) {
       source.setData(data);
     }
   }, [incidents, renderTooltip]);

@@ -1,4 +1,4 @@
-import { LngLatBounds } from "maplibre-gl";
+import { type FilterSpecification, LngLatBounds } from "maplibre-gl";
 
 const regions_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_properties/*_micro-regions.json",
@@ -63,7 +63,7 @@ export function filterFeature(
 
 export function filterFeatureSpecification(
   today: ReturnType<Temporal.PlainDate["toString"]>
-): maplibregl.FilterSpecification {
+): FilterSpecification {
   if (!today) return ["literal", false];
   return [
     "all",

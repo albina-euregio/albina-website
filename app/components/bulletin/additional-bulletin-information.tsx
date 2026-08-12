@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import maplibregl from "maplibre-gl";
+import {
+  GeoJSONSource,
+  type LngLatBoundsLike,
+  Map as MlMap,
+  Popup
+} from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import WeatherStationDialog, { useStationId } from "../station/station-dialog";
 import { useStationData } from "../../stores/stationDataStore";
@@ -163,7 +168,7 @@ function BulletinMiniMap({
   onStationClick,
   onObservationClick
 }: {
-  bounds: maplibregl.LngLatBoundsLike | undefined;
+  bounds: LngLatBoundsLike | undefined;
   stations: GeoJSON.FeatureCollection<GeoJSON.Point>;
   observations: GeoJSON.FeatureCollection<GeoJSON.Point>;
   showStations: boolean;
@@ -172,8 +177,8 @@ function BulletinMiniMap({
   onObservationClick: (url: string) => void;
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
-  const tooltipRef = useRef<maplibregl.Popup | null>(null);
+  const mapRef = useRef<MlMap | null>(null);
+  const tooltipRef = useRef<Popup | null>(null);
   // Held in refs so the once-registered map handlers always see the latest
   // callbacks and data, and the load handler can seed the sources/visibility.
   const onStationClickRef = useRef(onStationClick);
@@ -193,7 +198,7 @@ function BulletinMiniMap({
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
-    const map = new maplibregl.Map({
+    const map = new MlMap({
       dragRotate: false,
       cooperativeGestures: true,
       container: containerRef.current,
@@ -201,7 +206,7 @@ function BulletinMiniMap({
       ...(bounds ? { bounds } : {})
     });
 
-    tooltipRef.current = new maplibregl.Popup({
+    tooltipRef.current = new Popup({
       closeButton: false,
       closeOnClick: false,
       offset: 14,
@@ -299,13 +304,12 @@ function BulletinMiniMap({
   useEffect(() => {
     stationsRef.current = stations;
     const source = mapRef.current?.getSource(STATIONS_SOURCE);
-    if (source instanceof maplibregl.GeoJSONSource) source.setData(stations);
+    if (source instanceof GeoJSONSource) source.setData(stations);
   }, [stations]);
   useEffect(() => {
     observationsRef.current = observations;
     const source = mapRef.current?.getSource(OBSERVATIONS_SOURCE);
-    if (source instanceof maplibregl.GeoJSONSource)
-      source.setData(observations);
+    if (source instanceof GeoJSONSource) source.setData(observations);
   }, [observations]);
 
   // Toggle layer visibility (no-op until the layers exist after load).
@@ -353,7 +357,7 @@ export function AdditionalBulletinInformation({
     []
   );
 
-  const bounds = useMemo((): maplibregl.LngLatBoundsLike | undefined => {
+  const bounds = useMemo((): LngLatBoundsLike | undefined => {
     const b = microRegionBounds(date, region);
     return b.isEmpty() ? undefined : b;
   }, [region, date]);
