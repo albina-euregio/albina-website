@@ -220,10 +220,11 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
   }
   // 2026 design (RF reference): every danger-level headline is dark text on its
   // level-coloured box — for all levels 1-5, not only the light levels the shared
-  // panel mixin boxes. Levels 3-5 would otherwise render as coloured text.
+  // panel mixin boxes. Text colour follows the design system's surface split:
+  // dark on the light levels 1-3, white on the red levels 4-5 for contrast.
   @for $level from 1 through variables.$warning-level-count {
     .panel.warning-level-#{$level} .bulletin-report-header-danger-level span {
-      color: variables.$text-color;
+      color: if($level >= 4, variables.$white, variables.$text-color);
       background-color: variables.warning-level-color($level);
     }
   }
