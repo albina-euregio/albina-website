@@ -34,6 +34,7 @@ import { FormattedMessage } from "../../i18n";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
+import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import eawsPmtimes from "@eaws/pmtiles/eaws-regions.pmtiles?url";
 import { REGION_FILL_PAINT, REGION_LINE_PAINT } from "./bulletin-map-paint";
 
@@ -789,6 +790,30 @@ function MapLibreMap({
     overlay.addControl(
       new maplibregl.NavigationControl({ showCompass: false }),
       "top-left"
+    );
+    // Reapply the controls lost in the Leaflet -> MapLibre migration: place
+    // search (GeoNames) and geolocate below the zoom buttons, scale bottom-left.
+    overlay.addControl(
+      new GeonamesControl({
+        ...config.map.geonames,
+        lang: intl.locale.slice(0, 2),
+        title: intl.formatMessage({ id: "bulletin:map:search" }),
+        placeholder: intl.formatMessage({ id: "bulletin:map:search:hover" }),
+        noResults: intl.formatMessage({ id: "bulletin:map:search:no-results" })
+      }),
+      "top-left"
+    );
+    overlay.addControl(
+      new maplibregl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: false,
+        showAccuracyCircle: true
+      }),
+      "top-left"
+    );
+    overlay.addControl(
+      new maplibregl.ScaleControl({ unit: "metric" }),
+      "bottom-left"
     );
 
     overlay.on("load", () => {
