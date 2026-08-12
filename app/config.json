@@ -267,7 +267,7 @@
     {
       "lang": "de",
       "name": "at-02-de",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["AT-02"],
       "params": {
         "id": "blog.avalanche.report/at-02"
@@ -276,7 +276,7 @@
     {
       "lang": "de",
       "name": "at-07-de",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["AT-07"],
       "params": {
         "id": "blog.avalanche.report/at-07"
@@ -285,7 +285,7 @@
     {
       "lang": "en",
       "name": "at-07-en",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["AT-07"],
       "params": {
         "id": "blog.avalanche.report/at-07"
@@ -294,7 +294,7 @@
     {
       "lang": "it",
       "name": "at-07-it",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["AT-07"],
       "params": {
         "id": "blog.avalanche.report/at-07"
@@ -303,7 +303,7 @@
     {
       "lang": "de",
       "name": "it-32-bz-de",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["IT-32-BZ"],
       "params": {
         "id": "blog.avalanche.report/it-32-bz"
@@ -312,7 +312,7 @@
     {
       "lang": "it",
       "name": "it-32-bz-it",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["IT-32-BZ"],
       "params": {
         "id": "blog.avalanche.report/it-32-bz"
@@ -321,7 +321,7 @@
     {
       "lang": "it",
       "name": "it-32-tn-it",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["IT-32-TN"],
       "params": {
         "id": "blog.avalanche.report/it-32-tn"
@@ -404,6 +404,7 @@
     },
     "push": "/api/push",
     "subscribe": "/api/email",
+    "blogs": "/api/blogs",
     "incidents": "/api/incidents",
     "profiles": "/profiles-app/api",
     "snobs": "https://static.avalanche.report/snobs.json",
