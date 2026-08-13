@@ -13,10 +13,7 @@
 @mixin apply-surface-base($level) {
   @if variables.warning-level($level, patterned) {
     background: variables.warning-level-color($level)
-      url("../../../images/pro/global/bg_checkered.webp")
-      repeat
-      0
-      0;
+      url("../../../images/pro/global/bg_checkered.webp") repeat 0 0;
   } @else {
     background-color: variables.warning-level-color($level);
   }
@@ -44,11 +41,8 @@
   &.warning-level-#{$level} {
     &:before {
       @if $with-pattern {
-        background: $color
-          url("../../../images/pro/global/bg_checkered.webp")
-          repeat
-          0
-          0;
+        background: $color url("../../../images/pro/global/bg_checkered.webp")
+          repeat 0 0;
       } @else {
         background-color: $color;
       }

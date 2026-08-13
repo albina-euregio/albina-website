@@ -22,6 +22,39 @@ $map-height-bulletin: 50vh;
   --vh: 1vh;
 }
 
+// A compact color legend overlaid on a dashboard map (incidents, snow profiles).
+.map-legend {
+  z-index: 2;
+  position: absolute;
+  left: variables.$padding;
+  bottom: variables.$padding;
+  pointer-events: none;
+  margin: 0;
+  padding: variables.$padding * 0.6;
+  list-style: none;
+  color: variables.$text-color;
+  font-size: variables.$tiny-font-size;
+  line-height: 1.6;
+  background-color: rgba(variables.$white, 0.9);
+  @include mixins.box-shadow(0.15);
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: (variables.$padding * 0.6);
+    margin: 0;
+    padding-left: 0;
+  }
+}
+
+.map-legend__swatch {
+  flex: 0 0 auto;
+  width: 0.9em;
+  height: 0.9em;
+  border: 1px solid variables.$black;
+  border-radius: 50%;
+}
+
 $map-height-min: 400px;
 
 $map-google-topbar-height: 46px;
@@ -90,6 +123,9 @@ $search-width-wide: 300px;
 
   .section-weather-map & {
     height: 100%;
+    // Establish a stacking context so the MapLibre canvas and its hover tooltip
+    // stay below the fixed filter bar.
+    z-index: 0;
     @include mixins.rollout;
   }
 }
@@ -367,6 +403,192 @@ $search-width-wide: 300px;
   }
 }
 
+// ---- MapLibre GL controls (bulletin map) ----
+// The Leaflet controls above are styled via .leaflet-* selectors; MapLibre
+// renders .maplibregl-ctrl-* DOM instead, so the same brand look is reapplied
+// here: square white buttons with brand Fontello glyphs, an expanding GeoNames
+// search and a subtle scale bar. Scoped to the bulletin map so the weather and
+// station maps keep the default MapLibre controls. The bulletin stations
+// mini-map (.bulletin-report-mini-map) shares the same styling.
+#section-bulletin-map,
+.bulletin-report-mini-map {
+  // The overlay map's region fills blend into the base map via multiply. Apply
+  // that blend to the canvas only — not the whole overlay div, whose control
+  // container is a sibling of the canvas: white buttons under multiply would
+  // otherwise blend away to transparent and show the map through them.
+  .bulletin-map-overlay .maplibregl-canvas {
+    mix-blend-mode: multiply;
+  }
+
+  .maplibregl-ctrl-top-left {
+    top: variables.$padding * 0.5;
+    left: variables.$padding * 0.5;
+    @media #{variables.breakpoint-up(medium)} {
+      top: variables.$padding;
+      left: variables.$padding;
+    }
+    .maplibregl-ctrl {
+      float: none;
+      clear: both;
+      margin: 0 0 (variables.$padding * 0.5) 0;
+    }
+  }
+
+  // Control-group boxes and their buttons (zoom + geolocate).
+  .maplibregl-ctrl-group {
+    border-radius: 0;
+    background: variables.$white;
+    @include mixins.box-shadow(0.15);
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: $controls-width-height;
+      height: $controls-width-height;
+      background: variables.$white;
+      border-radius: 0;
+
+      .maplibregl-ctrl-icon {
+        display: none;
+      }
+      &:before {
+        font-family: "Fontello";
+        font-weight: normal;
+        font-style: normal;
+        font-size: $controls-width-height * 0.6;
+        line-height: $controls-width-height;
+        color: variables.$brand;
+      }
+      &:hover {
+        background: variables.$anchor-font-color;
+        &:before {
+          color: variables.$white;
+        }
+      }
+      &:disabled:before {
+        color: variables.$grey-light;
+      }
+    }
+  }
+  .maplibregl-ctrl-zoom-in:before {
+    content: "\e824";
+  }
+  .maplibregl-ctrl-zoom-out:before {
+    content: "\e823";
+  }
+  .maplibregl-ctrl-geolocate:before {
+    content: "\e841";
+  }
+
+  // GeoNames search: magnifier toggle expands an input + results dropdown.
+  .geonames-ctrl {
+    position: relative;
+    overflow: visible;
+
+    .geonames-ctrl-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: $controls-width-height;
+      height: $controls-width-height;
+      background: variables.$white;
+      border: none;
+      cursor: pointer;
+      .geonames-ctrl-icon:before {
+        content: "\e83a";
+        font-family: "Fontello";
+        font-size: $controls-width-height * 0.6;
+        line-height: $controls-width-height;
+        color: variables.$brand;
+      }
+      &:hover {
+        background: variables.$anchor-font-color;
+        .geonames-ctrl-icon:before {
+          color: variables.$white;
+        }
+      }
+    }
+
+    .geonames-ctrl-form {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: $controls-width-height + 0.5;
+    }
+    &.is-open .geonames-ctrl-form {
+      display: block;
+    }
+
+    .geonames-ctrl-input {
+      display: block;
+      width: $search-width;
+      height: $controls-width-height;
+      margin: 0;
+      padding: variables.$padding;
+      font-size: variables.$tiny-font-size;
+      color: variables.$brand;
+      background: variables.$white;
+      border: variables.$border-width variables.$border-style variables.$brand;
+      outline: none;
+      @media #{variables.breakpoint-up(medium)} {
+        width: $search-width-wide;
+      }
+    }
+    .geonames-ctrl-results {
+      list-style: none;
+      width: $search-width;
+      margin: 0;
+      padding: 0;
+      background: variables.$white;
+      border: variables.$border-width variables.$border-style variables.$brand;
+      border-top: none;
+      @media #{variables.breakpoint-up(medium)} {
+        width: $search-width-wide;
+      }
+      &:empty {
+        display: none;
+      }
+      li {
+        padding: (variables.$padding * 0.5) variables.$padding;
+        font-size: variables.$tiny-font-size;
+        line-height: variables.$body-line-height;
+        border-bottom: variables.$border-width variables.$border-style
+          variables.$border-color;
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+      .geonames-ctrl-result {
+        cursor: pointer;
+        &:hover {
+          background: variables.$grey-very-very-light;
+        }
+      }
+      .geonames-ctrl-empty {
+        color: variables.$grey;
+        cursor: default;
+      }
+    }
+  }
+
+  // Scale bar (bottom-left).
+  .maplibregl-ctrl-bottom-left {
+    bottom: variables.$padding;
+    left: variables.$padding;
+  }
+  .maplibregl-ctrl-scale {
+    margin: 0;
+    padding: 0.125em 0.5em;
+    color: variables.$text-color;
+    font-size: variables.$micro-font-size;
+    border: variables.$border-width variables.$border-style variables.$grey-dark;
+    border-top: none;
+    background: rgba(variables.$white, 0.5);
+    text-shadow: none;
+  }
+}
+
 //copyright still used on bulletin map
 .leaflet-bottom.leaflet-right {
   .leaflet-control {
@@ -559,13 +781,15 @@ $search-width-wide: 300px;
   }
 
   .station-dashboard-filter__province,
+  .station-dashboard-filter__season,
   .station-dashboard-filter__date,
   .station-dashboard-filter__elevation {
     width: $filter-control-width;
     min-width: $filter-control-width;
   }
 
-  .station-dashboard-filter__province {
+  .station-dashboard-filter__province,
+  .station-dashboard-filter__season {
     .selectric-wrapper,
     .selectric,
     .dropdown.selectric {
@@ -715,6 +939,30 @@ $search-width-wide: 300px;
     }
   }
 
+  .station-dashboard-filter__add {
+    align-self: flex-end;
+
+    .station-dashboard-filter__add-button {
+      display: inline-flex;
+      align-items: center;
+      gap: variables.$padding * 0.4;
+      height: $filter-control-height;
+      box-sizing: border-box;
+      color: variables.$brand;
+      background-color: variables.$white;
+      white-space: nowrap;
+
+      svg {
+        display: block;
+      }
+
+      &:hover {
+        color: variables.$white;
+        background-color: variables.$anchor-font-color;
+      }
+    }
+  }
+
   // small screens: show only the search icon; on interaction expand leftward
   // over the other filters instead of pushing outside the visible area
   @media screen and (max-width: 53em) {
@@ -767,6 +1015,12 @@ $search-width-wide: 300px;
           width: 7em;
         }
       }
+    }
+
+    .station-dashboard-filter__add {
+      grid-column: 1 / -1;
+      justify-self: end;
+      margin-left: 0;
     }
 
     .station-dashboard-filter__toggle {
@@ -830,6 +1084,148 @@ $search-width-wide: 300px;
     .station-dashboard-filter__elevation {
       min-width: 0;
       width: 100%;
+    }
+  }
+
+  &.station-dashboard-filter--incidents {
+    @media screen and (max-width: 53em) {
+      .station-dashboard-filter__bar {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-areas: "province season search";
+      }
+
+      .station-dashboard-filter__season {
+        grid-area: season;
+        min-width: 0;
+        width: 100%;
+
+        .selectric-wrapper,
+        .selectric,
+        .dropdown.selectric {
+          min-width: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  // the snow-profile date filter is a from/to range (two date inputs), unlike
+  // the single datetime-local on the weather dashboard, so give it room and let
+  // the two inputs share the space instead of overflowing into the province
+  // dropdown next to it
+  &.station-dashboard-filter--profiles {
+    // use the full viewport width instead of the shared .section-centered cap
+    // (body line-length, 55em), which is far too narrow for these controls
+    .station-dashboard-filter__inner {
+      max-width: none;
+    }
+
+    // Larger screens: keep the filters in one centered group with the add
+    // button at the far right. The group does not shrink, so when the button
+    // no longer fits beside it the button drops onto its own line (still
+    // right-aligned).
+    @media screen and (min-width: 53.0625em) {
+      .station-dashboard-filter__bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: variables.$padding * 0.75;
+      }
+
+      .station-dashboard-filter__group {
+        flex: 1 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-end;
+        gap: variables.$padding * 0.75;
+      }
+
+      // undo the shared "push search to the far right" so it stays inside the
+      // centered group
+      .station-dashboard-filter__search {
+        margin-left: 0;
+      }
+
+      .station-dashboard-filter__add {
+        flex: 0 0 auto;
+        margin-left: auto;
+      }
+    }
+
+    @media screen and (max-width: 53em) {
+      .station-dashboard-filter__bar {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: variables.$padding * 0.5;
+      }
+
+      .station-dashboard-filter__group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: variables.$padding * 0.5;
+      }
+
+      // the from/to date range needs the full width on its own row, but the
+      // province dropdown and search share the row below
+      .station-dashboard-filter__date {
+        flex: 1 1 100%;
+        min-width: 0;
+      }
+
+      .station-dashboard-filter__province,
+      .station-dashboard-filter__search {
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .station-dashboard-filter__search {
+        margin-left: 0;
+
+        .pure-form-search {
+          width: 100%;
+
+          input,
+          &:hover input,
+          &:focus-within input {
+            width: 100%;
+          }
+        }
+      }
+
+      .station-dashboard-filter__add {
+        margin-left: 0;
+
+        .station-dashboard-filter__add-button {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    }
+
+    .station-dashboard-filter__date {
+      .date-range-filter {
+        width: 100%;
+        gap: variables.$padding * 0.5;
+
+        > div {
+          flex: 1 1 0;
+          min-width: 0;
+        }
+      }
+
+      .pure-form input[type="date"] {
+        width: 100%;
+        height: $filter-control-height;
+        box-sizing: border-box;
+      }
+
+      @media screen and (min-width: 53.0625em) {
+        width: calc(#{$filter-control-width} * 1.6);
+        min-width: calc(#{$filter-control-width} * 1.6);
+      }
     }
   }
 }
@@ -1027,3 +1423,42 @@ a.weather-map-details-button {
   }
 }
 //...to here
+
+.maplibre-station-tooltip {
+  .maplibregl-popup-content {
+    padding: 0.25em 0.5em;
+  }
+}
+
+.maplibregl-ctrl-top-left.maplibregl-ctrl-top-left.maplibregl-ctrl-top-left {
+  top: var(--station-dashboard-filter-offset, 0px);
+}
+
+// Show/hide-pins control (StationPinsControl), matching the look of the
+// Leaflet map controls (square, brand-colored Fontello icon, inverted hover).
+.maplibregl-ctrl-group.maplibregl-ctrl-station-pins {
+  button {
+    width: $controls-width-height;
+    height: $controls-width-height;
+    color: variables.$brand;
+    background-color: rgba(variables.$white, 0.95);
+    border: none;
+    cursor: pointer;
+    &:before {
+      font-size: $controls-width-height * 0.75;
+      line-height: $controls-width-height;
+    }
+    &:hover {
+      color: variables.$white;
+      background-color: variables.$anchor-font-color;
+    }
+  }
+}
+
+// Rotate the attribution so it runs vertically up the right edge,
+// anchored at the bottom-right corner and reading bottom-to-top.
+.maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib {
+  white-space: nowrap;
+  transform-origin: right bottom;
+  transform: rotate(-90deg) translateX(100%);
+}
