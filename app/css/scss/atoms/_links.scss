@@ -171,7 +171,7 @@ a[href^="http"][target*="_blank"]:not([class*="pure-button"]):not(
   [class*="sm-button"]
 ):not([class*="logo"]):not([class*="internal"]):not([class*="linkbox"]):not(
   [class*="avoid-external-icon"]
-):not([class*="pp"])::after {
+):not([class*="pp"])::after:not([href*="mapliblre"]) {
   display: inline-block;
   width: 1em;
   height: 1em;

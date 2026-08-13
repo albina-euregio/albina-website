@@ -416,21 +416,32 @@ $search-width-wide: 300px;
   // that blend to the canvas only — not the whole overlay div, whose control
   // container is a sibling of the canvas: white buttons under multiply would
   // otherwise blend away to transparent and show the map through them.
-  .bulletin-map-overlay .maplibregl-canvas {
-    mix-blend-mode: multiply;
+  .bulletin-map-overlay {
+    .maplibregl-canvas {
+      mix-blend-mode: multiply;
+    }
+    .maplibregl-ctrl-bottom-right {
+      display: none;
+    }
+  }
+
+  .maplibregl-map:not(.bulletin-map-overlay) {
+    .maplibregl-ctrl-attrib-button {
+      display: none;
+    }
   }
 
   .maplibregl-ctrl-top-left {
-    top: variables.$padding * 0.5;
-    left: variables.$padding * 0.5;
+    top: variables.$padding;
+    left: variables.$padding;
     @media #{variables.breakpoint-up(medium)} {
-      top: variables.$padding;
-      left: variables.$padding;
+      top: variables.$padding * 2;
+      left: variables.$padding * 2;
     }
     .maplibregl-ctrl {
       float: none;
       clear: both;
-      margin: 0 0 (variables.$padding * 0.5) 0;
+      margin: 0 0 variables.$padding 0;
     }
   }
 
@@ -447,6 +458,7 @@ $search-width-wide: 300px;
       width: $controls-width-height;
       height: $controls-width-height;
       background: variables.$white;
+      border-color: transparent;
       border-radius: 0;
 
       .maplibregl-ctrl-icon {
@@ -1457,8 +1469,15 @@ a.weather-map-details-button {
 
 // Rotate the attribution so it runs vertically up the right edge,
 // anchored at the bottom-right corner and reading bottom-to-top.
-.maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib {
-  white-space: nowrap;
+.maplibregl-ctrl-bottom-right {
   transform-origin: right bottom;
   transform: rotate(-90deg) translateX(100%);
+  .maplibregl-ctrl-attrib {
+    white-space: nowrap;
+    margin: 0 !important;
+    padding: 0 0.25em !important;
+    font-size: 10px;
+    border-radius: 0 !important;
+    background-color: rgba(variables.$white, 0.5) !important;
+  }
 }
