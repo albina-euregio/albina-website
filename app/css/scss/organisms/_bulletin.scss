@@ -317,6 +317,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   .bulletin-report-public-alert {
     margin: 0;
     font-size: variables.$tiny-font-size;
+    line-height: 1.2;
     [class*="icon"] {
       font-size: variables.$tiny-font-size;
       &:before {
