@@ -717,7 +717,7 @@ function BulletinReport({
           id={bulletin.bulletinID + "-back-to-map"}
           className="section-centered section-bulletin section-bulletin-additional"
         >
-          <div className="panel brand">
+          <div className="panel secondary-light">
             <AdditionalBulletinInformation
               bulletin={bulletin}
               date={date}
