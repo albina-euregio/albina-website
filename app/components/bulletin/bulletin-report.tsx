@@ -713,22 +713,18 @@ function BulletinReport({
           </section>
         )}
 
-        {(import.meta.env.APP_REGION === "BETA" ||
-          import.meta.env.APP_REGION === "DEV" ||
-          import.meta.env.DEV) && (
-          <section
-            id={bulletin.bulletinID + "-back-to-map"}
-            className="section-centered section-bulletin section-bulletin-additional"
-          >
-            <div className="panel brand">
-              <AdditionalBulletinInformation
-                bulletin={bulletin}
-                date={date}
-                region={region}
-              />
-            </div>
-          </section>
-        )}
+        <section
+          id={bulletin.bulletinID + "-back-to-map"}
+          className="section-centered section-bulletin section-bulletin-additional"
+        >
+          <div className="panel brand">
+            <AdditionalBulletinInformation
+              bulletin={bulletin}
+              date={date}
+              region={region}
+            />
+          </div>
+        </section>
       </div>
     </>
   );
