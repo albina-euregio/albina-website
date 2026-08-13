@@ -168,10 +168,10 @@ a.icon-link {
 
 // from 202202
 a[href^="http"][target*="_blank"]:not([class*="pure-button"]):not(
-    [class*="sm-button"]
-  ):not([class*="logo"]):not([class*="internal"]):not([class*="linkbox"]):not(
-    [class*="avoid-external-icon"]
-  ):not([class*="pp"])::after {
+  [class*="sm-button"]
+):not([class*="logo"]):not([class*="internal"]):not([class*="linkbox"]):not(
+  [class*="avoid-external-icon"]
+):not([class*="pp"])::after {
   display: inline-block;
   width: 1em;
   height: 1em;
