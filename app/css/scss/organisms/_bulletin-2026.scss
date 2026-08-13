@@ -757,18 +757,15 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
   .addmap {
     height: 33vh;
     min-height: 300px;
+    // Keep a bar-width gap on the left (the grey panel edge) instead of bleeding
+    // the map over it — matches PatternLab's compiled .addmap (no medium/normal
+    // overrides). The map bleeds right to the panel edge, left stays inset.
     margin: 0 (-(variables.$all-h-padding)) 0
       (calc(0px - variables.$all-h-padding + variables.$bar-width));
-    @media #{variables.breakpoint-up(medium)} {
-      margin-left: (calc(0px - variables.$all-h-padding));
-    }
     border: variables.$border-width variables.$border-style
       variables.$brand-very-light;
     border-left: none;
     border-right-width: 0;
-    @media #{variables.breakpoint-up(normal)} {
-      border-right-width: variables.$border-width;
-    }
     background: url("../../../images/dev/addmap.png") no-repeat center center;
     background-size: cover;
   }
