@@ -451,6 +451,10 @@ $search-width-wide: 300px;
     background: variables.$white;
     @include mixins.box-shadow(0.15);
 
+    &:not(:empty) {
+      @include mixins.box-shadow(0.15);
+    }
+
     button {
       display: flex;
       align-items: center;
@@ -473,10 +477,15 @@ $search-width-wide: 300px;
         color: variables.$brand;
       }
       &:hover {
-        background: variables.$anchor-font-color;
+        background: variables.$anchor-font-color !important;
+        border-radius: none !important;
         &:before {
           color: variables.$white;
         }
+      }
+      &:focus:first-child,
+      &:focus:last-child {
+        border-radius: 0 !important;
       }
       &:disabled:before {
         color: variables.$grey-light;
@@ -1442,7 +1451,7 @@ a.weather-map-details-button {
   }
 }
 
-.maplibregl-ctrl-top-left.maplibregl-ctrl-top-left.maplibregl-ctrl-top-left {
+.section-weather-map .maplibregl-ctrl-top-left {
   top: var(--station-dashboard-filter-offset, 0px);
 }
 
