@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import * as v from "valibot";
 import {
   GeoJSONSource,
   GeolocateControl,
@@ -16,6 +17,7 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
 import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import { Bulletin } from "../../stores/bulletin";
+import { vGenericObservation } from "../../api/valibot.gen";
 import { fetchJSON } from "../../util/fetch.ts";
 import Modal from "../dialogs/albina-modal.tsx";
 
@@ -45,29 +47,16 @@ interface Props {
   region: string;
 }
 
-interface Observation {
-  $id: string;
-  $externalURL: string;
-  latitude: number;
-  longitude: number;
-  eventDate: string;
-  locationName: string;
-  authorName: string;
-}
+type GenericObservation = v.InferOutput<typeof vGenericObservation>;
+
+/** A {@link GenericObservation} known to carry usable coordinates. */
+type Observation = GenericObservation &
+  Required<Pick<GenericObservation, "latitude" | "longitude">>;
 
 function isObservation(value: unknown): value is Observation {
-  if (!value || typeof value !== "object") {
-    return false;
-  }
-
-  const observation = value as Record<string, unknown>;
   return (
-    typeof observation.$id === "string" &&
-    typeof observation.latitude === "number" &&
-    typeof observation.longitude === "number" &&
-    typeof observation.eventDate === "string" &&
-    typeof observation.locationName === "string" &&
-    typeof observation.authorName === "string"
+    v.is(vGenericObservation, value) &&
+    isValidCoordinates(value.latitude, value.longitude)
   );
 }
 
@@ -115,14 +104,7 @@ function useObservations() {
   async function loadObservations() {
     if (!config.apis.snobs) return;
     const snobs = await fetchJSON<unknown>(config.apis.snobs);
-    const observationsList = Array.isArray(snobs)
-      ? snobs.filter(isObservation)
-      : [];
-    setObservations(
-      observationsList.filter(observation =>
-        isValidCoordinates(observation.latitude, observation.longitude)
-      )
-    );
+    setObservations(Array.isArray(snobs) ? snobs.filter(isObservation) : []);
   }
 
   const observationFeatures = useMemo(
@@ -137,10 +119,12 @@ function useObservations() {
         properties: {
           url: observation.$externalURL,
           tooltip: [
-            intl.formatDate(observation.eventDate),
+            observation.eventDate && intl.formatDate(observation.eventDate),
             observation.locationName,
             observation.authorName
-          ].join("<br>")
+          ]
+            .filter(Boolean)
+            .join("<br>")
         }
       }))
     }),
