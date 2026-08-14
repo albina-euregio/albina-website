@@ -240,14 +240,17 @@ const Bulletin = () => {
               problems={problems}
             />
           )}
-          {!config.bulletin.showAllBulletins && !region && status === "ok" && (
-            <div className="bulletin-map-cta">
-              <span className="icon-info"></span>
-              <span className="text">
-                <FormattedMessage id="bulletin:select-region:title" />
-              </span>
-            </div>
-          )}
+          {!config.bulletin.showAllBulletins &&
+            !region &&
+            status &&
+            status !== "pending" && (
+              <div className="bulletin-map-cta">
+                <span className="icon-info"></span>
+                <span className="text">
+                  <FormattedMessage id="bulletin:select-region:title" />
+                </span>
+              </div>
+            )}
         </div>
         <BulletinLegend
           handleSelectRegion={handleSelectRegion}
