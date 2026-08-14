@@ -407,9 +407,10 @@ $search-width-wide: 300px;
 // The Leaflet controls above are styled via .leaflet-* selectors; MapLibre
 // renders .maplibregl-ctrl-* DOM instead, so the same brand look is reapplied
 // here: square white buttons with brand Fontello glyphs, an expanding GeoNames
-// search and a subtle scale bar. Scoped to the bulletin map so the weather and
-// station maps keep the default MapLibre controls. The bulletin stations
-// mini-map (.bulletin-report-mini-map) shares the same styling.
+// search and a subtle scale bar. This first block holds the bulletin-only
+// positioning/overlay rules; the reusable control look below is shared with the
+// weather map. The bulletin stations mini-map (.bulletin-report-mini-map)
+// shares the same styling.
 #section-bulletin-map,
 .bulletin-report-mini-map {
   // The overlay map's region fills blend into the base map via multiply. Apply
@@ -451,7 +452,15 @@ $search-width-wide: 300px;
       margin: 0 0 variables.$padding 0;
     }
   }
+}
 
+// Reusable brand control look — square white buttons with brand Fontello
+// glyphs, the expanding GeoNames search and the scale bar. Shared with the
+// weather map; the bulletin-only positioning/overlay rules stay in the block
+// above.
+#section-bulletin-map,
+.bulletin-report-mini-map,
+.section-weather-map {
   // Control-group boxes and their buttons (zoom + geolocate).
   .maplibregl-ctrl-group {
     border-radius: 0;
