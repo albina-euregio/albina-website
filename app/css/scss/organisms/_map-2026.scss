@@ -438,6 +438,13 @@ $search-width-wide: 300px;
       top: variables.$padding * 2;
       left: variables.$padding * 2;
     }
+    // In the daytime (earlier/later) split view, the .bulletin-map-daytime toggle
+    // occupies the top-left corner; push the controls below it so they stack under
+    // the toggle instead of overlapping it.
+    .bulletin-parallel-view &,
+    .bulletin-switchable-view & {
+      top: variables.$padding * 5.25;
+    }
     .maplibregl-ctrl {
       float: none;
       clear: both;
