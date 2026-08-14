@@ -17,9 +17,9 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
 import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import { Bulletin } from "../../stores/bulletin";
-import { vGenericObservation } from "../../api/valibot.gen";
+import { vObservation, type Observation } from "../../stores/observations";
 import { fetchJSON } from "../../util/fetch.ts";
-import Modal from "../dialogs/albina-modal.tsx";
+import ObservationDetailsDialog from "./observation-details-dialog.tsx";
 
 const STATION_COLOR = "rgb(100, 100, 100)";
 const OBSERVATION_COLOR = "rgb(200, 100, 100)";
@@ -47,15 +47,13 @@ interface Props {
   region: string;
 }
 
-type GenericObservation = v.InferOutput<typeof vGenericObservation>;
+/** An {@link Observation} known to carry usable coordinates. */
+type LocatedObservation = Observation &
+  Required<Pick<Observation, "latitude" | "longitude">>;
 
-/** A {@link GenericObservation} known to carry usable coordinates. */
-type Observation = GenericObservation &
-  Required<Pick<GenericObservation, "latitude" | "longitude">>;
-
-function isObservation(value: unknown): value is Observation {
+function isLocatedObservation(value: unknown): value is LocatedObservation {
   return (
-    v.is(vGenericObservation, value) &&
+    v.is(vObservation, value) &&
     isValidCoordinates(value.latitude, value.longitude)
   );
 }
@@ -97,13 +95,15 @@ function useWeatherStations() {
 }
 
 function useObservations() {
-  const [observations, setObservations] = useState<Observation[]>([]);
-  const [observation, setObservation] = useState<string>("");
+  const [observations, setObservations] = useState<LocatedObservation[]>([]);
+  const [observationId, setObservationId] = useState<string>("");
 
   async function loadObservations() {
     if (!config.apis.snobs) return;
     const snobs = await fetchJSON<unknown>(config.apis.snobs);
-    setObservations(Array.isArray(snobs) ? snobs.filter(isObservation) : []);
+    setObservations(
+      Array.isArray(snobs) ? snobs.filter(isLocatedObservation) : []
+    );
   }
 
   const observationFeatures = useMemo(
@@ -121,10 +121,17 @@ function useObservations() {
     [observations]
   );
 
+  // MapLibre hands back the feature properties with every nested value
+  // JSON-encoded, so the dialog gets the original observation by its id.
+  const observation = useMemo(
+    () => observations.find(o => o.$id === observationId),
+    [observations, observationId]
+  );
+
   return {
     observationFeatures,
     observation,
-    setObservation,
+    setObservationId,
     loadObservations
   };
 }
@@ -133,8 +140,8 @@ function useObservations() {
  * Mini map (MapLibre GL) showing the micro-region's weather stations and
  * observations as colored circle markers over the shared raster basemap
  * (MAPLIBRE_STYLE). Hovering a marker shows a tooltip; clicking a station opens
- * its diagrams, clicking an observation opens its external page. The two layers
- * are toggled via the `showStations`/`showObservations` props.
+ * its diagrams, clicking an observation opens its details dialog. The two
+ * layers are toggled via the `showStations`/`showObservations` props.
  */
 function BulletinMiniMap({
   bounds,
@@ -151,7 +158,7 @@ function BulletinMiniMap({
   showStations: boolean;
   showObservations: boolean;
   onStationClick: (id: string) => void;
-  onObservationClick: (url: string) => void;
+  onObservationClick: (observationId: string) => void;
 }) {
   const intl = useIntl();
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -262,11 +269,8 @@ function BulletinMiniMap({
         if (typeof id === "string") onStationClickRef.current(id);
       });
       map.on("click", OBSERVATIONS_LAYER, e => {
-        const observation = e.features?.[0]?.properties as
-          | GenericObservation
-          | undefined;
-        const url = observation?.$externalURL;
-        if (typeof url === "string") onObservationClickRef.current(url);
+        const id = e.features?.[0]?.properties?.$id;
+        if (typeof id === "string") onObservationClickRef.current(id);
       });
 
       for (const layer of [STATIONS_LAYER, OBSERVATIONS_LAYER]) {
@@ -281,8 +285,8 @@ function BulletinMiniMap({
           const feature = e.features?.[0];
           if (feature?.geometry.type !== "Point") return;
           // Stations carry a ready-made tooltip, observations the whole
-          // GenericObservation the tooltip is formatted from.
-          const observation = feature.properties as GenericObservation;
+          // observation the tooltip is formatted from.
+          const observation = feature.properties as Observation;
           const html =
             layer === OBSERVATIONS_LAYER
               ? [
@@ -376,8 +380,12 @@ export function AdditionalBulletinInformation({
   const [showObservations, setShowObservations] = useState(true);
   const { data, stationFeatures, stationId, setStationId } =
     useWeatherStations();
-  const { observationFeatures, observation, setObservation, loadObservations } =
-    useObservations();
+  const {
+    observationFeatures,
+    observation,
+    setObservationId,
+    loadObservations
+  } = useObservations();
 
   useEffect(
     () => void loadObservations(),
@@ -400,18 +408,10 @@ export function AdditionalBulletinInformation({
         />
       )}
 
-      {!!observation && (
-        <Modal
-          isOpen={!!observation}
-          onClose={() => setObservation("")}
-          width={"90vw"}
-        >
-          <iframe
-            src={observation}
-            style={{ width: "100%", height: "80vh", border: "none" }}
-          />
-        </Modal>
-      )}
+      <ObservationDetailsDialog
+        observation={observation}
+        onClose={() => setObservationId("")}
+      />
 
       <h2 className="subheader">
         <FormattedMessage id="bulletin:report:additional:headline" />
@@ -427,7 +427,7 @@ export function AdditionalBulletinInformation({
             showStations={showStations}
             showObservations={showObservations}
             onStationClick={setStationId}
-            onObservationClick={setObservation}
+            onObservationClick={setObservationId}
           />
         </div>
 
