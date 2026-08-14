@@ -6,6 +6,7 @@
 @use "../atoms/icons";
 @use "../atoms/bgs";
 @use "../atoms/media";
+@use "../molecules/navigation";
 
 /*	TRANSPORTER
 	Creating Your Web
@@ -190,6 +191,16 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     @media #{$bulletin-report-header-breakpoint} {
       flex-direction: row;
       justify-content: space-between;
+    }
+    // Stick the report header to the top while scrolling through the report
+    // (matches PatternLab's top-fix behaviour). The opaque background keeps the
+    // scrolling report text from showing through.
+    &.top-fix {
+      position: sticky;
+      // Stick below the fixed page header, not behind it.
+      top: navigation.$page-header-height;
+      z-index: 300;
+      background-color: variables.$white;
     }
   }
 
