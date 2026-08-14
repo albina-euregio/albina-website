@@ -22,7 +22,7 @@ import HTMLPageLoadingScreen, {
 import { $headless, type Language, setLanguage } from "../appStore";
 import { useStore } from "@nanostores/react";
 import { $router } from "../components/router";
-import { openPage, redirectPage } from "@nanostores/router";
+import { redirectPage } from "@nanostores/router";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -131,17 +131,15 @@ const Bulletin = () => {
   useEffect(() => setRegion(router.search.region), [router.search]);
 
   const handleSelectRegion = (id: string) => {
+    // Always replace the history entry (redirectPage). Using openPage (push) for
+    // the first selection produced a visible full re-render/blank that the
+    // replace path (used for subsequent selections) does not.
     if (id) {
-      const oldRegion = router.search.region;
-      if (oldRegion !== id) {
-        if (oldRegion) {
-          redirectPage($router, router.route, router.params, { region: id });
-        } else {
-          openPage($router, router.route, router.params, { region: id });
-        }
+      if (router.search.region !== id) {
+        redirectPage($router, router.route, router.params, { region: id });
       }
     } else {
-      openPage($router, router.route, router.params, {});
+      redirectPage($router, router.route, router.params, {});
     }
   };
 
