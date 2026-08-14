@@ -265,12 +265,18 @@ const Bulletin = () => {
         </section>
       )}
       {collection && (
-        <BulletinList
-          bulletins={collection.bulletinsWith170000}
-          date={collection?.date}
-          region={region}
-          handleSelectRegion={handleSelectRegion}
-        />
+        // Own Suspense boundary: selecting the first region renders that report
+        // for the first time, which lazily loads the glossary chunk/data. Without
+        // a boundary here that suspend bubbles to the app-level Suspense and blanks
+        // the whole page; contain it to the report area instead.
+        <Suspense fallback={null}>
+          <BulletinList
+            bulletins={collection.bulletinsWith170000}
+            date={collection?.date}
+            region={region}
+            handleSelectRegion={handleSelectRegion}
+          />
+        </Suspense>
       )}
       {headless ? (
         <></>
