@@ -63,7 +63,6 @@ function isObservation(value: unknown): value is Observation {
   const observation = value as Record<string, unknown>;
   return (
     typeof observation.$id === "string" &&
-    typeof observation.$externalURL === "string" &&
     typeof observation.latitude === "number" &&
     typeof observation.longitude === "number" &&
     typeof observation.eventDate === "string" &&
