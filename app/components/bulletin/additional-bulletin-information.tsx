@@ -97,7 +97,6 @@ function useWeatherStations() {
 }
 
 function useObservations() {
-  const intl = useIntl();
   const [observations, setObservations] = useState<Observation[]>([]);
   const [observation, setObservation] = useState<string>("");
 
@@ -116,19 +115,10 @@ function useObservations() {
           type: "Point",
           coordinates: [observation.longitude, observation.latitude]
         },
-        properties: {
-          url: observation.$externalURL,
-          tooltip: [
-            observation.eventDate && intl.formatDate(observation.eventDate),
-            observation.locationName,
-            observation.authorName
-          ]
-            .filter(Boolean)
-            .join("<br>")
-        }
+        properties: observation
       }))
     }),
-    [observations, intl]
+    [observations]
   );
 
   return {
@@ -171,6 +161,7 @@ function BulletinMiniMap({
   // callbacks and data, and the load handler can seed the sources/visibility.
   const onStationClickRef = useRef(onStationClick);
   const onObservationClickRef = useRef(onObservationClick);
+  const intlRef = useRef(intl);
   const stationsRef = useRef(stations);
   const observationsRef = useRef(observations);
   const showStationsRef = useRef(showStations);
@@ -179,7 +170,8 @@ function BulletinMiniMap({
   useEffect(() => {
     onStationClickRef.current = onStationClick;
     onObservationClickRef.current = onObservationClick;
-  }, [onStationClick, onObservationClick]);
+    intlRef.current = intl;
+  }, [onStationClick, onObservationClick, intl]);
 
   // Initialize the map once: basemap, the two marker sources/layers, hover
   // tooltip and a ResizeObserver. Data and visibility are kept in sync below.
@@ -270,7 +262,10 @@ function BulletinMiniMap({
         if (typeof id === "string") onStationClickRef.current(id);
       });
       map.on("click", OBSERVATIONS_LAYER, e => {
-        const url = e.features?.[0]?.properties?.url;
+        const observation = e.features?.[0]?.properties as
+          | GenericObservation
+          | undefined;
+        const url = observation?.$externalURL;
         if (typeof url === "string") onObservationClickRef.current(url);
       });
 
@@ -285,9 +280,23 @@ function BulletinMiniMap({
         map.on("mousemove", layer, e => {
           const feature = e.features?.[0];
           if (feature?.geometry.type !== "Point") return;
+          // Stations carry a ready-made tooltip, observations the whole
+          // GenericObservation the tooltip is formatted from.
+          const observation = feature.properties as GenericObservation;
+          const html =
+            layer === OBSERVATIONS_LAYER
+              ? [
+                  observation.eventDate &&
+                    intlRef.current.formatDate(observation.eventDate),
+                  observation.locationName,
+                  observation.authorName
+                ]
+                  .filter(Boolean)
+                  .join("<br>")
+              : String(feature.properties?.tooltip ?? "");
           tooltipRef.current
             ?.setLngLat(feature.geometry.coordinates as [number, number])
-            .setHTML(String(feature.properties?.tooltip ?? ""))
+            .setHTML(html)
             .addTo(map);
         });
       }
