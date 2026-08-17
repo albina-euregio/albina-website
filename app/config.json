@@ -16,6 +16,7 @@
     "IT-32-TN",
     "AT-08"
   ],
+  "incidentRegions": ["AT-02", "IT-32-BZ", "AT-07", "IT-32-TN"],
   "stationRegions": [
     "DE-BY",
     "AT-02",
