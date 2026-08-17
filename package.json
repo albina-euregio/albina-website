@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "@albina-euregio/linea": "^8.24.6",
-    "@eaws/micro-regions_elevation_properties": "^8.4.0",
     "@eaws/micro-regions_names": "^8.4.0",
     "@eaws/micro-regions_properties": "^8.4.0",
     "@eaws/outline_properties": "^8.4.0",

@@ -20,9 +20,6 @@ importers:
       '@albina-euregio/linea':
         specifier: ^8.24.6
         version: 8.24.6(zod@4.3.6)
-      '@eaws/micro-regions_elevation_properties':
-        specifier: ^8.4.0
-        version: 8.4.0
       '@eaws/micro-regions_names':
         specifier: ^8.4.0
         version: 8.4.0
@@ -157,9 +154,6 @@ packages:
 
   '@blazediff/core@1.9.1':
     resolution: {integrity: sha512-ehg3jIkYKulZh+8om/O25vkvSsXXwC+skXmyA87FFx6A/45eqOkZsBltMw/TVteb0mloiGT8oGRTcjRAz66zaA==}
-
-  '@eaws/micro-regions_elevation_properties@8.4.0':
-    resolution: {integrity: sha1-4XO4RI0x1iBrGsKT2JfwMNcrDek=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_elevation_properties/-/@eaws/micro-regions_elevation_properties-8.4.0.tgz}
 
   '@eaws/micro-regions_names@8.4.0':
     resolution: {integrity: sha1-L/yfFP/hFWxISP+Xmev/Jq9YGqA=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-8.4.0.tgz}
@@ -1719,8 +1713,6 @@ snapshots:
   '@babel/runtime@7.29.7': {}
 
   '@blazediff/core@1.9.1': {}
-
-  '@eaws/micro-regions_elevation_properties@8.4.0': {}
 
   '@eaws/micro-regions_names@8.4.0': {}
 

@@ -4,10 +4,6 @@ const regions_properties = import.meta.glob(
   "../../node_modules/@eaws/micro-regions_properties/*_micro-regions.json",
   { import: "default", eager: true }
 );
-const regions_elevation_properties = import.meta.glob(
-  "../../node_modules/@eaws/micro-regions_elevation_properties/*_micro-regions_elevation.json",
-  { import: "default", eager: true }
-);
 import * as v from "valibot";
 
 export enum EawsRegionDataLayer {
@@ -25,24 +21,6 @@ export const MicroRegionPropertiesSchema = v.object({
 export type MicroRegionProperties = v.InferOutput<
   typeof MicroRegionPropertiesSchema
 >;
-
-const MicroRegionElevationPropertiesSchema = v.object({
-  ...MicroRegionPropertiesSchema.entries,
-  elevation: v.picklist(["high", "low", "low_high"]),
-  threshold: v.nullish(v.number())
-});
-export type MicroRegionElevationProperties = v.InferOutput<
-  typeof MicroRegionElevationPropertiesSchema
->;
-export const microRegionsElevation: MicroRegionElevationProperties[] = v.parse(
-  v.array(MicroRegionElevationPropertiesSchema),
-  config.regionCodes.flatMap(
-    id =>
-      regions_elevation_properties[
-        `../../node_modules/@eaws/micro-regions_elevation_properties/${id}_micro-regions_elevation.json`
-      ]
-  )
-);
 
 /**
  * Determines whether the GeoJSON feature's start_date/end_date is valid today

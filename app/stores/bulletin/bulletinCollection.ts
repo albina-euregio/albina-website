@@ -13,7 +13,6 @@ import {
 import * as v from "valibot";
 import { $extraRegions, $focusRegions } from "../../appStore";
 import { eawsRegion } from "../eawsRegions";
-import { microRegionsElevation } from "../microRegions";
 import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
 import {
   getDangerRatingValue,
@@ -24,9 +23,7 @@ import {
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
 type RegionID = string;
-type LowHigh = "low" | "high";
-type ColonLowHigh = "" | `:${LowHigh}`;
-type RegionLowHighAmPm = `${RegionID}${ColonLowHigh}${ColonAmPm}`;
+type RegionLowHighAmPm = `${RegionID}${ColonAmPm}`;
 
 export type MaxWarnLevels = Record<RegionLowHighAmPm, WarnLevelNumber>;
 export type MaxDangerRatings = Record<RegionLowHighAmPm, DangerRatingValue>;
@@ -362,67 +359,23 @@ class BulletinCollection {
     return Object.fromEntries(
       this.bulletins.flatMap(b =>
         (b.regions ?? []).flatMap(({ regionID }) =>
-          (["all_day", "earlier", "later"] as ValidTimePeriod[]).flatMap(
-            validTimePeriod => [
+          (["all_day", "earlier", "later"] as ValidTimePeriod[]).map(
+            validTimePeriod =>
               [
                 `${regionID}${toAmPm[validTimePeriod]}`,
-                this.mainValue(regionID, validTimePeriod, b, undefined)
-              ] satisfies [RegionLowHighAmPm, DangerRatingValue],
-              ...(["low", "high"] as const).map(
-                elevation =>
-                  [
-                    `${regionID}:${elevation}${toAmPm[validTimePeriod]}`,
-                    this.mainValue(regionID, validTimePeriod, b, elevation)
-                  ] satisfies [RegionLowHighAmPm, DangerRatingValue]
-              )
-            ]
+                getMaxMainValue(
+                  (b?.dangerRatings ?? []).filter(danger =>
+                    matchesValidTimePeriod(
+                      validTimePeriod,
+                      danger.validTimePeriod
+                    )
+                  )
+                )
+              ] satisfies [RegionLowHighAmPm, DangerRatingValue]
           )
         )
       ) || []
     );
-  }
-
-  private mainValue(
-    regionID: string,
-    validTimePeriod: ValidTimePeriod,
-    b: Bulletin,
-    elevation: LowHigh | undefined
-  ): DangerRatingValue {
-    const dangerRatings = this.dangerRatings(validTimePeriod, b, elevation);
-    const mainValue = getMaxMainValue(dangerRatings);
-
-    if (elevation === "high") {
-      // take "low" when lowerBound exceeds region threshold
-      const threshold = microRegionsElevation.find(feature => {
-        return feature.id === regionID && feature.elevation === "high";
-      })?.threshold;
-      if (
-        dangerRatings
-          .map(e => e.elevation?.lowerBound)
-          .some(bound => +bound > threshold)
-      ) {
-        return this.mainValue(regionID, validTimePeriod, b, "low");
-      }
-    }
-
-    return mainValue;
-  }
-
-  private dangerRatings(
-    validTimePeriod: ValidTimePeriod,
-    bulletin: Bulletin,
-    elevation: LowHigh | undefined
-  ): DangerRating[] {
-    return (bulletin?.dangerRatings ?? [])
-      .filter(danger =>
-        matchesValidTimePeriod(validTimePeriod, danger.validTimePeriod)
-      )
-      .filter(
-        danger =>
-          (!danger?.elevation?.upperBound && !danger?.elevation?.lowerBound) ||
-          (danger?.elevation?.upperBound && elevation === "low") ||
-          (danger?.elevation?.lowerBound && elevation === "high")
-      );
   }
 }
 
