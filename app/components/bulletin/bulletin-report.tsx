@@ -23,6 +23,7 @@ import {
   hasDaytimeDependency,
   getDangerPatterns,
   getBulletinPhotos,
+  getTendencyProgression,
   getMaxMainValue
 } from "../../stores/bulletin";
 import { wordDiff } from "../../util/wordDiff";
@@ -215,13 +216,15 @@ const RegionDropdown: FunctionComponent<{
   );
 };
 
-// TODO: trend source — LWD confirmed (2026-07-14) the "Letzte 7 Tage" series is
-// the per-micro-region daily-max danger level, extracted from the last 7 days'
-// bulletins (no dedicated endpoint yet). Deterministic placeholder per region so
-// switching micro-region visibly changes the series; replace with the real loader.
-function getTrendPlaceholder(regionId: string): number[] {
-  const seed = [...regionId].reduce((sum, c) => sum + c.charCodeAt(0), 0);
-  return Array.from({ length: 7 }, (_, i) => ((seed + i * 3) % 5) + 1);
+// "Letzte 7 Tage" series: the per-micro-region daily-max danger level for the
+// last 7 days, sourced from the tendency endpoint (BulletinCollection.load()).
+function getTendencyTrend(bulletin: Bulletin, regionId: string): number[] {
+  const ratings = getTendencyProgression(bulletin.customData)?.dangerRatings?.[
+    regionId
+  ];
+  return (ratings ?? []).map(rating =>
+    rating === "missing" ? 0 : getWarnlevelNumber(rating)
+  );
 }
 
 interface Props {
@@ -660,9 +663,11 @@ function BulletinReport({
                   <div className="bulletin-additional-tendency-progression">
                     <div className="progression-item progression-last-week">
                       <div className="progression-value progression-week">
-                        {getTrendPlaceholder(region).map((value, index) => (
-                          <span key={index}>{value}</span>
-                        ))}
+                        {getTendencyTrend(bulletin, region).map(
+                          (value, index) => (
+                            <span key={index}>{value}</span>
+                          )
+                        )}
                       </div>
                       <div className="progression-legend">
                         <FormattedMessage id="bulletin:report:tendency:last-7-days" />

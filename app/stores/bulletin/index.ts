@@ -218,3 +218,9 @@ export function getDangerPatterns(data: CustomData): DangerPattern[] {
 export function getBulletinPhotos(data: CustomData): BulletinPhoto[] {
   return (data as AlbinaCustomData)?.ALBINA?.bulletinPhotos || [];
 }
+
+export function getTendencyProgression(
+  data: CustomData
+): v.InferOutput<typeof vAvalancheBulletinServiceTendencyResult> | undefined {
+  return (data as AlbinaCustomData)?.ALBINA?.tendencyProgression;
+}
