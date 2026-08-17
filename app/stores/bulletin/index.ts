@@ -1,5 +1,6 @@
 import * as v from "valibot";
 import {
+  vAvalancheBulletinServiceTendencyResult,
   vCaamlAspect,
   vCaamlAvalancheBulletin,
   vCaamlAvalancheBulletinProvider,
@@ -201,6 +202,9 @@ interface AlbinaCustomData extends CustomData {
   ALBINA: {
     mainDate: string;
     bulletinPhotos: BulletinPhoto[];
+    tendencyProgression:
+      | v.InferOutput<typeof vAvalancheBulletinServiceTendencyResult>
+      | undefined;
   };
   LWD_Tyrol: {
     dangerPatterns: DangerPattern[];
@@ -213,4 +217,10 @@ export function getDangerPatterns(data: CustomData): DangerPattern[] {
 
 export function getBulletinPhotos(data: CustomData): BulletinPhoto[] {
   return (data as AlbinaCustomData)?.ALBINA?.bulletinPhotos || [];
+}
+
+export function getTendencyProgression(
+  data: CustomData
+): v.InferOutput<typeof vAvalancheBulletinServiceTendencyResult> | undefined {
+  return (data as AlbinaCustomData)?.ALBINA?.tendencyProgression;
 }

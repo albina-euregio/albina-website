@@ -19,6 +19,7 @@ import {
   getWarnlevelNumber,
   WarnLevelNumber
 } from "../../util/warn-levels";
+import { vAvalancheBulletinServiceTendencyResult } from "../../api/valibot.gen";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -154,6 +155,23 @@ class BulletinCollection {
     }
     this.status = this.dataRaw.bulletins.length > 0 ? "ok" : "n/a";
     this.maxDangerRatings = this.computeMaxDangerRatings();
+
+    {
+      const date =
+        this.dataRaw.bulletins
+          ?.find(b => b.validTime?.startTime)
+          ?.validTime?.startTime?.toISOString() ?? "";
+      const tendencyProgression: v.InferOutput<
+        typeof vAvalancheBulletinServiceTendencyResult
+      > = await fetchJSON(
+        config.template(config.apis.bulletin.tendency, { date })
+      );
+      this.dataRaw.bulletins?.forEach(b => {
+        if (!b.customData?.ALBINA) return;
+        Object.assign(b.customData?.ALBINA, { tendencyProgression });
+      });
+    }
+
     // Derive per-region statuses from actual bulletin coverage
     $focusRegions.get().forEach(regionCode => {
       const hasBulletins = this.bulletins.some(b =>

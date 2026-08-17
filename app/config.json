@@ -401,7 +401,8 @@
       "json": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
       "jsonPublicationDate": "/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
       "mp3": "/bulletins/{date}/{region}_{lang}.mp3",
-      "archive": "/bulletins/archive/"
+      "archive": "/bulletins/archive/",
+      "tendency": "/api/bulletins/tendency?date={date}"
     },
     "push": "/api/push",
     "subscribe": "/api/email",
