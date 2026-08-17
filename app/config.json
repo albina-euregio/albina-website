@@ -409,7 +409,7 @@
     "blogs": "/api/blogs",
     "incidents": "/api/incidents",
     "profiles": "/profiles-app/api",
-    "snobs": "https://static.avalanche.report/snobs.json",
+    "snobs": "https://extra.avalanche.report/snobs.json",
     "weatherOverlay": [
       "/zamg_meteo/overlays/{domain}/",
       "/zamg_meteo/overlays/{domain}/{year}/{date}/"

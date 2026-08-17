@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import * as v from "valibot";
 import {
   GeoJSONSource,
   GeolocateControl,
@@ -16,8 +17,9 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
 import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import { Bulletin } from "../../stores/bulletin";
+import { vObservation, type Observation } from "../../stores/observations";
 import { fetchJSON } from "../../util/fetch.ts";
-import Modal from "../dialogs/albina-modal.tsx";
+import ObservationDetailsDialog from "./observation-details-dialog.tsx";
 
 const STATION_COLOR = "rgb(100, 100, 100)";
 const OBSERVATION_COLOR = "rgb(200, 100, 100)";
@@ -45,30 +47,14 @@ interface Props {
   region: string;
 }
 
-interface Observation {
-  $id: string;
-  $externalURL: string;
-  latitude: number;
-  longitude: number;
-  eventDate: string;
-  locationName: string;
-  authorName: string;
-}
+/** An {@link Observation} known to carry usable coordinates. */
+type LocatedObservation = Observation &
+  Required<Pick<Observation, "latitude" | "longitude">>;
 
-function isObservation(value: unknown): value is Observation {
-  if (!value || typeof value !== "object") {
-    return false;
-  }
-
-  const observation = value as Record<string, unknown>;
+function isLocatedObservation(value: unknown): value is LocatedObservation {
   return (
-    typeof observation.$id === "string" &&
-    typeof observation.$externalURL === "string" &&
-    typeof observation.latitude === "number" &&
-    typeof observation.longitude === "number" &&
-    typeof observation.eventDate === "string" &&
-    typeof observation.locationName === "string" &&
-    typeof observation.authorName === "string"
+    v.is(vObservation, value) &&
+    isValidCoordinates(value.latitude, value.longitude)
   );
 }
 
@@ -109,20 +95,14 @@ function useWeatherStations() {
 }
 
 function useObservations() {
-  const intl = useIntl();
-  const [observations, setObservations] = useState<Observation[]>([]);
-  const [observation, setObservation] = useState<string>("");
+  const [observations, setObservations] = useState<LocatedObservation[]>([]);
+  const [observationId, setObservationId] = useState<string>("");
 
   async function loadObservations() {
     if (!config.apis.snobs) return;
     const snobs = await fetchJSON<unknown>(config.apis.snobs);
-    const observationsList = Array.isArray(snobs)
-      ? snobs.filter(isObservation)
-      : [];
     setObservations(
-      observationsList.filter(observation =>
-        isValidCoordinates(observation.latitude, observation.longitude)
-      )
+      Array.isArray(snobs) ? snobs.filter(isLocatedObservation) : []
     );
   }
 
@@ -135,23 +115,23 @@ function useObservations() {
           type: "Point",
           coordinates: [observation.longitude, observation.latitude]
         },
-        properties: {
-          url: observation.$externalURL,
-          tooltip: [
-            intl.formatDate(observation.eventDate),
-            observation.locationName,
-            observation.authorName
-          ].join("<br>")
-        }
+        properties: observation
       }))
     }),
-    [observations, intl]
+    [observations]
+  );
+
+  // MapLibre hands back the feature properties with every nested value
+  // JSON-encoded, so the dialog gets the original observation by its id.
+  const observation = useMemo(
+    () => observations.find(o => o.$id === observationId),
+    [observations, observationId]
   );
 
   return {
     observationFeatures,
     observation,
-    setObservation,
+    setObservationId,
     loadObservations
   };
 }
@@ -160,8 +140,8 @@ function useObservations() {
  * Mini map (MapLibre GL) showing the micro-region's weather stations and
  * observations as colored circle markers over the shared raster basemap
  * (MAPLIBRE_STYLE). Hovering a marker shows a tooltip; clicking a station opens
- * its diagrams, clicking an observation opens its external page. The two layers
- * are toggled via the `showStations`/`showObservations` props.
+ * its diagrams, clicking an observation opens its details dialog. The two
+ * layers are toggled via the `showStations`/`showObservations` props.
  */
 function BulletinMiniMap({
   bounds,
@@ -178,7 +158,7 @@ function BulletinMiniMap({
   showStations: boolean;
   showObservations: boolean;
   onStationClick: (id: string) => void;
-  onObservationClick: (url: string) => void;
+  onObservationClick: (observationId: string) => void;
 }) {
   const intl = useIntl();
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -188,6 +168,7 @@ function BulletinMiniMap({
   // callbacks and data, and the load handler can seed the sources/visibility.
   const onStationClickRef = useRef(onStationClick);
   const onObservationClickRef = useRef(onObservationClick);
+  const intlRef = useRef(intl);
   const stationsRef = useRef(stations);
   const observationsRef = useRef(observations);
   const showStationsRef = useRef(showStations);
@@ -196,7 +177,8 @@ function BulletinMiniMap({
   useEffect(() => {
     onStationClickRef.current = onStationClick;
     onObservationClickRef.current = onObservationClick;
-  }, [onStationClick, onObservationClick]);
+    intlRef.current = intl;
+  }, [onStationClick, onObservationClick, intl]);
 
   // Initialize the map once: basemap, the two marker sources/layers, hover
   // tooltip and a ResizeObserver. Data and visibility are kept in sync below.
@@ -287,8 +269,8 @@ function BulletinMiniMap({
         if (typeof id === "string") onStationClickRef.current(id);
       });
       map.on("click", OBSERVATIONS_LAYER, e => {
-        const url = e.features?.[0]?.properties?.url;
-        if (typeof url === "string") onObservationClickRef.current(url);
+        const id = e.features?.[0]?.properties?.$id;
+        if (typeof id === "string") onObservationClickRef.current(id);
       });
 
       for (const layer of [STATIONS_LAYER, OBSERVATIONS_LAYER]) {
@@ -302,9 +284,23 @@ function BulletinMiniMap({
         map.on("mousemove", layer, e => {
           const feature = e.features?.[0];
           if (feature?.geometry.type !== "Point") return;
+          // Stations carry a ready-made tooltip, observations the whole
+          // observation the tooltip is formatted from.
+          const observation = feature.properties as Observation;
+          const html =
+            layer === OBSERVATIONS_LAYER
+              ? [
+                  observation.eventDate &&
+                    intlRef.current.formatDate(observation.eventDate),
+                  observation.locationName,
+                  observation.authorName
+                ]
+                  .filter(Boolean)
+                  .join("<br>")
+              : String(feature.properties?.tooltip ?? "");
           tooltipRef.current
             ?.setLngLat(feature.geometry.coordinates as [number, number])
-            .setHTML(String(feature.properties?.tooltip ?? ""))
+            .setHTML(html)
             .addTo(map);
         });
       }
@@ -384,8 +380,12 @@ export function AdditionalBulletinInformation({
   const [showObservations, setShowObservations] = useState(true);
   const { data, stationFeatures, stationId, setStationId } =
     useWeatherStations();
-  const { observationFeatures, observation, setObservation, loadObservations } =
-    useObservations();
+  const {
+    observationFeatures,
+    observation,
+    setObservationId,
+    loadObservations
+  } = useObservations();
 
   useEffect(
     () => void loadObservations(),
@@ -408,18 +408,10 @@ export function AdditionalBulletinInformation({
         />
       )}
 
-      {!!observation && (
-        <Modal
-          isOpen={!!observation}
-          onClose={() => setObservation("")}
-          width={"90vw"}
-        >
-          <iframe
-            src={observation}
-            style={{ width: "100%", height: "80vh", border: "none" }}
-          />
-        </Modal>
-      )}
+      <ObservationDetailsDialog
+        observation={observation}
+        onClose={() => setObservationId("")}
+      />
 
       <h2 className="subheader">
         <FormattedMessage id="bulletin:report:additional:headline" />
@@ -435,7 +427,7 @@ export function AdditionalBulletinInformation({
             showStations={showStations}
             showObservations={showObservations}
             onStationClick={setStationId}
-            onObservationClick={setObservation}
+            onObservationClick={setObservationId}
           />
         </div>
 
