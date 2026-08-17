@@ -19,6 +19,7 @@ import {
   getWarnlevelNumber,
   WarnLevelNumber
 } from "../../util/warn-levels";
+import { vAvalancheBulletinServiceTendencyResult } from "../../api/valibot.gen";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -57,6 +58,9 @@ class BulletinCollection {
   maxDangerRatings: MaxDangerRatings = {};
   eawsMaxDangerRatings: MaxDangerRatings = {};
   eawsAvalancheProblems: EawsAvalancheProblems = {};
+  tendency:
+    | v.InferOutput<typeof vAvalancheBulletinServiceTendencyResult>
+    | undefined;
 
   constructor(
     public readonly date: Temporal.PlainDate,
@@ -154,6 +158,18 @@ class BulletinCollection {
     }
     this.status = this.dataRaw.bulletins.length > 0 ? "ok" : "n/a";
     this.maxDangerRatings = this.computeMaxDangerRatings();
+
+    {
+      const date =
+        this.dataRaw.bulletins
+          ?.find(b => b.validTime?.startTime)
+          ?.validTime?.startTime?.toISOString() ?? "";
+      this.tendency = await fetchJSON(
+        "https://avalanche.report/albina/api/bulletins/tendency?" +
+          new URLSearchParams({ date })
+      );
+    }
+
     // Derive per-region statuses from actual bulletin coverage
     $focusRegions.get().forEach(regionCode => {
       const hasBulletins = this.bulletins.some(b =>
