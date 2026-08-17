@@ -1,4 +1,7 @@
-import maplibregl from "maplibre-gl";
+import type {
+  FillLayerSpecification,
+  LineLayerSpecification
+} from "maplibre-gl";
 import type { RegionState } from "./bulletin-map";
 import { DangerRatingValue } from "../../stores/bulletin";
 
@@ -189,7 +192,7 @@ export const REGION_FILL_PAINT = Object.freeze({
       ]
     ]
   ]
-} satisfies maplibregl.FillLayerSpecification["paint"]);
+} satisfies FillLayerSpecification["paint"]);
 
 export const REGION_LINE_PAINT = Object.freeze({
   "line-color": [
@@ -231,4 +234,4 @@ export const REGION_LINE_PAINT = Object.freeze({
     0,
     0
   ]
-} satisfies maplibregl.LineLayerSpecification["paint"]);
+} satisfies LineLayerSpecification["paint"]);

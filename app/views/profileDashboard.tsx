@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../i18n";
 import { useSnowProfileData } from "../stores/profileDataStore";
@@ -41,8 +41,19 @@ function SnowProfileDashboard() {
     sortValue,
     sortDir,
     sortBy,
-    sortedFilteredData
+    sortedFilteredData,
+    chronologicalData
   } = useSnowProfileData();
+
+  // The dialog flips through the profiles as the current view presents them:
+  // chronologically on the map, by the table's sorting in the table.
+  const flipperData = useMemo(
+    () =>
+      viewMode === "map"
+        ? chronologicalData.filter(profile => profile.hasLocation)
+        : sortedFilteredData,
+    [viewMode, chronologicalData, sortedFilteredData]
+  );
 
   const mapView = (
     <section
@@ -195,6 +206,7 @@ function SnowProfileDashboard() {
       </button>
 
       <SnowProfileDetailsDialog
+        profiles={flipperData}
         profileId={profileId}
         setProfileId={setProfileId}
       />

@@ -5,12 +5,14 @@ import {
   useIncidentReportMessages,
   translateIncidentValue
 } from "../../i18n/incident-report";
-import { DATE_TIME_FORMAT } from "../../util/date";
+import { DATE_TIME_FORMAT, DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import ProblemIcon from "../icons/problem-icon";
 import ExpositionIcon from "../icons/exposition-icon";
 import ElevationIcon from "../icons/elevation-icon";
 import IncidentLocationMap from "./incident-location-map";
 import { involvementText } from "../../util/incident-involvement";
+import { incidentBadges } from "../../util/incident-badges";
+import { IncidentBadges } from "./incident-badge";
 import {
   getDangerRatingIconFile,
   getDangerRatingLabel
@@ -73,13 +75,21 @@ function Section({
   );
 }
 
-/** Renders `value (accuracy)`, with the accuracy in parentheses beside the value. */
-function withAccuracy(value: ReactNode, accuracy: ReactNode): ReactNode {
+function withAccuracy(
+  value: ReactNode,
+  accuracy: ReactNode,
+  accuracyLabel: string
+): ReactNode {
   if (!value && value !== 0) return value;
   return (
     <>
       {value}
-      {accuracy && <span> ({accuracy})</span>}
+      {accuracy && (
+        <span>
+          {" "}
+          ({accuracyLabel}: {accuracy})
+        </span>
+      )}
     </>
   );
 }
@@ -428,34 +438,51 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const dateTime =
     incident.dateTime && intl.formatDate(incident.dateTime, DATE_TIME_FORMAT);
   const timeAccuracy = tr("timeAccuracy", d.timeAccuracy);
+  // The header mirrors the map's tooltip card: date · outcome, then the same
+  // neutral badge cluster (danger level, avalanche type/size).
+  const headerDate =
+    incident.dateTime &&
+    intl.formatDate(incident.dateTime, DATE_TIME_FORMAT_SHORT);
+  const outcome = involvementText(incident, intl, t);
+  const headerMeta = [headerDate, outcome].filter(Boolean).join(" · ");
+  const badges = incidentBadges(incident, intl, t);
   const dangerRatingText =
     d.dangerRating &&
     intl.formatMessage({
       id: `danger-level:${d.dangerRating}` as MessageId
     });
   const problems = visibleProblems(d.avalancheProblems);
+  const accuracyLabel = intl.formatMessage({ id: "incidents:accuracy" });
 
   return (
-    <div className="modal-container incident-details">
+    <div
+      className="modal-container incident-details"
+      style={
+        {
+          "--incident-involvement-color": `var(--incident-involvement-${incident.involvement})`
+        } as React.CSSProperties
+      }
+    >
       <header className="incident-details-header">
         {incident.location && <h2>{incident.location}</h2>}
+        {headerMeta && (
+          <p className="incident-details-header__meta">{headerMeta}</p>
+        )}
+        <IncidentBadges badges={badges} />
       </header>
 
       <Section
         fields={[
           {
             label: label("dateTime"),
-            value: dateTime && withAccuracy(dateTime, timeAccuracy)
+            value:
+              dateTime && withAccuracy(dateTime, timeAccuracy, accuracyLabel)
           },
           {
             label: label("updatedAt"),
             value:
               incident.publishedAt &&
               intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT)
-          },
-          {
-            label: label("personInvolvement"),
-            value: involvementText(incident, intl, t)
           },
           {
             label: label("otherDamages"),
@@ -518,7 +545,8 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
               typeof d.longitude === "number" &&
               withAccuracy(
                 `${intl.formatNumber(d.latitude, 5)} / ${intl.formatNumber(d.longitude, 5)}`,
-                tr("locationAccuracy", d.locationAccuracy)
+                tr("locationAccuracy", d.locationAccuracy),
+                accuracyLabel
               )
           }
         ]}
@@ -596,14 +624,16 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             label: label("startZoneAspect"),
             value: withAccuracy(
               aspectLabel(d.startZoneAspect, intl),
-              tr("startZoneAspectAccuracy", d.startZoneAspectAccuracy)
+              tr("startZoneAspectAccuracy", d.startZoneAspectAccuracy),
+              accuracyLabel
             )
           },
           {
             label: label("startZoneElevation"),
             value: withAccuracy(
               number(d.startZoneElevation, "m"),
-              tr("startZoneElevationAccuracy", d.startZoneElevationAccuracy)
+              tr("startZoneElevationAccuracy", d.startZoneElevationAccuracy),
+              accuracyLabel
             )
           },
           {

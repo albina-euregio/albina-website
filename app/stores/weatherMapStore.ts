@@ -496,7 +496,7 @@ function _updateDataOverlays() {
     const ctx = new Promise<CanvasRenderingContext2D>((resolve, reject) => {
       const overlayDomain = ((o as { domain?: DomainId }).domain ||
         di) as DomainId;
-      const urls = getOverlayURLs(ct, overlayDomain, o.file, ats);
+      const [, url] = getOverlayURLs(ct, overlayDomain, o.file, ats).slice(1);
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = () => {
@@ -510,13 +510,9 @@ function _updateDataOverlays() {
         resolve(ctx);
       };
       img.onerror = e => {
-        if (urls.length) {
-          img.src = urls.shift();
-        } else {
-          reject(new Error(`Failed to fetch ${img.src}: ${JSON.stringify(e)}`));
-        }
+        reject(new Error(`Failed to fetch ${img.src}: ${JSON.stringify(e)}`));
       };
-      img.src = urls.shift();
+      img.src = url;
     });
 
     return {

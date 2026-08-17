@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import maplibregl from "maplibre-gl";
+import {
+  GeoJSONSource,
+  type IControl,
+  Map as MlMap,
+  type MapOptions,
+  NavigationControl,
+  Popup
+} from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useStore } from "@nanostores/react";
 import type { Feature } from "@albina-euregio/linea/listing";
@@ -76,14 +83,14 @@ interface Props {
    */
   pinDisplayModes: [PinDisplayMode, PinDisplayMode];
   onMarkerSelected: (id: string) => void;
-  onInit?: (map: maplibregl.Map) => void;
+  onInit?: (map: MlMap) => void;
   /**
    * Extra MapLibre constructor options, merged last so they can override the
    * defaults. The weather map uses this to make a transparent, stations-only
    * map (no basemap, no attribution control) stacked above a separate basemap
    * and a `mix-blend-mode` weather overlay.
    */
-  mapOptions?: Partial<maplibregl.MapOptions>;
+  mapOptions?: Partial<MapOptions>;
 }
 
 const SOURCE_ID = "stations";
@@ -200,7 +207,7 @@ class WindUtil {
    * fill and the black border (see ensureImages). Rotated by direction (+180°
    * so the arrow points downwind). Always placed; collisions ignored.
    */
-  static addLayer(map: maplibregl.Map, source: string) {
+  static addLayer(map: MlMap, source: string) {
     map.addLayer({
       id: WindUtil.LAYER_ID,
       type: "symbol",
@@ -224,7 +231,7 @@ class WindUtil {
    * available (e.g. SSR / tests).
    */
   static ensureImages(
-    map: maplibregl.Map,
+    map: MlMap,
     data: GeoJSON.FeatureCollection<GeoJSON.Point>
   ) {
     if (typeof document === "undefined") return;
@@ -329,7 +336,7 @@ function toFeatureCollection(
  * Leaflet. The button's icon and label reflect the current state; clicking it
  * calls `onToggle`. Styled in _map.scss (`.maplibregl-ctrl-station-pins`).
  */
-class StationPinsControl implements maplibregl.IControl {
+class StationPinsControl implements IControl {
   private container!: HTMLDivElement;
   private button!: HTMLButtonElement;
 
@@ -379,8 +386,8 @@ function MapLibreMap({
 }: Props) {
   const intl = useIntl();
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
-  const tooltipRef = useRef<maplibregl.Popup | null>(null);
+  const mapRef = useRef<MlMap | null>(null);
+  const tooltipRef = useRef<Popup | null>(null);
   // The active pin display mode, one of `pinDisplayModes`; the pins control
   // toggles between the two. The first mode seeds the initial value.
   const [pinMode, setPinMode] = useState(pinDisplayModes[0]);
@@ -420,7 +427,7 @@ function MapLibreMap({
 
     const bounds = padBounds(eawsRegionsBounds(focusRegions), 0.1);
 
-    const map = new maplibregl.Map({
+    const map = new MlMap({
       dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
@@ -428,12 +435,9 @@ function MapLibreMap({
       ...mapOptions
     });
 
-    map.addControl(
-      new maplibregl.NavigationControl({ showCompass: false }),
-      "top-left"
-    );
+    map.addControl(new NavigationControl({ showCompass: false }), "top-left");
 
-    tooltipRef.current = new maplibregl.Popup({
+    tooltipRef.current = new Popup({
       closeButton: false,
       closeOnClick: false,
       offset: 14,
@@ -564,7 +568,7 @@ function MapLibreMap({
 
     const map = mapRef.current;
     const source = map?.getSource(SOURCE_ID);
-    if (map && source instanceof maplibregl.GeoJSONSource) {
+    if (map && source instanceof GeoJSONSource) {
       WindUtil.ensureImages(map, data);
       source.setData(data);
     }

@@ -16,6 +16,7 @@
     "IT-32-TN",
     "AT-08"
   ],
+  "incidentRegions": ["AT-02", "IT-32-BZ", "AT-07", "IT-32-TN"],
   "stationRegions": [
     "DE-BY",
     "AT-02",
@@ -267,7 +268,7 @@
     {
       "lang": "de",
       "name": "at-02-de",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["AT-02"],
       "params": {
         "id": "blog.avalanche.report/at-02"
@@ -276,7 +277,7 @@
     {
       "lang": "de",
       "name": "at-07-de",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["AT-07"],
       "params": {
         "id": "blog.avalanche.report/at-07"
@@ -285,7 +286,7 @@
     {
       "lang": "en",
       "name": "at-07-en",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["AT-07"],
       "params": {
         "id": "blog.avalanche.report/at-07"
@@ -294,7 +295,7 @@
     {
       "lang": "it",
       "name": "at-07-it",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["AT-07"],
       "params": {
         "id": "blog.avalanche.report/at-07"
@@ -303,7 +304,7 @@
     {
       "lang": "de",
       "name": "it-32-bz-de",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["IT-32-BZ"],
       "params": {
         "id": "blog.avalanche.report/it-32-bz"
@@ -312,7 +313,7 @@
     {
       "lang": "it",
       "name": "it-32-bz-it",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["IT-32-BZ"],
       "params": {
         "id": "blog.avalanche.report/it-32-bz"
@@ -321,7 +322,7 @@
     {
       "lang": "it",
       "name": "it-32-tn-it",
-      "apiType": "wordpress",
+      "apiType": "albina",
       "regions": ["IT-32-TN"],
       "params": {
         "id": "blog.avalanche.report/it-32-tn"
@@ -404,12 +405,13 @@
     },
     "push": "/api/push",
     "subscribe": "/api/email",
+    "blogs": "/api/blogs",
     "incidents": "/api/incidents",
     "profiles": "/profiles-app/api",
     "snobs": "https://static.avalanche.report/snobs.json",
     "weatherOverlay": [
-      "https://static.avalanche.report/zamg_meteo/overlays/{domain}/",
-      "https://static.avalanche.report/zamg_meteo/overlays/{domain}/{year}/{date}/"
+      "/zamg_meteo/overlays/{domain}/",
+      "/zamg_meteo/overlays/{domain}/{year}/{date}/"
     ],
     "linea": {
       "stations": "/eaws_weather_stations/linea.geojson",
@@ -419,7 +421,6 @@
   "stations": [
     {
       "dataProviderID": "ALBINA",
-      "smetOperators": "LWD Tirol|HD Tirol|Südtirol - Alto Adige|Trentino|Tiroler Wasserkraft|Verbund|Bundesforschungszentrum für Wald|IGF|Nationalpark Hohe Tauern|Universität Innsbruck|Wildbach- und Lawinenverbauung|fotho-electric.tirol|EWA Energie- und Wirtschaftsbetriebe|BOKU|GeoSphere Austria",
       "licenseCCBY": "LWD Tirol",
       "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
       "pngOperators": "Firma Hella|Diverse|Esercito-Meteomont|Eurac Research",
@@ -428,7 +429,6 @@
     },
     {
       "dataProviderID": "AT-02",
-      "smetOperators": "",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",
@@ -436,7 +436,6 @@
     },
     {
       "dataProviderID": "IT-36",
-      "smetOperators": "",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",
@@ -444,7 +443,6 @@
     },
     {
       "dataProviderID": "AT-05",
-      "smetOperators": "",
       "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
       "pngOperators": "LWD Salzburg.*",
       "stationsArchiveFile": "",
@@ -452,7 +450,6 @@
     },
     {
       "dataProviderID": "OEBB",
-      "smetOperators": "",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",
@@ -460,7 +457,6 @@
     },
     {
       "dataProviderID": "AT-06",
-      "smetOperators": "",
       "png": "",
       "pngOperators": "",
       "stationsArchiveFile": "",
@@ -468,7 +464,6 @@
     },
     {
       "dataProviderID": "AT-03",
-      "smetOperators": "",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",
@@ -476,7 +471,6 @@
     },
     {
       "dataProviderID": "AT-04",
-      "smetOperators": "",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",
@@ -484,7 +478,6 @@
     },
     {
       "dataProviderID": "AT-08",
-      "smetOperators": "",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",
@@ -492,7 +485,6 @@
     },
     {
       "dataProviderID": "DE-BY",
-      "smetOperators": "",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",
@@ -500,7 +492,6 @@
     },
     {
       "dataProviderID": "SI",
-      "smetOperators": "",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",
@@ -508,7 +499,6 @@
     },
     {
       "dataProviderID": "SLF",
-      "smetOperators": "",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",
@@ -516,7 +506,6 @@
     },
     {
       "dataProviderID": "IT-34",
-      "smetOperators": "",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",

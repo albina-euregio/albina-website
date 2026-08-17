@@ -1,5 +1,6 @@
 @use "sass:map";
 @use "../abstracts/variables";
+@use "../abstracts/mixins";
 
 /*------------------------------------*\
 	#SNOWPROFILE
@@ -62,15 +63,11 @@ $snowprofile-stabilities: (
   }
 }
 
+// The same chip geometry as every other badge, carrying the snowpack
+// stability's own colours and a solid outline.
 .snowprofile-stability-badge {
-  display: inline-block;
-  padding: 0.25rem 0.625rem;
+  @include mixins.chip-shape;
   border: 1px solid;
-  border-radius: 0.25rem;
-  font-size: variables.$tiny-font-size;
-  font-weight: 500;
-  line-height: 1.4;
-  white-space: nowrap;
 
   @each $name, $spec in $snowprofile-stabilities {
     &--#{$name} {
@@ -78,6 +75,79 @@ $snowprofile-stabilities: (
       border-color: map.get($spec, "border");
       color: map.get($spec, "text");
     }
+  }
+}
+
+// Neutral pill for a single profile fact (aspect, elevation). Shares the
+// incident badges' shape and colours via `neutral-chip`.
+.snowprofile-fact-badge {
+  @include mixins.neutral-chip;
+}
+
+// The marker's hover tooltip — the shared spine card, coloured by snowpack
+// stability instead of person involvement. Only `__body` is profile-specific.
+.maplibre-snowprofile-tooltip {
+  @include mixins.map-tooltip-card(
+    "snowprofile-tooltip",
+    --snowprofile-stability-color
+  );
+
+  .snowprofile-tooltip__body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4em;
+    margin: (variables.$padding * 0.4) 0 0;
+  }
+}
+
+// The flipper and close controls sit fixed in the top-right corner; the actions
+// row fills the same band on the left, so the top reads as one toolbar.
+.modal-container.snowprofile-details {
+  padding-top: variables.$padding;
+}
+
+// Edge length of the fixed close/flipper controls (see `$modal-control-size` in
+// _modals.scss), kept local so this feature stays self-contained.
+$snowprofile-control-size: calc(
+  #{variables.$icon-font-size} + #{variables.$padding}
+);
+
+// Actions above the profile image: open in a new tab, download the CAAML XML.
+.snowprofile-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: $snowprofile-control-size;
+  gap: calc(#{variables.$padding} * 0.5);
+  // stay clear of the fixed flipper + close controls in the opposite corner
+  padding-right: calc(
+    #{$snowprofile-control-size} * 3 + #{variables.$padding} * 3
+  );
+  margin-bottom: variables.$padding;
+}
+
+// Icon-only controls that mirror the flipper/close buttons opposite them.
+a.snowprofile-detail__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $snowprofile-control-size;
+  width: $snowprofile-control-size;
+  color: variables.$brand;
+  background-color: rgba(variables.$white, 0.75);
+  border-radius: variables.$global-radius;
+  @include mixins.rollout;
+
+  span:before {
+    margin-right: 0;
+    line-height: 1;
+  }
+
+  &:hover {
+    color: variables.$brand-dark;
+    background-color: variables.$white;
+    @include mixins.rollover;
   }
 }
 
@@ -92,5 +162,10 @@ $snowprofile-stabilities: (
     width: 210mm;
     height: auto;
     margin: 0 auto;
+  }
+
+  img.is-stale {
+    opacity: 0.5;
+    transition: opacity variables.$transition-duration ease-in-out 0.3s;
   }
 }

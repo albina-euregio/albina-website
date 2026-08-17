@@ -157,7 +157,7 @@ export async function loadIncidentData(
   seasonYear: number
 ): Promise<IncidentData[]> {
   const all = await Promise.all(
-    config.regionCodes.map(region =>
+    (config.incidentRegions ?? config.regionCodes).map(region =>
       fetchIncidentsForRegion(region, seasonYear)
     )
   );

@@ -11,9 +11,18 @@ import { fetchJSON } from "../util/fetch";
 
 const DEFAULT_RANGE_DAYS = 30;
 
-export const SNOW_PROFILE_STABILITIES = vStability.options;
-
 export type SnowProfileStability = v.InferOutput<typeof vStability>;
+
+/**
+ * Legend display order, most severe (least stable) first, matching the incident legend's ordering.
+ */
+export const SNOW_PROFILE_STABILITIES = [
+  "very-poor",
+  "poor",
+  "fair",
+  "good",
+  "no-test"
+] as const satisfies readonly SnowProfileStability[];
 
 /**
  * Ranks a stability so the least stable draws on top of the map / sorts first.
@@ -192,13 +201,29 @@ export function useSnowProfileData() {
     void loadData();
   }, [loadData]);
 
-  const sortedFilteredData = useMemo(() => {
+  const filteredData = useMemo(() => {
     const pattern = searchText ? new RegExp(searchText, "i") : undefined;
     return data
       .filter(row => !activeRegion || row.region === activeRegion)
-      .filter(row => !pattern || row.location.match(pattern))
-      .sort((a, b) => compareSnowProfileData(a, b, sortValue, sortDir));
-  }, [data, activeRegion, searchText, sortValue, sortDir]);
+      .filter(row => !pattern || row.location.match(pattern));
+  }, [data, activeRegion, searchText]);
+
+  const sortedFilteredData = useMemo(
+    () =>
+      [...filteredData].sort((a, b) =>
+        compareSnowProfileData(a, b, sortValue, sortDir)
+      ),
+    [filteredData, sortValue, sortDir]
+  );
+
+  /** Oldest first, for views without a sorting of their own (i.e. the map). */
+  const chronologicalData = useMemo(
+    () =>
+      [...filteredData].sort((a, b) =>
+        compareSnowProfileData(a, b, "dateTime", "asc")
+      ),
+    [filteredData]
+  );
 
   return {
     data,
@@ -213,6 +238,7 @@ export function useSnowProfileData() {
     sortValue,
     sortDir,
     sortBy,
-    sortedFilteredData
+    sortedFilteredData,
+    chronologicalData
   };
 }

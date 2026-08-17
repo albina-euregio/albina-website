@@ -377,7 +377,6 @@ export async function _loadStationData({
   return window.config.stations.flatMap(
     ({
       dataProviderID,
-      smetOperators,
       licenseCCBY,
       png,
       pngOperators,
@@ -390,10 +389,8 @@ export async function _loadStationData({
           .map(feature => {
             const data = new StationData(feature);
             const operator = feature.properties.operator ?? "";
-            if (smetOperators && !new RegExp(smetOperators).test(operator)) {
-              data.properties.dataURLs = [];
-            }
             if (new RegExp(pngOperators).test(operator)) {
+              data.properties.dataURLs = [];
               data.properties.plot = png.replace(
                 "{name}",
                 data.properties.plot ?? ""

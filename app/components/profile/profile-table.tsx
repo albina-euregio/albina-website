@@ -24,6 +24,8 @@ export default function SnowProfileTable(props: Props) {
     {
       id: "dateTime",
       title: intl.formatMessage({ id: "archive:table-header:date" }),
+      align: "right",
+      defaultSortDir: "desc",
       render: row =>
         row.dateTime
           ? intl.formatDate(row.dateTime, DATE_TIME_FORMAT_SHORT)
@@ -45,13 +47,24 @@ export default function SnowProfileTable(props: Props) {
     {
       id: "elevation",
       title: intl.formatMessage({ id: "measurements:table:header:altitude" }),
-      render: row =>
-        row.elevation != null ? intl.formatNumberUnit(row.elevation, "m") : ""
+      render: (row): ReactNode =>
+        row.elevation != null ? (
+          <span className="snowprofile-fact-badge">
+            {intl.formatNumberUnit(row.elevation, "m")}
+          </span>
+        ) : (
+          ""
+        )
     },
     {
       id: "aspect",
       title: intl.formatMessage({ id: "measurements:table:header:aspect" }),
-      render: row => row.aspect ?? ""
+      render: (row): ReactNode =>
+        row.aspect ? (
+          <span className="snowprofile-fact-badge">{row.aspect}</span>
+        ) : (
+          ""
+        )
     },
     {
       id: "stability",

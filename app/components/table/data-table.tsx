@@ -13,9 +13,16 @@ export interface ColumnDef<T> {
   subtitle?: ReactNode;
   /** CSS class(es) applied to the `<td>`. */
   className?: string;
+  /**
+   * Horizontal alignment for this column's header and cells. Overrides the
+   * table's default (first column left, the rest centered).
+   */
+  align?: "left" | "center" | "right";
   render: (row: T) => ReactNode;
   /** Defaults to `true`; set `false` to render a header without sort controls. */
   sortable?: boolean;
+  /** Direction applied when this column is first clicked. Defaults to `"asc"`. */
+  defaultSortDir?: SortDir;
 }
 
 interface DataTableProps<T> {
@@ -33,29 +40,26 @@ interface DataTableProps<T> {
 export default function DataTable<T>(props: DataTableProps<T>) {
   const intl = useIntl();
 
-  const sortClasses = (id: string, dir: SortDir) => {
-    const cls = [dir === "asc" ? "icon-up-open" : "icon-down-open"];
-    if (props.sortValue === id && props.sortDir !== dir) {
-      cls.push("sort-disabled");
-    }
-    return cls.join(" ");
-  };
-
-  const handleSort = (e: MouseEvent, col: ColumnDef<T>, dir: SortDir) => {
+  const handleSort = (e: MouseEvent, col: ColumnDef<T>) => {
     e.preventDefault();
     e.stopPropagation();
-    props.onSort(
-      col.id,
-      props.sortValue === col.id ? (dir === "asc" ? "desc" : "asc") : dir
-    );
+    // Toggle direction on the active column, otherwise use the column's
+    // preferred first direction.
+    const dir: SortDir =
+      props.sortValue === col.id
+        ? props.sortDir === "asc"
+          ? "desc"
+          : "asc"
+        : (col.defaultSortDir ?? "asc");
+    props.onSort(col.id, dir);
   };
 
-  const sortTitle = (id: string, dir: SortDir) =>
+  const sortTitle = (col: ColumnDef<T>) =>
     intl.formatMessage({
       id:
-        props.sortValue === id
+        props.sortValue === col.id
           ? "measurements:table:sort-toggle"
-          : `measurements:table:sort-${dir}`
+          : `measurements:table:sort-${col.defaultSortDir ?? "asc"}`
     });
 
   return (
@@ -64,30 +68,51 @@ export default function DataTable<T>(props: DataTableProps<T>) {
     >
       <thead>
         <tr>
-          {props.columns.map(col => (
-            <th key={col.id}>
-              {col.title}
-              {col.subtitle && <br />}
-              {col.subtitle}
-              {col.sortable !== false && (
-                <span className="sort-buttons">
-                  {(["asc", "desc"] as SortDir[]).map(dir => (
-                    <Tooltip key={dir} label={sortTitle(col.id, dir)}>
-                      <a
-                        href="#"
-                        className={sortClasses(col.id, dir)}
-                        onClick={e => handleSort(e, col, dir)}
-                      >
-                        <span className="is-visually-hidden">
-                          {col.title}: {sortTitle(col.id, dir)}
-                        </span>
-                      </a>
-                    </Tooltip>
-                  ))}
+          {props.columns.map(col => {
+            const sortable = col.sortable !== false;
+            const active = sortable && props.sortValue === col.id;
+            const asc = props.sortDir === "asc";
+            const label = (
+              <span className="sort-header-inner">
+                <span className="sort-header-text">
+                  {col.title}
+                  {col.subtitle && <br />}
+                  {col.subtitle}
                 </span>
-              )}
-            </th>
-          ))}
+                {active && (
+                  <span
+                    className={`sort-caret ${
+                      asc ? "icon-down-open" : "icon-up-open"
+                    }`}
+                    aria-hidden="true"
+                  />
+                )}
+              </span>
+            );
+            return (
+              <th
+                key={col.id}
+                style={col.align ? { textAlign: col.align } : undefined}
+                aria-sort={
+                  active ? (asc ? "ascending" : "descending") : undefined
+                }
+              >
+                {sortable ? (
+                  <Tooltip label={sortTitle(col)}>
+                    <a
+                      href="#"
+                      className="sort-header"
+                      onClick={e => handleSort(e, col)}
+                    >
+                      {label}
+                    </a>
+                  </Tooltip>
+                ) : (
+                  label
+                )}
+              </th>
+            );
+          })}
         </tr>
       </thead>
       <tbody>
@@ -96,7 +121,11 @@ export default function DataTable<T>(props: DataTableProps<T>) {
           return (
             <tr key={key} onClick={() => props.onRowClick?.(row)}>
               {props.columns.map(col => (
-                <td key={key + "-" + col.id} className={col.className}>
+                <td
+                  key={key + "-" + col.id}
+                  className={col.className}
+                  style={col.align ? { textAlign: col.align } : undefined}
+                >
                   {col.render(row)}
                 </td>
               ))}

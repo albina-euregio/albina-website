@@ -31,7 +31,14 @@ import {
 } from "../../stores/microRegions";
 import { $focusRegions, $province } from "../../appStore";
 import { FormattedMessage } from "../../i18n";
-import maplibregl from "maplibre-gl";
+import {
+  type FilterSpecification,
+  type JumpToOptions,
+  type LngLatBoundsLike,
+  Map as MlMap,
+  NavigationControl,
+  type StyleSpecification
+} from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
 import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
@@ -41,7 +48,7 @@ import { REGION_FILL_PAINT, REGION_LINE_PAINT } from "./bulletin-map-paint";
 // Transparent style for the overlay map that carries the danger-rating fills.
 // It is stacked over the base map with `mix-blend-mode: multiply` (MapLibre has
 // no per-layer blend mode, so the multiply happens between the two canvases).
-const OVERLAY_STYLE: maplibregl.StyleSpecification = {
+const OVERLAY_STYLE: StyleSpecification = {
   version: 8,
   sources: {},
   layers: []
@@ -52,7 +59,7 @@ const OVERLAY_STYLE: maplibregl.StyleSpecification = {
 // map registers itself on creation and removes itself on destroy. The
 // `syncingMaps` guard breaks the feedback loop, since jumpTo() on a target map
 // itself fires a `move` event.
-const syncedMaps: maplibregl.Map[] = [];
+const syncedMaps: MlMap[] = [];
 let syncingMaps = false;
 
 export type RegionState =
@@ -87,7 +94,7 @@ const REGION_SOURCE = {
 // overlay source, then re-apply the active hover group on top of the new base
 // states. No-op until the source exists.
 function applyFeatureStates(
-  map: maplibregl.Map | null,
+  map: MlMap | null,
   fs: RegionFeatureStates,
   hoverActive: string[]
 ) {
@@ -483,9 +490,9 @@ function MapLibreMap({
 >) {
   const intl = useIntl();
   const baseRef = useRef<HTMLDivElement | null>(null);
-  const baseMapRef = useRef<maplibregl.Map | null>(null);
+  const baseMapRef = useRef<MlMap | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
-  const overlayMapRef = useRef<maplibregl.Map | null>(null);
+  const overlayMapRef = useRef<MlMap | null>(null);
   const focusRegions = useStore($focusRegions);
 
   // Region styling is driven entirely through feature-states (`state` /
@@ -732,7 +739,7 @@ function MapLibreMap({
   // Hide micro-regions whose start_date/end_date is not valid on the bulletin
   // date — the MapLibre equivalent of the GeoJSON `filterFeature` predicate
   // (empty/absent bounds are open-ended; no date → show nothing).
-  const featureFilter = useMemo((): maplibregl.FilterSpecification => {
+  const featureFilter = useMemo((): FilterSpecification => {
     const today = activeBulletinCollection?.date?.toString();
     return filterFeatureSpecification(today);
   }, [activeBulletinCollection?.date]);
@@ -740,7 +747,7 @@ function MapLibreMap({
   useEffect(() => {
     if (!baseRef.current || !overlayRef.current || baseMapRef.current) return;
 
-    const initialBounds: maplibregl.LngLatBoundsLike = padBounds(
+    const initialBounds: LngLatBoundsLike = padBounds(
       eawsRegionsBounds(focusRegions),
       0.1
     );
@@ -748,7 +755,7 @@ function MapLibreMap({
     // Base map: the shared raster style (basemap + opentopomap). It sits behind
     // the overlay (pointer-events: none) and is non-interactive — it just
     // follows the overlay's view.
-    const base = new maplibregl.Map({
+    const base = new MlMap({
       container: baseRef.current,
       style: MAPLIBRE_STYLE,
       minZoom: 5,
@@ -760,7 +767,7 @@ function MapLibreMap({
     // Overlay map: only the danger-rating fills + region borders, stacked on top
     // with `mix-blend-mode: multiply` (see the JSX below). It is the interactive
     // map; the base map is view-synced to it.
-    const overlay = new maplibregl.Map({
+    const overlay = new MlMap({
       cooperativeGestures: true,
       dragRotate: false,
       locale: {
@@ -788,7 +795,7 @@ function MapLibreMap({
     });
 
     overlay.addControl(
-      new maplibregl.NavigationControl({ showCompass: false }),
+      new NavigationControl({ showCompass: false }),
       "top-left"
     );
     // Reapply the controls lost in the Leaflet -> MapLibre migration: place
@@ -905,7 +912,7 @@ function MapLibreMap({
     // any other mounted overlay maps (earlier/later) so they stay in sync.
     syncedMaps.push(overlay);
     overlay.on("move", () => {
-      const view: maplibregl.JumpToOptions = {
+      const view: JumpToOptions = {
         center: overlay.getCenter(),
         zoom: overlay.getZoom(),
         bearing: overlay.getBearing(),

@@ -1,6 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { debounce } from "es-toolkit";
-import maplibregl from "maplibre-gl";
+import {
+  GeoJSONSource,
+  ImageSource,
+  type ImageSourceSpecification,
+  type LngLatLike,
+  Map as MlMap,
+  type MapMouseEvent,
+  Marker,
+  type StyleSpecification
+} from "maplibre-gl";
 import MapLibreMap, {
   CIRCLE_LAYER_ID,
   PinDisplayMode,
@@ -23,7 +32,7 @@ const IMAGE_LAYER_ID = "weather-overlay";
 
 // Empty, transparent style: no basemap, no sources. `glyphs` is kept so the
 // stations map (which reuses this) can still render its numeric labels.
-const TRANSPARENT_STYLE: maplibregl.StyleSpecification = {
+const TRANSPARENT_STYLE: StyleSpecification = {
   version: 8,
   glyphs: MAPLIBRE_STYLE.glyphs,
   sources: {},
@@ -48,7 +57,7 @@ class WindUtil {
   static readonly ARROW_HEIGHT = 12;
 
   /** Register the small black wind-direction arrow image once (no-op on SSR). */
-  static ensureArrowImage(map: maplibregl.Map): void {
+  static ensureArrowImage(map: MlMap): void {
     if (typeof document === "undefined" || map.hasImage(WindUtil.ARROW_IMAGE))
       return;
     const pixelRatio = 2;
@@ -93,9 +102,7 @@ const SHOW_PINS_BY_DEFAULT =
  * precedence the Leaflet data marker used). Reads the live store so the click
  * handler never holds a stale overlay set.
  */
-async function readOverlayValue(
-  lngLat: maplibregl.LngLatLike
-): Promise<number | null> {
+async function readOverlayValue(lngLat: LngLatLike): Promise<number | null> {
   const overlays = store.dataOverlays.get();
   const byType = {} as Partial<Record<store.OverlayType, number | null>>;
   for (const overlay of overlays) {
@@ -157,14 +164,14 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   const dataOverlays = useStore(store.dataOverlays);
 
   // Top stations map (the interaction driver) and the two synced maps below it.
-  const mapRef = useRef<maplibregl.Map | null>(null);
-  const basemapRef = useRef<maplibregl.Map | null>(null);
-  const overlayRef = useRef<maplibregl.Map | null>(null);
+  const mapRef = useRef<MlMap | null>(null);
+  const basemapRef = useRef<MlMap | null>(null);
+  const overlayRef = useRef<MlMap | null>(null);
   const basemapContainerRef = useRef<HTMLDivElement | null>(null);
   const overlayContainerRef = useRef<HTMLDivElement | null>(null);
   // The transient "data marker" placed on click, and a token so a slow pixel
   // read from an older click can't overwrite a newer one.
-  const dataMarkerRef = useRef<maplibregl.Marker | null>(null);
+  const dataMarkerRef = useRef<Marker | null>(null);
   const clickGenRef = useRef(0);
   const [mapReady, setMapReady] = useState(false);
   const [overlayReady, setOverlayReady] = useState(false);
@@ -189,12 +196,12 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     } as const;
     // The basemap keeps its own attribution control (bottom-right); the
     // transparent overlay and the stations map on top suppress theirs.
-    const basemap = new maplibregl.Map({
+    const basemap = new MlMap({
       ...shared,
       container: basemapContainer,
       style: MAPLIBRE_STYLE
     });
-    const overlay = new maplibregl.Map({
+    const overlay = new MlMap({
       ...shared,
       container: overlayContainer,
       style: TRANSPARENT_STYLE,
@@ -231,13 +238,13 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   // station markers live on the separate map above, so they stay unaffected.
   useEffect(() => {
     const map = overlayRef.current;
-    const [url] = overlayURLs;
+    const [, url] = overlayURLs;
     if (!overlayReady || !map || !url) return;
 
     // MapLibre image sources want the four corners as `[lng, lat]` in
     // TL, TR, BR, BL (i.e. NW, NE, SE, SW) order.
     const bbox = store.config.settings.bbox;
-    const coordinates: maplibregl.ImageSourceSpecification["coordinates"] = [
+    const coordinates: ImageSourceSpecification["coordinates"] = [
       bbox.getNorthWest().toArray(),
       bbox.getNorthEast().toArray(),
       bbox.getSouthEast().toArray(),
@@ -245,7 +252,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     ];
 
     const source = map.getSource(IMAGE_SOURCE_ID);
-    if (source instanceof maplibregl.ImageSource) {
+    if (source instanceof ImageSource) {
       source.updateImage({ url, coordinates });
     } else {
       map.addSource(IMAGE_SOURCE_ID, { type: "image", url, coordinates });
@@ -272,7 +279,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
 
     const setData = (data: GeoJSON.FeatureCollection<GeoJSON.Point>) => {
       const source = map.getSource(WindUtil.SOURCE_ID);
-      if (source instanceof maplibregl.GeoJSONSource) source.setData(data);
+      if (source instanceof GeoJSONSource) source.setData(data);
     };
 
     const recompute = async () => {
@@ -348,7 +355,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     const map = mapRef.current;
     if (!mapReady || !map) return;
 
-    const onClick = async (e: maplibregl.MapMouseEvent) => {
+    const onClick = async (e: MapMouseEvent) => {
       // Station markers own their own click (selection); don't shadow them.
       if (
         map.queryRenderedFeatures(e.point, { layers: [CIRCLE_LAYER_ID] }).length
@@ -364,7 +371,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       const item = store.domainConfig.get() as unknown as MarkerItem;
       const element = createDataMarkerElement(value, item);
       dataMarkerRef.current?.remove();
-      dataMarkerRef.current = new maplibregl.Marker({
+      dataMarkerRef.current = new Marker({
         element,
         anchor: "center"
       })

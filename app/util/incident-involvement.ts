@@ -42,9 +42,7 @@ export function involvementText(
   messages: IncidentReportMessages
 ): string {
   const { fatalities, injuredSurvivors } = incident;
-  // Reports name the fatalities and injured without always totalling them up.
-  const involved =
-    incident.numberInvolved || fatalities + injuredSurvivors || undefined;
+  const involved = incident.numberInvolved;
   if (!involved) return involvementLabel(messages, incident.involvement);
   const count = (id: MessageId, value: number): string =>
     intl.formatMessage({ id }, { count: intl.formatNumber(value) });

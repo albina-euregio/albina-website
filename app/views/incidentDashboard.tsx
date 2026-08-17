@@ -109,7 +109,7 @@ function IncidentDashboard() {
                 })}
                 all={intl.formatMessage({ id: "filter:all" })}
                 handleChange={val => setActiveRegion(val)}
-                regionCodes={config.regionCodes}
+                regionCodes={config.incidentRegions}
                 value={activeRegion}
               />
             </div>

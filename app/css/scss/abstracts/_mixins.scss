@@ -349,3 +349,58 @@
     display: block;
   }
 }
+
+// Rounded pill/chip geometry shared by the incident and snow-profile badges.
+// Colours are left to the caller.
+@mixin chip-shape {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.2em 0.6em;
+  border-radius: 1em;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+// The neutral grey pill: chip geometry plus the shared muted colours. Used for
+// incident danger/character badges and snow-profile fact chips alike.
+@mixin neutral-chip {
+  @include chip-shape;
+  background: variables.$grey-very-light;
+  color: variables.$grey-dark;
+}
+
+// The map marker's hover tooltip: a compact popup card whose left edge carries a
+// colour spine.
+@mixin map-tooltip-card($base, $spine) {
+  .maplibregl-popup-content {
+    // Let the card own its padding so the colour spine can sit flush to the
+    // left edge; clip the spine to the popup's rounded corners.
+    padding: 0;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .#{$base} {
+    max-width: 20rem;
+    padding: (variables.$padding * 0.75) variables.$padding;
+    font-size: variables.$tiny-font-size;
+    line-height: 1.4;
+    color: variables.$text-color;
+    border-left: 3px solid var(#{$spine}, transparent);
+  }
+
+  .#{$base}__title {
+    margin: 0;
+    color: variables.$grey-very-dark;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .#{$base}__meta {
+    margin: 0.15em 0 0;
+    color: variables.$grey-dark;
+    font-size: variables.$tiny-font-size;
+  }
+}

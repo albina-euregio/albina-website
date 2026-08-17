@@ -25,9 +25,10 @@ export const DATE_TIME_FORMAT: Intl.DateTimeFormatOptions = {
 Object.freeze(DATE_TIME_FORMAT);
 
 export const DATE_TIME_FORMAT_SHORT: Intl.DateTimeFormatOptions = {
+  weekday: "short",
   year: "numeric",
-  month: "numeric",
-  day: "numeric",
+  month: "2-digit",
+  day: "2-digit",
   hour: "numeric",
   minute: "numeric",
   hour12: false

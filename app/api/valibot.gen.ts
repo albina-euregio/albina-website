@@ -74,7 +74,16 @@ export const vBlogItem = v.object({
   content: v.string(),
   published: v.pipe(v.string(), v.isoTimestamp()),
   categories: v.array(v.string()),
-  attachmentUrl: v.string()
+  attachmentUrl: v.string(),
+  translations: v.object({
+    de: v.optional(v.string()),
+    it: v.optional(v.string()),
+    en: v.optional(v.string()),
+    fr: v.optional(v.string()),
+    es: v.optional(v.string()),
+    ca: v.optional(v.string()),
+    oc: v.optional(v.string())
+  })
 });
 
 export const vBulletinStatus = v.picklist([
@@ -476,6 +485,11 @@ export const vDangerRating = v.picklist([
 
 export const vAvalancheBulletinServiceHighest = v.object({
   dangerRating: vDangerRating
+});
+
+export const vAvalancheBulletinServiceTendencyResult = v.object({
+  dates: v.optional(v.array(v.pipe(v.string(), v.isoTimestamp()))),
+  dangerRatings: v.optional(v.record(v.string(), v.array(vDangerRating)))
 });
 
 export const vDangerRatingModificator = v.picklist([
@@ -1828,6 +1842,109 @@ export const vUserServiceResetPassword = v.object({
   newPassword: v.string()
 });
 
+export const vWeatherStationsFeatureType = v.picklist(["Feature"]);
+
+export const vWeatherStationsFeatureCollectionType = v.picklist([
+  "FeatureCollection"
+]);
+
+export const vWeatherStationsGeometryType = v.picklist(["Point"]);
+
+export const vWeatherStationsGeometry = v.object({
+  coordinates: v.optional(v.array(v.number())),
+  type: vWeatherStationsGeometryType
+});
+
+export const vWeatherStationsStatistics = v.object({
+  average: v.number(),
+  count: v.number(),
+  delta: v.number(),
+  max: v.number(),
+  median: v.number(),
+  min: v.number(),
+  sum: v.number(),
+  unit: v.optional(
+    v.picklist([
+      "K",
+      "℃",
+      "m",
+      "cm",
+      "mm",
+      "1",
+      "%",
+      "°",
+      "m/s",
+      "km/h",
+      "hPa",
+      "Pa",
+      "W/m²"
+    ])
+  )
+});
+
+/**
+ * The properties of a weather station including measured values
+ */
+export const vWeatherStationsProperties = v.object({
+  altitude: v.optional(v.number()),
+  dataProviderID: v.string(),
+  dataURLs: v.optional(v.array(v.string())),
+  date: v.optional(v.pipe(v.string(), v.isoTimestamp())),
+  DW: v.optional(v.number()),
+  HS: v.optional(v.number()),
+  HSD_24: v.optional(v.number()),
+  HSD_48: v.optional(v.number()),
+  HSD_6: v.optional(v.number()),
+  HSD_72: v.optional(v.number()),
+  ILWR: v.optional(v.number()),
+  ISWR: v.optional(v.number()),
+  microRegionID: v.optional(v.string()),
+  name: v.optional(v.string()),
+  OLWR: v.optional(v.number()),
+  operator: v.optional(v.string()),
+  operatorLicense: v.optional(v.string()),
+  operatorLicenseLink: v.optional(v.pipe(v.string(), v.url())),
+  operatorLink: v.optional(v.pipe(v.string(), v.url())),
+  P: v.optional(v.number()),
+  plot: v.optional(v.string()),
+  PSUM_24: v.optional(v.number()),
+  PSUM_48: v.optional(v.number()),
+  PSUM_6: v.optional(v.number()),
+  PSUM_72: v.optional(v.number()),
+  RH: v.optional(v.number()),
+  RSWR: v.optional(v.number()),
+  shortName: v.optional(v.pipe(v.string(), v.regex(/^[A-Za-z0-9]+$/))),
+  startYear: v.optional(v.string()),
+  stationCharacteristics: v.optional(v.string()),
+  statistics: v.object({}),
+  TA: v.optional(v.number()),
+  TA_MAX: v.optional(v.number()),
+  TA_MIN: v.optional(v.number()),
+  TD: v.optional(v.number()),
+  TSS: v.optional(v.number()),
+  VW: v.optional(v.number()),
+  VW_MAX: v.optional(v.number())
+});
+
+/**
+ * A GeoJSON Feature corresponding to one weather station
+ */
+export const vWeatherStationsFeature = v.object({
+  geometry: vWeatherStationsGeometry,
+  id: v.optional(v.string()),
+  properties: vWeatherStationsProperties,
+  type: vWeatherStationsFeatureType
+});
+
+/**
+ * A GeoJSON FeatureCollection of weather stations
+ */
+export const vWeatherStationsFeatureCollection = v.object({
+  features: v.array(vWeatherStationsFeature),
+  properties: v.record(v.string(), v.unknown()),
+  type: vWeatherStationsFeatureCollectionType
+});
+
 export const vWetness = v.picklist(["wet", "moist", "dry"]);
 
 /**
@@ -2036,6 +2153,28 @@ export const vDangerSourceVariant = v.intersect([
     looseSnowMoisture: v.optional(vWetness)
   })
 ]);
+
+/**
+ * Date of validity in the format yyyy-MM-dd
+ */
+export const vStaticDate = v.pipe(v.string(), v.isoDate());
+
+/**
+ * Timestamp of the hourly snapshot in the format yyyy-MM-dd_HH-mm
+ */
+export const vStaticDateTime = v.string();
+
+/**
+ * Publication timestamp in the format yyyy-MM-dd_HH-mm-ss
+ */
+export const vStaticPublication = v.string();
+
+/**
+ * Region ID, e.g. `EUREGIO`, `AT-07`, `IT-32-BZ`, `IT-32-TN`
+ */
+export const vStaticRegion = v.string();
+
+export const vStaticLang = vLanguageCode;
 
 /**
  * index 200 response
@@ -2340,6 +2479,16 @@ export const vSubmitBulletinsQuery = v.object({
   region: v.string(),
   date: v.string()
 });
+
+export const vGetTendencyQuery = v.object({
+  date: v.string(),
+  region: v.nullish(v.string())
+});
+
+/**
+ * tendency of each micro region with published bulletins
+ */
+export const vGetTendencyResponse = vAvalancheBulletinServiceTendencyResult;
 
 export const vDeleteJsonBulletinPath = v.object({
   bulletinId: v.string()
@@ -2820,3 +2969,112 @@ export const vResetPasswordBody = vUserServiceResetPassword;
 export const vResetPasswordPath = v.object({
   id: v.string()
 });
+
+/**
+ * Directory listing of the bulletin archive
+ */
+export const vGetStaticArchiveResponse = v.string();
+
+export const vGetStaticCaamlJsonPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  region: v.string(),
+  lang: vLanguageCode
+});
+
+/**
+ * CAAML v6 JSON bulletins
+ */
+export const vGetStaticCaamlJsonResponse = vCaamlAvalancheBulletins;
+
+export const vGetStaticCaamlXmlPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  region: v.string(),
+  lang: vLanguageCode
+});
+
+/**
+ * CAAML v6 XML bulletins
+ */
+export const vGetStaticCaamlXmlResponse = v.string();
+
+export const vGetStaticCaamlJsonForPublicationPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  publication: v.string(),
+  region: v.string(),
+  lang: vLanguageCode
+});
+
+/**
+ * CAAML v6 JSON bulletins
+ */
+export const vGetStaticCaamlJsonForPublicationResponse =
+  vCaamlAvalancheBulletins;
+
+export const vGetStaticMapPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  publication: v.string(),
+  file: v.string()
+});
+
+/**
+ * Danger map
+ */
+export const vGetStaticMapResponse = v.string();
+
+export const vGetStaticMp3Path = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  region: v.string(),
+  lang: vLanguageCode
+});
+
+/**
+ * Audio bulletin
+ */
+export const vGetStaticMp3Response = v.string();
+
+export const vGetStaticEawsProblemsPath = v.object({
+  date: v.pipe(v.string(), v.isoDate())
+});
+
+/**
+ * Avalanche problems keyed by micro-region ID
+ */
+export const vGetStaticEawsProblemsResponse = v.record(v.string(), v.unknown());
+
+export const vGetStaticEawsRatingsPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  region: v.string()
+});
+
+/**
+ * Danger ratings keyed by micro-region ID
+ */
+export const vGetStaticEawsRatingsResponse = v.record(v.string(), v.unknown());
+
+/**
+ * Weather stations as GeoJSON
+ */
+export const vGetStaticWeatherStationsResponse =
+  vWeatherStationsFeatureCollection;
+
+export const vGetStaticWeatherStationsForDateTimePath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  dateTime: v.string()
+});
+
+/**
+ * Weather stations as GeoJSON
+ */
+export const vGetStaticWeatherStationsForDateTimeResponse =
+  vWeatherStationsFeatureCollection;
+
+export const vGetStaticSimpleHtmlPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  region: v.string(),
+  lang: vLanguageCode
+});
+
+/**
+ * Simple HTML rendering of the bulletins
+ */
+export const vGetStaticSimpleHtmlResponse = v.string();

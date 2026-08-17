@@ -1,4 +1,5 @@
 @use "../abstracts/variables";
+@use "../abstracts/mixins";
 
 .incident-details {
   // Keep long content readable and away from the dialog edges. The outer
@@ -7,9 +8,21 @@
   margin: 0 auto;
   padding-top: 1.25rem;
 
+  // The header mirrors the map tooltip: a severity spine, the location title,
+  // a date · outcome meta line, then the shared badge cluster.
   .incident-details-header {
+    margin-bottom: (variables.$margin-bottom * 1.5);
+    padding-left: variables.$padding;
+    border-left: 3px solid var(--incident-involvement-color, transparent);
+
     h2 {
+      margin-bottom: (variables.$padding * 0.5);
+    }
+
+    .incident-details-header__meta {
       margin-bottom: (variables.$padding * 0.75);
+      color: variables.$grey-dark;
+      font-size: variables.$small-font-size;
     }
   }
 
@@ -152,65 +165,59 @@
   }
 }
 
-// The marker's hover tooltip. A MapLibre popup, hence outside `.incident-map`.
+// The danger rating and the avalanche's character as small badges. Shared by
+// the map's marker tooltip (below) and the incident table.
+.incident-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 0;
+}
+
+.incident-badge {
+  @include mixins.neutral-chip;
+}
+
+// A severity dot for the incident table's involvement cell
+.incident-involvement {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.incident-involvement-dot {
+  flex: 0 0 auto;
+  width: 0.7em;
+  height: 0.7em;
+  border: 1px solid variables.$black;
+  border-radius: 50%;
+}
+
+// The marker's hover tooltip — the shared spine card, coloured by person
+// involvement. Only the outcome/badge `__body` below is incident-specific.
 .maplibre-incident-tooltip {
-  .maplibregl-popup-content {
-    padding: 0.5em 1.1em 0.5em 0;
+  @include mixins.map-tooltip-card(
+    "incident-tooltip",
+    --incident-involvement-color
+  );
+
+  .incident-tooltip__body {
+    // No divider — the same open, rule-free rhythm the details dialog uses.
+    margin: (variables.$padding * 0.2) 0 0;
   }
 
-  .incident-tooltip__facts {
+  .incident-tooltip__outcome {
+    // Match the details dialog header's involvement line.
     margin: 0;
-    padding: 0;
-    list-style: none;
-
-    li {
-      display: flex;
-      align-items: center;
-      gap: 0.4em;
-      margin: 0;
-      // Each fact is a short single line; keep it from wrapping so the popup
-      // (maxWidth: "none") sizes to content instead of breaking e.g. "Event
-      // involving persons" across two lines.
-      white-space: nowrap;
-    }
-  }
-
-  // One icon column for the fontello glyphs and the inline person SVG alike.
-  [class^="icon-"],
-  .incident-tooltip__person-icon {
-    flex: 0 0 2em;
     color: variables.$grey-dark;
-    text-align: center;
-  }
+    font-size: variables.$tiny-font-size;
 
-  [class^="icon-"]:before {
-    margin: 0;
-    font-size: 2em;
-    line-height: 1;
-  }
-
-  .icon-location:before {
-    font-size: 1em;
-  }
-
-  .incident-tooltip__person-icon svg {
-    height: 1.4em;
-    width: auto;
-    fill: currentColor;
-    stroke: variables.$black;
-    stroke-width: 1px;
-    vertical-align: middle;
-  }
-
-  .incident-tooltip__danger-icon {
-    flex: 0 0 auto;
-
-    img {
-      display: block;
-      margin: 0;
-      height: 2em;
-      width: auto;
-      aspect-ratio: 2268 / 1664;
+    & + .incident-badges {
+      margin-top: 0.5em;
     }
+  }
+
+  .incident-tooltip__nowrap {
+    white-space: nowrap;
   }
 }
