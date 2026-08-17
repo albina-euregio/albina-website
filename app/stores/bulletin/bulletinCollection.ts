@@ -58,9 +58,6 @@ class BulletinCollection {
   maxDangerRatings: MaxDangerRatings = {};
   eawsMaxDangerRatings: MaxDangerRatings = {};
   eawsAvalancheProblems: EawsAvalancheProblems = {};
-  tendency:
-    | v.InferOutput<typeof vAvalancheBulletinServiceTendencyResult>
-    | undefined;
 
   constructor(
     public readonly date: Temporal.PlainDate,
@@ -164,10 +161,16 @@ class BulletinCollection {
         this.dataRaw.bulletins
           ?.find(b => b.validTime?.startTime)
           ?.validTime?.startTime?.toISOString() ?? "";
-      this.tendency = await fetchJSON(
+      const tendencyProgression: v.InferOutput<
+        typeof vAvalancheBulletinServiceTendencyResult
+      > = await fetchJSON(
         "https://avalanche.report/albina/api/bulletins/tendency?" +
           new URLSearchParams({ date })
       );
+      this.dataRaw.bulletins?.forEach(b => {
+        if (!b.customData?.ALBINA) return;
+        Object.assign(b.customData?.ALBINA, { tendencyProgression });
+      });
     }
 
     // Derive per-region statuses from actual bulletin coverage
