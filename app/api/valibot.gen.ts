@@ -1265,6 +1265,143 @@ export const vMatrixInformation = v.object({
   naturalHazardSiteDistribution: v.optional(vHazardSiteDistribution)
 });
 
+export const vPasskeyServiceAssertionResponse = v.object({
+  clientDataJSON: v.string(),
+  authenticatorData: v.string(),
+  signature: v.string(),
+  userHandle: v.nullish(v.string())
+});
+
+export const vPasskeyServiceAttestationResponse = v.object({
+  clientDataJSON: v.string(),
+  attestationObject: v.string()
+});
+
+export const vPasskeyServiceAuthenticationCredential = v.object({
+  id: v.string(),
+  type: v.string(),
+  response: vPasskeyServiceAssertionResponse
+});
+
+export const vPasskeyServiceAuthenticatorSelection = v.object({
+  residentKey: v.string(),
+  userVerification: v.string()
+});
+
+export const vPasskeyServiceCredentialDescriptor = v.object({
+  type: v.string(),
+  id: v.string()
+});
+
+export const vPasskeyServiceLoginBeginRequest = v.object({
+  username: v.nullish(v.string())
+});
+
+export const vPasskeyServiceLoginFinishRequest = v.object({
+  state: v.string(),
+  credential: vPasskeyServiceAuthenticationCredential
+});
+
+/**
+ * What a passkey management UI needs to show --- never the credential ID or public key.
+ */
+export const vPasskeyServicePasskeyInfo = v.object({
+  id: v.string(),
+  name: v.nullish(v.string()),
+  createdAt: v.pipe(v.string(), v.isoTimestamp()),
+  lastUsedAt: v.nullish(v.pipe(v.string(), v.isoTimestamp()))
+});
+
+export const vPasskeyServicePubKeyCredParam = v.object({
+  type: v.string(),
+  alg: v.pipe(
+    v.union([v.number(), v.string(), v.bigint()]),
+    v.transform(x => BigInt(x)),
+    v.minValue(
+      BigInt("-9223372036854775808"),
+      "Invalid value: Expected int64 to be >= -9223372036854775808"
+    ),
+    v.maxValue(
+      BigInt("9223372036854775807"),
+      "Invalid value: Expected int64 to be <= 9223372036854775807"
+    )
+  )
+});
+
+export const vPasskeyServicePublicKeyCredentialRequestOptions = v.object({
+  challenge: v.string(),
+  rpId: v.string(),
+  allowCredentials: v.array(vPasskeyServiceCredentialDescriptor),
+  userVerification: v.string(),
+  timeout: v.pipe(
+    v.union([v.number(), v.string(), v.bigint()]),
+    v.transform(x => BigInt(x)),
+    v.minValue(
+      BigInt("-9223372036854775808"),
+      "Invalid value: Expected int64 to be >= -9223372036854775808"
+    ),
+    v.maxValue(
+      BigInt("9223372036854775807"),
+      "Invalid value: Expected int64 to be <= 9223372036854775807"
+    )
+  )
+});
+
+export const vPasskeyServiceLoginChallenge = v.object({
+  state: v.string(),
+  publicKey: vPasskeyServicePublicKeyCredentialRequestOptions
+});
+
+export const vPasskeyServiceRegistrationCredential = v.object({
+  id: v.string(),
+  type: v.string(),
+  response: vPasskeyServiceAttestationResponse
+});
+
+export const vPasskeyServiceRegisterFinishRequest = v.object({
+  state: v.string(),
+  credential: vPasskeyServiceRegistrationCredential,
+  name: v.nullish(v.string())
+});
+
+export const vPasskeyServiceRelyingParty = v.object({
+  id: v.string(),
+  name: v.string()
+});
+
+export const vPasskeyServiceUserEntity = v.object({
+  id: v.string(),
+  name: v.string(),
+  displayName: v.string()
+});
+
+export const vPasskeyServicePublicKeyCredentialCreationOptions = v.object({
+  challenge: v.string(),
+  rp: vPasskeyServiceRelyingParty,
+  user: vPasskeyServiceUserEntity,
+  pubKeyCredParams: v.array(vPasskeyServicePubKeyCredParam),
+  authenticatorSelection: vPasskeyServiceAuthenticatorSelection,
+  attestation: v.string(),
+  excludeCredentials: v.array(vPasskeyServiceCredentialDescriptor),
+  timeout: v.pipe(
+    v.union([v.number(), v.string(), v.bigint()]),
+    v.transform(x => BigInt(x)),
+    v.minValue(
+      BigInt("-9223372036854775808"),
+      "Invalid value: Expected int64 to be >= -9223372036854775808"
+    ),
+    v.maxValue(
+      BigInt("9223372036854775807"),
+      "Invalid value: Expected int64 to be <= 9223372036854775807"
+    )
+  )
+});
+
+export const vPasskeyServiceRegistrationChallenge = v.object({
+  state: v.string(),
+  publicKey: vPasskeyServicePublicKeyCredentialCreationOptions
+});
+
 export const vPosition = v.picklist([
   "topleft",
   "topright",
@@ -1766,7 +1903,8 @@ export const vUser = v.object({
   image: v.optional(v.string()),
   organization: v.optional(v.string()),
   languageCode: v.optional(vLanguageCode),
-  deleted: v.optional(v.boolean())
+  deleted: v.optional(v.boolean()),
+  lastUsedAt: v.optional(v.pipe(v.string(), v.isoTimestamp()))
 });
 
 export const vAuthenticationServiceAuthenticationResponse = v.object({
@@ -2187,6 +2325,42 @@ export const vLoginBody = vAuthenticationServiceCredentials;
  * login 200 response
  */
 export const vLoginResponse = vAuthenticationServiceAuthenticationResponse;
+
+/**
+ * listPasskeys 200 response
+ */
+export const vListPasskeysResponse = v.array(vPasskeyServicePasskeyInfo);
+
+export const vFinishLoginBody = vPasskeyServiceLoginFinishRequest;
+
+/**
+ * finishLogin 200 response
+ */
+export const vFinishLoginResponse =
+  vAuthenticationServiceAuthenticationResponse;
+
+export const vBeginLoginBody = vPasskeyServiceLoginBeginRequest;
+
+/**
+ * beginLogin 200 response
+ */
+export const vBeginLoginResponse = vPasskeyServiceLoginChallenge;
+
+export const vFinishRegistrationBody = vPasskeyServiceRegisterFinishRequest;
+
+/**
+ * finishRegistration 200 response
+ */
+export const vFinishRegistrationResponse = vPasskeyServicePasskeyInfo;
+
+/**
+ * beginRegistration 200 response
+ */
+export const vBeginRegistrationResponse = vPasskeyServiceRegistrationChallenge;
+
+export const vDeletePasskeyPath = v.object({
+  id: v.string()
+});
 
 /**
  * testAuth 200 response
