@@ -642,7 +642,7 @@ function BulletinReport({
                       )}
                     </span>
                     <h2 className="subheader">
-                      <FormattedMessage id="bulletin:report:tendency:development:headline" />
+                      <FormattedMessage id="bulletin:report:tendency:progression:headline" />
                       {tendencyInfo && (
                         <Tooltip
                           html={true}
