@@ -1482,6 +1482,7 @@ a.weather-map-details-button {
     border: none;
     cursor: pointer;
     &:before {
+      margin-right: 0;
       font-size: $controls-width-height * 0.75;
       line-height: $controls-width-height;
     }
