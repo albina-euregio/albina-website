@@ -164,8 +164,7 @@ class BulletinCollection {
       const tendencyProgression: v.InferOutput<
         typeof vAvalancheBulletinServiceTendencyResult
       > = await fetchJSON(
-        "https://avalanche.report/albina/api/bulletins/tendency?" +
-          new URLSearchParams({ date })
+        config.template(config.apis.bulletin.tendency, { date })
       );
       this.dataRaw.bulletins?.forEach(b => {
         if (!b.customData?.ALBINA) return;
