@@ -6,6 +6,7 @@
 @use "../atoms/icons";
 @use "../atoms/bgs";
 @use "../atoms/media";
+@use "../molecules/navigation";
 
 /*	TRANSPORTER
 	Creating Your Web
@@ -191,6 +192,16 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       flex-direction: row;
       justify-content: space-between;
     }
+    // Stick the report header to the top while scrolling through the report
+    // (matches PatternLab's top-fix behaviour). The opaque background keeps the
+    // scrolling report text from showing through.
+    &.top-fix {
+      position: sticky;
+      // Stick below the fixed page header, not behind it.
+      top: navigation.$page-header-height;
+      z-index: 300;
+      background-color: variables.$white;
+    }
   }
 
   .bulletin-report-header-details {
@@ -216,16 +227,6 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     order: 3;
     @media #{$bulletin-report-header-breakpoint} {
       order: 2;
-    }
-  }
-  // 2026 design (RF reference): every danger-level headline is dark text on its
-  // level-coloured box — for all levels 1-5, not only the light levels the shared
-  // panel mixin boxes. Text colour follows the design system's surface split:
-  // dark on the light levels 1-3, white on the red levels 4-5 for contrast.
-  @for $level from 1 through variables.$warning-level-count {
-    .panel.warning-level-#{$level} .bulletin-report-header-danger-level span {
-      color: if($level >= 4, variables.$white, variables.$text-color);
-      background-color: variables.warning-level-color($level);
     }
   }
   .bulletin-report-header-buttons {
@@ -338,8 +339,9 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
           .bulletin-report-picto.warning-level {
             color: variables.warning-level-color($level);
             @if $level <= 2 {
-              -webkit-text-stroke-width: 1px;
-              -webkit-text-stroke-color: variables.$grey;
+              // -webkit-text-stroke-width: 1px;
+              // -webkit-text-stroke-color: variables.$grey;
+              text-shadow: 0 0 2px rgba(variables.$text-shadow-color, 0.5);
             }
           }
         }

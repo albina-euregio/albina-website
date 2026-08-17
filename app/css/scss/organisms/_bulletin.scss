@@ -317,6 +317,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   .bulletin-report-public-alert {
     margin: 0;
     font-size: variables.$tiny-font-size;
+    line-height: 1.2;
     [class*="icon"] {
       font-size: variables.$tiny-font-size;
       &:before {
@@ -402,6 +403,39 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
 
   > div {
     @include mixins.last-child;
+  }
+
+  .bulletin-report-header-diff {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+
+    margin-bottom: variables.$padding * 0.5;
+    font-size: variables.$micro-font-size;
+    color: variables.$warning-color;
+    background: variables.$tertiary-color;
+    border: variables.$border-width variables.$border-style
+      variables.$tertiary-color;
+
+    .marginal {
+      margin: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    .text-icon {
+      display: flex;
+      gap: 0.25em;
+      align-items: center;
+    }
+    .icon {
+      display: flex;
+      align-items: center;
+      max-height: 1.5em;
+      &:before {
+        margin: 0 0 0 -0.25em;
+      }
+    }
   }
 
   .bulletin-report-header-meta {
@@ -795,6 +829,38 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   .icon:before {
     margin: 0;
     font-size: 0.95em;
+  }
+}
+
+// Toggle pills below the stations mini-map (weather stations / observations).
+// Reapplied after the Leaflet -> MapLibre migration dropped this block; the
+// swatch echoes the marker colour via --bulletin-mini-map-marker-color.
+.bulletin-report-mini-map-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: variables.$padding * 0.5;
+  margin-top: variables.$padding;
+  padding: (variables.$padding * 0.4) (variables.$padding * 0.65);
+  font-size: variables.$tiny-font-size;
+  color: variables.$grey-dark;
+  background: rgba(variables.$white, 0.7);
+  border: variables.$border-width variables.$border-style
+    variables.$border-color;
+
+  .bulletin-report-mini-map-legend__swatch {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    background: var(--bulletin-mini-map-marker-color, #{variables.$grey});
+    border: 1px solid rgba(variables.$black, 0.5);
+  }
+
+  .bulletin-report-mini-map-legend__label {
+    line-height: 1;
+
+    a {
+      color: inherit;
+    }
   }
 }
 

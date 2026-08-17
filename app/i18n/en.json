@@ -127,6 +127,7 @@
   "bulletin:map:details:close": "Close",
   "bulletin:map:search:hover": "Type in a location",
   "bulletin:map:search:label": "Search for a location",
+  "bulletin:map:search:no-results": "No results found",
   "bulletin:map:zoom-in:hover": "Zoom in",
   "bulletin:map:zoom-out:hover": "Zoom out",
   "bulletin:map:gesture:windows": "Use Ctrl + scroll to zoom the map",

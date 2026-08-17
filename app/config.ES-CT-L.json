@@ -500,7 +500,7 @@
       }
     ],
     "geonames": {
-      "geonamesURL": "//api.geonames.org/searchJSON",
+      "geonamesURL": "https://secure.geonames.org/searchJSON",
       "username": "lauegi.report",
       "zoomLevel": null,
       "maxresults": 5,

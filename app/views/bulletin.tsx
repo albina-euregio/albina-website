@@ -22,7 +22,7 @@ import HTMLPageLoadingScreen, {
 import { $headless, type Language, setLanguage } from "../appStore";
 import { useStore } from "@nanostores/react";
 import { $router } from "../components/router";
-import { openPage, redirectPage } from "@nanostores/router";
+import { redirectPage } from "@nanostores/router";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -131,17 +131,15 @@ const Bulletin = () => {
   useEffect(() => setRegion(router.search.region), [router.search]);
 
   const handleSelectRegion = (id: string) => {
+    // Always replace the history entry (redirectPage). Using openPage (push) for
+    // the first selection produced a visible full re-render/blank that the
+    // replace path (used for subsequent selections) does not.
     if (id) {
-      const oldRegion = router.search.region;
-      if (oldRegion !== id) {
-        if (oldRegion) {
-          redirectPage($router, router.route, router.params, { region: id });
-        } else {
-          openPage($router, router.route, router.params, { region: id });
-        }
+      if (router.search.region !== id) {
+        redirectPage($router, router.route, router.params, { region: id });
       }
     } else {
-      openPage($router, router.route, router.params, {});
+      redirectPage($router, router.route, router.params, {});
     }
   };
 
@@ -240,14 +238,17 @@ const Bulletin = () => {
               problems={problems}
             />
           )}
-          {!config.bulletin.showAllBulletins && !region && status === "ok" && (
-            <div className="bulletin-map-cta">
-              <span className="icon-info"></span>
-              <span className="text">
-                <FormattedMessage id="bulletin:select-region:title" />
-              </span>
-            </div>
-          )}
+          {!config.bulletin.showAllBulletins &&
+            !region &&
+            status &&
+            status !== "pending" && (
+              <div className="bulletin-map-cta">
+                <span className="icon-info"></span>
+                <span className="text">
+                  <FormattedMessage id="bulletin:select-region:title" />
+                </span>
+              </div>
+            )}
         </div>
         <BulletinLegend
           handleSelectRegion={handleSelectRegion}
@@ -264,12 +265,18 @@ const Bulletin = () => {
         </section>
       )}
       {collection && (
-        <BulletinList
-          bulletins={collection.bulletinsWith170000}
-          date={collection?.date}
-          region={region}
-          handleSelectRegion={handleSelectRegion}
-        />
+        // Own Suspense boundary: selecting the first region renders that report
+        // for the first time, which lazily loads the glossary chunk/data. Without
+        // a boundary here that suspend bubbles to the app-level Suspense and blanks
+        // the whole page; contain it to the report area instead.
+        <Suspense fallback={null}>
+          <BulletinList
+            bulletins={collection.bulletinsWith170000}
+            date={collection?.date}
+            region={region}
+            handleSelectRegion={handleSelectRegion}
+          />
+        </Suspense>
       )}
       {headless ? (
         <></>
