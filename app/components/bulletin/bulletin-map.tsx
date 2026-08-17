@@ -33,10 +33,12 @@ import { $focusRegions, $province } from "../../appStore";
 import { FormattedMessage } from "../../i18n";
 import {
   type FilterSpecification,
+  GeolocateControl,
   type JumpToOptions,
   type LngLatBoundsLike,
   Map as MlMap,
   NavigationControl,
+  ScaleControl,
   type StyleSpecification
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -811,17 +813,14 @@ function MapLibreMap({
       "top-left"
     );
     overlay.addControl(
-      new maplibregl.GeolocateControl({
+      new GeolocateControl({
         positionOptions: { enableHighAccuracy: true },
         trackUserLocation: false,
         showAccuracyCircle: true
       }),
       "top-left"
     );
-    overlay.addControl(
-      new maplibregl.ScaleControl({ unit: "metric" }),
-      "bottom-left"
-    );
+    overlay.addControl(new ScaleControl({ unit: "metric" }), "bottom-left");
 
     overlay.on("load", () => {
       overlay.addSource("eaws-regions", {

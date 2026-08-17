@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { debounce } from "es-toolkit";
 import {
   GeoJSONSource,
+  GeolocateControl,
   ImageSource,
   type ImageSourceSpecification,
   type LngLatLike,
   Map as MlMap,
   type MapMouseEvent,
   Marker,
+  ScaleControl,
   type StyleSpecification
 } from "maplibre-gl";
 import MapLibreMap, {
@@ -443,17 +445,14 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
               "top-left"
             );
             map.addControl(
-              new maplibregl.GeolocateControl({
+              new GeolocateControl({
                 positionOptions: { enableHighAccuracy: true },
                 trackUserLocation: false,
                 showAccuracyCircle: true
               }),
               "top-left"
             );
-            map.addControl(
-              new maplibregl.ScaleControl({ unit: "metric" }),
-              "bottom-left"
-            );
+            map.addControl(new ScaleControl({ unit: "metric" }), "bottom-left");
             setMapReady(true);
           }}
         />

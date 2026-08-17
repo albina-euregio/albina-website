@@ -1,9 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   GeoJSONSource,
+  GeolocateControl,
   type LngLatBoundsLike,
   Map as MlMap,
-  Popup
+  NavigationControl,
+  Popup,
+  ScaleControl
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import WeatherStationDialog, { useStationId } from "../station/station-dialog";
@@ -215,10 +218,7 @@ function BulletinMiniMap({
       className: "maplibre-station-tooltip"
     });
 
-    map.addControl(
-      new maplibregl.NavigationControl({ showCompass: false }),
-      "top-left"
-    );
+    map.addControl(new NavigationControl({ showCompass: false }), "top-left");
     map.addControl(
       new GeonamesControl({
         ...config.map.geonames,
@@ -230,17 +230,14 @@ function BulletinMiniMap({
       "top-left"
     );
     map.addControl(
-      new maplibregl.GeolocateControl({
+      new GeolocateControl({
         positionOptions: { enableHighAccuracy: true },
         trackUserLocation: false,
         showAccuracyCircle: true
       }),
       "top-left"
     );
-    map.addControl(
-      new maplibregl.ScaleControl({ unit: "metric" }),
-      "bottom-left"
-    );
+    map.addControl(new ScaleControl({ unit: "metric" }), "bottom-left");
 
     map.on("load", () => {
       map.addSource(STATIONS_SOURCE, {
