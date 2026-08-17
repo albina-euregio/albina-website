@@ -1,5 +1,5 @@
 @use "../abstracts/variables";
-@use "./map-cockpit-2024" as cockpit;
+@use "./map-cockpit" as cockpit;
 
 .station-map-cockpit {
   .cp-layer-selector-item {

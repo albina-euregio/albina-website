@@ -9,6 +9,25 @@
     #MIXINS
 \*------------------------------------*/
 
+//breakpoints
+@mixin bp-up($name) {
+  @media #{variables.breakpoint-up($name)} {
+    @content;
+  }
+}
+
+@mixin bp-only($name) {
+  @media #{variables.breakpoint-only($name)} {
+    @content;
+  }
+}
+
+@mixin bp-below($name) {
+  @media #{variables.breakpoint-below($name)} {
+    @content;
+  }
+}
+
 //animation
 @mixin rollout(
   $was: all,
@@ -97,9 +116,9 @@
   -moz-column-count: $mycolumns;
   -webkit-column-count: $mycolumns;
   column-count: $mycolumns;
-  -moz-column-gap: variables.$grid_gutter;
-  -webkit-column-gap: variables.$grid_gutter;
-  column-gap: variables.$grid_gutter;
+  -moz-column-gap: variables.$grid-gutter;
+  -webkit-column-gap: variables.$grid-gutter;
+  column-gap: variables.$grid-gutter;
 }
 
 @mixin smooth-scroll() {
@@ -204,8 +223,11 @@
 @mixin box-border($border-color: variables.$border-color) {
   border: variables.$border-width variables.$border-style $border-color;
 }
-@mixin box-shadow($box-shadow-alpha: 0.075) {
+@mixin box-shadow($box-shadow-alpha: 0.05) {
   box-shadow: 0 0 15px 0 rgba(variables.$box-shadow-color, $box-shadow-alpha);
+}
+@mixin text-shadow($text-shadow-alpha: 0.5) {
+  text-shadow: 0 0 10px rgba(variables.$text-shadow-color, $text-shadow-alpha);
 }
 
 //font
@@ -302,6 +324,9 @@
       padding: 0;
       .js-active {
         z-index: 10;
+      }
+      &:hover {
+        z-index: 2;
       }
     }
   }

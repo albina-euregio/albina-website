@@ -1,9 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   GeoJSONSource,
+  GeolocateControl,
   type LngLatBoundsLike,
   Map as MlMap,
-  Popup
+  NavigationControl,
+  Popup,
+  ScaleControl
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import WeatherStationDialog, { useStationId } from "../station/station-dialog";
@@ -11,6 +14,7 @@ import { useStationData } from "../../stores/stationDataStore";
 import { microRegionBounds } from "../../stores/microRegions";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
+import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import { Bulletin } from "../../stores/bulletin";
 import { fetchJSON } from "../../util/fetch.ts";
 import Modal from "../dialogs/albina-modal.tsx";
@@ -176,6 +180,7 @@ function BulletinMiniMap({
   onStationClick: (id: string) => void;
   onObservationClick: (url: string) => void;
 }) {
+  const intl = useIntl();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MlMap | null>(null);
   const tooltipRef = useRef<Popup | null>(null);
@@ -213,6 +218,27 @@ function BulletinMiniMap({
       className: "maplibre-station-tooltip"
     });
 
+    map.addControl(new NavigationControl({ showCompass: false }), "top-left");
+    map.addControl(
+      new GeonamesControl({
+        ...config.map.geonames,
+        lang: intl.locale.slice(0, 2),
+        title: intl.formatMessage({ id: "bulletin:map:search" }),
+        placeholder: intl.formatMessage({ id: "bulletin:map:search:hover" }),
+        noResults: intl.formatMessage({ id: "bulletin:map:search:no-results" })
+      }),
+      "top-left"
+    );
+    map.addControl(
+      new GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: false,
+        showAccuracyCircle: true
+      }),
+      "top-left"
+    );
+    map.addControl(new ScaleControl({ unit: "metric" }), "bottom-left");
+
     map.on("load", () => {
       map.addSource(STATIONS_SOURCE, {
         type: "geojson",
@@ -233,6 +259,9 @@ function BulletinMiniMap({
         paint: {
           "circle-radius": 10,
           "circle-color": STATION_COLOR,
+          // Hollow ring: faint fill + full-opacity stroke (matches the old
+          // Leaflet CircleMarker's default fillOpacity of 0.2).
+          "circle-opacity": 0.2,
           "circle-stroke-color": STATION_COLOR,
           "circle-stroke-width": 1
         }
@@ -247,6 +276,7 @@ function BulletinMiniMap({
         paint: {
           "circle-radius": 12,
           "circle-color": OBSERVATION_COLOR,
+          "circle-opacity": 0.2,
           "circle-stroke-color": OBSERVATION_COLOR,
           "circle-stroke-width": 1
         }
@@ -334,7 +364,13 @@ function BulletinMiniMap({
     );
   }, [showObservations]);
 
-  return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
+  return (
+    <div
+      ref={containerRef}
+      className="bulletin-report-mini-map"
+      style={{ width: "100%", height: "100%" }}
+    />
+  );
 }
 
 export function AdditionalBulletinInformation({
@@ -363,7 +399,7 @@ export function AdditionalBulletinInformation({
   }, [region, date]);
 
   return (
-    <div>
+    <div className="bulletin-additional-addmap">
       {!!data.length && (
         <WeatherStationDialog
           stationData={data}
@@ -389,74 +425,70 @@ export function AdditionalBulletinInformation({
         <FormattedMessage id="bulletin:report:additional:headline" />
       </h2>
 
-      <div
-        style={{
-          marginTop: "2rem",
-          height: "300px",
-          borderRadius: "4px",
-          overflow: "hidden"
-        }}
-      >
-        <BulletinMiniMap
-          key={`${bulletin.bulletinID}-${region}`}
-          bounds={bounds}
-          stations={stationFeatures}
-          observations={observationFeatures}
-          showStations={showStations}
-          showObservations={showObservations}
-          onStationClick={setStationId}
-          onObservationClick={setObservation}
-        />
-      </div>
+      <div className="addmap-container">
+        <div className="addmap">
+          <BulletinMiniMap
+            key={`${bulletin.bulletinID}-${region}`}
+            bounds={bounds}
+            stations={stationFeatures}
+            observations={observationFeatures}
+            showStations={showStations}
+            showObservations={showObservations}
+            onStationClick={setStationId}
+            onObservationClick={setObservation}
+          />
+        </div>
 
-      <div
-        className="bulletin-report-mini-map-legend"
-        aria-label="Map legend"
-        role="button"
-        tabIndex={0}
-        aria-pressed={showStations}
-        onClick={() => setShowStations(value => !value)}
-        onKeyDown={event => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            setShowStations(value => !value);
-          }
-        }}
-        style={{
-          ["--bulletin-mini-map-marker-color" as string]: stationMarkerColor,
-          opacity: showStations ? 1 : 0.55,
-          cursor: "pointer"
-        }}
-      >
-        <span className="bulletin-report-mini-map-legend__swatch" />
-        <span className="bulletin-report-mini-map-legend__label">
-          <FormattedMessage id="bulletin:add-on:legend:weather-stations" />
-        </span>
-      </div>
-      <div
-        className="bulletin-report-mini-map-legend"
-        aria-label="Map legend"
-        role="button"
-        tabIndex={0}
-        aria-pressed={showObservations}
-        onClick={() => setShowObservations(value => !value)}
-        onKeyDown={event => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            setShowObservations(value => !value);
-          }
-        }}
-        style={{
-          ["--bulletin-mini-map-marker-color" as string]:
-            observationMarkerColor,
-          opacity: showObservations ? 1 : 0.55,
-          cursor: "pointer"
-        }}
-      >
-        <span className="bulletin-report-mini-map-legend__swatch" />
-        <span className="bulletin-report-mini-map-legend__label">
-          <FormattedMessage id="bulletin:add-on:legend:observations" />
-        </span>
+        <div className="addmap-legend">
+          <div
+            className="addmap-legend-item"
+            aria-label="Map legend"
+            role="button"
+            tabIndex={0}
+            aria-pressed={showStations}
+            onClick={() => setShowStations(value => !value)}
+            onKeyDown={event => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setShowStations(value => !value);
+              }
+            }}
+            style={{
+              ["--bulletin-additional-addmap-marker-color" as string]:
+                stationMarkerColor,
+              opacity: showStations ? 1 : 0.55
+            }}
+          >
+            <span className="addmap-legend-swatch" />
+            <span className="addmap-label">
+              <FormattedMessage id="bulletin:add-on:legend:weather-stations" />
+            </span>
+          </div>
+          <div
+            className="addmap-legend-item"
+            aria-label="Map legend"
+            role="button"
+            tabIndex={0}
+            aria-pressed={showObservations}
+            onClick={() => setShowObservations(value => !value)}
+            onKeyDown={event => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setShowObservations(value => !value);
+              }
+            }}
+            style={{
+              ["--bulletin-additional-addmap-marker-color" as string]:
+                observationMarkerColor,
+              opacity: showObservations ? 1 : 0.55
+            }}
+          >
+            <span className="addmap-legend-swatch" />
+            <span className="addmap-label">
+              <FormattedMessage id="bulletin:add-on:legend:observations" />
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

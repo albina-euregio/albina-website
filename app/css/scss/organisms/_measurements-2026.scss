@@ -1,0 +1,74 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #MEASUREMENTS
+\*------------------------------------*/
+
+/* Domain-specific styling for the weather-station measurements table. Generic
+   table chrome (sort buttons, header/cell layout) lives in molecules/_data-table.scss.  */
+
+.table-measurements {
+  tbody {
+    //from alien app.scss
+    td.mb-wind {
+      white-space: nowrap;
+    }
+
+    .region {
+      font-size: variables.$micro-font-size;
+      display: block;
+    }
+    .region-AT-07 {
+      color: variables.$tyrol-color;
+    }
+    .region-IT-32-BZ {
+      color: variables.$south-tyrol-color;
+    }
+    .region-IT-32-TN {
+      color: variables.$trentino-color;
+    }
+
+    .temp,
+    .DW {
+      display: block;
+    }
+
+    .PSUM_24,
+    .PSUM_48,
+    .PSUM_72,
+    .TA_MIN_max,
+    .DW,
+    .datetime {
+      display: block;
+      font-size: variables.$micro-font-size;
+      @include mixins.font-normal;
+      @include mixins.letter-spacing;
+    }
+
+    .TA_MAX,
+    .VW_MAX {
+      &:before {
+        content: "\202F/\202F";
+      }
+    }
+  }
+
+  tr:hover {
+    td.mb-station.m-name {
+      background-color: variables.$table-row-hover-bg;
+      @include mixins.rollover;
+    }
+  }
+
+  .m-name {
+    margin-right: variables.$border-width;
+    border-right: variables.$border-color variables.$border-style
+      variables.$border-width;
+  }
+}

@@ -1,20 +1,15 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
-import TendencyIcon from "../icons/tendency-icon";
-import BulletinDangerRating from "./bulletin-danger-rating.jsx";
 import BulletinProblemItem from "./bulletin-problem-item.jsx";
-import BulletinAWMapStatic from "./bulletin-awmap-static.jsx";
-import { LONG_DATE_FORMAT } from "../../util/date";
 import { Tooltip } from "../tooltips/tooltip";
 import {
   matchesValidTimePeriod,
   type Bulletin,
   type DangerRating,
-  type Tendency,
   type Region,
   type ValidTimePeriod
 } from "../../stores/bulletin";
-import { scrollIntoView } from "../../util/scrollIntoView";
+import { getWarnlevelNumber } from "../../util/warn-levels";
 
 interface Props {
   validTimePeriod: ValidTimePeriod;
@@ -28,8 +23,7 @@ function BulletinDaytimeReport({
   validTimePeriod,
   bulletin,
   bulletin170000,
-  showDiff,
-  date
+  showDiff
 }: Props) {
   const intl = useIntl();
   const problems =
@@ -44,35 +38,11 @@ function BulletinDaytimeReport({
     bulletin?.dangerRatings?.filter(p =>
       matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
     ) || [];
-  const dangerRatings170000 =
-    bulletin170000?.dangerRatings?.filter(p =>
-      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
-    ) || [];
-  const isInserted = !compareDangerRatings(dangerRatings, dangerRatings170000);
-
-  let tendencyReportItems: JSX.Element[] = [];
-  let tendencyReportItemsAllNew = isInserted;
-  if (Array.isArray(bulletin.tendency)) {
-    tendencyReportItems = bulletin.tendency.map((tendency, index) => {
-      const tendency170000 = bulletin170000?.tendency?.[index];
-      //console.log("BulletinDaytimeReport #1 #juhu", {index, isInserted, tendency, tendency170000, tendencyType: tendency?.tendencyType, tendency170000Type: tendency170000?.tendencyType});
-      tendencyReportItemsAllNew =
-        tendency?.tendencyType !== tendency170000?.tendencyType
-          ? tendencyReportItemsAllNew
-          : false;
-      return (
-        <TendencyReport
-          tendency={tendency}
-          tendency170000={tendency170000}
-          showDiff={showDiff}
-          date={date}
-          key={index}
-        />
-      );
-    });
-  }
-
-  //console.log("BulletinDaytimeReport #2 #juhu", {tendencyReportItemsAllNew});
+  // D2 (Rainer, 23 Apr 2026): the per-problem danger digit is the headline
+  // danger-level number repeated — not problem.dangerRatingValue (empty in data).
+  const maxWarnlevelNumber = dangerRatings.length
+    ? Math.max(...dangerRatings.map(r => getWarnlevelNumber(r.mainValue)))
+    : 0;
 
   return (
     <div>
@@ -81,62 +51,19 @@ function BulletinDaytimeReport({
           <FormattedMessage id={`bulletin:report:daytime:${validTimePeriod}`} />
         </h2>
       )}
+      <h2 className="subheader bulletin-report-problems-headline">
+        <FormattedMessage id="bulletin:report:problems:headline" />
+        <Tooltip
+          html={true}
+          label={`<p>${intl.formatMessage({
+            id: "bulletin:report:problems:kernzone:info"
+          })}</p>`}
+        >
+          <span className="tooltip-trigger icon-info"></span>
+        </Tooltip>
+      </h2>
       <div className="bulletin-report-pictobar">
-        <div className="bulletin-report-region">
-          <Tooltip
-            label={intl.formatMessage({
-              id: "bulletin:report:selected-region:hover"
-            })}
-          >
-            <a
-              href="#page-all"
-              onClick={e => scrollIntoView(e)}
-              // className="img icon-arrow-up"
-              // style={
-              //   showDiff &&
-              //   !compareRegions(bulletin?.regions, bulletin170000?.regions)
-              //     ? { border: "#ff0000 5px solid" }
-              //     : {}
-              // }
-              className={
-                showDiff &&
-                !compareRegions(bulletin?.regions, bulletin170000?.regions)
-                  ? "img icon-arrow-up bulletin-update-diff bulletin-update-diff-border"
-                  : "img icon-arrow-up"
-              }
-            >
-              <BulletinAWMapStatic
-                bulletin={bulletin}
-                date={date}
-                region={bulletin.bulletinID}
-                validTimePeriod={validTimePeriod}
-              />
-            </a>
-          </Tooltip>
-        </div>
         <ul className="list-plain list-bulletin-report-pictos">
-          <li
-            className={
-              showDiff && tendencyReportItemsAllNew
-                ? "bulletin-update-diff"
-                : ""
-            }
-          >
-            <div
-              // className="bulletin-report-picto tooltip"
-              // style={
-              //   showDiff && isInserted ? { backgroundColor: "#e6eef2" } : {}
-              // }
-              className={
-                showDiff && isInserted
-                  ? "bulletin-report-picto tooltip bulletin-update-diff"
-                  : "bulletin-report-picto tooltip"
-              }
-            >
-              <BulletinDangerRating dangerRatings={dangerRatings} />
-            </div>
-            {tendencyReportItems}
-          </li>
           {problems.map((problem, index) => (
             <BulletinProblemItem
               key={index}
@@ -145,6 +72,7 @@ function BulletinDaytimeReport({
                 p => p.problemType === problem.problemType
               )}
               showDiff={showDiff}
+              warnlevelNumber={maxWarnlevelNumber}
             />
           ))}
         </ul>
@@ -187,74 +115,5 @@ function compareDangerRating(r1: DangerRating, r2: DangerRating): boolean {
     r1.elevation?.upperBound === r2.elevation?.upperBound &&
     r1.mainValue === r2.mainValue &&
     r1.validTimePeriod === r2.validTimePeriod
-  );
-}
-
-function TendencyReport({
-  tendency,
-  tendency170000,
-  showDiff,
-  date
-}: {
-  tendency: Tendency;
-  tendency170000: Tendency;
-  showDiff: 0 | 1 | 2;
-  date: Temporal.PlainDate;
-}) {
-  const intl = useIntl();
-  return (
-    <Tooltip
-      label={intl.formatMessage({
-        id: "bulletin:report:tendency:hover"
-      })}
-    >
-      <div
-        // className="bulletin-report-tendency"
-        // style={
-        //   showDiff && tendency?.tendencyType !== tendency170000?.tendencyType
-        //     ? {
-        //         backgroundColor: "#e6eef2"
-        //       }
-        //     : {}
-        // }
-        className={
-          showDiff && tendency?.tendencyType !== tendency170000?.tendencyType
-            ? "bulletin-report-tendency bulletin-update-diff"
-            : "bulletin-report-tendency"
-        }
-      >
-        <span>
-          <FormattedMessage
-            id="bulletin:report:tendency"
-            html={true}
-            values={{
-              strong: (...msg) => <strong className="heavy">{msg}</strong>,
-              br: (...msg) => (
-                <>
-                  <br />
-                  {msg}
-                </>
-              ),
-              tendency: tendency.tendencyType
-                ? intl.formatMessage({
-                    id: `bulletin:report:tendency:${tendency.tendencyType}`
-                  })
-                : "–",
-              daytime: "",
-              date: intl.formatDate(
-                tendency.validTime?.startTime && tendency.validTime?.endTime
-                  ? new Date(
-                      +tendency.validTime?.startTime / 2 +
-                        +tendency.validTime?.endTime / 2
-                    )
-                  : date.add({ days: 1 }),
-                LONG_DATE_FORMAT
-              )
-            }}
-          />
-        </span>
-        <TendencyIcon tendency={tendency.tendencyType} />
-      </div>
-    </Tooltip>
   );
 }

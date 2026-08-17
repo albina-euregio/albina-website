@@ -126,11 +126,14 @@ const BulletinSchema = v.object({
   source: v.optional(AvalancheBulletinSourceSchema),
   tendency: v.optional(
     v.union([
+      // Array branch must come first: v.object loosely accepts an array as an
+      // object and strips it to {}, so a leading single-object branch would
+      // swallow the array input and drop every tendency field.
+      v.array(TendencySchema),
       v.pipe(
         TendencySchema,
         v.transform(t => [t])
-      ),
-      v.array(TendencySchema)
+      )
     ])
   ),
   validTime: v.optional(ValidTimeSchema)

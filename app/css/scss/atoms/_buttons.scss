@@ -78,6 +78,23 @@ a.pure-button {
       border-color: variables.$primary-color;
     }
   }
+  &.inverse.error {
+    color: variables.$error-color;
+    background: variables.$white;
+    border-color: variables.$error-color;
+    @media (hover: hover) {
+      &:hover {
+        color: variables.$white;
+        background: variables.$error-color;
+        border-color: variables.$error-color;
+      }
+    }
+    &.js-active {
+      color: variables.$white;
+      background: variables.$error-color;
+      border-color: variables.$error-color;
+    }
+  }
   &.secondary {
     color: variables.$text-color;
     background: variables.$white;
@@ -212,11 +229,27 @@ a.pure-button {
     color: variables.$red;
   }
 
+  &.pure-button-icon-text {
+    display: flex;
+    align-items: center;
+    gap: variables.$padding;
+    .icon {
+      display: block;
+      width: 1em;
+      height: 1em;
+      overflow: hidden;
+      &:before {
+        margin: -0.25em;
+      }
+    }
+    .text {
+    }
+  }
+
   &.pure-button-icon {
     margin: 0;
     padding: variables.$padding;
     //font-size: $normal-font-size;//$body-font-size-tiny;
-    //@media #{$medium-up} { font-size: $tiny-font-size; }
     &:before {
       position: absolute;
       top: 50%;

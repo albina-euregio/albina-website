@@ -34,22 +34,20 @@
       border-left: none;
     }
 
-    @media #{variables.$all-up} {
-    }
-    @media #{variables.$tiny-up} {
+    @media #{variables.breakpoint-up(tiny)} {
       width: 50%;
     }
-    @media #{variables.$small-up} {
+    @media #{variables.breakpoint-up(small)} {
     }
-    @media #{variables.$normal-up} {
+    @media #{variables.breakpoint-up(normal)} {
       width: 33.333333333%;
     }
-    @media #{variables.$medium-up} {
+    @media #{variables.breakpoint-up(medium)} {
     }
-    @media #{variables.$large-up} {
+    @media #{variables.breakpoint-up(large)} {
       width: 25%;
     }
-    @media #{variables.$xxlarge-up} {
+    @media #{variables.breakpoint-up(xxlarge)} {
       width: 20%;
     }
   }

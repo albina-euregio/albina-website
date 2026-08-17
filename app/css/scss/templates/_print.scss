@@ -291,7 +291,8 @@
     .pure-table th:last-child {
       padding-right: 0;
     }
-    .sort-caret {
+    .sort-caret,
+    .sort-buttons {
       display: none;
     }
   }

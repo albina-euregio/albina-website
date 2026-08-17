@@ -33,14 +33,17 @@ import { $focusRegions, $province } from "../../appStore";
 import { FormattedMessage } from "../../i18n";
 import {
   type FilterSpecification,
+  GeolocateControl,
   type JumpToOptions,
   type LngLatBoundsLike,
   Map as MlMap,
   NavigationControl,
+  ScaleControl,
   type StyleSpecification
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
+import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import eawsPmtimes from "@eaws/pmtiles/eaws-regions.pmtiles?url";
 import { REGION_FILL_PAINT, REGION_LINE_PAINT } from "./bulletin-map-paint";
 
@@ -149,7 +152,7 @@ const BulletinMap = (props: Props) => {
     onClose: () => void;
     children?: React.ReactNode;
   }) => (
-    <div key={divKey}>
+    <>
       <a
         href="#"
         onClick={e => {
@@ -162,54 +165,65 @@ const BulletinMap = (props: Props) => {
           {intl.formatMessage({ id: "bulletin:map:details:close" })}
         </span>
       </a>
-      <p className="bulletin-report-region-name">
-        <span className="bulletin-report-region-name-region">{regionName}</span>
-      </p>
-      <p
-        className="bulletin-report-region-name"
-        style={{ textAlign: "center" }}
-      >
-        <img
-          src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
-          alt={intl.formatMessage({ id: "danger-level:no_rating" })}
-          style={{ height: "4em", display: "block", margin: "0 auto 0.25em" }}
-        />
-        <FormattedMessage id="danger-level:no_rating" />
-      </p>
-      {children}
-    </div>
+
+      <div key={divKey} className="bulletin-map-details-content">
+        <p className="bulletin-report-region-name">
+          <span className="icon-location-small"></span>
+          <span className="bulletin-report-region-name-region">
+            {regionName}
+          </span>
+        </p>
+        <p
+          className="bulletin-report-no-bulletin"
+          style={{ textAlign: "center" }}
+        >
+          <img
+            src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
+            alt={intl.formatMessage({ id: "danger-level:no_rating" })}
+          />
+          <FormattedMessage id="danger-level:no_rating" />
+        </p>
+      </div>
+
+      {children && (
+        <div className="bulletin-map-details-buttons">{children}</div>
+      )}
+    </>
   );
 
   const AwsLinks = ({
     aws
   }: {
     aws: { name: string; url: Partial<Record<string, string>> }[];
-  }) =>
-    (aws || []).map((link, index) => {
-      const href = link.url[language] || Object.values(link.url)[0];
-      return (
-        <Tooltip key={`tp-aws-link-${index}`} label={href}>
-          <a
-            tabIndex="-1"
-            href={href}
-            rel="noopener noreferrer"
-            target="_blank"
-            className={
-              /ALPSOLUT|METEOMONT/.test(link.name)
-                ? "pure-button is-de-highlighted"
-                : "pure-button"
-            }
-            style={{ cursor: "pointer", pointerEvents: "initial" }}
-          >
-            {link.name}{" "}
-            <span
-              className="icon-arrow-right"
-              style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
-            />
-          </a>
-        </Tooltip>
-      );
-    });
+  }) => (
+    <div className="bulletin-map-details-buttons">
+      {(aws || []).map((link, index) => {
+        const href = link.url[language] || Object.values(link.url)[0];
+        return (
+          <Tooltip key={`tp-aws-link-${index}`} label={href}>
+            <a
+              tabIndex="-1"
+              href={href}
+              rel="noopener noreferrer"
+              target="_blank"
+              className={
+                /ALPSOLUT|METEOMONT/.test(link.name)
+                  ? "pure-button is-de-highlighted"
+                  : "pure-button"
+              }
+              // style={{ cursor: "pointer", pointerEvents: "initial" }}
+            >
+              {link.name}{" "}
+              <span
+                className="icon-arrow-right"
+                // style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
+              />
+            </a>
+          </Tooltip>
+        );
+      })}
+    </div>
+  );
 
   const PopupButton = ({
     href,
@@ -228,18 +242,20 @@ const BulletinMap = (props: Props) => {
     className?: string;
     children: React.ReactNode;
   }) => (
-    <Tooltip label={label}>
-      <a
-        href={href}
-        target={target}
-        rel={rel}
-        onClick={onClick}
-        className={className ?? "pure-button"}
-        style={{ cursor: "pointer", pointerEvents: "initial" }}
-      >
-        {children}
-      </a>
-    </Tooltip>
+    <div className="bulletin-map-details-buttons">
+      <Tooltip label={label}>
+        <a
+          href={href}
+          target={target}
+          rel={rel}
+          onClick={onClick}
+          className={className ?? "pure-button"}
+          // style={{ cursor: "pointer", pointerEvents: "initial" }}
+        >
+          {children}
+        </a>
+      </Tooltip>
+    </div>
   );
 
   const getBulletinMapDetails = () => {
@@ -313,18 +329,21 @@ const BulletinMap = (props: Props) => {
             </span>
           </a>
 
-          <p
-            key={`eaws-name-${country}`}
-            className="bulletin-report-region-name"
-          >
-            <span className="bulletin-report-region-name-country">
-              {intl.formatMessage({ id: "region:" + country })}
-            </span>
-            <span>&nbsp;/ </span>
-            <span className="bulletin-report-region-name-region">
-              {intl.formatMessage({ id: "region:" + region })}
-            </span>
-          </p>
+          <div className="bulletin-map-details-content">
+            <p
+              key={`eaws-name-${country}`}
+              className="bulletin-report-region-name"
+            >
+              <span className="icon-location-small"></span>
+              <span className="bulletin-report-region-name-country">
+                {intl.formatMessage({ id: "region:" + country })}
+              </span>
+              <span>&nbsp;/ </span>
+              <span className="bulletin-report-region-name-region">
+                {intl.formatMessage({ id: "region:" + region })}
+              </span>
+            </p>
+          </div>
         </div>
       );
       res.push(<AwsLinks key="eaws-links" aws={activeEaws.aws ?? []} />);
@@ -354,7 +373,7 @@ const BulletinMap = (props: Props) => {
               {intl.formatMessage({ id: "bulletin:map:blog:button" })}{" "}
               <span
                 className="icon-arrow-right"
-                style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
+                // style={{ verticalAlign: "sub", marginLeft: "0.25em" }}
               />
             </PopupButton>
           </NoRatingPopup>
@@ -781,6 +800,27 @@ function MapLibreMap({
       new NavigationControl({ showCompass: false }),
       "top-left"
     );
+    // Reapply the controls lost in the Leaflet -> MapLibre migration: place
+    // search (GeoNames) and geolocate below the zoom buttons, scale bottom-left.
+    overlay.addControl(
+      new GeonamesControl({
+        ...config.map.geonames,
+        lang: intl.locale.slice(0, 2),
+        title: intl.formatMessage({ id: "bulletin:map:search" }),
+        placeholder: intl.formatMessage({ id: "bulletin:map:search:hover" }),
+        noResults: intl.formatMessage({ id: "bulletin:map:search:no-results" })
+      }),
+      "top-left"
+    );
+    overlay.addControl(
+      new GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: false,
+        showAccuracyCircle: true
+      }),
+      "top-left"
+    );
+    overlay.addControl(new ScaleControl({ unit: "metric" }), "bottom-left");
 
     overlay.on("load", () => {
       overlay.addSource("eaws-regions", {
@@ -936,7 +976,8 @@ function MapLibreMap({
       />
       <div
         ref={overlayRef}
-        style={{ position: "absolute", inset: 0, mixBlendMode: "multiply" }}
+        className="bulletin-map-overlay"
+        style={{ position: "absolute", inset: 0 }}
       />
     </div>
   );

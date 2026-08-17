@@ -6,25 +6,76 @@ test("bulletin/2022-02-01", async ({ page }) => {
   const header = page.locator("#section-bulletin-header");
   await expect(header).toContainText(/Tuesday,? 1 February 2022/);
   await expect(header.locator(".bulletin-datetime-update")).toHaveText(
-    "Updated 01/02/2022, 08:35"
+    "Updated: 01/02/2022, 08:35"
   );
 
   const bulletin = page.locator(
     "li[id='0646104c-4d4c-4e4a-896b-ce3a45d0b61b']"
   );
   await expect(bulletin.locator(".bulletin-report-header")).toContainText(
-    /Danger level for Tuesday,? 1 February 2022/
+    /Tuesday,? 1 February 2022/
   );
-  await expect(bulletin.locator(".subheader").first()).toContainText(
+  await expect(bulletin.locator(".bulletin-report-header")).toContainText(
+    "Karwendel Mountains"
+  );
+  await expect(
+    bulletin.locator(".bulletin-report-text .subheader").first()
+  ).toContainText(
     "Outside marked and open pistes a dangerous avalanche situation will be encountered over a wide area."
   );
-  await expect(bulletin.locator(".bulletin-report-tendency")).toContainText([
-    /Tendency: Increasing avalanche dangeron Wednesday,? 2 February 2022/
-  ]);
+
+  // D1: avalanche-problems block heading with Kernzone info tooltip
+  await expect(
+    bulletin.locator(".bulletin-report-problems-headline")
+  ).toBeVisible();
+  // D3: danger parameters (matrix) hidden by default, revealed by the toggle arrow
+  // (only present when the problem carries the "slab" avalanche type + parameters)
+  const matrix = bulletin.locator(".problem-matrix .matrix-container").first();
+  if (await matrix.count()) {
+    await expect(matrix).not.toHaveClass(/is-open/);
+    await bulletin
+      .locator(".problem-matrix .matrix-avalanche-type")
+      .first()
+      .click();
+    await expect(matrix).toHaveClass(/is-open/);
+  }
   await expect(
     bulletin.locator(".bulletin-report-header-danger-level")
   ).toContainText("Danger Level 4 — high");
-  await expect(bulletin.locator("p").nth(1)).toContainText(
+
+  // D2: each avalanche problem repeats the headline danger digit
+  await expect(
+    bulletin
+      .locator(
+        ".list-bulletin-report-pictos li.warning-level-4 .bulletin-report-picto.warning-level"
+      )
+      .first()
+  ).toHaveText("4");
+
+  // B3: the "Listen" button only appears when a synthesized audio file exists.
+  // No mp3 is served for this fixture, so neither the button nor a player shows.
+  await expect(
+    bulletin
+      .locator(".bulletin-report-header-buttons")
+      .getByRole("button", { name: "Listen" })
+  ).toHaveCount(0);
+  await expect(bulletin.locator(".bulletin-report-audio audio")).toHaveCount(0);
+
+  // Micro-region switcher: nav-style dropdown lists the report's regions and
+  // navigates on selection
+  const regionToggle = bulletin.locator(
+    ".bulletin-report-header .bulletin-report-region-toggle"
+  );
+  await expect(regionToggle).toBeVisible();
+  await regionToggle.click();
+  const options = bulletin.locator(
+    ".bulletin-report-header .bulletin-report-region-option"
+  );
+  expect(await options.count()).toBeGreaterThan(1);
+  const other = options.filter({ hasNotText: "Karwendel Mountains" }).first();
+  await other.click();
+  await expect(page).toHaveURL(/region=AT-07-/);
+  await expect(bulletin.locator("p").nth(0)).toContainText(
     "The danger exists in particular in alpine snow sports terrain."
   );
 
@@ -102,6 +153,19 @@ test("click on map + download pdf", async ({ page }) => {
   expect(pdfResponse.status()).toBe(200);
   expect(pdfResponse.headers()["content-type"]).toContain("application/pdf");
   expect((await pdfResponse.body()).byteLength).toBeGreaterThan(0);
+});
+
+test("map hint shows until a region is selected", async ({ page }) => {
+  // visible immediately once the map is ready, no hover needed
+  await page.goto("bulletin/2022-02-01");
+  await expect(page.locator(".bulletin-map-cta").first()).toContainText(
+    "Select region on map"
+  );
+
+  // gone once a region is selected
+  await page.goto("bulletin/2022-02-01?region=AT-07-04");
+  await page.locator(".page-loading-screen").waitFor({ state: "hidden" });
+  await expect(page.locator(".bulletin-map-cta")).toHaveCount(0);
 });
 
 test("bulletin/2022-02-01 headless", async ({ page }) => {

@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { debounce } from "es-toolkit";
 import {
   GeoJSONSource,
+  GeolocateControl,
   ImageSource,
   type ImageSourceSpecification,
   type LngLatLike,
   Map as MlMap,
   type MapMouseEvent,
   Marker,
+  ScaleControl,
   type StyleSpecification
 } from "maplibre-gl";
 import MapLibreMap, {
@@ -16,8 +18,10 @@ import MapLibreMap, {
   type MarkerItem
 } from "../station/station-map-maplibre";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
+import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
+import { useIntl } from "../../i18n";
 import type { ParameterType } from "../station/station-parameter-data";
 
 interface Props {
@@ -154,6 +158,7 @@ function createDataMarkerElement(
 }
 
 const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
+  const intl = useIntl();
   const timeSpan = useStore(store.timeSpan);
   const domainConfig = useStore(store.domainConfig);
   const stations = useStore(store.stations);
@@ -422,6 +427,32 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
           mapOptions={{ style: TRANSPARENT_STYLE, attributionControl: false }}
           onInit={map => {
             mapRef.current = map;
+            // Restore the search/geolocate/scale controls the weather map lost
+            // in the MapLibre migration (matching the bulletin map). The
+            // NavigationControl and pins toggle are added by MapLibreMap itself.
+            map.addControl(
+              new GeonamesControl({
+                ...config.map.geonames,
+                lang: intl.locale.slice(0, 2),
+                title: intl.formatMessage({ id: "bulletin:map:search" }),
+                placeholder: intl.formatMessage({
+                  id: "bulletin:map:search:hover"
+                }),
+                noResults: intl.formatMessage({
+                  id: "bulletin:map:search:no-results"
+                })
+              }),
+              "top-left"
+            );
+            map.addControl(
+              new GeolocateControl({
+                positionOptions: { enableHighAccuracy: true },
+                trackUserLocation: false,
+                showAccuracyCircle: true
+              }),
+              "top-left"
+            );
+            map.addControl(new ScaleControl({ unit: "metric" }), "bottom-left");
             setMapReady(true);
           }}
         />

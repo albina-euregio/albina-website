@@ -6,6 +6,13 @@ export const LONG_DATE_FORMAT: Intl.DateTimeFormatOptions = {
 };
 Object.freeze(LONG_DATE_FORMAT);
 
+export const LONG_DATE_FORMAT_NO_WEEKDAY: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "long",
+  day: "numeric"
+};
+Object.freeze(LONG_DATE_FORMAT_NO_WEEKDAY);
+
 export const DATE_TIME_FORMAT: Intl.DateTimeFormatOptions = {
   weekday: "long",
   year: "numeric",

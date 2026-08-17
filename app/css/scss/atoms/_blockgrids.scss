@@ -14,7 +14,7 @@
   margin-bottom: variables.$margin-bottom;
 
   .grid-item {
-    @media #{variables.$tiny-up} {
+    @media #{variables.breakpoint-up(tiny)} {
       // T H E   F U C K I N G   F A L L B A C K
       width: calc(100% * 0.5 - #{variables.$grid-gutter} - 0.1px);
 
@@ -28,9 +28,9 @@
         }
       }
     }
-    @media #{variables.$small-up} {
+    @media #{variables.breakpoint-up(small)} {
     }
-    @media #{variables.$normal-up} {
+    @media #{variables.breakpoint-up(normal)} {
       width: calc(100% * 0.3333333333 - #{variables.$grid-gutter} - 0.1px);
 
       @if grid.$grid-activated {
@@ -40,7 +40,7 @@
         }
       }
     }
-    @media #{variables.$medium-up} {
+    @media #{variables.breakpoint-up(medium)} {
       width: calc(100% * 0.25 - #{variables.$grid-gutter} - 0.1px);
 
       @if grid.$grid-activated {
@@ -50,7 +50,7 @@
         }
       }
     }
-    @media #{variables.$xlarge-up} {
+    @media #{variables.breakpoint-up(xlarge)} {
       width: calc(100% * 0.1666666667 - #{variables.$grid-gutter} - 0.1px);
 
       @if grid.$grid-activated {
