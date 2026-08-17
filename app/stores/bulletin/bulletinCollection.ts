@@ -224,6 +224,7 @@ class BulletinCollection {
               }
             }
             (data.bulletins ?? []).forEach(b => {
+              this.upgradeLegacyCAAML(b);
               b.source = {
                 provider: {
                   customData: { regionID: id, url },
