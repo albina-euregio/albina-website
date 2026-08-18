@@ -1,35 +1,33 @@
-import { createRouter } from "@nanostores/router";
-
-const projectRoot = import.meta.env.BASE_URL as "/" | "/beta/" | "/dev/";
+import { createRouter, redirectPage } from "@nanostores/router";
 
 export const $router = createRouter({
-  home: `${projectRoot}`,
-  bulletin: `${projectRoot}bulletin`,
-  bulletinDate: `${projectRoot}bulletin/:date`,
-  bulletinLatest: `${projectRoot}bulletin/latest`,
-  incidents: `${projectRoot}incidents`,
-  snowProfiles: `${projectRoot}profiles`,
-  weather: `${projectRoot}weather`,
-  weatherMap: `${projectRoot}weather/map/`,
-  weatherMapDomain: `${projectRoot}weather/map/:domain`,
-  weatherMapDomainTimestamp: `${projectRoot}weather/map/:domain/:timestamp/:timeSpan?`,
-  weatherArchive: `${projectRoot}weather/archive`,
-  weatherMeasurements: `${projectRoot}weather/measurements`,
-  weatherStations: `${projectRoot}weather/stations`,
-  conditions: `${projectRoot}conditions`,
-  conditionsProfiles: `${projectRoot}conditions/profiles`,
-  terrain: `${projectRoot}terrain`,
-  education: `${projectRoot}education`,
-  blogNamePost: `${projectRoot}blog/:blogName/:postId`,
-  blogTech: `${projectRoot}blog/tech`,
-  blog: `${projectRoot}blog`,
-  more: `${projectRoot}more`,
-  moreArchive: `${projectRoot}more/archive`,
-  moreLinkTree: `${projectRoot}more/linktree`,
-  archive: `${projectRoot}archive`,
-  educationStar: `${projectRoot}education/*`,
-  staticName: `${projectRoot}:name`,
-  staticSegmentName: `${projectRoot}:segment/:name`
+  home: "/",
+  bulletin: "/bulletin",
+  bulletinDate: "/bulletin/:date",
+  bulletinLatest: "/bulletin/latest",
+  incidents: "/incidents",
+  snowProfiles: "/profiles",
+  weather: "/weather",
+  weatherMap: "/weather/map/",
+  weatherMapDomain: "/weather/map/:domain",
+  weatherMapDomainTimestamp: "/weather/map/:domain/:timestamp",
+  weatherArchive: "/weather/archive",
+  weatherMeasurements: "/weather/measurements",
+  weatherStations: "/weather/stations",
+  conditions: "/conditions",
+  conditionsProfiles: "/conditions/profiles",
+  terrain: "/terrain",
+  education: "/education",
+  blogNamePost: "/blog/:blogName/:postId",
+  blogTech: "/blog/tech",
+  blog: "/blog",
+  more: "/more",
+  moreArchive: "/more/archive",
+  moreLinkTree: "/more/linktree",
+  archive: "/archive",
+  educationStar: "/education/*",
+  staticName: "/:name",
+  staticSegmentName: "/:segment/:name"
 });
 
 export function redirectPageQuery(search: Record<string, string | number>) {
