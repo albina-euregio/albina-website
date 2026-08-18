@@ -72,7 +72,11 @@ function BulletinDaytimeReport({
                 p => p.problemType === problem.problemType
               )}
               showDiff={showDiff}
-              warnlevelNumber={maxWarnlevelNumber}
+              warnlevelNumber={
+                problem.dangerRatingValue
+                  ? getWarnlevelNumber(problem.dangerRatingValue)
+                  : maxWarnlevelNumber
+              }
             />
           ))}
         </ul>
