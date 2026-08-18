@@ -220,11 +220,6 @@ function BulletinProblemItem({
         (showDiff && problem170000 === undefined ? " bulletin-update-diff" : "")
       }
     >
-      {warnlevelNumber > 0 && (
-        <div className="bulletin-report-picto warning-level">
-          {warnlevelNumber}
-        </div>
-      )}
       {problem && <ProblemIconLink problem={problem} />}
       {problem?.aspects && (
         <ExpositionIcon expositions={problem?.aspects} title={aspectText} />
