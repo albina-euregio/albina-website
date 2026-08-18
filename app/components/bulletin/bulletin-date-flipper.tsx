@@ -86,7 +86,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
                 id: "bulletin:header:dateflipper:latest:hover"
               })}
             >
-              <a href={getPagePath($router, "bulletinLatest")}>
+              <a href={getPagePath($router, "home")}>
                 {intl.formatMessage({
                   id: "bulletin:header:dateflipper:latest"
                 })}
