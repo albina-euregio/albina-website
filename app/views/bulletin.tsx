@@ -105,8 +105,9 @@ const Bulletin = () => {
         await Promise.all([
           collection
             .load()
-            .then(() => collection.load170000())
-            .then(() => collection.loadExtraBulletins()),
+            .then(() => collection.loadTendency())
+            .then(() => collection.load170000()),
+          collection.loadExtraBulletins(),
           collection.loadEawsBulletins()
           // collection.loadEawsProblems()
         ]);
