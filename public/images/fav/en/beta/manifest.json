@@ -4,7 +4,7 @@
   "short_name": "Avalanche.report",
   "orientation": "any",
   "display": "standalone",
-  "start_url": "/bulletin/latest",
+  "start_url": "/",
   "background_color": "#ffffff",
   "theme_color": "#839194",
   "icons": [

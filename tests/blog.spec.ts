@@ -64,7 +64,7 @@ test("blog headless", async ({ page }) => {
 
   await page.getByRole("link", { name: "Back to Avalanche Forecast" }).click();
 
-  await expect(page).toHaveURL("bulletin/latest");
+  await expect(page).toHaveURL("");
   await expect(page.locator(".page-header")).toHaveCount(0);
 
   await page.goBack();

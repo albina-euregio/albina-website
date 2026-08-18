@@ -91,11 +91,8 @@ const App = () => {
   function component(): React.ReactNode {
     switch (page?.route) {
       case "home":
-        redirectPage($router, "bulletinLatest");
-        break;
+      case "homeDate":
       case "bulletin":
-        redirectPage($router, "bulletinLatest");
-        break;
       case "bulletinDate":
       case "bulletinLatest":
         return <Bulletin />;

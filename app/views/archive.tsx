@@ -104,7 +104,7 @@ function Archive() {
         })}
       >
         {headless && (
-          <a href="/bulletin/latest" className="back-link">
+          <a href="/" className="back-link">
             {intl.formatMessage({ id: "bulletin:linkbar:back-to-bulletin" })}
           </a>
         )}

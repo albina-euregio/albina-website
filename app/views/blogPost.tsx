@@ -65,7 +65,7 @@ const BlogPost = () => {
             </div>
             {headless && (
               <div className="normal-8 grid-item">
-                <a href="/headless/bulletin/latest" className="back-link">
+                <a href="/headless/" className="back-link">
                   {intl.formatMessage({
                     id: "bulletin:linkbar:back-to-bulletin"
                   })}
