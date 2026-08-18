@@ -239,7 +239,7 @@ class BulletinCollection {
     return Temporal.Now.plainTimeISO("Europe/Vienna").toString() >= "17:00";
   }
 
-  async loadExtraBulletins() {
+  async loadExtraBulletins(): Promise<void> {
     this.extraBulletins = [];
     const extraRegions = $extraRegions.get();
     const data = await Promise.all(
@@ -301,7 +301,7 @@ class BulletinCollection {
     });
   }
 
-  async loadEawsBulletins() {
+  async loadEawsBulletins(): Promise<void> {
     this.eawsMaxDangerRatings = {};
     if (!this.date || this.date.toString() < "2021-01-25") {
       return;
@@ -368,7 +368,7 @@ class BulletinCollection {
     );
   }
 
-  private upgradeLegacyCAAML(b: Bulletin) {
+  private upgradeLegacyCAAML(b: Bulletin): void {
     b.dangerRatings?.forEach(b => (b.elevation = undefined));
     b.avalancheProblems?.forEach(p => {
       if (p.problemType === ("wind_drifted_snow" as string)) {
