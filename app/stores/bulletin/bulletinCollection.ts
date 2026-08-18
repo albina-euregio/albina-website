@@ -156,7 +156,7 @@ class BulletinCollection {
     this.status = this.dataRaw.bulletins.length > 0 ? "ok" : "n/a";
     this.maxDangerRatings = this.computeMaxDangerRatings();
 
-    {
+    try {
       const date =
         this.dataRaw.bulletins
           ?.find(b => b.validTime?.startTime)
@@ -170,6 +170,11 @@ class BulletinCollection {
         if (!b.customData?.ALBINA) return;
         Object.assign(b.customData?.ALBINA, { tendencyProgression });
       });
+    } catch (error) {
+      console.error(
+        `Cannot load tendency progression for date ${this.date}`,
+        error
+      );
     }
 
     // Derive per-region statuses from actual bulletin coverage
