@@ -425,7 +425,9 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
         }
       }
       .matrix-avalanche-type {
-        cursor: pointer;
+        &[role="button"] {
+          cursor: pointer;
+        }
         @include mixins.font-heavy;
         @include mixins.letter-spacing;
         [class*="icon-"] {
