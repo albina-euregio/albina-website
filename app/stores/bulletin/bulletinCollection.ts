@@ -303,6 +303,9 @@ class BulletinCollection {
 
   async loadEawsBulletins(): Promise<void> {
     this.eawsMaxDangerRatings = {};
+    if (!config.apis.bulletin.eaws) {
+      return;
+    }
     if (!this.date || this.date.toString() < "2021-01-25") {
       return;
     }
@@ -329,6 +332,26 @@ class BulletinCollection {
       );
     } catch (error) {
       console.warn(`Cannot load EAWS bulletins for date ${this.date}`, error);
+    }
+  }
+
+  async loadEawsProblems(): Promise<void> {
+    this.eawsAvalancheProblems = {};
+    if (!this.date || this.date.toString() < "2024-01-01") {
+      return;
+    }
+    try {
+      const url = config.template(config.apis.bulletin.eawsProblems, {
+        date: this.date
+      });
+      const { avalancheProblems } = await fetchJSON<{
+        avalancheProblems: EawsAvalancheProblems;
+      }>(url, {
+        cache: "no-cache"
+      });
+      this.eawsAvalancheProblems = avalancheProblems;
+    } catch (error) {
+      console.warn(`Cannot load EAWS problems for date ${this.date}`, error);
     }
   }
 
