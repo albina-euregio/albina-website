@@ -720,16 +720,6 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
   .progression-warning-level {
     font-size: variables.$xlarge-font-size;
     @include mixins.font-heavy;
-    @for $level from 1 through variables.$warning-level-count {
-      &.warning-level-#{$level} {
-        color: variables.warning-level-color($level);
-        @if $level <= 2 {
-          // -webkit-text-stroke-width: 1px;
-          // -webkit-text-stroke-color: variables.$grey;
-          text-shadow: 0 0 2px rgba(variables.$text-shadow-color, 0.5);
-        }
-      }
-    }
   }
   .progression-tendency {
     .progression-arrow {
