@@ -4,6 +4,8 @@ catalog:
 ignoredOptionalDependencies:
   - "@parcel/watcher"
   - fsevents
+minimumReleaseAgeExclude:
+  - maplibre-gl@6.4.1
 overrides:
   vite: 'catalog:'
 peerDependencyRules:
