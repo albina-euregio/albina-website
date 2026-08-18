@@ -491,6 +491,19 @@ function MapLibreMap({
   | "handleSelectRegion"
 >) {
   const intl = useIntl();
+  // MapLibre needs WebGL2; older/locked-down browsers don't have it.
+  const webglSupported = useMemo(() => {
+    try {
+      return !!document.createElement("canvas").getContext("webgl2");
+    } catch {
+      return false;
+    }
+  }, []);
+  const simpleBulletinUrl = () =>
+    config.template(window.config.apis.bulletin.simple, {
+      date: activeBulletinCollection?.date?.toString() || "latest",
+      lang: intl.locale.slice(0, 2)
+    });
   const baseRef = useRef<HTMLDivElement | null>(null);
   const baseMapRef = useRef<MlMap | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
@@ -747,6 +760,7 @@ function MapLibreMap({
   }, [activeBulletinCollection?.date]);
 
   useEffect(() => {
+    if (!webglSupported) return;
     if (!baseRef.current || !overlayRef.current || baseMapRef.current) return;
 
     const initialBounds: LngLatBoundsLike = padBounds(
@@ -967,6 +981,26 @@ function MapLibreMap({
       map.setFilter(id, featureFilter);
     }
   }, [featureFilter]);
+
+  if (!webglSupported) {
+    return (
+      <div className="bulletin-map-unsupported">
+        <p>
+          <FormattedMessage
+            id="bulletin:map:webgl2:unsupported"
+            html={true}
+            values={{
+              a: msg => (
+                <a key="a" href={simpleBulletinUrl()}>
+                  {msg}
+                </a>
+              )
+            }}
+          />
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
