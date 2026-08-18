@@ -6,11 +6,12 @@
       "download": "GeoJSON herunterladen"
     },
     "tooltip": {
-      "edit": "Ereignis bearbeiten"
+      "edit": "Lawinenereignis bearbeiten",
+      "preview": "Lawinenereignis anzeigen"
     },
-    "empty": "Keine Ereignisse für diese Region.",
-    "loading": "Ereignisse werden geladen...",
-    "error": "Ereignisse konnten nicht geladen werden",
+    "empty": "Keine Lawinenereignisse für diese Region.",
+    "loading": "Lawinenereignisse werden geladen...",
+    "error": "Lawinenereignisse konnten nicht geladen werden",
     "retry": "Wiederholen",
     "filter": {
       "anyStatus": "Status auswählen"
@@ -26,8 +27,8 @@
     "clearPoint": "Punkt löschen",
     "clearPolygon": "Polygon löschen",
     "controls": "Regler Geometrie",
-    "deleteIncident": "Ereignis löschen",
-    "deleteIncidentConfirm": "Willst du wirklich dieses Ereignis löschen?",
+    "deleteIncident": "Lawinenereignis löschen",
+    "deleteIncidentConfirm": "Willst du wirklich dieses Lawinenereignis löschen?",
     "drawLine": "Linie zeichnen",
     "drawLineInstructions": "Um der Linie Punkte hinzuzufügen, bitte In die Karte klicken.",
     "drawPoint": "Punkt zeichnen",
@@ -35,6 +36,7 @@
     "drawPolygon": "Polygon zeichnen",
     "drawPolygonInstructions": "Mit Klick auf die Karte werden die Eckpunkte des Polygons festgelegt.",
     "dropAttachment": "Drop Anhang {{fileName}}?",
+    "dropAvalancheProblem": "Lawinenproblem {{number}} löschen?",
     "dropGroup": "Drop Gruppe {{number}}?",
     "dropVictim": "Person {{number}} löschen?",
     "fetchPublishedBulletin": "Aus veröffentlichtem CAAML-Bulletin übernehmen.",
@@ -53,17 +55,16 @@
     "polygon": "Polygon",
     "publishIncident": "Publizieren",
     "publishIncidentConfirm": "Willst du dieses Lawinenereignis publizieren?",
-    "publishIncidentSuccess": "Ereignisdokumentation wurde erfolgreich publiziert",
+    "publishIncidentSuccess": "Lawinenereignis wurde erfolgreich publiziert",
     "republishIncident": "Erneut publizieren:",
     "republishIncidentConfirm": "Willst du dieses Lawinenereignis erneut publizieren?",
     "unpublishIncident": "Löschen",
     "unpublishIncidentConfirm": "Willst du dieses Lawinenereignis löschen?",
-    "unpublishIncidentSuccess": "Die Ereignisdokumentation wurde erfolgreich gelöscht.",
+    "unpublishIncidentSuccess": "Die Lawinenereignis wurde erfolgreich gelöscht.",
     "removeAttachment": "Anhang löschen",
     "removeAvalancheProblem": "Lawinenproblem löschen",
     "removeGroup": "Gruppe löschen",
     "removeVictim": "Person löschen",
-    "requiredFieldsMissingTitle": "Pflichtfelder wurden nicht ausgefüllt",
     "requiredFieldsMissingHint": "Die Dokumentation kann erst gespeichert und der Status erst geändert werden, wenn alle Pflichtfelder (im Formular gekennzeichnet) ausgefüllt sind.",
     "displayMode": {
       "edit": "Bearbeiten",
@@ -73,7 +74,6 @@
       "filledOut": "Vorschau nur ausgefüllte"
     },
     "victimName": "Person {{name}}",
-    "saveStateIdle": "Alle Änderungen gespeichert",
     "saveStateSaving": "Speichern ...",
     "saveStateSaved": "Erfolgreich gespeichert",
     "saveStateError": "Fehler beim Speichern",
@@ -180,7 +180,7 @@
     "burialDepth": "Verschüttungstiefe",
     "burialDuration": "Verschüttungsdauer",
     "primaryLocationMethod": "Primäre Auffindungsmethode",
-    "rescuedBy": "Gerettet durch",
+    "rescuedBy": "Gerettet/Geborgen durch",
     "medicalIntervention": "Medizinische Versorgung",
     "estimatedTimeOfDeath": "Todeszeitpunkt (geschätzt)",
     "causeOfDeath": "Todesursache",
@@ -422,6 +422,11 @@
     "MountainRescue": "Bergrettung",
     "Other": "Andere"
   },
+  "personInvolvement": {
+    "Yes": "Ereignis mit Personenbeteiligung",
+    "No": "Keine Personenbeteiligung",
+    "Unknown": "Ereignis (unbekannt)"
+  },
   "otherDamages": {
     "Yes": "Ja",
     "No": "Nein"
@@ -432,6 +437,7 @@
     "Agriculture": "Landwirtschaft",
     "Livestock": "Vieh",
     "UtilitiesTechnicalInfrastructure": "Technische Infrastruktur und Versorgungseinrichtungen",
+    "ResidentialBuilding": "Wohngebäude",
     "Other": "Andere"
   },
   "timeAccuracy": {
@@ -472,7 +478,7 @@
   "groupType": {
     "RecreationalFamilyFriends": "Freizeit Familie/Freunde",
     "Club": "Verein",
-    "Commercial": "Kommerziel",
+    "Commercial": "Kommerziell",
     "Industrial": "Industrie",
     "Solo": "Solo",
     "Unknown": "unbekannt",
@@ -485,7 +491,7 @@
     "Unknown": "unbekannt"
   },
   "incidentTerrainType": {
-    "FreeTerrain": "Ungesichertes Gelände",
+    "FreeTerrain": "Freies Gelände",
     "ControlledTerrainOpen": "Gesichertes Gelände: Geöffnet",
     "ControlledTerrainClosed": "Gesichertes Gelände: Gesperrt",
     "Unknown": "unbekannt"
@@ -630,6 +636,25 @@
     "Yes": "Ja",
     "No": "Nein"
   },
+  "avalancheType": {
+    "slab": "Schneebrett",
+    "loose": "Lockerschneelawine",
+    "glide": "Gleitschneelawine",
+    "cornice": "Wechte",
+    "unknown": "unbekannt"
+  },
+  "avalancheSize": {
+    "small": "klein",
+    "small_medium": "klein–mittel",
+    "medium": "mittel",
+    "medium_large": "mittel–groß",
+    "large": "groß",
+    "large_very_large": "groß–sehr groß",
+    "very_large": "sehr groß",
+    "very_large_extreme": "sehr groß–extrem",
+    "extreme": "extrem",
+    "unknown": "unbekannt"
+  },
   "trigger": {
     "natural": "Spontan",
     "person": "Person",
@@ -647,8 +672,8 @@
     "No": "Nein"
   },
   "additionalLoad": {
-    "High": "Hoch",
-    "Low": "Tief"
+    "High": "Groß",
+    "Low": "Gering"
   },
   "accidentalControlled": {
     "Accidental": "Zufällig",
@@ -706,10 +731,10 @@
   "professionalCertification": {
     "None": "Keiner",
     "IFMGAGuide": "IVBV Bergführer:in",
-    "FullSkiGuide": "Bergführer:in",
+    "FullSkiGuide": "Skiführer:in",
     "SkiInstructor": "Skilehrer:in",
     "ApprenticeGuide": "Bergführer:in Anwärter",
-    "AvalancheProfessional": "Lawinenprofessionist",
+    "AvalancheProfessional": "Professionell ausgebildete Fachkraft für Lawinensicherheit",
     "AvalancheEducator": "Ausbildner Lawine",
     "Other": "Andere"
   },

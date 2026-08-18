@@ -6,7 +6,8 @@
       "download": "Scarica GeoJSON"
     },
     "tooltip": {
-      "edit": "Modifica evento valanghivo"
+      "edit": "Modifica evento valanghivo",
+      "preview": "Visualizza l'evento valanghivo"
     },
     "empty": "Nessun evento valanghivo in questa meteo-nivo zona.",
     "loading": "Caricamento eventi valanghivi...",
@@ -35,6 +36,7 @@
     "drawPolygon": "Disegna poligono",
     "drawPolygonInstructions": "Clicca sulla mappa per definire gli angoli/i vertici del poligono.",
     "dropAttachment": "Rimuovere l'allegato {{fileName}}?",
+    "dropAvalancheProblem": "Elimina problema valanghivo {{numero}}?",
     "dropGroup": "Rimuovere il gruppo {{number}}?",
     "dropVictim": "Rimuovere la persona {{number}}?",
     "fetchPublishedBulletin": "Recupera dal bollettino CAAML pubblicato",
@@ -63,7 +65,6 @@
     "removeAvalancheProblem": "Cancella problema valanghivo",
     "removeGroup": "Rimuovere gruppo",
     "removeVictim": "Rimuovere persona",
-    "requiredFieldsMissingTitle": "Campi obbligatori mancanti",
     "requiredFieldsMissingHint": "Non è possibile salvare il rapporto né modificarne lo stato finché non saranno stati compilati tutti i campi obbligatori (contrassegnati nel modulo).",
     "displayMode": {
       "edit": "Modifica",
@@ -73,7 +74,6 @@
       "filledOut": "Anteprima solo compilato"
     },
     "victimName": "Persona {{name}}",
-    "saveStateIdle": "Tutte le modifiche salvate",
     "saveStateSaving": "Salvataggio in corso",
     "saveStateSaved": "Salvato con successo",
     "saveStateError": "Salvataggio fallito",
@@ -180,7 +180,7 @@
     "burialDepth": "Profondità di seppellimento",
     "burialDuration": "Durata del seppellimento",
     "primaryLocationMethod": "Metodo di localizzazione primario",
-    "rescuedBy": "Salvato da",
+    "rescuedBy": "Rescued/Recovered by",
     "medicalIntervention": "Intervento medico",
     "estimatedTimeOfDeath": "Ora stimata del decesso ",
     "causeOfDeath": "Causa del decesso",
@@ -422,6 +422,11 @@
     "MountainRescue": "Soccorso alpino",
     "Other": "Altro"
   },
+  "personInvolvement": {
+    "Yes": "Evento con coinvolgimento di persone",
+    "No": "Evento senza coinvolgimento persone",
+    "Unknown": "Evento (sconosciuto)"
+  },
   "otherDamages": {
     "Yes": "Sì",
     "No": "No"
@@ -432,6 +437,7 @@
     "Agriculture": "Agricoltura",
     "Livestock": "Bestiame",
     "UtilitiesTechnicalInfrastructure": "Infrastrutture tecniche o servizi di pubblica utilità",
+    "ResidentialBuilding": "Residential Building",
     "Other": "Altro"
   },
   "timeAccuracy": {
@@ -475,14 +481,14 @@
     "Commercial": "Commerciale",
     "Industrial": "Industriale",
     "Solo": "Solo",
-    "Unknown": "Ignoto",
+    "Unknown": "Sconosciuto",
     "Other": "Altro"
   },
   "groupSizeAccuracy": {
     "Exact": "Esatto",
     "Approximately": "All'incirca",
     "AtLeast": "Almeno",
-    "Unknown": "Ignoto"
+    "Unknown": "Sconosciuto"
   },
   "incidentTerrainType": {
     "FreeTerrain": "Fuori pista",
@@ -491,7 +497,7 @@
     "Unknown": "Sconosciuto"
   },
   "typeOfControlledTerrain": {
-    "IndoorInsideBuilding": "All'interno di un edificio",
+    "IndoorInsideBuilding": "All'interno (di un edificio)",
     "Street": "Strada",
     "TrainTrack": "Binari del treno",
     "SkiAreaResort": "Comprensorio sciistico",
@@ -629,6 +635,25 @@
   "multipleAvalanches": {
     "Yes": "Sì",
     "No": "No"
+  },
+  "avalancheType": {
+    "slab": "lastrone",
+    "loose": "a debole coesione",
+    "glide": "slittamento",
+    "cornice": "cornice",
+    "unknown": "sconosciuto"
+  },
+  "avalancheSize": {
+    "small": "piccola",
+    "small_medium": "piccolo-medio",
+    "medium": "media",
+    "medium_large": "medio - grande",
+    "large": "grande",
+    "large_very_large": "grande - molto grande",
+    "very_large": "molto grande",
+    "very_large_extreme": "molto grande - estremamente grand",
+    "extreme": "estremamente grande",
+    "unknown": "sconosciuto"
   },
   "trigger": {
     "natural": "Spontaneo",
