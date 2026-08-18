@@ -82,7 +82,10 @@ export default defineConfig({
           "/albina-basemap.pmtiles",
           "/api",
           "/bulletins",
+          "/eaws_bulletins",
+          "/eaws_weather_stations",
           "/profiles-app",
+          "/zamg_meteo",
           "/simple"
         ].map(path => [
           path,

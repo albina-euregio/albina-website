@@ -1,24 +1,62 @@
-import React, { useEffect, useRef } from "react";
-import maplibregl from "maplibre-gl";
+import React, { useCallback, useEffect, useRef } from "react";
+import {
+  GeoJSONSource,
+  Map as MlMap,
+  NavigationControl,
+  Popup
+} from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useStore } from "@nanostores/react";
 import { $focusRegions } from "../../appStore.ts";
 import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
+import { useIntl } from "../../i18n";
+import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
+import { escapeHtml } from "../../util/escape-html.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
-import type { SnowProfileData } from "../../stores/profileDataStore.ts";
+import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
+import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
+import {
+  SNOW_PROFILE_STABILITIES,
+  snowProfileStabilitySeverity,
+  stabilityLabelId,
+  type SnowProfileData,
+  type SnowProfileStability
+} from "../../stores/profileDataStore.ts";
 
 const SOURCE_ID = "snowprofiles";
 const CIRCLE_LAYER_ID = "snowprofiles-circles";
-const MARKER_COLOR = "#1a73c4";
+
+/** CSS custom property holding the marker color for a stability. */
+function stabilityColorProperty(stability: SnowProfileStability): string {
+  return `--snowprofile-stability-${stability}`;
+}
 
 interface Props {
   snowProfiles: SnowProfileData[];
   onSnowProfileSelected: (id: string) => void;
 }
 
+function SnowProfileMapLegend() {
+  const intl = useIntl();
+  const items: MapLegendItem[] = SNOW_PROFILE_STABILITIES.map(stability => ({
+    key: stability,
+    color: `var(${stabilityColorProperty(stability)})`,
+    label: intl.formatMessage({ id: stabilityLabelId(stability) })
+  }));
+  return <MapLegend items={items} />;
+}
+
 function toFeatureCollection(
-  snowProfiles: SnowProfileData[]
+  snowProfiles: SnowProfileData[],
+  renderTooltip: (profile: SnowProfileData) => string
 ): GeoJSON.FeatureCollection<GeoJSON.Point> {
+  // Read the stability marker colors from CSS (`--snowprofile-stability-*`) once
+  // per rebuild, treating a missing stability as "no test".
+  const styles = getComputedStyle(document.documentElement);
+  const markerColor = (stability: SnowProfileStability | undefined): string =>
+    styles
+      .getPropertyValue(stabilityColorProperty(stability ?? "no-test"))
+      .trim() || "#fff";
   return {
     type: "FeatureCollection",
     features: snowProfiles
@@ -32,7 +70,13 @@ function toFeatureCollection(
         },
         properties: {
           id: profile.id,
-          location: profile.location
+          location: profile.location,
+          color: markerColor(profile.stability),
+          // Draw the less stable markers on top of the rest where they pile up.
+          severity: snowProfileStabilitySeverity(
+            profile.stability ?? "no-test"
+          ),
+          tooltip: renderTooltip(profile)
         }
       }))
   };
@@ -43,14 +87,66 @@ function SnowProfileMapLibreMap({
   onSnowProfileSelected
 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
-  const tooltipRef = useRef<maplibregl.Popup | null>(null);
+  const mapRef = useRef<MlMap | null>(null);
+  const tooltipRef = useRef<Popup | null>(null);
   const dataRef = useRef<GeoJSON.FeatureCollection<GeoJSON.Point>>({
     type: "FeatureCollection",
     features: []
   });
   const onSnowProfileSelectedRef = useRef(onSnowProfileSelected);
   const focusRegions = useStore($focusRegions);
+  const intl = useIntl();
+
+  // Mirror the incident map's marker tooltip: a stability-coloured spine, the
+  // location title, a date/time meta line, then the elevation and an aspect chip.
+  const renderTooltip = useCallback(
+    (profile: SnowProfileData): string => {
+      const esc = (value: string | undefined): string | undefined =>
+        value ? escapeHtml(value) : undefined;
+
+      const title = esc(profile.location);
+      const dateTime = esc(
+        profile.dateTime
+          ? intl.formatDate(profile.dateTime, DATE_TIME_FORMAT_SHORT)
+          : undefined
+      );
+      const elevation =
+        profile.elevation != null
+          ? esc(intl.formatNumberUnit(profile.elevation, "m"))
+          : undefined;
+      const aspect = esc(profile.aspect);
+
+      const header = [
+        title
+          ? `<p class="snowprofile-tooltip__title">${title}</p>`
+          : undefined,
+        dateTime
+          ? `<p class="snowprofile-tooltip__meta">${dateTime}</p>`
+          : undefined
+      ].filter(Boolean);
+
+      const facts = [
+        elevation
+          ? `<span class="snowprofile-fact-badge">${elevation}</span>`
+          : undefined,
+        aspect
+          ? `<span class="snowprofile-fact-badge">${aspect}</span>`
+          : undefined
+      ].filter(Boolean);
+
+      if (!header.length && !facts.length) return "";
+      const headerHtml = header.length
+        ? `<div class="snowprofile-tooltip__header">${header.join("")}</div>`
+        : "";
+      const bodyHtml = facts.length
+        ? `<div class="snowprofile-tooltip__body">${facts.join("")}</div>`
+        : "";
+      // Thread the marker's stability colour into the card via a custom property.
+      const stability = profile.stability ?? "no-test";
+      return `<div class="snowprofile-tooltip" style="--snowprofile-stability-color: var(${stabilityColorProperty(stability)})">${headerHtml}${bodyHtml}</div>`;
+    },
+    [intl]
+  );
 
   useEffect(() => {
     onSnowProfileSelectedRef.current = onSnowProfileSelected;
@@ -61,19 +157,16 @@ function SnowProfileMapLibreMap({
 
     const bounds = padBounds(eawsRegionsBounds(focusRegions), 0.1);
 
-    const map = new maplibregl.Map({
+    const map = new MlMap({
       dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
       bounds
     });
 
-    map.addControl(
-      new maplibregl.NavigationControl({ showCompass: false }),
-      "top-left"
-    );
+    map.addControl(new NavigationControl({ showCompass: false }), "top-left");
 
-    tooltipRef.current = new maplibregl.Popup({
+    tooltipRef.current = new Popup({
       closeButton: false,
       closeOnClick: false,
       offset: 14,
@@ -83,17 +176,7 @@ function SnowProfileMapLibreMap({
     map.on("load", () => {
       map.addSource(SOURCE_ID, { type: "geojson", data: dataRef.current });
 
-      map.addLayer({
-        id: CIRCLE_LAYER_ID,
-        type: "circle",
-        source: SOURCE_ID,
-        paint: {
-          "circle-radius": 8,
-          "circle-color": MARKER_COLOR,
-          "circle-stroke-color": "#000",
-          "circle-stroke-width": 1
-        }
-      });
+      map.addLayer(coloredCircleLayer(CIRCLE_LAYER_ID, SOURCE_ID));
 
       map.on("click", CIRCLE_LAYER_ID, e => {
         const id = e.features?.[0]?.properties?.id;
@@ -109,10 +192,11 @@ function SnowProfileMapLibreMap({
       map.on("mousemove", CIRCLE_LAYER_ID, e => {
         const feature = e.features?.[0];
         if (feature?.geometry.type !== "Point") return;
-        const location = feature.properties?.location;
+        const tooltip = feature.properties?.tooltip;
+        if (typeof tooltip !== "string" || !tooltip) return;
         tooltipRef.current
           ?.setLngLat(feature.geometry.coordinates as [number, number])
-          .setText(typeof location === "string" ? location : "")
+          .setHTML(tooltip)
           .addTo(map);
       });
     });
@@ -135,17 +219,22 @@ function SnowProfileMapLibreMap({
   }, []);
 
   useEffect(() => {
-    const data = toFeatureCollection(snowProfiles);
+    const data = toFeatureCollection(snowProfiles, renderTooltip);
     dataRef.current = data;
 
     const map = mapRef.current;
     const source = map?.getSource(SOURCE_ID);
-    if (map && source instanceof maplibregl.GeoJSONSource) {
+    if (map && source instanceof GeoJSONSource) {
       source.setData(data);
     }
-  }, [snowProfiles]);
+  }, [snowProfiles, renderTooltip]);
 
-  return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
+  return (
+    <div className="snowprofile-map">
+      <div ref={containerRef} className="snowprofile-map__canvas" />
+      <SnowProfileMapLegend />
+    </div>
+  );
 }
 
 export default SnowProfileMapLibreMap;

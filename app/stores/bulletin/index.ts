@@ -1,5 +1,6 @@
 import * as v from "valibot";
 import {
+  vAvalancheBulletinServiceTendencyResult,
   vCaamlAspect,
   vCaamlAvalancheBulletin,
   vCaamlAvalancheBulletinProvider,
@@ -126,11 +127,14 @@ const BulletinSchema = v.object({
   source: v.optional(AvalancheBulletinSourceSchema),
   tendency: v.optional(
     v.union([
+      // Array branch must come first: v.object loosely accepts an array as an
+      // object and strips it to {}, so a leading single-object branch would
+      // swallow the array input and drop every tendency field.
+      v.array(TendencySchema),
       v.pipe(
         TendencySchema,
         v.transform(t => [t])
-      ),
-      v.array(TendencySchema)
+      )
     ])
   ),
   validTime: v.optional(ValidTimeSchema)
@@ -198,6 +202,9 @@ interface AlbinaCustomData extends CustomData {
   ALBINA: {
     mainDate: string;
     bulletinPhotos: BulletinPhoto[];
+    tendencyProgression:
+      | v.InferOutput<typeof vAvalancheBulletinServiceTendencyResult>
+      | undefined;
   };
   LWD_Tyrol: {
     dangerPatterns: DangerPattern[];
@@ -210,4 +217,10 @@ export function getDangerPatterns(data: CustomData): DangerPattern[] {
 
 export function getBulletinPhotos(data: CustomData): BulletinPhoto[] {
   return (data as AlbinaCustomData)?.ALBINA?.bulletinPhotos || [];
+}
+
+export function getTendencyProgression(
+  data: CustomData
+): v.InferOutput<typeof vAvalancheBulletinServiceTendencyResult> | undefined {
+  return (data as AlbinaCustomData)?.ALBINA?.tendencyProgression;
 }

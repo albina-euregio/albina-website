@@ -1,23 +1,79 @@
-import React, { useEffect, useRef } from "react";
-import maplibregl from "maplibre-gl";
+import React, { useCallback, useEffect, useRef } from "react";
+import {
+  GeoJSONSource,
+  Map as MlMap,
+  NavigationControl,
+  Popup
+} from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useStore } from "@nanostores/react";
 import { $focusRegions } from "../../appStore.ts";
 import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
-import type { IncidentData } from "../../stores/incidentDataStore.ts";
+import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
+import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
+import { useIntl } from "../../i18n";
+import { useIncidentReportMessages } from "../../i18n/incident-report";
+import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
+import { escapeHtml } from "../../util/escape-html.ts";
+import {
+  involvementLabel,
+  involvementText
+} from "../../util/incident-involvement.ts";
+import { incidentBadges } from "../../util/incident-badges.ts";
+import {
+  INCIDENT_INVOLVEMENTS,
+  involvementSeverity,
+  type IncidentData,
+  type IncidentInvolvement
+} from "../../stores/incidentDataStore.ts";
 
 const SOURCE_ID = "incidents";
 const CIRCLE_LAYER_ID = "incidents-circles";
+
+function involvementColorProperty(involvement: IncidentInvolvement): string {
+  return `--incident-involvement-${involvement}`;
+}
+
+function involvementColor(): (involvement: IncidentInvolvement) => string {
+  const styles = getComputedStyle(document.documentElement);
+  return involvement =>
+    styles.getPropertyValue(involvementColorProperty(involvement)).trim() ||
+    "#fff";
+}
 
 interface Props {
   incidents: IncidentData[];
   onIncidentSelected: (id: string) => void;
 }
 
+/**
+ * Wraps a trailing "(…)" clause of an already-escaped string in a
+ * non-breaking span, so e.g. "3 persons involved (1 fatal, 1 injured)" can
+ * only wrap before the opening parenthesis, never inside it.
+ */
+function nowrapTrailingParenthetical(text: string): string {
+  const match = text.match(/^(.*\S)(\s+)(\([^)]*\))$/);
+  return match
+    ? `${match[1]}${match[2]}<span class="incident-tooltip__nowrap">${match[3]}</span>`
+    : text;
+}
+
+function IncidentMapLegend() {
+  const messages = useIncidentReportMessages();
+  const items: MapLegendItem[] = INCIDENT_INVOLVEMENTS.map(involvement => ({
+    key: involvement,
+    color: `var(${involvementColorProperty(involvement)})`,
+    label: involvementLabel(messages, involvement)
+  }));
+  return <MapLegend items={items} />;
+}
+
 function toFeatureCollection(
-  incidents: IncidentData[]
+  incidents: IncidentData[],
+  renderTooltip: (incident: IncidentData) => string
 ): GeoJSON.FeatureCollection<GeoJSON.Point> {
+  const markerColor = involvementColor();
   return {
     type: "FeatureCollection",
     features: incidents
@@ -32,7 +88,11 @@ function toFeatureCollection(
         properties: {
           id: incident.id,
           location: incident.location,
-          color: incident.color
+          color: markerColor(incident.involvement),
+          // Draw the more severe markers on top of the lighter ones, so
+          // fatalities stay visible where incidents pile up.
+          severity: involvementSeverity(incident.involvement),
+          tooltip: renderTooltip(incident)
         }
       }))
   };
@@ -40,14 +100,63 @@ function toFeatureCollection(
 
 function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
-  const tooltipRef = useRef<maplibregl.Popup | null>(null);
+  const mapRef = useRef<MlMap | null>(null);
+  const tooltipRef = useRef<Popup | null>(null);
   const dataRef = useRef<GeoJSON.FeatureCollection<GeoJSON.Point>>({
     type: "FeatureCollection",
     features: []
   });
   const onIncidentSelectedRef = useRef(onIncidentSelected);
   const focusRegions = useStore($focusRegions);
+  const intl = useIntl();
+  const messages = useIncidentReportMessages();
+
+  const renderTooltip = useCallback(
+    (incident: IncidentData): string => {
+      const esc = (value: string | undefined): string | undefined =>
+        value ? escapeHtml(value) : undefined;
+
+      const title = esc(incident.location);
+      const dateTime = esc(
+        incident.dateTime
+          ? intl.formatDate(incident.dateTime, DATE_TIME_FORMAT_SHORT)
+          : undefined
+      );
+
+      // Only show the outcome when a persons count is known.
+      const outcomeText = incident.numberInvolved
+        ? esc(involvementText(incident, intl, messages))
+        : undefined;
+      const outcome = outcomeText
+        ? `<p class="incident-tooltip__outcome">${nowrapTrailingParenthetical(outcomeText)}</p>`
+        : undefined;
+
+      const badges = incidentBadges(incident, intl, messages).map(
+        badge => `<span class="incident-badge">${esc(badge.text)}</span>`
+      );
+      const header = [
+        title ? `<p class="incident-tooltip__title">${title}</p>` : undefined,
+        dateTime
+          ? `<p class="incident-tooltip__meta">${dateTime}</p>`
+          : undefined
+      ].filter(Boolean);
+
+      if (!header.length && !outcome && !badges.length) return "";
+      const headerHtml = header.length
+        ? `<div class="incident-tooltip__header">${header.join("")}</div>`
+        : "";
+      const badgesHtml = badges.length
+        ? `<div class="incident-badges">${badges.join("")}</div>`
+        : "";
+      const bodyHtml =
+        outcome || badgesHtml
+          ? `<div class="incident-tooltip__body">${outcome ?? ""}${badgesHtml}</div>`
+          : "";
+      // Thread the marker's involvement colour into the card via a custom property
+      return `<div class="incident-tooltip" style="--incident-involvement-color: var(--incident-involvement-${incident.involvement})">${headerHtml}${bodyHtml}</div>`;
+    },
+    [intl, messages]
+  );
 
   useEffect(() => {
     onIncidentSelectedRef.current = onIncidentSelected;
@@ -58,19 +167,16 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
 
     const bounds = padBounds(eawsRegionsBounds(focusRegions), 0.1);
 
-    const map = new maplibregl.Map({
+    const map = new MlMap({
       dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
       bounds
     });
 
-    map.addControl(
-      new maplibregl.NavigationControl({ showCompass: false }),
-      "top-left"
-    );
+    map.addControl(new NavigationControl({ showCompass: false }), "top-left");
 
-    tooltipRef.current = new maplibregl.Popup({
+    tooltipRef.current = new Popup({
       closeButton: false,
       closeOnClick: false,
       offset: 14,
@@ -80,17 +186,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
     map.on("load", () => {
       map.addSource(SOURCE_ID, { type: "geojson", data: dataRef.current });
 
-      map.addLayer({
-        id: CIRCLE_LAYER_ID,
-        type: "circle",
-        source: SOURCE_ID,
-        paint: {
-          "circle-radius": 8,
-          "circle-color": ["get", "color"],
-          "circle-stroke-color": "#000",
-          "circle-stroke-width": 1
-        }
-      });
+      map.addLayer(coloredCircleLayer(CIRCLE_LAYER_ID, SOURCE_ID));
 
       map.on("click", CIRCLE_LAYER_ID, e => {
         const id = e.features?.[0]?.properties?.id;
@@ -106,10 +202,11 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
       map.on("mousemove", CIRCLE_LAYER_ID, e => {
         const feature = e.features?.[0];
         if (feature?.geometry.type !== "Point") return;
-        const location = feature.properties?.location;
+        const tooltip = feature.properties?.tooltip;
+        if (typeof tooltip !== "string" || !tooltip) return;
         tooltipRef.current
           ?.setLngLat(feature.geometry.coordinates as [number, number])
-          .setText(typeof location === "string" ? location : "")
+          .setHTML(tooltip)
           .addTo(map);
       });
     });
@@ -132,17 +229,22 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
   }, []);
 
   useEffect(() => {
-    const data = toFeatureCollection(incidents);
+    const data = toFeatureCollection(incidents, renderTooltip);
     dataRef.current = data;
 
     const map = mapRef.current;
     const source = map?.getSource(SOURCE_ID);
-    if (map && source instanceof maplibregl.GeoJSONSource) {
+    if (map && source instanceof GeoJSONSource) {
       source.setData(data);
     }
-  }, [incidents]);
+  }, [incidents, renderTooltip]);
 
-  return <div ref={containerRef} style={{ width: "100%", height: "100%" }} />;
+  return (
+    <div className="incident-map">
+      <div ref={containerRef} className="incident-map__canvas" />
+      <IncidentMapLegend />
+    </div>
+  );
 }
 
 export default IncidentMapLibreMap;

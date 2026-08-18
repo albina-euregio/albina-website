@@ -21,24 +21,24 @@
   .thumbnail-item {
     width: 50%;
 
-    @media #{variables.$tiny-up} {
+    @media #{variables.breakpoint-up(tiny)} {
     }
-    @media #{variables.$small-up} {
+    @media #{variables.breakpoint-up(small)} {
       width: 33.333333333%; //calc(100% / 3);
     }
-    @media #{variables.$normal-up} {
+    @media #{variables.breakpoint-up(normal)} {
       width: 25%; //calc(100% / 4);
     }
-    @media #{variables.$medium-up} {
+    @media #{variables.breakpoint-up(medium)} {
       width: 20%; //calc(100% / 5);
     }
-    @media #{variables.$large-up} {
+    @media #{variables.breakpoint-up(large)} {
       width: 16.66666666%; //calc(100% / 6);
     }
-    @media #{variables.$xxlarge-up} {
+    @media #{variables.breakpoint-up(xxlarge)} {
       width: 12.5%; //calc(100% / 8);
     }
-    @media #{variables.$xxxlarge-up} {
+    @media #{variables.breakpoint-up(xxxlarge)} {
       width: 10%; //calc(100% / 10);
     }
 

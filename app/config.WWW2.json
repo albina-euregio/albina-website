@@ -394,7 +394,7 @@
       "archive": "/bulletins/archive/"
     },
     "blogger": "/blog/",
-    "snobs": "https://static.avalanche.report/snobs.json",
+    "snobs": "https://extra.avalanche.report/snobs.json",
     "weatherOverlay": [
       "https://static.avalanche.report/zamg_meteo/overlays/{domain}/",
       "https://static.avalanche.report/zamg_meteo/overlays/{domain}/{year}/{date}/"
@@ -445,7 +445,7 @@
       ]
     },
     "geonames": {
-      "geonamesURL": "//api.geonames.org/searchJSON",
+      "geonamesURL": "https://secure.geonames.org/searchJSON",
       "username": "avalanche.report",
       "zoomLevel": null,
       "maxresults": 5,

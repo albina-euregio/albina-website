@@ -305,8 +305,6 @@
   },
   "stations": [
     {
-      "smet": "",
-      "smetOperators": "$^",
       "png": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
       "pngOperators": ".*",
       "stations": "https://static.lauegi.report/weather_stations/stations.geojson",
@@ -500,7 +498,7 @@
       }
     ],
     "geonames": {
-      "geonamesURL": "//api.geonames.org/searchJSON",
+      "geonamesURL": "https://secure.geonames.org/searchJSON",
       "username": "lauegi.report",
       "zoomLevel": null,
       "maxresults": 5,

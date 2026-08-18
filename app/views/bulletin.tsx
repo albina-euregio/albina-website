@@ -22,8 +22,7 @@ import HTMLPageLoadingScreen, {
 import { $headless, type Language, setLanguage } from "../appStore";
 import { useStore } from "@nanostores/react";
 import { $router } from "../components/router";
-import { openPage, redirectPage } from "@nanostores/router";
-import { scrollIntoView } from "../util/scrollIntoView";
+import { redirectPage } from "@nanostores/router";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -132,17 +131,15 @@ const Bulletin = () => {
   useEffect(() => setRegion(router.search.region), [router.search]);
 
   const handleSelectRegion = (id: string) => {
+    // Always replace the history entry (redirectPage). Using openPage (push) for
+    // the first selection produced a visible full re-render/blank that the
+    // replace path (used for subsequent selections) does not.
     if (id) {
-      const oldRegion = router.search.region;
-      if (oldRegion !== id) {
-        if (oldRegion) {
-          redirectPage($router, router.route, router.params, { region: id });
-        } else {
-          openPage($router, router.route, router.params, { region: id });
-        }
+      if (router.search.region !== id) {
+        redirectPage($router, router.route, router.params, { region: id });
       }
     } else {
-      openPage($router, router.route, router.params, {});
+      redirectPage($router, router.route, router.params, {});
     }
   };
 
@@ -155,6 +152,14 @@ const Bulletin = () => {
       date: collection?.date || "latest",
       lang
     });
+
+  // Activate the 2026 bulletin styling ([data-bulletin-version="2026"] scope in
+  // _bulletin-2026.scss); scoped to the bulletin view so other pages are unaffected.
+  useEffect(() => {
+    const pageAll = document.getElementById("page-all");
+    pageAll?.setAttribute("data-bulletin-version", "2026");
+    return () => pageAll?.removeAttribute("data-bulletin-version");
+  }, []);
 
   if (headless) {
     document.getElementById("page-all").classList.add("headless");
@@ -192,82 +197,65 @@ const Bulletin = () => {
       )}
 
       <Suspense fallback={<div>...</div>}>
-        {daytimeDependency ? (
-          <div
-            className={
-              !config.bulletin.switchBetweenTimePeriods
-                ? "bulletin-parallel-view"
-                : "bulletin-switchable-view"
-            }
-          >
-            {["earlier", "later"].map(
-              (validTimePeriod, index) =>
-                (!config.bulletin.switchBetweenTimePeriods ||
-                  validTimePeriod === selectedTimePeriod) && (
-                  <BulletinMap
-                    key={validTimePeriod}
-                    administrateLoadingBar={index === 0}
-                    handleSelectRegion={handleSelectRegion}
-                    region={region}
-                    status={status}
-                    date={collection?.date}
-                    validTimePeriod={validTimePeriod}
-                    activeBulletinCollection={collection}
-                    problems={problems}
-                    onSelectTimePeriod={timePeriod =>
-                      setSelectedTimePeriod(timePeriod)
-                    }
-                  />
-                )
+        <div className="bulletin-map-cta-container">
+          {daytimeDependency ? (
+            <div
+              className={
+                !config.bulletin.switchBetweenTimePeriods
+                  ? "bulletin-parallel-view"
+                  : "bulletin-switchable-view"
+              }
+            >
+              {["earlier", "later"].map(
+                (validTimePeriod, index) =>
+                  (!config.bulletin.switchBetweenTimePeriods ||
+                    validTimePeriod === selectedTimePeriod) && (
+                    <BulletinMap
+                      key={validTimePeriod}
+                      administrateLoadingBar={index === 0}
+                      handleSelectRegion={handleSelectRegion}
+                      region={region}
+                      status={status}
+                      date={collection?.date}
+                      validTimePeriod={validTimePeriod}
+                      activeBulletinCollection={collection}
+                      problems={problems}
+                      onSelectTimePeriod={timePeriod =>
+                        setSelectedTimePeriod(timePeriod)
+                      }
+                    />
+                  )
+              )}
+            </div>
+          ) : (
+            <BulletinMap
+              administrateLoadingBar={true}
+              handleSelectRegion={handleSelectRegion}
+              region={region}
+              status={status}
+              date={collection?.date}
+              activeBulletinCollection={collection}
+              problems={problems}
+            />
+          )}
+          {!config.bulletin.showAllBulletins &&
+            !region &&
+            status &&
+            status !== "pending" && (
+              <div className="bulletin-map-cta">
+                <span className="icon-info"></span>
+                <span className="text">
+                  <FormattedMessage id="bulletin:select-region:title" />
+                </span>
+              </div>
             )}
-          </div>
-        ) : (
-          <BulletinMap
-            administrateLoadingBar={true}
-            handleSelectRegion={handleSelectRegion}
-            region={region}
-            status={status}
-            date={collection?.date}
-            activeBulletinCollection={collection}
-            problems={problems}
-          />
-        )}
+        </div>
         <BulletinLegend
           handleSelectRegion={handleSelectRegion}
           problems={problems}
           toggleProblem={toggleProblem}
         />
       </Suspense>
-      {!config.bulletin.showAllBulletins && !region && status === "ok" && (
-        <div
-          className="section-padding"
-          style={{ paddingLeft: 0, paddingRight: 0 }}
-        >
-          <ControlBar
-            message={
-              <section className="section-header align-center">
-                <p className="controlbar-top">
-                  <a
-                    href="#page-all"
-                    onClick={e => scrollIntoView(e)}
-                    className="icon-link icon-arrow-up"
-                  >
-                    <span>
-                      <FormattedMessage id="bulletin:linkbar:back-to-map" />
-                    </span>
-                  </a>
-                </p>
-                <h2 className="subheader">
-                  <FormattedMessage id="bulletin:select-region:title" />
-                </h2>
-                <p className="subheader">
-                  <FormattedMessage id="bulletin:select-region:subtitle" />
-                </p>
-              </section>
-            }
-          />
-        </div>
-      )}
       <BulletinButtonbar activeBulletinCollection={collection} />
       {collection?.generalHeadline && (
         <section id="section-general-headline" className="section-padding">
@@ -277,11 +265,18 @@ const Bulletin = () => {
         </section>
       )}
       {collection && (
-        <BulletinList
-          bulletins={collection.bulletinsWith170000}
-          date={collection?.date}
-          region={region}
-        />
+        // Own Suspense boundary: selecting the first region renders that report
+        // for the first time, which lazily loads the glossary chunk/data. Without
+        // a boundary here that suspend bubbles to the app-level Suspense and blanks
+        // the whole page; contain it to the report area instead.
+        <Suspense fallback={null}>
+          <BulletinList
+            bulletins={collection.bulletinsWith170000}
+            date={collection?.date}
+            region={region}
+            handleSelectRegion={handleSelectRegion}
+          />
+        </Suspense>
       )}
       {headless ? (
         <></>

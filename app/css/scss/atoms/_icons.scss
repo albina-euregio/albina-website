@@ -44,6 +44,21 @@ $icon-font-margin: 0.25em;
 .icon-hide:before {
   content: "\e803";
 } /* '' */
+.icon-listen-small:before {
+  content: "\e804";
+} /* '' */
+.icon-ok-small:before {
+  content: "\e805";
+} /* '' */
+.icon-location-small:before {
+  content: "\e806";
+} /* '' */
+.icon-show-small:before {
+  content: "\e807";
+} /* '' */
+.icon-hide-small:before {
+  content: "\e808";
+} /* '' */
 .icon-sm-facebook:before {
   content: "\e809";
 } /* '' */
@@ -140,6 +155,12 @@ $icon-font-margin: 0.25em;
 .icon-validity:before {
   content: "\e82f";
 } /* '' */
+.icon-close-small:before {
+  content: "\e832";
+} /* '' */
+.icon-check-small:before {
+  content: "\e833";
+} /* '' */
 .icon-pause:before {
   content: "\e838";
 } /* '' */
@@ -155,9 +176,6 @@ $icon-font-margin: 0.25em;
 .icon-snow-diff:before {
   content: "\e83c";
 } /* '' */
-.icon-snow-relative:before {
-  content: "\f295";
-}
 .icon-snow-new:before {
   content: "\e83d";
 } /* '' */
@@ -182,6 +200,9 @@ $icon-font-margin: 0.25em;
 .icon-calendar:before {
   content: "\e893";
 } /* '' */
+.icon-snow-relative:before {
+  content: "\f295";
+} /* '' */
 
 // mit diesem mixin können icons in sass inkludiert werden
 // z.B. @include icon(attention, 1.5em, 0.5em, #F00, 0, 2px 2px 5px #FFF);

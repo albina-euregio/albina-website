@@ -1,11 +1,23 @@
-import maplibregl from "maplibre-gl";
+import {
+  addProtocol,
+  setWorkerUrl,
+  type StyleSpecification
+} from "maplibre-gl";
+import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import { Protocol } from "pmtiles";
+
+// Since v6 MapLibre loads its worker as a separate ES module whose URL bundlers
+// cannot resolve from `import.meta.url`. `?worker&url` routes it through Vite's
+// worker pipeline, which emits a self-contained chunk (plain `?url` would drop
+// the sibling `maplibre-gl-shared.mjs` in production builds).
+// https://maplibre.org/maplibre-gl-js/docs/guides/v5-to-v6-migration-guide/
+setWorkerUrl(workerUrl);
 
 // Register the pmtiles:// protocol once so MapLibre can read PMTiles archives.
 // https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles-source-and-protocol/
-maplibregl.addProtocol("pmtiles", new Protocol().tile);
+addProtocol("pmtiles", new Protocol().tile);
 
-export const MAPLIBRE_STYLE: maplibregl.StyleSpecification = {
+export const MAPLIBRE_STYLE: StyleSpecification = {
   version: 8,
   glyphs: `${import.meta.env.BASE_URL}fonts/{fontstack}/{range}.pbf`,
   sources: {

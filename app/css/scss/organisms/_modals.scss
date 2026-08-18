@@ -13,8 +13,6 @@
 	#MODAL
 \*------------------------------------*/
 
-//http://dimsemenov.com/plugins/magnific-popup
-
 //modal-container
 $modal-max-width: 80vw;
 $modal-max-width-xlarge: 65vw;
@@ -23,46 +21,10 @@ $modal-color: variables.$text-color;
 $modal-background-color: variables.$white;
 $modal-vertical-margin: 0;
 
-// overlay
-$mfp-overlay-color: variables.$primary-color; // Color of overlay screen
-$mfp-overlay-opacity: 0.9; // Opacity of overlay screen
-$mfp-shadow: none; // Shadow on image or iframe
-
-// spacing
-$mfp-popup-padding-left: 0; // Padding from left and from right side
-$mfp-popup-padding-left-mobile: 0; // Same as above, but is applied when width of window is less than 800px
-
-$mfp-z-index-base: 9000; //11000;// Base z-index of popup
-
-// controls
-$mfp-include-arrows: true; // Include styles for nav arrows
-$mfp-controls-opacity: 0.9; // Opacity of controls
-$mfp-controls-color: variables.$anchor-font-color; // Color of controls
-$mfp-controls-border-color: none; // Border color of controls
-$mfp-inner-close-icon-color: variables.$anchor-font-color; // Color of close button when inside
-$mfp-controls-text-color: variables.$white; // Color of preloader and "1 of X" indicator
-$mfp-controls-text-color-hover: variables.$anchor-font-color; // Hover color of preloader and "1 of X" indicator
-
-// Iframe-type options
-$mfp-include-iframe-type: true; // Enable Iframe-type popups
-$mfp-iframe-padding-top: $modal-vertical-margin; // Iframe padding top
-$mfp-iframe-background: $modal-background-color; //Background color of iframes
-$mfp-iframe-max-width: $modal-max-width; //Maximum width of iframes
-$mfp-iframe-ratio: 0.75; //Ratio of iframe (9/16 = widescreen, 3/4 = standard, etc.)
-
-// Image-type options
-$mfp-include-image-type: true; // Enable Image-type popups
-$mfp-image-background: none; //Background color of images
-$mfp-image-padding-top: $modal-vertical-margin; //Image padding top
-$mfp-image-padding-bottom: $modal-vertical-margin; // Image padding bottom
-$mfp-include-mobile-layout-for-image: true; // Removes paddings from top and bottom
-
-// Image caption options
-$mfp-caption-title-color: variables.$white; //Caption title color
-$mfp-caption-subtitle-color: variables.$white; //Caption subtitle color
-
-// A11y
-$mfp-use-visuallyhidden: false; // Hide content from browsers, but make it available for screen readers
+// overlay / stacking
+$modal-overlay-color: variables.$primary-color; // Color of overlay screen
+$modal-overlay-opacity: 0.9; // Opacity of overlay screen
+$modal-z-index-base: 9000; // Base z-index of popup
 
 // based on https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#transitioning_dialog_elements
 dialog[open] {
@@ -91,50 +53,13 @@ dialog::backdrop {
 }
 
 dialog[open]::backdrop {
-  background-color: $mfp-overlay-color;
-  opacity: $mfp-overlay-opacity;
+  background-color: $modal-overlay-color;
+  opacity: $modal-overlay-opacity;
 }
 
 @starting-style {
   dialog[open]::backdrop {
     background-color: rgb(0 0 0 / 0);
-  }
-}
-
-.mfp-content {
-  position: fixed;
-  top: 0 !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  min-height: 100vh;
-  margin: 0 !important;
-  padding: 0 !important;
-  background-color: $modal-background-color;
-
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  @include mixins.last-child;
-
-  @media #{variables.$medium-up} {
-    position: relative;
-    min-height: 0;
-    max-width: $modal-max-width;
-    margin: auto !important;
-    vertical-align: middle;
-  }
-  @media #{variables.$xlarge-up} {
-    max-width: $modal-max-width-xlarge;
-  }
-
-  .mfp-close {
-    display: none;
-  }
-
-  .modal-container + .modal-container {
-    border-top: variables.$border-width variables.$border-style
-      variables.$brand-very-light;
   }
 }
 
@@ -146,20 +71,16 @@ dialog[open]::backdrop {
   padding: ($modal-padding * 2) ($modal-padding * 0.5) $modal-padding
     ($modal-padding * 0.5);
   @include mixins.last-child;
-  @media #{variables.$medium-up} {
+  @media #{variables.breakpoint-up(medium)} {
     min-height: 0;
     padding: $modal-padding;
   }
-  //.tippy-popper { z-index: $mfp-z-index-base + 100; }
 }
 
 //close
-button.modal-close-btn,
-button.mfp-close,
-button.mfp-arrow {
-  //from alien app.scss
+button.modal-close-btn {
   cursor: pointer;
-  z-index: 42;
+  z-index: $modal-z-index-base + 100;
 
   @include mixins.ir;
   position: fixed !important;
@@ -204,45 +125,6 @@ button.mfp-arrow {
   }
 }
 
-button.mfp-arrow {
-  top: calc(50% - #{$modal-padding}) !important;
-  height: calc(#{variables.$icon-font-size} + #{variables.$padding}) !important;
-  width: calc(#{variables.$icon-font-size} + #{variables.$padding}) !important;
-  //font-size: 1rem;
-  transform: scale(1) !important;
-  @include mixins.rollout;
-
-  &:before {
-    border: none !important;
-  }
-
-  &:after {
-    display: none !important;
-  }
-
-  &:active {
-    top: calc(50% - #{$modal-padding}) !important;
-  }
-
-  &.mfp-arrow-left {
-    left: variables.$padding;
-    @include icons.icon(arrow-left, 2rem, 0, inherit, 0, "none");
-
-    &:hover {
-      cursor: w-resize;
-    }
-  }
-
-  &.mfp-arrow-right {
-    right: variables.$padding;
-    @include icons.icon(arrow-right, 2rem, 0, inherit, 0, "none");
-    //font-size: 2em;
-    &:hover {
-      cursor: e-resize;
-    }
-  }
-}
-
 .modal-header {
   padding-bottom: variables.$all-v-padding;
 
@@ -254,6 +136,51 @@ button.mfp-arrow {
   h6,
   p {
     margin-bottom: 0;
+  }
+}
+
+// flipper, sitting left of the close button and sharing its metrics
+$modal-control-size: calc(#{variables.$icon-font-size} + #{variables.$padding});
+
+.modal-flipper {
+  position: fixed;
+  z-index: 42;
+  top: variables.$padding;
+  right: calc(#{$modal-control-size} + #{variables.$padding} * 1.5);
+  display: flex;
+  gap: (variables.$padding * 0.5);
+  font-size: 1rem;
+}
+
+button.modal-flipper__button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $modal-control-size;
+  width: $modal-control-size;
+  margin: 0;
+  padding: 0;
+  color: variables.$brand;
+  background-color: rgba(variables.$white, 0.75);
+  border: 0;
+  border-radius: variables.$global-radius;
+  @include mixins.rollout;
+
+  span:before {
+    margin-right: 0;
+    line-height: 1;
+  }
+
+  &:hover:not(:disabled) {
+    color: variables.$brand-dark;
+    background-color: variables.$white;
+    @include mixins.rollover;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.35;
   }
 }
 

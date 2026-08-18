@@ -86,29 +86,30 @@
     "baseUrl": "",
     "bulletin": {
       "simple": "/simple/{date}/EUREGIO_{lang}.html",
-      "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}{region}.ratings.json",
-      "eawsProblems": "https://static.avalanche.report/eaws_bulletins/{date}/{date}.problems.json",
+      "eaws": "/eaws_bulletins/{date}/{date}{region}.ratings.json",
+      "eawsProblems": "/eaws_bulletins/{date}/{date}.problems.json",
       "map": "/bulletins/{date}/{publication}/{file}.webp",
       "pdf": "/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
       "xml": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
       "json": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
       "jsonPublicationDate": "/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",
       "mp3": "/bulletins/{date}/{region}_{lang}.mp3",
-      "archive": "/bulletins/archive/"
+      "archive": "/bulletins/archive/",
+      "tendency": "/api/bulletins/tendency?date={date}"
     },
     "push": "/api/push",
     "subscribe": "/api/email",
     "blogger": "/api/blog/",
     "incidents": "/api/incidents",
     "profiles": "/profiles-app/api",
-    "snobs": "https://static.avalanche.report/snobs.json",
+    "snobs": "https://extra.avalanche.report/snobs.json",
     "weatherOverlay": [
       "https://static.avalanche.report/zamg_meteo/overlays/{domain}/",
       "https://static.avalanche.report/zamg_meteo/overlays/{domain}/{year}/{date}/"
     ],
     "linea": {
-      "stations": "https://static.avalanche.report/eaws_weather_stations/linea.geojson",
-      "stationsDateTime": "https://static.avalanche.report/eaws_weather_stations/{date}/{dateTime}_linea.geojson"
+      "stations": "/eaws_weather_stations/linea.geojson",
+      "stationsDateTime": "/eaws_weather_stations/{date}/{dateTime}_linea.geojson"
     }
   },
   "apiKeys": {

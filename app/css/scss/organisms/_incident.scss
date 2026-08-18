@@ -1,0 +1,223 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
+.incident-details {
+  // Keep long content readable and away from the dialog edges. The outer
+  // padding comes from the shared `.modal-container`; this caps line length.
+  max-width: 60rem;
+  margin: 0 auto;
+  padding-top: 1.25rem;
+
+  // The header mirrors the map tooltip: a severity spine, the location title,
+  // a date · outcome meta line, then the shared badge cluster.
+  .incident-details-header {
+    margin-bottom: (variables.$margin-bottom * 1.5);
+    padding-left: variables.$padding;
+    border-left: 3px solid var(--incident-involvement-color, transparent);
+
+    h2 {
+      margin-bottom: (variables.$padding * 0.5);
+    }
+
+    .incident-details-header__meta {
+      margin-bottom: (variables.$padding * 0.75);
+      color: variables.$grey-dark;
+      font-size: variables.$small-font-size;
+    }
+  }
+
+  // The lede now sits below the opening facts table (date, involvement, …) as a
+  // short intro to the rich-text descriptions that follow it.
+  .incident-details-lede {
+    margin-bottom: (variables.$margin-bottom * 1.5);
+    color: variables.$grey-dark;
+    font-size: variables.$medium-font-size;
+  }
+
+  .incident-details-section {
+    margin-bottom: (variables.$margin-bottom * 1.5);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    h3 {
+      margin-bottom: variables.$padding;
+      font-size: variables.$medium-font-size;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    // Give the label/value rows room to breathe and align them to the top so
+    // multi-line values stay tidy next to their label.
+    th,
+    td {
+      padding: (variables.$padding * 0.6) variables.$padding;
+      vertical-align: top;
+    }
+
+    th {
+      width: 34%;
+      text-align: left;
+      font-size: variables.$tiny-font-size;
+    }
+
+    td {
+      color: variables.$text-color;
+    }
+
+    p {
+      margin-bottom: variables.$padding;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .incident-details-problems {
+    // The shared picto list gives the first row's first cell a divider
+    // (padding-right + border-right) for the bulletin-report layout. It looks
+    // out of place on a single problem here, so drop it.
+    li:first-child > div:first-child {
+      padding-right: 0;
+      border-right: none;
+    }
+  }
+
+  .incident-details-richtext {
+    line-height: 1.6;
+  }
+
+  .incident-details-map {
+    // Undo the site-wide vertical (rotated, no-wrap) attribution so the compact
+    // "ⓘ" panel reads horizontally and wraps to the next line within the map.
+    .maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib {
+      transform: none;
+      white-space: normal;
+      max-width: calc(100% - #{variables.$padding * 2});
+    }
+  }
+
+  .incident-details-attachments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: (variables.$padding * 2);
+    margin-top: variables.$padding;
+
+    .incident-details-attachment {
+      max-width: 16rem;
+      margin: 0;
+
+      img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 0;
+      }
+
+      figcaption {
+        margin-top: (variables.$padding * 0.5);
+        font-size: 0.85em;
+        text-align: center;
+
+        .credit {
+          color: variables.$grey-light;
+        }
+      }
+    }
+  }
+}
+
+.incident-details-danger-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+
+  img {
+    display: block;
+    margin: 0;
+    height: 2.5em;
+    width: auto;
+    aspect-ratio: 2268 / 1664;
+  }
+}
+
+// Marker colors of the dashboard map, keyed by person involvement.
+// Reuse accessible colors from snow profile palette.
+:root {
+  --incident-involvement-fatal: #a6611a;
+  --incident-involvement-injured: #dfc27d;
+  --incident-involvement-involved: #018571;
+  --incident-involvement-uninvolved: #80cdc1;
+  --incident-involvement-unknown: #f5f5f5;
+}
+
+.incident-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .incident-map__canvas {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// The danger rating and the avalanche's character as small badges. Shared by
+// the map's marker tooltip (below) and the incident table.
+.incident-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 0;
+}
+
+.incident-badge {
+  @include mixins.neutral-chip;
+}
+
+// A severity dot for the incident table's involvement cell
+.incident-involvement {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.incident-involvement-dot {
+  flex: 0 0 auto;
+  width: 0.7em;
+  height: 0.7em;
+  border: 1px solid variables.$black;
+  border-radius: 50%;
+}
+
+// The marker's hover tooltip — the shared spine card, coloured by person
+// involvement. Only the outcome/badge `__body` below is incident-specific.
+.maplibre-incident-tooltip {
+  @include mixins.map-tooltip-card(
+    "incident-tooltip",
+    --incident-involvement-color
+  );
+
+  .incident-tooltip__body {
+    // No divider — the same open, rule-free rhythm the details dialog uses.
+    margin: (variables.$padding * 0.2) 0 0;
+  }
+
+  .incident-tooltip__outcome {
+    // Match the details dialog header's involvement line.
+    margin: 0;
+    color: variables.$grey-dark;
+    font-size: variables.$tiny-font-size;
+
+    & + .incident-badges {
+      margin-top: 0.5em;
+    }
+  }
+
+  .incident-tooltip__nowrap {
+    white-space: nowrap;
+  }
+}

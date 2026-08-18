@@ -1,8 +1,8 @@
-@use "../abstracts/bounds";
 @use "../abstracts/variables";
 @use "../abstracts/mixins";
 @use "../atoms/icons";
 @use "../molecules/navigation";
+@use "../atoms/media";
 
 /*	TRANSPORTER
 	Creating Your Web
@@ -41,7 +41,7 @@ $search-width-wide: 300px;
         border-bottom: none;
       }
     }
-    @media #{variables.$medium-up} {
+    @media #{variables.breakpoint-up(medium)} {
       display: inline-block;
       width: 50%;
       &:first-child {
@@ -72,14 +72,12 @@ $search-width-wide: 300px;
   position: relative;
   width: $map-width;
   overflow: hidden;
-  .section-bulletin-map & {
-    aspect-ratio: var(--mobile-map-ratio);
-    @media #{variables.$normal-up} {
-      aspect-ratio: var(--desktop-map-ratio);
-    }
-  }
 
   .section-bulletin-map & {
+    aspect-ratio: var(--mobile-map-ratio);
+    @include mixins.bp-up(normal) {
+      aspect-ratio: var(--desktop-map-ratio);
+    }
     height: $map-height-bulletin;
     body.with-custom-ratio & {
       height: auto;
@@ -92,9 +90,6 @@ $search-width-wide: 300px;
 
   .section-weather-map & {
     height: 100%;
-    // Establish a stacking context so the MapLibre canvas and its hover tooltip
-    // stay below the fixed filter bar.
-    z-index: 0;
     @include mixins.rollout;
   }
 }
@@ -155,8 +150,12 @@ $search-width-wide: 300px;
 //zoom, search, locate
 .leaflet-top.leaflet-left {
   position: absolute;
-  top: variables.$padding;
-  left: variables.$padding;
+  top: variables.$padding * 0.5;
+  left: variables.$padding * 0.5;
+  @media #{variables.breakpoint-up(medium)} {
+    top: variables.$padding;
+    left: variables.$padding;
+  }
   .bulletin-parallel-view &,
   .bulletin-switchable-view & {
     top: variables.$padding * 5.25;
@@ -165,14 +164,15 @@ $search-width-wide: 300px;
   a {
     overflow: hidden;
     position: relative;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: $controls-width-height !important;
     height: $controls-width-height !important;
     margin: 0 !important;
     padding: 0 !important;
     text-indent: 0;
-    font-size: $controls-width-height * 0.75 !important;
-    line-height: $controls-width-height !important;
+    line-height: 0;
     color: variables.$brand !important;
     background-color: rgba(variables.$white, 0.95) !important;
     border: none !important;
@@ -198,21 +198,19 @@ $search-width-wide: 300px;
   .leaflet-control-locate,
   .leaflet-control-showhide,
   .leaflet-control-table {
-    margin-bottom: variables.$padding;
+    margin-bottom: variables.$padding * 0.5;
     @include mixins.box-shadow(0.15);
     a:before {
+      display: block;
       height: $controls-width-height !important;
       width: $controls-width-height !important;
       margin: 0 !important;
       font-size: $controls-width-height * 0.75 !important;
       line-height: $controls-width-height !important;
     }
-  }
-
-  .leaflet-control-table a {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
+    span[aria-hidden="true"] {
+      display: none;
+    }
   }
 
   //no zoom on touch devices
@@ -224,12 +222,12 @@ $search-width-wide: 300px;
 
   .leaflet-control-zoom-in {
     &:before {
-      @include icons.icon(plus-big, 0.75em, 0.5em, none, 0, none);
+      @include icons.icon(plus-big, 0, 0, none, 0, none);
     }
   }
   .leaflet-control-zoom-out {
     &:before {
-      @include icons.icon(minus-big, 0.75em, 0.5em, none, 0, none);
+      @include icons.icon(minus-big, 0, 0, none, 0, none);
     }
   }
 
@@ -260,7 +258,7 @@ $search-width-wide: 300px;
         color: variables.$brand;
         border: variables.$border-width variables.$border-style variables.$brand;
         outline-style: none;
-        @media #{variables.$medium-up} {
+        @media #{variables.breakpoint-up(medium)} {
           width: $search-width-wide;
         }
       }
@@ -277,7 +275,7 @@ $search-width-wide: 300px;
       background: variables.$white;
       border: variables.$border-width variables.$border-style variables.$brand;
       border-top: none;
-      @media #{variables.$medium-up} {
+      @media #{variables.breakpoint-up(medium)} {
         width: $search-width-wide;
       }
       &.hasResults {
@@ -342,10 +340,17 @@ $search-width-wide: 300px;
       }
     }
   }
+
+  .leaflet-control-table a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 //scale
 .leaflet-bottom.leaflet-left {
+  user-select: none;
   position: absolute;
   bottom: variables.$padding;
   left: variables.$padding;
@@ -353,9 +358,12 @@ $search-width-wide: 300px;
     margin: 0 !important;
   }
   .leaflet-control-scale-line {
-    padding: 0.25em 0.5em;
+    padding: 0.125em 0.5em;
     font-size: variables.$micro-font-size;
-    border-color: variables.$grey;
+    border-width: variables.$border-width;
+    border-color: variables.$grey-dark;
+    background: rgba(variables.$white, 0.5);
+    text-shadow: none;
   }
 }
 
@@ -370,194 +378,46 @@ $search-width-wide: 300px;
   .leaflet-control-attribution {
     position: relative;
     font-size: variables.$nano-font-size;
-    background-color: rgba(variables.$white, 0.5) !important;
+    background-color: rgba(variables.$white, 0.5);
     transform-origin: bottom left;
     transform: translateX(100%) rotate(-90deg);
     .section-weather-map & {
-      @media screen and (max-width: #{bounds.upper-bound(variables.$medium-range)}) {
+      @media #{variables.breakpoint-below(large)} {
         transform: translateX(100%) translateY(-150px) rotate(-90deg);
       }
     }
   }
 }
 
-//
 // bulletin-map
-//
 
-//in case of no bulletin
-.bulletin-map-bulletinbar {
-  z-index: 461;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  padding: 0;
-  background: rgba(0, 0, 0, 0.5);
-  .controlbar {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    right: 0;
-    p {
-      margin: 0;
-      text-align: center;
-    }
-    a:link,
-    a:visited {
-      color: variables.$white;
-    }
-  }
-}
-
-//details in floating tooltipp box
-.bulletin-map-details {
-  display: table;
-  position: absolute;
-  top: variables.$padding * 8;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0;
-  font-size: variables.$tiny-font-size; //$body-font-size-tiny;
-  background-color: rgba(variables.$white, 0.95);
-  @include mixins.box-shadow(0.15);
-  opacity: 0;
-  @include mixins.rollout();
-
-  &.js-active {
-    opacity: 1;
-  }
-
-  //@media #{$normal-up} {
-  &.top-left {
-    top: variables.$padding * 8;
-    left: variables.$padding;
-    transform: translateX(0);
-  }
-  &.top-right {
-    top: variables.$padding;
-    left: calc(100% - #{variables.$padding});
-    transform: translateX(-100%);
-  }
-  &.bottom-right {
-    top: calc(100% - #{variables.$padding});
-    left: calc(100% - #{variables.$padding});
-    transform: translate(-100%, -100%);
-  }
-  &.bottom-left {
-    top: calc(100% - #{variables.$padding});
-    transform: translateY(-100%);
-    left: variables.$padding;
-  }
-  //}
-
-  strong {
-    @include mixins.font-heavy;
-    @include mixins.letter-spacing;
-  }
-
-  .bulletin-map-details-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0;
-
-    width: variables.$padding * 2;
-    height: variables.$padding * 2;
-
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-
-    @include mixins.rollout;
-
-    &:before {
-      margin-right: 0;
-      font-size: 1.25em;
-    }
-
-    &:hover {
-      color: variables.$brand-dark;
-      background: transparent;
-      border-color: transparent;
-      @include mixins.rollover;
-    }
-  }
-
-  .bulletin-report-region-name {
-    margin: (variables.$padding * 1.5) (variables.$padding * 2)
-      variables.$padding (variables.$padding * 2);
-    font-size: variables.$tiny-font-size;
-  }
-
-  ul {
-    display: flex;
-    flex-wrap: nowrap;
-    margin: 0 (variables.$padding * 2) (variables.$padding * 2)
-      (variables.$padding * 2);
-    li {
-      display: flex;
-      align-self: center;
-      margin-right: variables.$padding;
-      &:first-child {
-        margin-right: variables.$padding * 2;
-      }
-      &:last-child {
-        margin-right: 0;
-      }
-      img {
-        max-width: none; //<- why?
-        box-sizing: content-box;
-      }
-    }
-    // li:not(.bulletin-report-no) + li img {
-    //   border: $border-width $border-style $border-color;
-    // }
-  }
-
-  .bulletin-report-public-alert {
-    margin: (variables.$padding * 2) (variables.$padding * 2) 0
-      (variables.$padding * 2);
-    @include mixins.font-normal;
-    font-size: variables.$tiny-font-size;
-  }
-
-  //details link
-  > a {
-    display: block;
-    width: 100%;
-    padding: 0 (variables.$padding * 2) variables.$padding
-      (variables.$padding * 2);
-    font-size: variables.$tiny-font-size;
-    color: variables.$anchor-font-color;
-    background: transparent;
-    border-color: none;
-    span {
-      @include mixins.font-normal;
-      @include mixins.letter-spacing(0);
-      text-transform: none;
-      &:before {
-        position: relative;
-        top: 0.15em;
-        margin: 0;
-      }
-    }
-    &:hover {
-      color: variables.$white;
-      background: variables.$anchor-font-color;
-      border-color: variables.$anchor-font-color;
-    }
-    &.is-de-highlighted {
-      color: variables.$grey;
-      &:hover {
-        color: variables.$white;
-      }
-    }
-  }
-}
+//in case of no bulletin -> no longer needed in 202606
+// .bulletin-map-bulletinbar {
+//   z-index: 461;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   width: 100%;
+//   padding: 0;
+//   background: rgba(0, 0, 0, 0.5);
+//   .controlbar {
+//     position: absolute;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     left: 0;
+//     right: 0;
+//     p {
+//       margin: 0;
+//       text-align: center;
+//     }
+//     a:link,
+//     a:visited {
+//       color: variables.$white;
+//     }
+//   }
+// }
 
 //am/pm
 .bulletin-map-daytime {
@@ -587,9 +447,8 @@ $search-width-wide: 300px;
   }
 }
 
-//
 // weather-map
-//
+
 .station-view-toggle {
   display: inline-flex;
   align-items: center;
@@ -634,7 +493,7 @@ $search-width-wide: 300px;
     }
   }
 
-  @media screen and (max-width: #{bounds.upper-bound(variables.$medium-range)}) {
+  @media #{variables.breakpoint-below(large)} {
     width: 100%;
 
     li {
@@ -700,15 +559,13 @@ $search-width-wide: 300px;
   }
 
   .station-dashboard-filter__province,
-  .station-dashboard-filter__season,
   .station-dashboard-filter__date,
   .station-dashboard-filter__elevation {
     width: $filter-control-width;
     min-width: $filter-control-width;
   }
 
-  .station-dashboard-filter__province,
-  .station-dashboard-filter__season {
+  .station-dashboard-filter__province {
     .selectric-wrapper,
     .selectric,
     .dropdown.selectric {
@@ -858,30 +715,6 @@ $search-width-wide: 300px;
     }
   }
 
-  .station-dashboard-filter__add {
-    align-self: flex-end;
-
-    .station-dashboard-filter__add-button {
-      display: inline-flex;
-      align-items: center;
-      gap: variables.$padding * 0.4;
-      height: $filter-control-height;
-      box-sizing: border-box;
-      color: variables.$brand;
-      background-color: variables.$white;
-      white-space: nowrap;
-
-      svg {
-        display: block;
-      }
-
-      &:hover {
-        color: variables.$white;
-        background-color: variables.$anchor-font-color;
-      }
-    }
-  }
-
   // small screens: show only the search icon; on interaction expand leftward
   // over the other filters instead of pushing outside the visible area
   @media screen and (max-width: 53em) {
@@ -934,12 +767,6 @@ $search-width-wide: 300px;
           width: 7em;
         }
       }
-    }
-
-    .station-dashboard-filter__add {
-      grid-column: 1 / -1;
-      justify-self: end;
-      margin-left: 0;
     }
 
     .station-dashboard-filter__toggle {
@@ -1003,148 +830,6 @@ $search-width-wide: 300px;
     .station-dashboard-filter__elevation {
       min-width: 0;
       width: 100%;
-    }
-  }
-
-  &.station-dashboard-filter--incidents {
-    @media screen and (max-width: 53em) {
-      .station-dashboard-filter__bar {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-        grid-template-areas: "province season search";
-      }
-
-      .station-dashboard-filter__season {
-        grid-area: season;
-        min-width: 0;
-        width: 100%;
-
-        .selectric-wrapper,
-        .selectric,
-        .dropdown.selectric {
-          min-width: 0;
-          width: 100%;
-        }
-      }
-    }
-  }
-
-  // the snow-profile date filter is a from/to range (two date inputs), unlike
-  // the single datetime-local on the weather dashboard, so give it room and let
-  // the two inputs share the space instead of overflowing into the province
-  // dropdown next to it
-  &.station-dashboard-filter--profiles {
-    // use the full viewport width instead of the shared .section-centered cap
-    // (body line-length, 55em), which is far too narrow for these controls
-    .station-dashboard-filter__inner {
-      max-width: none;
-    }
-
-    // Larger screens: keep the filters in one centered group with the add
-    // button at the far right. The group does not shrink, so when the button
-    // no longer fits beside it the button drops onto its own line (still
-    // right-aligned).
-    @media screen and (min-width: 53.0625em) {
-      .station-dashboard-filter__bar {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-end;
-        gap: variables.$padding * 0.75;
-      }
-
-      .station-dashboard-filter__group {
-        flex: 1 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: flex-end;
-        gap: variables.$padding * 0.75;
-      }
-
-      // undo the shared "push search to the far right" so it stays inside the
-      // centered group
-      .station-dashboard-filter__search {
-        margin-left: 0;
-      }
-
-      .station-dashboard-filter__add {
-        flex: 0 0 auto;
-        margin-left: auto;
-      }
-    }
-
-    @media screen and (max-width: 53em) {
-      .station-dashboard-filter__bar {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: variables.$padding * 0.5;
-      }
-
-      .station-dashboard-filter__group {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-end;
-        gap: variables.$padding * 0.5;
-      }
-
-      // the from/to date range needs the full width on its own row, but the
-      // province dropdown and search share the row below
-      .station-dashboard-filter__date {
-        flex: 1 1 100%;
-        min-width: 0;
-      }
-
-      .station-dashboard-filter__province,
-      .station-dashboard-filter__search {
-        flex: 1 1 0;
-        min-width: 0;
-      }
-
-      .station-dashboard-filter__search {
-        margin-left: 0;
-
-        .pure-form-search {
-          width: 100%;
-
-          input,
-          &:hover input,
-          &:focus-within input {
-            width: 100%;
-          }
-        }
-      }
-
-      .station-dashboard-filter__add {
-        margin-left: 0;
-
-        .station-dashboard-filter__add-button {
-          width: 100%;
-          justify-content: center;
-        }
-      }
-    }
-
-    .station-dashboard-filter__date {
-      .date-range-filter {
-        width: 100%;
-        gap: variables.$padding * 0.5;
-
-        > div {
-          flex: 1 1 0;
-          min-width: 0;
-        }
-      }
-
-      .pure-form input[type="date"] {
-        width: 100%;
-        height: $filter-control-height;
-        box-sizing: border-box;
-      }
-
-      @media screen and (min-width: 53.0625em) {
-        width: calc(#{$filter-control-width} * 1.6);
-        min-width: calc(#{$filter-control-width} * 1.6);
-      }
     }
   }
 }
@@ -1286,7 +971,7 @@ $search-width-wide: 300px;
   }
 }
 
-//202009: is this still in use? existing in feature-info.jsx so better keep alive from here ...
+//202009: is this still in use? existing in feature-info.tsx so better keep alive from here ...
 .weather-map-details {
   z-index: 100;
   display: table;
@@ -1342,42 +1027,3 @@ a.weather-map-details-button {
   }
 }
 //...to here
-
-.maplibre-station-tooltip {
-  .maplibregl-popup-content {
-    padding: 0.25em 0.5em;
-  }
-}
-
-.maplibregl-ctrl-top-left.maplibregl-ctrl-top-left.maplibregl-ctrl-top-left {
-  top: var(--station-dashboard-filter-offset, 0px);
-}
-
-// Show/hide-pins control (StationPinsControl), matching the look of the
-// Leaflet map controls (square, brand-colored Fontello icon, inverted hover).
-.maplibregl-ctrl-group.maplibregl-ctrl-station-pins {
-  button {
-    width: $controls-width-height;
-    height: $controls-width-height;
-    color: variables.$brand;
-    background-color: rgba(variables.$white, 0.95);
-    border: none;
-    cursor: pointer;
-    &:before {
-      font-size: $controls-width-height * 0.75;
-      line-height: $controls-width-height;
-    }
-    &:hover {
-      color: variables.$white;
-      background-color: variables.$anchor-font-color;
-    }
-  }
-}
-
-// Rotate the attribution so it runs vertically up the right edge,
-// anchored at the bottom-right corner and reading bottom-to-top.
-.maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib {
-  white-space: nowrap;
-  transform-origin: right bottom;
-  transform: rotate(-90deg) translateX(100%);
-}

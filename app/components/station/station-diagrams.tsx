@@ -1,18 +1,11 @@
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { DATE_TIME_ZONE_FORMAT } from "../../util/date";
-import { currentSeasonYear } from "../../util/date-season";
 import "@albina-euregio/linea";
-import { useSwipeable } from "react-swipeable";
+import { useDialogFlipper } from "../dialogs/dialog-flipper";
 import { Feature } from "@albina-euregio/linea/listing";
 
 declare module "react/jsx-runtime" {
@@ -53,121 +46,49 @@ export interface Props {
   setStationId: (rowId: string) => void;
 }
 
-const YearFlipper: React.FC<{
-  selectedYear: number | null;
-  setSelectedYear: (selectedYear: number | null) => void;
-}> = ({ selectedYear, setSelectedYear }) => {
-  const intl = useIntl();
-  const curYear = currentSeasonYear();
-  let nextYear: null | number = null;
-  let lastYear: null | number = null;
-  if (selectedYear) {
-    if (selectedYear > 1960) lastYear = selectedYear - 1;
-    if (selectedYear < curYear) nextYear = selectedYear + 1;
-  } else {
-    selectedYear = curYear;
-    lastYear = curYear - 1;
-  }
-  return (
-    <>
-      {lastYear && (
-        <li className="weatherstation-flipper-back">
-          <Tooltip
-            label={intl.formatMessage({
-              id: "weatherstation-diagrams:back"
-            })}
-          >
-            <a href="#" onClick={() => setSelectedYear(lastYear)}>
-              <span className="icon-arrow-left"></span>
-              {lastYear}/{lastYear + 1}
-            </a>
-          </Tooltip>
-        </li>
-      )}
-      <li className="weatherstation-flipper-current">
-        {selectedYear}/{selectedYear + 1}
-      </li>
-      {nextYear && (
-        <li className="weatherstation-flipper-forward">
-          <Tooltip
-            label={intl.formatMessage({
-              id: "weatherstation-diagrams:forward"
-            })}
-          >
-            <a
-              href="#"
-              onClick={() =>
-                setSelectedYear(curYear === nextYear ? null : nextYear)
-              }
-            >
-              {nextYear}/{nextYear + 1}&nbsp;
-              <span className="icon-arrow-right"></span>
-            </a>
-          </Tooltip>
-        </li>
-      )}
-      {selectedYear && (
-        <li className="weatherstation-flipper-forward">
-          <Tooltip
-            label={intl.formatMessage({
-              id: "weatherstation-diagrams:latest"
-            })}
-          >
-            <a href="#" onClick={() => setSelectedYear(null)}>
-              <span>
-                {intl.formatMessage({
-                  id: "dialog:weather-station-diagram:yearFlipper:latest"
-                })}
-              </span>
-            </a>
-          </Tooltip>
-        </li>
-      )}
-    </>
-  );
-};
-
 const StationFlipper: React.FC<{
   previous: () => void;
   previousStation: StationData | Feature | undefined;
   next: () => void;
   nextStation: StationData | Feature | undefined;
-  children: React.ReactNode;
-}> = ({ previous, previousStation, next, nextStation, children }) => {
+}> = ({ previous, previousStation, next, nextStation }) => {
   const intl = useIntl();
-  if (!previousStation || !nextStation) {
+  if (!previousStation && !nextStation) {
     return null;
   }
   return (
     <ul className="list-inline weatherstation-flipper">
       <li></li>
-      {children}
       <li className="weatherstation-flipper-station">
         <ul className="list-inline weatherstation-flipper">
-          <li className="weatherstation-flipper-back">
-            <Tooltip
-              label={intl.formatMessage({
-                id: "weatherstation-diagrams:priorstation"
-              })}
-            >
-              <a href="#" onClick={previous}>
-                <span className="icon-arrow-left"></span>
-                {previousStation.name}
-              </a>
-            </Tooltip>
-          </li>
-          <li className="weatherstation-flipper-forward">
-            <Tooltip
-              label={intl.formatMessage({
-                id: "weatherstation-diagrams:nextstation"
-              })}
-            >
-              <a href="#" onClick={next}>
-                {nextStation.name}&nbsp;
-                <span className="icon-arrow-right"></span>
-              </a>
-            </Tooltip>
-          </li>
+          {previousStation && (
+            <li className="weatherstation-flipper-back">
+              <Tooltip
+                label={intl.formatMessage({
+                  id: "weatherstation-diagrams:priorstation"
+                })}
+              >
+                <a href="#" onClick={previous}>
+                  <span className="icon-arrow-left"></span>
+                  {previousStation.name}
+                </a>
+              </Tooltip>
+            </li>
+          )}
+          {nextStation && (
+            <li className="weatherstation-flipper-forward">
+              <Tooltip
+                label={intl.formatMessage({
+                  id: "weatherstation-diagrams:nextstation"
+                })}
+              >
+                <a href="#" onClick={next}>
+                  {nextStation.name}&nbsp;
+                  <span className="icon-arrow-right"></span>
+                </a>
+              </Tooltip>
+            </li>
+          )}
         </ul>
       </li>
     </ul>
@@ -254,9 +175,8 @@ const TimeRangeButtons: React.FC<{
 const StationDiagramImage: React.FC<{
   station: StationData | Feature;
   clientWidth: number;
-  selectedYear: number | null;
   timeRange: TimeRange;
-}> = ({ station, clientWidth, selectedYear, timeRange }) => {
+}> = ({ station, clientWidth, timeRange }) => {
   if (hasInteractivePlot(station) && station instanceof StationData) {
     return (
       <div className="uplots">
@@ -272,21 +192,10 @@ const StationDiagramImage: React.FC<{
     );
   }
 
-  if (
-    !(station instanceof StationData) &&
-    station.properties.plot &&
-    (import.meta.env.DEV || import.meta.env.APP_REGION === "DEV")
-  ) {
-    const url = station.properties.plot;
-    const today = Temporal.Now.plainDateISO();
-    const startDate = selectedYear
-      ? new Temporal.PlainDate(selectedYear, 9, 1)
-      : today.month >= 9
-        ? new Temporal.PlainDate(today.year, 9, 1)
-        : new Temporal.PlainDate(today.year - 1, 9, 1);
+  if (!(station instanceof StationData)) {
     return (
       <linea-plot
-        key={url + startDate.toString()}
+        key={station.id}
         features={JSON.stringify([station])}
         showdatepicker
         showonlywinter
@@ -305,7 +214,6 @@ const StationDiagramImage: React.FC<{
   const src = window.config.template(station.properties.plot ?? "", {
     width,
     interval: timeRanges[timeRange],
-    year: selectedYear ? "_" + selectedYear : "",
     t
   });
   return (
@@ -357,11 +265,15 @@ const WeatherStationDiagrams: React.FC<Props> = ({
   const intl = useIntl();
   const myRef = useRef<HTMLDivElement>();
   const [timeRange, setTimeRange] = useState<TimeRange>("week");
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
-  const stationIndex = useMemo((): number => {
-    return stationData.findIndex(e => e.id == stationId);
-  }, [stationData, stationId]);
+  const {
+    index: stationIndex,
+    previousItem: previousStation,
+    nextItem: nextStation,
+    previous,
+    next,
+    swipeHandlers
+  } = useDialogFlipper(stationData, stationId, setStationId);
 
   useEffect(() => {
     // Close the dialog if the selected station is not present in the current data snapshot.
@@ -369,40 +281,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
       setStationId("");
     }
   }, [setStationId, stationData.length, stationId, stationIndex]);
-
-  const nextStation = useMemo((): StationData | Feature | undefined => {
-    if (stationIndex < 0) return undefined;
-    let index = stationIndex;
-    if (index < stationData.length - 1) {
-      index++;
-    }
-    return stationData[index];
-  }, [stationData, stationIndex]);
-
-  const previousStation = useMemo((): StationData | Feature | undefined => {
-    if (stationIndex < 0) return undefined;
-    let index = stationIndex;
-    if (index > 0) {
-      index--;
-    }
-    return stationData[index];
-  }, [stationData, stationIndex]);
-
-  const next = useCallback(
-    () => nextStation && setStationId(nextStation.id),
-    [nextStation, setStationId]
-  );
-
-  const previous = useCallback(
-    () => previousStation && setStationId(previousStation.id),
-    [previousStation, setStationId]
-  );
-
-  const handlers = useSwipeable({
-    onSwipedLeft: () => next(),
-    onSwipedRight: () => previous(),
-    delta: 100
-  });
 
   if (!stationData) return <div></div>;
   const station = stationData[stationIndex];
@@ -412,7 +290,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
   return (
     <div className="modal-container">
       <div className="modal-weatherstation" ref={myRef}>
-        <div className="modal-header" {...handlers}>
+        <div className="modal-header" {...swipeHandlers}>
           {isStation && (
             <p className="caption">
               {intl.formatMessage({
@@ -444,14 +322,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
           nextStation={nextStation}
           previous={previous}
           previousStation={previousStation}
-        >
-          {!isStation && (
-            <YearFlipper
-              selectedYear={selectedYear}
-              setSelectedYear={selectedYear => setSelectedYear(selectedYear)}
-            />
-          )}
-        </StationFlipper>
+        />
         <div className="modal-content">
           {isStation && <MeasurementValues stationData={station} />}
           {isStation && !hasInteractivePlot(station) && (
@@ -463,7 +334,6 @@ const WeatherStationDiagrams: React.FC<Props> = ({
           )}
           <StationDiagramImage
             clientWidth={myRef?.current?.clientWidth ?? 1}
-            selectedYear={selectedYear}
             station={station}
             timeRange={timeRange}
           />

@@ -9,6 +9,25 @@
     #MIXINS
 \*------------------------------------*/
 
+//breakpoints
+@mixin bp-up($name) {
+  @media #{variables.breakpoint-up($name)} {
+    @content;
+  }
+}
+
+@mixin bp-only($name) {
+  @media #{variables.breakpoint-only($name)} {
+    @content;
+  }
+}
+
+@mixin bp-below($name) {
+  @media #{variables.breakpoint-below($name)} {
+    @content;
+  }
+}
+
 //animation
 @mixin rollout(
   $was: all,
@@ -97,9 +116,9 @@
   -moz-column-count: $mycolumns;
   -webkit-column-count: $mycolumns;
   column-count: $mycolumns;
-  -moz-column-gap: variables.$grid_gutter;
-  -webkit-column-gap: variables.$grid_gutter;
-  column-gap: variables.$grid_gutter;
+  -moz-column-gap: variables.$grid-gutter;
+  -webkit-column-gap: variables.$grid-gutter;
+  column-gap: variables.$grid-gutter;
 }
 
 @mixin smooth-scroll() {
@@ -204,8 +223,11 @@
 @mixin box-border($border-color: variables.$border-color) {
   border: variables.$border-width variables.$border-style $border-color;
 }
-@mixin box-shadow($box-shadow-alpha: 0.075) {
+@mixin box-shadow($box-shadow-alpha: 0.05) {
   box-shadow: 0 0 15px 0 rgba(variables.$box-shadow-color, $box-shadow-alpha);
+}
+@mixin text-shadow($text-shadow-alpha: 0.5) {
+  text-shadow: 0 0 10px rgba(variables.$text-shadow-color, $text-shadow-alpha);
 }
 
 //font
@@ -303,6 +325,9 @@
       .js-active {
         z-index: 10;
       }
+      &:hover {
+        z-index: 2;
+      }
     }
   }
   .buttongroup-boolean {
@@ -322,5 +347,60 @@
   }
   a {
     display: block;
+  }
+}
+
+// Rounded pill/chip geometry shared by the incident and snow-profile badges.
+// Colours are left to the caller.
+@mixin chip-shape {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.2em 0.6em;
+  border-radius: 1em;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+// The neutral grey pill: chip geometry plus the shared muted colours. Used for
+// incident danger/character badges and snow-profile fact chips alike.
+@mixin neutral-chip {
+  @include chip-shape;
+  background: variables.$grey-very-light;
+  color: variables.$grey-dark;
+}
+
+// The map marker's hover tooltip: a compact popup card whose left edge carries a
+// colour spine.
+@mixin map-tooltip-card($base, $spine) {
+  .maplibregl-popup-content {
+    // Let the card own its padding so the colour spine can sit flush to the
+    // left edge; clip the spine to the popup's rounded corners.
+    padding: 0;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .#{$base} {
+    max-width: 20rem;
+    padding: (variables.$padding * 0.75) variables.$padding;
+    font-size: variables.$tiny-font-size;
+    line-height: 1.4;
+    color: variables.$text-color;
+    border-left: 3px solid var(#{$spine}, transparent);
+  }
+
+  .#{$base}__title {
+    margin: 0;
+    color: variables.$grey-very-dark;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .#{$base}__meta {
+    margin: 0.15em 0 0;
+    color: variables.$grey-dark;
+    font-size: variables.$tiny-font-size;
   }
 }

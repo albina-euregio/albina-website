@@ -1,0 +1,1509 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+@use "../atoms/icons";
+@use "../molecules/navigation";
+@use "../atoms/media";
+
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #MAP
+\*------------------------------------*/
+
+$map-width: 100%;
+
+$map-height-mobile: 50vh;
+$map-height-bulletin: 50vh;
+
+:root {
+  --vh: 1vh;
+}
+
+// A compact color legend overlaid on a dashboard map (incidents, snow profiles).
+.map-legend {
+  z-index: 2;
+  position: absolute;
+  left: variables.$padding;
+  bottom: variables.$padding;
+  pointer-events: none;
+  margin: 0;
+  padding: variables.$padding * 0.6;
+  list-style: none;
+  color: variables.$text-color;
+  font-size: variables.$tiny-font-size;
+  line-height: 1.6;
+  background-color: rgba(variables.$white, 0.9);
+  @include mixins.box-shadow(0.15);
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: (variables.$padding * 0.6);
+    margin: 0;
+    padding-left: 0;
+  }
+}
+
+.map-legend__swatch {
+  flex: 0 0 auto;
+  width: 0.9em;
+  height: 0.9em;
+  border: 1px solid variables.$black;
+  border-radius: 50%;
+}
+
+$map-height-min: 400px;
+
+$map-google-topbar-height: 46px;
+
+$controls-width-height: variables.$padding * 4;
+
+$search-width: 200px;
+$search-width-wide: 300px;
+
+//the outer container for bulletin-map
+.section-bulletin-map {
+  .bulletin-parallel-view & {
+    display: block;
+    width: 100%;
+    &:first-child {
+      .section-map {
+        border-bottom: none;
+      }
+    }
+    @media #{variables.breakpoint-up(medium)} {
+      display: inline-block;
+      width: 50%;
+      &:first-child {
+        border-right: variables.$border-width variables.$border-style
+          variables.$brand-very-light;
+        .section-map {
+          border-bottom: variables.$border-width variables.$border-style
+            variables.$brand-very-light;
+        }
+      }
+    }
+  }
+}
+
+//the outer container for weather-map
+.section-weather-map {
+  position: absolute !important;
+  top: navigation.$page-header-height;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  overflow: hidden;
+}
+
+//the maps themselves
+.section-map {
+  position: relative;
+  width: $map-width;
+  overflow: hidden;
+
+  .section-bulletin-map & {
+    aspect-ratio: var(--mobile-map-ratio);
+    @include mixins.bp-up(normal) {
+      aspect-ratio: var(--desktop-map-ratio);
+    }
+    height: $map-height-bulletin;
+    body.with-custom-ratio & {
+      height: auto;
+    }
+    min-height: $map-height-min;
+    @include mixins.box-border(variables.$brand-very-light);
+    border-left: none;
+    border-right: none;
+  }
+
+  .section-weather-map & {
+    height: 100%;
+    // Establish a stacking context so the MapLibre canvas and its hover tooltip
+    // stay below the fixed filter bar.
+    z-index: 0;
+    @include mixins.rollout;
+  }
+}
+
+//leaflet
+.leaflet-control-container {
+  .map-disabled & {
+    display: none;
+  }
+  .leaflet-control {
+    margin: 0;
+    border: none !important;
+    //rf: was added to compiled style.css by outside dev, brought back here, propably not used anymore, but who knows ...
+    .legend .legend-toggle {
+      background-image: url("../../../images/pro/meteoviewer/legend.webp");
+    }
+  }
+}
+
+.leaflet-container {
+  font: inherit;
+
+  //to develop and test with local map images
+  .patternlab .section-bulletin-map & {
+    width: 100%;
+    height: 100%;
+    background: transparent url(../../../images/dev/bulletin-report-map.jpg);
+    background-size: cover;
+  }
+  .patternlab .section-weather-map & {
+    width: 100%;
+    height: 100%;
+    background: transparent url(../../../images/dev/weather-map.png);
+    background-size: cover;
+  }
+}
+.leaflet-bar {
+  border-radius: 0 !important;
+}
+
+//overlays
+.leaflet-pane.leaflet-overlay-pane,
+.leaflet-pane .leaflet-image-layer,
+.leaflet-pane svg {
+  mix-blend-mode: multiply;
+}
+
+.leaflet-tooltip {
+  padding: (variables.$padding * 0.25) (variables.$padding * 0.5);
+  //border: none;
+  border-radius: 0;
+  color: variables.$text-color;
+  font-size: variables.$tiny-font-size;
+  background: rgba(variables.$white, 1) !important;
+  @include mixins.box-shadow(0.15);
+}
+
+//zoom, search, locate
+.leaflet-top.leaflet-left {
+  position: absolute;
+  top: variables.$padding * 0.5;
+  left: variables.$padding * 0.5;
+  @media #{variables.breakpoint-up(medium)} {
+    top: variables.$padding;
+    left: variables.$padding;
+  }
+  .bulletin-parallel-view &,
+  .bulletin-switchable-view & {
+    top: variables.$padding * 5.25;
+  }
+
+  a {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $controls-width-height !important;
+    height: $controls-width-height !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-indent: 0;
+    line-height: 0;
+    color: variables.$brand !important;
+    background-color: rgba(variables.$white, 0.95) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    &:hover {
+      color: variables.$white !important;
+      background-color: variables.$anchor-font-color !important;
+    }
+    &.leaflet-disabled {
+      color: variables.$grey-light !important;
+      a:before {
+        color: variables.$grey-light !important;
+      }
+      &:hover {
+        color: variables.$grey-light !important;
+        background-color: rgba(variables.$white, 0.95) !important;
+      }
+    }
+  }
+
+  .leaflet-control-zoom,
+  .leaflet-geonames-search,
+  .leaflet-control-locate,
+  .leaflet-control-showhide,
+  .leaflet-control-table {
+    margin-bottom: variables.$padding * 0.5;
+    @include mixins.box-shadow(0.15);
+    a:before {
+      display: block;
+      height: $controls-width-height !important;
+      width: $controls-width-height !important;
+      margin: 0 !important;
+      font-size: $controls-width-height * 0.75 !important;
+      line-height: $controls-width-height !important;
+    }
+    span[aria-hidden="true"] {
+      display: none;
+    }
+  }
+
+  //no zoom on touch devices
+  @media (hover: none) and (pointer: coarse) {
+    .leaflet-control-zoom {
+      display: none;
+    }
+  }
+
+  .leaflet-control-zoom-in {
+    &:before {
+      @include icons.icon(plus-big, 0, 0, none, 0, none);
+    }
+  }
+  .leaflet-control-zoom-out {
+    &:before {
+      @include icons.icon(minus-big, 0, 0, none, 0, none);
+    }
+  }
+
+  .leaflet-geonames-search {
+    .leaflet-geonames-icon {
+      &:before {
+        @include icons.icon(search-midsize, 0, 0, none, 0, none);
+      }
+    }
+
+    //geonames search form
+    form {
+      width: 100%;
+      margin-bottom: 0;
+      font-size: variables.$body-font-size;
+      background: variables.$white;
+      input {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: $controls-width-height + 0.5 !important;
+        height: $controls-width-height !important;
+        width: $search-width;
+        margin: 0;
+        padding: variables.$padding;
+        font-size: variables.$tiny-font-size;
+        line-height: variables.$header-line-height;
+        color: variables.$brand;
+        border: variables.$border-width variables.$border-style variables.$brand;
+        outline-style: none;
+        @media #{variables.breakpoint-up(medium)} {
+          width: $search-width-wide;
+        }
+      }
+    }
+    ul {
+      list-style: none;
+      display: none;
+      position: absolute;
+      top: $controls-width-height;
+      left: $controls-width-height + 0.5 !important;
+      width: $search-width;
+      margin: 0;
+      padding: 0;
+      background: variables.$white;
+      border: variables.$border-width variables.$border-style variables.$brand;
+      border-top: none;
+      @media #{variables.breakpoint-up(medium)} {
+        width: $search-width-wide;
+      }
+      &.hasResults {
+        display: block;
+      }
+      &.noResults {
+        display: none;
+      }
+      li {
+        cursor: pointer;
+        padding: (variables.$padding * 0.5) variables.$padding;
+        font-size: variables.$tiny-font-size;
+        line-height: variables.$body-line-height;
+        border: none !important;
+        border-bottom: variables.$border-width variables.$border-style
+          variables.$border-color !important;
+        &:last-child {
+          border-bottom: none !important;
+        }
+        &:hover {
+          background: variables.$grey-very-very-light;
+        }
+        em {
+          color: variables.$grey;
+        }
+      }
+    }
+    &.active {
+      form {
+        input,
+        label {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .leaflet-control-locate {
+    a {
+      &:before {
+        @include icons.icon(location, 0, 0, none, 0, none);
+      }
+    }
+    .icon-geolocate {
+      display: none;
+    }
+  }
+
+  .leaflet-control-showhide {
+    &.leaflet-control-show {
+      a {
+        &:before {
+          @include icons.icon(show, 0, 0, none, 0, none);
+        }
+      }
+    }
+    &.leaflet-control-hide {
+      a {
+        &:before {
+          @include icons.icon(hide, 0, 0, none, 0, none);
+        }
+      }
+    }
+  }
+
+  .leaflet-control-table a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+//scale
+.leaflet-bottom.leaflet-left {
+  user-select: none;
+  position: absolute;
+  bottom: variables.$padding;
+  left: variables.$padding;
+  .leaflet-control-scale {
+    margin: 0 !important;
+  }
+  .leaflet-control-scale-line {
+    padding: 0.125em 0.5em;
+    font-size: variables.$micro-font-size;
+    border-width: variables.$border-width;
+    border-color: variables.$grey-dark;
+    background: rgba(variables.$white, 0.5);
+    text-shadow: none;
+  }
+}
+
+// ---- MapLibre GL controls (bulletin map) ----
+// The Leaflet controls above are styled via .leaflet-* selectors; MapLibre
+// renders .maplibregl-ctrl-* DOM instead, so the same brand look is reapplied
+// here: square white buttons with brand Fontello glyphs, an expanding GeoNames
+// search and a subtle scale bar. This first block holds the bulletin-only
+// positioning/overlay rules; the reusable control look below is shared with the
+// weather map. The bulletin stations mini-map (.bulletin-report-mini-map)
+// shares the same styling.
+#section-bulletin-map,
+.bulletin-report-mini-map {
+  // The overlay map's region fills blend into the base map via multiply. Apply
+  // that blend to the canvas only — not the whole overlay div, whose control
+  // container is a sibling of the canvas: white buttons under multiply would
+  // otherwise blend away to transparent and show the map through them.
+  .bulletin-map-overlay {
+    .maplibregl-canvas {
+      mix-blend-mode: multiply;
+    }
+    .maplibregl-ctrl-bottom-right {
+      display: none;
+    }
+  }
+
+  .maplibregl-map:not(.bulletin-map-overlay) {
+    .maplibregl-ctrl-attrib-button {
+      display: none;
+    }
+  }
+
+  .maplibregl-ctrl-top-left {
+    top: variables.$padding;
+    left: variables.$padding;
+    @media #{variables.breakpoint-up(medium)} {
+      top: variables.$padding * 2;
+      left: variables.$padding * 2;
+    }
+    // In the daytime (earlier/later) split view, the .bulletin-map-daytime toggle
+    // occupies the top-left corner; push the controls below it so they stack under
+    // the toggle instead of overlapping it.
+    .bulletin-parallel-view &,
+    .bulletin-switchable-view & {
+      top: variables.$padding * 5.25;
+    }
+    .maplibregl-ctrl {
+      float: none;
+      clear: both;
+      margin: 0 0 variables.$padding 0;
+    }
+  }
+}
+
+// Reusable brand control look — square white buttons with brand Fontello
+// glyphs, the expanding GeoNames search and the scale bar. Shared with the
+// weather map; the bulletin-only positioning/overlay rules stay in the block
+// above.
+#section-bulletin-map,
+.bulletin-report-mini-map,
+.section-weather-map {
+  // Control-group boxes and their buttons (zoom + geolocate).
+  .maplibregl-ctrl-group {
+    border-radius: 0;
+    background: variables.$white;
+    @include mixins.box-shadow(0.15);
+
+    &:not(:empty) {
+      @include mixins.box-shadow(0.15);
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: $controls-width-height;
+      height: $controls-width-height;
+      background: variables.$white;
+      border-color: transparent;
+      border-radius: 0;
+
+      .maplibregl-ctrl-icon {
+        display: none;
+      }
+      &:before {
+        font-family: "Fontello";
+        font-weight: normal;
+        font-style: normal;
+        font-size: $controls-width-height * 0.6;
+        line-height: $controls-width-height;
+        color: variables.$brand;
+      }
+      &:hover {
+        background: variables.$anchor-font-color !important;
+        border-radius: none !important;
+        &:before {
+          color: variables.$white;
+        }
+      }
+      &:focus:first-child,
+      &:focus:last-child {
+        border-radius: 0 !important;
+      }
+      &:disabled:before {
+        color: variables.$grey-light;
+      }
+    }
+  }
+  .maplibregl-ctrl-zoom-in:before {
+    content: "\e824";
+  }
+  .maplibregl-ctrl-zoom-out:before {
+    content: "\e823";
+  }
+  .maplibregl-ctrl-geolocate:before {
+    content: "\e841";
+  }
+
+  // GeoNames search: magnifier toggle expands an input + results dropdown.
+  .geonames-ctrl {
+    position: relative;
+    overflow: visible;
+
+    .geonames-ctrl-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: $controls-width-height;
+      height: $controls-width-height;
+      background: variables.$white;
+      border: none;
+      cursor: pointer;
+      .geonames-ctrl-icon:before {
+        content: "\e83a";
+        font-family: "Fontello";
+        font-size: $controls-width-height * 0.6;
+        line-height: $controls-width-height;
+        color: variables.$brand;
+      }
+      &:hover {
+        background: variables.$anchor-font-color;
+        .geonames-ctrl-icon:before {
+          color: variables.$white;
+        }
+      }
+    }
+
+    .geonames-ctrl-form {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: $controls-width-height + 0.5;
+    }
+    &.is-open .geonames-ctrl-form {
+      display: block;
+    }
+
+    .geonames-ctrl-input {
+      display: block;
+      width: $search-width;
+      height: $controls-width-height;
+      margin: 0;
+      padding: variables.$padding;
+      font-size: variables.$tiny-font-size;
+      color: variables.$brand;
+      background: variables.$white;
+      border: variables.$border-width variables.$border-style variables.$brand;
+      outline: none;
+      @media #{variables.breakpoint-up(medium)} {
+        width: $search-width-wide;
+      }
+    }
+    .geonames-ctrl-results {
+      list-style: none;
+      width: $search-width;
+      margin: 0;
+      padding: 0;
+      background: variables.$white;
+      border: variables.$border-width variables.$border-style variables.$brand;
+      border-top: none;
+      @media #{variables.breakpoint-up(medium)} {
+        width: $search-width-wide;
+      }
+      &:empty {
+        display: none;
+      }
+      li {
+        padding: (variables.$padding * 0.5) variables.$padding;
+        font-size: variables.$tiny-font-size;
+        line-height: variables.$body-line-height;
+        border-bottom: variables.$border-width variables.$border-style
+          variables.$border-color;
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+      .geonames-ctrl-result {
+        cursor: pointer;
+        &:hover {
+          background: variables.$grey-very-very-light;
+        }
+      }
+      .geonames-ctrl-empty {
+        color: variables.$grey;
+        cursor: default;
+      }
+    }
+  }
+
+  // Scale bar (bottom-left).
+  .maplibregl-ctrl-bottom-left {
+    bottom: variables.$padding;
+    left: variables.$padding;
+  }
+  .maplibregl-ctrl-scale {
+    margin: 0;
+    padding: 0.125em 0.5em;
+    color: variables.$text-color;
+    font-size: variables.$micro-font-size;
+    border: variables.$border-width variables.$border-style variables.$grey-dark;
+    border-top: none;
+    background: rgba(variables.$white, 0.5);
+    text-shadow: none;
+  }
+}
+
+//copyright still used on bulletin map
+.leaflet-bottom.leaflet-right {
+  .leaflet-control {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    float: none;
+  }
+  .leaflet-control-attribution {
+    position: relative;
+    font-size: variables.$nano-font-size;
+    background-color: rgba(variables.$white, 0.5);
+    transform-origin: bottom left;
+    transform: translateX(100%) rotate(-90deg);
+    .section-weather-map & {
+      @media #{variables.breakpoint-below(large)} {
+        transform: translateX(100%) translateY(-150px) rotate(-90deg);
+      }
+    }
+  }
+}
+
+// bulletin-map
+
+//in case of no bulletin -> no longer needed in 202606
+// .bulletin-map-bulletinbar {
+//   z-index: 461;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   width: 100%;
+//   padding: 0;
+//   background: rgba(0, 0, 0, 0.5);
+//   .controlbar {
+//     position: absolute;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     left: 0;
+//     right: 0;
+//     p {
+//       margin: 0;
+//       text-align: center;
+//     }
+//     a:link,
+//     a:visited {
+//       color: variables.$white;
+//     }
+//   }
+// }
+
+//am/pm
+.bulletin-map-daytime {
+  position: absolute;
+  top: variables.$padding * 1.25;
+  left: variables.$padding;
+  z-index: 2;
+  .label {
+    font-size: variables.$body-font-size-normal;
+    @include mixins.font-bold;
+  }
+}
+.bulletin-switchable-view .bulletin-map-daytime .label {
+  display: flex;
+  padding: 0;
+  border-radius: 1.5em;
+  overflow: hidden;
+  .toggle-link {
+    padding: 0.25em 0.66667em;
+    display: block;
+    color: variables.$brand-dark;
+    background-color: variables.$white;
+    &.active {
+      color: variables.$white;
+      background-color: variables.$brand-dark;
+    }
+  }
+}
+
+// weather-map
+
+.station-view-toggle {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0.2rem;
+  list-style: none;
+  background: rgba(variables.$white, 0.96);
+  @include mixins.box-shadow(0.08);
+
+  li {
+    padding-right: 0;
+  }
+
+  .station-view-toggle__button {
+    min-width: 6.25rem;
+    margin: 0;
+    padding: 0.35rem 0.7rem;
+    color: variables.$brand;
+    font-size: variables.$tiny-font-size;
+    line-height: 1.2;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease;
+
+    &:hover {
+      color: variables.$brand-dark;
+      background: rgba(variables.$brand, 0.08);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(variables.$brand, 0.6);
+      outline-offset: -2px;
+    }
+
+    &.is-active {
+      color: variables.$white;
+      background: variables.$brand;
+    }
+  }
+
+  @media #{variables.breakpoint-below(large)} {
+    width: 100%;
+
+    li {
+      flex: 1 1 50%;
+    }
+
+    .station-view-toggle__button {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+}
+
+.station-view-toggle-panel {
+  display: inline-flex;
+  padding: variables.$padding * 0.25;
+  background: rgba(variables.$white, 0.88);
+  border: 1px solid rgba(variables.$brand, 0.18);
+}
+
+.station-view-toggle {
+  margin-bottom: 0;
+}
+
+.station-dashboard-filter {
+  $filter-control-width: 14rem;
+  $filter-control-height: calc(
+    #{variables.$tiny-font-size * variables.$header-line-height} +
+      #{variables.$padding * 2} + #{variables.$border-width * 2}
+  );
+
+  position: fixed;
+  top: auto;
+  left: 0;
+  right: 0;
+  z-index: 1301;
+  padding-top: variables.$all-v-padding * 0.25;
+  padding-bottom: variables.$all-v-padding * 0.25;
+  @include mixins.box-shadow(0.08);
+
+  html[data-headless] & {
+    top: env(safe-area-inset-top);
+  }
+
+  .station-dashboard-filter__inner {
+    position: relative;
+  }
+
+  .station-dashboard-filter__bar {
+    display: flex;
+    align-items: center;
+    gap: variables.$padding * 0.75;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  .station-dashboard-filter__extras {
+    display: contents;
+  }
+
+  .station-dashboard-filter__toggle {
+    display: none;
+  }
+
+  .station-dashboard-filter__province,
+  .station-dashboard-filter__season,
+  .station-dashboard-filter__date,
+  .station-dashboard-filter__elevation {
+    width: $filter-control-width;
+    min-width: $filter-control-width;
+  }
+
+  .station-dashboard-filter__province,
+  .station-dashboard-filter__season {
+    .selectric-wrapper,
+    .selectric,
+    .dropdown.selectric {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .selectric,
+    .dropdown.selectric {
+      height: $filter-control-height;
+      padding-top: variables.$padding;
+      padding-bottom: variables.$padding;
+    }
+  }
+
+  .station-dashboard-filter__date {
+    .pure-form input[type="datetime-local"] {
+      width: 100%;
+      height: $filter-control-height;
+      box-sizing: border-box;
+    }
+  }
+
+  .station-dashboard-filter__elevation {
+    $compact-track-height: 4px;
+    $compact-thumb-size: 12px;
+    $compact-touch-track-height: 6px;
+    $compact-touch-thumb-size: 18px;
+
+    .dual-range-slider {
+      min-width: 0;
+    }
+
+    .dual-range-slider__box {
+      height: $filter-control-height;
+      box-sizing: border-box;
+      padding: variables.$padding * 0.35 variables.$padding;
+      background: variables.$brand;
+      border-color: rgba(variables.$white, 0.85);
+      border-radius: variables.$global-radius;
+    }
+
+    .dual-range-slider__values {
+      margin-bottom: variables.$padding * 0.15;
+      font-size: variables.$nano-font-size;
+      line-height: 1;
+      color: variables.$white;
+    }
+
+    .dual-range-slider__track {
+      position: relative;
+      height: $compact-thumb-size;
+    }
+
+    .dual-range-slider__rail,
+    .dual-range-slider__fill {
+      height: $compact-track-height;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .dual-range-slider__rail {
+      background: rgba(variables.$white, 0.35);
+    }
+
+    .dual-range-slider__fill {
+      background: variables.$white;
+    }
+
+    .dual-range-slider input[type="range"] {
+      top: 35%;
+      bottom: auto;
+      height: $compact-thumb-size;
+      transform: translateY(-50%);
+
+      &::-webkit-slider-runnable-track {
+        height: $compact-track-height;
+      }
+
+      &::-moz-range-track {
+        height: $compact-track-height;
+      }
+
+      &::-webkit-slider-thumb {
+        width: $compact-thumb-size;
+        height: $compact-thumb-size;
+        margin-top: calc(($compact-track-height - $compact-thumb-size) / 2);
+        background: variables.$anchor-font-color;
+        border-color: variables.$white;
+      }
+
+      &::-moz-range-thumb {
+        width: $compact-thumb-size;
+        height: $compact-thumb-size;
+        background: variables.$anchor-font-color;
+        border-color: variables.$white;
+      }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .dual-range-slider__track {
+        height: $compact-touch-thumb-size;
+      }
+
+      .dual-range-slider__rail,
+      .dual-range-slider__fill {
+        height: $compact-touch-track-height;
+      }
+
+      .dual-range-slider input[type="range"] {
+        top: 35%;
+        height: $compact-touch-thumb-size;
+        transform: translateY(-50%);
+
+        &::-webkit-slider-runnable-track {
+          height: $compact-touch-track-height;
+        }
+
+        &::-moz-range-track {
+          height: $compact-touch-track-height;
+        }
+
+        &::-webkit-slider-thumb {
+          width: $compact-touch-thumb-size;
+          height: $compact-touch-thumb-size;
+          margin-top: calc(
+            ($compact-touch-track-height - $compact-touch-thumb-size) / 2
+          );
+          border-width: 3px;
+        }
+
+        &::-moz-range-thumb {
+          width: $compact-touch-thumb-size;
+          height: $compact-touch-thumb-size;
+          border-width: 3px;
+        }
+      }
+    }
+  }
+
+  // push search to the far right
+  .station-dashboard-filter__search {
+    margin-left: auto;
+    align-self: flex-end;
+    .pure-form-search {
+      justify-content: flex-end;
+    }
+  }
+
+  .station-dashboard-filter__add {
+    align-self: flex-end;
+
+    .station-dashboard-filter__add-button {
+      display: inline-flex;
+      align-items: center;
+      gap: variables.$padding * 0.4;
+      height: $filter-control-height;
+      box-sizing: border-box;
+      color: variables.$brand;
+      background-color: variables.$white;
+      white-space: nowrap;
+
+      svg {
+        display: block;
+      }
+
+      &:hover {
+        color: variables.$white;
+        background-color: variables.$anchor-font-color;
+      }
+    }
+  }
+
+  // small screens: show only the search icon; on interaction expand leftward
+  // over the other filters instead of pushing outside the visible area
+  @media screen and (max-width: 53em) {
+    .station-dashboard-filter__bar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: end;
+      column-gap: variables.$padding * 0.5;
+      row-gap: variables.$padding * 0.1;
+      grid-template-areas:
+        "province . search"
+        ". toggle ."
+        "extras extras extras";
+    }
+
+    &.is-expanded .station-dashboard-filter__bar {
+      grid-template-areas:
+        "province . search"
+        "extras extras extras"
+        ". toggle .";
+    }
+
+    &.is-expanded .station-dashboard-filter__toggle {
+      margin-top: variables.$padding;
+    }
+
+    .station-dashboard-filter__date {
+      min-width: 0;
+      flex-shrink: 1;
+
+      .pure-form input {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+
+    .station-dashboard-filter__search {
+      grid-area: search;
+      justify-self: end;
+      margin-left: 0;
+      align-self: end;
+      position: static;
+
+      .pure-form-search {
+        justify-content: flex-end;
+
+        input,
+        &:hover input,
+        &:focus-within input {
+          width: 7em;
+        }
+      }
+    }
+
+    .station-dashboard-filter__add {
+      grid-column: 1 / -1;
+      justify-self: end;
+      margin-left: 0;
+    }
+
+    .station-dashboard-filter__toggle {
+      display: inline-flex;
+      grid-area: toggle;
+      justify-self: center;
+      align-self: end;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 0.9rem;
+      padding: 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .station-dashboard-filter__toggle-chevron {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-right: 2px solid variables.$white;
+      border-bottom: 2px solid variables.$white;
+      transform: rotate(45deg);
+      transition: transform 0.15s ease;
+    }
+
+    &.is-expanded .station-dashboard-filter__toggle-chevron {
+      transform: rotate(-135deg);
+    }
+
+    .station-dashboard-filter__extras {
+      display: none;
+      grid-area: extras;
+      width: 100%;
+      margin-top: 0;
+    }
+
+    &.is-expanded .station-dashboard-filter__extras {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      gap: variables.$padding * 0.5;
+      padding: 0;
+      background: transparent;
+    }
+
+    .station-dashboard-filter__province {
+      grid-area: province;
+      min-width: 0;
+      width: 100%;
+      flex-shrink: 1;
+
+      .selectric-wrapper,
+      .selectric,
+      .dropdown.selectric {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+
+    .station-dashboard-filter__elevation {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+
+  &.station-dashboard-filter--incidents {
+    @media screen and (max-width: 53em) {
+      .station-dashboard-filter__bar {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-areas: "province season search";
+      }
+
+      .station-dashboard-filter__season {
+        grid-area: season;
+        min-width: 0;
+        width: 100%;
+
+        .selectric-wrapper,
+        .selectric,
+        .dropdown.selectric {
+          min-width: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  // the snow-profile date filter is a from/to range (two date inputs), unlike
+  // the single datetime-local on the weather dashboard, so give it room and let
+  // the two inputs share the space instead of overflowing into the province
+  // dropdown next to it
+  &.station-dashboard-filter--profiles {
+    // use the full viewport width instead of the shared .section-centered cap
+    // (body line-length, 55em), which is far too narrow for these controls
+    .station-dashboard-filter__inner {
+      max-width: none;
+    }
+
+    // Larger screens: keep the filters in one centered group with the add
+    // button at the far right. The group does not shrink, so when the button
+    // no longer fits beside it the button drops onto its own line (still
+    // right-aligned).
+    @media screen and (min-width: 53.0625em) {
+      .station-dashboard-filter__bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: variables.$padding * 0.75;
+      }
+
+      .station-dashboard-filter__group {
+        flex: 1 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-end;
+        gap: variables.$padding * 0.75;
+      }
+
+      // undo the shared "push search to the far right" so it stays inside the
+      // centered group
+      .station-dashboard-filter__search {
+        margin-left: 0;
+      }
+
+      .station-dashboard-filter__add {
+        flex: 0 0 auto;
+        margin-left: auto;
+      }
+    }
+
+    @media screen and (max-width: 53em) {
+      .station-dashboard-filter__bar {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: variables.$padding * 0.5;
+      }
+
+      .station-dashboard-filter__group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: variables.$padding * 0.5;
+      }
+
+      // the from/to date range needs the full width on its own row, but the
+      // province dropdown and search share the row below
+      .station-dashboard-filter__date {
+        flex: 1 1 100%;
+        min-width: 0;
+      }
+
+      .station-dashboard-filter__province,
+      .station-dashboard-filter__search {
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .station-dashboard-filter__search {
+        margin-left: 0;
+
+        .pure-form-search {
+          width: 100%;
+
+          input,
+          &:hover input,
+          &:focus-within input {
+            width: 100%;
+          }
+        }
+      }
+
+      .station-dashboard-filter__add {
+        margin-left: 0;
+
+        .station-dashboard-filter__add-button {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    }
+
+    .station-dashboard-filter__date {
+      .date-range-filter {
+        width: 100%;
+        gap: variables.$padding * 0.5;
+
+        > div {
+          flex: 1 1 0;
+          min-width: 0;
+        }
+      }
+
+      .pure-form input[type="date"] {
+        width: 100%;
+        height: $filter-control-height;
+        box-sizing: border-box;
+      }
+
+      @media screen and (min-width: 53.0625em) {
+        width: calc(#{$filter-control-width} * 1.6);
+        min-width: calc(#{$filter-control-width} * 1.6);
+      }
+    }
+  }
+}
+
+.station-dashboard-filter.station-dashboard-filter--table {
+  position: sticky;
+  top: var(--station-dashboard-filter-top, 0px);
+}
+
+.station-view-control {
+  position: fixed;
+  top: calc(
+    var(--station-dashboard-filter-top, 0px) +
+      var(--station-dashboard-filter-offset, 0px) + #{variables.$padding} + 10px
+  );
+  right: calc(#{variables.$padding} + 10px);
+  z-index: 1302;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $controls-width-height;
+  height: $controls-width-height;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  color: variables.$brand;
+  background-color: rgba(variables.$white, 0.95);
+  @include mixins.box-shadow(0.15);
+  box-shadow:
+    0 0 15px 0 rgba(black, 0.15),
+    0 2px 8px 0 rgba(black, 0.35);
+  @include mixins.rollout;
+
+  svg {
+    display: block;
+  }
+
+  &:hover {
+    color: variables.$white;
+    background-color: variables.$anchor-font-color;
+    @include mixins.rollover;
+  }
+}
+
+.station-dashboard-content--map {
+  .leaflet-top.leaflet-left,
+  .leaflet-top.leaflet-right {
+    top: calc(
+      var(--station-dashboard-filter-offset, 0px) + #{variables.$padding}
+    );
+  }
+
+  // station map uses gestureHandling=false so touch zoom buttons are useful
+  @media (hover: none) and (pointer: coarse) {
+    .leaflet-top.leaflet-left .leaflet-control-zoom {
+      display: block;
+    }
+  }
+}
+
+.section-weather-map {
+  //single stations
+  .station circle.inner {
+    stroke: variables.$black;
+    stroke-width: 1.25;
+    stroke-opacity: 0.8;
+    fill-opacity: 1;
+  }
+
+  .station text {
+    @include mixins.font-bold;
+    font-size: 10px;
+  }
+
+  //outer circle - only selected stations
+  .station circle.outer,
+  .gridpoint circle.outer {
+    stroke: variables.$black;
+    fill: none;
+    fill-opacity: 0;
+    stroke-width: 3;
+  }
+  .blending-not-supported .station circle.outer,
+  .blending-not-supported .gridpoint circle.outer {
+    stroke-width: 4;
+    stroke: variables.$grey;
+  }
+
+  //selected circle in clusters
+  .station-selected-clustered circle.inner {
+    stroke: variables.$black;
+    stroke-width: 2;
+    fill: variables.$white;
+  }
+
+  //grid point
+  .gridpoint circle.inner {
+    stroke-width: 2.2;
+    stroke-dasharray: 0 4;
+    stroke-linecap: round;
+    stroke: variables.$black;
+    stroke-opacity: 0.8;
+  }
+
+  .leaflet-marker-icon {
+    background: none;
+    border: none;
+  }
+
+  // .leaflet-marker-pane {
+  //   z-index: 700;
+  // }
+
+  .station,
+  .gridpoint {
+    .direction {
+      path {
+        stroke: variables.$black;
+        fill: variables.$black;
+        stroke-width: 0.75;
+      }
+    }
+  }
+
+  .gridpoint text {
+    @include mixins.font-bold;
+    font-size: 10px;
+  }
+}
+
+//added 202112
+.station-icon-cluster-circle {
+  display: none;
+  .leaflet-cluster-marker & {
+    display: unset;
+  }
+}
+
+//202009: is this still in use? existing in feature-info.tsx so better keep alive from here ...
+.weather-map-details {
+  z-index: 100;
+  display: table;
+  position: absolute;
+  top: variables.$padding;
+  left: calc(100% - #{variables.$padding});
+  transform: translateX(-100%);
+  min-width: 20em !important;
+  max-width: 75% !important;
+  padding: 0;
+  font-size: variables.$tiny-font-size;
+  background-color: rgba(variables.$white, 0.95);
+  @include mixins.box-shadow(0.15);
+  @include mixins.rollout();
+
+  .weather-map-details-text {
+    margin: (variables.$padding * 2) (variables.$padding * 2)
+      (variables.$padding * 1.5) (variables.$padding * 2);
+  }
+  p {
+    margin: 0;
+    font-size: variables.$tiny-font-size;
+  }
+  .feature-name {
+    @include mixins.font-bold;
+  }
+  .operator-name {
+    font-size: variables.$small-font-size;
+  }
+}
+a.weather-map-details-button {
+  display: block;
+  width: 100%;
+  padding: variables.$padding;
+  font-size: variables.$tiny-font-size;
+  color: variables.$anchor-font-color;
+  background: transparent;
+  border-color: none;
+  span {
+    @include mixins.font-normal;
+    @include mixins.letter-spacing(0);
+    text-transform: none;
+    &:before {
+      position: relative;
+      top: 0.15em;
+      margin: 0;
+    }
+  }
+  &:hover {
+    color: variables.$white;
+    background: variables.$anchor-font-color;
+    border-color: variables.$anchor-font-color;
+  }
+}
+//...to here
+
+.maplibre-station-tooltip {
+  .maplibregl-popup-content {
+    padding: 0.25em 0.5em;
+  }
+}
+
+.section-weather-map .maplibregl-ctrl-top-left {
+  top: var(--station-dashboard-filter-offset, 0px);
+}
+
+// Show/hide-pins control (StationPinsControl), matching the look of the
+// Leaflet map controls (square, brand-colored Fontello icon, inverted hover).
+.maplibregl-ctrl-group.maplibregl-ctrl-station-pins {
+  button {
+    width: $controls-width-height;
+    height: $controls-width-height;
+    color: variables.$brand;
+    background-color: rgba(variables.$white, 0.95);
+    border: none;
+    cursor: pointer;
+    &:before {
+      margin-right: 0;
+      font-size: $controls-width-height * 0.75;
+      line-height: $controls-width-height;
+    }
+    &:hover {
+      color: variables.$white;
+      background-color: variables.$anchor-font-color;
+    }
+  }
+}
+
+// Rotate the attribution so it runs vertically up the right edge,
+// anchored at the bottom-right corner and reading bottom-to-top.
+.maplibregl-ctrl-bottom-right {
+  transform-origin: right bottom;
+  transform: rotate(-90deg) translateX(100%);
+  .maplibregl-ctrl-attrib {
+    white-space: nowrap;
+    margin: 0 !important;
+    padding: 0 0.25em !important;
+    font-size: 10px;
+    border-radius: 0 !important;
+    background-color: rgba(variables.$white, 0.5) !important;
+  }
+}

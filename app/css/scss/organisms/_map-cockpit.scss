@@ -174,7 +174,7 @@ $cp-breakpoint-3: 1024px;
     .layer-select-info {
       display: none;
       font-size: $cp-font-size-small;
-      @media #{variables.$tiny} {
+      @media #{variables.breakpoint-up(tiny)} {
         display: inline;
       }
       @media screen and (min-width: $cp-breakpoint-2) {

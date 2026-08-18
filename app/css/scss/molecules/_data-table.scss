@@ -1,0 +1,78 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
+/*------------------------------------*\
+    #DATA-TABLE
+\*------------------------------------*/
+
+/* Generic chrome for the shared `DataTable` component (see
+   app/components/table/data-table.tsx). Every table it renders carries
+   `.data-table`; domain-specific styling lives in the per-table organism
+   (e.g. `.table-measurements` in _measurements.scss). */
+
+/* Cap the height of the enclosing `.table-container` so a wide/long DataTable becomes 
+   a self-contained scroll viewport. */
+.table-container:has(> .data-table) {
+  max-height: 80vh;
+}
+
+.data-table {
+  position: relative;
+
+  thead {
+    position: relative;
+    tr {
+      position: relative;
+    }
+    th {
+      // Stick the header row to the top of the scrolling `.table-container`
+      // so column labels stay visible while the body scrolls vertically.
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background-color: variables.$table-head-bg;
+      padding: variables.$padding;
+      line-height: 1;
+      text-align: center;
+      &:first-child {
+        text-align: left;
+      }
+    }
+  }
+
+  // The whole header label is the sort control; the caret only appears on the currently active column.
+  .sort-header {
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .sort-header-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25em;
+  }
+
+  .sort-caret {
+    color: variables.$brand;
+    &:before {
+      display: block;
+      margin-right: 0;
+    }
+  }
+
+  tbody {
+    position: relative;
+    tr {
+      position: relative;
+      cursor: pointer;
+    }
+    td {
+      position: relative;
+      line-height: 1;
+      text-align: center;
+      &:first-child {
+        text-align: left;
+      }
+    }
+  }
+}

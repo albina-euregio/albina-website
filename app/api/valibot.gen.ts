@@ -74,7 +74,16 @@ export const vBlogItem = v.object({
   content: v.string(),
   published: v.pipe(v.string(), v.isoTimestamp()),
   categories: v.array(v.string()),
-  attachmentUrl: v.string()
+  attachmentUrl: v.string(),
+  translations: v.object({
+    de: v.optional(v.string()),
+    it: v.optional(v.string()),
+    en: v.optional(v.string()),
+    fr: v.optional(v.string()),
+    es: v.optional(v.string()),
+    ca: v.optional(v.string()),
+    oc: v.optional(v.string())
+  })
 });
 
 export const vBulletinStatus = v.picklist([
@@ -478,6 +487,11 @@ export const vAvalancheBulletinServiceHighest = v.object({
   dangerRating: vDangerRating
 });
 
+export const vAvalancheBulletinServiceTendencyResult = v.object({
+  dates: v.optional(v.array(v.pipe(v.string(), v.isoTimestamp()))),
+  dangerRatings: v.optional(v.record(v.string(), v.array(vDangerRating)))
+});
+
 export const vDangerRatingModificator = v.picklist([
   "none",
   "minus",
@@ -771,11 +785,10 @@ export const vIncidentsAttachment = v.object({
   credit: v.string(),
   dateAdded: v.pipe(v.string(), v.isoTimestamp()),
   dateCreated: v.pipe(v.string(), v.isoTimestamp()),
-  file: v.string(),
   fileName: v.string(),
   id: v.pipe(v.string(), v.uuid()),
   mediaType: v.string(),
-  attachmentPublic: v.boolean()
+  public: v.boolean()
 });
 
 export const vIncidentsAvalancheGear = v.picklist([
@@ -921,7 +934,7 @@ export const vIncidentsInvolvementsFatalitiesBurials = v.object({
   fatalities: v.number(),
   fullyBuried: v.number(),
   incidentActivity: v.array(v.string()),
-  incidentTerrainType: vIncidentsIncidentTerrainType,
+  incidentTerrainType: v.array(vIncidentsIncidentTerrainType),
   injuredSurvivors: v.number(),
   involvementsFatalitiesBurialsComment: v.string(),
   numberInvolved: v.number(),
@@ -999,7 +1012,7 @@ export const vIncidentsStartZoneAspect = v.picklist([
 ]);
 
 export const vIncidentsAvalancheProblem = v.object({
-  aspects: vIncidentsStartZoneAspect,
+  aspects: v.array(vIncidentsStartZoneAspect),
   avalancheSize: vIncidentsAvalancheProblemAvalancheSize,
   elevationLowerBound: v.string(),
   elevationUpperBound: v.string(),
@@ -1130,7 +1143,7 @@ export const vIncidentsIncidentSchema = v.object({
   crownDepthMax: v.number(),
   crownDepthMin: v.number(),
   damagedAssets: v.array(v.string()),
-  dangerPattern: vIncidentsDangerPattern,
+  dangerPattern: v.array(vIncidentsDangerPattern),
   dangerRating: vIncidentsDangerRating,
   dateTime: v.pipe(v.string(), v.isoTimestamp()),
   debrisDensity: v.number(),
@@ -1250,6 +1263,143 @@ export const vMatrixInformation = v.object({
     vNaturalAvalancheReleaseProbability
   ),
   naturalHazardSiteDistribution: v.optional(vHazardSiteDistribution)
+});
+
+export const vPasskeyServiceAssertionResponse = v.object({
+  clientDataJSON: v.string(),
+  authenticatorData: v.string(),
+  signature: v.string(),
+  userHandle: v.nullish(v.string())
+});
+
+export const vPasskeyServiceAttestationResponse = v.object({
+  clientDataJSON: v.string(),
+  attestationObject: v.string()
+});
+
+export const vPasskeyServiceAuthenticationCredential = v.object({
+  id: v.string(),
+  type: v.string(),
+  response: vPasskeyServiceAssertionResponse
+});
+
+export const vPasskeyServiceAuthenticatorSelection = v.object({
+  residentKey: v.string(),
+  userVerification: v.string()
+});
+
+export const vPasskeyServiceCredentialDescriptor = v.object({
+  type: v.string(),
+  id: v.string()
+});
+
+export const vPasskeyServiceLoginBeginRequest = v.object({
+  username: v.nullish(v.string())
+});
+
+export const vPasskeyServiceLoginFinishRequest = v.object({
+  state: v.string(),
+  credential: vPasskeyServiceAuthenticationCredential
+});
+
+/**
+ * What a passkey management UI needs to show --- never the credential ID or public key.
+ */
+export const vPasskeyServicePasskeyInfo = v.object({
+  id: v.string(),
+  name: v.nullish(v.string()),
+  createdAt: v.pipe(v.string(), v.isoTimestamp()),
+  lastUsedAt: v.nullish(v.pipe(v.string(), v.isoTimestamp()))
+});
+
+export const vPasskeyServicePubKeyCredParam = v.object({
+  type: v.string(),
+  alg: v.pipe(
+    v.union([v.number(), v.string(), v.bigint()]),
+    v.transform(x => BigInt(x)),
+    v.minValue(
+      BigInt("-9223372036854775808"),
+      "Invalid value: Expected int64 to be >= -9223372036854775808"
+    ),
+    v.maxValue(
+      BigInt("9223372036854775807"),
+      "Invalid value: Expected int64 to be <= 9223372036854775807"
+    )
+  )
+});
+
+export const vPasskeyServicePublicKeyCredentialRequestOptions = v.object({
+  challenge: v.string(),
+  rpId: v.string(),
+  allowCredentials: v.array(vPasskeyServiceCredentialDescriptor),
+  userVerification: v.string(),
+  timeout: v.pipe(
+    v.union([v.number(), v.string(), v.bigint()]),
+    v.transform(x => BigInt(x)),
+    v.minValue(
+      BigInt("-9223372036854775808"),
+      "Invalid value: Expected int64 to be >= -9223372036854775808"
+    ),
+    v.maxValue(
+      BigInt("9223372036854775807"),
+      "Invalid value: Expected int64 to be <= 9223372036854775807"
+    )
+  )
+});
+
+export const vPasskeyServiceLoginChallenge = v.object({
+  state: v.string(),
+  publicKey: vPasskeyServicePublicKeyCredentialRequestOptions
+});
+
+export const vPasskeyServiceRegistrationCredential = v.object({
+  id: v.string(),
+  type: v.string(),
+  response: vPasskeyServiceAttestationResponse
+});
+
+export const vPasskeyServiceRegisterFinishRequest = v.object({
+  state: v.string(),
+  credential: vPasskeyServiceRegistrationCredential,
+  name: v.nullish(v.string())
+});
+
+export const vPasskeyServiceRelyingParty = v.object({
+  id: v.string(),
+  name: v.string()
+});
+
+export const vPasskeyServiceUserEntity = v.object({
+  id: v.string(),
+  name: v.string(),
+  displayName: v.string()
+});
+
+export const vPasskeyServicePublicKeyCredentialCreationOptions = v.object({
+  challenge: v.string(),
+  rp: vPasskeyServiceRelyingParty,
+  user: vPasskeyServiceUserEntity,
+  pubKeyCredParams: v.array(vPasskeyServicePubKeyCredParam),
+  authenticatorSelection: vPasskeyServiceAuthenticatorSelection,
+  attestation: v.string(),
+  excludeCredentials: v.array(vPasskeyServiceCredentialDescriptor),
+  timeout: v.pipe(
+    v.union([v.number(), v.string(), v.bigint()]),
+    v.transform(x => BigInt(x)),
+    v.minValue(
+      BigInt("-9223372036854775808"),
+      "Invalid value: Expected int64 to be >= -9223372036854775808"
+    ),
+    v.maxValue(
+      BigInt("9223372036854775807"),
+      "Invalid value: Expected int64 to be <= 9223372036854775807"
+    )
+  )
+});
+
+export const vPasskeyServiceRegistrationChallenge = v.object({
+  state: v.string(),
+  publicKey: vPasskeyServicePublicKeyCredentialCreationOptions
 });
 
 export const vPosition = v.picklist([
@@ -1753,7 +1903,8 @@ export const vUser = v.object({
   image: v.optional(v.string()),
   organization: v.optional(v.string()),
   languageCode: v.optional(vLanguageCode),
-  deleted: v.optional(v.boolean())
+  deleted: v.optional(v.boolean()),
+  lastUsedAt: v.optional(v.pipe(v.string(), v.isoTimestamp()))
 });
 
 export const vAuthenticationServiceAuthenticationResponse = v.object({
@@ -1827,6 +1978,109 @@ export const vUserServiceCheckPassword = v.object({
 
 export const vUserServiceResetPassword = v.object({
   newPassword: v.string()
+});
+
+export const vWeatherStationsFeatureType = v.picklist(["Feature"]);
+
+export const vWeatherStationsFeatureCollectionType = v.picklist([
+  "FeatureCollection"
+]);
+
+export const vWeatherStationsGeometryType = v.picklist(["Point"]);
+
+export const vWeatherStationsGeometry = v.object({
+  coordinates: v.optional(v.array(v.number())),
+  type: vWeatherStationsGeometryType
+});
+
+export const vWeatherStationsStatistics = v.object({
+  average: v.number(),
+  count: v.number(),
+  delta: v.number(),
+  max: v.number(),
+  median: v.number(),
+  min: v.number(),
+  sum: v.number(),
+  unit: v.optional(
+    v.picklist([
+      "K",
+      "℃",
+      "m",
+      "cm",
+      "mm",
+      "1",
+      "%",
+      "°",
+      "m/s",
+      "km/h",
+      "hPa",
+      "Pa",
+      "W/m²"
+    ])
+  )
+});
+
+/**
+ * The properties of a weather station including measured values
+ */
+export const vWeatherStationsProperties = v.object({
+  altitude: v.optional(v.number()),
+  dataProviderID: v.string(),
+  dataURLs: v.optional(v.array(v.string())),
+  date: v.optional(v.pipe(v.string(), v.isoTimestamp())),
+  DW: v.optional(v.number()),
+  HS: v.optional(v.number()),
+  HSD_24: v.optional(v.number()),
+  HSD_48: v.optional(v.number()),
+  HSD_6: v.optional(v.number()),
+  HSD_72: v.optional(v.number()),
+  ILWR: v.optional(v.number()),
+  ISWR: v.optional(v.number()),
+  microRegionID: v.optional(v.string()),
+  name: v.optional(v.string()),
+  OLWR: v.optional(v.number()),
+  operator: v.optional(v.string()),
+  operatorLicense: v.optional(v.string()),
+  operatorLicenseLink: v.optional(v.pipe(v.string(), v.url())),
+  operatorLink: v.optional(v.pipe(v.string(), v.url())),
+  P: v.optional(v.number()),
+  plot: v.optional(v.string()),
+  PSUM_24: v.optional(v.number()),
+  PSUM_48: v.optional(v.number()),
+  PSUM_6: v.optional(v.number()),
+  PSUM_72: v.optional(v.number()),
+  RH: v.optional(v.number()),
+  RSWR: v.optional(v.number()),
+  shortName: v.optional(v.pipe(v.string(), v.regex(/^[A-Za-z0-9]+$/))),
+  startYear: v.optional(v.string()),
+  stationCharacteristics: v.optional(v.string()),
+  statistics: v.object({}),
+  TA: v.optional(v.number()),
+  TA_MAX: v.optional(v.number()),
+  TA_MIN: v.optional(v.number()),
+  TD: v.optional(v.number()),
+  TSS: v.optional(v.number()),
+  VW: v.optional(v.number()),
+  VW_MAX: v.optional(v.number())
+});
+
+/**
+ * A GeoJSON Feature corresponding to one weather station
+ */
+export const vWeatherStationsFeature = v.object({
+  geometry: vWeatherStationsGeometry,
+  id: v.optional(v.string()),
+  properties: vWeatherStationsProperties,
+  type: vWeatherStationsFeatureType
+});
+
+/**
+ * A GeoJSON FeatureCollection of weather stations
+ */
+export const vWeatherStationsFeatureCollection = v.object({
+  features: v.array(vWeatherStationsFeature),
+  properties: v.record(v.string(), v.unknown()),
+  type: vWeatherStationsFeatureCollectionType
 });
 
 export const vWetness = v.picklist(["wet", "moist", "dry"]);
@@ -2039,6 +2293,28 @@ export const vDangerSourceVariant = v.intersect([
 ]);
 
 /**
+ * Date of validity in the format yyyy-MM-dd
+ */
+export const vStaticDate = v.pipe(v.string(), v.isoDate());
+
+/**
+ * Timestamp of the hourly snapshot in the format yyyy-MM-dd_HH-mm
+ */
+export const vStaticDateTime = v.string();
+
+/**
+ * Publication timestamp in the format yyyy-MM-dd_HH-mm-ss
+ */
+export const vStaticPublication = v.string();
+
+/**
+ * Region ID, e.g. `EUREGIO`, `AT-07`, `IT-32-BZ`, `IT-32-TN`
+ */
+export const vStaticRegion = v.string();
+
+export const vStaticLang = vLanguageCode;
+
+/**
  * index 200 response
  */
 export const vIndexResponse = v.string();
@@ -2049,6 +2325,42 @@ export const vLoginBody = vAuthenticationServiceCredentials;
  * login 200 response
  */
 export const vLoginResponse = vAuthenticationServiceAuthenticationResponse;
+
+/**
+ * listPasskeys 200 response
+ */
+export const vListPasskeysResponse = v.array(vPasskeyServicePasskeyInfo);
+
+export const vFinishLoginBody = vPasskeyServiceLoginFinishRequest;
+
+/**
+ * finishLogin 200 response
+ */
+export const vFinishLoginResponse =
+  vAuthenticationServiceAuthenticationResponse;
+
+export const vBeginLoginBody = vPasskeyServiceLoginBeginRequest;
+
+/**
+ * beginLogin 200 response
+ */
+export const vBeginLoginResponse = vPasskeyServiceLoginChallenge;
+
+export const vFinishRegistrationBody = vPasskeyServiceRegisterFinishRequest;
+
+/**
+ * finishRegistration 200 response
+ */
+export const vFinishRegistrationResponse = vPasskeyServicePasskeyInfo;
+
+/**
+ * beginRegistration 200 response
+ */
+export const vBeginRegistrationResponse = vPasskeyServiceRegistrationChallenge;
+
+export const vDeletePasskeyPath = v.object({
+  id: v.string()
+});
 
 /**
  * testAuth 200 response
@@ -2341,6 +2653,16 @@ export const vSubmitBulletinsQuery = v.object({
   region: v.string(),
   date: v.string()
 });
+
+export const vGetTendencyQuery = v.object({
+  date: v.string(),
+  region: v.nullish(v.string())
+});
+
+/**
+ * tendency of each micro region with published bulletins
+ */
+export const vGetTendencyResponse = vAvalancheBulletinServiceTendencyResult;
 
 export const vDeleteJsonBulletinPath = v.object({
   bulletinId: v.string()
@@ -2821,3 +3143,112 @@ export const vResetPasswordBody = vUserServiceResetPassword;
 export const vResetPasswordPath = v.object({
   id: v.string()
 });
+
+/**
+ * Directory listing of the bulletin archive
+ */
+export const vGetStaticArchiveResponse = v.string();
+
+export const vGetStaticCaamlJsonPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  region: v.string(),
+  lang: vLanguageCode
+});
+
+/**
+ * CAAML v6 JSON bulletins
+ */
+export const vGetStaticCaamlJsonResponse = vCaamlAvalancheBulletins;
+
+export const vGetStaticCaamlXmlPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  region: v.string(),
+  lang: vLanguageCode
+});
+
+/**
+ * CAAML v6 XML bulletins
+ */
+export const vGetStaticCaamlXmlResponse = v.string();
+
+export const vGetStaticCaamlJsonForPublicationPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  publication: v.string(),
+  region: v.string(),
+  lang: vLanguageCode
+});
+
+/**
+ * CAAML v6 JSON bulletins
+ */
+export const vGetStaticCaamlJsonForPublicationResponse =
+  vCaamlAvalancheBulletins;
+
+export const vGetStaticMapPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  publication: v.string(),
+  file: v.string()
+});
+
+/**
+ * Danger map
+ */
+export const vGetStaticMapResponse = v.string();
+
+export const vGetStaticMp3Path = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  region: v.string(),
+  lang: vLanguageCode
+});
+
+/**
+ * Audio bulletin
+ */
+export const vGetStaticMp3Response = v.string();
+
+export const vGetStaticEawsProblemsPath = v.object({
+  date: v.pipe(v.string(), v.isoDate())
+});
+
+/**
+ * Avalanche problems keyed by micro-region ID
+ */
+export const vGetStaticEawsProblemsResponse = v.record(v.string(), v.unknown());
+
+export const vGetStaticEawsRatingsPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  region: v.string()
+});
+
+/**
+ * Danger ratings keyed by micro-region ID
+ */
+export const vGetStaticEawsRatingsResponse = v.record(v.string(), v.unknown());
+
+/**
+ * Weather stations as GeoJSON
+ */
+export const vGetStaticWeatherStationsResponse =
+  vWeatherStationsFeatureCollection;
+
+export const vGetStaticWeatherStationsForDateTimePath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  dateTime: v.string()
+});
+
+/**
+ * Weather stations as GeoJSON
+ */
+export const vGetStaticWeatherStationsForDateTimeResponse =
+  vWeatherStationsFeatureCollection;
+
+export const vGetStaticSimpleHtmlPath = v.object({
+  date: v.pipe(v.string(), v.isoDate()),
+  region: v.string(),
+  lang: vLanguageCode
+});
+
+/**
+ * Simple HTML rendering of the bulletins
+ */
+export const vGetStaticSimpleHtmlResponse = v.string();

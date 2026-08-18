@@ -1,32 +1,49 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useStore } from "@nanostores/react";
+import * as v from "valibot";
+import {
+  vIncidentsAttachment,
+  vIncidentsAvalancheProblem,
+  vIncidentsIncidentSchema
+} from "../api/valibot.gen";
 import { $router, redirectPageQuery } from "../components/router";
 import { fetchJSON } from "../util/fetch";
 import { currentSeasonYear } from "../util/date-season";
-import { getWarnlevelNumber, WARNLEVEL_COLORS } from "../util/warn-levels";
+import { getWarnlevelNumber } from "../util/warn-levels";
 import type { DangerRatingValue } from "./bulletin";
 
+/** The full incident schema (all fields) as generated from the OpenAPI spec. */
+export type IncidentSchema = v.InferOutput<typeof vIncidentsIncidentSchema>;
+export type IncidentAvalancheProblem = v.InferOutput<
+  typeof vIncidentsAvalancheProblem
+>;
+export type IncidentAttachment = v.InferOutput<typeof vIncidentsAttachment>;
+
+/** A public attachment with a resolved download URL, ready for rendering. */
+export type IncidentAttachmentView = Partial<IncidentAttachment> & {
+  url: string;
+};
+
+export type IncidentPublicData = Partial<IncidentSchema>;
+
 /**
- * Shape of `Incident.publicData` as returned by GET /incidents. The OpenAPI
- * spec (https://dev.avalanche.report/api/openapi.json) types this as a bare
- * `object` (the backend keeps it generic), so this interface is inferred from
- * observed responses rather than a generated schema.
+ * How people were affected by an incident, ordered from most to least severe.
  */
-export interface IncidentPublicData {
-  dateTime?: string;
-  location?: string;
-  latitude?: number;
-  longitude?: number;
-  locationAccuracy?: string;
-  avalancheRegion?: string | null;
-  dangerRating?: DangerRatingValue;
-  avalancheType?: string;
-  avalancheSize?: string;
-  trigger?: string;
-  remoteTriggering?: string;
-  personInvolvement?: string;
-  otherDamages?: string;
-  startZoneElevation?: number;
+export const INCIDENT_INVOLVEMENTS = [
+  "fatal",
+  "injured",
+  "involved",
+  "uninvolved",
+  "unknown"
+] as const;
+
+export type IncidentInvolvement = (typeof INCIDENT_INVOLVEMENTS)[number];
+
+/** Ranks an involvement, most severe highest. */
+export function involvementSeverity(involvement: IncidentInvolvement): number {
+  return (
+    INCIDENT_INVOLVEMENTS.length - INCIDENT_INVOLVEMENTS.indexOf(involvement)
+  );
 }
 
 interface RawIncident {
@@ -86,10 +103,39 @@ export class IncidentData {
     return this.publicData.personInvolvement;
   }
 
-  /** Marker/legend color, reusing the standard avalanche danger scale colors. */
-  get color(): string {
-    const rating = this.dangerRating;
-    return WARNLEVEL_COLORS[rating ? getWarnlevelNumber(rating) : 0];
+  get numberInvolved(): number {
+    return this.publicData.involvementsFatalitiesBurials?.numberInvolved ?? 0;
+  }
+
+  get fatalities(): number {
+    return this.publicData.involvementsFatalitiesBurials?.fatalities ?? 0;
+  }
+
+  get injuredSurvivors(): number {
+    return this.publicData.involvementsFatalitiesBurials?.injuredSurvivors ?? 0;
+  }
+
+  /**
+   * Public attachments with resolved download URLs. The public JSON omits the
+   * binary; it is served (unauthenticated) from
+   * `/incidents/{id}/attachment/{attachmentId}`.
+   */
+  get attachments(): IncidentAttachmentView[] {
+    return (this.publicData.attachments ?? [])
+      .filter(a => a.public !== false && a.id)
+      .map(a => ({
+        ...a,
+        url: `${config.apis.incidents}/${this.id}/attachment/${a.id}`
+      }));
+  }
+
+  get involvement(): IncidentInvolvement {
+    if (this.fatalities) return "fatal";
+    if (this.injuredSurvivors) return "injured";
+    if (this.personInvolvement === "Yes" || this.numberInvolved)
+      return "involved";
+    if (this.personInvolvement === "No") return "uninvolved";
+    return "unknown";
   }
 }
 
@@ -111,15 +157,51 @@ export async function loadIncidentData(
   seasonYear: number
 ): Promise<IncidentData[]> {
   const all = await Promise.all(
-    config.regionCodes.map(region =>
+    (config.incidentRegions ?? config.regionCodes).map(region =>
       fetchIncidentsForRegion(region, seasonYear)
     )
   );
   return all.flat();
 }
 
-type SortableField = "location" | "dateTime" | "region";
+export type SortableField =
+  | "location"
+  | "dateTime"
+  | "region"
+  | "dangerRating"
+  | "avalancheType"
+  | "avalancheSize"
+  | "personInvolvement";
 type SortDir = "asc" | "desc";
+
+/** EAWS avalanche-size ordering (smallest first); `unknown` sorts last. */
+const AVALANCHE_SIZE_ORDER: Record<string, number> = {
+  small: 0,
+  small_medium: 1,
+  medium: 2,
+  medium_large: 3,
+  large: 4,
+  large_very_large: 5,
+  very_large: 6,
+  very_large_extreme: 7,
+  extreme: 8
+};
+
+/**
+ * Per-column value accessors for fields that must sort by meaning rather than
+ * alphabetically.
+ */
+const SORT_ACCESSORS: Partial<
+  Record<SortableField, (r: IncidentData) => unknown>
+> = {
+  dangerRating: r =>
+    r.dangerRating ? getWarnlevelNumber(r.dangerRating) : undefined,
+  avalancheSize: r =>
+    r.avalancheSize ? AVALANCHE_SIZE_ORDER[r.avalancheSize] : undefined,
+  personInvolvement: r => -involvementSeverity(r.involvement)
+};
+
+const collator = new Intl.Collator("de");
 
 function compareIncidentData(
   a: IncidentData,
@@ -128,15 +210,20 @@ function compareIncidentData(
   sortDir: SortDir
 ): number {
   const order = sortDir === "asc" ? [-1, 1] : [1, -1];
-  const va = a[sortValue];
-  const vb = b[sortValue];
+  const accessor =
+    SORT_ACCESSORS[sortValue] ?? ((r: IncidentData) => r[sortValue]);
+  const va = accessor(a);
+  const vb = accessor(b);
   if (va === vb) return 0;
-  if (va === undefined) return order[1];
-  if (vb === undefined) return order[0];
+  if (va === undefined || va === null) return order[1];
+  if (vb === undefined || vb === null) return order[0];
   if (va instanceof Date && vb instanceof Date) {
     return va < vb ? order[0] : order[1];
   }
-  return String(va) < String(vb) ? order[0] : order[1];
+  if (typeof va === "number" && typeof vb === "number") {
+    return va < vb ? order[0] : order[1];
+  }
+  return collator.compare(String(va), String(vb)) < 0 ? order[0] : order[1];
 }
 
 export function useIncidentData() {
