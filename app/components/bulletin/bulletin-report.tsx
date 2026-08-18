@@ -218,12 +218,17 @@ const RegionDropdown: FunctionComponent<{
 
 // "Letzte 7 Tage" series: the per-micro-region daily-max danger level for the
 // last 7 days, sourced from the tendency endpoint (BulletinCollection.load()).
-function getTendencyTrend(bulletin: Bulletin, regionId: string): number[] {
+function getTendencyTrend(
+  bulletin: Bulletin,
+  regionId: string
+): (number | string)[] {
   const ratings = getTendencyProgression(bulletin.customData)?.dangerRatings?.[
     regionId
   ];
   return (ratings ?? []).map(rating =>
-    rating === "missing" ? 0 : getWarnlevelNumber(rating)
+    rating === "missing" || rating === "no_rating" || rating === "no_snow"
+      ? "–"
+      : getWarnlevelNumber(rating)
   );
 }
 
