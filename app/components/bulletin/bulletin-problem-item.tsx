@@ -240,19 +240,23 @@ function BulletinProblemItem({
             {avalancheType && (
               <div
                 className="matrix-avalanche-type"
-                role="button"
-                tabIndex={0}
-                aria-expanded={matrixOpen}
-                aria-label={intl.formatMessage({
-                  id: "bulletin:report:problem:matrix:toggle"
-                })}
-                onClick={() => setMatrixOpen(o => !o)}
-                onKeyDown={e => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setMatrixOpen(o => !o);
-                  }
-                }}
+                {...(avalancheType === "slab"
+                  ? {
+                      role: "button",
+                      tabIndex: 0,
+                      "aria-expanded": matrixOpen,
+                      "aria-label": intl.formatMessage({
+                        id: "bulletin:report:problem:matrix:toggle"
+                      }),
+                      onClick: () => setMatrixOpen(o => !o),
+                      onKeyDown: (e: React.KeyboardEvent) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setMatrixOpen(o => !o);
+                        }
+                      }
+                    }
+                  : {})}
               >
                 <div className="matrix-info">
                   <span className="matrix-info-value">
@@ -262,12 +266,15 @@ function BulletinProblemItem({
                       }
                     />
                   </span>
-                  <span className="icon-down-open"></span>
+                  {avalancheType === "slab" && (
+                    <span className="icon-down-open"></span>
+                  )}
                 </div>
               </div>
             )}
             <div className="matrix-information">
-              {problem?.snowpackStability &&
+              {avalancheType === "slab" &&
+                problem?.snowpackStability &&
                 problem?.problemType !== "gliding_snow" && (
                   <div
                     className={
@@ -301,7 +308,7 @@ function BulletinProblemItem({
                     </span>
                   </div>
                 )}
-              {problem?.frequency && (
+              {avalancheType === "slab" && problem?.frequency && (
                 <div
                   className={
                     "matrix-info" +
@@ -330,7 +337,7 @@ function BulletinProblemItem({
                   </span>
                 </div>
               )}
-              {problem?.avalancheSize && (
+              {avalancheType === "slab" && problem?.avalancheSize && (
                 <div
                   className={
                     "matrix-info" +
