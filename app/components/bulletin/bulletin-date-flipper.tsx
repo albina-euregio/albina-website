@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
-import { getPagePath, redirectPage } from "@nanostores/router";
+import { getPagePath } from "@nanostores/router";
 import { $router } from "../router";
 
 interface Props {
@@ -34,11 +34,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
               id: "bulletin:header:dateflipper:back"
             })}
           >
-            <a
-              href={getPagePath($router, "bulletinDate", {
-                date: prevDate$?.toString() ?? ""
-              })}
-            >
+            <a href={`/${prevDate$?.toString() ?? ""}`}>
               <span className="icon-arrow-left" />
               {prevDate}
             </a>
@@ -58,9 +54,10 @@ function BulletinDateFlipper({ date, latest }: Props) {
                   max={latest.toString()}
                   value={date.toString()}
                   onChange={e =>
-                    redirectPage($router, "bulletinDate", {
-                      date: Temporal.PlainDate.from(e.target.value).toString()
-                    })
+                    $router.open(
+                      `/${Temporal.PlainDate.from(e.target.value).toString()}`,
+                      true
+                    )
                   }
                 />
               )}
@@ -75,11 +72,7 @@ function BulletinDateFlipper({ date, latest }: Props) {
                 id: "bulletin:header:dateflipper:forward"
               })}
             >
-              <a
-                href={getPagePath($router, "bulletinDate", {
-                  date: nextDate$.toString()
-                })}
-              >
+              <a href={`/${nextDate$.toString()}`}>
                 {nextDate + " "}
                 <span className="icon-arrow-right" />
               </a>

@@ -1,9 +1,13 @@
-import { createRouter, redirectPage } from "@nanostores/router";
+import { createRouter } from "@nanostores/router";
 
 export const $router = createRouter({
   home: "/",
+  homeDate: [/^\/(\d{4}-\d{2}-\d{2})$/i, date => ({ date })] as const,
   bulletin: "/bulletin",
-  bulletinDate: "/bulletin/:date",
+  bulletinDate: [
+    /^\/bulletin\/(\d{4}-\d{2}-\d{2})$/i,
+    date => ({ date })
+  ] as const,
   bulletinLatest: "/bulletin/latest",
   incidents: "/incidents",
   snowProfiles: "/profiles",
@@ -38,5 +42,13 @@ export function redirectPageQuery(search: Record<string, string | number>) {
   };
   // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
   Object.entries(search).forEach(([k, v]) => v || delete search[k]);
-  redirectPage($router, router?.route, router?.params, search);
+  // Build the path from the current parsed pathname (router.path) instead of
+  // reversing router.route via getPagePath/redirectPage: RegExp-based routes
+  // (e.g. homeDate, bulletinDate) have no reversible path template and would
+  // throw "RegExp routes are not supported".
+  const path = router?.path ?? "/";
+  const postfix = new URLSearchParams(
+    search as Record<string, string>
+  ).toString();
+  $router.open(postfix ? `${path}?${postfix}` : path, true);
 }

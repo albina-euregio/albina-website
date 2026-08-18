@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
-test("bulletin/2022-02-01", async ({ page }) => {
-  await page.goto("bulletin/2022-02-01?region=AT-07-04");
+test("2022-02-01", async ({ page }) => {
+  await page.goto("2022-02-01?region=AT-07-04");
 
   const header = page.locator("#section-bulletin-header");
   await expect(header).toContainText(/Tuesday,? 1 February 2022/);
@@ -99,8 +99,8 @@ test("bulletin/2022-02-01", async ({ page }) => {
   await expect(tooltip).toContainText("gale, hurricane: > 100 km/h");
 });
 
-// test("bulletin/2022-02-01 snapshot", async ({ page }) => {
-//   await page.goto("/bulletin/2022-02-01");
+// test("2022-02-01 snapshot", async ({ page }) => {
+//   await page.goto("/2022-02-01");
 //   const bulletin = page.locator(
 //     "li[id='0646104c-4d4c-4e4a-896b-ce3a45d0b61b']"
 //   );
@@ -108,8 +108,8 @@ test("bulletin/2022-02-01", async ({ page }) => {
 //   await expect(await bulletin.screenshot()).toMatchSnapshot();
 // });
 
-test("bulletin/2022-02-01 subscribe", async ({ page }) => {
-  await page.goto("bulletin/2022-02-01");
+test("2022-02-01 subscribe", async ({ page }) => {
+  await page.goto("2022-02-01");
   await page
     .locator("#section-bulletin-linkbar")
     .getByRole("link", { name: "Subscribe" })
@@ -134,7 +134,7 @@ test("bulletin/2022-02-01 subscribe", async ({ page }) => {
 });
 
 test("click on map + download pdf", async ({ page }) => {
-  await page.goto("bulletin/2022-02-01");
+  await page.goto("2022-02-01");
 
   const map = page.getByLabel("Map").nth(1);
   const pdfLink = page.getByRole("link", { name: "PDF" }).first();
@@ -157,19 +157,19 @@ test("click on map + download pdf", async ({ page }) => {
 
 test("map hint shows until a region is selected", async ({ page }) => {
   // visible immediately once the map is ready, no hover needed
-  await page.goto("bulletin/2022-02-01");
+  await page.goto("2022-02-01");
   await expect(page.locator(".bulletin-map-cta").first()).toContainText(
     "Select region on map"
   );
 
   // gone once a region is selected
-  await page.goto("bulletin/2022-02-01?region=AT-07-04");
+  await page.goto("2022-02-01?region=AT-07-04");
   await page.locator(".page-loading-screen").waitFor({ state: "hidden" });
   await expect(page.locator(".bulletin-map-cta")).toHaveCount(0);
 });
 
-test("bulletin/2022-02-01 headless", async ({ page }) => {
-  await page.goto("bulletin/2022-02-01?headless=1&region=AT-07-04");
+test("2022-02-01 headless", async ({ page }) => {
+  await page.goto("2022-02-01?headless=1&region=AT-07-04");
 
   await expect(page.locator("header.section-centered")).toContainText(
     "Avalanche Forecast"
@@ -178,7 +178,7 @@ test("bulletin/2022-02-01 headless", async ({ page }) => {
 
   await page.getByRole("link", { name: "31/01" }).click();
 
-  await expect(page).toHaveURL("bulletin/2022-01-31");
+  await expect(page).toHaveURL("2022-01-31");
   await expect(page.locator("header.section-centered")).toContainText(
     "Avalanche Forecast"
   );

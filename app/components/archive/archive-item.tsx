@@ -219,7 +219,7 @@ function BulletinMap({
         id: "archive:show-forecast:hover"
       })}
     >
-      <a href={`/bulletin/${date}`} className={"map-preview img tooltip"}>
+      <a href={`/${date}`} className={"map-preview img tooltip"}>
         <ArchiveAwmapStatic date={date} imgFormat=".jpg" region={region} />
       </a>
     </Tooltip>

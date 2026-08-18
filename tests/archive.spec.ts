@@ -13,7 +13,7 @@ test("archive", async ({ page }) => {
   const preview = page
     .getByRole("row", { name: "29 March 2025" })
     .locator(".map-preview");
-  await expect(preview).toHaveAttribute("href", "/bulletin/2025-03-29", {
+  await expect(preview).toHaveAttribute("href", "/2025-03-29", {
     timeout: 10000
   });
   await expect(preview.getByRole("img")).toHaveAttribute(
@@ -31,7 +31,7 @@ test("archive", async ({ page }) => {
     "more/archive?month=15&year=2024&region=AT-07-22"
   );
 
-  await expect(preview).toHaveAttribute("href", "/bulletin/2025-03-29");
+  await expect(preview).toHaveAttribute("href", "/2025-03-29");
   await expect(preview.getByRole("img")).toHaveAttribute(
     "src",
     /bulletins\/2025-03-29\/.*\.jpg$/
@@ -54,6 +54,6 @@ test("archive headless ", async ({ page }) => {
 
   await page.getByRole("link", { name: "Back to Avalanche Forecast" }).click();
 
-  await expect(page).toHaveURL("bulletin/latest");
+  await expect(page).toHaveURL("");
   await expect(page.locator(".page-header")).toHaveCount(0);
 });

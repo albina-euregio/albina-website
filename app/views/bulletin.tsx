@@ -22,7 +22,6 @@ import HTMLPageLoadingScreen, {
 import { $headless, type Language, setLanguage } from "../appStore";
 import { useStore } from "@nanostores/react";
 import { $router } from "../components/router";
-import { redirectPage } from "@nanostores/router";
 
 function useProblems() {
   const [problems, setProblems] = useState({
@@ -50,8 +49,18 @@ const Bulletin = () => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const router = useStore($router);
-  if (router?.route !== "bulletinDate") throw new Error();
-  const params = router.params;
+  if (
+    router?.route !== "home" &&
+    router?.route !== "homeDate" &&
+    router?.route !== "bulletin" &&
+    router?.route !== "bulletinDate" &&
+    router?.route !== "bulletinLatest"
+  )
+    throw new Error();
+  const dateParam =
+    router.route === "homeDate" || router.route === "bulletinDate"
+      ? router.params.date
+      : undefined;
   const [slowLoading, setLoadingStart] = useSlowLoading();
   const { problems, toggleProblem } = useProblems();
   const [region, setRegion] = useState("");
@@ -87,9 +96,7 @@ const Bulletin = () => {
   }, [lang]);
 
   useEffect(() => {
-    const date = /^\d\d\d\d-\d\d-\d\d$/.test(params.date ?? "")
-      ? Temporal.PlainDate.from(params.date)
-      : latest;
+    const date = dateParam ? Temporal.PlainDate.from(dateParam) : latest;
     if (!date) return;
     if (
       date?.toString() === collection?.date?.toString() &&
@@ -124,22 +131,30 @@ const Bulletin = () => {
     collection?.lang,
     lang,
     latest,
-    params.date,
+    dateParam,
     setLoadingStart
   ]);
 
   useEffect(() => setRegion(router.search.region), [router.search]);
 
   const handleSelectRegion = (id: string) => {
-    // Always replace the history entry (redirectPage). Using openPage (push) for
-    // the first selection produced a visible full re-render/blank that the
-    // replace path (used for subsequent selections) does not.
+    // Always replace the history entry (redirect, not push). Using openPage
+    // (push) for the first selection produced a visible full re-render/blank
+    // that the replace path (used for subsequent selections) does not.
+    //
+    // Built from router.path directly (rather than via redirectPage/
+    // getPagePath, which reverse router.route into a path template): the
+    // bulletin view can be reached through RegExp-based routes (homeDate,
+    // bulletinDate) that have no reversible path template.
     if (id) {
       if (router.search.region !== id) {
-        redirectPage($router, router.route, router.params, { region: id });
+        $router.open(
+          `${router.path}?${new URLSearchParams({ region: id })}`,
+          true
+        );
       }
     } else {
-      redirectPage($router, router.route, router.params, {});
+      $router.open(router.path, true);
     }
   };
 
