@@ -264,13 +264,21 @@ function BulletinMiniMap({
         }
       });
 
-      map.on("click", STATIONS_LAYER, e => {
-        const id = e.features?.[0]?.properties?.id;
-        if (typeof id === "string") onStationClickRef.current(id);
-      });
-      map.on("click", OBSERVATIONS_LAYER, e => {
-        const id = e.features?.[0]?.properties?.$id;
-        if (typeof id === "string") onObservationClickRef.current(id);
+      // Handle both layers in one click so that when a station and an
+      // observation marker overlap, only the topmost feature opens a dialog.
+      map.on("click", e => {
+        const features = map.queryRenderedFeatures(e.point, {
+          layers: [STATIONS_LAYER, OBSERVATIONS_LAYER]
+        });
+        const feature = features[0];
+        if (!feature) return;
+        if (feature.layer.id === STATIONS_LAYER) {
+          const id = feature.properties?.id;
+          if (typeof id === "string") onStationClickRef.current(id);
+        } else if (feature.layer.id === OBSERVATIONS_LAYER) {
+          const id = feature.properties?.$id;
+          if (typeof id === "string") onObservationClickRef.current(id);
+        }
       });
 
       for (const layer of [STATIONS_LAYER, OBSERVATIONS_LAYER]) {
