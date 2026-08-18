@@ -319,26 +319,6 @@ class BulletinCollection {
     }
   }
 
-  async loadEawsProblems() {
-    this.eawsAvalancheProblems = {};
-    if (!this.date || this.date.toString() < "2024-01-01") {
-      return;
-    }
-    try {
-      const url = config.template(config.apis.bulletin.eawsProblems, {
-        date: this.date
-      });
-      const { avalancheProblems } = await fetchJSON<{
-        avalancheProblems: EawsAvalancheProblems;
-      }>(url, {
-        cache: "no-cache"
-      });
-      this.eawsAvalancheProblems = avalancheProblems;
-    } catch (error) {
-      console.warn(`Cannot load EAWS problems for date ${this.date}`, error);
-    }
-  }
-
   get bulletins(): Bulletin[] {
     const bulletins = this.dataRaw?.bulletins ?? [];
     const bulletinIDs = new Set(bulletins.map(b => b.bulletinID));

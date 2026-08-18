@@ -109,7 +109,6 @@ const Bulletin = () => {
             .then(() => collection.load170000()),
           collection.loadExtraBulletins(),
           collection.loadEawsBulletins()
-          // collection.loadEawsProblems()
         ]);
         setStatus(collection.status);
         setCollection(collection);
