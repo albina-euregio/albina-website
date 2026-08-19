@@ -1,3 +1,4 @@
+import * as v from "valibot";
 import { useStore } from "@nanostores/react";
 import { currentSeasonYear } from "../util/date-season";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -62,52 +63,52 @@ export class StationData implements Feature {
     return this.properties.date;
   }
   get TA() {
-    return this.properties.TA.convertTo("℃");
+    return this.properties.TA?.convertTo("℃");
   }
   get TSS() {
-    return this.properties.TSS.convertTo("℃");
+    return this.properties.TSS?.convertTo("℃");
   }
   get TD() {
-    return this.properties.TD.convertTo("℃");
+    return this.properties.TD?.convertTo("℃");
   }
   get TA_MAX() {
-    return this.properties.TA_MAX.convertTo("℃");
+    return this.properties.TA_MAX?.convertTo("℃");
   }
   get TA_MIN() {
-    return this.properties.TA_MIN.convertTo("℃");
+    return this.properties.TA_MIN?.convertTo("℃");
   }
   get HS() {
-    return this.properties.HS.convertTo("cm");
+    return this.properties.HS?.convertTo("cm");
   }
   get HSD_6() {
-    return this.properties.HSD_6.convertTo("cm");
+    return this.properties.HSD_6?.convertTo("cm");
   }
   get HSD_24() {
-    return this.properties.HSD_24.convertTo("cm");
+    return this.properties.HSD_24?.convertTo("cm");
   }
   get HSD_48() {
-    return this.properties.HSD_48.convertTo("cm");
+    return this.properties.HSD_48?.convertTo("cm");
   }
   get HSD_72() {
-    return this.properties.HSD_72.convertTo("cm");
+    return this.properties.HSD_72?.convertTo("cm");
   }
   get PSUM_6() {
-    return this.properties.PSUM_6.convertTo("mm");
+    return this.properties.PSUM_6?.convertTo("mm");
   }
   get PSUM_24() {
-    return this.properties.PSUM_24.convertTo("mm");
+    return this.properties.PSUM_24?.convertTo("mm");
   }
   get PSUM_48() {
-    return this.properties.PSUM_48.convertTo("mm");
+    return this.properties.PSUM_48?.convertTo("mm");
   }
   get PSUM_72() {
-    return this.properties.PSUM_72.convertTo("mm");
+    return this.properties.PSUM_72?.convertTo("mm");
   }
   get RH() {
-    return this.properties.RH.convertTo("%");
+    return this.properties.RH?.convertTo("%");
   }
   get DW() {
-    return this.properties.DW.convertTo("°");
+    return this.properties.DW?.convertTo("°");
   }
   get aspectDW() {
     if (typeof this.DW !== "number") {
@@ -118,16 +119,16 @@ export class StationData implements Feature {
     return classes[index];
   }
   get VW() {
-    return this.properties.VW.convertTo("km/h");
+    return this.properties.VW?.convertTo("km/h");
   }
   get VW_MAX() {
-    return this.properties.VW_MAX.convertTo("km/h");
+    return this.properties.VW_MAX?.convertTo("km/h");
   }
   get ISWR() {
-    return this.properties.ISWR.convertTo("W/m²");
+    return this.properties.ISWR?.convertTo("W/m²");
   }
   get RSWR() {
-    return this.properties.RSWR.convertTo("W/m²");
+    return this.properties.RSWR?.convertTo("W/m²");
   }
 
   get parametersForDialog() {
@@ -368,7 +369,7 @@ export async function _loadStationData({
 
   try {
     const json = await fetchJSON(url);
-    collection = await FeatureCollectionSchema.parseAsync(json);
+    collection = await v.parseAsync(FeatureCollectionSchema, json);
   } catch (e) {
     console.error("Failed fetching station data from " + url, e);
     return [];

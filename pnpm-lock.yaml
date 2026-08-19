@@ -18,8 +18,8 @@ importers:
   .:
     dependencies:
       '@albina-euregio/linea':
-        specifier: ^8.24.6
-        version: 8.24.6(zod@4.3.6)
+        specifier: ^8.25.0
+        version: 8.25.0(valibot@1.4.2(typescript@6.0.3))
       '@eaws/micro-regions_names':
         specifier: ^8.4.0
         version: 8.4.0
@@ -135,10 +135,10 @@ importers:
 
 packages:
 
-  '@albina-euregio/linea@8.24.6':
-    resolution: {integrity: sha1-lqOxYb1A+OlYQYKX1fKkZin+8pk=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.24.6.tgz}
+  '@albina-euregio/linea@8.25.0':
+    resolution: {integrity: sha1-J+6rJLSnbnheJ1EIGpdvZJpsAxo=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.25.0.tgz}
     peerDependencies:
-      zod: ^4.3.0
+      valibot: ^1.4.2
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -1682,21 +1682,18 @@ packages:
   yuku-parser@0.5.48:
     resolution: {integrity: sha512-OWBfhrpgK9+/4+IXG9oT8Bao4AhViQA7vdyNNH7EUg8dQYgwa70XtIBWTpCEme1P1ECyoDNYkn0wT63f8XRcVA==}
 
-  zod@4.3.6:
-    resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
-
 ignoredOptionalDependencies:
   - '@parcel/watcher'
   - fsevents
 
 snapshots:
 
-  '@albina-euregio/linea@8.24.6(zod@4.3.6)':
+  '@albina-euregio/linea@8.25.0(valibot@1.4.2(typescript@6.0.3))':
     dependencies:
       air-datepicker: 3.6.0
       temporal-polyfill: 1.0.1
       uplot: 1.6.32
-      zod: 4.3.6
+      valibot: 1.4.2(typescript@6.0.3)
 
   '@babel/code-frame@7.29.7':
     dependencies:
@@ -2963,5 +2960,3 @@ snapshots:
       '@yuku-parser/binding-linux-x64-musl': 0.5.48
       '@yuku-parser/binding-win32-arm64': 0.5.48
       '@yuku-parser/binding-win32-x64': 0.5.48
-
-  zod@4.3.6: {}
