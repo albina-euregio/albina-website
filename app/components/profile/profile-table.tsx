@@ -1,13 +1,13 @@
 import React, { type ReactNode } from "react";
-import { FormattedMessage, useIntl } from "../../i18n";
+import { useIntl } from "../../i18n";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import {
   stabilityLabelId,
-  type SnowProfileData
+  type SnowProfileData,
+  type SortableField
 } from "../../stores/profileDataStore";
 import DataTable, { type ColumnDef, type SortDir } from "../table/data-table";
-
-type SortableField = "location" | "dateTime" | "region" | "stability";
+import RegionCell from "../table/region-cell";
 
 interface Props {
   sortedFilteredData: SnowProfileData[];
@@ -37,12 +37,13 @@ export default function SnowProfileTable(props: Props) {
       render: row => row.location
     },
     {
-      id: "region",
+      id: "microRegion",
       title: intl.formatMessage({
         id: "measurements:table:header:microRegion"
       }),
-      render: (row): ReactNode =>
-        row.region ? <FormattedMessage id={`region:${row.region}`} /> : ""
+      render: row => (
+        <RegionCell microRegion={row.microRegion} province={row.region} />
+      )
     },
     {
       id: "elevation",

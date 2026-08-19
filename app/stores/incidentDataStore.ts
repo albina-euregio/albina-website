@@ -69,6 +69,10 @@ export class IncidentData {
     return this.publicData.location ?? "";
   }
 
+  get microRegion(): string | undefined {
+    return this.publicData.avalancheRegion;
+  }
+
   get lat(): number | undefined {
     return this.publicData.latitude;
   }

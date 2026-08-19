@@ -91,12 +91,17 @@ export class SnowProfileData {
     return this.raw.stability;
   }
 
-  /** Macro-region code (config.regionCodes) derived from lawis' hierarchical regionId. */
+  /** Macro-region code derived from lawis' hierarchical regionId. */
   get region(): string | undefined {
     const regionId = this.raw.regionId;
     return regionId
       ? config.stationRegions.find(code => regionId.startsWith(code))
       : undefined;
+  }
+
+  /** Micro-region id, e.g. "AT-07-14". */
+  get microRegion(): string | undefined {
+    return this.raw.regionId ?? undefined;
   }
 }
 
@@ -128,7 +133,11 @@ async function fetchSnowProfiles(
   }
 }
 
-export type SortableField = "location" | "dateTime" | "region" | "stability";
+export type SortableField =
+  | "location"
+  | "dateTime"
+  | "microRegion"
+  | "stability";
 type SortDir = "asc" | "desc";
 
 /**

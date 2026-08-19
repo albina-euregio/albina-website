@@ -4,6 +4,7 @@ import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
 import WeatherStationDialog, { useStationId } from "./station-dialog";
 import DataTable, { type ColumnDef } from "../table/data-table";
+import RegionCell from "../table/region-cell";
 
 type SortDir = "desc" | "asc";
 
@@ -66,20 +67,9 @@ export default function StationTable(props: Props) {
       // Regionsname <br> (Tirol)
       id: "microRegion",
       title: title("microRegion"),
-      render: row =>
-        row.microRegion ? (
-          <span className="region" title={row.microRegion}>
-            <FormattedMessage id={`region:${row.microRegion}`} />
-            {row.province &&
-              config.stationRegions.includes(row.province as string) && (
-                <span className={`region region-${row.province}`}>
-                  <FormattedMessage id={`region:${row.province}`} />
-                </span>
-              )}
-          </span>
-        ) : (
-          <></>
-        ),
+      render: row => (
+        <RegionCell microRegion={row.microRegion} province={row.province} />
+      ),
       className: "mb-snow m-name"
     },
     {

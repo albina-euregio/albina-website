@@ -74,5 +74,21 @@
         text-align: left;
       }
     }
+
+    // Region cell (see components/table/region-cell.tsx): province name,
+    // colour-coded, on its own line below the micro-region.
+    .region {
+      font-size: variables.$micro-font-size;
+      display: block;
+    }
+    .region-AT-07 {
+      color: variables.$tyrol-color;
+    }
+    .region-IT-32-BZ {
+      color: variables.$south-tyrol-color;
+    }
+    .region-IT-32-TN {
+      color: variables.$trentino-color;
+    }
   }
 }

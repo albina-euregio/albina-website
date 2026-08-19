@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "../../i18n";
+import { useIntl } from "../../i18n";
 import { useIncidentReportMessages } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { involvementText } from "../../util/incident-involvement";
@@ -13,6 +13,7 @@ import type {
   SortableField
 } from "../../stores/incidentDataStore";
 import DataTable, { type ColumnDef, type SortDir } from "../table/data-table";
+import RegionCell from "../table/region-cell";
 
 interface Props {
   sortedFilteredData: IncidentData[];
@@ -71,7 +72,9 @@ export default function IncidentTable(props: Props) {
       title: intl.formatMessage({
         id: "measurements:table:header:microRegion"
       }),
-      render: row => <FormattedMessage id={`region:${row.region}`} />
+      render: row => (
+        <RegionCell microRegion={row.microRegion} province={row.region} />
+      )
     },
     {
       id: "dangerRating",
