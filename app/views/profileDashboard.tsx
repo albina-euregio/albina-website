@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../i18n";
 import { useSnowProfileData } from "../stores/profileDataStore";
@@ -7,6 +7,7 @@ import SnowProfileTable from "../components/profile/profile-table";
 import SnowProfileDetailsDialog, {
   useSnowProfileId
 } from "../components/profile/profile-details-dialog";
+import SnowProfileFormDialog from "../components/profile/profile-form-dialog";
 import HTMLHeader from "../components/organisms/html-header";
 import ProvinceFilter from "../components/filters/province-filter";
 import DateRangeFilter from "../components/filters/date-range-filter";
@@ -42,8 +43,39 @@ function SnowProfileDashboard() {
     sortDir,
     sortBy,
     sortedFilteredData,
-    chronologicalData
+    chronologicalData,
+    reload
   } = useSnowProfileData();
+
+  // Create + edit open in a modal iframe, keeping the user on the dashboard.
+  const [formOpen, setFormOpen] = useState(false);
+  const [editTarget, setEditTarget] = useState<
+    { id: string; token: string } | undefined
+  >();
+
+  const openNewProfile = () => {
+    setEditTarget(undefined);
+    setFormOpen(true);
+  };
+
+  const openEditProfile = (id: string, token: string) => {
+    setProfileId(""); // close the detail dialog so modals don't stack
+    setEditTarget({ id, token });
+    setFormOpen(true);
+  };
+
+  const handleProfileSaved = (id: string, token: string) => {
+    // Cache the one-time token so this session can offer "Edit".
+    try {
+      sessionStorage.setItem(`profea:token:${id}`, token);
+    } catch {
+      /* ignore quota / privacy-mode errors */
+    }
+    setFormOpen(false);
+    setEditTarget(undefined);
+    reload();
+    setProfileId(id);
+  };
 
   // The dialog flips through the profiles as the current view presents them:
   // chronologically on the map, by the table's sorting in the table.
@@ -126,10 +158,9 @@ function SnowProfileDashboard() {
             </div>
 
             <div className="station-dashboard-filter__add">
-              <a
-                href={config.apis.profiles.replace(/\/api$/, "/")}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={openNewProfile}
                 className="pure-button station-dashboard-filter__add-button"
               >
                 <svg
@@ -147,7 +178,7 @@ function SnowProfileDashboard() {
                   <line x1="3" y1="9" x2="15" y2="9" />
                 </svg>
                 {intl.formatMessage({ id: "profiles:add" })}
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -209,6 +240,17 @@ function SnowProfileDashboard() {
         profiles={flipperData}
         profileId={profileId}
         setProfileId={setProfileId}
+        onEdit={openEditProfile}
+      />
+
+      <SnowProfileFormDialog
+        open={formOpen}
+        onClose={() => {
+          setFormOpen(false);
+          setEditTarget(undefined);
+        }}
+        edit={editTarget}
+        onSaved={handleProfileSaved}
       />
     </>
   );

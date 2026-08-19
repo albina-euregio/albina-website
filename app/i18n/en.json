@@ -405,6 +405,8 @@
   "profiles:detail:open-tab": "Open in new tab",
   "profiles:detail:download-xml": "Download XML",
   "profiles:add": "New snow profile",
+  "profiles:edit": "Edit snow profile",
+  "profiles:form:title": "Snow profile",
   "profiles:table:header:stability": "Snowpack stability",
   "profiles:stability:good": "Good",
   "profiles:stability:fair": "Fair",

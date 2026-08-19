@@ -98,6 +98,21 @@ export default defineConfig({
           }
         ])
       ),
+      // PROFILES_APP_LOCAL routes /profiles-app at a local profea-app ("1" =
+      // localhost:8080, or a full URL). It's served at root, so strip the
+      // prefix. Unset → deployed app (shared entry above).
+      ...(process.env.PROFILES_APP_LOCAL
+        ? {
+            "/profiles-app": {
+              target:
+                process.env.PROFILES_APP_LOCAL === "1"
+                  ? "http://localhost:8080/"
+                  : process.env.PROFILES_APP_LOCAL,
+              changeOrigin: true,
+              rewrite: (path: string) => path.replace(/^\/profiles-app/, "")
+            }
+          }
+        : {}),
       "/smet.hydrographie.info": {
         target: "https://smet.hydrographie.info/",
         changeOrigin: true,

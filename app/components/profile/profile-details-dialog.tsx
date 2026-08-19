@@ -25,6 +25,17 @@ interface Props {
   profiles: SnowProfileData[];
   profileId: string;
   setProfileId: (id: string) => void;
+  /** Opens the edit form; only offered when we hold the profile's token. */
+  onEdit?: (id: string, token: string) => void;
+}
+
+/** The edit token for `profileId`, if it was created in this session. */
+function sessionEditToken(profileId: string): string | undefined {
+  try {
+    return sessionStorage.getItem(`profea:token:${profileId}`) ?? undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 /**
@@ -84,10 +95,16 @@ function usePreloadedImage(src: string) {
   return { loaded, pending, error };
 }
 
-function SnowProfileDetail({ profiles, profileId, setProfileId }: Props) {
+function SnowProfileDetail({
+  profiles,
+  profileId,
+  setProfileId,
+  onEdit
+}: Props) {
   const intl = useIntl();
   const language = useStore($language);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const editToken = sessionEditToken(profileId);
 
   // On narrow screens the profile is wider than the dialog: pan it into view
   // first and only flip once its edge in the swiped direction is reached.
@@ -133,6 +150,31 @@ function SnowProfileDetail({ profiles, profileId, setProfileId }: Props) {
         nextLabel={intl.formatMessage({ id: "dialog:flipper:next" })}
       />
       <div className="snowprofile-detail__actions">
+        {onEdit && editToken && (
+          <button
+            type="button"
+            className="snowprofile-detail__action"
+            onClick={() => onEdit(profileId, editToken)}
+            title={intl.formatMessage({ id: "profiles:edit" })}
+            aria-label={intl.formatMessage({ id: "profiles:edit" })}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 20h9" />
+              <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+            </svg>
+          </button>
+        )}
         <a
           className="snowprofile-detail__action"
           href={profileXmlSrc(profileId)}

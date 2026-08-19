@@ -24,6 +24,20 @@ Use `pnpm run start-dev` and browse to http://localhost:3000/ to use dev server.
 
 Configuration for dev (environment) is defined in config.DEV.json, which overrides settings in config.json
 
+### Testing the profea-app integration locally
+
+The "New snow profile" button opens the [profea-app](https://gitlab.com/albina-euregio/profea) form in a modal iframe under `/profiles-app/`. By default that path is proxied to the deployed app; to run it against a local profea-app checkout:
+
+```sh
+# 1. Start profea-app (Caddy on :8080, backend + db via compose)
+cd ../profea-app && docker compose up --build
+
+# 2. Start albina-website with the proxy pointed at it
+PROFILES_APP_LOCAL=1 pnpm start
+```
+
+`PROFILES_APP_LOCAL=1` targets `http://localhost:8080`; set it to a full URL to use another host/port. The local app is served at the web root, so the proxy strips the `/profiles-app` prefix (see `vite.config.ts`). profea-app's `API_BASE` is relative, so its API calls resolve under `/profiles-app/` too — no extra config needed.
+
 ### Browserstack debugging
 
 in order to test IOS Devices in local mode, server.host in vite.config.ts has to be set to "bs-local.com"
