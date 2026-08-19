@@ -18,8 +18,8 @@ importers:
   .:
     dependencies:
       '@albina-euregio/linea':
-        specifier: ^8.25.0
-        version: 8.25.0(valibot@1.4.2(typescript@6.0.3))
+        specifier: ^8.25.1
+        version: 8.25.1(valibot@1.4.2(typescript@6.0.3))
       '@eaws/micro-regions_names':
         specifier: ^8.4.0
         version: 8.4.0
@@ -135,8 +135,8 @@ importers:
 
 packages:
 
-  '@albina-euregio/linea@8.25.0':
-    resolution: {integrity: sha1-J+6rJLSnbnheJ1EIGpdvZJpsAxo=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.25.0.tgz}
+  '@albina-euregio/linea@8.25.1':
+    resolution: {integrity: sha1-gU2XWX1muhsFlQfUH9P9wtWom50=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.25.1.tgz}
     peerDependencies:
       valibot: ^1.4.2
 
@@ -1529,11 +1529,20 @@ packages:
   temporal-polyfill@1.0.1:
     resolution: {integrity: sha512-N2SoI9olnW7BUsU8RosDphZQl9s+WJ8O7PoJMFCr/e5/1rFkVI4GNOWaSeySG+UoP04foPYsnLWbJmbXOiShZg==}
 
+  temporal-polyfill@1.0.4:
+    resolution: {integrity: sha512-MLEU0qOD2uXlz24oINNtdLZQl8RgmMxSnRtKEGZGGetTJjlRwQJjk+VsJ4EREaUoiaTb8NJOcUiKtoAiWn9EBg==}
+
   temporal-spec@1.0.0:
     resolution: {integrity: sha512-00Ahj1e1ifaERTMOIIGpOCdOo9IEk2m6GGSMedsn9a2SIsGLdOTbmME1Htv6IM82b6VHrzSUTIVc7YHy6hdhFQ==}
 
+  temporal-spec@1.0.1:
+    resolution: {integrity: sha512-wxVoanmDeavXie1vu2JaQ3WIc3JZnWAOYFBsJyATaVsXsycKYUflGsyBmrRSnoCpZJpwPyr38VpgSUlQ8CbFxg==}
+
   temporal-utils@1.0.1:
     resolution: {integrity: sha512-HAixuesxFQIUaQk3ptX2jhfO/FsOkgVkDDMawvp6n/fkB1q6BKfs3lURw9I+pK/2e2e/q/vrLrxmeqauBoyGMQ==}
+
+  temporal-utils@1.0.2:
+    resolution: {integrity: sha512-1B8Dl4KzrOvsNUlpoWGno2VLQlxroLjDgc5NBjVC9ax9ymdo+ezfyvhyjEMx+IVfhINr6CIG2gcnlP95iRrybQ==}
 
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
@@ -1688,10 +1697,10 @@ ignoredOptionalDependencies:
 
 snapshots:
 
-  '@albina-euregio/linea@8.25.0(valibot@1.4.2(typescript@6.0.3))':
+  '@albina-euregio/linea@8.25.1(valibot@1.4.2(typescript@6.0.3))':
     dependencies:
       air-datepicker: 3.6.0
-      temporal-polyfill: 1.0.1
+      temporal-polyfill: 1.0.4
       uplot: 1.6.32
       valibot: 1.4.2(typescript@6.0.3)
 
@@ -2787,9 +2796,18 @@ snapshots:
       temporal-spec: 1.0.0
       temporal-utils: 1.0.1
 
+  temporal-polyfill@1.0.4:
+    dependencies:
+      temporal-spec: 1.0.1
+      temporal-utils: 1.0.2
+
   temporal-spec@1.0.0: {}
 
+  temporal-spec@1.0.1: {}
+
   temporal-utils@1.0.1: {}
+
+  temporal-utils@1.0.2: {}
 
   tinybench@2.9.0: {}
 
