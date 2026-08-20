@@ -74,20 +74,22 @@ const BulletinReportPictureCard: FunctionComponent<{
   photo: BulletinPhoto;
   onOpen: () => void;
 }> = ({ photo, onOpen }) => {
-  const intl = useIntl();
   const [open, setOpen] = useState(false);
   const hasDetails = !!(photo.date || photo.microRegionId);
   return (
     <li className="bulletin-report-gallery-item">
       <article className="bulletin-report-picture-card">
-        <button
-          type="button"
-          className="img bulletin-report-picture-trigger"
-          onClick={onOpen}
+        <a
+          href={photo.url}
+          className="img avoid-external-icon"
+          target="_blank"
+          rel="noopener noreferrer"
           title={photo.locationName}
-          aria-label={intl.formatMessage({
-            id: "bulletin:report:picture:open"
-          })}
+          onClick={e => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            e.preventDefault();
+            onOpen();
+          }}
         >
           <img
             src={photo.url}
@@ -95,7 +97,7 @@ const BulletinReportPictureCard: FunctionComponent<{
             loading="lazy"
             decoding="async"
           />
-        </button>
+        </a>
         <div
           className={"bulletin-report-picture-meta" + (open ? " is-open" : "")}
         >

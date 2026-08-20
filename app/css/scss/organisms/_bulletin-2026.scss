@@ -500,19 +500,9 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       flex-direction: column;
       gap: variables.$padding * 0.5;
 
-      > a,
-      .bulletin-report-picture-trigger {
+      > a {
         display: block;
         width: 100%;
-      }
-
-      // The thumbnail is a button that opens the gallery lightbox; strip the
-      // native button chrome and show the zoom affordance.
-      .bulletin-report-picture-trigger {
-        padding: 0;
-        border: 0;
-        background: none;
-        cursor: zoom-in;
       }
 
       img {
@@ -523,8 +513,6 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       }
     }
 
-    // Gallery lightbox: the picked photo shown large with its caption, flipped
-    // through the whole gallery (see BulletinReportGalleryDialog).
     .bulletin-report-gallery-modal {
       &__figure {
         margin: 0;
