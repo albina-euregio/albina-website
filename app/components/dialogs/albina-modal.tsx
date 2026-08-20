@@ -6,28 +6,42 @@ export interface ModalProps {
   onClose?: () => void;
   children: React.ReactNode;
   width?: Property.Width;
+  /**
+   * When true, the modal never closes itself: every close gesture (backdrop
+   * click, Escape, close button) just calls `onClose`, and the parent is
+   * responsible for actually flipping `isOpen`. Lets the parent veto/defer a
+   * close (e.g. confirm unsaved changes) before it happens.
+   */
+  guardClose?: boolean;
 }
 
 // https://blog.logrocket.com/creating-reusable-pop-up-modal-react/
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, width }) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  width,
+  guardClose
+}) => {
   const [isModalOpen, setModalOpen] = useState(isOpen);
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
-  const handleCloseModal = () => {
+  const requestClose = () => {
     onClose?.();
-    setModalOpen(false);
+    if (!guardClose) setModalOpen(false);
   };
 
   const handleClick = (event: React.MouseEvent<HTMLDialogElement>) => {
     if (event.target === modalRef.current) {
-      handleCloseModal();
+      requestClose();
     }
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDialogElement>) => {
-    if (event.key === "Escape") {
-      handleCloseModal();
-    }
+  // Native <dialog> closes on Escape and fires `cancel`; block that so the
+  // close always flows through requestClose (and can be vetoed when guarded).
+  const handleCancel = (event: React.SyntheticEvent<HTMLDialogElement>) => {
+    event.preventDefault();
+    requestClose();
   };
 
   useEffect(() => {
@@ -49,12 +63,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, width }) => {
   return (
     <dialog
       ref={modalRef}
-      onKeyDown={handleKeyDown}
+      onCancel={handleCancel}
       onClick={handleClick}
       className="modal"
       style={{ width }}
     >
-      <button className="modal-close-btn" onClick={handleCloseModal}>
+      <button className="modal-close-btn" onClick={requestClose}>
         Close
       </button>
       {children}

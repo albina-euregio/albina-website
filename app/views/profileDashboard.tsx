@@ -1,10 +1,12 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../i18n";
 import { useSnowProfileData } from "../stores/profileDataStore";
 import SnowProfileMapLibreMap from "../components/profile/profile-map";
 import SnowProfileTable from "../components/profile/profile-table";
 import SnowProfileDetailsDialog, {
+  sessionEditToken,
+  setSessionEditToken,
   useSnowProfileId
 } from "../components/profile/profile-details-dialog";
 import SnowProfileFormDialog from "../components/profile/profile-form-dialog";
@@ -56,26 +58,52 @@ function SnowProfileDashboard() {
   const openNewProfile = () => {
     setEditTarget(undefined);
     setFormOpen(true);
+    redirectPageQuery({ edit: "new", profile: "" });
   };
 
   const openEditProfile = (id: string, token: string) => {
     setProfileId(""); // close the detail dialog so modals don't stack
     setEditTarget({ id, token });
     setFormOpen(true);
+    redirectPageQuery({ edit: id });
+  };
+
+  const closeForm = () => {
+    setFormOpen(false);
+    setEditTarget(undefined);
+    redirectPageQuery({ edit: "" });
   };
 
   const handleProfileSaved = (id: string, token: string) => {
-    // Cache the one-time token so this session can offer "Edit".
-    try {
-      sessionStorage.setItem(`profea:token:${id}`, token);
-    } catch {
-      /* ignore quota / privacy-mode errors */
-    }
+    setSessionEditToken(id, token); // so this session can offer "Edit"
     setFormOpen(false);
     setEditTarget(undefined);
     reload();
-    setProfileId(id);
+    // One navigation: drop ?edit and open the saved profile's detail view.
+    redirectPageQuery({ edit: "", profile: id });
   };
+
+  // Reopen the form from ?edit on load: "new" for a blank form, or a profile
+  // id when this session cached its edit token. Runs once the router is ready.
+  const restored = useRef(false);
+  useEffect(() => {
+    if (restored.current || !router) return;
+    restored.current = true;
+    const edit = router.search?.edit;
+    if (!edit) return;
+    if (edit === "new") {
+      setEditTarget(undefined);
+      setFormOpen(true);
+      return;
+    }
+    const token = sessionEditToken(edit);
+    if (token) {
+      setEditTarget({ id: edit, token });
+      setFormOpen(true);
+    } else {
+      redirectPageQuery({ edit: "" }); // no token this session → can't reopen
+    }
+  }, [router]);
 
   // The dialog flips through the profiles as the current view presents them:
   // chronologically on the map, by the table's sorting in the table.
@@ -245,10 +273,7 @@ function SnowProfileDashboard() {
 
       <SnowProfileFormDialog
         open={formOpen}
-        onClose={() => {
-          setFormOpen(false);
-          setEditTarget(undefined);
-        }}
+        onClose={closeForm}
         edit={editTarget}
         onSaved={handleProfileSaved}
       />

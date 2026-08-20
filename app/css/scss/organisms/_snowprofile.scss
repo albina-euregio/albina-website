@@ -107,6 +107,19 @@ $snowprofile-stabilities: (
   padding-top: variables.$padding;
 }
 
+// Snow profile create/edit form: the profea-app iframe fills the dialog.
+// Match the dialog to the app's own body colour so there's no white frame
+// around the grey form; the width cap (set inline) aligns the dialog to
+// profea's centred content so it doesn't leave grey gutters on wide screens.
+dialog.modal:has(.snowprofile-form) {
+  background-color: #f5f7fa;
+}
+
+.modal-container.snowprofile-form {
+  min-height: 0;
+  padding: 0;
+}
+
 // Edge length of the fixed close/flipper controls (see `$modal-control-size` in
 // _modals.scss), kept local so this feature stays self-contained.
 $snowprofile-control-size: calc(

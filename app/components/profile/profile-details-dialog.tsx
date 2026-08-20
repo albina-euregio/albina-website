@@ -30,11 +30,20 @@ interface Props {
 }
 
 /** The edit token for `profileId`, if it was created in this session. */
-function sessionEditToken(profileId: string): string | undefined {
+export function sessionEditToken(profileId: string): string | undefined {
   try {
     return sessionStorage.getItem(`profea:token:${profileId}`) ?? undefined;
   } catch {
     return undefined;
+  }
+}
+
+/** Cache `profileId`'s edit token so this session can offer "Edit". */
+export function setSessionEditToken(profileId: string, token: string): void {
+  try {
+    sessionStorage.setItem(`profea:token:${profileId}`, token);
+  } catch {
+    /* ignore quota / privacy-mode errors */
   }
 }
 
