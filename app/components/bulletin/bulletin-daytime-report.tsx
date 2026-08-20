@@ -1,7 +1,6 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "../../i18n";
+import { FormattedMessage } from "../../i18n";
 import BulletinProblemItem from "./bulletin-problem-item.jsx";
-import { Tooltip } from "../tooltips/tooltip";
 import {
   matchesValidTimePeriod,
   type Bulletin,
@@ -25,7 +24,6 @@ function BulletinDaytimeReport({
   bulletin170000,
   showDiff
 }: Props) {
-  const intl = useIntl();
   const problems =
     bulletin?.avalancheProblems?.filter(p =>
       matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
@@ -51,17 +49,6 @@ function BulletinDaytimeReport({
           <FormattedMessage id={`bulletin:report:daytime:${validTimePeriod}`} />
         </h2>
       )}
-      <h2 className="subheader bulletin-report-problems-headline">
-        <FormattedMessage id="bulletin:report:problems:headline" />
-        <Tooltip
-          html={true}
-          label={`<p>${intl.formatMessage({
-            id: "bulletin:report:problems:core-zone:info"
-          })}</p>`}
-        >
-          <span className="tooltip-trigger icon-info"></span>
-        </Tooltip>
-      </h2>
       <div className="bulletin-report-pictobar">
         <ul className="list-plain list-bulletin-report-pictos">
           {problems.map((problem, index) => (
