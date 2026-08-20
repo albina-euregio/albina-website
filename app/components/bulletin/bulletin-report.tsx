@@ -116,7 +116,11 @@ const BulletinReportPictureCard: FunctionComponent<{
                 <span className="text button-text">
                   <FormattedMessage id="bulletin:report:picture:details" />
                 </span>
-                <span className="icon icon-down-open"></span>
+                <span
+                  className={
+                    "icon " + (open ? "icon-up-open" : "icon-down-open")
+                  }
+                ></span>
               </button>
               <div className="bulletin-report-picture-details">
                 {photo.date && (

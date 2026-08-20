@@ -605,10 +605,6 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     }
 
     .bulletin-report-picture-meta.is-open {
-      .bulletin-report-picture-toggle {
-        display: none;
-      }
-
       .bulletin-report-picture-details {
         display: contents;
       }
