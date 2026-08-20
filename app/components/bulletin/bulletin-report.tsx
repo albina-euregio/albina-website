@@ -431,12 +431,10 @@ function BulletinReport({
     return <div />;
   }
 
-  // "Update" status mirrors the header's "Updated" indicator: an amendment exists
-  // when the 17:00 predecessor (bulletin170000, only loaded for unscheduled
-  // bulletins) is present — independent of whether this micro-region changed.
-  const isUpdated = !!(
+  const hasDiff = !!(
     bulletin.publicationTime && bulletin170000?.publicationTime
   );
+  const isUpdated = !!bulletin.unscheduled || hasDiff;
 
   const maxWarnlevel = getMaxMainValue(bulletin.dangerRatings);
   const classes =
@@ -493,7 +491,7 @@ function BulletinReport({
                     {intl.formatDate(date, LONG_DATE_FORMAT)}
                   </span>
                 </span>
-                {isUpdated && showDiff > 0 && (
+                {isUpdated && bulletin.publicationTime && (
                   <span className="text-icon bulletin-datetime-update">
                     <span className="icon icon-update"></span>
                     <span className="text">
@@ -568,7 +566,7 @@ function BulletinReport({
 
               <div className="bulletin-report-header-buttons">
                 <ul className="list-inline list-buttongroup">
-                  {isUpdated && (
+                  {hasDiff && (
                     <li>
                       <Tooltip
                         label={intl.formatMessage({
