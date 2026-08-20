@@ -14,30 +14,8 @@ function BulletinFooter() {
   return (
     <section className="section-centered section-context">
       <div className="panel">
-        <h2 className="subheader">
-          {intl.formatMessage({ id: "button:weather:headline" })}
-        </h2>
-
-        <ul className="list-inline list-buttongroup-dense">
-          {focusRegions.map(region => (
-            <li key={region}>
-              <a
-                key={region}
-                className="secondary pure-button"
-                href={intl.formatMessage({
-                  id: `button:weather:${region}:link`
-                })}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {intl.formatMessage({
-                  id: `region:${region}`
-                })}
-              </a>
-            </li>
-          ))}
-        </ul>
-
+        {/* The "Weather Forecast" links block moved up into the bulletin
+            report's weather section (below Snowpack) per #780. */}
         <h2 className="subheader">
           {intl.formatMessage({ id: "button:blog:headline" })}
         </h2>

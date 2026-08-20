@@ -29,7 +29,7 @@ import {
 import { wordDiff } from "../../util/wordDiff";
 import { Tooltip } from "../tooltips/tooltip.tsx";
 import { useStore } from "@nanostores/react";
-import { $province } from "../../appStore.ts";
+import { $focusRegions, $province } from "../../appStore.ts";
 import { AdditionalBulletinInformation } from "./additional-bulletin-information.tsx";
 
 const LocalizedText: FunctionComponent<{
@@ -249,6 +249,7 @@ function BulletinReport({
 }: Props) {
   const intl = useIntl();
   const province = useStore($province);
+  const focusRegions = useStore($focusRegions);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const [audioOpen, setAudioOpen] = useState(false);
   const audioUrl = useSynthesizedBulletinUrl(date, bulletin);
@@ -617,17 +618,43 @@ function BulletinReport({
                   </p>
                 </div>
               )}
-              {bulletin.weatherForecast?.comment && (
+              {(bulletin.weatherForecast?.comment ||
+                focusRegions.length > 0) && (
                 <div className="bulletin-additional-weather">
                   <h2 className="subheader">
                     <FormattedMessage id="bulletin:report:weather:headline" />
                   </h2>
-                  <p>
-                    <LocalizedText
-                      text={bulletin.weatherForecast?.comment}
-                      text170000={bulletin170000?.weatherForecast?.comment}
-                    />
-                  </p>
+                  {bulletin.weatherForecast?.comment && (
+                    <p>
+                      <LocalizedText
+                        text={bulletin.weatherForecast?.comment}
+                        text170000={bulletin170000?.weatherForecast?.comment}
+                      />
+                    </p>
+                  )}
+                  {/* Warner-provided weather-service links (Geosphere / provincial
+                      services), moved up from the page footer per #780. Exact
+                      button targets/labels to be refined later. */}
+                  {focusRegions.length > 0 && (
+                    <ul className="list-inline list-buttongroup">
+                      {focusRegions.map(region => (
+                        <li key={region}>
+                          <a
+                            className="pure-button secondary"
+                            href={intl.formatMessage({
+                              id: `button:weather:${region}:link` as MessageId
+                            })}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            {intl.formatMessage({
+                              id: `region:${region}` as MessageId
+                            })}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               )}
               {hasTendency && (
