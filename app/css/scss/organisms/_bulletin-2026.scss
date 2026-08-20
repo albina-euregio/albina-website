@@ -500,9 +500,19 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       flex-direction: column;
       gap: variables.$padding * 0.5;
 
-      > a {
+      > a,
+      .bulletin-report-picture-trigger {
         display: block;
         width: 100%;
+      }
+
+      // The thumbnail is a button that opens the gallery lightbox; strip the
+      // native button chrome and show the zoom affordance.
+      .bulletin-report-picture-trigger {
+        padding: 0;
+        border: 0;
+        background: none;
+        cursor: zoom-in;
       }
 
       img {
@@ -510,6 +520,36 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
         width: 100%;
         aspect-ratio: 4 / 3;
         object-fit: cover;
+      }
+    }
+
+    // Gallery lightbox: the picked photo shown large with its caption, flipped
+    // through the whole gallery (see BulletinReportGalleryDialog).
+    .bulletin-report-gallery-modal {
+      &__figure {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: variables.$padding;
+      }
+
+      &__image {
+        display: block;
+        max-width: min(90vw, 1200px);
+        max-height: 80vh;
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+        object-fit: contain;
+      }
+
+      &__caption {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0 (variables.$padding * 2);
+        font-size: variables.$micro-font-size;
       }
     }
 

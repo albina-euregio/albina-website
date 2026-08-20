@@ -31,6 +31,11 @@ import { Tooltip } from "../tooltips/tooltip.tsx";
 import { useStore } from "@nanostores/react";
 import { $focusRegions, $province } from "../../appStore.ts";
 import { AdditionalBulletinInformation } from "./additional-bulletin-information.tsx";
+import Modal from "../dialogs/albina-modal";
+import {
+  DialogFlipperButtons,
+  useDialogFlipper
+} from "../dialogs/dialog-flipper";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -67,18 +72,22 @@ const LocalizedText: FunctionComponent<{
 // the photo data yet, so those labels are omitted for now.
 const BulletinReportPictureCard: FunctionComponent<{
   photo: BulletinPhoto;
-}> = ({ photo }) => {
+  onOpen: () => void;
+}> = ({ photo, onOpen }) => {
+  const intl = useIntl();
   const [open, setOpen] = useState(false);
   const hasDetails = !!(photo.date || photo.microRegionId);
   return (
     <li className="bulletin-report-gallery-item">
       <article className="bulletin-report-picture-card">
-        <a
-          href={photo.url}
-          className="img avoid-external-icon"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
+          className="img bulletin-report-picture-trigger"
+          onClick={onOpen}
           title={photo.locationName}
+          aria-label={intl.formatMessage({
+            id: "bulletin:report:picture:open"
+          })}
         >
           <img
             src={photo.url}
@@ -86,7 +95,7 @@ const BulletinReportPictureCard: FunctionComponent<{
             loading="lazy"
             decoding="async"
           />
-        </a>
+        </button>
         <div
           className={"bulletin-report-picture-meta" + (open ? " is-open" : "")}
         >
@@ -142,6 +151,98 @@ const BulletinReportPictureCard: FunctionComponent<{
     </li>
   );
 };
+
+type GalleryPhoto = BulletinPhoto & { id: string };
+
+// The gallery lightbox: the picked photo shown large, with its copyright and
+// details, flipped through the whole gallery via arrows, keyboard and swipe
+// (shared dialog-flipper, as the profile/incident dialogs use). Mounted only
+// while open so the flipper's key handler stays scoped to it.
+const BulletinReportGalleryContent: FunctionComponent<{
+  photos: GalleryPhoto[];
+  photoId: string;
+  setPhotoId: (id: string) => void;
+}> = ({ photos, photoId, setPhotoId }) => {
+  const intl = useIntl();
+  const flipper = useDialogFlipper(photos, photoId, setPhotoId);
+  const photo = photos[flipper.index];
+
+  // Warm the neighbours so flipping on to them needs no fetch.
+  useEffect(() => {
+    for (const neighbour of [flipper.previousItem, flipper.nextItem]) {
+      if (!neighbour) continue;
+      const image = new Image();
+      image.src = neighbour.url;
+    }
+  }, [flipper.previousItem, flipper.nextItem]);
+
+  if (!photo) return null;
+
+  return (
+    <div
+      className="modal-container bulletin-report-gallery-modal"
+      {...flipper.swipeHandlers}
+    >
+      <DialogFlipperButtons
+        flipper={flipper}
+        previousLabel={intl.formatMessage({ id: "dialog:flipper:previous" })}
+        nextLabel={intl.formatMessage({ id: "dialog:flipper:next" })}
+      />
+      <figure className="bulletin-report-gallery-modal__figure">
+        <img
+          className="bulletin-report-gallery-modal__image"
+          src={photo.url}
+          alt={photo.locationName}
+        />
+        <figcaption className="bulletin-report-gallery-modal__caption">
+          {photo.copyright && (
+            <span className="text-icon">
+              <span className="icon icon-copyright" aria-hidden="true"></span>
+              <span className="text">{photo.copyright}</span>
+            </span>
+          )}
+          {photo.date && (
+            <span className="text-icon">
+              <span className="icon icon-calendar" aria-hidden="true"></span>
+              <span className="text">{photo.date}</span>
+            </span>
+          )}
+          {photo.microRegionId && (
+            <span className="text-icon">
+              <span
+                className="icon icon-location-small"
+                aria-hidden="true"
+              ></span>
+              <span className="text">
+                {photo.locationName}
+                {photo.locationName && photo.microRegionId ? ", " : ""}
+                <FormattedMessage
+                  id={`region:${photo.microRegionId}` as MessageId}
+                />
+              </span>
+            </span>
+          )}
+        </figcaption>
+      </figure>
+    </div>
+  );
+};
+
+const BulletinReportGalleryDialog: FunctionComponent<{
+  photos: GalleryPhoto[];
+  photoId: string;
+  setPhotoId: (id: string) => void;
+}> = ({ photos, photoId, setPhotoId }) => (
+  <Modal isOpen={!!photoId} onClose={() => setPhotoId("")} width="fit-content">
+    {!!photoId && (
+      <BulletinReportGalleryContent
+        photos={photos}
+        photoId={photoId}
+        setPhotoId={setPhotoId}
+      />
+    )}
+  </Modal>
+);
 
 // Nav-style micro-region switcher: inline text + chevron toggle revealing a
 // floating list. Selecting a region navigates (URL-driven), re-driving the
@@ -252,10 +353,16 @@ function BulletinReport({
   const focusRegions = useStore($focusRegions);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const [audioOpen, setAudioOpen] = useState(false);
+  const [galleryPhotoId, setGalleryPhotoId] = useState<string>("");
   const audioUrl = useSynthesizedBulletinUrl(date, bulletin);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
   const bulletinPhotos = getBulletinPhotos(bulletin.customData);
+  // Stable ids so the gallery flipper can walk the photos by index.
+  const galleryPhotos: GalleryPhoto[] = bulletinPhotos.map((photo, index) => ({
+    ...photo,
+    id: String(index)
+  }));
 
   if (!bulletin || !bulletin) {
     return <div />;
@@ -567,14 +674,20 @@ function BulletinReport({
                 <h2 className="subheader">
                   <FormattedMessage id="bulletin:report:current-conditions:headline" />
                 </h2>
-                <ul className="list-plain bulletin-report-gallery">
-                  {bulletinPhotos.map((photo, index) => (
+                <ul className="list-plain bulletin-report-gallery modal-gallery">
+                  {galleryPhotos.map(photo => (
                     <BulletinReportPictureCard
-                      key={photo.url + index}
+                      key={photo.url + photo.id}
                       photo={photo}
+                      onOpen={() => setGalleryPhotoId(photo.id)}
                     />
                   ))}
                 </ul>
+                <BulletinReportGalleryDialog
+                  photos={galleryPhotos}
+                  photoId={galleryPhotoId}
+                  setPhotoId={setGalleryPhotoId}
+                />
               </div>
             )}
           </div>
