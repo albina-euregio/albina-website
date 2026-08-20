@@ -443,6 +443,17 @@ const BulletinMap = (props: Props) => {
           handleSelectRegion={props.handleSelectRegion}
         />
         {getBulletinMapDetails()}
+        {!config.bulletin.showAllBulletins &&
+          !props.region &&
+          props.status &&
+          props.status !== "pending" && (
+            <div className="bulletin-map-cta">
+              <span className="icon-info"></span>
+              <span className="text">
+                <FormattedMessage id="bulletin:select-region:title" />
+              </span>
+            </div>
+          )}
 
         {props.validTimePeriod && (
           <p className="bulletin-map-daytime">
