@@ -511,7 +511,7 @@ function BulletinReport({
 
               <div className="bulletin-report-header-buttons">
                 <ul className="list-inline list-buttongroup">
-                  {isUpdated && showDiff === 0 && (
+                  {isUpdated && (
                     <li>
                       <Tooltip
                         label={intl.formatMessage({
@@ -520,8 +520,12 @@ function BulletinReport({
                       >
                         <button
                           type="button"
-                          className="pure-button inverse error tooltip pure-button-icon-text"
-                          onClick={() => setShowDiff(2)}
+                          className={
+                            "pure-button inverse error tooltip pure-button-icon-text" +
+                            (showDiff > 0 ? " active" : "")
+                          }
+                          aria-pressed={showDiff > 0}
+                          onClick={() => setShowDiff(showDiff === 0 ? 2 : 0)}
                         >
                           <span className="icon icon-show-small"></span>
                           <span className="text">
