@@ -25,8 +25,10 @@ interface Props {
   profiles: SnowProfileData[];
   profileId: string;
   setProfileId: (id: string) => void;
-  /** Opens the edit form; only offered when we hold the profile's token. */
+  /** Opens the edit form directly with a token we already hold this session. */
   onEdit?: (id: string, token: string) => void;
+  /** Asks the user for the token (when this session doesn't hold one). */
+  onRequestEdit?: (id: string) => void;
 }
 
 /** The edit token for `profileId`, if it was created in this session. */
@@ -108,7 +110,8 @@ function SnowProfileDetail({
   profiles,
   profileId,
   setProfileId,
-  onEdit
+  onEdit,
+  onRequestEdit
 }: Props) {
   const intl = useIntl();
   const language = useStore($language);
@@ -159,11 +162,15 @@ function SnowProfileDetail({
         nextLabel={intl.formatMessage({ id: "dialog:flipper:next" })}
       />
       <div className="snowprofile-detail__actions">
-        {onEdit && editToken && (
+        {(onEdit || onRequestEdit) && (
           <button
             type="button"
             className="snowprofile-detail__action"
-            onClick={() => onEdit(profileId, editToken)}
+            onClick={() =>
+              editToken
+                ? onEdit?.(profileId, editToken)
+                : onRequestEdit?.(profileId)
+            }
             title={intl.formatMessage({ id: "profiles:edit" })}
             aria-label={intl.formatMessage({ id: "profiles:edit" })}
           >

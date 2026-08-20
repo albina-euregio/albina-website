@@ -141,7 +141,9 @@ $snowprofile-control-size: calc(
 }
 
 // Icon-only controls that mirror the flipper/close buttons opposite them.
-a.snowprofile-detail__action {
+// Covers both <a> (download, open) and <button> (edit) actions.
+a.snowprofile-detail__action,
+button.snowprofile-detail__action {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,6 +151,9 @@ a.snowprofile-detail__action {
   width: $snowprofile-control-size;
   color: variables.$brand;
   background-color: rgba(variables.$white, 0.75);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
   border-radius: variables.$global-radius;
   @include mixins.rollout;
 
@@ -180,5 +185,45 @@ a.snowprofile-detail__action {
   img.is-stale {
     opacity: 0.5;
     transition: opacity variables.$transition-duration ease-in-out 0.3s;
+  }
+}
+
+// Edit-token prompt (shown when this session doesn't hold the profile's token).
+// A compact, content-height centred card — not the full-height mobile modal
+// the shared .modal-container defaults to, which is oversized for one field.
+.modal-container.snowprofile-token {
+  min-height: 0;
+  padding: calc(#{variables.$padding} * 2.5);
+
+  h2 {
+    margin: 0 0 variables.$padding;
+  }
+}
+
+.snowprofile-token {
+  &__intro {
+    margin: 0 0 calc(#{variables.$padding} * 1.5);
+  }
+
+  // A quiet field caption — not the heavy stacked-form label, which read as a
+  // second heading right under the h2.
+  &__label {
+    display: block;
+    margin-bottom: calc(#{variables.$padding} * 0.5);
+    font-weight: 400;
+    color: variables.$grey-dark;
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  // Right-aligned cluster: secondary (resend) then primary (continue).
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: variables.$padding;
+    margin-top: calc(#{variables.$padding} * 2);
   }
 }

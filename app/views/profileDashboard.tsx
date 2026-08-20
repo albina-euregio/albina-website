@@ -10,6 +10,7 @@ import SnowProfileDetailsDialog, {
   useSnowProfileId
 } from "../components/profile/profile-details-dialog";
 import SnowProfileFormDialog from "../components/profile/profile-form-dialog";
+import SnowProfileTokenDialog from "../components/profile/profile-token-dialog";
 import HTMLHeader from "../components/organisms/html-header";
 import ProvinceFilter from "../components/filters/province-filter";
 import DateRangeFilter from "../components/filters/date-range-filter";
@@ -54,6 +55,8 @@ function SnowProfileDashboard() {
   const [editTarget, setEditTarget] = useState<
     { id: string; token: string } | undefined
   >();
+  // Profile awaiting a manually-entered token before it can be edited.
+  const [tokenPromptId, setTokenPromptId] = useState("");
 
   const openNewProfile = () => {
     setEditTarget(undefined);
@@ -63,9 +66,17 @@ function SnowProfileDashboard() {
 
   const openEditProfile = (id: string, token: string) => {
     setProfileId(""); // close the detail dialog so modals don't stack
+    setTokenPromptId(""); // and the token prompt, if it was open
     setEditTarget({ id, token });
     setFormOpen(true);
     redirectPageQuery({ edit: id });
+  };
+
+  // Edit clicked without a token this session: close the detail view and ask
+  // for the token instead of opening the edit form.
+  const requestEditProfile = (id: string) => {
+    setProfileId("");
+    setTokenPromptId(id);
   };
 
   const closeForm = () => {
@@ -269,6 +280,13 @@ function SnowProfileDashboard() {
         profileId={profileId}
         setProfileId={setProfileId}
         onEdit={openEditProfile}
+        onRequestEdit={requestEditProfile}
+      />
+
+      <SnowProfileTokenDialog
+        profileId={tokenPromptId}
+        onClose={() => setTokenPromptId("")}
+        onSubmit={token => openEditProfile(tokenPromptId, token)}
       />
 
       <SnowProfileFormDialog
