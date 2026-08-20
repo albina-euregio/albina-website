@@ -1,25 +1,12 @@
 import { FormattedMessage, useIntl } from "../../i18n";
-import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { warnlevelNumbers } from "../../util/warn-levels";
-import { AvalancheProblemType } from "../../stores/bulletin";
 import React from "react";
 import { EnabledLanguages } from "./bulletin-glossary.js";
 const BulletinInternalGlossaryText = React.lazy(
   () => import("./internal-glossary/internal-glossary-text.js")
 );
 
-interface Props {
-  handleSelectRegion: (id?: string) => void;
-  problems: Record<
-    AvalancheProblemType,
-    {
-      highlighted: boolean;
-    }
-  >;
-  toggleProblem: (problemId: AvalancheProblemType) => void;
-}
-
-function BulletinLegend(props: Props) {
+function BulletinLegend() {
   const intl = useIntl();
 
   return (
@@ -29,27 +16,6 @@ function BulletinLegend(props: Props) {
     >
       <div className="section-centered">
         <div className="grid">
-          <div className="normal-6 grid-item">
-            <p>
-              <FormattedMessage
-                id="bulletin:legend:highlight-regions"
-                html={true}
-                values={{
-                  strong: msg => <strong key={"strong"}>{msg}</strong>,
-                  a: msg => (
-                    <a key={"a"} href="/education/avalanche-problems">
-                      <strong>{msg}</strong>
-                    </a>
-                  )
-                }}
-              />
-            </p>
-            <BulletinProblemFilter
-              handleSelectRegion={props.handleSelectRegion}
-              problems={props.problems}
-              toggleProblem={props.toggleProblem}
-            />
-          </div>
           <div className="normal-6 grid-item">
             <p>
               <a href="/education/danger-scale">

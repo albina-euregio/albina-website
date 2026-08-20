@@ -62,7 +62,7 @@ const Bulletin = () => {
       ? router.params.date
       : undefined;
   const [slowLoading, setLoadingStart] = useSlowLoading();
-  const { problems, toggleProblem } = useProblems();
+  const { problems } = useProblems();
   const [region, setRegion] = useState("");
   const [latest, setLatest] = useState<Temporal.PlainDate | null>(null);
   const [status, setStatus] = useState<Status>();
@@ -262,11 +262,7 @@ const Bulletin = () => {
               </div>
             )}
         </div>
-        <BulletinLegend
-          handleSelectRegion={handleSelectRegion}
-          problems={problems}
-          toggleProblem={toggleProblem}
-        />
+        <BulletinLegend />
       </Suspense>
       <BulletinButtonbar activeBulletinCollection={collection} />
       {collection?.generalHeadline && (
