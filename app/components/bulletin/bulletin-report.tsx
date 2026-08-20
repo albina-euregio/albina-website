@@ -67,6 +67,62 @@ const LocalizedText: FunctionComponent<{
   );
 };
 
+function useDragScroll<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const drag = useRef({ active: false, moved: false, startX: 0, startLeft: 0 });
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const onDown = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      drag.current = {
+        active: true,
+        moved: false,
+        startX: e.clientX,
+        startLeft: el.scrollLeft
+      };
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!drag.current.active) return;
+      const dx = e.clientX - drag.current.startX;
+      if (Math.abs(dx) > 3) {
+        drag.current.moved = true;
+        el.style.scrollSnapType = "none";
+      }
+      el.scrollLeft = drag.current.startLeft - dx;
+    };
+    const onUp = () => {
+      drag.current.active = false;
+      el.style.scrollSnapType = "";
+    };
+    const onClick = (e: MouseEvent) => {
+      if (drag.current.moved) {
+        e.preventDefault();
+        e.stopPropagation();
+        drag.current.moved = false;
+      }
+    };
+    const onDragStart = (e: Event) => e.preventDefault();
+    el.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
+    el.addEventListener("click", onClick, true);
+    el.addEventListener("dragstart", onDragStart);
+    return () => {
+      el.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
+      el.removeEventListener("click", onClick, true);
+      el.removeEventListener("dragstart", onDragStart);
+    };
+  }, []);
+
+  return ref;
+}
+
 // One gallery card. Copyright is always visible; date + micro-region are hidden
 // behind a "Details" toggle (Email 3 §3). Assigned avalanche problems are not in
 // the photo data yet, so those labels are omitted for now.
@@ -360,6 +416,7 @@ function BulletinReport({
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const [audioOpen, setAudioOpen] = useState(false);
   const [galleryPhotoId, setGalleryPhotoId] = useState<string>("");
+  const galleryRef = useDragScroll<HTMLUListElement>();
   const audioUrl = useSynthesizedBulletinUrl(date, bulletin);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
@@ -695,7 +752,10 @@ function BulletinReport({
                 <h2 className="subheader">
                   <FormattedMessage id="bulletin:report:current-conditions:headline" />
                 </h2>
-                <ul className="list-plain bulletin-report-gallery modal-gallery">
+                <ul
+                  ref={galleryRef}
+                  className="list-plain bulletin-report-gallery modal-gallery"
+                >
                   {galleryPhotos.map(photo => (
                     <BulletinReportPictureCard
                       key={photo.url + photo.id}
