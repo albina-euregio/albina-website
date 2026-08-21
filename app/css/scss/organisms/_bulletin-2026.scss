@@ -211,12 +211,19 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       top: navigation.$page-header-height;
       z-index: 300;
       background-color: variables.$white;
-      margin-left: -(variables.$all-h-padding);
+      // border-bottom: variables.$border-width variables.$border-style variables.$tertiary-color;
+      margin-left: calc(0px - variables.$all-h-padding + variables.$bar-width);
       margin-right: -(variables.$all-h-padding);
       padding-left: variables.$all-h-padding;
       padding-right: variables.$all-h-padding;
-      background-color: variables.$white;
-      // border-bottom: variables.$border-width variables.$border-style variables.$tertiary-color;
+      @media #{$bulletin-report-header-breakpoint} {
+        margin-left: calc(
+          0px - variables.$all-h-padding + variables.$bar-width
+        );
+      }
+      @media #{variables.breakpoint-up(medium)} {
+        margin-left: -(variables.$all-h-padding);
+      }
     }
   }
 
