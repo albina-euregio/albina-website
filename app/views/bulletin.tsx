@@ -9,8 +9,7 @@ import BulletinFooter from "../components/bulletin/bulletin-footer";
 const BulletinMap = React.lazy(
   () => import("../components/bulletin/bulletin-map")
 );
-import BulletinLegend from "../components/bulletin/bulletin-legend";
-import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
+import BulletinLegendLinkbar from "../components/bulletin/bulletin-legendlinkbar";
 import HTMLHeader from "../components/organisms/html-header";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
@@ -251,9 +250,8 @@ const Bulletin = () => {
             />
           )}
         </div>
-        <BulletinLegend />
       </Suspense>
-      <BulletinButtonbar activeBulletinCollection={collection} />
+      <BulletinLegendLinkbar activeBulletinCollection={collection} />
       {collection?.generalHeadline && (
         <section id="section-general-headline" className="section-padding">
           <div className="section-centered">
