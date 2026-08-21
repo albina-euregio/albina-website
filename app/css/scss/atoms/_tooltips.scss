@@ -17,16 +17,27 @@ $tooltip-max-height: 40vh;
 
 // from 202205
 .tooltip-container {
-  position: absolute;
-  z-index: 1000000;
-
-  // width: $tooltip-width;
-  // max-width: $tooltip-max-width;
   max-height: $tooltip-max-height;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  overflow: visible;
 
   transition: all variables.$transition-duration;
+}
 
-  // overflow: hidden;
+// CSS anchor positioning (unsupported browsers keep the UA default
+// popover behavior: centered fixed position, still readable). `margin`
+// must stay scoped here too: the UA default pairs `inset: 0` with
+// `margin: auto` to center the popover, and overriding only one of the
+// two outside this block would stretch it to fill the viewport instead.
+@supports (anchor-name: --tooltip-fallback-check) {
+  .tooltip-container {
+    position: fixed;
+    inset: auto;
+    margin: 0;
+  }
 }
 .tooltip-inner {
   position: relative;
