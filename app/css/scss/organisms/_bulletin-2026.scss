@@ -127,9 +127,19 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     }
   }
 
+  .section-bulletin-legendlinkbar {
+    &.section-padding {
+      padding-top: variables.$all-v-padding * 0.5;
+      padding-bottom: variables.$all-v-padding;
+    }
+  }
+
   .section-bulletin-linkbar {
-    .linkbar .list-buttongroup {
-      justify-content: flex-end;
+    .linkbar {
+      align-items: end;
+      .list-buttongroup {
+        justify-content: flex-end;
+      }
     }
   }
 
@@ -521,7 +531,7 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
 
     .bulletin-report-gallery-modal {
       &__figure {
-        margin: 0;
+        margin: (variables.$padding * 3) 0 0 0;
         display: flex;
         flex-direction: column;
         gap: variables.$padding;
@@ -529,7 +539,7 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
 
       &__image {
         display: block;
-        max-width: min(90vw, 1200px);
+        // max-width: min(90vw, 1200px);
         max-height: 80vh;
         width: auto;
         height: auto;
@@ -543,6 +553,7 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
         justify-content: center;
         flex-wrap: wrap;
         gap: 0 (variables.$padding * 2);
+        margin-bottom: -(variables.$padding * 1.5);
         font-size: variables.$micro-font-size;
       }
     }
@@ -754,16 +765,16 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
   .progression-warning-level {
     font-size: variables.$xlarge-font-size;
     @include mixins.font-heavy;
-    // @for $level from 1 through variables.$warning-level-count {
-    //   &.warning-level-#{$level} {
-    //     color: variables.warning-level-color($level);
-    //     @if $level <= 2 {
-    //       // -webkit-text-stroke-width: 1px;
-    //       // -webkit-text-stroke-color: variables.$grey;
-    //       text-shadow: 0 0 2px rgba(variables.$text-shadow-color, 0.5);
-    //     }
-    //   }
-    // }
+    @for $level from 1 through variables.$warning-level-count {
+      &.warning-level-#{$level} {
+        color: variables.warning-level-color($level);
+        @if $level <= 2 {
+          // -webkit-text-stroke-width: 1px;
+          // -webkit-text-stroke-color: variables.$grey;
+          text-shadow: 0 0 2px rgba(variables.$text-shadow-color, 0.5);
+        }
+      }
+    }
   }
   .progression-tendency {
     .progression-arrow {
