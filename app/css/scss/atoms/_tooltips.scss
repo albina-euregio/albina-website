@@ -14,6 +14,7 @@
 $tooltip-width: 380px;
 $tooltip-max-width: 80vw;
 $tooltip-max-height: 40vh;
+$tooltip-offset: 10px;
 
 // from 202205
 .tooltip-container {
@@ -37,6 +38,37 @@ $tooltip-max-height: 40vh;
     position: fixed;
     inset: auto;
     margin: 0;
+  }
+
+  // placement is chosen by the `data-placement` attribute the component
+  // sets from its `placement` prop (e.g. "bottom", "left-end")
+  .tooltip-container[data-placement^="top"] {
+    position-area: top;
+    position-try-fallbacks: flip-block;
+    margin-bottom: $tooltip-offset;
+  }
+  .tooltip-container[data-placement^="bottom"] {
+    position-area: bottom;
+    position-try-fallbacks: flip-block;
+    margin-top: $tooltip-offset;
+  }
+  .tooltip-container[data-placement^="left"] {
+    position-area: left;
+    position-try-fallbacks: flip-inline;
+    margin-right: $tooltip-offset;
+  }
+  .tooltip-container[data-placement^="right"] {
+    position-area: right;
+    position-try-fallbacks: flip-inline;
+    margin-left: $tooltip-offset;
+  }
+  .tooltip-container[data-placement$="-start"] {
+    justify-self: start;
+    align-self: start;
+  }
+  .tooltip-container[data-placement$="-end"] {
+    justify-self: end;
+    align-self: end;
   }
 }
 .tooltip-inner {

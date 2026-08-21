@@ -3,6 +3,7 @@ import React, {
   isValidElement,
   useEffect,
   useId,
+  useMemo,
   useRef,
   useState
 } from "react";
@@ -10,29 +11,10 @@ import { createPortal } from "react-dom";
 
 type Side = "top" | "bottom" | "left" | "right";
 type Alignment = "start" | "end";
-export type Placement = Side | `${Side}-${Alignment}`;
+type Placement = Side | `${Side}-${Alignment}`;
 
-const OFFSET = 10;
 const OPEN_DELAY = 200;
 const CLOSE_DELAY = 100;
-
-function placementStyle(placement: Placement): React.CSSProperties {
-  const [side, alignment] = placement.split("-") as [Side, Alignment?];
-  const style: React.CSSProperties = {
-    positionArea: side,
-    positionTryFallbacks:
-      side === "top" || side === "bottom" ? "flip-block" : "flip-inline"
-  };
-  if (side === "top") style.marginBottom = OFFSET;
-  if (side === "bottom") style.marginTop = OFFSET;
-  if (side === "left") style.marginRight = OFFSET;
-  if (side === "right") style.marginLeft = OFFSET;
-  if (alignment) {
-    style[side === "top" || side === "bottom" ? "justifySelf" : "alignSelf"] =
-      alignment;
-  }
-  return style;
-}
 
 function mergeRefs<T>(
   ...refs: (React.Ref<T> | undefined)[]
@@ -124,22 +106,29 @@ export const Tooltip = ({
     };
   }, [open]);
 
-  if (!isValidElement(children)) return null;
+  const child = isValidElement(children)
+    ? (children as React.ReactElement<{
+        ref?: React.Ref<Element>;
+        style?: React.CSSProperties;
+        onPointerEnter?: (e: React.PointerEvent) => void;
+        onPointerLeave?: (e: React.PointerEvent) => void;
+        onFocus?: (e: React.FocusEvent) => void;
+        onBlur?: (e: React.FocusEvent) => void;
+        onClick?: (e: React.MouseEvent) => void;
+      }>)
+    : null;
 
-  const child = children as React.ReactElement<{
-    ref?: React.Ref<Element>;
-    style?: React.CSSProperties;
-    onPointerEnter?: (e: React.PointerEvent) => void;
-    onPointerLeave?: (e: React.PointerEvent) => void;
-    onFocus?: (e: React.FocusEvent) => void;
-    onBlur?: (e: React.FocusEvent) => void;
-    onClick?: (e: React.MouseEvent) => void;
-  }>;
+  const ref = useMemo(
+    () => mergeRefs(referenceRef, child?.props.ref),
+    [child?.props.ref]
+  );
+
+  if (!child) return null;
 
   const referenceProps: React.HTMLAttributes<Element> & {
     ref: React.RefCallback<Element>;
   } = {
-    ref: mergeRefs(referenceRef, child.props.ref),
+    ref,
     style: { anchorName, ...child.props.style },
     "aria-describedby": tooltipId,
     onPointerEnter: e => {
@@ -158,13 +147,13 @@ export const Tooltip = ({
       child.props.onBlur?.(e);
       hideImmediate();
     },
-    ...(enableClick && {
-      onClick: (e: React.MouseEvent) => {
-        child.props.onClick?.(e);
-        popoverRef.current?.togglePopover();
-      }
-    })
+    onClick: e => {
+      child.props.onClick?.(e);
+      if (enableClick) popoverRef.current?.togglePopover();
+    }
   };
+
+  const widthStyle = sizeStyle(width);
 
   return (
     <>
@@ -175,20 +164,20 @@ export const Tooltip = ({
           ref={popoverRef}
           popover="manual"
           role="tooltip"
+          data-placement={placement}
           onToggle={e => setOpen(e.newState === "open")}
           onPointerEnter={clearTimers}
           onPointerLeave={scheduleHide}
           className="tooltip-container"
           style={{
             positionAnchor: anchorName,
-            ...placementStyle(placement),
             ...(typeof zIndex !== "undefined" ? { zIndex } : {}),
-            ...sizeStyle(width)
+            ...widthStyle
           }}
         >
           <div
             className={html ? "tooltip-inner-html" : "tooltip-inner"}
-            style={sizeStyle(width)}
+            style={widthStyle}
           >
             {typeof label === "string" ? (
               <div
