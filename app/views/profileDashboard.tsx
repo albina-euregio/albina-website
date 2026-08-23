@@ -66,18 +66,23 @@ function SnowProfileDashboard() {
     redirectPageQuery({ edit: id });
   };
 
+  // Set once the iframe reports a save, consumed when the modal finally closes.
+  const savedId = useRef<string | undefined>(undefined);
+
   const closeForm = () => {
     setFormOpen(false);
     setEditId(undefined);
-    redirectPageQuery({ edit: "" });
+    // One navigation: drop ?edit and, if something was saved, open its detail.
+    redirectPageQuery({ edit: "", profile: savedId.current ?? "" });
+    savedId.current = undefined;
   };
 
+  // Leave the modal open (it's showing the success step with the edit link);
+  // update ?edit= and refresh the list. The form closes itself via close-request.
   const handleProfileSaved = (id: string) => {
-    setFormOpen(false);
-    setEditId(undefined);
+    savedId.current = id;
+    redirectPageQuery({ edit: id });
     reload();
-    // One navigation: drop ?edit and open the saved profile's detail view.
-    redirectPageQuery({ edit: "", profile: id });
   };
 
   // Reopen the form from ?edit on load: "new" for a blank form, or a profile
