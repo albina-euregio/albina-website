@@ -5,12 +5,9 @@ import { useSnowProfileData } from "../stores/profileDataStore";
 import SnowProfileMapLibreMap from "../components/profile/profile-map";
 import SnowProfileTable from "../components/profile/profile-table";
 import SnowProfileDetailsDialog, {
-  sessionEditToken,
-  setSessionEditToken,
   useSnowProfileId
 } from "../components/profile/profile-details-dialog";
 import SnowProfileFormDialog from "../components/profile/profile-form-dialog";
-import SnowProfileTokenDialog from "../components/profile/profile-token-dialog";
 import HTMLHeader from "../components/organisms/html-header";
 import ProvinceFilter from "../components/filters/province-filter";
 import DateRangeFilter from "../components/filters/date-range-filter";
@@ -52,68 +49,47 @@ function SnowProfileDashboard() {
 
   // Create + edit open in a modal iframe, keeping the user on the dashboard.
   const [formOpen, setFormOpen] = useState(false);
-  const [editTarget, setEditTarget] = useState<
-    { id: string; token: string } | undefined
-  >();
-  // Profile awaiting a manually-entered token before it can be edited.
-  const [tokenPromptId, setTokenPromptId] = useState("");
+  const [editId, setEditId] = useState<string>();
 
   const openNewProfile = () => {
-    setEditTarget(undefined);
+    setEditId(undefined);
     setFormOpen(true);
     redirectPageQuery({ edit: "new", profile: "" });
   };
 
-  const openEditProfile = (id: string, token: string) => {
+  // Edit needs nothing but the id — the embedded app resolves the edit token
+  // itself, and asks the user for it when this browser doesn't have one.
+  const openEditProfile = (id: string) => {
     setProfileId(""); // close the detail dialog so modals don't stack
-    setTokenPromptId(""); // and the token prompt, if it was open
-    setEditTarget({ id, token });
+    setEditId(id);
     setFormOpen(true);
     redirectPageQuery({ edit: id });
   };
 
-  // Edit clicked without a token this session: close the detail view and ask
-  // for the token instead of opening the edit form.
-  const requestEditProfile = (id: string) => {
-    setProfileId("");
-    setTokenPromptId(id);
-  };
-
   const closeForm = () => {
     setFormOpen(false);
-    setEditTarget(undefined);
+    setEditId(undefined);
     redirectPageQuery({ edit: "" });
   };
 
-  const handleProfileSaved = (id: string, token: string) => {
-    setSessionEditToken(id, token); // so this session can offer "Edit"
+  const handleProfileSaved = (id: string) => {
     setFormOpen(false);
-    setEditTarget(undefined);
+    setEditId(undefined);
     reload();
     // One navigation: drop ?edit and open the saved profile's detail view.
     redirectPageQuery({ edit: "", profile: id });
   };
 
   // Reopen the form from ?edit on load: "new" for a blank form, or a profile
-  // id when this session cached its edit token. Runs once the router is ready.
+  // id to edit. Runs once the router is ready.
   const restored = useRef(false);
   useEffect(() => {
     if (restored.current || !router) return;
     restored.current = true;
     const edit = router.search?.edit;
     if (!edit) return;
-    if (edit === "new") {
-      setEditTarget(undefined);
-      setFormOpen(true);
-      return;
-    }
-    const token = sessionEditToken(edit);
-    if (token) {
-      setEditTarget({ id: edit, token });
-      setFormOpen(true);
-    } else {
-      redirectPageQuery({ edit: "" }); // no token this session → can't reopen
-    }
+    setEditId(edit === "new" ? undefined : edit);
+    setFormOpen(true);
   }, [router]);
 
   // The dialog flips through the profiles as the current view presents them:
@@ -280,19 +256,12 @@ function SnowProfileDashboard() {
         profileId={profileId}
         setProfileId={setProfileId}
         onEdit={openEditProfile}
-        onRequestEdit={requestEditProfile}
-      />
-
-      <SnowProfileTokenDialog
-        profileId={tokenPromptId}
-        onClose={() => setTokenPromptId("")}
-        onSubmit={token => openEditProfile(tokenPromptId, token)}
       />
 
       <SnowProfileFormDialog
         open={formOpen}
         onClose={closeForm}
-        edit={editTarget}
+        editId={editId}
         onSaved={handleProfileSaved}
       />
     </>

@@ -4,12 +4,13 @@ import Modal from "../dialogs/albina-modal";
 import { useIntl } from "../../i18n";
 import { $language } from "../../appStore";
 
-/** Posted by profea-app after a successful upload (see its runUpload). */
+/**
+ * Posted by profea-app after a successful upload.
+ */
 interface ProfileSavedMessage {
   source: "profea-app";
   type: "profile-saved";
   profileId: string;
-  editToken: string;
 }
 
 /** Posted by profea-app in reply to our "request-close" (see its message handler). */
@@ -20,7 +21,10 @@ interface CloseResponseMessage {
 }
 
 /** A message from the profea-app iframe of the given type. */
-function isProfeaMessage(data: unknown, type: string): data is { type: string } {
+function isProfeaMessage(
+  data: unknown,
+  type: string
+): data is { type: string } {
   return (
     typeof data === "object" &&
     data !== null &&
@@ -43,37 +47,35 @@ function isCloseResponse(data: unknown): data is CloseResponseMessage {
 interface Props {
   open: boolean;
   onClose: () => void;
-  /** When set, edit that profile instead of creating a new one. */
-  edit?: { id: string; token: string };
-  onSaved: (profileId: string, editToken: string) => void;
+  /** Id of the profile to edit; omitted to create a new one. */
+  editId?: string;
+  onSaved: (profileId: string) => void;
 }
 
-function profileFormSrc(
-  language: string,
-  edit?: { id: string; token: string }
-) {
+function profileFormSrc(language: string, editId?: string) {
   // The app lives at config.apis.profiles without the trailing "/api".
   const base = config.apis.profiles.replace(/\/api$/, "/");
   const params = new URLSearchParams({ embed: "1", lang: language || "en" });
-  if (edit) {
-    params.set("id", edit.id);
-    params.set("token", edit.token);
-  }
+  if (editId) params.set("id", editId);
   return `${base}?${params.toString()}`;
 }
 
 /** The profea-app form (create + edit) as a same-origin iframe in a modal. */
-export function SnowProfileFormDialog({ open, onClose, edit, onSaved }: Props) {
+export function SnowProfileFormDialog({
+  open,
+  onClose,
+  editId,
+  onSaved
+}: Props) {
   const intl = useIntl();
   const language = useStore($language);
   const frameRef = useRef<HTMLIFrameElement>(null);
 
-  // Latest callbacks in refs so the message listener subscribes once per open,
-  // not on every parent render (onSaved/onClose are new closures each render).
-  const onSavedRef = useRef(onSaved);
-  const onCloseRef = useRef(onClose);
-  onSavedRef.current = onSaved;
-  onCloseRef.current = onClose;
+  // Latest callbacks in a ref so the message listener subscribes once per
+  // open, not on every parent render (onSaved/onClose are new closures each
+  // render).
+  const callbacksRef = useRef({ onSaved, onClose });
+  callbacksRef.current = { onSaved, onClose };
 
   useEffect(() => {
     if (!open) return;
@@ -81,11 +83,13 @@ export function SnowProfileFormDialog({ open, onClose, edit, onSaved }: Props) {
       // Trust only our own origin and message shape.
       if (event.origin !== window.location.origin) return;
       if (isProfileSaved(event.data)) {
-        onSavedRef.current(event.data.profileId, event.data.editToken);
+        callbacksRef.current.onSaved(event.data.profileId);
       } else if (isCloseResponse(event.data) && event.data.ok) {
         // The form had no unsaved changes, or the user confirmed discarding
         // them — now it's safe to actually tear the modal down.
-        onCloseRef.current();
+        callbacksRef.current.onClose();
+      } else if (isProfeaMessage(event.data, "close-request")) {
+        callbacksRef.current.onClose();
       }
     };
     window.addEventListener("message", onMessage);
@@ -120,9 +124,9 @@ export function SnowProfileFormDialog({ open, onClose, edit, onSaved }: Props) {
             ref={frameRef}
             className="snowprofile-form__frame"
             title={intl.formatMessage({
-              id: edit ? "profiles:edit" : "profiles:form:title"
+              id: editId ? "profiles:edit" : "profiles:form:title"
             })}
-            src={profileFormSrc(language, edit)}
+            src={profileFormSrc(language, editId)}
             style={{ width: "100%", height: "85vh", border: 0 }}
             allow="camera"
           />

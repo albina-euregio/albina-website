@@ -98,9 +98,7 @@ export default defineConfig({
           }
         ])
       ),
-      // PROFILES_APP_LOCAL routes /profiles-app at a local profea-app ("1" =
-      // localhost:8080, or a full URL). It's served at root, so strip the
-      // prefix. Unset → deployed app (shared entry above).
+      // See README "Testing the profea-app integration locally".
       ...(process.env.PROFILES_APP_LOCAL
         ? {
             "/profiles-app": {

@@ -25,28 +25,7 @@ interface Props {
   profiles: SnowProfileData[];
   profileId: string;
   setProfileId: (id: string) => void;
-  /** Opens the edit form directly with a token we already hold this session. */
-  onEdit?: (id: string, token: string) => void;
-  /** Asks the user for the token (when this session doesn't hold one). */
-  onRequestEdit?: (id: string) => void;
-}
-
-/** The edit token for `profileId`, if it was created in this session. */
-export function sessionEditToken(profileId: string): string | undefined {
-  try {
-    return sessionStorage.getItem(`profea:token:${profileId}`) ?? undefined;
-  } catch {
-    return undefined;
-  }
-}
-
-/** Cache `profileId`'s edit token so this session can offer "Edit". */
-export function setSessionEditToken(profileId: string, token: string): void {
-  try {
-    sessionStorage.setItem(`profea:token:${profileId}`, token);
-  } catch {
-    /* ignore quota / privacy-mode errors */
-  }
+  onEdit?: (id: string) => void;
 }
 
 /**
@@ -110,13 +89,11 @@ function SnowProfileDetail({
   profiles,
   profileId,
   setProfileId,
-  onEdit,
-  onRequestEdit
+  onEdit
 }: Props) {
   const intl = useIntl();
   const language = useStore($language);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const editToken = sessionEditToken(profileId);
 
   // On narrow screens the profile is wider than the dialog: pan it into view
   // first and only flip once its edge in the swiped direction is reached.
@@ -162,15 +139,11 @@ function SnowProfileDetail({
         nextLabel={intl.formatMessage({ id: "dialog:flipper:next" })}
       />
       <div className="snowprofile-detail__actions">
-        {(onEdit || onRequestEdit) && (
+        {onEdit && (
           <button
             type="button"
             className="snowprofile-detail__action"
-            onClick={() =>
-              editToken
-                ? onEdit?.(profileId, editToken)
-                : onRequestEdit?.(profileId)
-            }
+            onClick={() => onEdit(profileId)}
             title={intl.formatMessage({ id: "profiles:edit" })}
             aria-label={intl.formatMessage({ id: "profiles:edit" })}
           >

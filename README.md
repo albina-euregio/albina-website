@@ -38,6 +38,8 @@ PROFILES_APP_LOCAL=1 pnpm start
 
 `PROFILES_APP_LOCAL=1` targets `http://localhost:8080`; set it to a full URL to use another host/port. The local app is served at the web root, so the proxy strips the `/profiles-app` prefix (see `vite.config.ts`). profea-app's `API_BASE` is relative, so its API calls resolve under `/profiles-app/` too — no extra config needed.
 
+**Edit tokens are profea-app's business, not ours.** We tell the iframe _which_ profile to edit (`?id=…`) and it resolves the edit token from its own storage, prompting the user inside the iframe when it has none. The website never reads, stores or forwards a token — so "Edit" is offered on every profile, and there's no cached-permission state here to go stale. See profea-app's README, "Embedding the form", for the full message contract.
+
 ### Browserstack debugging
 
 in order to test IOS Devices in local mode, server.host in vite.config.ts has to be set to "bs-local.com"

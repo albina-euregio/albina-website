@@ -6,12 +6,9 @@ export interface ModalProps {
   onClose?: () => void;
   children: React.ReactNode;
   width?: Property.Width;
-  /**
-   * When true, the modal never closes itself: every close gesture (backdrop
-   * click, Escape, close button) just calls `onClose`, and the parent is
-   * responsible for actually flipping `isOpen`. Lets the parent veto/defer a
-   * close (e.g. confirm unsaved changes) before it happens.
-   */
+  /** When true, close gestures call onClose but don't close the dialog — the
+   * parent must flip isOpen (lets it veto/defer closing, e.g. to confirm
+   * unsaved changes). */
   guardClose?: boolean;
 }
 
