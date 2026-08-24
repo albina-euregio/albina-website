@@ -988,10 +988,10 @@ $search-width-wide: 300px;
     }
   }
 
-  .station-dashboard-filter__add {
+  .station-dashboard-filter__export {
     align-self: flex-end;
 
-    .station-dashboard-filter__add-button {
+    .station-dashboard-filter__export-button {
       display: inline-flex;
       align-items: center;
       gap: variables.$padding * 0.4;
@@ -1005,9 +1005,14 @@ $search-width-wide: 300px;
         display: block;
       }
 
-      &:hover {
+      &:hover:not(:disabled) {
         color: variables.$white;
         background-color: variables.$anchor-font-color;
+      }
+
+      &:disabled {
+        cursor: default;
+        opacity: 0.5;
       }
     }
   }
@@ -1066,7 +1071,7 @@ $search-width-wide: 300px;
       }
     }
 
-    .station-dashboard-filter__add {
+    .station-dashboard-filter__export {
       grid-column: 1 / -1;
       justify-self: end;
       margin-left: 0;
@@ -1196,7 +1201,7 @@ $search-width-wide: 300px;
         margin-left: 0;
       }
 
-      .station-dashboard-filter__add {
+      .station-dashboard-filter__export {
         flex: 0 0 auto;
         margin-left: auto;
       }
@@ -1244,10 +1249,10 @@ $search-width-wide: 300px;
         }
       }
 
-      .station-dashboard-filter__add {
+      .station-dashboard-filter__export {
         margin-left: 0;
 
-        .station-dashboard-filter__add-button {
+        .station-dashboard-filter__export-button {
           width: 100%;
           justify-content: center;
         }
@@ -1320,6 +1325,63 @@ $search-width-wide: 300px;
     background-color: variables.$anchor-font-color;
     @include mixins.rollover;
   }
+}
+
+// Primary "new snow profile" action, floating at the bottom-centre so it sits
+// over the map or table regardless of view (mirrors the lawis_neu layout). The
+// view-toggle control lives top-right, so the two never collide.
+.snowprofile-add-fab {
+  position: fixed;
+  bottom: calc(#{variables.$padding} + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1302;
+
+  display: inline-flex;
+  align-items: center;
+  gap: variables.$padding * 0.4;
+  height: $controls-width-height;
+  padding: 0 variables.$padding;
+  box-sizing: border-box;
+  border: none;
+  border-radius: calc(#{$controls-width-height} / 2);
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 600;
+
+  color: variables.$white;
+  background-color: variables.$brand;
+  box-shadow:
+    0 0 15px 0 rgba(black, 0.15),
+    0 2px 8px 0 rgba(black, 0.35);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+
+  svg {
+    display: block;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateX(-50%) translateY(-1px);
+    box-shadow:
+      0 0 18px 0 rgba(black, 0.2),
+      0 4px 12px 0 rgba(black, 0.4);
+  }
+
+  &:active {
+    transform: translateX(-50%);
+  }
+}
+
+// The table is an internally-scrolling viewport (max-height: 80vh), so shrink
+// that cap on this page to keep its last rows / horizontal scrollbar clear of
+// the floating add button rather than letting the button overlap them.
+.station-dashboard-content--table .table-container:has(> .data-table) {
+  max-height: calc(
+    80vh - #{$controls-width-height} - #{variables.$padding} * 2
+  );
 }
 
 .station-dashboard-content--map {

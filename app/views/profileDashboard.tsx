@@ -1,7 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../i18n";
-import { useSnowProfileData } from "../stores/profileDataStore";
+import {
+  stabilityLabelId,
+  useSnowProfileData
+} from "../stores/profileDataStore";
+import { DATE_TIME_FORMAT_SHORT } from "../util/date";
+import { downloadTextFile, toCsv } from "../util/csv";
 import SnowProfileMapLibreMap from "../components/profile/profile-map";
 import SnowProfileTable from "../components/profile/profile-table";
 import SnowProfileDetailsDialog, {
@@ -55,6 +60,41 @@ function SnowProfileDashboard() {
     setEditId(undefined);
     setFormOpen(true);
     redirectPageQuery({ edit: "new", profile: "" });
+  };
+
+  // Export the currently visible (filtered + sorted) profiles as CSV, mirroring
+  // the table's columns so the download matches what the user sees on screen.
+  const exportCsv = () => {
+    const header = [
+      intl.formatMessage({ id: "archive:table-header:date" }),
+      intl.formatMessage({ id: "incidents:table:header:location" }),
+      intl.formatMessage({ id: "measurements:table:header:microRegion" }),
+      intl.formatMessage({ id: "measurements:filter:province" }),
+      intl.formatMessage({ id: "measurements:table:header:altitude" }),
+      intl.formatMessage({ id: "measurements:table:header:aspect" }),
+      intl.formatMessage({ id: "profiles:table:header:stability" }),
+      intl.formatMessage({ id: "profiles:export:latitude" }),
+      intl.formatMessage({ id: "profiles:export:longitude" })
+    ];
+    const rows = sortedFilteredData.map(profile => [
+      profile.dateTime
+        ? intl.formatDate(profile.dateTime, DATE_TIME_FORMAT_SHORT)
+        : "",
+      profile.location,
+      profile.microRegion ?? "",
+      profile.region ?? "",
+      profile.elevation ?? "",
+      profile.aspect ?? "",
+      profile.stability
+        ? intl.formatMessage({ id: stabilityLabelId(profile.stability) })
+        : "",
+      profile.lat ?? "",
+      profile.lon ?? ""
+    ]);
+    downloadTextFile(
+      `snow-profiles_${dateFrom}_${dateTo}.csv`,
+      toCsv([header, ...rows])
+    );
   };
 
   // Edit needs nothing but the id — the embedded app resolves the edit token
@@ -177,11 +217,12 @@ function SnowProfileDashboard() {
               </div>
             </div>
 
-            <div className="station-dashboard-filter__add">
+            <div className="station-dashboard-filter__export">
               <button
                 type="button"
-                onClick={openNewProfile}
-                className="pure-button station-dashboard-filter__add-button"
+                onClick={exportCsv}
+                disabled={sortedFilteredData.length === 0}
+                className="pure-button station-dashboard-filter__export-button"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -192,12 +233,14 @@ function SnowProfileDashboard() {
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
+                  strokeLinejoin="round"
                   aria-hidden="true"
                 >
-                  <line x1="9" y1="3" x2="9" y2="15" />
-                  <line x1="3" y1="9" x2="15" y2="9" />
+                  <path d="M9 2v9" />
+                  <path d="M5 8l4 4 4-4" />
+                  <path d="M3 15h12" />
                 </svg>
-                {intl.formatMessage({ id: "profiles:add" })}
+                {intl.formatMessage({ id: "profiles:export:csv" })}
               </button>
             </div>
           </div>
@@ -211,6 +254,29 @@ function SnowProfileDashboard() {
         {viewMode === "map" && mapView}
         {viewMode === "table" && tableView}
       </div>
+
+      <button
+        type="button"
+        className="snowprofile-add-fab"
+        onClick={openNewProfile}
+        title={intl.formatMessage({ id: "profiles:add" })}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 18 18"
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          aria-hidden="true"
+        >
+          <line x1="9" y1="3" x2="9" y2="15" />
+          <line x1="3" y1="9" x2="15" y2="9" />
+        </svg>
+        {intl.formatMessage({ id: "profiles:add" })}
+      </button>
 
       <button
         type="button"
