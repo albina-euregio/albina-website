@@ -365,7 +365,6 @@ class BulletinCollection {
   }
 
   private upgradeLegacyCAAML(b: Bulletin): void {
-    b.dangerRatings?.forEach(b => (b.elevation = undefined));
     b.avalancheProblems?.forEach(p => {
       if (p.problemType === ("wind_drifted_snow" as string)) {
         p.problemType = "wind_slab" as AvalancheProblemType;
