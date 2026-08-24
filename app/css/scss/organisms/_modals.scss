@@ -38,6 +38,9 @@ dialog {
   opacity: 0;
   transform: translateY(-20px) perspective(600px) rotateX(10deg);
   @include mixins.rollover(all, variables.$transition-duration * 2);
+  // Without this, `display` jumps to `none` the instant `open` is removed,
+  // cutting the close animation short.
+  transition-behavior: allow-discrete;
 }
 
 @starting-style {
@@ -50,6 +53,7 @@ dialog {
 dialog::backdrop {
   background-color: rgb(0 0 0 / 0);
   @include mixins.rollover(all, variables.$transition-duration * 2);
+  transition-behavior: allow-discrete;
 }
 
 dialog[open]::backdrop {

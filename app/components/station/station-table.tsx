@@ -2,7 +2,7 @@ import React from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { type StationData } from "../../stores/stationDataStore";
-import WeatherStationDialog, { useStationId } from "./station-dialog";
+import { useStationId } from "./station-dialog";
 import DataTable, { type ColumnDef } from "../table/data-table";
 import RegionCell from "../table/region-cell";
 
@@ -26,7 +26,7 @@ interface StationColumn extends ColumnDef<StationData> {
 
 export default function StationTable(props: Props) {
   const intl = useIntl();
-  const [stationId, setStationId] = useStationId();
+  const [, setStationId] = useStationId();
 
   function title(id: keyof StationData) {
     return intl.formatMessage({
@@ -216,13 +216,6 @@ export default function StationTable(props: Props) {
 
   return (
     <>
-      {!!props.sortedFilteredData.length && (
-        <WeatherStationDialog
-          stationData={props.sortedFilteredData}
-          stationId={stationId}
-          setStationId={setStationId}
-        />
-      )}
       <DataTable
         columns={displayColumns}
         rows={props.sortedFilteredData}

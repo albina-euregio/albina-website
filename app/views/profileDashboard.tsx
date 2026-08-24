@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../i18n";
 import { useSnowProfileData } from "../stores/profileDataStore";
@@ -7,6 +7,7 @@ import SnowProfileTable from "../components/profile/profile-table";
 import SnowProfileDetailsDialog, {
   useSnowProfileId
 } from "../components/profile/profile-details-dialog";
+import SnowProfileFormDialog from "../components/profile/profile-form-dialog";
 import HTMLHeader from "../components/organisms/html-header";
 import ProvinceFilter from "../components/filters/province-filter";
 import DateRangeFilter from "../components/filters/date-range-filter";
@@ -42,8 +43,59 @@ function SnowProfileDashboard() {
     sortDir,
     sortBy,
     sortedFilteredData,
-    chronologicalData
+    chronologicalData,
+    reload
   } = useSnowProfileData();
+
+  // Create + edit open in a modal iframe, keeping the user on the dashboard.
+  const [formOpen, setFormOpen] = useState(false);
+  const [editId, setEditId] = useState<string>();
+
+  const openNewProfile = () => {
+    setEditId(undefined);
+    setFormOpen(true);
+    redirectPageQuery({ edit: "new", profile: "" });
+  };
+
+  // Edit needs nothing but the id — the embedded app resolves the edit token
+  // itself, and asks the user for it when this browser doesn't have one.
+  const openEditProfile = (id: string) => {
+    setProfileId(""); // close the detail dialog so modals don't stack
+    setEditId(id);
+    setFormOpen(true);
+    redirectPageQuery({ edit: id });
+  };
+
+  // Set once the iframe reports a save, consumed when the modal finally closes.
+  const savedId = useRef<string | undefined>(undefined);
+
+  const closeForm = () => {
+    setFormOpen(false);
+    setEditId(undefined);
+    // One navigation: drop ?edit and, if something was saved, open its detail.
+    redirectPageQuery({ edit: "", profile: savedId.current ?? "" });
+    savedId.current = undefined;
+  };
+
+  // Leave the modal open (it's showing the success step with the edit link);
+  // update ?edit= and refresh the list. The form closes itself via close-request.
+  const handleProfileSaved = (id: string) => {
+    savedId.current = id;
+    redirectPageQuery({ edit: id });
+    reload();
+  };
+
+  // Reopen the form from ?edit on load: "new" for a blank form, or a profile
+  // id to edit. Runs once the router is ready.
+  const restored = useRef(false);
+  useEffect(() => {
+    if (restored.current || !router) return;
+    restored.current = true;
+    const edit = router.search?.edit;
+    if (!edit) return;
+    setEditId(edit === "new" ? undefined : edit);
+    setFormOpen(true);
+  }, [router]);
 
   // The dialog flips through the profiles as the current view presents them:
   // chronologically on the map, by the table's sorting in the table.
@@ -126,10 +178,9 @@ function SnowProfileDashboard() {
             </div>
 
             <div className="station-dashboard-filter__add">
-              <a
-                href={config.apis.profiles.replace(/\/api$/, "/")}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={openNewProfile}
                 className="pure-button station-dashboard-filter__add-button"
               >
                 <svg
@@ -147,7 +198,7 @@ function SnowProfileDashboard() {
                   <line x1="3" y1="9" x2="15" y2="9" />
                 </svg>
                 {intl.formatMessage({ id: "profiles:add" })}
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -209,6 +260,14 @@ function SnowProfileDashboard() {
         profiles={flipperData}
         profileId={profileId}
         setProfileId={setProfileId}
+        onEdit={openEditProfile}
+      />
+
+      <SnowProfileFormDialog
+        open={formOpen}
+        onClose={closeForm}
+        editId={editId}
+        onSaved={handleProfileSaved}
       />
     </>
   );

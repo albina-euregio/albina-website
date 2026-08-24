@@ -107,6 +107,16 @@ $snowprofile-stabilities: (
   padding-top: variables.$padding;
 }
 
+// Match profea-app's own body colour so there's no white frame around the grey form.
+dialog.modal:has(.snowprofile-form) {
+  background-color: #f5f7fa;
+}
+
+.modal-container.snowprofile-form {
+  min-height: 0;
+  padding: 0;
+}
+
 // Edge length of the fixed close/flipper controls (see `$modal-control-size` in
 // _modals.scss), kept local so this feature stays self-contained.
 $snowprofile-control-size: calc(
@@ -128,7 +138,8 @@ $snowprofile-control-size: calc(
 }
 
 // Icon-only controls that mirror the flipper/close buttons opposite them.
-a.snowprofile-detail__action {
+a.snowprofile-detail__action,
+button.snowprofile-detail__action {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,6 +147,9 @@ a.snowprofile-detail__action {
   width: $snowprofile-control-size;
   color: variables.$brand;
   background-color: rgba(variables.$white, 0.75);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
   border-radius: variables.$global-radius;
   @include mixins.rollout;
 

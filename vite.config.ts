@@ -98,6 +98,19 @@ export default defineConfig({
           }
         ])
       ),
+      // See README "Testing the profea-app integration locally".
+      ...(process.env.PROFILES_APP_LOCAL
+        ? {
+            "/profiles-app": {
+              target:
+                process.env.PROFILES_APP_LOCAL === "1"
+                  ? "http://localhost:8080/"
+                  : process.env.PROFILES_APP_LOCAL,
+              changeOrigin: true,
+              rewrite: (path: string) => path.replace(/^\/profiles-app/, "")
+            }
+          }
+        : {}),
       "/smet.hydrographie.info": {
         target: "https://smet.hydrographie.info/",
         changeOrigin: true,

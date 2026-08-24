@@ -237,6 +237,7 @@ export function useSnowProfileData() {
   return {
     data,
     loading,
+    reload: loadData,
     dateFrom,
     dateTo,
     setDateRange,
