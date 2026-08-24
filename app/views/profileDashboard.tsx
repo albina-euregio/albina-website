@@ -73,6 +73,8 @@ function SnowProfileDashboard() {
       intl.formatMessage({ id: "measurements:table:header:altitude" }),
       intl.formatMessage({ id: "measurements:table:header:aspect" }),
       intl.formatMessage({ id: "profiles:table:header:stability" }),
+      intl.formatMessage({ id: "profiles:export:ect" }),
+      intl.formatMessage({ id: "profiles:export:rb" }),
       intl.formatMessage({ id: "profiles:export:latitude" }),
       intl.formatMessage({ id: "profiles:export:longitude" })
     ];
@@ -88,6 +90,8 @@ function SnowProfileDashboard() {
       profile.stability
         ? intl.formatMessage({ id: stabilityLabelId(profile.stability) })
         : "",
+      profile.ectScore ?? "",
+      profile.rbScore ?? "",
       profile.lat ?? "",
       profile.lon ?? ""
     ]);

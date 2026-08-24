@@ -406,6 +406,8 @@
   "profiles:detail:download-xml": "Download XML",
   "profiles:add": "New snow profile",
   "profiles:export:csv": "CSV download",
+  "profiles:export:ect": "Extended Column Test (ECT)",
+  "profiles:export:rb": "Rutschblock (RB)",
   "profiles:export:latitude": "Latitude",
   "profiles:export:longitude": "Longitude",
   "profiles:edit": "Edit snow profile",
