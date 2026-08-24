@@ -1,25 +1,30 @@
 import React, { useState } from "react";
-import { useIntl } from "../../i18n";
+import { FormattedMessage, useIntl } from "../../i18n";
+import { warnlevelNumbers } from "../../util/warn-levels";
 import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 import { $province } from "../../appStore";
 import { BulletinCollection } from "../../stores/bulletin";
 import { useStore } from "@nanostores/react";
+import { EnabledLanguages } from "./bulletin-glossary.js";
+const BulletinInternalGlossaryText = React.lazy(
+  () => import("./internal-glossary/internal-glossary-text.js")
+);
 
 interface Props {
   activeBulletinCollection: BulletinCollection;
 }
 
-function BulletinButtonbar({ activeBulletinCollection }: Props) {
+function BulletinLegendLinkbar({ activeBulletinCollection }: Props) {
   const intl = useIntl();
   const province = useStore($province);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
 
   return (
     <section
-      id="section-bulletin-linkbar"
-      className="section-padding section-linkbar section-bulletin-linkbar top-fix"
+      id="section-bulletin-legendlinkbar"
+      className="section-padding section-bulletin-legend section-bulletin-linkbar section-bulletin-legendlinkbar"
     >
       {isSubscribeDialogOpen && (
         <Modal
@@ -32,7 +37,41 @@ function BulletinButtonbar({ activeBulletinCollection }: Props) {
 
       <div className="section-centered">
         <div className="grid linkbar">
-          <div className="grid-item">
+          <div className="normal-6 grid-item">
+            <p>
+              <a href="/education/danger-scale">
+                <FormattedMessage
+                  id="bulletin:legend:danger-levels"
+                  html={true}
+                  values={{
+                    strong: (...msg) => <strong>{msg}</strong>
+                  }}
+                />
+              </a>
+            </p>
+            <ul className="list-inline list-legend">
+              {Object.entries(warnlevelNumbers).map(
+                ([id, num]) =>
+                  num > 0 && (
+                    <li key={id} className={`warning-level-${num}`}>
+                      <span>
+                        <strong>{num}</strong>{" "}
+                        <a href={`/education/danger-scale/#level${num}`}>
+                          <BulletinInternalGlossaryText
+                            text={intl.formatMessage({
+                              id: `danger-level:${id}`
+                            })}
+                            locale={intl.locale.slice(0, 2) as EnabledLanguages}
+                            textKey={"danger-scale-" + num}
+                          />
+                        </a>
+                      </span>
+                    </li>
+                  )
+              )}
+            </ul>
+          </div>
+          <div className="normal-6 grid-item">
             <ul className="list-inline list-buttongroup">
               {!config.subscribe.buttonHidden && (
                 <li>
@@ -49,9 +88,7 @@ function BulletinButtonbar({ activeBulletinCollection }: Props) {
                       }}
                       className="pure-button"
                     >
-                      {intl.formatMessage({
-                        id: "bulletin:linkbar:subscribe"
-                      })}
+                      {intl.formatMessage({ id: "bulletin:linkbar:subscribe" })}
                     </a>
                   </Tooltip>
                 </li>
@@ -108,4 +145,4 @@ function BulletinButtonbar({ activeBulletinCollection }: Props) {
   );
 }
 
-export default BulletinButtonbar;
+export default BulletinLegendLinkbar;

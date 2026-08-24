@@ -29,8 +29,13 @@ import {
 import { wordDiff } from "../../util/wordDiff";
 import { Tooltip } from "../tooltips/tooltip.tsx";
 import { useStore } from "@nanostores/react";
-import { $province } from "../../appStore.ts";
+import { $focusRegions, $province } from "../../appStore.ts";
 import { AdditionalBulletinInformation } from "./additional-bulletin-information.tsx";
+import Modal from "../dialogs/albina-modal";
+import {
+  DialogFlipperButtons,
+  useDialogFlipper
+} from "../dialogs/dialog-flipper";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -62,12 +67,69 @@ const LocalizedText: FunctionComponent<{
   );
 };
 
+function useDragScroll<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const drag = useRef({ active: false, moved: false, startX: 0, startLeft: 0 });
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const onDown = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      drag.current = {
+        active: true,
+        moved: false,
+        startX: e.clientX,
+        startLeft: el.scrollLeft
+      };
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!drag.current.active) return;
+      const dx = e.clientX - drag.current.startX;
+      if (Math.abs(dx) > 3) {
+        drag.current.moved = true;
+        el.style.scrollSnapType = "none";
+      }
+      el.scrollLeft = drag.current.startLeft - dx;
+    };
+    const onUp = () => {
+      drag.current.active = false;
+      el.style.scrollSnapType = "";
+    };
+    const onClick = (e: MouseEvent) => {
+      if (drag.current.moved) {
+        e.preventDefault();
+        e.stopPropagation();
+        drag.current.moved = false;
+      }
+    };
+    const onDragStart = (e: Event) => e.preventDefault();
+    el.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
+    el.addEventListener("click", onClick, true);
+    el.addEventListener("dragstart", onDragStart);
+    return () => {
+      el.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
+      el.removeEventListener("click", onClick, true);
+      el.removeEventListener("dragstart", onDragStart);
+    };
+  }, []);
+
+  return ref;
+}
+
 // One gallery card. Copyright is always visible; date + micro-region are hidden
 // behind a "Details" toggle (Email 3 §3). Assigned avalanche problems are not in
 // the photo data yet, so those labels are omitted for now.
 const BulletinReportPictureCard: FunctionComponent<{
   photo: BulletinPhoto;
-}> = ({ photo }) => {
+  onOpen: () => void;
+}> = ({ photo, onOpen }) => {
   const [open, setOpen] = useState(false);
   const hasDetails = !!(photo.date || photo.microRegionId);
   return (
@@ -79,6 +141,11 @@ const BulletinReportPictureCard: FunctionComponent<{
           target="_blank"
           rel="noopener noreferrer"
           title={photo.locationName}
+          onClick={e => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            e.preventDefault();
+            onOpen();
+          }}
         >
           <img
             src={photo.url}
@@ -107,7 +174,11 @@ const BulletinReportPictureCard: FunctionComponent<{
                 <span className="text button-text">
                   <FormattedMessage id="bulletin:report:picture:details" />
                 </span>
-                <span className="icon icon-down-open"></span>
+                <span
+                  className={
+                    "icon " + (open ? "icon-up-open" : "icon-down-open")
+                  }
+                ></span>
               </button>
               <div className="bulletin-report-picture-details">
                 {photo.date && (
@@ -142,6 +213,98 @@ const BulletinReportPictureCard: FunctionComponent<{
     </li>
   );
 };
+
+type GalleryPhoto = BulletinPhoto & { id: string };
+
+// The gallery lightbox: the picked photo shown large, with its copyright and
+// details, flipped through the whole gallery via arrows, keyboard and swipe
+// (shared dialog-flipper, as the profile/incident dialogs use). Mounted only
+// while open so the flipper's key handler stays scoped to it.
+const BulletinReportGalleryContent: FunctionComponent<{
+  photos: GalleryPhoto[];
+  photoId: string;
+  setPhotoId: (id: string) => void;
+}> = ({ photos, photoId, setPhotoId }) => {
+  const intl = useIntl();
+  const flipper = useDialogFlipper(photos, photoId, setPhotoId);
+  const photo = photos[flipper.index];
+
+  // Warm the neighbours so flipping on to them needs no fetch.
+  useEffect(() => {
+    for (const neighbour of [flipper.previousItem, flipper.nextItem]) {
+      if (!neighbour) continue;
+      const image = new Image();
+      image.src = neighbour.url;
+    }
+  }, [flipper.previousItem, flipper.nextItem]);
+
+  if (!photo) return null;
+
+  return (
+    <div
+      className="modal-container bulletin-report-gallery-modal"
+      {...flipper.swipeHandlers}
+    >
+      <DialogFlipperButtons
+        flipper={flipper}
+        previousLabel={intl.formatMessage({ id: "dialog:flipper:previous" })}
+        nextLabel={intl.formatMessage({ id: "dialog:flipper:next" })}
+      />
+      <figure className="bulletin-report-gallery-modal__figure">
+        <img
+          className="bulletin-report-gallery-modal__image"
+          src={photo.url}
+          alt={photo.locationName}
+        />
+        <figcaption className="bulletin-report-gallery-modal__caption">
+          {photo.copyright && (
+            <span className="text-icon">
+              <span className="icon icon-copyright" aria-hidden="true"></span>
+              <span className="text">{photo.copyright}</span>
+            </span>
+          )}
+          {photo.date && (
+            <span className="text-icon">
+              <span className="icon icon-calendar" aria-hidden="true"></span>
+              <span className="text">{photo.date}</span>
+            </span>
+          )}
+          {photo.microRegionId && (
+            <span className="text-icon">
+              <span
+                className="icon icon-location-small"
+                aria-hidden="true"
+              ></span>
+              <span className="text">
+                {photo.locationName}
+                {photo.locationName && photo.microRegionId ? ", " : ""}
+                <FormattedMessage
+                  id={`region:${photo.microRegionId}` as MessageId}
+                />
+              </span>
+            </span>
+          )}
+        </figcaption>
+      </figure>
+    </div>
+  );
+};
+
+const BulletinReportGalleryDialog: FunctionComponent<{
+  photos: GalleryPhoto[];
+  photoId: string;
+  setPhotoId: (id: string) => void;
+}> = ({ photos, photoId, setPhotoId }) => (
+  <Modal isOpen={!!photoId} onClose={() => setPhotoId("")} width="fit-content">
+    {!!photoId && (
+      <BulletinReportGalleryContent
+        photos={photos}
+        photoId={photoId}
+        setPhotoId={setPhotoId}
+      />
+    )}
+  </Modal>
+);
 
 // Nav-style micro-region switcher: inline text + chevron toggle revealing a
 // floating list. Selecting a region navigates (URL-driven), re-driving the
@@ -249,23 +412,36 @@ function BulletinReport({
 }: Props) {
   const intl = useIntl();
   const province = useStore($province);
+  const focusRegions = useStore($focusRegions);
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const [audioOpen, setAudioOpen] = useState(false);
+  const [galleryPhotoId, setGalleryPhotoId] = useState<string>("");
+  const galleryRef = useDragScroll<HTMLUListElement>();
   const audioUrl = useSynthesizedBulletinUrl(date, bulletin);
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
   const bulletinPhotos = getBulletinPhotos(bulletin.customData);
+  // Stable ids so the gallery flipper can walk the photos by index.
+  const galleryPhotos: GalleryPhoto[] = bulletinPhotos.map((photo, index) => ({
+    ...photo,
+    id: String(index)
+  }));
 
   if (!bulletin || !bulletin) {
     return <div />;
   }
 
-  // "Update" status mirrors the header's "Updated" indicator: an amendment exists
-  // when the 17:00 predecessor (bulletin170000, only loaded for unscheduled
-  // bulletins) is present — independent of whether this micro-region changed.
-  const isUpdated = !!(
+  const hasDiff = !!(
     bulletin.publicationTime && bulletin170000?.publicationTime
   );
+  const publicationValues = bulletin.publicationTime && {
+    date: intl.formatDate(bulletin.publicationTime, LONG_DATE_FORMAT),
+    time: intl.formatDate(bulletin.publicationTime, {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: false
+    })
+  };
 
   const maxWarnlevel = getMaxMainValue(bulletin.dangerRatings);
   const classes =
@@ -322,27 +498,28 @@ function BulletinReport({
                     {intl.formatDate(date, LONG_DATE_FORMAT)}
                   </span>
                 </span>
-                {isUpdated && showDiff > 0 && (
-                  <span className="text-icon bulletin-datetime-update">
-                    <span className="icon icon-update"></span>
-                    <span className="text">
-                      <FormattedMessage
-                        id="bulletin:header:updated-at"
-                        values={{
-                          date: intl.formatDate(
-                            bulletin.publicationTime,
-                            LONG_DATE_FORMAT
-                          ),
-                          time: intl.formatDate(bulletin.publicationTime, {
-                            hour: "numeric",
-                            minute: "numeric",
-                            hour12: false
-                          })
-                        }}
-                      />
+                {publicationValues &&
+                  (hasDiff ? (
+                    <span className="text-icon bulletin-datetime-update">
+                      <span className="icon icon-update"></span>
+                      <span className="text">
+                        <FormattedMessage
+                          id="bulletin:header:updated-at"
+                          values={publicationValues}
+                        />
+                      </span>
                     </span>
-                  </span>
-                )}
+                  ) : (
+                    <span className="text-icon bulletin-datetime-published">
+                      <span className="icon icon-update"></span>
+                      <span className="text">
+                        <FormattedMessage
+                          id="bulletin:header:published-at"
+                          values={publicationValues}
+                        />
+                      </span>
+                    </span>
+                  ))}
                 <span className="text-icon bulletin-report-region-name-country">
                   <span className="icon icon-location-small"></span>
                   {showRegionSwitcher ? (
@@ -397,7 +574,7 @@ function BulletinReport({
 
               <div className="bulletin-report-header-buttons">
                 <ul className="list-inline list-buttongroup">
-                  {isUpdated && showDiff === 0 && (
+                  {hasDiff && (
                     <li>
                       <Tooltip
                         label={intl.formatMessage({
@@ -406,8 +583,12 @@ function BulletinReport({
                       >
                         <button
                           type="button"
-                          className="pure-button inverse error tooltip pure-button-icon-text"
-                          onClick={() => setShowDiff(2)}
+                          className={
+                            "pure-button inverse error tooltip pure-button-icon-text" +
+                            (showDiff > 0 ? " active" : "")
+                          }
+                          aria-pressed={showDiff > 0}
+                          onClick={() => setShowDiff(showDiff === 0 ? 2 : 0)}
                         >
                           <span className="icon icon-show-small"></span>
                           <span className="text">
@@ -518,6 +699,17 @@ function BulletinReport({
               </div>
             )}
 
+            <h2 className="subheader bulletin-report-problems-headline">
+              <FormattedMessage id="bulletin:report:problems:headline" />
+              <Tooltip
+                html={true}
+                label={`<p>${intl.formatMessage({
+                  id: "bulletin:report:problems:core-zone:info"
+                })}</p>`}
+              >
+                <span className="tooltip-trigger icon-info"></span>
+              </Tooltip>
+            </h2>
             {hasDaytimeDependency(bulletin) ? (
               [
                 <BulletinDaytimeReport
@@ -566,14 +758,23 @@ function BulletinReport({
                 <h2 className="subheader">
                   <FormattedMessage id="bulletin:report:current-conditions:headline" />
                 </h2>
-                <ul className="list-plain bulletin-report-gallery">
-                  {bulletinPhotos.map((photo, index) => (
+                <ul
+                  ref={galleryRef}
+                  className="list-plain bulletin-report-gallery modal-gallery"
+                >
+                  {galleryPhotos.map(photo => (
                     <BulletinReportPictureCard
-                      key={photo.url + index}
+                      key={photo.url + photo.id}
                       photo={photo}
+                      onOpen={() => setGalleryPhotoId(photo.id)}
                     />
                   ))}
                 </ul>
+                <BulletinReportGalleryDialog
+                  photos={galleryPhotos}
+                  photoId={galleryPhotoId}
+                  setPhotoId={setGalleryPhotoId}
+                />
               </div>
             )}
           </div>
@@ -617,17 +818,40 @@ function BulletinReport({
                   </p>
                 </div>
               )}
-              {bulletin.weatherForecast?.comment && (
+              {(bulletin.weatherForecast?.comment ||
+                focusRegions.length > 0) && (
                 <div className="bulletin-additional-weather">
                   <h2 className="subheader">
                     <FormattedMessage id="bulletin:report:weather:headline" />
                   </h2>
-                  <p>
-                    <LocalizedText
-                      text={bulletin.weatherForecast?.comment}
-                      text170000={bulletin170000?.weatherForecast?.comment}
-                    />
-                  </p>
+                  {bulletin.weatherForecast?.comment && (
+                    <p>
+                      <LocalizedText
+                        text={bulletin.weatherForecast?.comment}
+                        text170000={bulletin170000?.weatherForecast?.comment}
+                      />
+                    </p>
+                  )}
+                  {focusRegions.length > 0 && (
+                    <ul className="list-inline list-buttongroup">
+                      {focusRegions.map(region => (
+                        <li key={region}>
+                          <a
+                            className="pure-button secondary"
+                            href={intl.formatMessage({
+                              id: `button:weather:${region}:link` as MessageId
+                            })}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            {intl.formatMessage({
+                              id: `region:${region}` as MessageId
+                            })}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               )}
               {hasTendency && (

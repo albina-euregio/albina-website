@@ -9,8 +9,7 @@ import BulletinFooter from "../components/bulletin/bulletin-footer";
 const BulletinMap = React.lazy(
   () => import("../components/bulletin/bulletin-map")
 );
-import BulletinLegend from "../components/bulletin/bulletin-legend";
-import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
+import BulletinLegendLinkbar from "../components/bulletin/bulletin-legendlinkbar";
 import HTMLHeader from "../components/organisms/html-header";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { Suspense } from "react";
@@ -62,7 +61,7 @@ const Bulletin = () => {
       ? router.params.date
       : undefined;
   const [slowLoading, setLoadingStart] = useSlowLoading();
-  const { problems, toggleProblem } = useProblems();
+  const { problems } = useProblems();
   const [region, setRegion] = useState("");
   const [latest, setLatest] = useState<Temporal.PlainDate | null>(null);
   const [status, setStatus] = useState<Status>();
@@ -250,25 +249,9 @@ const Bulletin = () => {
               problems={problems}
             />
           )}
-          {!config.bulletin.showAllBulletins &&
-            !region &&
-            status &&
-            status !== "pending" && (
-              <div className="bulletin-map-cta">
-                <span className="icon-info"></span>
-                <span className="text">
-                  <FormattedMessage id="bulletin:select-region:title" />
-                </span>
-              </div>
-            )}
         </div>
-        <BulletinLegend
-          handleSelectRegion={handleSelectRegion}
-          problems={problems}
-          toggleProblem={toggleProblem}
-        />
       </Suspense>
-      <BulletinButtonbar activeBulletinCollection={collection} />
+      <BulletinLegendLinkbar activeBulletinCollection={collection} />
       {collection?.generalHeadline && (
         <section id="section-general-headline" className="section-padding">
           <div className="section-centered">
