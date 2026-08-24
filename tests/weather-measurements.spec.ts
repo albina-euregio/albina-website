@@ -26,7 +26,7 @@ test("weather/stations?view=table", async ({ page }) => {
     page.locator(".modal-weatherstation").getByRole("heading").first()
   ).toHaveText("Gallreideschrofen 2180 m");
   await page
-    .locator("#section-weather-table")
+    .getByRole("dialog")
     .getByRole("button", { name: " Close" })
     .click();
   await expect(page.getByRole("dialog")).toBeHidden();
