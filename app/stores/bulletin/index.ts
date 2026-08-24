@@ -3,6 +3,7 @@ import {
   vCaamlAspect,
   vCaamlAvalancheBulletin,
   vCaamlAvalancheBulletinCustomData,
+  vCaamlAvalancheBulletinCustomDataBulletinPhoto,
   vCaamlAvalancheBulletinProvider,
   vCaamlAvalancheBulletins,
   vCaamlAvalancheBulletinSource,
@@ -188,26 +189,23 @@ export type DangerPattern =
   | "DP9"
   | "DP10";
 
-export interface BulletinPhoto {
-  url: string;
-  copyright: string;
-  date: string;
-  microRegionId: string;
-  locationName: string;
-  latitude: number;
-  longitude: number;
-}
-
 type AlbinaCustomData = v.InferOutput<typeof vCaamlAvalancheBulletinCustomData>;
 
+export type BulletinPhoto = v.InferOutput<
+  typeof vCaamlAvalancheBulletinCustomDataBulletinPhoto
+>;
+
 export function getDangerPatterns(data: CustomData): DangerPattern[] {
-  return (data as AlbinaCustomData)?.LWD_Tyrol?.dangerPatterns || [];
+  return ((data as AlbinaCustomData)?.LWD_Tyrol?.dangerPatterns ||
+    []) as DangerPattern[];
 }
 
 export function getBulletinPhotos(data: CustomData): BulletinPhoto[] {
   return (data as AlbinaCustomData)?.ALBINA?.bulletinPhotos || [];
 }
 
-export function getTendencyProgression(data: CustomData) {
+export function getTendencyProgression(
+  data: CustomData
+): AlbinaCustomData["ALBINA"]["tendencyProgression"] | undefined {
   return (data as AlbinaCustomData)?.ALBINA?.tendencyProgression;
 }
