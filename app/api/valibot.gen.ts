@@ -120,26 +120,16 @@ export const vCaamlAspect = v.picklist([
 
 export const vCaamlAvalancheBulletinCustomDataBulletinPhoto = v.object({
   url: v.string(),
-  copyright: v.optional(v.string()),
-  date: v.optional(v.pipe(v.string(), v.isoDate())),
-  microRegionId: v.optional(v.string()),
-  locationName: v.optional(v.string()),
-  latitude: v.optional(v.number()),
-  longitude: v.optional(v.number())
-});
-
-export const vCaamlAvalancheBulletinCustomDataAlbina = v.object({
-  mainDate: v.string(),
-  bulletinPhotos: v.array(vCaamlAvalancheBulletinCustomDataBulletinPhoto)
+  copyright: v.string(),
+  date: v.pipe(v.string(), v.isoDate()),
+  microRegionId: v.string(),
+  locationName: v.string(),
+  latitude: v.number(),
+  longitude: v.number()
 });
 
 export const vCaamlAvalancheBulletinCustomDataLwdTyrol = v.object({
   dangerPatterns: v.array(v.string())
-});
-
-export const vCaamlAvalancheBulletinCustomData = v.object({
-  ALBINA: vCaamlAvalancheBulletinCustomDataAlbina,
-  LWD_Tyrol: vCaamlAvalancheBulletinCustomDataLwdTyrol
 });
 
 export const vCaamlAvalancheBulletinsCustomDataAlbina = v.object({
@@ -189,6 +179,22 @@ export const vCaamlDangerRatingValue = v.picklist([
   "no_snow",
   "very_high"
 ]);
+
+export const vCaamlAvalancheBulletinCustomDataTendencyProgression = v.object({
+  dates: v.array(v.pipe(v.string(), v.isoDate())),
+  dangerRatings: v.record(v.string(), v.array(vCaamlDangerRatingValue))
+});
+
+export const vCaamlAvalancheBulletinCustomDataAlbina = v.object({
+  mainDate: v.string(),
+  tendencyProgression: vCaamlAvalancheBulletinCustomDataTendencyProgression,
+  bulletinPhotos: v.array(vCaamlAvalancheBulletinCustomDataBulletinPhoto)
+});
+
+export const vCaamlAvalancheBulletinCustomData = v.object({
+  ALBINA: vCaamlAvalancheBulletinCustomDataAlbina,
+  LWD_Tyrol: vCaamlAvalancheBulletinCustomDataLwdTyrol
+});
 
 /**
  * Elevation describes either an elevation range below a certain bound (only upperBound is set to a value) or above a certain bound (only lowerBound is set to a value). If both values are set to a value, an elevation band is defined by this property. The value uses a numeric value, not more detailed than 100m resolution. Additionally to the numeric values also 'treeline' is allowed.
@@ -485,11 +491,6 @@ export const vDangerRating = v.picklist([
 
 export const vAvalancheBulletinServiceHighest = v.object({
   dangerRating: vDangerRating
-});
-
-export const vAvalancheBulletinServiceTendencyResult = v.object({
-  dates: v.optional(v.array(v.pipe(v.string(), v.isoTimestamp()))),
-  dangerRatings: v.optional(v.record(v.string(), v.array(vDangerRating)))
 });
 
 export const vDangerRatingModificator = v.picklist([
@@ -1714,6 +1715,11 @@ export const vSubscriptionServiceEmailSubscription = v.object({
 
 export const vTendency = v.picklist(["decreasing", "steady", "increasing"]);
 
+export const vTendencyProgression = v.object({
+  dates: v.optional(v.array(v.pipe(v.string(), v.isoTimestamp()))),
+  dangerRatings: v.optional(v.record(v.string(), v.array(vDangerRating)))
+});
+
 export const vTerrainType = v.picklist([
   "gullies_and_bowls",
   "adjacent_to_ridgelines",
@@ -2421,8 +2427,8 @@ export const vGetPublishedJsonBulletins0Query = v.object({
   version: v.optional(vCaamlVersion),
   regions: v.array(v.string()),
   region: v.string(),
-  date: v.string(),
-  lang: vLanguageCode
+  lang: vLanguageCode,
+  date: v.string()
 });
 
 /**
@@ -2457,7 +2463,7 @@ export const vCreateJsonBulletinResponse = v.array(vAvalancheBulletin);
 export const vGetPublishedCaamlBulletinsQuery = v.object({
   date: v.string(),
   regions: v.array(v.string()),
-  lang: vLanguageCode,
+  lang: v.optional(vLanguageCode),
   version: v.optional(vCaamlVersion)
 });
 
@@ -2662,7 +2668,7 @@ export const vGetTendencyQuery = v.object({
 /**
  * tendency of each micro region with published bulletins
  */
-export const vGetTendencyResponse = vAvalancheBulletinServiceTendencyResult;
+export const vGetTendencyResponse = vTendencyProgression;
 
 export const vDeleteJsonBulletinPath = v.object({
   bulletinId: v.string()

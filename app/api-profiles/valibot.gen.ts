@@ -133,6 +133,19 @@ export const vUpdateProfileQuery = v.object({
  */
 export const vUpdateProfileResponse2 = vUpdateProfileResponse;
 
+export const vVerifyEditTokenBody = v.object({
+  edit_token: v.string()
+});
+
+export const vVerifyEditTokenPath = v.object({
+  id: v.string()
+});
+
+/**
+ * Token matches.
+ */
+export const vVerifyEditTokenResponse = v.void();
+
 export const vGetProfileSvgPath = v.object({
   id: v.string()
 });
