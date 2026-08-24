@@ -110,10 +110,7 @@ const Bulletin = () => {
       setStatus(collection.status);
       try {
         await Promise.all([
-          collection
-            .load()
-            .then(() => collection.loadTendency())
-            .then(() => collection.load170000()),
+          collection.load().then(() => collection.load170000()),
           collection.loadExtraBulletins(),
           collection.loadEawsBulletins()
         ]);

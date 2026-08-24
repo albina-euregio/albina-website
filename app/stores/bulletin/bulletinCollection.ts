@@ -19,7 +19,6 @@ import {
   getWarnlevelNumber,
   WarnLevelNumber
 } from "../../util/warn-levels";
-import { vAvalancheBulletinServiceTendencyResult } from "../../api/valibot.gen";
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -206,32 +205,6 @@ class BulletinCollection {
       }
     } catch (error) {
       console.error(`Cannot load 17:00 bulletin for date ${this.date}`, error);
-    }
-  }
-
-  async loadTendency() {
-    if (!this.dataRaw) {
-      return;
-    }
-    try {
-      const date =
-        this.dataRaw.bulletins
-          ?.find(b => b.validTime?.startTime)
-          ?.validTime?.startTime?.toISOString() ?? "";
-      const tendencyProgression: v.InferOutput<
-        typeof vAvalancheBulletinServiceTendencyResult
-      > = await fetchJSON(
-        config.template(config.apis.bulletin.tendency, { date })
-      );
-      this.dataRaw.bulletins?.forEach(b => {
-        if (!b.customData?.ALBINA) return;
-        Object.assign(b.customData?.ALBINA, { tendencyProgression });
-      });
-    } catch (error) {
-      console.error(
-        `Cannot load tendency progression for date ${this.date}`,
-        error
-      );
     }
   }
 

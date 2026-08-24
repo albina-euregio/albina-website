@@ -1,8 +1,8 @@
 import * as v from "valibot";
 import {
-  vAvalancheBulletinServiceTendencyResult,
   vCaamlAspect,
   vCaamlAvalancheBulletin,
+  vCaamlAvalancheBulletinCustomData,
   vCaamlAvalancheBulletinProvider,
   vCaamlAvalancheBulletins,
   vCaamlAvalancheBulletinSource,
@@ -198,18 +198,7 @@ export interface BulletinPhoto {
   longitude: number;
 }
 
-interface AlbinaCustomData extends CustomData {
-  ALBINA: {
-    mainDate: string;
-    bulletinPhotos: BulletinPhoto[];
-    tendencyProgression:
-      | v.InferOutput<typeof vAvalancheBulletinServiceTendencyResult>
-      | undefined;
-  };
-  LWD_Tyrol: {
-    dangerPatterns: DangerPattern[];
-  };
-}
+type AlbinaCustomData = v.InferOutput<typeof vCaamlAvalancheBulletinCustomData>;
 
 export function getDangerPatterns(data: CustomData): DangerPattern[] {
   return (data as AlbinaCustomData)?.LWD_Tyrol?.dangerPatterns || [];
@@ -219,8 +208,6 @@ export function getBulletinPhotos(data: CustomData): BulletinPhoto[] {
   return (data as AlbinaCustomData)?.ALBINA?.bulletinPhotos || [];
 }
 
-export function getTendencyProgression(
-  data: CustomData
-): v.InferOutput<typeof vAvalancheBulletinServiceTendencyResult> | undefined {
+export function getTendencyProgression(data: CustomData) {
   return (data as AlbinaCustomData)?.ALBINA?.tendencyProgression;
 }
