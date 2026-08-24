@@ -434,7 +434,14 @@ function BulletinReport({
   const hasDiff = !!(
     bulletin.publicationTime && bulletin170000?.publicationTime
   );
-  const isUpdated = !!bulletin.unscheduled || hasDiff;
+  const publicationValues = bulletin.publicationTime && {
+    date: intl.formatDate(bulletin.publicationTime, LONG_DATE_FORMAT),
+    time: intl.formatDate(bulletin.publicationTime, {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: false
+    })
+  };
 
   const maxWarnlevel = getMaxMainValue(bulletin.dangerRatings);
   const classes =
@@ -491,27 +498,28 @@ function BulletinReport({
                     {intl.formatDate(date, LONG_DATE_FORMAT)}
                   </span>
                 </span>
-                {isUpdated && bulletin.publicationTime && (
-                  <span className="text-icon bulletin-datetime-update">
-                    <span className="icon icon-update"></span>
-                    <span className="text">
-                      <FormattedMessage
-                        id="bulletin:header:updated-at"
-                        values={{
-                          date: intl.formatDate(
-                            bulletin.publicationTime,
-                            LONG_DATE_FORMAT
-                          ),
-                          time: intl.formatDate(bulletin.publicationTime, {
-                            hour: "numeric",
-                            minute: "numeric",
-                            hour12: false
-                          })
-                        }}
-                      />
+                {publicationValues &&
+                  (hasDiff ? (
+                    <span className="text-icon bulletin-datetime-update">
+                      <span className="icon icon-update"></span>
+                      <span className="text">
+                        <FormattedMessage
+                          id="bulletin:header:updated-at"
+                          values={publicationValues}
+                        />
+                      </span>
                     </span>
-                  </span>
-                )}
+                  ) : (
+                    <span className="text-icon bulletin-datetime-published">
+                      <span className="icon icon-update"></span>
+                      <span className="text">
+                        <FormattedMessage
+                          id="bulletin:header:published-at"
+                          values={publicationValues}
+                        />
+                      </span>
+                    </span>
+                  ))}
                 <span className="text-icon bulletin-report-region-name-country">
                   <span className="icon icon-location-small"></span>
                   {showRegionSwitcher ? (
