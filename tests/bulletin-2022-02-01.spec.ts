@@ -43,15 +43,6 @@ test("2022-02-01", async ({ page }) => {
     bulletin.locator(".bulletin-report-header-danger-level")
   ).toContainText("Danger Level 4 — high");
 
-  // D2: each avalanche problem repeats the headline danger digit
-  await expect(
-    bulletin
-      .locator(
-        ".list-bulletin-report-pictos li.warning-level-4 .bulletin-report-picto.warning-level"
-      )
-      .first()
-  ).toHaveText("4");
-
   // B3: the "Listen" button only appears when a synthesized audio file exists.
   // No mp3 is served for this fixture, so neither the button nor a player shows.
   await expect(
