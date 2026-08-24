@@ -832,9 +832,6 @@ function BulletinReport({
                       />
                     </p>
                   )}
-                  {/* Warner-provided weather-service links (Geosphere / provincial
-                      services), moved up from the page footer per #780. Exact
-                      button targets/labels to be refined later. */}
                   {focusRegions.length > 0 && (
                     <ul className="list-inline list-buttongroup">
                       {focusRegions.map(region => (
