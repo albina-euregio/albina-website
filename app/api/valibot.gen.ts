@@ -120,16 +120,16 @@ export const vCaamlAspect = v.picklist([
 
 export const vCaamlAvalancheBulletinCustomDataBulletinPhoto = v.object({
   url: v.string(),
-  copyright: v.string(),
-  date: v.pipe(v.string(), v.isoDate()),
-  microRegionId: v.string(),
-  locationName: v.string(),
-  latitude: v.number(),
-  longitude: v.number()
+  copyright: v.nullish(v.string()),
+  date: v.nullish(v.pipe(v.string(), v.isoDate())),
+  microRegionId: v.nullish(v.string()),
+  locationName: v.nullish(v.string()),
+  latitude: v.nullish(v.number()),
+  longitude: v.nullish(v.number())
 });
 
 export const vCaamlAvalancheBulletinCustomDataLwdTyrol = v.object({
-  dangerPatterns: v.array(v.string())
+  dangerPatterns: v.nullish(v.array(v.string()))
 });
 
 export const vCaamlAvalancheBulletinsCustomDataAlbina = v.object({
@@ -187,8 +187,10 @@ export const vCaamlAvalancheBulletinCustomDataTendencyProgression = v.object({
 
 export const vCaamlAvalancheBulletinCustomDataAlbina = v.object({
   mainDate: v.string(),
-  tendencyProgression: vCaamlAvalancheBulletinCustomDataTendencyProgression,
-  bulletinPhotos: v.optional(
+  tendencyProgression: v.nullish(
+    vCaamlAvalancheBulletinCustomDataTendencyProgression
+  ),
+  bulletinPhotos: v.nullish(
     v.array(vCaamlAvalancheBulletinCustomDataBulletinPhoto)
   )
 });
