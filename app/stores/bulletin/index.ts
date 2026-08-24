@@ -21,27 +21,11 @@ import {
   vCaamlTendency,
   vCaamlTendencyType,
   vCaamlTexts,
+  vCaamlValidTime,
   vCaamlValidTimePeriod
 } from "../../api/valibot.gen";
 
 export * from "./bulletinCollection";
-
-// The CAAML schemas live in `app/api/valibot.gen.ts`, generated from the
-// avalanche.report OpenAPI spec (regenerate with `pnpm openapi`). Import those
-// `vCaaml*` schemas directly where you need to validate. This module only adds
-// what the generator cannot express: the website-facing type aliases, plus the
-// handful of schemas that need overriding — `customData` (kept free-form `any`),
-// date fields (coerced to `Date`) and `tendency` (single object or array).
-// Optionality is taken as-is from the spec; do not tighten it here.
-
-/** Coerces a JSON date (ISO string, timestamp or Date) into a `Date`. */
-const CoerceDateSchema = v.pipe(
-  v.union([v.string(), v.number(), v.date()]),
-  v.transform(value => new Date(value))
-);
-
-const CustomDataSchema = v.optional(v.any());
-export type CustomData = v.InferOutput<typeof CustomDataSchema>;
 
 export type Aspect = v.InferOutput<typeof vCaamlAspect>;
 export type DangerRatingValue = v.InferOutput<typeof vCaamlDangerRatingValue>;
@@ -62,90 +46,46 @@ export type ElevationBoundaryOrBand = v.InferOutput<
 >;
 export type ExternalFile = v.InferOutput<typeof vCaamlExternalFile>;
 export type MetaData = v.InferOutput<typeof vCaamlMetaData>;
+export type ValidTime = v.InferOutput<typeof vCaamlValidTime>;
 
-const ValidTimeSchema = v.object({
-  endTime: v.optional(CoerceDateSchema),
-  startTime: v.optional(CoerceDateSchema)
-});
-export type ValidTime = v.InferOutput<typeof ValidTimeSchema>;
+export type DangerRating = v.InferOutput<typeof vCaamlDangerRating>;
 
-const DangerRatingSchema = v.object({
-  ...vCaamlDangerRating.entries,
-  customData: CustomDataSchema
-});
-export type DangerRating = v.InferOutput<typeof DangerRatingSchema>;
+export type Region = v.InferOutput<typeof vCaamlRegion>;
 
-const RegionSchema = v.object({
-  ...vCaamlRegion.entries,
-  customData: CustomDataSchema
-});
-export type Region = v.InferOutput<typeof RegionSchema>;
+export type Person = v.InferOutput<typeof vCaamlPerson>;
 
-const PersonSchema = v.object({
-  ...vCaamlPerson.entries,
-  customData: CustomDataSchema
-});
-export type Person = v.InferOutput<typeof PersonSchema>;
-
-const AvalancheBulletinProviderSchema = v.object({
-  ...vCaamlAvalancheBulletinProvider.entries,
-  contactPerson: v.optional(PersonSchema),
-  customData: CustomDataSchema
-});
 export type AvalancheBulletinProvider = v.InferOutput<
-  typeof AvalancheBulletinProviderSchema
+  typeof vCaamlAvalancheBulletinProvider
 >;
 
-const AvalancheBulletinSourceSchema = v.object({
-  ...vCaamlAvalancheBulletinSource.entries,
-  provider: v.optional(AvalancheBulletinProviderSchema)
-});
 export type AvalancheBulletinSource = v.InferOutput<
-  typeof AvalancheBulletinSourceSchema
+  typeof vCaamlAvalancheBulletinSource
 >;
 
-const AvalancheProblemSchema = v.object({
-  ...vCaamlAvalancheProblem.entries,
-  customData: CustomDataSchema
-});
-export type AvalancheProblem = v.InferOutput<typeof AvalancheProblemSchema>;
+export type AvalancheProblem = v.InferOutput<typeof vCaamlAvalancheProblem>;
 
-const TendencySchema = v.object({
-  ...vCaamlTendency.entries,
-  customData: CustomDataSchema,
-  validTime: v.optional(ValidTimeSchema)
-});
-export type Tendency = v.InferOutput<typeof TendencySchema>;
+export type Tendency = v.InferOutput<typeof vCaamlTendency>;
 
 const BulletinSchema = v.object({
   ...vCaamlAvalancheBulletin.entries,
-  avalancheProblems: v.optional(v.array(AvalancheProblemSchema)),
-  customData: CustomDataSchema,
-  dangerRatings: v.optional(v.array(DangerRatingSchema)),
-  nextUpdate: v.optional(CoerceDateSchema),
-  publicationTime: v.optional(CoerceDateSchema),
-  regions: v.optional(v.array(RegionSchema)),
-  source: v.optional(AvalancheBulletinSourceSchema),
   tendency: v.optional(
     v.union([
       // Array branch must come first: v.object loosely accepts an array as an
       // object and strips it to {}, so a leading single-object branch would
       // swallow the array input and drop every tendency field.
-      v.array(TendencySchema),
+      v.array(vCaamlTendency),
       v.pipe(
-        TendencySchema,
+        vCaamlTendency,
         v.transform(t => [t])
       )
     ])
-  ),
-  validTime: v.optional(ValidTimeSchema)
+  )
 });
 export type Bulletin = v.InferOutput<typeof BulletinSchema>;
 
 export const BulletinsSchema = v.object({
   ...vCaamlAvalancheBulletins.entries,
-  bulletins: v.optional(v.array(BulletinSchema)),
-  customData: CustomDataSchema
+  bulletins: v.optional(v.array(BulletinSchema))
 });
 export type Bulletins = v.InferOutput<typeof BulletinsSchema>;
 
@@ -195,17 +135,20 @@ export type BulletinPhoto = v.InferOutput<
   typeof vCaamlAvalancheBulletinCustomDataBulletinPhoto
 >;
 
-export function getDangerPatterns(data: CustomData): DangerPattern[] {
-  return ((data as AlbinaCustomData)?.LWD_Tyrol?.dangerPatterns ||
-    []) as DangerPattern[];
+export function getDangerPatterns(
+  data: Bulletin["customData"]
+): DangerPattern[] {
+  return (data?.LWD_Tyrol?.dangerPatterns || []) as DangerPattern[];
 }
 
-export function getBulletinPhotos(data: CustomData): BulletinPhoto[] {
-  return (data as AlbinaCustomData)?.ALBINA?.bulletinPhotos || [];
+export function getBulletinPhotos(
+  data: Bulletin["customData"]
+): BulletinPhoto[] {
+  return data?.ALBINA?.bulletinPhotos || [];
 }
 
 export function getTendencyProgression(
-  data: CustomData
+  data: Bulletin["customData"]
 ): AlbinaCustomData["ALBINA"]["tendencyProgression"] | undefined {
-  return (data as AlbinaCustomData)?.ALBINA?.tendencyProgression;
+  return data?.ALBINA?.tendencyProgression;
 }

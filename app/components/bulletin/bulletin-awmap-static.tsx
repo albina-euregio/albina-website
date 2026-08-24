@@ -24,7 +24,6 @@ function BulletinAWMapStatic({
   const publicationTime = bulletin?.publicationTime;
   const publicationDirectory = publicationTime
     ? publicationTime
-        .toISOString()
         .replace(/T/, "_")
         .replace(/:/g, "-")
         .slice(0, "2021-12-04_16-00-00".length)
@@ -37,14 +36,17 @@ function BulletinAWMapStatic({
     publication: publicationDirectory,
     file
   });
+  const providerCustomData = bulletin?.source?.provider?.customData as
+    | { url?: string; regionID?: string }
+    | undefined;
   if (
-    bulletin?.source?.provider?.customData.url &&
+    providerCustomData?.url &&
     !bulletin?.regions?.some(r => r.regionID.match(config.extraRegions))
   ) {
-    filePrefix = bulletin?.source?.provider?.customData.regionID;
+    filePrefix = providerCustomData.regionID ?? "";
     url = new URL(
       `${filePrefix}_${region}${fileSuffix}.jpg`,
-      bulletin?.source?.provider?.customData.url
+      providerCustomData.url
     ).toString();
   } else if (imgFormat || date.toString() <= "2022-05-06") {
     url = url.replace(/.webp$/, imgFormat || ".jpg");

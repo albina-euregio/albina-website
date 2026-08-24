@@ -457,7 +457,7 @@ function BulletinReport({
                           rel="noopener noreferrer nofollow"
                           target="_blank"
                           href={config.template(config.apis.bulletin.pdf, {
-                            date: bulletin.validTime?.startTime?.toISOString(),
+                            date: bulletin.validTime?.startTime,
                             region: province ?? "EUREGIO",
                             microRegionId: region,
                             lang: intl.locale.slice(0, 2)

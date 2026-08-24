@@ -353,7 +353,7 @@ class BulletinCollection {
     ]);
   }
 
-  get generalHeadline(): string {
+  get generalHeadline(): string | null {
     return this.dataRaw?.customData?.ALBINA?.generalHeadline?.trim() ?? null;
   }
 

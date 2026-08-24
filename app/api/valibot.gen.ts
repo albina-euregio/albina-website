@@ -188,7 +188,9 @@ export const vCaamlAvalancheBulletinCustomDataTendencyProgression = v.object({
 export const vCaamlAvalancheBulletinCustomDataAlbina = v.object({
   mainDate: v.string(),
   tendencyProgression: vCaamlAvalancheBulletinCustomDataTendencyProgression,
-  bulletinPhotos: v.array(vCaamlAvalancheBulletinCustomDataBulletinPhoto)
+  bulletinPhotos: v.optional(
+    v.array(vCaamlAvalancheBulletinCustomDataBulletinPhoto)
+  )
 });
 
 export const vCaamlAvalancheBulletinCustomData = v.object({

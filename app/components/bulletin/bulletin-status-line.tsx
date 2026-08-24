@@ -24,9 +24,9 @@ const BulletinStatusLine = ({ bulletins, status }: Props) => {
     .filter(([b1]) =>
       b1.regions?.some(r => r.regionID.match(config.regionsRegex))
     )
-    .flatMap(([b1, b2]) =>
-      b2 ? [+b1.publicationTime, +b2.publicationTime] : [+b1.publicationTime]
-    )
+    .flatMap(([b1, b2]) => (b2 ? [b1, b2] : [b1]))
+    .map(b => b.publicationTime)
+    .filter(time => !!time)
     .filter((time, index, self) => self.indexOf(time) === index)
     .sort();
 

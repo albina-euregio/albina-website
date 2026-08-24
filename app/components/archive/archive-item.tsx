@@ -176,7 +176,7 @@ function DownloadLink({
         url,
         url.includes("/api/bulletins/pdf")
           ? {
-              date: bulletin.validTime?.startTime?.toISOString(),
+              date: bulletin.validTime?.startTime,
               region: province ?? "EUREGIO",
               microRegionId: region,
               lang,
