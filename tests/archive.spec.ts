@@ -42,7 +42,7 @@ test("archive", async ({ page }) => {
     .getByRole("link", { name: "PDF" });
   await expect(pdf).toHaveAttribute(
     "href",
-    /api\/bulletins\/pdf\?date=2025-03-28T16:00:00.000Z&region=EUREGIO&microRegionId=AT-07-22&lang=en&grayscale=false$/
+    /api\/bulletins\/pdf\?date=2025-03-28T16:00:00Z&region=EUREGIO&microRegionId=AT-07-22&lang=en&grayscale=false$/
   );
 });
 

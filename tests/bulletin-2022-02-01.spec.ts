@@ -102,7 +102,7 @@ test("2022-02-01", async ({ page }) => {
 test("2022-02-01 subscribe", async ({ page }) => {
   await page.goto("2022-02-01");
   await page
-    .locator("#section-bulletin-linkbar")
+    .locator("#section-bulletin-legendlinkbar")
     .getByRole("link", { name: "Subscribe" })
     .click();
   await page.getByRole("button", { name: "Telegram", exact: true }).click({
@@ -136,7 +136,7 @@ test("click on map + download pdf", async ({ page }) => {
 
   const pdfUrl = await pdfLink.getAttribute("href");
   expect(pdfUrl).toContain(
-    "/api/bulletins/pdf?date=2022-01-31T23:00:00.000Z&region=EUREGIO&microRegionId=AT-07-16&lang=en&grayscale=false"
+    "/api/bulletins/pdf?date=2022-01-31T23:00:00Z&region=EUREGIO&microRegionId=AT-07-16&lang=en&grayscale=false"
   );
 
   // Verify the link actually serves a non-empty PDF, not a dead URL.
