@@ -40,6 +40,7 @@ import {
   DialogFlipperButtons,
   useDialogFlipper
 } from "../dialogs/dialog-flipper";
+import { eawsRegion } from "../../stores/eawsRegions";
 
 const LocalizedText: FunctionComponent<{
   text: string;
@@ -468,6 +469,12 @@ function BulletinReport({
     id: "bulletin:report:tendency:info"
   });
 
+  let province0 = region;
+  while (!eawsRegion(province0)) {
+    province0 = province0.replace(/-[^-]*$/, "");
+  }
+  const aws = eawsRegion(province0)?.aws?.[0];
+
   // Micro-regions this report covers, for the region switcher dropdown.
   // Selecting one navigates to that region (re-driving the per-region view).
   const regionOptions = (bulletin.regions ?? [])
@@ -533,21 +540,20 @@ function BulletinReport({
                     </span>
                   )}
                 </span>
-                {bulletin.source?.provider?.name && (
+                {aws?.name && (
                   <span className="text-icon bulletin-report-copyright">
                     <span className="icon icon-copyright"></span>
                     <span className="text">
-                      {bulletin.source.provider.website ? (
-                        <a
-                          href={bulletin.source.provider.website}
-                          rel="noopener noreferrer nofollow"
-                          target="_blank"
-                        >
-                          {bulletin.source.provider.name}
-                        </a>
-                      ) : (
-                        bulletin.source.provider.name
-                      )}
+                      <a
+                        href={
+                          aws?.url?.[intl.locale.slice(0, 2)] ??
+                          aws?.url?.["en"]
+                        }
+                        rel="noopener noreferrer nofollow"
+                        target="_blank"
+                      >
+                        {aws?.name}
+                      </a>
                     </span>
                   </span>
                 )}
