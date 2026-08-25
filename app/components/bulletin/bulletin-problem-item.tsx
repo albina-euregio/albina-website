@@ -3,6 +3,8 @@ import { FormattedMessage, MessageId, useIntl } from "../../i18n";
 import ProblemIconLink from "../icons/problem-icon-link";
 import ExpositionIcon from "../icons/exposition-icon";
 import ElevationIcon from "../icons/elevation-icon";
+import { Tooltip } from "../tooltips/tooltip";
+import { getDangerRatingValue } from "../../util/warn-levels";
 // import SnowpackStabilityIconLink from "../icons/snowpack-stability-icon-link";
 // import FrequencyIconLink from "../icons/frequency-icon-link";
 // import AvalancheSizeIconLink from "../icons/avalanche-size-icon-link";
@@ -203,11 +205,26 @@ function BulletinProblemItem({
     id: "bulletin:report:problem:avalanche-size"
   });
 
+  const dangerRatingValue = getDangerRatingValue(
+    warnlevelNumber as Parameters<typeof getDangerRatingValue>[0]
+  );
+  const dangerRatingLabel = warnlevelNumber
+    ? intl.formatMessage(
+        { id: "bulletin:report:dangerlevel" },
+        {
+          level: intl.formatMessage({
+            id: `danger-level:${dangerRatingValue}` as MessageId
+          })
+        }
+      )
+    : undefined;
+
   const glossaryParams = {
     stabilityClass: intl.formatMessage({
       id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
     })
   };
+
   return (
     <li
       // style={
@@ -220,6 +237,13 @@ function BulletinProblemItem({
         (showDiff && problem170000 === undefined ? " bulletin-update-diff" : "")
       }
     >
+      {dangerRatingLabel ? (
+        <Tooltip label={dangerRatingLabel} placement="right">
+          <span className="danger-color-bar" aria-hidden="true" />
+        </Tooltip>
+      ) : (
+        <span className="danger-color-bar" aria-hidden="true" />
+      )}
       {problem && <ProblemIconLink problem={problem} />}
       {problem?.aspects && (
         <ExpositionIcon expositions={problem?.aspects} title={aspectText} />

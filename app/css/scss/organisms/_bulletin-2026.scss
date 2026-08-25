@@ -351,16 +351,19 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
       gap: variables.$padding * 2;
       align-items: stretch;
 
-      &[class*="warning-level"] {
-        padding-left: variables.$padding * 2;
-        border-left: variables.$bar-width solid transparent;
+      .danger-color-bar {
+        flex-shrink: 0;
+        width: variables.$bar-width;
+        cursor: default;
         @media #{variables.breakpoint-up(normal)} {
-          border-left-width: variables.$bar-width * 2;
+          width: variables.$bar-width * 2;
         }
       }
       @for $level from 1 through variables.$warning-level-count {
         &.warning-level-#{$level} {
-          border-left-color: variables.warning-level-color($level);
+          .danger-color-bar {
+            background-color: variables.warning-level-color($level);
+          }
           .bulletin-report-picto.warning-level {
             color: variables.warning-level-color($level);
             @if $level <= 2 {
