@@ -1,7 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../i18n";
-import { useSnowProfileData } from "../stores/profileDataStore";
+import {
+  stabilityLabelId,
+  useSnowProfileData
+} from "../stores/profileDataStore";
+import { DATE_TIME_FORMAT_SHORT } from "../util/date";
+import { downloadTextFile, downloadUrl, toCsv } from "../util/csv";
 import SnowProfileMapLibreMap from "../components/profile/profile-map";
 import SnowProfileTable from "../components/profile/profile-table";
 import SnowProfileDetailsDialog, {
@@ -17,6 +22,37 @@ import { useHiddenFooter } from "./useHiddenFooter";
 import { useFilterBarOffset } from "./useFilterBarOffset";
 
 const DEFAULT_VIEW_MODE = "map";
+
+/** A document icon with the file format lettered on it (e.g. CSV, XML). */
+function FileBadgeIcon({ label }: { label: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <path d="M14 2v6h6" />
+      <text
+        x="12"
+        y="18"
+        fontSize="6.5"
+        fontWeight="700"
+        textAnchor="middle"
+        fill="currentColor"
+        stroke="none"
+      >
+        {label}
+      </text>
+    </svg>
+  );
+}
 
 function SnowProfileDashboard() {
   const intl = useIntl();
@@ -51,11 +87,82 @@ function SnowProfileDashboard() {
   const [formOpen, setFormOpen] = useState(false);
   const [editId, setEditId] = useState<string>();
 
+  // "Export ▾" dropdown grouping the CSV and ZIP downloads.
+  const [exportMenuOpen, setExportMenuOpen] = useState(false);
+  const exportMenuRef = useRef<HTMLDivElement>(null);
+
   const openNewProfile = () => {
     setEditId(undefined);
     setFormOpen(true);
     redirectPageQuery({ edit: "new", profile: "" });
   };
+
+  // Export the currently visible (filtered + sorted) profiles as CSV, mirroring
+  // the table's columns so the download matches what the user sees on screen.
+  const exportCsv = () => {
+    const header = [
+      intl.formatMessage({ id: "profiles:export:id" }),
+      intl.formatMessage({ id: "archive:table-header:date" }),
+      intl.formatMessage({ id: "incidents:table:header:location" }),
+      intl.formatMessage({ id: "measurements:table:header:microRegion" }),
+      intl.formatMessage({ id: "measurements:filter:province" }),
+      intl.formatMessage({ id: "measurements:table:header:altitude" }),
+      intl.formatMessage({ id: "measurements:table:header:aspect" }),
+      intl.formatMessage({ id: "profiles:table:header:stability" }),
+      intl.formatMessage({ id: "profiles:export:ect" }),
+      intl.formatMessage({ id: "profiles:export:rb" }),
+      intl.formatMessage({ id: "profiles:export:latitude" }),
+      intl.formatMessage({ id: "profiles:export:longitude" })
+    ];
+    const rows = sortedFilteredData.map(profile => [
+      profile.id,
+      profile.dateTime
+        ? intl.formatDate(profile.dateTime, DATE_TIME_FORMAT_SHORT)
+        : "",
+      profile.location,
+      profile.microRegion ?? "",
+      profile.region ?? "",
+      profile.elevation ?? "",
+      profile.aspect ?? "",
+      profile.stability
+        ? intl.formatMessage({ id: stabilityLabelId(profile.stability) })
+        : "",
+      profile.ectScore ?? "",
+      profile.rbScore ?? "",
+      profile.lat ?? "",
+      profile.lon ?? ""
+    ]);
+    downloadTextFile(
+      `snow-profiles_${dateFrom}_${dateTo}.csv`,
+      toCsv([header, ...rows])
+    );
+  };
+
+  // Bulk download every profile matching the active region + date range as a
+  // ZIP of CAAML XML. The backend filters server-side (region_id prefix + date)
+  // and supplies the filename via Content-Disposition. It has no text-search
+  // param, so the location search only narrows the on-screen list, not the ZIP.
+  const exportZip = () => {
+    const params = new URLSearchParams({ format: "zip", dateFrom, dateTo });
+    if (activeRegion) params.set("regions", activeRegion);
+    downloadUrl(`${config.apis.profiles}/profiles/export?${params}`);
+  };
+
+  // The formats offered by the Export dropdown, rendered as a menu below.
+  const exportActions = [
+    {
+      format: "CSV",
+      labelId: "profiles:export:csv",
+      descId: "profiles:export:csv:desc",
+      run: exportCsv
+    },
+    {
+      format: "XML",
+      labelId: "profiles:export:zip",
+      descId: "profiles:export:zip:desc",
+      run: exportZip
+    }
+  ] as const;
 
   // Edit needs nothing but the id — the embedded app resolves the edit token
   // itself, and asks the user for it when this browser doesn't have one.
@@ -84,6 +191,25 @@ function SnowProfileDashboard() {
     redirectPageQuery({ edit: id });
     reload();
   };
+
+  // Close the export dropdown on an outside click or Escape.
+  useEffect(() => {
+    if (!exportMenuOpen) return;
+    const onPointerDown = (e: MouseEvent) => {
+      if (!exportMenuRef.current?.contains(e.target as Node)) {
+        setExportMenuOpen(false);
+      }
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setExportMenuOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [exportMenuOpen]);
 
   // Reopen the form from ?edit on load: "new" for a blank form, or a profile
   // id to edit. Runs once the router is ready.
@@ -177,11 +303,17 @@ function SnowProfileDashboard() {
               </div>
             </div>
 
-            <div className="station-dashboard-filter__add">
+            <div
+              className="station-dashboard-filter__export"
+              ref={exportMenuRef}
+            >
               <button
                 type="button"
-                onClick={openNewProfile}
-                className="pure-button station-dashboard-filter__add-button"
+                onClick={() => setExportMenuOpen(open => !open)}
+                disabled={sortedFilteredData.length === 0}
+                className="pure-button station-dashboard-filter__export-button"
+                aria-haspopup="menu"
+                aria-expanded={exportMenuOpen}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -192,13 +324,55 @@ function SnowProfileDashboard() {
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
+                  strokeLinejoin="round"
                   aria-hidden="true"
                 >
-                  <line x1="9" y1="3" x2="9" y2="15" />
-                  <line x1="3" y1="9" x2="15" y2="9" />
+                  <path d="M9 2v9" />
+                  <path d="M5 8l4 4 4-4" />
+                  <path d="M3 15h12" />
                 </svg>
-                {intl.formatMessage({ id: "profiles:add" })}
+                {intl.formatMessage({ id: "profiles:export" })}
+                <span
+                  className="station-dashboard-filter__export-caret"
+                  aria-hidden="true"
+                />
               </button>
+
+              {exportMenuOpen && (
+                <div
+                  className="station-dashboard-filter__export-menu"
+                  role="menu"
+                >
+                  {exportActions.map(action => (
+                    <button
+                      key={action.format}
+                      type="button"
+                      role="menuitem"
+                      onClick={() => {
+                        setExportMenuOpen(false);
+                        action.run();
+                      }}
+                    >
+                      <FileBadgeIcon label={action.format} />
+                      <span className="station-dashboard-filter__export-menu-text">
+                        <span className="station-dashboard-filter__export-menu-title">
+                          {intl.formatMessage({ id: action.labelId })}
+                        </span>
+                        <span className="station-dashboard-filter__export-menu-desc">
+                          {intl.formatMessage({ id: action.descId })}
+                        </span>
+                      </span>
+                    </button>
+                  ))}
+                  {searchText && (
+                    <p className="station-dashboard-filter__export-note">
+                      {intl.formatMessage({
+                        id: "profiles:export:zip:search-note"
+                      })}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -211,6 +385,29 @@ function SnowProfileDashboard() {
         {viewMode === "map" && mapView}
         {viewMode === "table" && tableView}
       </div>
+
+      <button
+        type="button"
+        className="snowprofile-add-fab"
+        onClick={openNewProfile}
+        title={intl.formatMessage({ id: "profiles:add" })}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 18 18"
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          aria-hidden="true"
+        >
+          <line x1="9" y1="3" x2="9" y2="15" />
+          <line x1="3" y1="9" x2="15" y2="9" />
+        </svg>
+        {intl.formatMessage({ id: "profiles:add" })}
+      </button>
 
       <button
         type="button"

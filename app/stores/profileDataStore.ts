@@ -91,6 +91,16 @@ export class SnowProfileData {
     return this.raw.stability;
   }
 
+  /** Extended Column Test scores as recorded, comma-joined (e.g. "ECTP14,ECTN20"). */
+  get ectScore(): string | undefined {
+    return this.raw.ectScore ?? undefined;
+  }
+
+  /** Rutschblock scores as recorded, comma-joined (e.g. "RB3,WB-RB5"). */
+  get rbScore(): string | undefined {
+    return this.raw.rbScore ?? undefined;
+  }
+
   /** Macro-region code derived from lawis' hierarchical regionId. */
   get region(): string | undefined {
     const regionId = this.raw.regionId;

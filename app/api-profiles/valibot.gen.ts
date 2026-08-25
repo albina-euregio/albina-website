@@ -69,6 +69,8 @@ export const vProfileListItem = v.object({
   elevation: v.nullish(v.number()),
   aspect: v.nullish(v.string()),
   snowHeight: v.nullish(v.number()),
+  ectScore: v.nullish(v.string()),
+  rbScore: v.nullish(v.string()),
   stability: v.optional(vStability)
 });
 

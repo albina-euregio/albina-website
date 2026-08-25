@@ -988,10 +988,12 @@ $search-width-wide: 300px;
     }
   }
 
-  .station-dashboard-filter__add {
+  .station-dashboard-filter__export {
     align-self: flex-end;
+    // anchor the dropdown menu to the button
+    position: relative;
 
-    .station-dashboard-filter__add-button {
+    .station-dashboard-filter__export-button {
       display: inline-flex;
       align-items: center;
       gap: variables.$padding * 0.4;
@@ -1005,10 +1007,106 @@ $search-width-wide: 300px;
         display: block;
       }
 
-      &:hover {
+      &:hover:not(:disabled) {
         color: variables.$white;
         background-color: variables.$anchor-font-color;
       }
+
+      &:disabled {
+        cursor: default;
+        opacity: 0.5;
+      }
+    }
+
+    .station-dashboard-filter__export-caret {
+      width: 0.4em;
+      height: 0.4em;
+      margin-left: variables.$padding * 0.15;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: translateY(-0.15em) rotate(45deg);
+      transition: transform 0.15s ease;
+    }
+
+    .station-dashboard-filter__export-button[aria-expanded="true"]
+      .station-dashboard-filter__export-caret {
+      transform: translateY(0.05em) rotate(-135deg);
+    }
+
+    // Dropdown listing the export formats, anchored under the button.
+    .station-dashboard-filter__export-menu {
+      position: absolute;
+      top: calc(100% + #{variables.$padding} * 0.35);
+      right: 0;
+      z-index: 1303;
+      width: max-content;
+      min-width: 100%;
+      max-width: min(24em, 90vw);
+      padding: variables.$padding * 0.25;
+      background-color: variables.$white;
+      border: 1px solid variables.$border-color;
+      border-radius: 6px;
+      box-shadow:
+        0 0 15px 0 rgba(black, 0.15),
+        0 6px 16px 0 rgba(black, 0.28);
+
+      [role="menuitem"] {
+        display: flex;
+        align-items: center;
+        gap: variables.$padding * 0.55;
+        width: 100%;
+        padding: (variables.$padding * 0.45) (variables.$padding * 0.55);
+        border: none;
+        border-radius: 4px;
+        background: transparent;
+        color: variables.$text-color;
+        text-align: left;
+        cursor: pointer;
+
+        svg {
+          flex: 0 0 auto;
+          color: variables.$brand;
+        }
+
+        &:hover,
+        &:focus-visible {
+          color: variables.$white;
+          background-color: variables.$anchor-font-color;
+          outline: none;
+
+          svg,
+          .station-dashboard-filter__export-menu-desc {
+            color: rgba(variables.$white, 0.9);
+          }
+        }
+      }
+    }
+
+    .station-dashboard-filter__export-menu-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+
+    .station-dashboard-filter__export-menu-title {
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .station-dashboard-filter__export-menu-desc {
+      color: variables.$grey;
+      font-size: variables.$tiny-font-size;
+      white-space: nowrap;
+    }
+
+    .station-dashboard-filter__export-note {
+      margin: (variables.$padding * 0.35) (variables.$padding * 0.25) 0;
+      padding-top: variables.$padding * 0.35;
+      border-top: 1px solid variables.$border-color;
+      color: variables.$grey;
+      font-size: variables.$tiny-font-size;
+      line-height: 1.35;
+      white-space: normal;
     }
   }
 
@@ -1066,7 +1164,7 @@ $search-width-wide: 300px;
       }
     }
 
-    .station-dashboard-filter__add {
+    .station-dashboard-filter__export {
       grid-column: 1 / -1;
       justify-self: end;
       margin-left: 0;
@@ -1196,7 +1294,7 @@ $search-width-wide: 300px;
         margin-left: 0;
       }
 
-      .station-dashboard-filter__add {
+      .station-dashboard-filter__export {
         flex: 0 0 auto;
         margin-left: auto;
       }
@@ -1244,10 +1342,10 @@ $search-width-wide: 300px;
         }
       }
 
-      .station-dashboard-filter__add {
+      .station-dashboard-filter__export {
         margin-left: 0;
 
-        .station-dashboard-filter__add-button {
+        .station-dashboard-filter__export-button {
           width: 100%;
           justify-content: center;
         }
@@ -1282,6 +1380,15 @@ $search-width-wide: 300px;
 .station-dashboard-filter.station-dashboard-filter--table {
   position: sticky;
   top: var(--station-dashboard-filter-top, 0px);
+}
+
+// Keep the bar — and the Export dropdown it holds — above the floating map
+// controls (1302). This element is also a `.controlbar`, whose z-index (10, or
+// 9 via `.controlbar ~ .controlbar` when the DEV banner precedes it) would
+// otherwise win. Three of its own classes out-specify those regardless of load
+// order.
+.section.controlbar.station-dashboard-filter {
+  z-index: 1303;
 }
 
 .station-view-control {
@@ -1320,6 +1427,63 @@ $search-width-wide: 300px;
     background-color: variables.$anchor-font-color;
     @include mixins.rollover;
   }
+}
+
+// Primary "new snow profile" action, floating at the bottom-centre so it sits
+// over the map or table regardless of view (mirrors the lawis_neu layout). The
+// view-toggle control lives top-right, so the two never collide.
+.snowprofile-add-fab {
+  position: fixed;
+  bottom: calc(#{variables.$padding} + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1302;
+
+  display: inline-flex;
+  align-items: center;
+  gap: variables.$padding * 0.4;
+  height: $controls-width-height;
+  padding: 0 variables.$padding;
+  box-sizing: border-box;
+  border: none;
+  border-radius: calc(#{$controls-width-height} / 2);
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 600;
+
+  color: variables.$white;
+  background-color: variables.$brand;
+  box-shadow:
+    0 0 15px 0 rgba(black, 0.15),
+    0 2px 8px 0 rgba(black, 0.35);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+
+  svg {
+    display: block;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateX(-50%) translateY(-1px);
+    box-shadow:
+      0 0 18px 0 rgba(black, 0.2),
+      0 4px 12px 0 rgba(black, 0.4);
+  }
+
+  &:active {
+    transform: translateX(-50%);
+  }
+}
+
+// The table is an internally-scrolling viewport (max-height: 80vh), so shrink
+// that cap on this page to keep its last rows / horizontal scrollbar clear of
+// the floating add button rather than letting the button overlap them.
+.station-dashboard-content--table .table-container:has(> .data-table) {
+  max-height: calc(
+    80vh - #{$controls-width-height} - #{variables.$padding} * 2
+  );
 }
 
 .station-dashboard-content--map {
