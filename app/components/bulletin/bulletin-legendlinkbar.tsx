@@ -59,7 +59,7 @@ function BulletinLegendLinkbar({ activeBulletinCollection }: Props) {
                         <a href={`/education/danger-scale/#level${num}`}>
                           <BulletinInternalGlossaryText
                             text={intl.formatMessage({
-                              id: `danger-level:${id}`
+                              id: `caaml:dangerRating.${id}`
                             })}
                             locale={intl.locale.slice(0, 2) as EnabledLanguages}
                             textKey={"danger-scale-" + num}

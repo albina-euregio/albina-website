@@ -175,9 +175,7 @@ function AvalancheProblemRow({
               />
             </div>
             <div className="picto-caption">
-              {intl.formatMessage({
-                id: `${problemTypeMessageId(problemType)}:short` as MessageId
-              })}
+              {intl.formatMessage({ id: problemTypeMessageId(problemType) })}
             </div>
           </a>
         </div>
@@ -278,13 +276,7 @@ function elevationIconProps(
 }
 
 function problemTypeMessageId(problemType: string): MessageId {
-  // Incident spec uses `no_distinct_avalanche_problem`; the shared message
-  // resource uses `no_distinct_problem`.
-  const type =
-    problemType === "no_distinct_avalanche_problem"
-      ? "no_distinct_problem"
-      : problemType;
-  return `problem:${type}` as MessageId;
+  return `caaml:avalancheProblem.${problemType}` as MessageId;
 }
 
 function aspectLabel(
@@ -449,7 +441,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const dangerRatingText =
     d.dangerRating &&
     intl.formatMessage({
-      id: `danger-level:${d.dangerRating}` as MessageId
+      id: `caaml:dangerRating.${d.dangerRating}` as MessageId
     });
   const problems = visibleProblems(d.avalancheProblems);
   const accuracyLabel = intl.formatMessage({ id: "incidents:accuracy" });
@@ -589,7 +581,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             value: d.dangerPattern
               ?.map(a =>
                 intl.formatMessage({
-                  id: `danger-patterns:${a.toLowerCase()}` as MessageId
+                  id: `caaml:dangerPattern.${a.toLowerCase()}` as MessageId
                 })
               )
               .join(", ")

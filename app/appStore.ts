@@ -5,15 +5,17 @@ import { vLanguageCode } from "./api/valibot.gen";
 export type Language = v.InferOutput<typeof vLanguageCode>;
 
 // i18n
-const translationImports = import.meta.glob("./i18n/*.json", {
-  import: "default"
-});
+const translationImports = import.meta.glob<Record<string, string>>(
+  "./i18n/*.json",
+  { import: "default" }
+);
 
-const caamlTranslationImports = import.meta.glob("./i18n/caaml/*.json", {
-  import: "default"
-});
+const caamlTranslationImports = import.meta.glob<Record<string, string>>(
+  "./i18n/caaml/*.json",
+  { import: "default" }
+);
 
-const regionTranslationImports = import.meta.glob(
+const regionTranslationImports = import.meta.glob<Record<string, string>>(
   "../node_modules/@eaws/micro-regions_names/*.json",
   {
     import: "default"

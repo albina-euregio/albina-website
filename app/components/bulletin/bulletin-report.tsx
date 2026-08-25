@@ -565,7 +565,7 @@ function BulletinReport({
                     values={{
                       number: getWarnlevelNumber(maxWarnlevel),
                       text: intl.formatMessage({
-                        id: "danger-level:" + maxWarnlevel
+                        id: "caaml:dangerRating." + maxWarnlevel
                       })
                     }}
                   />

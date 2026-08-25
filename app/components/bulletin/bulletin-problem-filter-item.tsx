@@ -25,11 +25,9 @@ function BulletinProblemFilterItem({
   }
 
   const problemText = intl.formatMessage({
-    id: "problem:" + problemId
+    id: "caaml:avalancheProblem." + problemId
   });
-  const problemTextShort = intl.formatMessage({
-    id: "problem:" + problemId + ":short"
-  });
+  const problemTextShort = problemText;
 
   const title = intl.formatMessage(
     {

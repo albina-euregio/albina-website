@@ -14,7 +14,7 @@ function BulletinDangerRating({ dangerRatings }: Props) {
   if (!dangerRatings?.length) return null;
 
   if (dangerRatings.some(r => r.mainValue === "no_snow")) {
-    const alt = intl.formatMessage({ id: "danger-level:no_snow" });
+    const alt = intl.formatMessage({ id: "caaml:dangerRating.no_snow" });
     return (
       <p
         className="bulletin-report-no-bulletin"
@@ -24,7 +24,7 @@ function BulletinDangerRating({ dangerRatings }: Props) {
           src={`${window.config.projectRoot}images/pro/danger-levels/no_snow.svg`}
           alt={alt}
         />
-        <FormattedMessage id="danger-level:no_snow" />
+        <FormattedMessage id="caaml:dangerRating.no_snow" />
       </p>
     );
   }

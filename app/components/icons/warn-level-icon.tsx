@@ -20,7 +20,7 @@ const WarnLevelIcon = (props: Props) => {
     warnLevel
       ? getDangerRatingLabel(
           warnLevel,
-          intl.formatMessage({ id: `danger-level:${warnLevel}` })
+          intl.formatMessage({ id: `caaml:dangerRating.${warnLevel}` })
         )
       : "";
 

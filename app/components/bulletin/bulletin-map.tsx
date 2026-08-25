@@ -179,9 +179,9 @@ const BulletinMap = (props: Props) => {
         >
           <img
             src={`${window.config.projectRoot}images/pro/danger-levels/level_0.svg`}
-            alt={intl.formatMessage({ id: "danger-level:no_rating" })}
+            alt={intl.formatMessage({ id: "caaml:dangerRating.no_rating" })}
           />
-          <FormattedMessage id="danger-level:no_rating" />
+          <FormattedMessage id="caaml:dangerRating.no_rating" />
         </p>
       </div>
 
