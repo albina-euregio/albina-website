@@ -554,7 +554,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             value: d.publicAvalancheWarningService
           },
           {
-            label: label("dangerRating"),
+            label: intl.formatMessage({ id: "caaml:dangerRating.label" }),
             value: d.dangerRating && dangerRatingText && (
               <span className="incident-details-danger-rating">
                 <img
@@ -591,7 +591,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         title={label("avalancheInformation")}
         fields={[
           {
-            label: label("avalancheSize"),
+            label: intl.formatMessage({ id: "caaml:avalancheSize.label" }),
             value: tr("avalancheSize", d.avalancheSize)
           },
           {
