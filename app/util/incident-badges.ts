@@ -1,9 +1,7 @@
-import type { useIntl, MessageId } from "../i18n";
 import {
   translateIncidentValue,
   type IncidentReportMessages
 } from "../i18n/incident-report";
-import { getWarnlevelNumber } from "./warn-levels";
 import type { IncidentData } from "../stores/incidentDataStore";
 
 export interface IncidentBadgeData {
@@ -12,28 +10,6 @@ export interface IncidentBadgeData {
 }
 
 const AVALANCHE_BADGE_FIELDS = ["avalancheType", "avalancheSize"] as const;
-
-/**
- * The danger rating as a compact badge text, e.g. "danger level 3". Falls
- * back to the plain rating name for ratings without a level number
- * (`no_snow`, `no_rating`).
- */
-export function dangerRatingBadgeText(
-  incident: IncidentData,
-  intl: ReturnType<typeof useIntl>
-): string | undefined {
-  const dangerRating = incident.dangerRating;
-  if (!dangerRating) return undefined;
-  const warnlevelNumber = getWarnlevelNumber(dangerRating);
-  return warnlevelNumber
-    ? intl.formatMessage(
-        { id: "incidents:danger-level" },
-        { number: String(warnlevelNumber) }
-      )
-    : intl.formatMessage({
-        id: `caaml:dangerRating.${dangerRating}` as MessageId
-      });
-}
 
 export function avalancheBadgeText(
   incident: IncidentData,
@@ -47,12 +23,9 @@ export function avalancheBadgeText(
 
 export function incidentBadges(
   incident: IncidentData,
-  intl: ReturnType<typeof useIntl>,
   messages: IncidentReportMessages
 ): IncidentBadgeData[] {
   const badges: IncidentBadgeData[] = [];
-  const dangerText = dangerRatingBadgeText(incident, intl);
-  if (dangerText) badges.push({ key: "dangerRating", text: dangerText });
   for (const field of AVALANCHE_BADGE_FIELDS) {
     const text = avalancheBadgeText(incident, messages, field);
     if (text) badges.push({ key: field, text });

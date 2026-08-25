@@ -131,7 +131,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
         ? `<p class="incident-tooltip__outcome">${nowrapTrailingParenthetical(outcomeText)}</p>`
         : undefined;
 
-      const badges = incidentBadges(incident, intl, messages).map(
+      const badges = incidentBadges(incident, messages).map(
         badge => `<span class="incident-badge">${esc(badge.text)}</span>`
       );
       const header = [

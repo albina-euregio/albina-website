@@ -3,10 +3,7 @@ import { useIntl } from "../../i18n";
 import { useIncidentReportMessages } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { involvementText } from "../../util/incident-involvement";
-import {
-  avalancheBadgeText,
-  dangerRatingBadgeText
-} from "../../util/incident-badges";
+import { avalancheBadgeText } from "../../util/incident-badges";
 import { IncidentBadge } from "./incident-badge";
 import type {
   IncidentData,
@@ -75,14 +72,6 @@ export default function IncidentTable(props: Props) {
       render: row => (
         <RegionCell microRegion={row.microRegion} province={row.region} />
       )
-    },
-    {
-      id: "dangerRating",
-      title: intl.formatMessage({ id: "caaml:dangerRating.label" }),
-      render: row => {
-        const text = dangerRatingBadgeText(row, intl);
-        return text ? <IncidentBadge>{text}</IncidentBadge> : "";
-      }
     },
     {
       id: "avalancheType",

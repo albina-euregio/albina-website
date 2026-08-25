@@ -437,7 +437,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     intl.formatDate(incident.dateTime, DATE_TIME_FORMAT_SHORT);
   const outcome = involvementText(incident, intl, t);
   const headerMeta = [headerDate, outcome].filter(Boolean).join(" · ");
-  const badges = incidentBadges(incident, intl, t);
+  const badges = incidentBadges(incident, t);
   const dangerRatingText =
     d.dangerRating &&
     intl.formatMessage({
