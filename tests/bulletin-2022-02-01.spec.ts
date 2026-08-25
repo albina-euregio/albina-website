@@ -6,7 +6,7 @@ test("2022-02-01", async ({ page }) => {
   const header = page.locator("#section-bulletin-header");
   await expect(header).toContainText(/Tuesday,? 1 February 2022/);
   await expect(header.locator(".bulletin-datetime-update")).toHaveText(
-    "Updated: 01/02/2022, 08:35"
+    "Updated: Tue, 01/02/2022, 08:35"
   );
 
   const bulletin = page.locator(
