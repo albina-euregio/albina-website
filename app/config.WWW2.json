@@ -70,7 +70,7 @@
   "staticContentNamespace": [],
   "menu": [
     {
-      "url": "/bulletin"
+      "url": "/"
     },
     {
       "url": "/blog",
@@ -235,7 +235,7 @@
   ],
   "menuFooterMain": [
     {
-      "url": "/bulletin"
+      "url": "/"
     },
     {
       "url": "/blog"
