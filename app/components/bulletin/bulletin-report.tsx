@@ -10,7 +10,11 @@ import { FormattedMessage, MessageId, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
 import { useSynthesizedBulletinUrl } from "./synthesized-bulletin";
-import { LONG_DATE_FORMAT, LONG_DATE_FORMAT_NO_WEEKDAY } from "../../util/date";
+import {
+  DATE_TIME_FORMAT_SHORT,
+  LONG_DATE_FORMAT,
+  LONG_DATE_FORMAT_NO_WEEKDAY
+} from "../../util/date";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 import TendencyIcon from "../icons/tendency-icon";
 
@@ -435,12 +439,7 @@ function BulletinReport({
     bulletin.publicationTime && bulletin170000?.publicationTime
   );
   const publicationValues = bulletin.publicationTime && {
-    date: intl.formatDate(bulletin.publicationTime, LONG_DATE_FORMAT),
-    time: intl.formatDate(bulletin.publicationTime, {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: false
-    })
+    date: intl.formatDate(bulletin.publicationTime, DATE_TIME_FORMAT_SHORT)
   };
 
   const maxWarnlevel = getMaxMainValue(bulletin.dangerRatings);
