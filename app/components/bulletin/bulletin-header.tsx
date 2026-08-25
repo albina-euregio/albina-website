@@ -38,7 +38,7 @@ function BulletinHeader(props: Props) {
       <header className="section-centered">
         <BulletinStatusLine status={props.status} bulletins={props.bulletins} />
         <h2 className="subheader">
-          {intl.formatMessage({ id: "bulletin:title" })}
+          {intl.formatMessage({ id: "caaml:forecast.label" })}
         </h2>
         <h1 className="bulletin-datetime-validity">{date}</h1>
         <BulletinDateFlipper date={props.date} latest={props.latestDate} />

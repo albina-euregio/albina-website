@@ -69,7 +69,7 @@ export default function SnowProfileTable(props: Props) {
     },
     {
       id: "stability",
-      title: intl.formatMessage({ id: "profiles:table:header:stability" }),
+      title: intl.formatMessage({ id: "caaml:snowpackStability.label" }),
       className: "table-profiles__stability",
       render: (row): ReactNode =>
         row.stability ? (

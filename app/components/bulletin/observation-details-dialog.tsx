@@ -204,16 +204,14 @@ function ObservationDetails({ observation }: { observation: Observation }) {
       />
 
       <Section
-        title={intl.formatMessage({ id: "observation:snowpack" })}
+        title={intl.formatMessage({ id: "caaml:snowpack.label" })}
         fields={[
           {
-            label: intl.formatMessage({
-              id: "bulletin:report:problem:snowpack-stability"
-            }),
+            label: intl.formatMessage({ id: "caaml:snowpackStability.label" }),
             value:
               o.stability &&
               intl.formatMessage({
-                id: `bulletin:report:problem:snowpack-stability:${o.stability}` as MessageId
+                id: `caaml:snowpackStability.${o.stability}` as MessageId
               })
           },
           {

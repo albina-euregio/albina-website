@@ -1,10 +1,14 @@
 import messages from "./i18n/en.json";
+import caamlMessages from "./i18n/caaml/en.json";
 import regions from "@eaws/micro-regions_names/en.json";
 
 declare global {
   namespace FormatjsIntl {
     interface Message {
-      ids: keyof typeof messages | `regions:${keyof typeof regions}`;
+      ids:
+        | keyof typeof messages
+        | `regions:${keyof typeof regions}`
+        | `caaml:${keyof typeof caamlMessages}`;
     }
   }
 }

@@ -215,24 +215,24 @@ function ProblemMatrix({ problem }: { problem: IncidentAvalancheProblem }) {
     <div className="bulletin-report-picto matrix-information">
       {snowpackStability &&
         row(
+          intl.formatMessage({ id: "caaml:snowpackStability.label" }),
           intl.formatMessage({
-            id: "bulletin:report:problem:snowpack-stability"
-          }),
-          intl.formatMessage({
-            id: `bulletin:report:problem:snowpack-stability:${snowpackStability}` as MessageId
+            id: `caaml:snowpackStability.${snowpackStability}` as MessageId
           })
         )}
       {frequency &&
         row(
-          intl.formatMessage({ id: "bulletin:report:problem:frequency" }),
+          intl.formatMessage({ id: "caaml:frequency.label" }),
           intl.formatMessage({
-            id: `bulletin:report:problem:frequency:${frequency}` as MessageId
+            id: `caaml:frequency.${frequency}` as MessageId
           })
         )}
       {avalancheSize &&
         row(
-          intl.formatMessage({ id: "bulletin:report:problem:avalanche-size" }),
-          avalancheSize
+          intl.formatMessage({ id: "caaml:avalancheSize.label" }),
+          intl.formatMessage({
+            id: `caaml:avalancheSize.${avalancheSize}` as MessageId
+          })
         )}
     </div>
   );

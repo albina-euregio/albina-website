@@ -54,7 +54,7 @@ const WarnLevelIcon = (props: Props) => {
       )
     ].join("\n");
     elevationText = intl.formatMessage({
-      id: "bulletin:treeline"
+      id: "caaml:elevation.treeline.capitalized"
     });
   } else {
     title = [
