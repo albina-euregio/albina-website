@@ -8,7 +8,9 @@ import React, {
 import DiffMatchPatch from "diff-match-patch";
 import { FormattedMessage, MessageId, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
-import BulletinDaytimeReport from "./bulletin-daytime-report";
+import BulletinDaytimeReport, {
+  compareRegions
+} from "./bulletin-daytime-report";
 import { useSynthesizedBulletinUrl } from "./synthesized-bulletin";
 import {
   DATE_TIME_FORMAT_SHORT,
@@ -316,9 +318,10 @@ const BulletinReportGalleryDialog: FunctionComponent<{
 // per-region view. Used in the report header and the tendency section.
 const RegionDropdown: FunctionComponent<{
   region: string;
+  className?: string;
   options: { id: string; name: string }[];
   onSelect: (id: string) => void;
-}> = ({ region, options, onSelect }) => {
+}> = ({ region, className, options, onSelect }) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
@@ -342,7 +345,11 @@ const RegionDropdown: FunctionComponent<{
   return (
     <span
       ref={ref}
-      className={"bulletin-report-region-dropdown" + (open ? " is-open" : "")}
+      className={
+        "bulletin-report-region-dropdown" +
+        (open ? " is-open" : "") +
+        (className ? " " + className : "")
+      }
     >
       <button
         type="button"
@@ -531,6 +538,15 @@ function BulletinReport({
                   {showRegionSwitcher ? (
                     <RegionDropdown
                       region={region}
+                      className={
+                        showDiff &&
+                        compareRegions(
+                          bulletin?.regions,
+                          bulletin170000?.regions
+                        )
+                          ? ""
+                          : "bulletin-update-diff-border"
+                      }
                       options={regionOptions}
                       onSelect={handleSelectRegion}
                     />
