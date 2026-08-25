@@ -21,8 +21,8 @@ import { vObservation, type Observation } from "../../stores/observations";
 import { fetchJSON } from "../../util/fetch.ts";
 import ObservationDetailsDialog from "./observation-details-dialog.tsx";
 
-const STATION_COLOR = "rgb(100, 100, 100)";
-const OBSERVATION_COLOR = "rgb(200, 100, 100)";
+const STATION_COLOR = "rgb(46, 46, 46)";
+const OBSERVATION_COLOR = "rgb(193, 40, 201)";
 
 const STATIONS_SOURCE = "stations";
 const STATIONS_LAYER = "stations-circles";
@@ -243,7 +243,7 @@ function BulletinMiniMap({
           "circle-color": STATION_COLOR,
           // Hollow ring: faint fill + full-opacity stroke (matches the old
           // Leaflet CircleMarker's default fillOpacity of 0.2).
-          "circle-opacity": 0.2,
+          "circle-opacity": 0.8,
           "circle-stroke-color": STATION_COLOR,
           "circle-stroke-width": 1
         }
@@ -258,7 +258,7 @@ function BulletinMiniMap({
         paint: {
           "circle-radius": 12,
           "circle-color": OBSERVATION_COLOR,
-          "circle-opacity": 0.2,
+          "circle-opacity": 0.8,
           "circle-stroke-color": OBSERVATION_COLOR,
           "circle-stroke-width": 1
         }
