@@ -45,9 +45,9 @@ function BulletinDaytimeReport({
   return (
     <div>
       {validTimePeriod && (
-        <h2 className="subheader">
+        <h4 className="subheader">
           <FormattedMessage id={`bulletin:report:daytime:${validTimePeriod}`} />
-        </h2>
+        </h4>
       )}
       <div className="bulletin-report-pictobar">
         <ul className="list-plain list-bulletin-report-pictos">
