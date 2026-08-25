@@ -101,6 +101,7 @@ function SnowProfileDashboard() {
   // the table's columns so the download matches what the user sees on screen.
   const exportCsv = () => {
     const header = [
+      intl.formatMessage({ id: "profiles:export:id" }),
       intl.formatMessage({ id: "archive:table-header:date" }),
       intl.formatMessage({ id: "incidents:table:header:location" }),
       intl.formatMessage({ id: "measurements:table:header:microRegion" }),
@@ -111,10 +112,10 @@ function SnowProfileDashboard() {
       intl.formatMessage({ id: "profiles:export:ect" }),
       intl.formatMessage({ id: "profiles:export:rb" }),
       intl.formatMessage({ id: "profiles:export:latitude" }),
-      intl.formatMessage({ id: "profiles:export:longitude" }),
-      intl.formatMessage({ id: "profiles:export:id" })
+      intl.formatMessage({ id: "profiles:export:longitude" })
     ];
     const rows = sortedFilteredData.map(profile => [
+      profile.id,
       profile.dateTime
         ? intl.formatDate(profile.dateTime, DATE_TIME_FORMAT_SHORT)
         : "",
@@ -129,8 +130,7 @@ function SnowProfileDashboard() {
       profile.ectScore ?? "",
       profile.rbScore ?? "",
       profile.lat ?? "",
-      profile.lon ?? "",
-      profile.id
+      profile.lon ?? ""
     ]);
     downloadTextFile(
       `snow-profiles_${dateFrom}_${dateTo}.csv`,
