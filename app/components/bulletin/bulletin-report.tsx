@@ -584,13 +584,20 @@ function BulletinReport({
                         <button
                           type="button"
                           className={
-                            "pure-button inverse error tooltip pure-button-icon-text" +
-                            (showDiff > 0 ? " active" : "")
+                            "pure-button error tooltip pure-button-icon-text" +
+                            (showDiff > 0 ? " active" : " inverse")
                           }
                           aria-pressed={showDiff > 0}
                           onClick={() => setShowDiff(showDiff === 0 ? 2 : 0)}
                         >
-                          <span className="icon icon-show-small"></span>
+                          <span
+                            className={
+                              "icon" +
+                              (showDiff > 0
+                                ? " icon-hide-small"
+                                : " icon-show-small")
+                            }
+                          ></span>
                           <span className="text">
                             <FormattedMessage id="bulletin:report:update" />
                           </span>
