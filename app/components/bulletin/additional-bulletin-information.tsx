@@ -22,7 +22,7 @@ import { fetchJSON } from "../../util/fetch.ts";
 import ObservationDetailsDialog from "./observation-details-dialog.tsx";
 
 const STATION_COLOR = "rgb(46, 46, 46)";
-const OBSERVATION_COLOR = "rgb(193, 40, 201)";
+const OBSERVATION_COLOR = "rgb(25, 171, 255)";
 
 const STATIONS_SOURCE = "stations";
 const STATIONS_LAYER = "stations-circles";
