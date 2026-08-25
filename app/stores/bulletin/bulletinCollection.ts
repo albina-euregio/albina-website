@@ -12,7 +12,7 @@ import {
 } from ".";
 import * as v from "valibot";
 import { $extraRegions, $focusRegions } from "../../appStore";
-import { eawsRegion, type RegionOutlineProperties } from "../eawsRegions";
+import { eawsRegion } from "../eawsRegions";
 import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
 import {
   getDangerRatingValue,
@@ -104,21 +104,6 @@ class BulletinCollection {
     return await v.parseAsync(BulletinsSchema, response);
   }
 
-  private setProviderSource(
-    b: Bulletin,
-    regionID: string,
-    url: string,
-    aws: RegionOutlineProperties["aws"][number]
-  ): void {
-    b.source = {
-      provider: {
-        customData: { regionID, url },
-        name: aws.name,
-        website: aws.url[this.lang] || Object.values(aws.url)[0]
-      }
-    };
-  }
-
   private async fetchAndMergeRegions(
     publicationDate: string,
     regions: string[]
@@ -130,12 +115,8 @@ class BulletinCollection {
         if (!url) return;
         try {
           const data = await this.fetchFromURL(url);
-          const aws = eawsRegion(r)?.aws?.[0];
           data?.bulletins.forEach(b => {
             this.upgradeLegacyCAAML(b);
-            if (aws) {
-              this.setProviderSource(b, r, url, aws);
-            }
             bulletinMap.set(b.bulletinID, b);
           });
         } catch (error) {
@@ -245,7 +226,7 @@ class BulletinCollection {
             }
             (data.bulletins ?? []).forEach(b => {
               this.upgradeLegacyCAAML(b);
-              this.setProviderSource(b, id, url, aws);
+              b.customData.extraRegionID = id;
             });
             return data;
           } catch (error) {
@@ -263,9 +244,7 @@ class BulletinCollection {
     this.maxDangerRatings = this.computeMaxDangerRatings();
 
     const loadedExtraRegionIds = new Set(
-      this.extraBulletins
-        .map(b => b.source?.provider?.customData?.regionID)
-        .filter(Boolean)
+      this.extraBulletins.map(b => b.customData?.extraRegionID).filter(Boolean)
     );
     extraRegions.forEach(id => {
       this.macroRegionStatuses[id] = loadedExtraRegionIds.has(id)
