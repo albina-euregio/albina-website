@@ -140,3 +140,8 @@ source_file = app/i18n/incident-report/en.json
 source_lang = en
 type        = KEYVALUEJSON
 
+[o:albina-euregio:p:albina-website:r:caaml-json]
+file_filter = app/i18n/caaml/<lang>.json
+source_file = app/i18n/caaml/en.json
+source_lang = en
+type        = KEYVALUEJSON
