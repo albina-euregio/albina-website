@@ -117,9 +117,7 @@ function BulletinFooter() {
               className="secondary pure-button"
               href="/education/danger-patterns"
             >
-              {intl.formatMessage({
-                id: "button:education:danger-patterns:text"
-              })}
+              {intl.formatMessage({ id: "caaml:dangerPattern.label" })}
             </a>
           </li>
           <li>

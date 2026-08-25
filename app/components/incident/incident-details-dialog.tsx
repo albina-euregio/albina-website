@@ -575,9 +575,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             ) : undefined
           },
           {
-            label: intl.formatMessage({
-              id: "bulletin:report:danger-patterns"
-            }),
+            label: intl.formatMessage({ id: "caaml:dangerPattern.label" }),
             value: d.dangerPattern
               ?.map(a =>
                 intl.formatMessage({

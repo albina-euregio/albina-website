@@ -460,7 +460,7 @@ const BulletinMap = (props: Props) => {
             <span className="primary label">
               {!config.bulletin.switchBetweenTimePeriods
                 ? intl.formatMessage({
-                    id: `bulletin:header:${props.validTimePeriod}`
+                    id: `caaml:validTimePeriod.${props.validTimePeriod}`
                   })
                 : (["earlier", "later"] as const).map(timePeriod => (
                     <a
@@ -473,7 +473,7 @@ const BulletinMap = (props: Props) => {
                       onClick={() => props.onSelectTimePeriod(timePeriod)}
                     >
                       {intl.formatMessage({
-                        id: `bulletin:header:${timePeriod}`
+                        id: `caaml:validTimePeriod.${timePeriod}`
                       })}
                     </a>
                   ))}

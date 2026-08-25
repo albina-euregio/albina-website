@@ -215,9 +215,7 @@ function ObservationDetails({ observation }: { observation: Observation }) {
             value: translateList(o.avalancheProblems, problemMessageId, intl)
           },
           {
-            label: intl.formatMessage({
-              id: "bulletin:report:danger-patterns"
-            }),
+            label: intl.formatMessage({ id: "caaml:dangerPattern.label" }),
             value: translateList(
               o.dangerPatterns,
               pattern =>

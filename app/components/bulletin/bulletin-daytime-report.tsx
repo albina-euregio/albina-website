@@ -46,7 +46,7 @@ function BulletinDaytimeReport({
     <div>
       {validTimePeriod && (
         <h4 className="subheader">
-          <FormattedMessage id={`bulletin:report:daytime:${validTimePeriod}`} />
+          <FormattedMessage id={`caaml:validTimePeriod.${validTimePeriod}`} />
         </h4>
       )}
       <div className="bulletin-report-pictobar">
