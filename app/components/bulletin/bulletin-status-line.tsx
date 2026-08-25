@@ -66,10 +66,7 @@ const BulletinStatusLine = ({ bulletins, status }: Props) => {
             {intl.formatMessage(
               { id: "bulletin:header:published-at" },
               {
-                date: intl.formatDate(publicationTimes0),
-                time: intl.formatDate(publicationTimes0, {
-                  timeStyle: "short"
-                })
+                date: intl.formatDate(publicationTimes0, DATE_TIME_FORMAT_SHORT)
               }
             )}
           </span>
@@ -83,10 +80,7 @@ const BulletinStatusLine = ({ bulletins, status }: Props) => {
             {intl.formatMessage(
               { id: "bulletin:header:updated-at" },
               {
-                date: intl.formatDate(publicationTimes1),
-                time: intl.formatDate(publicationTimes1, {
-                  timeStyle: "short"
-                })
+                date: intl.formatDate(publicationTimes1, DATE_TIME_FORMAT_SHORT)
               }
             )}
           </span>
