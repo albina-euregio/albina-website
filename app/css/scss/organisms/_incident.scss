@@ -154,6 +154,18 @@
   }
 }
 
+.incident-details-accuracy {
+  cursor: help;
+}
+
+.incident-details-accuracy-icon {
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.25em;
+  vertical-align: -0.25em;
+  fill: currentColor;
+}
+
 // The enlarged attachment view, mirroring .bulletin-report-gallery-modal.
 .incident-attachment-modal {
   &__figure {
