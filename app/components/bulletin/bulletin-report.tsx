@@ -565,7 +565,7 @@ function BulletinReport({
                     values={{
                       number: getWarnlevelNumber(maxWarnlevel),
                       text: intl.formatMessage({
-                        id: "danger-level:" + maxWarnlevel
+                        id: "caaml:dangerRating." + maxWarnlevel
                       })
                     }}
                   />
@@ -799,7 +799,7 @@ function BulletinReport({
                 <div className="bulletin-additional-snowpack">
                   <div className="bulletin-additional-snowpack-header">
                     <h2 className="subheader">
-                      <FormattedMessage id="bulletin:report:snowpack-structure:headline" />
+                      <FormattedMessage id="caaml:snowpack.label" />
                     </h2>
                     {dangerPatterns.length > 0 && (
                       <ul className="list-inline list-labels">
@@ -829,7 +829,7 @@ function BulletinReport({
                 focusRegions.length > 0) && (
                 <div className="bulletin-additional-weather">
                   <h2 className="subheader">
-                    <FormattedMessage id="bulletin:report:weather:headline" />
+                    <FormattedMessage id="caaml:synopsis.label" />
                   </h2>
                   {bulletin.weatherForecast?.comment && (
                     <p>
@@ -930,7 +930,7 @@ function BulletinReport({
                           <TendencyIcon tendency={tendencyType} />
                         </div>
                         <div className="progression-legend">
-                          <FormattedMessage id="bulletin:report:tendency:headline" />
+                          <FormattedMessage id="caaml:tendency.label" />
                         </div>
                       </div>
                     )}

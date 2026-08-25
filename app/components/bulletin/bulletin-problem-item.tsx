@@ -14,6 +14,14 @@ const BulletinInternalGlossaryText = React.lazy(
   () => import("./internal-glossary/internal-glossary-text")
 );
 
+const AVALANCHE_SIZE_WORDS = {
+  1: "small",
+  2: "medium",
+  3: "large",
+  4: "very_large",
+  5: "extreme"
+} as const;
+
 interface Props {
   problem: AvalancheProblem;
   problem170000: AvalancheProblem;
@@ -120,7 +128,7 @@ function BulletinProblemItem({
         <ElevationIcon
           elevation={[]}
           text={intl.formatMessage({
-            id: "bulletin:treeline"
+            id: "caaml:elevation.treeline.capitalized"
           })}
           where={"above"}
           title={intl.formatMessage({
@@ -133,7 +141,7 @@ function BulletinProblemItem({
         <ElevationIcon
           elevation={[]}
           text={intl.formatMessage({
-            id: "bulletin:treeline"
+            id: "caaml:elevation.treeline.capitalized"
           })}
           where={"below"}
           title={intl.formatMessage({
@@ -196,13 +204,11 @@ function BulletinProblemItem({
     [problem?.aspects, intl]
   );
   const snowpackStabilityText = intl.formatMessage({
-    id: "bulletin:report:problem:snowpack-stability"
+    id: "caaml:snowpackStability.label"
   });
-  const frequencyText = intl.formatMessage({
-    id: "bulletin:report:problem:frequency"
-  });
+  const frequencyText = intl.formatMessage({ id: "caaml:frequency.label" });
   const avalancheSizeText = intl.formatMessage({
-    id: "bulletin:report:problem:avalanche-size"
+    id: "caaml:avalancheSize.label"
   });
 
   const dangerRatingValue = getDangerRatingValue(
@@ -221,7 +227,7 @@ function BulletinProblemItem({
 
   const glossaryParams = {
     stabilityClass: intl.formatMessage({
-      id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
+      id: `caaml:snowpackStability.${problem?.snowpackStability}` as MessageId
     })
   };
 
@@ -316,7 +322,7 @@ function BulletinProblemItem({
                       <a href={`/education/snowpack-stability`}>
                         <BulletinInternalGlossaryText
                           text={intl.formatMessage({
-                            id: `bulletin:report:problem:snowpack-stability:${problem?.snowpackStability}`
+                            id: `caaml:snowpackStability.${problem?.snowpackStability}` as MessageId
                           })}
                           locale={lang as EnabledLanguages}
                           textKey={
@@ -346,7 +352,7 @@ function BulletinProblemItem({
                     <a href={`/education/frequency`}>
                       <BulletinInternalGlossaryText
                         text={intl.formatMessage({
-                          id: `bulletin:report:problem:frequency:${problem?.frequency}`
+                          id: `caaml:frequency.${problem?.frequency}` as MessageId
                         })}
                         locale={lang as EnabledLanguages}
                         textKey={"avalanche-frequency-" + problem?.frequency}
@@ -377,7 +383,7 @@ function BulletinProblemItem({
                     >
                       <BulletinInternalGlossaryText
                         text={intl.formatMessage({
-                          id: `bulletin:report:problem:avalanche-size:${problem?.avalancheSize}`
+                          id: `caaml:avalancheSize.${AVALANCHE_SIZE_WORDS[problem?.avalancheSize]}` as MessageId
                         })}
                         locale={lang as EnabledLanguages}
                         textKey={"avalanche-size-" + problem?.avalancheSize}

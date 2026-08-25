@@ -185,7 +185,7 @@ const Bulletin = () => {
 
   return (
     <>
-      <HTMLHeader title={intl.formatMessage({ id: "bulletin:title" })} />
+      <HTMLHeader title={intl.formatMessage({ id: "caaml:forecast.label" })} />
       <HTMLPageLoadingScreen loading={status === "pending"} />
       <BulletinHeader
         date={collection?.date}

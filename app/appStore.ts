@@ -5,11 +5,17 @@ import { vLanguageCode } from "./api/valibot.gen";
 export type Language = v.InferOutput<typeof vLanguageCode>;
 
 // i18n
-const translationImports = import.meta.glob("./i18n/*.json", {
-  import: "default"
-});
+const translationImports = import.meta.glob<Record<string, string>>(
+  "./i18n/*.json",
+  { import: "default" }
+);
 
-const regionTranslationImports = import.meta.glob(
+const caamlTranslationImports = import.meta.glob<Record<string, string>>(
+  "./i18n/caaml/*.json",
+  { import: "default" }
+);
+
+const regionTranslationImports = import.meta.glob<Record<string, string>>(
   "../node_modules/@eaws/micro-regions_names/*.json",
   {
     import: "default"
@@ -22,15 +28,19 @@ export const $messages = atom(
 );
 
 async function loadMessages(newLanguage: Language) {
-  const [fallbackMessages, messages, regions] = await Promise.all([
-    // en.json is the source of truth, the other locales are synced from
-    // Transifex and lag behind it — untranslated keys fall back to English.
-    translationImports["./i18n/en.json"](),
-    translationImports[`./i18n/${newLanguage}.json`](),
-    regionTranslationImports[
-      `../node_modules/@eaws/micro-regions_names/${newLanguage}.json`
-    ]()
-  ]);
+  const [fallbackMessages, messages, caamlFallback, caamlMessages, regions] =
+    await Promise.all([
+      // en.json is the source of truth, the other locales are synced from
+      // Transifex and lag behind it — untranslated keys fall back to English.
+      translationImports["./i18n/en.json"](),
+      translationImports[`./i18n/${newLanguage}.json`](),
+      caamlTranslationImports["./i18n/caaml/en.json"](),
+      caamlTranslationImports[`./i18n/caaml/${newLanguage}.json`](),
+      regionTranslationImports[
+        `../node_modules/@eaws/micro-regions_names/${newLanguage}.json`
+      ]()
+    ]);
+  const caamlAll = { ...caamlFallback, ...caamlMessages };
   const allMessages = Object.freeze(
     Object.assign(
       { ...fallbackMessages, ...messages },
@@ -39,6 +49,9 @@ async function loadMessages(newLanguage: Language) {
       { "region:Vorarlberg": regions["AT-08"] }, // for StationTable
       ...Object.entries(regions).map(([id, name]) => ({
         [`region:${id}`]: String(name).trim()
+      })),
+      ...Object.entries(caamlAll).map(([id, text]) => ({
+        [`caaml:${id}`]: text
       }))
     )
   );

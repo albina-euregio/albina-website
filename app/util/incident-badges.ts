@@ -30,7 +30,9 @@ export function dangerRatingBadgeText(
         { id: "incidents:danger-level" },
         { number: String(warnlevelNumber) }
       )
-    : intl.formatMessage({ id: `danger-level:${dangerRating}` as MessageId });
+    : intl.formatMessage({
+        id: `caaml:dangerRating.${dangerRating}` as MessageId
+      });
 }
 
 export function avalancheBadgeText(

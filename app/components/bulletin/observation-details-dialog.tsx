@@ -71,13 +71,7 @@ function translateList(
 }
 
 function problemMessageId(problem: string): MessageId {
-  // The observation spec uses `no_distinct_avalanche_problem`; the shared
-  // message resource uses `no_distinct_problem`.
-  const type =
-    problem === "no_distinct_avalanche_problem"
-      ? "no_distinct_problem"
-      : problem;
-  return `problem:${type}` as MessageId;
+  return `caaml:avalancheProblem.${problem}` as MessageId;
 }
 
 /** The photos the reporting app attached, linked to their full-size version. */
@@ -204,16 +198,14 @@ function ObservationDetails({ observation }: { observation: Observation }) {
       />
 
       <Section
-        title={intl.formatMessage({ id: "observation:snowpack" })}
+        title={intl.formatMessage({ id: "caaml:snowpack.label" })}
         fields={[
           {
-            label: intl.formatMessage({
-              id: "bulletin:report:problem:snowpack-stability"
-            }),
+            label: intl.formatMessage({ id: "caaml:snowpackStability.label" }),
             value:
               o.stability &&
               intl.formatMessage({
-                id: `bulletin:report:problem:snowpack-stability:${o.stability}` as MessageId
+                id: `caaml:snowpackStability.${o.stability}` as MessageId
               })
           },
           {
@@ -223,13 +215,11 @@ function ObservationDetails({ observation }: { observation: Observation }) {
             value: translateList(o.avalancheProblems, problemMessageId, intl)
           },
           {
-            label: intl.formatMessage({
-              id: "bulletin:report:danger-patterns"
-            }),
+            label: intl.formatMessage({ id: "caaml:dangerPattern.label" }),
             value: translateList(
               o.dangerPatterns,
               pattern =>
-                `danger-patterns:${pattern.toLowerCase()}` as MessageId,
+                `caaml:dangerPattern.${pattern.toLowerCase()}` as MessageId,
               intl
             )
           },

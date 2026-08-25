@@ -13,7 +13,7 @@ function DangerPatternItem({ dangerPattern, isInserted }: Props) {
   const intl = useIntl(); // Get the intl object for formatting messages
 
   const dangerPatternText = intl.formatMessage({
-    id: `danger-patterns:${dangerPattern.toLowerCase()}`
+    id: `caaml:dangerPattern.${dangerPattern.toLowerCase()}`
   });
   return (
     <a

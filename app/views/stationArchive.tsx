@@ -65,9 +65,7 @@ const StationArchive = () => {
       <PageHeadline
         title={intl.formatMessage({ id: "measurements-archive:headline" })}
         marginal={state.headerText}
-        subtitle={intl.formatMessage({
-          id: "weather:subpages:subtitle"
-        })}
+        subtitle={intl.formatMessage({ id: "caaml:synopsis.label" })}
       />
       <section className="section section-centered section-padding-height">
         <p>

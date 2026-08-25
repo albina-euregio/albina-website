@@ -20,7 +20,7 @@ const WarnLevelIcon = (props: Props) => {
     warnLevel
       ? getDangerRatingLabel(
           warnLevel,
-          intl.formatMessage({ id: `danger-level:${warnLevel}` })
+          intl.formatMessage({ id: `caaml:dangerRating.${warnLevel}` })
         )
       : "";
 
@@ -54,7 +54,7 @@ const WarnLevelIcon = (props: Props) => {
       )
     ].join("\n");
     elevationText = intl.formatMessage({
-      id: "bulletin:treeline"
+      id: "caaml:elevation.treeline.capitalized"
     });
   } else {
     title = [

@@ -175,9 +175,7 @@ function AvalancheProblemRow({
               />
             </div>
             <div className="picto-caption">
-              {intl.formatMessage({
-                id: `${problemTypeMessageId(problemType)}:short` as MessageId
-              })}
+              {intl.formatMessage({ id: problemTypeMessageId(problemType) })}
             </div>
           </a>
         </div>
@@ -215,24 +213,24 @@ function ProblemMatrix({ problem }: { problem: IncidentAvalancheProblem }) {
     <div className="bulletin-report-picto matrix-information">
       {snowpackStability &&
         row(
+          intl.formatMessage({ id: "caaml:snowpackStability.label" }),
           intl.formatMessage({
-            id: "bulletin:report:problem:snowpack-stability"
-          }),
-          intl.formatMessage({
-            id: `bulletin:report:problem:snowpack-stability:${snowpackStability}` as MessageId
+            id: `caaml:snowpackStability.${snowpackStability}` as MessageId
           })
         )}
       {frequency &&
         row(
-          intl.formatMessage({ id: "bulletin:report:problem:frequency" }),
+          intl.formatMessage({ id: "caaml:frequency.label" }),
           intl.formatMessage({
-            id: `bulletin:report:problem:frequency:${frequency}` as MessageId
+            id: `caaml:frequency.${frequency}` as MessageId
           })
         )}
       {avalancheSize &&
         row(
-          intl.formatMessage({ id: "bulletin:report:problem:avalanche-size" }),
-          avalancheSize
+          intl.formatMessage({ id: "caaml:avalancheSize.label" }),
+          intl.formatMessage({
+            id: `caaml:avalancheSize.${avalancheSize}` as MessageId
+          })
         )}
     </div>
   );
@@ -278,13 +276,7 @@ function elevationIconProps(
 }
 
 function problemTypeMessageId(problemType: string): MessageId {
-  // Incident spec uses `no_distinct_avalanche_problem`; the shared message
-  // resource uses `no_distinct_problem`.
-  const type =
-    problemType === "no_distinct_avalanche_problem"
-      ? "no_distinct_problem"
-      : problemType;
-  return `problem:${type}` as MessageId;
+  return `caaml:avalancheProblem.${problemType}` as MessageId;
 }
 
 function aspectLabel(
@@ -449,7 +441,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const dangerRatingText =
     d.dangerRating &&
     intl.formatMessage({
-      id: `danger-level:${d.dangerRating}` as MessageId
+      id: `caaml:dangerRating.${d.dangerRating}` as MessageId
     });
   const problems = visibleProblems(d.avalancheProblems);
   const accuracyLabel = intl.formatMessage({ id: "incidents:accuracy" });
@@ -562,7 +554,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             value: d.publicAvalancheWarningService
           },
           {
-            label: label("dangerRating"),
+            label: intl.formatMessage({ id: "caaml:dangerRating.label" }),
             value: d.dangerRating && dangerRatingText && (
               <span className="incident-details-danger-rating">
                 <img
@@ -583,13 +575,11 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             ) : undefined
           },
           {
-            label: intl.formatMessage({
-              id: "bulletin:report:danger-patterns"
-            }),
+            label: intl.formatMessage({ id: "caaml:dangerPattern.label" }),
             value: d.dangerPattern
               ?.map(a =>
                 intl.formatMessage({
-                  id: `danger-patterns:${a.toLowerCase()}` as MessageId
+                  id: `caaml:dangerPattern.${a.toLowerCase()}` as MessageId
                 })
               )
               .join(", ")
@@ -601,7 +591,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         title={label("avalancheInformation")}
         fields={[
           {
-            label: label("avalancheSize"),
+            label: intl.formatMessage({ id: "caaml:avalancheSize.label" }),
             value: tr("avalancheSize", d.avalancheSize)
           },
           {

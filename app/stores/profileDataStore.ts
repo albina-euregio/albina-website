@@ -8,6 +8,7 @@ import {
 } from "../api-profiles/valibot.gen";
 import { $router, redirectPageQuery } from "../components/router";
 import { fetchJSON } from "../util/fetch";
+import type { MessageId } from "../i18n";
 
 const DEFAULT_RANGE_DAYS = 30;
 
@@ -44,7 +45,9 @@ export function snowProfileStabilitySeverity(
 
 /** i18n message id for a stability's human label. */
 export function stabilityLabelId(stability: SnowProfileStability): MessageId {
-  return `profiles:stability:${stability}` as MessageId;
+  return stability === "no-test"
+    ? "profiles:stability:no-test"
+    : (`caaml:snowpackStability.${stability.replace("-", "_")}` as MessageId);
 }
 
 type RawSnowProfile = v.InferOutput<typeof vProfileListItem>;

@@ -108,7 +108,7 @@ function SnowProfileDashboard() {
       intl.formatMessage({ id: "measurements:filter:province" }),
       intl.formatMessage({ id: "measurements:table:header:altitude" }),
       intl.formatMessage({ id: "measurements:table:header:aspect" }),
-      intl.formatMessage({ id: "profiles:table:header:stability" }),
+      intl.formatMessage({ id: "caaml:snowpackStability.label" }),
       intl.formatMessage({ id: "profiles:export:ect" }),
       intl.formatMessage({ id: "profiles:export:rb" }),
       intl.formatMessage({ id: "profiles:export:latitude" }),

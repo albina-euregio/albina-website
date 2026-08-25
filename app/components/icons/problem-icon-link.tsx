@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "../../i18n";
+import { useIntl, type MessageId } from "../../i18n";
 import ProblemIcon from "./problem-icon.js";
 import { AvalancheProblem } from "../../stores/bulletin";
 import BulletinInternalGlossaryText from "../bulletin/internal-glossary/internal-glossary-text.js";
@@ -14,11 +14,9 @@ export default function ProblemIconLink({ problem, wrapper }: Props) {
   const intl = useIntl();
   const problemType = problem.problemType;
   const title = intl.formatMessage({
-    id: "problem:" + problemType
+    id: `caaml:avalancheProblem.${problemType}` as MessageId
   });
-  const problemTextShort = intl.formatMessage({
-    id: "problem:" + problemType + ":short"
-  });
+  const problemTextShort = title;
 
   const icon = (
     //<Tooltip label={title}>

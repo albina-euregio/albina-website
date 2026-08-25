@@ -78,7 +78,7 @@ export default function IncidentTable(props: Props) {
     },
     {
       id: "dangerRating",
-      title: label("dangerRating"),
+      title: intl.formatMessage({ id: "caaml:dangerRating.label" }),
       render: row => {
         const text = dangerRatingBadgeText(row, intl);
         return text ? <IncidentBadge>{text}</IncidentBadge> : "";
@@ -94,7 +94,7 @@ export default function IncidentTable(props: Props) {
     },
     {
       id: "avalancheSize",
-      title: label("avalancheSize"),
+      title: intl.formatMessage({ id: "caaml:avalancheSize.label" }),
       render: row => {
         const text = avalancheBadgeText(row, messages, "avalancheSize");
         return text ? <IncidentBadge>{text}</IncidentBadge> : "";
