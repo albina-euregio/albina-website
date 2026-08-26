@@ -31,32 +31,27 @@ export function involvementLabel(
 }
 
 /**
- * The persons of an incident as one phrase — "4 persons involved (2 fatal, 1
- * injured)". If no person count is available the involvement category is used
- * instead ("Event not involving persons", …). Shared by the dashboard map's
+ * An incident's involvement as one short phrase — "Incident with fatalities
+ * (2)", "Incident without involvement", … Shared by the dashboard map's
  * marker tooltip and the incident table.
  */
 export function involvementText(
   incident: IncidentData,
-  intl: ReturnType<typeof useIntl>,
-  messages: IncidentReportMessages
+  intl: ReturnType<typeof useIntl>
 ): string {
-  const { fatalities, injuredSurvivors } = incident;
-  const involved = incident.numberInvolved;
-  if (!involved) return involvementLabel(messages, incident.involvement);
+  const { involvement, fatalities, injuredSurvivors } = incident;
   const count = (id: MessageId, value: number): string =>
     intl.formatMessage({ id }, { count: intl.formatNumber(value) });
-  const persons = count(
-    involved === 1
-      ? "incidents:persons:involved:one"
-      : "incidents:persons:involved",
-    involved
-  );
-  const severities = [
-    fatalities && count("incidents:persons:fatal", fatalities),
-    injuredSurvivors && count("incidents:persons:injured", injuredSurvivors)
-  ]
-    .filter(Boolean)
-    .join(", ");
-  return severities ? `${persons} (${severities})` : persons;
+  switch (involvement) {
+    case "fatal":
+      return count("incidents:involvement:fatal", fatalities);
+    case "injured":
+      return count("incidents:involvement:injured", injuredSurvivors);
+    case "involved":
+      return intl.formatMessage({ id: "incidents:involvement:involved" });
+    case "uninvolved":
+      return intl.formatMessage({ id: "incidents:involvement:uninvolved" });
+    case "unknown":
+      return intl.formatMessage({ id: "incidents:involvement:unknown" });
+  }
 }

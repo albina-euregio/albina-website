@@ -531,7 +531,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const headerDate =
     incident.dateTime &&
     intl.formatDate(incident.dateTime, DATE_TIME_FORMAT_SHORT);
-  const outcome = involvementText(incident, intl, t);
+  const outcome = involvementText(incident, intl);
   const headerMeta = [headerDate, outcome].filter(Boolean).join(" · ");
   const badges = incidentBadges(incident, t);
   const dangerRatingText =

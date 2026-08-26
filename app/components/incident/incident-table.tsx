@@ -60,7 +60,7 @@ export default function IncidentTable(props: Props) {
               background: `var(--incident-involvement-${row.involvement})`
             }}
           />
-          {involvementText(row, intl, messages)}
+          {involvementText(row, intl)}
         </span>
       )
     },
