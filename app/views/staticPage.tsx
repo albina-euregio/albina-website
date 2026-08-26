@@ -30,14 +30,11 @@ const StaticPage = () => {
     (async () => {
       let path = router.path;
       path = path.replace(/^\/(headless)?/, "");
-      if (`/${path}`.startsWith(import.meta.env.BASE_URL)) {
-        path = `/${path}`.slice(import.meta.env.BASE_URL.length);
-      }
       if (!path) return;
 
       const url = config.staticContentNamespace?.includes(`/${path}`)
-        ? `${import.meta.env.BASE_URL}content/${path}.${province}/${lang}.html`
-        : `${import.meta.env.BASE_URL}content/${path}/${lang}.html`;
+        ? `/content/${path}.${province}/${lang}.html`
+        : `/content/${path}/${lang}.html`;
 
       const text = await fetchText(url);
       if (

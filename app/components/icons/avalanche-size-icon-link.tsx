@@ -16,7 +16,7 @@ export function AvalancheSizeIcon({ avalancheSize, title }: Props) {
       <Tooltip label={title}>
         <a href={"/education/avalanche-problems#avalancheSize"} className="img">
           <img
-            src={`${window.config.projectRoot}images/pro/avalanche-sizes/avalanche-size_${avalancheSize}.png`}
+            src={`/images/pro/avalanche-sizes/avalanche-size_${avalancheSize}.png`}
             alt={title}
           />
         </a>

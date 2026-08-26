@@ -12,7 +12,6 @@ public/fonts/Noto Sans Regular/0-255.pbf
 ```
 
 - The folder name **must** match `LABEL_FONT` in `maplibre-map.tsx`.
-- `GLYPHS_URL` points here via `import.meta.env.BASE_URL`.
 
 ## Updating / adding fonts or ranges
 

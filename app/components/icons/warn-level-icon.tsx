@@ -32,7 +32,7 @@ const WarnLevelIcon = (props: Props) => {
   // "Our" danger-level picto: the elevation-split warning-picto
   // (levels_{below}_{above}), matching the PatternLab bulletin-map popup,
   // instead of the single generic EAWS diamond.
-  const img = `${window.config.projectRoot}images/pro/warning-pictos/levels_${numberBelow}_${numberAbove}.png`;
+  const img = `/images/pro/warning-pictos/levels_${numberBelow}_${numberAbove}.png`;
 
   let title;
   let elevationText;

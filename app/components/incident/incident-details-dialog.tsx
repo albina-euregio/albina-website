@@ -558,7 +558,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             value: d.dangerRating && dangerRatingText && (
               <span className="incident-details-danger-rating">
                 <img
-                  src={`${window.config.projectRoot}images/pro/danger-levels/${getDangerRatingIconFile(d.dangerRating)}`}
+                  src={`/images/pro/danger-levels/${getDangerRatingIconFile(d.dangerRating)}`}
                   alt={dangerRatingText}
                 />
                 {getDangerRatingLabel(d.dangerRating, dangerRatingText)}

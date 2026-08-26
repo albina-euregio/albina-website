@@ -19,7 +19,7 @@ addProtocol("pmtiles", new Protocol().tile);
 
 export const MAPLIBRE_STYLE: StyleSpecification = {
   version: 8,
-  glyphs: `${import.meta.env.BASE_URL}fonts/{fontstack}/{range}.pbf`,
+  glyphs: "/fonts/{fontstack}/{range}.pbf",
   sources: {
     basemap: {
       type: "raster",

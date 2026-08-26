@@ -7,7 +7,7 @@ import { $province } from "../../appStore.ts";
 export default function SubscribeAppDialog() {
   const intl = useIntl();
   const province = useStore($province);
-  const imgRoot = `${window.config.projectRoot}images/pro/apps/`;
+  const imgRoot = "/images/pro/apps/";
 
   const apps = config.subscribe.apps.filter(
     a => !province || !a.regions || a.regions.includes(province)

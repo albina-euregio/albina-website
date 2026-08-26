@@ -20,10 +20,7 @@ function BulletinDangerRating({ dangerRatings }: Props) {
         className="bulletin-report-no-bulletin"
         style={{ marginBottom: 0, marginTop: 0, textAlign: "center" }}
       >
-        <img
-          src={`${window.config.projectRoot}images/pro/danger-levels/no_snow.svg`}
-          alt={alt}
-        />
+        <img src="/images/pro/danger-levels/no_snow.svg" alt={alt} />
         <FormattedMessage id="caaml:dangerRating.no_snow" />
       </p>
     );

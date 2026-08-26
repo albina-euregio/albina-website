@@ -12,7 +12,7 @@ export default function SnowpackStabilityIcon({ title, snowpackStability }) {
           className="img"
         >
           <img
-            src={`${window.config.projectRoot}images/pro/snowpack-stabilities/snowpack-stability_${snowpackStability}.png`}
+            src={`/images/pro/snowpack-stabilities/snowpack-stability_${snowpackStability}.png`}
             alt={title}
           />
         </a>

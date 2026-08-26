@@ -70,15 +70,9 @@
 
     <!-- !web manifest + favicons -->
     <script>
-      const baseUrl = "%BASE_URL%";
       const appRegion = "%APP_REGION%";
-      const variantPath =
-        appRegion === "DEV"
-          ? "dev/"
-          : baseUrl === "/"
-            ? ""
-            : `${baseUrl.replace(/^\//, "").replace(/\/$/, "")}/`;
-      const faviconRoot = `${baseUrl}images/fav/en/${variantPath}`;
+      const variantPath = appRegion === "DEV" ? "dev/" : "";
+      const faviconRoot = `/images/fav/en/${variantPath}`;
 
       function appendHeadLink(attributes) {
         const link = document.createElement("link");

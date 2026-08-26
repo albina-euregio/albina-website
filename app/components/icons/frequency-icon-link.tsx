@@ -9,7 +9,7 @@ export default function FrequencyIcon({ title, frequency }) {
       <Tooltip label={title}>
         <a href={"/education/avalanche-problems#frequency"} className="img">
           <img
-            src={`${window.config.projectRoot}images/pro/frequencies/frequency_${frequency}.png`}
+            src={`/images/pro/frequencies/frequency_${frequency}.png`}
             alt={title}
             title={title}
           />

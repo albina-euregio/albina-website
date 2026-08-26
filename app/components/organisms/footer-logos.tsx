@@ -18,7 +18,7 @@ export default function FooterLogos() {
               <img
                 className="footer-logo-img"
                 alt={icon.title}
-                src={`${window.config.projectRoot}images/pro/footer/${icon.img}`}
+                src={`/images/pro/footer/${icon.img}`}
               />
             </a>
           </Tooltip>

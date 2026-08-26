@@ -26,7 +26,6 @@ const configRequest =
 configRequest.then(async configParsed => {
   window.config = {
     ...configParsed,
-    projectRoot: import.meta.env.BASE_URL,
     template,
     regionsRegex: newRegionRegex(configParsed.regionCodes),
     eawsRegionsRegex: newRegionRegex(configParsed.eawsRegions)
@@ -61,7 +60,7 @@ configRequest.then(async configParsed => {
 
 if (isWebPushSupported()) {
   navigator.serviceWorker
-    .register(import.meta.env.BASE_URL + "service-worker.js")
+    .register("/service-worker.js")
     .then(serviceWorkerRegistration => {
       console.info("Service worker was registered.", {
         serviceWorkerRegistration
