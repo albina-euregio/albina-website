@@ -21,6 +21,20 @@ function BulletinLegendLinkbar({ activeBulletinCollection }: Props) {
   const province = useStore($province);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
 
+  const caamlXML =
+    activeBulletinCollection &&
+    config.template(config.apis.bulletin.xml, {
+      date: activeBulletinCollection.date.toString(),
+      region: `${province || "EUREGIO"}_`,
+      lang: intl.locale.slice(0, 2)
+    });
+  const caamlJSON =
+    activeBulletinCollection &&
+    config.template(config.apis.bulletin.json, {
+      date: activeBulletinCollection.date.toString(),
+      region: `${province || "EUREGIO"}_`,
+      lang: intl.locale.slice(0, 2)
+    });
   return (
     <section
       id="section-bulletin-legendlinkbar"
@@ -103,12 +117,9 @@ function BulletinLegendLinkbar({ activeBulletinCollection }: Props) {
                     >
                       <a
                         target="_blank"
-                        href={config.template(config.apis.bulletin.xml, {
-                          date: activeBulletinCollection.date.toString(),
-                          region: `${province || "EUREGIO"}_`,
-                          lang: intl.locale.slice(0, 2)
-                        })}
-                        download="caaml.xml"
+                        rel="noreferrer"
+                        href={caamlXML}
+                        download={caamlXML.split("/").pop()}
                         className="pure-button"
                       >
                         XML
@@ -123,12 +134,9 @@ function BulletinLegendLinkbar({ activeBulletinCollection }: Props) {
                     >
                       <a
                         target="_blank"
-                        href={config.template(config.apis.bulletin.json, {
-                          date: activeBulletinCollection.date.toString(),
-                          region: `${province || "EUREGIO"}_`,
-                          lang: intl.locale.slice(0, 2)
-                        })}
-                        download="caaml.json"
+                        rel="noreferrer"
+                        href={caamlJSON}
+                        download={caamlJSON.split("/").pop()}
                         className="pure-button"
                       >
                         JSON
