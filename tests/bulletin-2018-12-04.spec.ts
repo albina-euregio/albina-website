@@ -19,7 +19,7 @@ test("bulletin/2018-12-04", async ({ page }) => {
   await expect(details).toHaveText(/Northern Oetz and Stubai Alps/);
   await expect(pictos).toHaveCount(2);
   await expect(pictos.getByLabel("Danger level: 1–low")).toBeVisible();
-  await expect(pictos.getByAltText("Wind slab problem")).toHaveAttribute(
+  await expect(pictos.getByAltText("Wind slab")).toHaveAttribute(
     "src",
     /images\/pro\/avalanche-problems\/wind_slab\.webp/
   );
