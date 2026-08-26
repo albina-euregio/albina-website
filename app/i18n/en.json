@@ -1,6 +1,7 @@
 {
   "app:title": "Avalanche.report",
   "app:title:ES-CT-L": "Centre de Lauegi Val d'Aran - Avalanche prediction services of the Val d'Aran",
+  "menu:": "Report",
   "menu:bulletin": "Report",
   "menu:blog": "Blog",
   "menu:blog:tech": "Tech Blog",
