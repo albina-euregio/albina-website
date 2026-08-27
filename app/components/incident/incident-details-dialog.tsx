@@ -14,6 +14,7 @@ import ProblemIcon from "../icons/problem-icon";
 import ExpositionIcon from "../icons/exposition-icon";
 import ElevationIcon from "../icons/elevation-icon";
 import IncidentLocationMap from "./incident-location-map";
+import { Tooltip } from "../tooltips/tooltip";
 import { involvementText } from "../../util/incident-involvement";
 import { incidentBadges } from "../../util/incident-badges";
 import { IncidentBadges } from "./incident-badge";
@@ -747,7 +748,20 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       />
 
       <Section
-        title={label("involvementsFatalitiesBurials")}
+        title={
+          <>
+            {intl.formatMessage({ id: "incidents:documentedInvolvements" })}
+            <Tooltip
+              html={true}
+              enableClick={true}
+              label={`<p>${intl.formatMessage({
+                id: "incidents:documentedInvolvements.info"
+              })}</p>`}
+            >
+              <span className="tooltip-trigger icon-info"></span>
+            </Tooltip>
+          </>
+        }
         fields={[
           {
             label: label("numberInvolved"),

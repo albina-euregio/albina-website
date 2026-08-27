@@ -334,6 +334,8 @@
   "incidents:involvement:unknown": "Incident unknown",
   "incidents:danger-level": "danger level {number}",
   "incidents:accuracy": "accuracy",
+  "incidents:documentedInvolvements": "Documented Involvements",
+  "incidents:documentedInvolvements.info": "These numbers reflect the persons in each category that are known. More persons may have been involved.",
   "profiles:filter:date-from": "From",
   "profiles:filter:date-to": "To",
   "profiles:detail:loading": "Loading snow profile…",

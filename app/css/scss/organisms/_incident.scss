@@ -46,6 +46,18 @@
       font-size: variables.$medium-font-size;
     }
 
+    .tooltip-trigger {
+      cursor: pointer;
+      position: relative;
+      top: -0.2em;
+      line-height: 1;
+      font-size: variables.$small-font-size;
+      color: variables.$brand;
+      &:before {
+        margin: 0;
+      }
+    }
+
     table {
       width: 100%;
     }
