@@ -1315,11 +1315,15 @@ $search-width-wide: 300px;
         gap: variables.$padding * 0.5;
       }
 
-      // the from/to date range needs the full width on its own row, but the
-      // province dropdown and search share the row below
+      // the from/to date range needs the full width on its own row, below
+      // the province dropdown and search (source order keeps it first, for
+      // the unchanged desktop layout). Collapsed behind the toggle by
+      // default, like the extras on the weather-station bar.
       .station-dashboard-filter__date {
         flex: 1 1 100%;
         min-width: 0;
+        order: 1;
+        display: none;
       }
 
       .station-dashboard-filter__province,
@@ -1344,10 +1348,24 @@ $search-width-wide: 300px;
 
       .station-dashboard-filter__export {
         margin-left: 0;
+        display: none;
 
         .station-dashboard-filter__export-button {
           width: 100%;
           justify-content: center;
+        }
+      }
+
+      .station-dashboard-filter__toggle {
+        align-self: center;
+      }
+    }
+
+    &.is-expanded {
+      @media screen and (max-width: 53em) {
+        .station-dashboard-filter__date,
+        .station-dashboard-filter__export {
+          display: block;
         }
       }
     }

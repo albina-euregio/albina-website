@@ -65,6 +65,7 @@ function SnowProfileDashboard() {
     redirectPageQuery({ view: view === DEFAULT_VIEW_MODE ? "" : view });
 
   const [profileId, setProfileId] = useSnowProfileId();
+  const [isFiltersExpanded, setIsFiltersExpanded] = useState(false);
   const { filterRef, offsetStyle, topStyle } = useFilterBarOffset();
 
   const {
@@ -269,19 +270,12 @@ function SnowProfileDashboard() {
 
       <section
         ref={filterRef}
-        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode} station-dashboard-filter--profiles`}
+        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode} station-dashboard-filter--profiles${isFiltersExpanded ? " is-expanded" : ""}`}
         style={topStyle}
       >
         <div className="section-centered station-dashboard-filter__inner">
           <div className="station-dashboard-filter__bar">
             <div className="station-dashboard-filter__group">
-              <div className="station-dashboard-filter__date">
-                <DateRangeFilter
-                  dateFrom={dateFrom}
-                  dateTo={dateTo}
-                  onChange={setDateRange}
-                />
-              </div>
               <div className="station-dashboard-filter__province">
                 <ProvinceFilter
                   title={intl.formatMessage({
@@ -293,7 +287,16 @@ function SnowProfileDashboard() {
                   value={activeRegion}
                 />
               </div>
-
+              <div
+                id="profile-filter-date"
+                className="station-dashboard-filter__date"
+              >
+                <DateRangeFilter
+                  dateFrom={dateFrom}
+                  dateTo={dateTo}
+                  onChange={setDateRange}
+                />
+              </div>
               <div className="station-dashboard-filter__search">
                 <SearchField
                   title={intl.formatMessage({ id: "filter:search" })}
@@ -304,6 +307,7 @@ function SnowProfileDashboard() {
             </div>
 
             <div
+              id="profile-filter-export"
               className="station-dashboard-filter__export"
               ref={exportMenuRef}
             >
@@ -374,6 +378,22 @@ function SnowProfileDashboard() {
                 </div>
               )}
             </div>
+
+            <button
+              className="station-dashboard-filter__toggle"
+              type="button"
+              aria-expanded={isFiltersExpanded}
+              aria-controls="profile-filter-date profile-filter-export"
+              aria-label="Toggle additional filters"
+              onClick={() => {
+                setIsFiltersExpanded(prev => !prev);
+              }}
+            >
+              <span
+                className="station-dashboard-filter__toggle-chevron"
+                aria-hidden="true"
+              />
+            </button>
           </div>
         </div>
       </section>
