@@ -125,13 +125,13 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
 
       // Only show the outcome when a persons count is known.
       const outcomeText = incident.numberInvolved
-        ? esc(involvementText(incident, intl, messages))
+        ? esc(involvementText(incident, intl))
         : undefined;
       const outcome = outcomeText
         ? `<p class="incident-tooltip__outcome">${nowrapTrailingParenthetical(outcomeText)}</p>`
         : undefined;
 
-      const badges = incidentBadges(incident, intl, messages).map(
+      const badges = incidentBadges(incident, messages).map(
         badge => `<span class="incident-badge">${esc(badge.text)}</span>`
       );
       const header = [

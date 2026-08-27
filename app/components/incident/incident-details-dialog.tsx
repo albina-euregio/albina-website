@@ -1,5 +1,9 @@
-import React, { type ReactNode } from "react";
+import React, { useState, type ReactNode } from "react";
 import Modal from "../dialogs/albina-modal";
+import {
+  DialogFlipperButtons,
+  useDialogFlipper
+} from "../dialogs/dialog-flipper";
 import { useIntl, type MessageId } from "../../i18n";
 import {
   useIncidentReportMessages,
@@ -85,9 +89,18 @@ function withAccuracy(
     <>
       {value}
       {accuracy && (
-        <span>
+        <span className="incident-details-accuracy" title={accuracyLabel}>
           {" "}
-          ({accuracyLabel}: {accuracy})
+          (
+          <svg
+            className="incident-details-accuracy-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 256 256"
+            aria-hidden="true"
+          >
+            <path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z" />
+          </svg>
+          {accuracy})
         </span>
       )}
     </>
@@ -296,24 +309,38 @@ function aspectLabel(
     .join(", ");
 }
 
-/** Renders a grid of attachment figures (images or download links). */
+type GalleryAttachment = IncidentAttachmentView & { id: string };
+
+/** Renders a grid of attachment figures (images or download links). Images
+ * open enlarged in a lightbox, flipping through the other images of this
+ * grid — mirrors the bulletin report's photo gallery. */
 function AttachmentGrid({
   attachments
 }: {
   attachments: IncidentAttachmentView[] | undefined;
 }) {
+  const [openId, setOpenId] = useState("");
   if (!attachments?.length) return null;
+  const images = attachments.filter(
+    (a): a is GalleryAttachment => !!a.id && !!a.mediaType?.startsWith("image/")
+  );
   return (
     <div className="incident-details-attachments">
       {attachments.map(a => (
         <figure key={a.id} className="incident-details-attachment">
-          <a href={a.url} target="_blank" rel="noreferrer">
-            {a.mediaType?.startsWith("image/") ? (
+          {a.id && a.mediaType?.startsWith("image/") ? (
+            <button
+              type="button"
+              className="incident-details-attachment-trigger"
+              onClick={() => setOpenId(a.id ?? "")}
+            >
               <img src={a.url} alt={a.altText || a.caption || a.fileName} />
-            ) : (
-              (a.fileName ?? a.url)
-            )}
-          </a>
+            </button>
+          ) : (
+            <a href={a.url} target="_blank" rel="noreferrer">
+              {a.fileName ?? a.url}
+            </a>
+          )}
           {(a.caption || a.credit) && (
             <figcaption>
               {a.caption}
@@ -322,7 +349,76 @@ function AttachmentGrid({
           )}
         </figure>
       ))}
+      <AttachmentLightbox
+        images={images}
+        openId={openId}
+        setOpenId={setOpenId}
+      />
     </div>
+  );
+}
+
+/** The enlarged view of one image, flipped through via arrows, keyboard and
+ * swipe (shared dialog-flipper, as the bulletin/profile dialogs use). */
+function AttachmentLightboxContent({
+  images,
+  openId,
+  setOpenId
+}: {
+  images: GalleryAttachment[];
+  openId: string;
+  setOpenId: (id: string) => void;
+}) {
+  const intl = useIntl();
+  const flipper = useDialogFlipper(images, openId, setOpenId);
+  const image = images[flipper.index];
+  if (!image) return null;
+  return (
+    <div
+      className="modal-container incident-attachment-modal"
+      {...flipper.swipeHandlers}
+    >
+      <DialogFlipperButtons
+        flipper={flipper}
+        previousLabel={intl.formatMessage({ id: "dialog:flipper:previous" })}
+        nextLabel={intl.formatMessage({ id: "dialog:flipper:next" })}
+      />
+      <figure className="incident-attachment-modal__figure">
+        <img
+          className="incident-attachment-modal__image"
+          src={image.url}
+          alt={image.altText || image.caption || image.fileName || ""}
+        />
+        {(image.caption || image.credit) && (
+          <figcaption className="incident-attachment-modal__caption">
+            {image.caption}
+            {image.credit && <span className="credit"> © {image.credit}</span>}
+          </figcaption>
+        )}
+      </figure>
+    </div>
+  );
+}
+
+function AttachmentLightbox({
+  images,
+  openId,
+  setOpenId
+}: {
+  images: GalleryAttachment[];
+  openId: string;
+  setOpenId: (id: string) => void;
+}) {
+  return (
+    <Modal isOpen={!!openId} onClose={() => setOpenId("")} width="fit-content">
+      {!!openId && (
+        <AttachmentLightboxContent
+          images={images}
+          openId={openId}
+          setOpenId={setOpenId}
+        />
+      )}
+    </Modal>
   );
 }
 
@@ -435,9 +531,9 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const headerDate =
     incident.dateTime &&
     intl.formatDate(incident.dateTime, DATE_TIME_FORMAT_SHORT);
-  const outcome = involvementText(incident, intl, t);
+  const outcome = involvementText(incident, intl);
   const headerMeta = [headerDate, outcome].filter(Boolean).join(" · ");
-  const badges = incidentBadges(incident, intl, t);
+  const badges = incidentBadges(incident, t);
   const dangerRatingText =
     d.dangerRating &&
     intl.formatMessage({

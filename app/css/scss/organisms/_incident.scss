@@ -111,6 +111,16 @@
       max-width: 16rem;
       margin: 0;
 
+      .incident-details-attachment-trigger {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        cursor: zoom-in;
+      }
+
       img {
         max-width: 100%;
         height: auto;
@@ -144,12 +154,52 @@
   }
 }
 
+.incident-details-accuracy {
+  cursor: help;
+}
+
+.incident-details-accuracy-icon {
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.25em;
+  vertical-align: -0.25em;
+  fill: currentColor;
+}
+
+// The enlarged attachment view, mirroring .bulletin-report-gallery-modal.
+.incident-attachment-modal {
+  &__figure {
+    margin: (variables.$padding * 3) 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$padding;
+  }
+
+  &__image {
+    display: block;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+
+  &__caption {
+    text-align: center;
+    font-size: variables.$micro-font-size;
+
+    .credit {
+      color: variables.$grey-light;
+    }
+  }
+}
+
 // Marker colors of the dashboard map, keyed by person involvement.
 // Reuse accessible colors from snow profile palette.
 :root {
-  --incident-involvement-fatal: #a6611a;
-  --incident-involvement-injured: #dfc27d;
-  --incident-involvement-involved: #018571;
+  --incident-involvement-fatal: #000000;
+  --incident-involvement-injured: #a6611a;
+  --incident-involvement-involved: #dfc27d;
   --incident-involvement-uninvolved: #80cdc1;
   --incident-involvement-unknown: #f5f5f5;
 }
