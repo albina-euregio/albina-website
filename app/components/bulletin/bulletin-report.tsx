@@ -539,7 +539,7 @@ function BulletinReport({
                     <RegionDropdown
                       region={region}
                       className={
-                        showDiff &&
+                        !showDiff ||
                         compareRegions(
                           bulletin?.regions,
                           bulletin170000?.regions
