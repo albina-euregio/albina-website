@@ -129,6 +129,20 @@
     }
   }
 
+  // The analysis is the dialog's second half — set off by a rule from the
+  // factual sections above it, and headed like the dialog's own title rather
+  // than like the <h3> sections it contains.
+  .incident-details-analysis {
+    margin-top: (variables.$margin-bottom * 1.5);
+    padding-top: (variables.$margin-bottom * 1.5);
+    border-top: variables.$border-width solid variables.$grey-very-light;
+
+    > h2 {
+      margin-bottom: variables.$margin-bottom;
+      font-size: variables.$xlarge-font-size;
+    }
+  }
+
   .incident-details-richtext {
     line-height: 1.6;
   }

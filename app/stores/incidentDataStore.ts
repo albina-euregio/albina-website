@@ -26,17 +26,31 @@ export type IncidentAttachmentView = Partial<IncidentAttachment> & {
 
 export type IncidentPublicData = Partial<IncidentSchema>;
 
-/**
- * The picklist fields of the "Incident Analysis" section, shared with
- * `IncidentData.hasAnalysis` so the two stay in sync — add a new analysis
- * field here and both the section and the badge pick it up.
- */
+/** The picklist fields shown as a table at the top of the analysis section. */
 export const INCIDENT_ANALYSIS_ENUM_FIELDS = [
   "recentSlabAvalanches",
   "signsOfInstability",
   "recentLoading",
   "criticalWarming"
 ] as const satisfies readonly (keyof IncidentPublicData)[];
+
+/**
+ * The rich-text fields of the "Incident Analysis" section, each paired with the
+ * flag that withholds it from the public view. These alone decide whether there
+ * is an analysis to show — see {@link IncidentData.hasAnalysis} — so the
+ * picklist fields above ride along with the prose rather than standing alone.
+ */
+export const INCIDENT_ANALYSIS_TEXT_FIELDS = [
+  ["incidentLede", "incidentLedePublic"],
+  ["incidentDescription", "incidentDescriptionPublic"],
+  ["avalancheDescription", "avalancheDescriptionPublic"],
+  ["snowpackDescription", "snowpackDescriptionPublic"],
+  ["weatherDescription", "weatherDescriptionPublic"],
+  ["takeAways", "takeAwaysPublic"]
+] as const satisfies readonly (readonly [
+  keyof IncidentPublicData,
+  keyof IncidentPublicData
+])[];
 
 /**
  * How people were affected by an incident, ordered from most to least severe.
@@ -145,12 +159,16 @@ export class IncidentData {
       }));
   }
 
-  /** True if the "Incident Analysis" section has any content to show. */
+  /**
+   * True if the "Incident Analysis" section has prose to show, in any locale.
+   * The picklist fields don't count on their own.
+   */
   get hasAnalysis(): boolean {
     const d = this.publicData;
-    return (
-      INCIDENT_ANALYSIS_ENUM_FIELDS.some(field => !!d[field]) ||
-      !!d.incidentAnalysisComment
+    return INCIDENT_ANALYSIS_TEXT_FIELDS.some(
+      ([field, publicFlag]) =>
+        d[publicFlag] !== false &&
+        Object.values(d[field] ?? {}).some(text => !!text?.trim())
     );
   }
 

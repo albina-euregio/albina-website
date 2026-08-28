@@ -692,48 +692,56 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         <AttachmentGrid attachments={imageAttachments} />
       </Section>
 
-      {ledeHtml?.trim() && (
-        <div
-          className="incident-details-richtext incident-details-lede"
-          dangerouslySetInnerHTML={{ __html: ledeHtml }}
-        />
+      {/* Everything below the rule is the analysis: the lede, the picklist
+          summary, then the rich-text blocks. Shown only when there is prose to
+          show — `hasAnalysis` also gates the badge that scrolls here. */}
+      {incident.hasAnalysis && (
+        <section id="incident-analysis" className="incident-details-analysis">
+          <h2>{label("incidentAnalysis")}</h2>
+
+          {ledeHtml?.trim() && (
+            <div
+              className="incident-details-richtext incident-details-lede"
+              dangerouslySetInnerHTML={{ __html: ledeHtml }}
+            />
+          )}
+
+          <Section
+            fields={INCIDENT_ANALYSIS_ENUM_FIELDS.map(field => ({
+              label: label(field),
+              value: tr(field, d[field])
+            }))}
+          />
+
+          <RichText
+            title={label("incidentDescription")}
+            html={textBlock(d.incidentDescription, d.incidentDescriptionPublic)}
+            attachments={attachments.incidentDescription}
+          />
+          <RichText
+            title={label("avalancheDescription")}
+            html={textBlock(
+              d.avalancheDescription,
+              d.avalancheDescriptionPublic
+            )}
+            attachments={attachments.avalancheDescription}
+          />
+          <RichText
+            title={label("snowpackDescription")}
+            html={textBlock(d.snowpackDescription, d.snowpackDescriptionPublic)}
+            attachments={attachments.snowpackDescription}
+          />
+          <RichText
+            title={label("weatherDescription")}
+            html={textBlock(d.weatherDescription, d.weatherDescriptionPublic)}
+            attachments={attachments.weatherDescription}
+          />
+          <RichText
+            title={label("takeAways")}
+            html={textBlock(d.takeAways, d.takeAwaysPublic)}
+          />
+        </section>
       )}
-
-      <RichText
-        title={label("incidentDescription")}
-        html={textBlock(d.incidentDescription, d.incidentDescriptionPublic)}
-        attachments={attachments.incidentDescription}
-      />
-      <RichText
-        title={label("avalancheDescription")}
-        html={textBlock(d.avalancheDescription, d.avalancheDescriptionPublic)}
-        attachments={attachments.avalancheDescription}
-      />
-      <RichText
-        title={label("snowpackDescription")}
-        html={textBlock(d.snowpackDescription, d.snowpackDescriptionPublic)}
-        attachments={attachments.snowpackDescription}
-      />
-      <RichText
-        title={label("weatherDescription")}
-        html={textBlock(d.weatherDescription, d.weatherDescriptionPublic)}
-        attachments={attachments.weatherDescription}
-      />
-      <RichText
-        title={label("takeAways")}
-        html={textBlock(d.takeAways, d.takeAwaysPublic)}
-      />
-
-      <Section
-        id="incident-analysis"
-        title={label("incidentAnalysis")}
-        fields={[
-          ...INCIDENT_ANALYSIS_ENUM_FIELDS.map(field => ({
-            label: label(field),
-            value: tr(field, d[field])
-          }))
-        ]}
-      />
     </div>
   );
 }
