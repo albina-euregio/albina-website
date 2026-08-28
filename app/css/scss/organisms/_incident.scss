@@ -197,7 +197,12 @@
 }
 
 .incident-details-accuracy {
+  margin-left: 0.5em;
   cursor: help;
+  color: variables.$grey-dark;
+  font-family: variables.$paragraph-font-family;
+  font-size: variables.$small-font-size;
+  font-weight: variables.$paragraph-font-weight;
 }
 
 .incident-details-accuracy-icon {
