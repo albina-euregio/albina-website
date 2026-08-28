@@ -83,6 +83,31 @@ function Section({
   );
 }
 
+/** The "⌖ label" accuracy badge — standalone (e.g. next to a section title)
+ * or trailing a value via {@link withAccuracy}. */
+function AccuracyNote({
+  accuracy,
+  accuracyLabel
+}: {
+  accuracy: ReactNode;
+  accuracyLabel: string;
+}): ReactNode {
+  if (!accuracy) return null;
+  return (
+    <span className="incident-details-accuracy" title={accuracyLabel}>
+      <svg
+        className="incident-details-accuracy-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 256 256"
+        aria-hidden="true"
+      >
+        <path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z" />
+      </svg>
+      {accuracy}
+    </span>
+  );
+}
+
 function withAccuracy(
   value: ReactNode,
   accuracy: ReactNode,
@@ -92,21 +117,7 @@ function withAccuracy(
   return (
     <>
       {value}
-      {accuracy && (
-        <span className="incident-details-accuracy" title={accuracyLabel}>
-          {" "}
-          (
-          <svg
-            className="incident-details-accuracy-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 256 256"
-            aria-hidden="true"
-          >
-            <path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z" />
-          </svg>
-          {accuracy})
-        </span>
-      )}
+      <AccuracyNote accuracy={accuracy} accuracyLabel={accuracyLabel} />
     </>
   );
 }
@@ -542,6 +553,14 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     });
   const problems = visibleProblems(d.avalancheProblems);
   const accuracyLabel = intl.formatMessage({ id: "incidents:accuracy" });
+  const regionLabel = (code: string | undefined) =>
+    code && (intl.formatMessage({ id: `region:${code}` as MessageId }) || code);
+  const combinedLocation = [
+    regionLabel(incident.microRegion),
+    regionLabel(incident.region)
+  ]
+    .filter(Boolean)
+    .join(", ");
 
   return (
     <div
@@ -585,6 +604,24 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         </IncidentBadges>
       </header>
 
+      <Section
+        title={
+          <>
+            {label("locationInformation")}
+            <AccuracyNote
+              accuracy={tr("locationAccuracy", d.locationAccuracy)}
+              accuracyLabel={accuracyLabel}
+            />
+          </>
+        }
+        fields={[
+          { label: label("location"), value: d.location },
+          { label: label("region"), value: combinedLocation }
+        ]}
+      >
+        <IncidentLocationMap incident={incident} />
+      </Section>
+
       <Section fields={[]} />
 
       {ledeHtml?.trim() && (
@@ -618,37 +655,6 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         title={label("takeAways")}
         html={textBlock(d.takeAways, d.takeAwaysPublic)}
       />
-
-      <Section
-        title={label("locationInformation")}
-        fields={[
-          { label: label("location"), value: incident.location },
-          { label: label("country"), value: tr("country", d.country) },
-          { label: label("municipality"), value: d.municipality },
-          {
-            label: label("avalancheRegion"),
-            value:
-              d.avalancheRegion &&
-              (intl.formatMessage({
-                id: `region:${d.avalancheRegion}` as MessageId
-              }) ||
-                d.avalancheRegion)
-          },
-          {
-            label: `${label("latitude")} / ${label("longitude")}`,
-            value:
-              typeof d.latitude === "number" &&
-              typeof d.longitude === "number" &&
-              withAccuracy(
-                `${intl.formatNumber(d.latitude, 5)} / ${intl.formatNumber(d.longitude, 5)}`,
-                tr("locationAccuracy", d.locationAccuracy),
-                accuracyLabel
-              )
-          }
-        ]}
-      >
-        <IncidentLocationMap incident={incident} />
-      </Section>
 
       <Section
         title={label("bulletinInformation")}

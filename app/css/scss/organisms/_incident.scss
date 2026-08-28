@@ -104,6 +104,10 @@
 
     td {
       color: variables.$text-color;
+
+      .incident-details-accuracy {
+        font-size: 0.85em;
+      }
     }
 
     p {
