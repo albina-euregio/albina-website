@@ -9,9 +9,7 @@ import { getDefaultTime, snapToSlot } from "./weatherMapSlots";
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 
 /**
- * `relative-snow` stays fully hardcoded/unmigrated: its own two-URL
- * overlay/failover setup and metaFiles-less flow. Every other domain is
- * driven by the live `config.json` published per domain at
+ * Every domain is driven by the live `config.json` published per domain at
  * `.../zamg_meteo/overlays/{domain}/config.json` (see `RemoteDomainConfig`
  * below) — this object now only carries the structural, non-meteorological
  * metadata that endpoint doesn't provide.
@@ -57,34 +55,10 @@ export const config = {
     },
     "relative-snow": {
       item: {
-        overlayURLs: [
-          "https://models.avalanche.report/relativesnowheight/",
-          "https://models.avalanche.report/relativesnowheight/"
-        ],
-        timeSpans: ["+-24"],
+        sign: "+-",
         defaultTimeSpan: null,
         timeSpanToDataId: {},
-        updateTimesOffset: { "*": 24 },
-        units: "%",
-        thresholds: [-1, 30, 60, 90, 110, 140, 170, 200, 230, 260],
-        colors: {
-          0: "#08306b",
-          1: "#ffa0a0",
-          2: "#ffd2d2",
-          3: "#ffe6ce",
-          4: "#b0ffbc",
-          5: "#9ecae1",
-          6: "#6baed6",
-          7: "#4292c6",
-          8: "#2171b5",
-          9: "#08519c",
-          10: "#08306b"
-        },
         layer: { overlay: true, stations: false },
-        imageOverlay: { file: "{date}/{date}_00-00_REL.gif" },
-        dataOverlays: [
-          { file: "{date}/{date}_00-00_REL.png", type: "snowHeight" }
-        ],
         direction: false
       }
     },
@@ -103,26 +77,7 @@ export const config = {
         defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "TA" },
         layer: { overlay: true, stations: true },
-        direction: false,
-        // The live config.json currently returns an empty `thresholds` array
-        // for temp (the overlay image doesn't need discrete buckets), but
-        // station-marker coloring does — fall back to the previous scale.
-        fallbackThresholds: [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
-        fallbackColors: {
-          1: [159, 128, 255],
-          2: [120, 75, 255],
-          3: [3, 91, 190],
-          4: [4, 129, 255],
-          5: [3, 205, 255],
-          6: [140, 255, 255],
-          7: [176, 255, 188],
-          8: [255, 255, 103],
-          9: [255, 190, 130],
-          10: [255, 154, 53],
-          11: [255, 85, 54],
-          12: [255, 5, 5],
-          13: [250, 55, 150]
-        }
+        direction: false
       }
     },
     wind: {
@@ -191,7 +146,7 @@ export interface DomainConfig {
   updateTimesOffset: Record<string, number>;
   units: string;
   thresholds: number[];
-  colors: Record<number, RGB | string>;
+  colors: Record<number, RGB>;
   layer: { overlay: boolean; stations: boolean };
   imageOverlay: { file: string };
   dataOverlays: { file: string; type: OverlayType; domain?: DomainId }[];
@@ -206,8 +161,6 @@ interface DomainMeta {
   layer: { overlay: boolean; stations: boolean };
   direction: "DW" | false;
   secondaryOverlay?: { file: string; type: OverlayType; domain?: DomainId };
-  fallbackThresholds?: number[];
-  fallbackColors?: Record<number, RGB>;
 }
 
 function domainMeta(domainId: DomainId): DomainMeta {
@@ -254,14 +207,10 @@ function hexToRgb(hex: string): RGB {
  * code expects. Exact conversion: `thresholds[i] = ranges[i].range[1]` for
  * every entry but the last (open-ended) one.
  */
-function buildThresholdsAndColors(
-  remoteThresholds: RemoteThreshold[],
-  fallbackThresholds?: number[],
-  fallbackColors?: Record<number, RGB>
-): { thresholds: number[]; colors: Record<number, RGB> } {
-  if (remoteThresholds.length === 0 && fallbackThresholds && fallbackColors) {
-    return { thresholds: fallbackThresholds, colors: fallbackColors };
-  }
+function buildThresholdsAndColors(remoteThresholds: RemoteThreshold[]): {
+  thresholds: number[];
+  colors: Record<number, RGB>;
+} {
   const colors: Record<number, RGB> = {};
   remoteThresholds.forEach((t, i) => {
     colors[i + 1] = hexToRgb(t.color);
@@ -313,32 +262,23 @@ function findTimeRangeEntry(
 
 /**
  * Build the runtime `DomainConfig` for `domainId`/`timeSpan` from structural
- * metadata plus the live remote config. `relative-snow` bypasses `remote`
- * entirely. Returns `null` while `remote` hasn't resolved yet (or belongs to
- * a domain other than `domainId`, e.g. mid domain-switch) — callers already
- * null-check `domainConfig`.
+ * metadata plus the live remote config. Returns `null` while `remote` hasn't
+ * resolved yet (or belongs to a domain other than `domainId`, e.g. mid
+ * domain-switch) — callers already null-check `domainConfig`.
  */
 function buildDomainConfig(
   domainId: DomainId | null,
   timeSpan: TimeSpan | null,
   remote: RemoteDomainConfig | null
 ): DomainConfig | null {
-  if (!domainId) return null;
-  if (domainId === "relative-snow") {
-    return config.domains["relative-snow"].item as unknown as DomainConfig;
-  }
-  if (!remote || remote.parameter !== domainId) return null;
+  if (!domainId || !remote || remote.parameter !== domainId) return null;
 
   const meta = domainMeta(domainId);
   const timeSpans = remote.timeRanges.map(tr => meta.sign + tr.timeRange);
   const entry = findTimeRangeEntry(domainId, timeSpan, remote);
   if (!entry) return null;
 
-  const { thresholds, colors } = buildThresholdsAndColors(
-    remote.thresholds,
-    meta.fallbackThresholds,
-    meta.fallbackColors
-  );
+  const { thresholds, colors } = buildThresholdsAndColors(remote.thresholds);
 
   const dataOverlays: DomainConfig["dataOverlays"] = [
     {
@@ -363,13 +303,11 @@ function buildDomainConfig(
   };
 }
 
-const OVERLAY_TYPE_BY_DOMAIN: Record<
-  Exclude<DomainId, "relative-snow">,
-  OverlayType
-> = {
+const OVERLAY_TYPE_BY_DOMAIN: Record<DomainId, OverlayType> = {
   "snow-height": "snowHeight",
   "new-snow": "snowHeight",
   "diff-snow": "snowHeight",
+  "relative-snow": "snowHeight",
   "snow-line": "snowLine",
   temp: "temperature",
   wind: "windSpeed",
@@ -411,8 +349,7 @@ export const currentTime = atom<Temporal.Instant | null>(null);
 export const selectedFeature = atom(null);
 
 /*
- * the last config.json fetched for the current domain (null for
- * relative-snow, which stays fully hardcoded)
+ * the last config.json fetched for the current domain
  */
 export const remoteConfig = atom<RemoteDomainConfig | null>(null);
 
@@ -431,15 +368,7 @@ export interface DataOverlay {
 }
 export const dataOverlays = atom<DataOverlay[]>([]);
 
-function getDomainOverlayBaseURLs(
-  domain: DomainId | null
-): [string, string] | null {
-  const cfg = domain
-    ? (config.domains[domain]?.item as
-        | { overlayURLs?: [string, string] }
-        | undefined)
-    : undefined;
-  if (cfg?.overlayURLs) return cfg.overlayURLs;
+function overlayBaseURLs(): [string, string] | null {
   const urls = window.config.apis.weatherOverlay as
     | [string, string]
     | undefined;
@@ -454,7 +383,7 @@ function getDomainOverlayBaseURLs(
 async function fetchRemoteDomainConfig(
   domain: DomainId
 ): Promise<RemoteDomainConfig> {
-  const baseUrl = getDomainOverlayBaseURLs(domain)?.[0];
+  const baseUrl = overlayBaseURLs()?.[0];
   if (!baseUrl) {
     throw new Error(`No overlay base URL configured for ${domain}`);
   }
@@ -568,8 +497,7 @@ async function _loadIndexData() {
 /*
  * Single entry point for all weather map state changes.
  * Called from weather.tsx when URL params change.
- * - Fetches the domain's live config.json when the domain changes (skipped
- *   for relative-snow, which stays fully hardcoded)
+ * - Fetches the domain's live config.json when the domain changes
  * - Skips the fetch (and metadata resolution) if domain+timeSpan unchanged
  * - Resolves time from URL timestamp or calculates default
  * - Generation counter cancels stale responses
@@ -590,17 +518,13 @@ export async function initDomain(
   const domainChanged = newDomain !== domainId.get();
   let remote = remoteConfig.get();
   if (domainChanged) {
-    if (newDomain === "relative-snow") {
-      remote = null;
-    } else {
-      try {
-        remote = await fetchRemoteDomainConfig(newDomain);
-      } catch (err) {
-        console.error("Weather data API is not available", err);
-        return;
-      }
-      if (gen !== _generation) return;
+    try {
+      remote = await fetchRemoteDomainConfig(newDomain);
+    } catch (err) {
+      console.error("Weather data API is not available", err);
+      return;
     }
+    if (gen !== _generation) return;
     remoteConfig.set(remote);
   }
 
@@ -628,34 +552,19 @@ export async function initDomain(
   // 6. Resolve metadata (startDate/agl/lastDataUpdate) only when domain or
   // timeSpan actually changed
   if (needsMetadata) {
-    if (newDomain === "relative-snow") {
-      const fallback = SIMULATE_START
+    if (!remote) return;
+    const entry = findTimeRangeEntry(newDomain, resolvedTimeSpan, remote);
+    startDate.set(
+      SIMULATE_START
         ? Temporal.Instant.from(SIMULATE_START)
-        : Temporal.Now.zonedDateTimeISO()
-            .round({ smallestUnit: "hours", roundingMode: "trunc" })
-            .toInstant();
-      startDate.set(fallback);
-      agl.set(fallback);
-    } else if (remote) {
-      const entry = findTimeRangeEntry(newDomain, resolvedTimeSpan, remote);
-      startDate.set(
-        SIMULATE_START
-          ? Temporal.Instant.from(SIMULATE_START)
-          : Temporal.Instant.from(remote.startDate)
-      );
-      agl.set(
-        SIMULATE_START
-          ? Temporal.Instant.from(SIMULATE_START)
-          : Temporal.Instant.from(
-              entry?.maxAnalysisTimestamp ?? remote.startDate
-            )
-      );
-      lastDataUpdate.set(
-        Temporal.Instant.from(remote.startDateModifyTimestamp)
-      );
-    } else {
-      return;
-    }
+        : Temporal.Instant.from(remote.startDate)
+    );
+    agl.set(
+      SIMULATE_START
+        ? Temporal.Instant.from(SIMULATE_START)
+        : Temporal.Instant.from(entry?.maxAnalysisTimestamp ?? remote.startDate)
+    );
+    lastDataUpdate.set(Temporal.Instant.from(remote.startDateModifyTimestamp));
   }
 
   if (gen !== _generation) return;
@@ -693,10 +602,6 @@ export async function initDomain(
     );
   }
 
-  if (newDomain === "relative-snow") {
-    lastDataUpdate.set(resolvedTime.subtract({ hours: 24 }));
-  }
-
   const timeChanged =
     Temporal.Instant.compare(
       resolvedTime,
@@ -724,19 +629,20 @@ export const startTime = computed(
 );
 
 /*
- * returns endTime — for relative-snow, agl + its fixed 24h forecast window;
- * for every other (remote-driven) domain, the live config's own resolved
- * forecast/analysis bound for the current timespan (replaces the previous
- * hour-of-day heuristics, which the server now resolves itself).
+ * returns endTime — the live config's own resolved forecast/analysis bound
+ * for the current domain/timespan (replaces the previous hour-of-day
+ * heuristics, which the server now resolves itself).
  */
 export const endTime = computed(
   [domainId, timeSpan, remoteConfig, agl],
   (domainId, timeSpan, remote, agl): Temporal.Instant | null => {
-    if (!agl) return null;
-    if (domainId === "relative-snow") {
-      return agl.add({ hours: 24 });
-    }
-    if (!domainId || !timeSpan || !remote || remote.parameter !== domainId) {
+    if (
+      !agl ||
+      !domainId ||
+      !timeSpan ||
+      !remote ||
+      remote.parameter !== domainId
+    ) {
       return null;
     }
     const entry = findTimeRangeEntry(domainId, timeSpan, remote);
@@ -788,15 +694,11 @@ function getOverlayURLs(
   timespan: number
 ): [string, string] {
   if (!currentTime) return ["", ""];
-  const baseUrls = getDomainOverlayBaseURLs(domain);
+  const baseUrls = overlayBaseURLs();
   if (!baseUrls) return ["", ""];
-  const effectiveTime =
-    domain === "relative-snow"
-      ? currentTime.subtract({ hours: 24 })
-      : currentTime;
   const data = {
-    year: effectiveTime.toString().slice(0, "2025".length),
-    date: effectiveTime.toString().slice(0, "2025-03-14".length),
+    year: currentTime.toString().slice(0, "2025".length),
+    date: currentTime.toString().slice(0, "2025-03-14".length),
     time: currentTime
       .toZonedDateTimeISO("UTC")
       .hour.toString()
