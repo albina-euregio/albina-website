@@ -6,8 +6,6 @@ import {
 } from "./stationDataStore";
 import { getDefaultTime, snapToSlot } from "./weatherMapSlots";
 
-const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
-
 /**
  * Every domain is driven by the live `config.json` published per domain at
  * `.../zamg_meteo/overlays/{domain}/config.json` (see `RemoteDomainConfig`
@@ -18,8 +16,7 @@ export const config = {
   settings: {
     timeRange: ["-17520", "+72"],
     // [sw, ne] as [lng, lat].
-    bbox: new LngLatBounds([9.4, 45.6167], [13.0333, 47.8167]),
-    debugModus: false
+    bbox: new LngLatBounds([9.4, 45.6167], [13.0333, 47.8167])
   },
   domains: {
     // `sign`/`defaultTimeSpan` default to `"+-"`/`null` — see `domainMeta` —
@@ -602,15 +599,9 @@ export async function initDomain(
   if (needsMetadata) {
     if (!remote) return;
     const entry = findTimeRangeEntry(newDomain, resolvedTimeSpan, remote);
-    startDate.set(
-      SIMULATE_START
-        ? Temporal.Instant.from(SIMULATE_START)
-        : Temporal.Instant.from(remote.startDate)
-    );
+    startDate.set(Temporal.Instant.from(remote.startDate));
     agl.set(
-      SIMULATE_START
-        ? Temporal.Instant.from(SIMULATE_START)
-        : Temporal.Instant.from(entry?.maxAnalysisTimestamp ?? remote.startDate)
+      Temporal.Instant.from(entry?.maxAnalysisTimestamp ?? remote.startDate)
     );
     lastDataUpdate.set(Temporal.Instant.from(remote.startDateModifyTimestamp));
   }
@@ -619,11 +610,9 @@ export async function initDomain(
 
   // 7. Resolve time — URL timestamp if provided and valid, else calculate default
   const absSpan = absTimeSpan.get();
-  const now = SIMULATE_START
-    ? Temporal.Instant.from(SIMULATE_START)
-    : Temporal.Now.zonedDateTimeISO()
-        .round({ smallestUnit: "hours", roundingMode: "trunc" })
-        .toInstant();
+  const now = Temporal.Now.zonedDateTimeISO()
+    .round({ smallestUnit: "hours", roundingMode: "trunc" })
+    .toInstant();
   let resolvedTime: Temporal.Instant;
 
   if (timestamp) {
