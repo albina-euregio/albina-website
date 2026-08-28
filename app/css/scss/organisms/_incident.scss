@@ -119,16 +119,6 @@
     }
   }
 
-  .incident-details-problems {
-    // The shared picto list gives the first row's first cell a divider
-    // (padding-right + border-right) for the bulletin-report layout. It looks
-    // out of place on a single problem here, so drop it.
-    li:first-child > div:first-child {
-      padding-right: 0;
-      border-right: none;
-    }
-  }
-
   // The analysis is the dialog's second half — set off by a rule from the
   // factual sections above it, and headed like the dialog's own title rather
   // than like the <h3> sections it contains.
@@ -321,8 +311,6 @@
 
 .incident-badge {
   @include mixins.neutral-chip;
-  border: none;
-  font: inherit;
 
   // The blue "has analysis" indicator, shown in the map tooltip, the table
   // and the details dialog header.
@@ -333,6 +321,10 @@
 }
 
 button.incident-badge {
+  border: none;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
   cursor: pointer;
 
   &:hover,

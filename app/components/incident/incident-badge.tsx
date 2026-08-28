@@ -1,5 +1,15 @@
 import React, { type ReactNode } from "react";
-import type { IncidentBadgeData } from "../../util/incident-badges";
+import type {
+  IncidentBadgeData,
+  IncidentBadgeVariant
+} from "../../util/incident-badges";
+
+/** Also used by the map tooltip, which builds its badges as an HTML string. */
+export function incidentBadgeClassName(variant?: IncidentBadgeVariant): string {
+  return variant
+    ? `incident-badge incident-badge--${variant}`
+    : "incident-badge";
+}
 
 /** A single pill badge — neutral by default, or the blue "analysis" variant. */
 export function IncidentBadge({
@@ -8,12 +18,10 @@ export function IncidentBadge({
   onClick
 }: {
   children: ReactNode;
-  variant?: "info";
+  variant?: IncidentBadgeVariant;
   onClick?: () => void;
 }) {
-  const className = ["incident-badge", variant && `incident-badge--${variant}`]
-    .filter(Boolean)
-    .join(" ");
+  const className = incidentBadgeClassName(variant);
   if (onClick) {
     return (
       <button type="button" className={className} onClick={onClick}>
@@ -25,19 +33,18 @@ export function IncidentBadge({
 }
 
 /** The badge cluster shown in the details dialog header and map tooltip. */
-export function IncidentBadges({
-  badges,
-  children
-}: {
-  badges: IncidentBadgeData[];
-  children?: ReactNode;
-}) {
-  if (!badges.length && !children) return null;
+export function IncidentBadges({ badges }: { badges: IncidentBadgeData[] }) {
+  if (!badges.length) return null;
   return (
     <div className="incident-badges">
-      {children}
       {badges.map(badge => (
-        <IncidentBadge key={badge.key}>{badge.text}</IncidentBadge>
+        <IncidentBadge
+          key={badge.key}
+          variant={badge.variant}
+          onClick={badge.onClick}
+        >
+          {badge.text}
+        </IncidentBadge>
       ))}
     </div>
   );

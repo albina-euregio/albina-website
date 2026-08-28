@@ -17,18 +17,28 @@ import {
 import IncidentLocationMap from "./incident-location-map";
 import { Tooltip } from "../tooltips/tooltip";
 import { involvementText } from "../../util/incident-involvement";
-import { incidentBadges } from "../../util/incident-badges";
-import { IncidentBadge, IncidentBadges } from "./incident-badge";
+import { ANALYSIS_BADGE_KEY, incidentBadges } from "../../util/incident-badges";
+import { IncidentBadges } from "./incident-badge";
 import {
   getDangerRatingIconFile,
   getDangerRatingLabel
 } from "../../util/warn-levels";
-import { INCIDENT_ANALYSIS_ENUM_FIELDS } from "../../stores/incidentDataStore";
+import { INCIDENT_ANALYSIS_TEXT_FIELDS } from "../../stores/incidentDataStore";
 import type {
   IncidentAttachmentView,
   IncidentData,
   IncidentPublicData
 } from "../../stores/incidentDataStore";
+
+const ANALYSIS_SECTION_ID = "incident-analysis";
+
+/** The picklist fields shown as a table at the top of the analysis section. */
+const ANALYSIS_ENUM_FIELDS = [
+  "recentSlabAvalanches",
+  "signsOfInstability",
+  "recentLoading",
+  "criticalWarming"
+] as const satisfies readonly (keyof IncidentPublicData)[];
 
 interface Props {
   incident: IncidentData | undefined;
@@ -44,12 +54,10 @@ interface Field {
 
 /** Renders a titled table of label/value rows, skipping empty values. */
 function Section({
-  id,
   title,
   fields,
   children
 }: {
-  id?: string;
   title?: ReactNode;
   fields: Field[];
   children?: ReactNode;
@@ -57,7 +65,7 @@ function Section({
   const rows = fields.filter(f => f.value || f.value === 0);
   if (!rows.length && !children) return null;
   return (
-    <section id={id} className="incident-details-section">
+    <section className="incident-details-section">
       {title && <h3>{title}</h3>}
       {children}
       {rows.length > 0 && (
@@ -204,10 +212,6 @@ function AttachmentLinkValue({ a }: { a: IncidentAttachmentView }): ReactNode {
   );
 }
 
-function attachmentLinkField(a: IncidentAttachmentView): Field {
-  return { label: "", value: <AttachmentLinkValue a={a} /> };
-}
-
 /** Renders a grid of image attachments, opening enlarged in a lightbox that
  * flips through the other images of this grid — mirrors the bulletin
  * report's photo gallery. Non-image attachments (PDFs, other files) can't be
@@ -329,7 +333,7 @@ function AttachmentLightbox({
 /**
  * Maps an attachment's category onto the rich-text section it is shown under.
  * Categories without an entry (`Group`, `Person`) — and attachments with no
- * category — are rendered at the bottom of the dialog instead.
+ * category — get no section of their own.
  */
 const ATTACHMENT_CATEGORY_SECTION: Record<string, string> = {
   Incident: "incidentDescription",
@@ -338,17 +342,15 @@ const ATTACHMENT_CATEGORY_SECTION: Record<string, string> = {
   Weather: "weatherDescription"
 };
 
-/** Buckets attachments by the section key they belong to, plus a `bottom` list. */
+/** Buckets attachments by the section key they belong to. */
 function groupAttachmentsByCategory(attachments: IncidentAttachmentView[]) {
   const bySection: Record<string, IncidentAttachmentView[]> = {};
-  const bottom: IncidentAttachmentView[] = [];
   for (const a of attachments) {
     const key =
       a.attachmentCategory && ATTACHMENT_CATEGORY_SECTION[a.attachmentCategory];
     if (key) (bySection[key] ??= []).push(a);
-    else bottom.push(a);
   }
-  return { bySection, bottom };
+  return bySection;
 }
 
 /**
@@ -405,18 +407,17 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     publicFlag?: boolean
   ) => (publicFlag === false ? undefined : localizedText(record, intl.locale));
 
-  const { bySection: attachments } = groupAttachmentsByCategory(
-    incident.attachments
-  );
-  const imageAttachments = incident.attachments.filter(isImageAttachment);
-  const nonImageAttachments = incident.attachments.filter(
-    a => !isImageAttachment(a)
-  );
+  // `incident.attachments` rebuilds its list on every read, so read it once.
+  const allAttachments = incident.attachments;
+  const attachments = groupAttachmentsByCategory(allAttachments);
+  const imageAttachments = allAttachments.filter(isImageAttachment);
   const attachmentLinks = d.publicExternalLinks
     ?.split(/[\s,]+/)
     .filter(url => /^https?:\/\//.test(url));
   const attachmentFields: Field[] = [
-    ...nonImageAttachments.map(attachmentLinkField),
+    ...allAttachments
+      .filter(a => !isImageAttachment(a))
+      .map(a => ({ label: "", value: <AttachmentLinkValue a={a} /> })),
     ...(attachmentLinks?.map(url => ({
       label: "",
       value: (
@@ -432,6 +433,10 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       )
     })) ?? [])
   ];
+  // Images, file attachments and external links are one section: the heading
+  // shows when any of them has content, and is dropped when none does.
+  const hasAttachments =
+    imageAttachments.length > 0 || attachmentFields.length > 0;
 
   const ledeHtml = textBlock(d.incidentLede, d.incidentLedePublic);
   const dateTime =
@@ -441,7 +446,21 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     incident.publishedAt &&
     intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT_SHORT);
   const outcome = involvementText(incident, intl);
-  const badges = incidentBadges(incident, t);
+  const badges = incidentBadges(
+    incident,
+    t,
+    intl.formatMessage({ id: "incidents:analysis" })
+  ).map(badge =>
+    badge.key === ANALYSIS_BADGE_KEY
+      ? {
+          ...badge,
+          onClick: () =>
+            document
+              .getElementById(ANALYSIS_SECTION_ID)
+              ?.scrollIntoView({ behavior: "smooth", block: "start" })
+        }
+      : badge
+  );
   const dangerRatingText =
     d.dangerRating &&
     intl.formatMessage({
@@ -489,20 +508,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           </p>
         )}
         {outcome && <p className="incident-details-header__meta">{outcome}</p>}
-        <IncidentBadges badges={badges}>
-          {incident.hasAnalysis && (
-            <IncidentBadge
-              variant="info"
-              onClick={() =>
-                document
-                  .getElementById("incident-analysis")
-                  ?.scrollIntoView({ behavior: "smooth", block: "start" })
-              }
-            >
-              {intl.formatMessage({ id: "incidents:analysis" })}
-            </IncidentBadge>
-          )}
-        </IncidentBadges>
+        <IncidentBadges badges={badges} />
       </header>
 
       <Section
@@ -688,15 +694,17 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         ]}
       />
 
-      <Section title={label("incidentAttachments")} fields={attachmentFields}>
-        <AttachmentGrid attachments={imageAttachments} />
-      </Section>
+      {hasAttachments && (
+        <Section title={label("incidentAttachments")} fields={attachmentFields}>
+          <AttachmentGrid attachments={imageAttachments} />
+        </Section>
+      )}
 
       {/* Everything below the rule is the analysis: the lede, the picklist
           summary, then the rich-text blocks. Shown only when there is prose to
           show — `hasAnalysis` also gates the badge that scrolls here. */}
       {incident.hasAnalysis && (
-        <section id="incident-analysis" className="incident-details-analysis">
+        <section id={ANALYSIS_SECTION_ID} className="incident-details-analysis">
           <h2>{label("incidentAnalysis")}</h2>
 
           {ledeHtml?.trim() && (
@@ -707,39 +715,20 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           )}
 
           <Section
-            fields={INCIDENT_ANALYSIS_ENUM_FIELDS.map(field => ({
+            fields={ANALYSIS_ENUM_FIELDS.map(field => ({
               label: label(field),
               value: tr(field, d[field])
             }))}
           />
 
-          <RichText
-            title={label("incidentDescription")}
-            html={textBlock(d.incidentDescription, d.incidentDescriptionPublic)}
-            attachments={attachments.incidentDescription}
-          />
-          <RichText
-            title={label("avalancheDescription")}
-            html={textBlock(
-              d.avalancheDescription,
-              d.avalancheDescriptionPublic
-            )}
-            attachments={attachments.avalancheDescription}
-          />
-          <RichText
-            title={label("snowpackDescription")}
-            html={textBlock(d.snowpackDescription, d.snowpackDescriptionPublic)}
-            attachments={attachments.snowpackDescription}
-          />
-          <RichText
-            title={label("weatherDescription")}
-            html={textBlock(d.weatherDescription, d.weatherDescriptionPublic)}
-            attachments={attachments.weatherDescription}
-          />
-          <RichText
-            title={label("takeAways")}
-            html={textBlock(d.takeAways, d.takeAwaysPublic)}
-          />
+          {INCIDENT_ANALYSIS_TEXT_FIELDS.map(([field, publicFlag]) => (
+            <RichText
+              key={field}
+              title={label(field)}
+              html={textBlock(d[field], d[publicFlag])}
+              attachments={attachments[field]}
+            />
+          ))}
         </section>
       )}
     </div>
