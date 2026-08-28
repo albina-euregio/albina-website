@@ -406,6 +406,8 @@ function buildRelativeSnowFallbackConfig(): RemoteDomainConfig {
       {
         timeRange: 24,
         timeStepHours: 24,
+        // `filenameFromRemoteUrl` (shared by every domain) reduces this to
+        // the bare filename, dropping any subfolder — see `getOverlayURLs`.
         imageOverlayURL:
           "https://models.avalanche.report/relativesnowheight/$date_00-00_REL.gif",
         dataOverlayURL:
@@ -743,7 +745,13 @@ function getOverlayURLs(
   timespan: number
 ): [string, string] {
   if (!currentTime) return ["", ""];
-  const baseUrls = overlayBaseURLs();
+  const baseUrls: [string, string] | null =
+    domain === "relative-snow"
+      ? [
+          "https://models.avalanche.report/relativesnowheight/",
+          "https://models.avalanche.report/relativesnowheight/"
+        ]
+      : overlayBaseURLs();
   if (!baseUrls) return ["", ""];
   const data = {
     year: currentTime.toString().slice(0, "2025".length),
