@@ -280,17 +280,9 @@ function buildDomainConfig(
 
   const { thresholds, colors } = buildThresholdsAndColors(remote.thresholds);
 
-  // relative-snow is hosted on its own server (see
-  // `buildRelativeSnowFallbackConfig`), so its imageOverlayURL/dataOverlayURL
-  // are already the full URL to template against — every other domain's are
-  // wiski.tirol.gv.at URLs (no CORS headers), reduced to a bare filename to
-  // template against the CORS-safe proxied base URL instead.
-  const overlayFile =
-    domainId === "relative-snow" ? (url: string) => url : filenameFromRemoteUrl;
-
   const dataOverlays: DomainConfig["dataOverlays"] = [
     {
-      file: overlayFile(entry.dataOverlayURL),
+      file: filenameFromRemoteUrl(entry.dataOverlayURL),
       type: OVERLAY_TYPE_BY_DOMAIN[domainId]
     }
   ];
@@ -305,7 +297,7 @@ function buildDomainConfig(
     thresholds,
     colors,
     layer: meta.layer,
-    imageOverlay: { file: overlayFile(entry.imageOverlayURL) },
+    imageOverlay: { file: filenameFromRemoteUrl(entry.imageOverlayURL) },
     dataOverlays,
     direction: meta.direction
   };
@@ -414,13 +406,10 @@ function buildRelativeSnowFallbackConfig(): RemoteDomainConfig {
       {
         timeRange: 24,
         timeStepHours: 24,
-        // Unlike every other domain's wiski.tirol.gv.at URLs, this is
-        // templated and fetched as-is — see `buildDomainConfig`'s
-        // `overlayFile`.
         imageOverlayURL:
-          "https://models.avalanche.report/relativesnowheight/{date}/{date}_00-00_REL.gif",
+          "https://models.avalanche.report/relativesnowheight/$date_00-00_REL.gif",
         dataOverlayURL:
-          "https://models.avalanche.report/relativesnowheight/{date}/{date}_00-00_REL.png",
+          "https://models.avalanche.report/relativesnowheight/$date_00-00_REL.png",
         initialValidity: [now, now],
         initialTimestamp: now,
         maxForecastTimestamp: now,
@@ -753,7 +742,9 @@ function getOverlayURLs(
   file: string | undefined,
   timespan: number
 ): [string, string] {
-  if (!currentTime || !file) return ["", ""];
+  if (!currentTime) return ["", ""];
+  const baseUrls = overlayBaseURLs();
+  if (!baseUrls) return ["", ""];
   const data = {
     year: currentTime.toString().slice(0, "2025".length),
     date: currentTime.toString().slice(0, "2025-03-14".length),
@@ -764,15 +755,6 @@ function getOverlayURLs(
     domain,
     timespan
   };
-  // relative-snow's `file` is already the full URL (see `buildDomainConfig`'s
-  // `overlayFile`) — every other domain's is a bare filename templated
-  // against the generic proxied base URL.
-  if (domain === "relative-snow") {
-    const url = window.config.template(file, data);
-    return [url, url];
-  }
-  const baseUrls = overlayBaseURLs();
-  if (!baseUrls) return ["", ""];
   return [
     window.config.template(baseUrls[0] + file, data),
     window.config.template(baseUrls[1] + file, data)
