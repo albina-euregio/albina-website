@@ -19,8 +19,9 @@ export const config = {
     bbox: new LngLatBounds([9.4, 45.6167], [13.0333, 47.8167])
   },
   domains: {
-    // `sign`/`defaultTimeSpan` default to `"+-"`/`null` — see `domainMeta` —
-    // so only the domains below that deviate from that need to state them.
+    // `sign`/`defaultTimeSpan` default to `"+-"`/`null` (see `findTimeRangeEntry`
+    // / `buildDomainConfig`) — so only the domains below that deviate need to
+    // state them.
     "snow-height": {
       item: {
         sign: "-",
@@ -138,14 +139,6 @@ interface DomainMeta {
   secondaryOverlay?: { file: string; type: OverlayType; domain?: DomainId };
 }
 
-/** Applies the `sign: "+-"`, `defaultTimeSpan: null` defaults most domains use. */
-function domainMeta(
-  domainId: DomainId
-): DomainMeta & { sign: "+" | "-" | "+-"; defaultTimeSpan: string | null } {
-  const item = config.domains[domainId].item as unknown as DomainMeta;
-  return { sign: "+-", defaultTimeSpan: null, ...item };
-}
-
 /** A single `{ range: [from, to], color }` entry from the live config.json. */
 interface RemoteThreshold {
   range: [number | null, number | null];
@@ -236,7 +229,8 @@ function findTimeRangeEntry(
   timeSpan: TimeSpan | null,
   remote: RemoteDomainConfig
 ): RemoteTimeRange | undefined {
-  const sign = domainMeta(domainId).sign;
+  const item = config.domains[domainId].item as unknown as DomainMeta;
+  const sign = item.sign ?? "+-";
   return (
     remote.timeRanges.find(tr => sign + tr.timeRange === timeSpan) ??
     remote.timeRanges[0]
@@ -256,7 +250,8 @@ function buildDomainConfig(
 ): DomainConfig | null {
   if (!domainId || !remote || remote.parameter !== domainId) return null;
 
-  const meta = domainMeta(domainId);
+  const item = config.domains[domainId].item as unknown as DomainMeta;
+  const meta = { sign: "+-" as const, defaultTimeSpan: null, ...item };
   const timeSpans = remote.timeRanges.map(tr => meta.sign + tr.timeRange);
   const entry = findTimeRangeEntry(domainId, timeSpan, remote);
   if (!entry) return null;
