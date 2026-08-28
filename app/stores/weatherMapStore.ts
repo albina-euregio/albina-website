@@ -747,10 +747,9 @@ function getOverlayURLs(
   if (!currentTime) return ["", ""];
   const baseUrls: [string, string] | null =
     domain === "relative-snow"
-      ? [
-          "https://models.avalanche.report/relativesnowheight/",
+      ? (Array(2).fill(
           "https://models.avalanche.report/relativesnowheight/"
-        ]
+        ) as [string, string])
       : overlayBaseURLs();
   if (!baseUrls) return ["", ""];
   const data = {
