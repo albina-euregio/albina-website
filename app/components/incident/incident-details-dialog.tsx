@@ -17,12 +17,13 @@ import IncidentLocationMap from "./incident-location-map";
 import { Tooltip } from "../tooltips/tooltip";
 import { involvementText } from "../../util/incident-involvement";
 import { incidentBadges } from "../../util/incident-badges";
-import { IncidentBadges } from "./incident-badge";
+import { IncidentBadge, IncidentBadges } from "./incident-badge";
 import {
   getDangerRatingIconFile,
   getDangerRatingLabel
 } from "../../util/warn-levels";
 import type { AvalancheProblemType } from "../../stores/bulletin";
+import { INCIDENT_ANALYSIS_ENUM_FIELDS } from "../../stores/incidentDataStore";
 import type {
   IncidentAttachmentView,
   IncidentAvalancheProblem,
@@ -44,10 +45,12 @@ interface Field {
 
 /** Renders a titled table of label/value rows, skipping empty values. */
 function Section({
+  id,
   title,
   fields,
   children
 }: {
+  id?: string;
   title?: ReactNode;
   fields: Field[];
   children?: ReactNode;
@@ -55,7 +58,7 @@ function Section({
   const rows = fields.filter(f => f.value || f.value === 0);
   if (!rows.length && !children) return null;
   return (
-    <section className="incident-details-section">
+    <section id={id} className="incident-details-section">
       {title && <h3>{title}</h3>}
       {children}
       {rows.length > 0 && (
@@ -557,7 +560,20 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         {headerMeta && (
           <p className="incident-details-header__meta">{headerMeta}</p>
         )}
-        <IncidentBadges badges={badges} />
+        <IncidentBadges badges={badges}>
+          {incident.hasAnalysis && (
+            <IncidentBadge
+              variant="info"
+              onClick={() =>
+                document
+                  .getElementById("incident-analysis")
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" })
+              }
+            >
+              {intl.formatMessage({ id: "incidents:analysis" })}
+            </IncidentBadge>
+          )}
+        </IncidentBadges>
       </header>
 
       <Section
@@ -809,28 +825,13 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       />
 
       <Section
+        id="incident-analysis"
         title={label("incidentAnalysis")}
         fields={[
-          {
-            label: label("recentSlabAvalanches"),
-            value: tr("recentSlabAvalanches", d.recentSlabAvalanches)
-          },
-          {
-            label: label("signsOfInstability"),
-            value: tr("signsOfInstability", d.signsOfInstability)
-          },
-          {
-            label: label("recentLoading"),
-            value: tr("recentLoading", d.recentLoading)
-          },
-          {
-            label: label("criticalWarming"),
-            value: tr("criticalWarming", d.criticalWarming)
-          },
-          {
-            label: label("incidentAnalysisComment"),
-            value: d.incidentAnalysisComment
-          }
+          ...INCIDENT_ANALYSIS_ENUM_FIELDS.map(field => ({
+            label: label(field),
+            value: tr(field, d[field])
+          }))
         ]}
       />
 

@@ -238,6 +238,24 @@
 
 .incident-badge {
   @include mixins.neutral-chip;
+  border: none;
+  font: inherit;
+
+  // The blue "has analysis" indicator, shown in the map tooltip, the table
+  // and the details dialog header.
+  &--info {
+    background: variables.$brand;
+    color: variables.$white;
+  }
+}
+
+button.incident-badge {
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    filter: brightness(0.95);
+  }
 }
 
 // A severity dot for the incident table's involvement cell

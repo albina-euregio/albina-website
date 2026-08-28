@@ -27,6 +27,18 @@ export type IncidentAttachmentView = Partial<IncidentAttachment> & {
 export type IncidentPublicData = Partial<IncidentSchema>;
 
 /**
+ * The picklist fields of the "Incident Analysis" section, shared with
+ * `IncidentData.hasAnalysis` so the two stay in sync — add a new analysis
+ * field here and both the section and the badge pick it up.
+ */
+export const INCIDENT_ANALYSIS_ENUM_FIELDS = [
+  "recentSlabAvalanches",
+  "signsOfInstability",
+  "recentLoading",
+  "criticalWarming"
+] as const satisfies readonly (keyof IncidentPublicData)[];
+
+/**
  * How people were affected by an incident, ordered from most to least severe.
  */
 export const INCIDENT_INVOLVEMENTS = [
@@ -131,6 +143,15 @@ export class IncidentData {
         ...a,
         url: `${config.apis.incidents}/${this.id}/attachment/${a.id}`
       }));
+  }
+
+  /** True if the "Incident Analysis" section has any content to show. */
+  get hasAnalysis(): boolean {
+    const d = this.publicData;
+    return (
+      INCIDENT_ANALYSIS_ENUM_FIELDS.some(field => !!d[field]) ||
+      !!d.incidentAnalysisComment
+    );
   }
 
   get involvement(): IncidentInvolvement {
