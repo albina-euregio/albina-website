@@ -530,13 +530,10 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const dateTime =
     incident.dateTime && intl.formatDate(incident.dateTime, DATE_TIME_FORMAT);
   const timeAccuracy = tr("timeAccuracy", d.timeAccuracy);
-  // The header mirrors the map's tooltip card: date · outcome, then the same
-  // neutral badge cluster (danger level, avalanche type/size).
-  const headerDate =
-    incident.dateTime &&
-    intl.formatDate(incident.dateTime, DATE_TIME_FORMAT_SHORT);
+  const publishedAt =
+    incident.publishedAt &&
+    intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT_SHORT);
   const outcome = involvementText(incident, intl);
-  const headerMeta = [headerDate, outcome].filter(Boolean).join(" · ");
   const badges = incidentBadges(incident, t);
   const dangerRatingText =
     d.dangerRating &&
@@ -557,9 +554,21 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     >
       <header className="incident-details-header">
         {incident.location && <h2>{incident.location}</h2>}
-        {headerMeta && (
-          <p className="incident-details-header__meta">{headerMeta}</p>
+        {(dateTime || publishedAt) && (
+          <p className="incident-details-header__date">
+            {dateTime && withAccuracy(dateTime, timeAccuracy, accuracyLabel)}
+            {publishedAt && (
+              <span className="incident-details-header__updated text-icon">
+                <span className="icon icon-release" />
+                <span className="text">
+                  {intl.formatMessage({ id: "incidents:updatedAt" })}:{" "}
+                  {publishedAt}
+                </span>
+              </span>
+            )}
+          </p>
         )}
+        {outcome && <p className="incident-details-header__meta">{outcome}</p>}
         <IncidentBadges badges={badges}>
           {incident.hasAnalysis && (
             <IncidentBadge
@@ -578,17 +587,6 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
 
       <Section
         fields={[
-          {
-            label: label("dateTime"),
-            value:
-              dateTime && withAccuracy(dateTime, timeAccuracy, accuracyLabel)
-          },
-          {
-            label: label("updatedAt"),
-            value:
-              incident.publishedAt &&
-              intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT)
-          },
           {
             label: label("otherDamages"),
             value: tr("otherDamages", d.otherDamages)
