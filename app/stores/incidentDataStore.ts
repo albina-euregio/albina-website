@@ -3,7 +3,6 @@ import { useStore } from "@nanostores/react";
 import * as v from "valibot";
 import {
   vIncidentsAttachment,
-  vIncidentsAvalancheProblem,
   vIncidentsIncidentSchema
 } from "../api/valibot.gen";
 import { $router, redirectPageQuery } from "../components/router";
@@ -14,9 +13,6 @@ import type { DangerRatingValue } from "./bulletin";
 
 /** The full incident schema (all fields) as generated from the OpenAPI spec. */
 export type IncidentSchema = v.InferOutput<typeof vIncidentsIncidentSchema>;
-export type IncidentAvalancheProblem = v.InferOutput<
-  typeof vIncidentsAvalancheProblem
->;
 export type IncidentAttachment = v.InferOutput<typeof vIncidentsAttachment>;
 
 /** A public attachment with a resolved download URL, ready for rendering. */
@@ -25,6 +21,30 @@ export type IncidentAttachmentView = Partial<IncidentAttachment> & {
 };
 
 export type IncidentPublicData = Partial<IncidentSchema>;
+
+/** The lede, rendered above the rest of the analysis prose. */
+export const INCIDENT_LEDE_FIELD = [
+  "incidentLede",
+  "incidentLedePublic"
+] as const satisfies readonly [
+  keyof IncidentPublicData,
+  keyof IncidentPublicData
+];
+
+/**
+ * The rich-text fields of the "Incident Analysis" section in render order, each
+ * paired with the flag that withholds it from the public view.
+ */
+export const INCIDENT_ANALYSIS_TEXT_FIELDS = [
+  ["incidentDescription", "incidentDescriptionPublic"],
+  ["avalancheDescription", "avalancheDescriptionPublic"],
+  ["snowpackDescription", "snowpackDescriptionPublic"],
+  ["weatherDescription", "weatherDescriptionPublic"],
+  ["takeAways", "takeAwaysPublic"]
+] as const satisfies readonly (readonly [
+  keyof IncidentPublicData,
+  keyof IncidentPublicData
+])[];
 
 /**
  * How people were affected by an incident, ordered from most to least severe.
@@ -131,6 +151,19 @@ export class IncidentData {
         ...a,
         url: `${config.apis.incidents}/${this.id}/attachment/${a.id}`
       }));
+  }
+
+  /**
+   * True if the "Incident Analysis" section has prose to show, in any locale.
+   * The picklist fields don't count on their own.
+   */
+  get hasAnalysis(): boolean {
+    const d = this.publicData;
+    return [INCIDENT_LEDE_FIELD, ...INCIDENT_ANALYSIS_TEXT_FIELDS].some(
+      ([field, publicFlag]) =>
+        d[publicFlag] !== false &&
+        Object.values(d[field] ?? {}).some(text => !!text?.trim())
+    );
   }
 
   get involvement(): IncidentInvolvement {

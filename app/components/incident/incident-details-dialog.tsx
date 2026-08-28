@@ -9,26 +9,36 @@ import {
   useIncidentReportMessages,
   translateIncidentValue
 } from "../../i18n/incident-report";
-import { DATE_TIME_FORMAT, DATE_TIME_FORMAT_SHORT } from "../../util/date";
-import ProblemIcon from "../icons/problem-icon";
-import ExpositionIcon from "../icons/exposition-icon";
-import ElevationIcon from "../icons/elevation-icon";
+import {
+  DATE_TIME_FORMAT,
+  DATE_TIME_FORMAT_SHORT,
+  LONG_DATE_FORMAT
+} from "../../util/date";
 import IncidentLocationMap from "./incident-location-map";
 import { Tooltip } from "../tooltips/tooltip";
 import { involvementText } from "../../util/incident-involvement";
-import { incidentBadges } from "../../util/incident-badges";
+import { ANALYSIS_BADGE_KEY, incidentBadges } from "../../util/incident-badges";
 import { IncidentBadges } from "./incident-badge";
 import {
   getDangerRatingIconFile,
   getDangerRatingLabel
 } from "../../util/warn-levels";
-import type { AvalancheProblemType } from "../../stores/bulletin";
+import { INCIDENT_ANALYSIS_TEXT_FIELDS } from "../../stores/incidentDataStore";
 import type {
   IncidentAttachmentView,
-  IncidentAvalancheProblem,
   IncidentData,
   IncidentPublicData
 } from "../../stores/incidentDataStore";
+
+const ANALYSIS_SECTION_ID = "incident-analysis";
+
+/** The picklist fields shown as a table at the top of the analysis section. */
+const ANALYSIS_ENUM_FIELDS = [
+  "recentSlabAvalanches",
+  "signsOfInstability",
+  "recentLoading",
+  "criticalWarming"
+] as const satisfies readonly (keyof IncidentPublicData)[];
 
 interface Props {
   incident: IncidentData | undefined;
@@ -80,6 +90,31 @@ function Section({
   );
 }
 
+/** The "⌖ label" accuracy badge — standalone (e.g. next to a section title)
+ * or trailing a value via {@link withAccuracy}. */
+function AccuracyNote({
+  accuracy,
+  accuracyLabel
+}: {
+  accuracy: ReactNode;
+  accuracyLabel: string;
+}): ReactNode {
+  if (!accuracy) return null;
+  return (
+    <span className="incident-details-accuracy" title={accuracyLabel}>
+      <svg
+        className="incident-details-accuracy-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 256 256"
+        aria-hidden="true"
+      >
+        <path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z" />
+      </svg>
+      {accuracy}
+    </span>
+  );
+}
+
 function withAccuracy(
   value: ReactNode,
   accuracy: ReactNode,
@@ -89,21 +124,7 @@ function withAccuracy(
   return (
     <>
       {value}
-      {accuracy && (
-        <span className="incident-details-accuracy" title={accuracyLabel}>
-          {" "}
-          (
-          <svg
-            className="incident-details-accuracy-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 256 256"
-            aria-hidden="true"
-          >
-            <path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z" />
-          </svg>
-          {accuracy})
-        </span>
-      )}
+      <AccuracyNote accuracy={accuracy} accuracyLabel={accuracyLabel} />
     </>
   );
 }
@@ -115,178 +136,6 @@ function localizedText(
 ): string | undefined {
   if (!record) return undefined;
   return record[locale] || record.en || Object.values(record).find(Boolean);
-}
-
-/** Entries with at least one populated field; empty ones only render blank space. */
-function visibleProblems(
-  problems: IncidentAvalancheProblem[] | undefined
-): IncidentAvalancheProblem[] {
-  return (problems ?? []).filter(p => p && Object.values(p).some(Boolean));
-}
-
-/**
- * Renders avalanche problems as pictograms, mirroring the bulletin report.
- * Shown as the value of a labelled row inside the bulletin-information table.
- */
-function AvalancheProblems({
-  problems
-}: {
-  problems: IncidentAvalancheProblem[];
-}) {
-  if (!problems.length) return null;
-  return (
-    <ul className="list-plain list-bulletin-report-pictos incident-details-problems">
-      {problems.map((p, i) => (
-        <AvalancheProblemRow key={i} problem={p} />
-      ))}
-    </ul>
-  );
-}
-
-function AvalancheProblemRow({
-  problem
-}: {
-  problem: IncidentAvalancheProblem;
-}) {
-  const intl = useIntl();
-  const problemType = problem.problemType;
-  const aspects = (problem.aspects ?? []).filter(Boolean);
-
-  const aspectTitle =
-    intl.formatMessage({ id: "bulletin:report:exposition" }) +
-    (aspects.length
-      ? ": " +
-        aspects
-          .map(a =>
-            intl.formatMessage({
-              id: `bulletin:report:problem:aspect:${a.toLowerCase()}` as MessageId
-            })
-          )
-          .join(", ")
-      : "");
-
-  const elevation = elevationIconProps(
-    problem.elevationLowerBound,
-    problem.elevationUpperBound,
-    intl
-  );
-
-  return (
-    <li>
-      {problemType && (
-        <div className="bulletin-report-picto avalanche-situation">
-          <a
-            href={`/education/avalanche-problems#${problemType}`}
-            className="img"
-          >
-            <div className="picto-img">
-              <ProblemIcon
-                problem={problemType as AvalancheProblemType}
-                alt={intl.formatMessage({
-                  id: problemTypeMessageId(problemType)
-                })}
-                active={true}
-              />
-            </div>
-            <div className="picto-caption">
-              {intl.formatMessage({ id: problemTypeMessageId(problemType) })}
-            </div>
-          </a>
-        </div>
-      )}
-
-      {aspects.length > 0 && (
-        <div>
-          <ExpositionIcon expositions={aspects} title={aspectTitle} />
-        </div>
-      )}
-
-      {elevation && (
-        <div>
-          <ElevationIcon {...elevation} />
-        </div>
-      )}
-
-      <ProblemMatrix problem={problem} />
-    </li>
-  );
-}
-
-/** Text matrix of snowpack stability / frequency / avalanche size. */
-function ProblemMatrix({ problem }: { problem: IncidentAvalancheProblem }) {
-  const intl = useIntl();
-  const { snowpackStability, frequency, avalancheSize } = problem;
-  if (!snowpackStability && !frequency && !avalancheSize) return null;
-  const row = (name: string, value: ReactNode) => (
-    <div className="matrix-info">
-      <span className="matrix-info-name">{name}:</span>
-      <span className="matrix-info-value">{value}</span>
-    </div>
-  );
-  return (
-    <div className="bulletin-report-picto matrix-information">
-      {snowpackStability &&
-        row(
-          intl.formatMessage({ id: "caaml:snowpackStability.label" }),
-          intl.formatMessage({
-            id: `caaml:snowpackStability.${snowpackStability}` as MessageId
-          })
-        )}
-      {frequency &&
-        row(
-          intl.formatMessage({ id: "caaml:frequency.label" }),
-          intl.formatMessage({
-            id: `caaml:frequency.${frequency}` as MessageId
-          })
-        )}
-      {avalancheSize &&
-        row(
-          intl.formatMessage({ id: "caaml:avalancheSize.label" }),
-          intl.formatMessage({
-            id: `caaml:avalancheSize.${avalancheSize}` as MessageId
-          })
-        )}
-    </div>
-  );
-}
-
-/** Maps the incident's numeric elevation bounds onto {@link ElevationIcon}. */
-function elevationIconProps(
-  lower: string | undefined,
-  upper: string | undefined,
-  intl: IntlApi
-) {
-  if (lower && upper) {
-    return {
-      where: "middle" as const,
-      text: `${lower}–${upper}m`,
-      title: intl.formatMessage(
-        { id: "bulletin:report:problem:elevation:between:m-m:hover" },
-        { elevationLow: lower, elevationHigh: upper }
-      )
-    };
-  }
-  if (lower) {
-    return {
-      where: "above" as const,
-      text: `${lower}m`,
-      title: intl.formatMessage(
-        { id: "bulletin:report:problem:elevation:above:m:hover" },
-        { elevationLow: lower }
-      )
-    };
-  }
-  if (upper) {
-    return {
-      where: "below" as const,
-      text: `${upper}m`,
-      title: intl.formatMessage(
-        { id: "bulletin:report:problem:elevation:below:m:hover" },
-        { elevationHigh: upper }
-      )
-    };
-  }
-  return null;
 }
 
 function problemTypeMessageId(problemType: string): MessageId {
@@ -312,9 +161,61 @@ function aspectLabel(
 
 type GalleryAttachment = IncidentAttachmentView & { id: string };
 
-/** Renders a grid of attachment figures (images or download links). Images
- * open enlarged in a lightbox, flipping through the other images of this
- * grid — mirrors the bulletin report's photo gallery. */
+function isImageAttachment(a: IncidentAttachmentView): a is GalleryAttachment {
+  return !!a.id && !!a.mediaType?.startsWith("image/");
+}
+
+/** Fallback extensions for attachments whose `fileName` doesn't already carry
+ * one, keyed by `mediaType` — used so a forced download still gets a correct
+ * file-ending even when the uploaded name didn't have one. */
+const MEDIA_TYPE_EXTENSIONS: Record<string, string> = {
+  "application/pdf": "pdf",
+  "application/msword": "doc",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+    "docx",
+  "application/vnd.ms-excel": "xls",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+  "application/zip": "zip",
+  "application/gpx+xml": "gpx",
+  "text/csv": "csv",
+  "text/plain": "txt"
+};
+
+function attachmentDownloadName(a: IncidentAttachmentView): string | undefined {
+  const { fileName, mediaType } = a;
+  if (fileName && /\.[a-z0-9]+$/i.test(fileName)) return fileName;
+  const ext = mediaType && MEDIA_TYPE_EXTENSIONS[mediaType];
+  if (!ext) return fileName;
+  return fileName ? `${fileName}.${ext}` : `attachment.${ext}`;
+}
+
+/** A non-image attachment rendered as a download link — same shape as a
+ * plain external link, just with a download icon instead of an external one. */
+function AttachmentLinkValue({ a }: { a: IncidentAttachmentView }): ReactNode {
+  return (
+    <>
+      <a
+        className="incident-details-link-icon"
+        href={a.url}
+        download={attachmentDownloadName(a)}
+      >
+        {a.fileName ?? a.url}
+        <span className="icon-download" aria-hidden="true" />
+      </a>
+      {(a.caption || a.credit) && (
+        <span className="incident-details-attachment-links__meta">
+          {a.caption}
+          {a.credit && <span className="credit"> © {a.credit}</span>}
+        </span>
+      )}
+    </>
+  );
+}
+
+/** Renders a grid of image attachments, opening enlarged in a lightbox that
+ * flips through the other images of this grid — mirrors the bulletin
+ * report's photo gallery. Non-image attachments (PDFs, other files) can't be
+ * previewed this way, so they're rendered as plain download links instead. */
 function AttachmentGrid({
   attachments
 }: {
@@ -322,40 +223,46 @@ function AttachmentGrid({
 }) {
   const [openId, setOpenId] = useState("");
   if (!attachments?.length) return null;
-  const images = attachments.filter(
-    (a): a is GalleryAttachment => !!a.id && !!a.mediaType?.startsWith("image/")
-  );
+  const images = attachments.filter(isImageAttachment);
+  const linkOnly = attachments.filter(a => !isImageAttachment(a));
   return (
-    <div className="incident-details-attachments">
-      {attachments.map(a => (
-        <figure key={a.id} className="incident-details-attachment">
-          {a.id && a.mediaType?.startsWith("image/") ? (
-            <button
-              type="button"
-              className="incident-details-attachment-trigger"
-              onClick={() => setOpenId(a.id ?? "")}
-            >
-              <img src={a.url} alt={a.altText || a.caption || a.fileName} />
-            </button>
-          ) : (
-            <a href={a.url} target="_blank" rel="noreferrer">
-              {a.fileName ?? a.url}
-            </a>
-          )}
-          {(a.caption || a.credit) && (
-            <figcaption>
-              {a.caption}
-              {a.credit && <span className="credit"> © {a.credit}</span>}
-            </figcaption>
-          )}
-        </figure>
-      ))}
+    <>
+      {images.length > 0 && (
+        <div className="incident-details-attachments">
+          {images.map(a => (
+            <figure key={a.id} className="incident-details-attachment">
+              <button
+                type="button"
+                className="incident-details-attachment-trigger"
+                onClick={() => setOpenId(a.id ?? "")}
+              >
+                <img src={a.url} alt={a.altText || a.caption || a.fileName} />
+              </button>
+              {(a.caption || a.credit) && (
+                <figcaption>
+                  {a.caption}
+                  {a.credit && <span className="credit"> © {a.credit}</span>}
+                </figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+      )}
+      {linkOnly.length > 0 && (
+        <ul className="incident-details-attachment-links">
+          {linkOnly.map(a => (
+            <li key={a.id}>
+              <AttachmentLinkValue a={a} />
+            </li>
+          ))}
+        </ul>
+      )}
       <AttachmentLightbox
         images={images}
         openId={openId}
         setOpenId={setOpenId}
       />
-    </div>
+    </>
   );
 }
 
@@ -426,7 +333,7 @@ function AttachmentLightbox({
 /**
  * Maps an attachment's category onto the rich-text section it is shown under.
  * Categories without an entry (`Group`, `Person`) — and attachments with no
- * category — are rendered at the bottom of the dialog instead.
+ * category — get no section of their own.
  */
 const ATTACHMENT_CATEGORY_SECTION: Record<string, string> = {
   Incident: "incidentDescription",
@@ -435,17 +342,15 @@ const ATTACHMENT_CATEGORY_SECTION: Record<string, string> = {
   Weather: "weatherDescription"
 };
 
-/** Buckets attachments by the section key they belong to, plus a `bottom` list. */
+/** Buckets attachments by the section key they belong to. */
 function groupAttachmentsByCategory(attachments: IncidentAttachmentView[]) {
   const bySection: Record<string, IncidentAttachmentView[]> = {};
-  const bottom: IncidentAttachmentView[] = [];
   for (const a of attachments) {
     const key =
       a.attachmentCategory && ATTACHMENT_CATEGORY_SECTION[a.attachmentCategory];
     if (key) (bySection[key] ??= []).push(a);
-    else bottom.push(a);
   }
-  return { bySection, bottom };
+  return bySection;
 }
 
 /**
@@ -478,24 +383,6 @@ function RichText({
   );
 }
 
-function ExternalLinks({ title, links }: { title: ReactNode; links?: string }) {
-  const urls = links?.split(/[\s,]+/).filter(url => /^https?:\/\//.test(url));
-  if (!urls?.length) return null;
-  return (
-    <Section
-      title={title}
-      fields={urls.map(url => ({
-        label: "",
-        value: (
-          <a href={url} target="_blank" rel="noreferrer">
-            {url}
-          </a>
-        )
-      }))}
-    />
-  );
-}
-
 function IncidentDetails({ incident }: { incident: IncidentData }) {
   const intl = useIntl();
   const t = useIncidentReportMessages();
@@ -520,28 +407,80 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     publicFlag?: boolean
   ) => (publicFlag === false ? undefined : localizedText(record, intl.locale));
 
-  const { bySection: attachments, bottom: bottomAttachments } =
-    groupAttachmentsByCategory(incident.attachments);
+  // `incident.attachments` rebuilds its list on every read, so read it once.
+  const allAttachments = incident.attachments;
+  const attachments = groupAttachmentsByCategory(allAttachments);
+  const imageAttachments = allAttachments.filter(isImageAttachment);
+  const attachmentLinks = d.publicExternalLinks
+    ?.split(/[\s,]+/)
+    .filter(url => /^https?:\/\//.test(url));
+  const attachmentFields: Field[] = [
+    ...allAttachments
+      .filter(a => !isImageAttachment(a))
+      .map(a => ({ label: "", value: <AttachmentLinkValue a={a} /> })),
+    ...(attachmentLinks?.map(url => ({
+      label: "",
+      value: (
+        <a
+          className="incident-details-link-icon"
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {url}
+          <span className="icon-external" aria-hidden="true" />
+        </a>
+      )
+    })) ?? [])
+  ];
+  // Images, file attachments and external links are one section: the heading
+  // shows when any of them has content, and is dropped when none does.
+  const hasAttachments =
+    imageAttachments.length > 0 || attachmentFields.length > 0;
 
   const ledeHtml = textBlock(d.incidentLede, d.incidentLedePublic);
   const dateTime =
     incident.dateTime && intl.formatDate(incident.dateTime, DATE_TIME_FORMAT);
   const timeAccuracy = tr("timeAccuracy", d.timeAccuracy);
-  // The header mirrors the map's tooltip card: date · outcome, then the same
-  // neutral badge cluster (danger level, avalanche type/size).
-  const headerDate =
-    incident.dateTime &&
-    intl.formatDate(incident.dateTime, DATE_TIME_FORMAT_SHORT);
+  const publishedAt =
+    incident.publishedAt &&
+    intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT_SHORT);
   const outcome = involvementText(incident, intl);
-  const headerMeta = [headerDate, outcome].filter(Boolean).join(" · ");
-  const badges = incidentBadges(incident, t);
+  const badges = incidentBadges(
+    incident,
+    t,
+    intl.formatMessage({ id: "incidents:analysis" })
+  ).map(badge =>
+    badge.key === ANALYSIS_BADGE_KEY
+      ? {
+          ...badge,
+          onClick: () =>
+            document
+              .getElementById(ANALYSIS_SECTION_ID)
+              ?.scrollIntoView({ behavior: "smooth", block: "start" })
+        }
+      : badge
+  );
   const dangerRatingText =
     d.dangerRating &&
     intl.formatMessage({
       id: `caaml:dangerRating.${d.dangerRating}` as MessageId
     });
-  const problems = visibleProblems(d.avalancheProblems);
   const accuracyLabel = intl.formatMessage({ id: "incidents:accuracy" });
+  const regionLabel = (code: string | undefined) =>
+    code && (intl.formatMessage({ id: `region:${code}` as MessageId }) || code);
+  const combinedLocation = [
+    regionLabel(incident.microRegion),
+    regionLabel(incident.region)
+  ]
+    .filter(Boolean)
+    .join(", ");
+
+  const bulletinDate = d.dateTime
+    ? Temporal.Instant.from(d.dateTime)
+        .toZonedDateTimeISO("Europe/Vienna")
+        .toPlainDate()
+    : undefined;
 
   return (
     <div
@@ -552,137 +491,43 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         } as React.CSSProperties
       }
     >
+      {publishedAt && (
+        <p className="incident-details-updated text-icon">
+          <span className="icon icon-release" />
+          <span className="text">
+            {intl.formatMessage({ id: "incidents:updatedAt" })}: {publishedAt}
+          </span>
+        </p>
+      )}
+
       <header className="incident-details-header">
         {incident.location && <h2>{incident.location}</h2>}
-        {headerMeta && (
-          <p className="incident-details-header__meta">{headerMeta}</p>
+        {dateTime && (
+          <p className="incident-details-header__date">
+            {withAccuracy(dateTime, timeAccuracy, accuracyLabel)}
+          </p>
         )}
+        {outcome && <p className="incident-details-header__meta">{outcome}</p>}
         <IncidentBadges badges={badges} />
       </header>
 
       <Section
+        title={
+          <>
+            {label("locationInformation")}
+            <AccuracyNote
+              accuracy={tr("locationAccuracy", d.locationAccuracy)}
+              accuracyLabel={accuracyLabel}
+            />
+          </>
+        }
         fields={[
-          {
-            label: label("dateTime"),
-            value:
-              dateTime && withAccuracy(dateTime, timeAccuracy, accuracyLabel)
-          },
-          {
-            label: label("updatedAt"),
-            value:
-              incident.publishedAt &&
-              intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT)
-          },
-          {
-            label: label("otherDamages"),
-            value: tr("otherDamages", d.otherDamages)
-          }
-        ]}
-      />
-
-      {ledeHtml?.trim() && (
-        <div
-          className="incident-details-richtext incident-details-lede"
-          dangerouslySetInnerHTML={{ __html: ledeHtml }}
-        />
-      )}
-
-      <RichText
-        title={label("incidentDescription")}
-        html={textBlock(d.incidentDescription, d.incidentDescriptionPublic)}
-        attachments={attachments.incidentDescription}
-      />
-      <RichText
-        title={label("avalancheDescription")}
-        html={textBlock(d.avalancheDescription, d.avalancheDescriptionPublic)}
-        attachments={attachments.avalancheDescription}
-      />
-      <RichText
-        title={label("snowpackDescription")}
-        html={textBlock(d.snowpackDescription, d.snowpackDescriptionPublic)}
-        attachments={attachments.snowpackDescription}
-      />
-      <RichText
-        title={label("weatherDescription")}
-        html={textBlock(d.weatherDescription, d.weatherDescriptionPublic)}
-        attachments={attachments.weatherDescription}
-      />
-      <RichText
-        title={label("takeAways")}
-        html={textBlock(d.takeAways, d.takeAwaysPublic)}
-      />
-
-      <Section
-        title={label("locationInformation")}
-        fields={[
-          { label: label("location"), value: incident.location },
-          { label: label("country"), value: tr("country", d.country) },
-          { label: label("municipality"), value: d.municipality },
-          {
-            label: label("avalancheRegion"),
-            value:
-              d.avalancheRegion &&
-              (intl.formatMessage({
-                id: `region:${d.avalancheRegion}` as MessageId
-              }) ||
-                d.avalancheRegion)
-          },
-          {
-            label: `${label("latitude")} / ${label("longitude")}`,
-            value:
-              typeof d.latitude === "number" &&
-              typeof d.longitude === "number" &&
-              withAccuracy(
-                `${intl.formatNumber(d.latitude, 5)} / ${intl.formatNumber(d.longitude, 5)}`,
-                tr("locationAccuracy", d.locationAccuracy),
-                accuracyLabel
-              )
-          }
+          { label: label("location"), value: d.location },
+          { label: label("region"), value: combinedLocation }
         ]}
       >
         <IncidentLocationMap incident={incident} />
       </Section>
-
-      <Section
-        title={label("bulletinInformation")}
-        fields={[
-          {
-            label: label("publicAvalancheWarningService"),
-            value: d.publicAvalancheWarningService
-          },
-          {
-            label: intl.formatMessage({ id: "caaml:dangerRating.label" }),
-            value: d.dangerRating && dangerRatingText && (
-              <span className="incident-details-danger-rating">
-                <img
-                  src={`/images/pro/danger-levels/${getDangerRatingIconFile(d.dangerRating)}`}
-                  alt={dangerRatingText}
-                />
-                {getDangerRatingLabel(d.dangerRating, dangerRatingText)}
-              </span>
-            )
-          },
-
-          {
-            label: intl.formatMessage({
-              id: "menu:education:avalanche-problems"
-            }),
-            value: problems.length ? (
-              <AvalancheProblems problems={problems} />
-            ) : undefined
-          },
-          {
-            label: intl.formatMessage({ id: "caaml:dangerPattern.label" }),
-            value: d.dangerPattern
-              ?.map(a =>
-                intl.formatMessage({
-                  id: `caaml:dangerPattern.${a.toLowerCase()}` as MessageId
-                })
-              )
-              .join(", ")
-          }
-        ]}
-      />
 
       <Section
         title={label("avalancheInformation")}
@@ -809,44 +654,90 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       />
 
       <Section
-        title={label("incidentAnalysis")}
+        title={label("bulletinInformation")}
         fields={[
           {
-            label: label("recentSlabAvalanches"),
-            value: tr("recentSlabAvalanches", d.recentSlabAvalanches)
+            label: label("publicAvalancheWarningService"),
+            value: d.publicAvalancheWarningService
           },
           {
-            label: label("signsOfInstability"),
-            value: tr("signsOfInstability", d.signsOfInstability)
+            label: intl.formatMessage({ id: "caaml:dangerRating.label" }),
+            value: d.dangerRating && dangerRatingText && (
+              <span className="incident-details-danger-rating">
+                <img
+                  src={`/images/pro/danger-levels/${getDangerRatingIconFile(d.dangerRating)}`}
+                  alt={dangerRatingText}
+                />
+                {getDangerRatingLabel(d.dangerRating, dangerRatingText)}
+              </span>
+            )
           },
           {
-            label: label("recentLoading"),
-            value: tr("recentLoading", d.recentLoading)
-          },
-          {
-            label: label("criticalWarming"),
-            value: tr("criticalWarming", d.criticalWarming)
-          },
-          {
-            label: label("incidentAnalysisComment"),
-            value: d.incidentAnalysisComment
+            label: intl.formatMessage({ id: "bulletin:header:forecast" }),
+            value: bulletinDate && incident.microRegion && (
+              <a
+                className="incident-details-link-icon"
+                href={`/bulletin/${bulletinDate}?${new URLSearchParams({
+                  region: incident.microRegion
+                })}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={intl.formatMessage({
+                  id: "archive:show-forecast:hover"
+                })}
+              >
+                {intl.formatDate(bulletinDate, LONG_DATE_FORMAT)}
+                <span className="icon-external" aria-hidden="true" />
+              </a>
+            )
           }
         ]}
       />
 
-      <ExternalLinks
-        title={label("incidentAttachments")}
-        links={d.publicExternalLinks}
-      />
+      {hasAttachments && (
+        <Section title={label("incidentAttachments")} fields={attachmentFields}>
+          <AttachmentGrid attachments={imageAttachments} />
+        </Section>
+      )}
 
-      <AttachmentGrid attachments={bottomAttachments} />
+      {/* Everything below the rule is the analysis: the lede, the picklist
+          summary, then the rich-text blocks. Shown only when there is prose to
+          show — `hasAnalysis` also gates the badge that scrolls here. */}
+      {incident.hasAnalysis && (
+        <section id={ANALYSIS_SECTION_ID} className="incident-details-analysis">
+          <h2>{label("incidentAnalysis")}</h2>
+
+          {ledeHtml?.trim() && (
+            <div
+              className="incident-details-richtext incident-details-lede"
+              dangerouslySetInnerHTML={{ __html: ledeHtml }}
+            />
+          )}
+
+          <Section
+            fields={ANALYSIS_ENUM_FIELDS.map(field => ({
+              label: label(field),
+              value: tr(field, d[field])
+            }))}
+          />
+
+          {INCIDENT_ANALYSIS_TEXT_FIELDS.map(([field, publicFlag]) => (
+            <RichText
+              key={field}
+              title={label(field)}
+              html={textBlock(d[field], d[publicFlag])}
+              attachments={attachments[field]}
+            />
+          ))}
+        </section>
+      )}
     </div>
   );
 }
 
 export function IncidentDetailsDialog({ incident, onClose }: Props) {
   return (
-    <Modal isOpen={!!incident} onClose={onClose} width="90vw">
+    <Modal isOpen={!!incident} onClose={onClose} width="min(90vw, 64rem)">
       {incident && <IncidentDetails incident={incident} />}
     </Modal>
   );

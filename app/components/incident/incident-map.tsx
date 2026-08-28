@@ -21,6 +21,7 @@ import {
   involvementText
 } from "../../util/incident-involvement.ts";
 import { incidentBadges } from "../../util/incident-badges.ts";
+import { incidentBadgeClassName } from "./incident-badge.tsx";
 import {
   INCIDENT_INVOLVEMENTS,
   involvementSeverity,
@@ -131,8 +132,13 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
         ? `<p class="incident-tooltip__outcome">${nowrapTrailingParenthetical(outcomeText)}</p>`
         : undefined;
 
-      const badges = incidentBadges(incident, messages).map(
-        badge => `<span class="incident-badge">${esc(badge.text)}</span>`
+      const badges = incidentBadges(
+        incident,
+        messages,
+        intl.formatMessage({ id: "incidents:analysis" })
+      ).map(
+        badge =>
+          `<span class="${incidentBadgeClassName(badge.variant)}">${esc(badge.text)}</span>`
       );
       const header = [
         title ? `<p class="incident-tooltip__title">${title}</p>` : undefined,

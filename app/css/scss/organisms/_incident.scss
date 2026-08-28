@@ -8,15 +8,41 @@
   margin: 0 auto;
   padding-top: 1.25rem;
 
-  // The header mirrors the map tooltip: a severity spine, the location title,
-  // a date · outcome meta line, then the shared badge cluster.
+  // The "last updated" note leads the dialog, above the header's severity
+  // spine, mirroring the bulletin report header's icon + label pairing.
+  .incident-details-updated {
+    display: flex;
+    align-items: center;
+    gap: 0 (variables.$padding * 0.5);
+    margin-bottom: (variables.$padding * 0.75);
+    color: variables.$grey;
+    font-size: variables.$micro-font-size;
+
+    .icon {
+      display: flex;
+      align-items: center;
+      max-height: 1.5em;
+      &:before {
+        margin: 0 -0.25em;
+      }
+    }
+  }
+
+  // The header mirrors the map tooltip's severity spine, then leads with the
+  // location title, the incident date (like a bulletin's "Published at"),
+  // the published/outcome meta lines, and finally the shared badge cluster.
   .incident-details-header {
     margin-bottom: (variables.$margin-bottom * 1.5);
     padding-left: variables.$padding;
-    border-left: 3px solid var(--incident-involvement-color, transparent);
+    border-left: 4px solid var(--incident-involvement-color, transparent);
 
     h2 {
       margin-bottom: (variables.$padding * 0.5);
+    }
+
+    .incident-details-header__date {
+      margin-bottom: (variables.$padding * 0.5);
+      font-size: variables.$normal-font-size;
     }
 
     .incident-details-header__meta {
@@ -78,6 +104,10 @@
 
     td {
       color: variables.$text-color;
+
+      .incident-details-accuracy {
+        font-size: 0.85em;
+      }
     }
 
     p {
@@ -89,13 +119,17 @@
     }
   }
 
-  .incident-details-problems {
-    // The shared picto list gives the first row's first cell a divider
-    // (padding-right + border-right) for the bulletin-report layout. It looks
-    // out of place on a single problem here, so drop it.
-    li:first-child > div:first-child {
-      padding-right: 0;
-      border-right: none;
+  // The analysis is the dialog's second half — set off by a rule from the
+  // factual sections above it, and headed like the dialog's own title rather
+  // than like the <h3> sections it contains.
+  .incident-details-analysis {
+    margin-top: (variables.$margin-bottom * 1.5);
+    padding-top: (variables.$margin-bottom * 1.5);
+    border-top: variables.$border-width solid variables.$grey-very-light;
+
+    > h2 {
+      margin-bottom: variables.$margin-bottom;
+      font-size: variables.$xlarge-font-size;
     }
   }
 
@@ -150,6 +184,29 @@
       }
     }
   }
+
+  // Attachments that can't be previewed (anything but images), styled like
+  // the external-links list below them.
+  .incident-details-attachment-links {
+    margin: variables.$padding 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: variables.$table-small-font-size;
+
+    li {
+      margin-bottom: (variables.$padding * 0.5);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .incident-details-attachment-links__meta {
+      margin-left: 0.5em;
+      color: variables.$grey-light;
+      font-size: 0.85em;
+    }
+  }
 }
 
 .incident-details-danger-rating {
@@ -166,8 +223,24 @@
   }
 }
 
+.incident-details-link-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+
+  .icon-external:before,
+  .icon-download:before {
+    margin: 0;
+  }
+}
+
 .incident-details-accuracy {
+  margin-left: 0.5em;
   cursor: help;
+  color: variables.$grey-dark;
+  font-family: variables.$paragraph-font-family;
+  font-size: variables.$small-font-size;
+  font-weight: variables.$paragraph-font-weight;
 }
 
 .incident-details-accuracy-icon {
@@ -238,6 +311,26 @@
 
 .incident-badge {
   @include mixins.neutral-chip;
+
+  // The blue "has analysis" indicator, shown in the map tooltip, the table
+  // and the details dialog header.
+  &--info {
+    background: variables.$brand;
+    color: variables.$white;
+  }
+}
+
+button.incident-badge {
+  border: none;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    filter: brightness(0.95);
+  }
 }
 
 // A severity dot for the incident table's involvement cell
