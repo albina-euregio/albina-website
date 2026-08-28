@@ -9,7 +9,11 @@ import {
   useIncidentReportMessages,
   translateIncidentValue
 } from "../../i18n/incident-report";
-import { DATE_TIME_FORMAT, DATE_TIME_FORMAT_SHORT } from "../../util/date";
+import {
+  DATE_TIME_FORMAT,
+  DATE_TIME_FORMAT_SHORT,
+  LONG_DATE_FORMAT
+} from "../../util/date";
 import IncidentLocationMap from "./incident-location-map";
 import { Tooltip } from "../tooltips/tooltip";
 import { involvementText } from "../../util/incident-involvement";
@@ -384,6 +388,12 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     .filter(Boolean)
     .join(", ");
 
+  const bulletinDate = d.dateTime
+    ? Temporal.Instant.from(d.dateTime)
+        .toZonedDateTimeISO("Europe/Vienna")
+        .toPlainDate()
+    : undefined;
+
   return (
     <div
       className="modal-container incident-details"
@@ -585,6 +595,25 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
                 />
                 {getDangerRatingLabel(d.dangerRating, dangerRatingText)}
               </span>
+            )
+          },
+          {
+            label: intl.formatMessage({ id: "bulletin:header:forecast" }),
+            value: bulletinDate && incident.microRegion && (
+              <a
+                className="incident-details-bulletin-link"
+                href={`/bulletin/${bulletinDate}?${new URLSearchParams({
+                  region: incident.microRegion
+                })}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={intl.formatMessage({
+                  id: "archive:show-forecast:hover"
+                })}
+              >
+                {intl.formatDate(bulletinDate, LONG_DATE_FORMAT)}
+                <span className="icon-external" aria-hidden="true" />
+              </a>
             )
           }
         ]}

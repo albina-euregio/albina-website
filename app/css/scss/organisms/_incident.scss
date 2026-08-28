@@ -196,6 +196,16 @@
   }
 }
 
+.incident-details-bulletin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+
+  .icon-external:before {
+    margin: 0;
+  }
+}
+
 .incident-details-accuracy {
   margin-left: 0.5em;
   cursor: help;
