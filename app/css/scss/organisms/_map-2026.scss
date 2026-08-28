@@ -31,12 +31,17 @@ $map-height-bulletin: 50vh;
   pointer-events: none;
   margin: 0;
   padding: variables.$padding * 0.6;
-  list-style: none;
   color: variables.$text-color;
   font-size: variables.$tiny-font-size;
   line-height: 1.6;
   background-color: rgba(variables.$white, 0.9);
   @include mixins.box-shadow(0.15);
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 
   li {
     display: flex;
@@ -45,6 +50,13 @@ $map-height-bulletin: 50vh;
     margin: 0;
     padding-left: 0;
   }
+}
+
+.map-legend__title {
+  margin: 0 0 (variables.$padding * 0.3);
+  font-weight: bold;
+  line-height: 1.6;
+  font-size: variables.$small-font-size;
 }
 
 .map-legend__swatch {

@@ -43,7 +43,12 @@ function SnowProfileMapLegend() {
     color: `var(${stabilityColorProperty(stability)})`,
     label: intl.formatMessage({ id: stabilityLabelId(stability) })
   }));
-  return <MapLegend items={items} />;
+  return (
+    <MapLegend
+      items={items}
+      title={intl.formatMessage({ id: "caaml:snowpackStability.label" })}
+    />
+  );
 }
 
 function toFeatureCollection(

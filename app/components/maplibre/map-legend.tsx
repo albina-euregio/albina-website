@@ -10,20 +10,24 @@ export interface MapLegendItem {
 
 interface Props {
   items: MapLegendItem[];
+  title?: ReactNode;
 }
 
-export default function MapLegend({ items }: Props) {
+export default function MapLegend({ items, title }: Props) {
   return (
-    <ul className="map-legend">
-      {items.map(item => (
-        <li key={item.key}>
-          <span
-            className="map-legend__swatch"
-            style={{ backgroundColor: item.color }}
-          />
-          {item.label}
-        </li>
-      ))}
-    </ul>
+    <div className="map-legend">
+      {title && <p className="map-legend__title">{title}</p>}
+      <ul className="map-legend__items">
+        {items.map(item => (
+          <li key={item.key}>
+            <span
+              className="map-legend__swatch"
+              style={{ backgroundColor: item.color }}
+            />
+            {item.label}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
