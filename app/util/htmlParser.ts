@@ -5,6 +5,34 @@ import { ModalImage } from "../components/dialogs/albina-modal";
 import OpenSourceLicenses from "../components/organisms/OpenSourceLicenses";
 import { scrollIntoView } from "./scrollIntoView";
 
+function findImageAlt(node: React.ReactNode): string | undefined {
+  if (!React.isValidElement(node)) return undefined;
+  const props = node.props as AllHTMLAttributes<HTMLImageElement>;
+  if (node.type === "img") return props.alt || undefined;
+  return React.Children.toArray(props.children).map(findImageAlt).find(Boolean);
+}
+
+/** Show the alt text as picture meta inside every figure of the given node. */
+function withPictureMeta(node: React.ReactNode): React.ReactNode {
+  const alt = findImageAlt(node);
+  if (!alt) return node;
+  const meta = React.createElement(
+    "div",
+    { className: "bulletin-report-picture-meta" },
+    React.createElement("span", { className: "text" }, alt)
+  );
+  const append = (node: React.ReactNode): React.ReactNode => {
+    if (!React.isValidElement<AllHTMLAttributes<HTMLElement>>(node)) {
+      return node;
+    }
+    const children = React.Children.toArray(node.props.children);
+    return node.type === "figure"
+      ? React.cloneElement(node, undefined, ...children, meta)
+      : React.cloneElement(node, undefined, ...children.map(append));
+  };
+  return append(node);
+}
+
 export function preprocessContent(content: string, blogMode = false) {
   return htmr(content, {
     transform: {
@@ -28,6 +56,35 @@ export function preprocessContent(content: string, blogMode = false) {
         } else if (type === "a" && props.target === "_blank") {
           // no opener for external links
           props.rel = "noopener";
+        } else if (
+          blogMode &&
+          type === "figure" &&
+          props.className?.includes("wp-block-gallery")
+        ) {
+          // Turn WordPress galleries into bulletin report galleries
+          const items = React.Children.toArray(children).filter(
+            child => typeof child !== "string" || !!child.trim()
+          );
+          const isCaption = (child: React.ReactNode) =>
+            React.isValidElement(child) && child.type === "figcaption";
+          return React.createElement(
+            React.Fragment,
+            undefined,
+            React.createElement(
+              "ul",
+              { className: "list-plain bulletin-report-gallery modal-gallery" },
+              items
+                .filter(child => !isCaption(child))
+                .map((child, index) =>
+                  React.createElement(
+                    "li",
+                    { key: index, className: "bulletin-report-gallery-item" },
+                    withPictureMeta(child)
+                  )
+                )
+            ),
+            items.filter(isCaption)
+          );
         } else if (blogMode && type === "figure") {
           children = React.createElement(type, props, children);
           return React.createElement(ModalImage, undefined, children);
