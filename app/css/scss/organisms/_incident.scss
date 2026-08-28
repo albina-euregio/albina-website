@@ -8,6 +8,26 @@
   margin: 0 auto;
   padding-top: 1.25rem;
 
+  // The "last updated" note leads the dialog, above the header's severity
+  // spine, mirroring the bulletin report header's icon + label pairing.
+  .incident-details-updated {
+    display: flex;
+    align-items: center;
+    gap: 0 (variables.$padding * 0.5);
+    margin-bottom: (variables.$padding * 0.75);
+    color: variables.$grey;
+    font-size: variables.$micro-font-size;
+
+    .icon {
+      display: flex;
+      align-items: center;
+      max-height: 1.5em;
+      &:before {
+        margin: 0 -0.25em;
+      }
+    }
+  }
+
   // The header mirrors the map tooltip's severity spine, then leads with the
   // location title, the incident date (like a bulletin's "Published at"),
   // the published/outcome meta lines, and finally the shared badge cluster.
@@ -20,48 +40,15 @@
       margin-bottom: (variables.$padding * 0.5);
     }
 
-    // The incident date and the "Updated" note share one row, wrapping onto
-    // a second line on narrow screens.
     .incident-details-header__date {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      column-gap: variables.$padding;
-      row-gap: (variables.$padding * 0.25);
       margin-bottom: (variables.$padding * 0.5);
       font-size: variables.$normal-font-size;
-
-      .incident-details-accuracy {
-        color: variables.$grey-dark;
-        font-size: variables.$small-font-size;
-      }
-    }
-
-    .incident-details-header__updated {
-      color: variables.$grey-dark;
-      font-size: variables.$small-font-size;
     }
 
     .incident-details-header__meta {
       margin-bottom: (variables.$padding * 0.75);
       color: variables.$grey-dark;
       font-size: variables.$small-font-size;
-    }
-
-    // Mirrors the bulletin report header's icon + label pairing.
-    .text-icon {
-      display: flex;
-      align-items: center;
-      gap: 0 (variables.$padding * 0.5);
-
-      .icon {
-        display: flex;
-        align-items: center;
-        max-height: 1.5em;
-        &:before {
-          margin: 0 -0.25em;
-        }
-      }
     }
   }
 

@@ -552,20 +552,20 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         } as React.CSSProperties
       }
     >
+      {publishedAt && (
+        <p className="incident-details-updated text-icon">
+          <span className="icon icon-release" />
+          <span className="text">
+            {intl.formatMessage({ id: "incidents:updatedAt" })}: {publishedAt}
+          </span>
+        </p>
+      )}
+
       <header className="incident-details-header">
         {incident.location && <h2>{incident.location}</h2>}
-        {(dateTime || publishedAt) && (
+        {dateTime && (
           <p className="incident-details-header__date">
-            {dateTime && withAccuracy(dateTime, timeAccuracy, accuracyLabel)}
-            {publishedAt && (
-              <span className="incident-details-header__updated text-icon">
-                <span className="icon icon-release" />
-                <span className="text">
-                  {intl.formatMessage({ id: "incidents:updatedAt" })}:{" "}
-                  {publishedAt}
-                </span>
-              </span>
-            )}
+            {withAccuracy(dateTime, timeAccuracy, accuracyLabel)}
           </p>
         )}
         {outcome && <p className="incident-details-header__meta">{outcome}</p>}
