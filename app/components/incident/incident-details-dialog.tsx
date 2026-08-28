@@ -319,24 +319,6 @@ function RichText({
   );
 }
 
-function ExternalLinks({ title, links }: { title: ReactNode; links?: string }) {
-  const urls = links?.split(/[\s,]+/).filter(url => /^https?:\/\//.test(url));
-  if (!urls?.length) return null;
-  return (
-    <Section
-      title={title}
-      fields={urls.map(url => ({
-        label: "",
-        value: (
-          <a href={url} target="_blank" rel="noreferrer">
-            {url}
-          </a>
-        )
-      }))}
-    />
-  );
-}
-
 function IncidentDetails({ incident }: { incident: IncidentData }) {
   const intl = useIntl();
   const t = useIncidentReportMessages();
@@ -361,8 +343,21 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     publicFlag?: boolean
   ) => (publicFlag === false ? undefined : localizedText(record, intl.locale));
 
-  const { bySection: attachments, bottom: bottomAttachments } =
-    groupAttachmentsByCategory(incident.attachments);
+  const { bySection: attachments } = groupAttachmentsByCategory(
+    incident.attachments
+  );
+  const attachmentLinks = d.publicExternalLinks
+    ?.split(/[\s,]+/)
+    .filter(url => /^https?:\/\//.test(url));
+  const attachmentLinkFields: Field[] =
+    attachmentLinks?.map(url => ({
+      label: "",
+      value: (
+        <a href={url} target="_blank" rel="noreferrer">
+          {url}
+        </a>
+      )
+    })) ?? [];
 
   const ledeHtml = textBlock(d.incidentLede, d.incidentLedePublic);
   const dateTime =
@@ -619,7 +614,12 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         ]}
       />
 
-      <Section fields={[]} />
+      <Section
+        title={label("incidentAttachments")}
+        fields={attachmentLinkFields}
+      >
+        <AttachmentGrid attachments={incident.attachments} />
+      </Section>
 
       {ledeHtml?.trim() && (
         <div
@@ -663,13 +663,6 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           }))
         ]}
       />
-
-      <ExternalLinks
-        title={label("incidentAttachments")}
-        links={d.publicExternalLinks}
-      />
-
-      <AttachmentGrid attachments={bottomAttachments} />
     </div>
   );
 }
