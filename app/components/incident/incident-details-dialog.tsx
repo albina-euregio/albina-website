@@ -10,9 +10,6 @@ import {
   translateIncidentValue
 } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT, DATE_TIME_FORMAT_SHORT } from "../../util/date";
-import ProblemIcon from "../icons/problem-icon";
-import ExpositionIcon from "../icons/exposition-icon";
-import ElevationIcon from "../icons/elevation-icon";
 import IncidentLocationMap from "./incident-location-map";
 import { Tooltip } from "../tooltips/tooltip";
 import { involvementText } from "../../util/incident-involvement";
@@ -22,11 +19,9 @@ import {
   getDangerRatingIconFile,
   getDangerRatingLabel
 } from "../../util/warn-levels";
-import type { AvalancheProblemType } from "../../stores/bulletin";
 import { INCIDENT_ANALYSIS_ENUM_FIELDS } from "../../stores/incidentDataStore";
 import type {
   IncidentAttachmentView,
-  IncidentAvalancheProblem,
   IncidentData,
   IncidentPublicData
 } from "../../stores/incidentDataStore";
@@ -129,178 +124,6 @@ function localizedText(
 ): string | undefined {
   if (!record) return undefined;
   return record[locale] || record.en || Object.values(record).find(Boolean);
-}
-
-/** Entries with at least one populated field; empty ones only render blank space. */
-function visibleProblems(
-  problems: IncidentAvalancheProblem[] | undefined
-): IncidentAvalancheProblem[] {
-  return (problems ?? []).filter(p => p && Object.values(p).some(Boolean));
-}
-
-/**
- * Renders avalanche problems as pictograms, mirroring the bulletin report.
- * Shown as the value of a labelled row inside the bulletin-information table.
- */
-function AvalancheProblems({
-  problems
-}: {
-  problems: IncidentAvalancheProblem[];
-}) {
-  if (!problems.length) return null;
-  return (
-    <ul className="list-plain list-bulletin-report-pictos incident-details-problems">
-      {problems.map((p, i) => (
-        <AvalancheProblemRow key={i} problem={p} />
-      ))}
-    </ul>
-  );
-}
-
-function AvalancheProblemRow({
-  problem
-}: {
-  problem: IncidentAvalancheProblem;
-}) {
-  const intl = useIntl();
-  const problemType = problem.problemType;
-  const aspects = (problem.aspects ?? []).filter(Boolean);
-
-  const aspectTitle =
-    intl.formatMessage({ id: "bulletin:report:exposition" }) +
-    (aspects.length
-      ? ": " +
-        aspects
-          .map(a =>
-            intl.formatMessage({
-              id: `bulletin:report:problem:aspect:${a.toLowerCase()}` as MessageId
-            })
-          )
-          .join(", ")
-      : "");
-
-  const elevation = elevationIconProps(
-    problem.elevationLowerBound,
-    problem.elevationUpperBound,
-    intl
-  );
-
-  return (
-    <li>
-      {problemType && (
-        <div className="bulletin-report-picto avalanche-situation">
-          <a
-            href={`/education/avalanche-problems#${problemType}`}
-            className="img"
-          >
-            <div className="picto-img">
-              <ProblemIcon
-                problem={problemType as AvalancheProblemType}
-                alt={intl.formatMessage({
-                  id: problemTypeMessageId(problemType)
-                })}
-                active={true}
-              />
-            </div>
-            <div className="picto-caption">
-              {intl.formatMessage({ id: problemTypeMessageId(problemType) })}
-            </div>
-          </a>
-        </div>
-      )}
-
-      {aspects.length > 0 && (
-        <div>
-          <ExpositionIcon expositions={aspects} title={aspectTitle} />
-        </div>
-      )}
-
-      {elevation && (
-        <div>
-          <ElevationIcon {...elevation} />
-        </div>
-      )}
-
-      <ProblemMatrix problem={problem} />
-    </li>
-  );
-}
-
-/** Text matrix of snowpack stability / frequency / avalanche size. */
-function ProblemMatrix({ problem }: { problem: IncidentAvalancheProblem }) {
-  const intl = useIntl();
-  const { snowpackStability, frequency, avalancheSize } = problem;
-  if (!snowpackStability && !frequency && !avalancheSize) return null;
-  const row = (name: string, value: ReactNode) => (
-    <div className="matrix-info">
-      <span className="matrix-info-name">{name}:</span>
-      <span className="matrix-info-value">{value}</span>
-    </div>
-  );
-  return (
-    <div className="bulletin-report-picto matrix-information">
-      {snowpackStability &&
-        row(
-          intl.formatMessage({ id: "caaml:snowpackStability.label" }),
-          intl.formatMessage({
-            id: `caaml:snowpackStability.${snowpackStability}` as MessageId
-          })
-        )}
-      {frequency &&
-        row(
-          intl.formatMessage({ id: "caaml:frequency.label" }),
-          intl.formatMessage({
-            id: `caaml:frequency.${frequency}` as MessageId
-          })
-        )}
-      {avalancheSize &&
-        row(
-          intl.formatMessage({ id: "caaml:avalancheSize.label" }),
-          intl.formatMessage({
-            id: `caaml:avalancheSize.${avalancheSize}` as MessageId
-          })
-        )}
-    </div>
-  );
-}
-
-/** Maps the incident's numeric elevation bounds onto {@link ElevationIcon}. */
-function elevationIconProps(
-  lower: string | undefined,
-  upper: string | undefined,
-  intl: IntlApi
-) {
-  if (lower && upper) {
-    return {
-      where: "middle" as const,
-      text: `${lower}–${upper}m`,
-      title: intl.formatMessage(
-        { id: "bulletin:report:problem:elevation:between:m-m:hover" },
-        { elevationLow: lower, elevationHigh: upper }
-      )
-    };
-  }
-  if (lower) {
-    return {
-      where: "above" as const,
-      text: `${lower}m`,
-      title: intl.formatMessage(
-        { id: "bulletin:report:problem:elevation:above:m:hover" },
-        { elevationLow: lower }
-      )
-    };
-  }
-  if (upper) {
-    return {
-      where: "below" as const,
-      text: `${upper}m`,
-      title: intl.formatMessage(
-        { id: "bulletin:report:problem:elevation:below:m:hover" },
-        { elevationHigh: upper }
-      )
-    };
-  }
-  return null;
 }
 
 function problemTypeMessageId(problemType: string): MessageId {
@@ -551,7 +374,6 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
     intl.formatMessage({
       id: `caaml:dangerRating.${d.dangerRating}` as MessageId
     });
-  const problems = visibleProblems(d.avalancheProblems);
   const accuracyLabel = intl.formatMessage({ id: "incidents:accuracy" });
   const regionLabel = (code: string | undefined) =>
     code && (intl.formatMessage({ id: `region:${code}` as MessageId }) || code);
@@ -621,81 +443,6 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       >
         <IncidentLocationMap incident={incident} />
       </Section>
-
-      <Section fields={[]} />
-
-      {ledeHtml?.trim() && (
-        <div
-          className="incident-details-richtext incident-details-lede"
-          dangerouslySetInnerHTML={{ __html: ledeHtml }}
-        />
-      )}
-
-      <RichText
-        title={label("incidentDescription")}
-        html={textBlock(d.incidentDescription, d.incidentDescriptionPublic)}
-        attachments={attachments.incidentDescription}
-      />
-      <RichText
-        title={label("avalancheDescription")}
-        html={textBlock(d.avalancheDescription, d.avalancheDescriptionPublic)}
-        attachments={attachments.avalancheDescription}
-      />
-      <RichText
-        title={label("snowpackDescription")}
-        html={textBlock(d.snowpackDescription, d.snowpackDescriptionPublic)}
-        attachments={attachments.snowpackDescription}
-      />
-      <RichText
-        title={label("weatherDescription")}
-        html={textBlock(d.weatherDescription, d.weatherDescriptionPublic)}
-        attachments={attachments.weatherDescription}
-      />
-      <RichText
-        title={label("takeAways")}
-        html={textBlock(d.takeAways, d.takeAwaysPublic)}
-      />
-
-      <Section
-        title={label("bulletinInformation")}
-        fields={[
-          {
-            label: label("publicAvalancheWarningService"),
-            value: d.publicAvalancheWarningService
-          },
-          {
-            label: intl.formatMessage({ id: "caaml:dangerRating.label" }),
-            value: d.dangerRating && dangerRatingText && (
-              <span className="incident-details-danger-rating">
-                <img
-                  src={`/images/pro/danger-levels/${getDangerRatingIconFile(d.dangerRating)}`}
-                  alt={dangerRatingText}
-                />
-                {getDangerRatingLabel(d.dangerRating, dangerRatingText)}
-              </span>
-            )
-          },
-
-          {
-            label: intl.formatMessage({
-              id: "menu:education:avalanche-problems"
-            }),
-            value: problems.length ? (
-              <AvalancheProblems problems={problems} />
-            ) : undefined
-          },
-          {
-            label: intl.formatMessage({ id: "caaml:dangerPattern.label" }),
-            value: d.dangerPattern
-              ?.map(a =>
-                intl.formatMessage({
-                  id: `caaml:dangerPattern.${a.toLowerCase()}` as MessageId
-                })
-              )
-              .join(", ")
-          }
-        ]}
-      />
 
       <Section
         title={label("avalancheInformation")}
@@ -819,6 +566,62 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             value: d.involvementsFatalitiesBurials?.partlyBuried
           }
         ]}
+      />
+
+      <Section
+        title={label("bulletinInformation")}
+        fields={[
+          {
+            label: label("publicAvalancheWarningService"),
+            value: d.publicAvalancheWarningService
+          },
+          {
+            label: intl.formatMessage({ id: "caaml:dangerRating.label" }),
+            value: d.dangerRating && dangerRatingText && (
+              <span className="incident-details-danger-rating">
+                <img
+                  src={`/images/pro/danger-levels/${getDangerRatingIconFile(d.dangerRating)}`}
+                  alt={dangerRatingText}
+                />
+                {getDangerRatingLabel(d.dangerRating, dangerRatingText)}
+              </span>
+            )
+          }
+        ]}
+      />
+
+      <Section fields={[]} />
+
+      {ledeHtml?.trim() && (
+        <div
+          className="incident-details-richtext incident-details-lede"
+          dangerouslySetInnerHTML={{ __html: ledeHtml }}
+        />
+      )}
+
+      <RichText
+        title={label("incidentDescription")}
+        html={textBlock(d.incidentDescription, d.incidentDescriptionPublic)}
+        attachments={attachments.incidentDescription}
+      />
+      <RichText
+        title={label("avalancheDescription")}
+        html={textBlock(d.avalancheDescription, d.avalancheDescriptionPublic)}
+        attachments={attachments.avalancheDescription}
+      />
+      <RichText
+        title={label("snowpackDescription")}
+        html={textBlock(d.snowpackDescription, d.snowpackDescriptionPublic)}
+        attachments={attachments.snowpackDescription}
+      />
+      <RichText
+        title={label("weatherDescription")}
+        html={textBlock(d.weatherDescription, d.weatherDescriptionPublic)}
+        attachments={attachments.weatherDescription}
+      />
+      <RichText
+        title={label("takeAways")}
+        html={textBlock(d.takeAways, d.takeAwaysPublic)}
       />
 
       <Section
