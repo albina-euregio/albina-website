@@ -222,15 +222,12 @@ function buildThresholdsAndColors(remoteThresholds: RemoteThreshold[]): {
 }
 
 /**
- * The live `imageOverlayURL`/`dataOverlayURL` are absolute wiski.tirol.gv.at
- * URLs (which send no CORS headers) using `$year`/`$date`/`$hour` tokens. We
- * only want the filename, translated to the `{year}`/`{date}`/`{time}`
- * template syntax `getOverlayURLs` already builds against the existing,
- * CORS-safe proxied base URL.
+ * The live `imageOverlayURL`/`dataOverlayURL` use `$year`/`$date`/`$hour`
+ * tokens; translate them to the `{year}`/`{date}`/`{time}` template syntax
+ * `getOverlayURLs` builds against.
  */
-function filenameFromRemoteUrl(url: string): string {
-  const filename = url.slice(url.lastIndexOf("/") + 1);
-  return filename
+function translateRemoteUrl(url: string): string {
+  return url
     .replace(/\$year/g, "{year}")
     .replace(/\$date/g, "{date}")
     .replace(/\$hour/g, "{time}");
@@ -282,7 +279,7 @@ function buildDomainConfig(
 
   const dataOverlays: DomainConfig["dataOverlays"] = [
     {
-      file: filenameFromRemoteUrl(entry.dataOverlayURL),
+      file: translateRemoteUrl(entry.dataOverlayURL),
       type: OVERLAY_TYPE_BY_DOMAIN[domainId]
     }
   ];
@@ -297,7 +294,7 @@ function buildDomainConfig(
     thresholds,
     colors,
     layer: meta.layer,
-    imageOverlay: { file: filenameFromRemoteUrl(entry.imageOverlayURL) },
+    imageOverlay: { file: translateRemoteUrl(entry.imageOverlayURL) },
     dataOverlays,
     direction: meta.direction
   };
@@ -407,9 +404,9 @@ function buildRelativeSnowFallbackConfig(): RemoteDomainConfig {
         timeRange: 24,
         timeStepHours: 24,
         imageOverlayURL:
-          "https://models.avalanche.report/relativesnowheight/$date_00-00_REL.gif",
+          "https://models.avalanche.report/relativesnowheight/{date}/{date}_00-00_REL.gif",
         dataOverlayURL:
-          "https://models.avalanche.report/relativesnowheight/$date_00-00_REL.png",
+          "https://models.avalanche.report/relativesnowheight/{date}/{date}_00-00_REL.png",
         initialValidity: [now, now],
         initialTimestamp: now,
         maxForecastTimestamp: now,
@@ -742,9 +739,7 @@ function getOverlayURLs(
   file: string | undefined,
   timespan: number
 ): [string, string] {
-  if (!currentTime) return ["", ""];
-  const baseUrls = overlayBaseURLs();
-  if (!baseUrls) return ["", ""];
+  if (!currentTime || !file) return ["", ""];
   const data = {
     year: currentTime.toString().slice(0, "2025".length),
     date: currentTime.toString().slice(0, "2025-03-14".length),
@@ -755,10 +750,8 @@ function getOverlayURLs(
     domain,
     timespan
   };
-  return [
-    window.config.template(baseUrls[0] + file, data),
-    window.config.template(baseUrls[1] + file, data)
-  ];
+  const url = window.config.template(file, data);
+  return [url, url];
 }
 
 /*
