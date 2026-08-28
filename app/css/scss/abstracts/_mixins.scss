@@ -286,6 +286,47 @@
   }
 }
 
+//gallery
+@mixin bulletin-report-gallery {
+  .bulletin-report-gallery {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: variables.$padding;
+    @media #{variables.breakpoint-up(medium)} {
+      gap: variables.$padding * 2;
+    }
+    margin: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      height: 0;
+    }
+  }
+
+  .bulletin-report-gallery-item {
+    flex: 0 0 calc((100% - #{variables.$padding * 2}) / 2.5);
+    scroll-snap-align: start;
+    @media #{variables.breakpoint-up(medium)} {
+      flex: 0 0 calc((100% - #{variables.$padding * 6}) / 3.5);
+    }
+  }
+
+  .bulletin-report-picture-meta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0 (variables.$padding * 2);
+    width: 100%;
+    font-size: variables.$micro-font-size;
+  }
+}
+
 //list
 @mixin list-plain {
   list-style-type: none;
