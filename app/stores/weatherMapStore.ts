@@ -190,10 +190,9 @@ function buildThresholdsAndColors(remoteThresholds: RemoteThreshold[]): {
   thresholds: number[];
   colors: Record<number, RGB>;
 } {
-  const colors: Record<number, RGB> = {};
-  remoteThresholds.forEach((t, i) => {
-    colors[i + 1] = hexToRgb(t.color);
-  });
+  const colors = Object.fromEntries(
+    remoteThresholds.map((t, i) => [i + 1, hexToRgb(t.color)])
+  ) as Record<number, RGB>;
   const thresholds = remoteThresholds
     .slice(0, -1)
     .map(t => t.range[1] as number);
@@ -226,11 +225,9 @@ function buildUpdateTimesOffset(
   timeRanges: RemoteTimeRange[],
   sign: string
 ): Record<string, number> {
-  const offset: Record<string, number> = {};
-  timeRanges.forEach(tr => {
-    offset[sign + tr.timeRange] = tr.timeStepHours;
-  });
-  return offset;
+  return Object.fromEntries(
+    timeRanges.map(tr => [sign + tr.timeRange, tr.timeStepHours])
+  );
 }
 
 /** The `timeRanges[]` entry matching `timeSpan`, else the first entry. */
