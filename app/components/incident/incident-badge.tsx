@@ -35,10 +35,10 @@ export function IncidentBadges({
   if (!badges.length && !children) return null;
   return (
     <div className="incident-badges">
+      {children}
       {badges.map(badge => (
         <IncidentBadge key={badge.key}>{badge.text}</IncidentBadge>
       ))}
-      {children}
     </div>
   );
 }

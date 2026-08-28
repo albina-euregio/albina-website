@@ -74,6 +74,19 @@ export default function IncidentTable(props: Props) {
       )
     },
     {
+      id: "incidentAnalysis",
+      title: label("incidentAnalysis"),
+      sortable: false,
+      render: row =>
+        row.hasAnalysis ? (
+          <IncidentBadge variant="info">
+            {intl.formatMessage({ id: "incidents:analysis" })}
+          </IncidentBadge>
+        ) : (
+          ""
+        )
+    },
+    {
       id: "avalancheType",
       title: label("avalancheType"),
       render: row => {
@@ -88,19 +101,6 @@ export default function IncidentTable(props: Props) {
         const text = avalancheBadgeText(row, messages, "avalancheSize");
         return text ? <IncidentBadge>{text}</IncidentBadge> : "";
       }
-    },
-    {
-      id: "incidentAnalysis",
-      title: label("incidentAnalysis"),
-      sortable: false,
-      render: row =>
-        row.hasAnalysis ? (
-          <IncidentBadge variant="info">
-            {intl.formatMessage({ id: "incidents:analysis" })}
-          </IncidentBadge>
-        ) : (
-          ""
-        )
     }
   ];
 

@@ -138,7 +138,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
         const analysisLabel = esc(
           intl.formatMessage({ id: "incidents:analysis" })
         );
-        badges.push(
+        badges.unshift(
           `<span class="incident-badge incident-badge--info">${analysisLabel}</span>`
         );
       }
