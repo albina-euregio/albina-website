@@ -222,8 +222,8 @@ function buildThresholdsAndColors(remoteThresholds: RemoteThreshold[]): {
 }
 
 /**
- * The live `imageOverlayURL`/`dataOverlayURL` use `$year`/`$date`/`$hour`
- * tokens; translate them to the `{year}`/`{date}`/`{time}` template syntax
+ * Translate the live `imageOverlayURL`/`dataOverlayURL`'s `$year`/`$date`/
+ * `$hour` tokens to the `{year}`/`{date}`/`{time}` template syntax
  * `getOverlayURLs` builds against.
  */
 function translateRemoteUrl(url: string): string {
@@ -231,6 +231,16 @@ function translateRemoteUrl(url: string): string {
     .replace(/\$year/g, "{year}")
     .replace(/\$date/g, "{date}")
     .replace(/\$hour/g, "{time}");
+}
+
+/**
+ * Most domains' `imageOverlayURL`/`dataOverlayURL` are absolute
+ * wiski.tirol.gv.at URLs that send no CORS headers, so only the filename is
+ * used, templated against the CORS-safe proxied base URL instead (see
+ * `getOverlayURLs`).
+ */
+function filenameFromRemoteUrl(url: string): string {
+  return translateRemoteUrl(url.slice(url.lastIndexOf("/") + 1));
 }
 
 function buildUpdateTimesOffset(
@@ -277,9 +287,15 @@ function buildDomainConfig(
 
   const { thresholds, colors } = buildThresholdsAndColors(remote.thresholds);
 
+  // relative-snow's own server sends CORS headers, so its URL is used
+  // directly — every other domain's is wiski.tirol.gv.at (no CORS headers),
+  // reduced to a filename templated against the proxied base URL instead.
+  const overlayFile =
+    domainId === "relative-snow" ? translateRemoteUrl : filenameFromRemoteUrl;
+
   const dataOverlays: DomainConfig["dataOverlays"] = [
     {
-      file: translateRemoteUrl(entry.dataOverlayURL),
+      file: overlayFile(entry.dataOverlayURL),
       type: OVERLAY_TYPE_BY_DOMAIN[domainId]
     }
   ];
@@ -294,7 +310,7 @@ function buildDomainConfig(
     thresholds,
     colors,
     layer: meta.layer,
-    imageOverlay: { file: translateRemoteUrl(entry.imageOverlayURL) },
+    imageOverlay: { file: overlayFile(entry.imageOverlayURL) },
     dataOverlays,
     direction: meta.direction
   };
@@ -750,8 +766,19 @@ function getOverlayURLs(
     domain,
     timespan
   };
-  const url = window.config.template(file, data);
-  return [url, url];
+  // A bare filename (from filenameFromRemoteUrl) needs the proxied base URL
+  // prefixed; a full URL (from translateRemoteUrl, currently relative-snow
+  // only) is already fetchable as-is.
+  if (/^https?:\/\//.test(file)) {
+    const url = window.config.template(file, data);
+    return [url, url];
+  }
+  const baseUrls = overlayBaseURLs();
+  if (!baseUrls) return ["", ""];
+  return [
+    window.config.template(baseUrls[0] + file, data),
+    window.config.template(baseUrls[1] + file, data)
+  ];
 }
 
 /*
