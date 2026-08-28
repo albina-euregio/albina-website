@@ -22,10 +22,11 @@ export const config = {
     debugModus: false
   },
   domains: {
+    // `sign`/`defaultTimeSpan` default to `"+-"`/`null` — see `domainMeta` —
+    // so only the domains below that deviate from that need to state them.
     "snow-height": {
       item: {
         sign: "-",
-        defaultTimeSpan: null,
         timeSpanToDataId: { "-1": "HS" },
         layer: { overlay: true, stations: true }
       }
@@ -41,7 +42,6 @@ export const config = {
     "diff-snow": {
       item: {
         sign: "-",
-        defaultTimeSpan: null,
         timeSpanToDataId: {
           "-24": "HSD_24",
           "-48": "HSD_48",
@@ -52,32 +52,24 @@ export const config = {
     },
     "relative-snow": {
       item: {
-        sign: "+-",
-        defaultTimeSpan: null,
         timeSpanToDataId: {},
         layer: { overlay: true, stations: false }
       }
     },
     "snow-line": {
       item: {
-        sign: "+-",
-        defaultTimeSpan: null,
         timeSpanToDataId: {},
         layer: { overlay: true, stations: false }
       }
     },
     temp: {
       item: {
-        sign: "+-",
-        defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "TA" },
         layer: { overlay: true, stations: true }
       }
     },
     wind: {
       item: {
-        sign: "+-",
-        defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "VW" },
         layer: { overlay: true, stations: true },
         // The live config.json only exposes the wind-speed overlay; the
@@ -91,8 +83,6 @@ export const config = {
     },
     gust: {
       item: {
-        sign: "+-",
-        defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "VW_MAX" },
         layer: { overlay: true, stations: true },
         // Gust borrows the wind domain's direction overlay, same as today.
@@ -105,8 +95,6 @@ export const config = {
     },
     wind700hpa: {
       item: {
-        sign: "+-",
-        defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "wind700hpa" },
         layer: { overlay: true, stations: true },
         secondaryOverlay: {
@@ -146,15 +134,19 @@ export interface DomainConfig {
 
 /** Structural, non-meteorological metadata for a remote-driven domain. */
 interface DomainMeta {
-  sign: "+" | "-" | "+-";
-  defaultTimeSpan: string | null;
+  sign?: "+" | "-" | "+-";
+  defaultTimeSpan?: string | null;
   timeSpanToDataId: Record<string, string>;
   layer: { overlay: boolean; stations: boolean };
   secondaryOverlay?: { file: string; type: OverlayType; domain?: DomainId };
 }
 
-function domainMeta(domainId: DomainId): DomainMeta {
-  return config.domains[domainId].item as unknown as DomainMeta;
+/** Applies the `sign: "+-"`, `defaultTimeSpan: null` defaults most domains use. */
+function domainMeta(
+  domainId: DomainId
+): DomainMeta & { sign: "+" | "-" | "+-"; defaultTimeSpan: string | null } {
+  const item = config.domains[domainId].item as unknown as DomainMeta;
+  return { sign: "+-", defaultTimeSpan: null, ...item };
 }
 
 /** A single `{ range: [from, to], color }` entry from the live config.json. */
