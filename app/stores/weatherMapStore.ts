@@ -463,7 +463,7 @@ function _updateDataOverlays() {
     const ctx = new Promise<CanvasRenderingContext2D>((resolve, reject) => {
       const overlayDomain = ((o as { domain?: DomainId }).domain ||
         di) as DomainId;
-      const [, url] = getOverlayURLs(ct, overlayDomain, o.file, ats).slice(1);
+      const [, url] = getOverlayURLs(ct, overlayDomain, o.file, ats);
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = () => {
