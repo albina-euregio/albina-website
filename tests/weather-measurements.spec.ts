@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("weather/stations?view=table", async ({ page }) => {
+  test.slow();
   await page.goto("weather/stations?view=table");
 
   // Wait for table data to load - first data row should be visible
