@@ -376,9 +376,57 @@ function overlayBaseURLs(): [string, string] | null {
 }
 
 /**
+ * `relative-snow`'s live config.json doesn't exist on the backend yet (404).
+ * Until it ships, synthesize a `RemoteDomainConfig` in the same shape from
+ * the thresholds/colors/overlay filename pattern the domain used before its
+ * migration to the live endpoint, so the domain stays functional meanwhile.
+ */
+function buildRelativeSnowFallbackConfig(): RemoteDomainConfig {
+  const now = Temporal.Now.zonedDateTimeISO("UTC")
+    .round({ smallestUnit: "hours", roundingMode: "trunc" })
+    .toInstant()
+    .toString();
+  return {
+    parameter: "relative-snow",
+    units: "%",
+    thresholds: [
+      { range: [null, -1], color: "#08306b" },
+      { range: [-1, 30], color: "#ffa0a0" },
+      { range: [30, 60], color: "#ffd2d2" },
+      { range: [60, 90], color: "#ffe6ce" },
+      { range: [90, 110], color: "#b0ffbc" },
+      { range: [110, 140], color: "#9ecae1" },
+      { range: [140, 170], color: "#6baed6" },
+      { range: [170, 200], color: "#4292c6" },
+      { range: [200, 230], color: "#2171b5" },
+      { range: [230, 260], color: "#08519c" },
+      { range: [260, null], color: "#08306b" }
+    ],
+    timeRanges: [
+      {
+        timeRange: 24,
+        timeStepHours: 24,
+        imageOverlayURL:
+          "https://models.avalanche.report/relativesnowheight/$date_00-00_REL.gif",
+        dataOverlayURL:
+          "https://models.avalanche.report/relativesnowheight/$date_00-00_REL.png",
+        initialValidity: [now, now],
+        initialTimestamp: now,
+        maxForecastTimestamp: now,
+        maxAnalysisTimestamp: now
+      }
+    ],
+    startDate: now,
+    startDateModifyTimestamp: now
+  };
+}
+
+/**
  * Fetch the live per-domain config.json through the same proxied base URL
  * used for overlay images (CORS-safe, same-origin) — never directly from
- * wiski.tirol.gv.at, which sends no CORS headers.
+ * wiski.tirol.gv.at, which sends no CORS headers. Falls back to
+ * `buildRelativeSnowFallbackConfig` for `relative-snow` until its endpoint
+ * ships.
  */
 async function fetchRemoteDomainConfig(
   domain: DomainId
@@ -390,6 +438,7 @@ async function fetchRemoteDomainConfig(
   const url = window.config.template(baseUrl + "config.json", { domain });
   const response = await fetch(url);
   if (!response.ok) {
+    if (domain === "relative-snow") return buildRelativeSnowFallbackConfig();
     throw new Error(`Failed to fetch ${url}: ${response.status}`);
   }
   return response.json();
