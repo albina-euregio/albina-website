@@ -17,8 +17,8 @@ import { useIncidentReportMessages } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { escapeHtml } from "../../util/escape-html.ts";
 import {
-  involvementLabel,
-  involvementText
+  involvementHtml,
+  involvementLabel
 } from "../../util/incident-involvement.ts";
 import { incidentBadges } from "../../util/incident-badges.ts";
 import { incidentBadgeClassName } from "./incident-badge.tsx";
@@ -46,18 +46,6 @@ function involvementColor(): (involvement: IncidentInvolvement) => string {
 interface Props {
   incidents: IncidentData[];
   onIncidentSelected: (id: string) => void;
-}
-
-/**
- * Wraps a trailing "(…)" clause of an already-escaped string in a
- * non-breaking span, so e.g. "3 persons involved (1 fatal, 1 injured)" can
- * only wrap before the opening parenthesis, never inside it.
- */
-function nowrapTrailingParenthetical(text: string): string {
-  const match = text.match(/^(.*\S)(\s+)(\([^)]*\))$/);
-  return match
-    ? `${match[1]}${match[2]}<span class="incident-tooltip__nowrap">${match[3]}</span>`
-    : text;
 }
 
 function IncidentMapLegend() {
@@ -126,10 +114,10 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
 
       // Only show the outcome when a persons count is known.
       const outcomeText = incident.numberInvolved
-        ? esc(involvementText(incident, intl))
+        ? involvementHtml(incident, intl)
         : undefined;
       const outcome = outcomeText
-        ? `<p class="incident-tooltip__outcome">${nowrapTrailingParenthetical(outcomeText)}</p>`
+        ? `<p class="incident-tooltip__outcome">${outcomeText}</p>`
         : undefined;
 
       const badges = incidentBadges(
