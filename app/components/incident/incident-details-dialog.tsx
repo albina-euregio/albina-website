@@ -585,14 +585,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         </IncidentBadges>
       </header>
 
-      <Section
-        fields={[
-          {
-            label: label("otherDamages"),
-            value: tr("otherDamages", d.otherDamages)
-          }
-        ]}
-      />
+      <Section fields={[]} />
 
       {ledeHtml?.trim() && (
         <div
