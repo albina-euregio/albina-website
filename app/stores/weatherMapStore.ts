@@ -335,8 +335,8 @@ export const selectedFeature = atom(null);
 export const remoteConfig = atom<RemoteDomainConfig | null>(null);
 /*
  * the `timeRanges[]` entry resolved for the active domain/timespan —
- * startDate/agl/lastDataUpdate/endTime below just read fields off this and
- * `remoteConfig`, rather than being tracked as their own atoms.
+ * `endTime` below just reads fields off this, rather than being tracked as
+ * its own atom.
  */
 export const remoteTimeRange = atom<RemoteTimeRange | null>(null);
 
@@ -345,12 +345,6 @@ export const remoteTimeRange = atom<RemoteTimeRange | null>(null);
  */
 export const startDate = computed([remoteConfig], remote =>
   remote ? Temporal.Instant.from(remote.startDate) : null
-);
-/*
- * returns the agl (ausgangslage) date for all calculations
- */
-export const agl = computed([remoteTimeRange], entry =>
-  entry ? Temporal.Instant.from(entry.maxAnalysisTimestamp) : null
 );
 /*
   returns lastUpdateTime
@@ -604,8 +598,8 @@ export async function initDomain(
     timeSpan.set(resolvedTimeSpan);
   }
 
-  // 6. Resolve the active timeRanges[] entry (drives startDate/agl/
-  // lastDataUpdate/endTime) only when domain or timeSpan actually changed
+  // 6. Resolve the active timeRanges[] entry (drives endTime) only when
+  // domain or timeSpan actually changed
   if (needsMetadata) {
     if (!remote) return;
     remoteTimeRange.set(
