@@ -327,18 +327,6 @@ export const timeSpanInt = computed([timeSpan], timeSpan =>
   parseInt(String(timeSpan).replace(/\D/g, ""), 10)
 );
 /*
-  returns lastUpdateTime
-*/
-export const lastDataUpdate = atom<Temporal.Instant | null>(null);
-/*
- * returns the start date for history information
- */
-export const startDate = atom<Temporal.Instant | null>(null);
-/*
- * returns the agl (ausgangslage) date for all calculations
- */
-export const agl = atom<Temporal.Instant | null>(null);
-/*
  * returns current time of interest
  */
 export const currentTime = atom<Temporal.Instant | null>(null);
@@ -348,6 +336,31 @@ export const selectedFeature = atom(null);
  * the last config.json fetched for the current domain
  */
 export const remoteConfig = atom<RemoteDomainConfig | null>(null);
+/*
+ * the `timeRanges[]` entry resolved for the active domain/timespan —
+ * startDate/agl/lastDataUpdate/endTime below just read fields off this and
+ * `remoteConfig`, rather than being tracked as their own atoms.
+ */
+export const remoteTimeRange = atom<RemoteTimeRange | null>(null);
+
+/*
+ * returns the start date for history information
+ */
+export const startDate = computed([remoteConfig], remote =>
+  remote ? Temporal.Instant.from(remote.startDate) : null
+);
+/*
+ * returns the agl (ausgangslage) date for all calculations
+ */
+export const agl = computed([remoteTimeRange], entry =>
+  entry ? Temporal.Instant.from(entry.maxAnalysisTimestamp) : null
+);
+/*
+  returns lastUpdateTime
+*/
+export const lastDataUpdate = computed([remoteConfig], remote =>
+  remote ? Temporal.Instant.from(remote.startDateModifyTimestamp) : null
+);
 
 /*
  * returns domain config for the active domain/timespan
@@ -594,16 +607,13 @@ export async function initDomain(
     timeSpan.set(resolvedTimeSpan);
   }
 
-  // 6. Resolve metadata (startDate/agl/lastDataUpdate) only when domain or
-  // timeSpan actually changed
+  // 6. Resolve the active timeRanges[] entry (drives startDate/agl/
+  // lastDataUpdate/endTime) only when domain or timeSpan actually changed
   if (needsMetadata) {
     if (!remote) return;
-    const entry = findTimeRangeEntry(newDomain, resolvedTimeSpan, remote);
-    startDate.set(Temporal.Instant.from(remote.startDate));
-    agl.set(
-      Temporal.Instant.from(entry?.maxAnalysisTimestamp ?? remote.startDate)
+    remoteTimeRange.set(
+      findTimeRangeEntry(newDomain, resolvedTimeSpan, remote) ?? null
     );
-    lastDataUpdate.set(Temporal.Instant.from(remote.startDateModifyTimestamp));
   }
 
   if (gen !== _generation) return;
@@ -671,19 +681,9 @@ export const startTime = computed(
  * heuristics, which the server now resolves itself).
  */
 export const endTime = computed(
-  [domainId, timeSpan, remoteConfig, agl],
-  (domainId, timeSpan, remote, agl): Temporal.Instant | null => {
-    if (
-      !agl ||
-      !domainId ||
-      !timeSpan ||
-      !remote ||
-      remote.parameter !== domainId
-    ) {
-      return null;
-    }
-    const entry = findTimeRangeEntry(domainId, timeSpan, remote);
-    if (!entry) return agl;
+  [remoteTimeRange, timeSpan],
+  (entry, timeSpan): Temporal.Instant | null => {
+    if (!entry || !timeSpan) return null;
     return Temporal.Instant.from(
       timeSpan.includes("+")
         ? entry.maxForecastTimestamp
