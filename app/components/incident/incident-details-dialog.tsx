@@ -669,7 +669,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
 
 export function IncidentDetailsDialog({ incident, onClose }: Props) {
   return (
-    <Modal isOpen={!!incident} onClose={onClose} width="90vw">
+    <Modal isOpen={!!incident} onClose={onClose} width="min(90vw, 64rem)">
       {incident && <IncidentDetails incident={incident} />}
     </Modal>
   );
