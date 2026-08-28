@@ -27,8 +27,7 @@ export const config = {
         sign: "-",
         defaultTimeSpan: null,
         timeSpanToDataId: { "-1": "HS" },
-        layer: { overlay: true, stations: true },
-        direction: false
+        layer: { overlay: true, stations: true }
       }
     },
     "new-snow": {
@@ -36,8 +35,7 @@ export const config = {
         sign: "+",
         defaultTimeSpan: "+12",
         timeSpanToDataId: {},
-        layer: { overlay: true, stations: false },
-        direction: false
+        layer: { overlay: true, stations: false }
       }
     },
     "diff-snow": {
@@ -49,8 +47,7 @@ export const config = {
           "-48": "HSD_48",
           "-72": "HSD_72"
         },
-        layer: { overlay: true, stations: true },
-        direction: false
+        layer: { overlay: true, stations: true }
       }
     },
     "relative-snow": {
@@ -58,8 +55,7 @@ export const config = {
         sign: "+-",
         defaultTimeSpan: null,
         timeSpanToDataId: {},
-        layer: { overlay: true, stations: false },
-        direction: false
+        layer: { overlay: true, stations: false }
       }
     },
     "snow-line": {
@@ -67,8 +63,7 @@ export const config = {
         sign: "+-",
         defaultTimeSpan: null,
         timeSpanToDataId: {},
-        layer: { overlay: true, stations: false },
-        direction: false
+        layer: { overlay: true, stations: false }
       }
     },
     temp: {
@@ -76,8 +71,7 @@ export const config = {
         sign: "+-",
         defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "TA" },
-        layer: { overlay: true, stations: true },
-        direction: false
+        layer: { overlay: true, stations: true }
       }
     },
     wind: {
@@ -86,7 +80,6 @@ export const config = {
         defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "VW" },
         layer: { overlay: true, stations: true },
-        direction: "DW",
         // The live config.json only exposes the wind-speed overlay; the
         // direction overlay has no remote equivalent, so its filename stays
         // hardcoded here.
@@ -102,7 +95,6 @@ export const config = {
         defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "VW_MAX" },
         layer: { overlay: true, stations: true },
-        direction: "DW",
         // Gust borrows the wind domain's direction overlay, same as today.
         secondaryOverlay: {
           file: "{date}_{time}-00_wind-dir_V3.png",
@@ -117,7 +109,6 @@ export const config = {
         defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "wind700hpa" },
         layer: { overlay: true, stations: true },
-        direction: "DW",
         secondaryOverlay: {
           file: "{date}_{time}-00_wind-dir700hpa.png",
           type: "windDirection"
@@ -159,7 +150,6 @@ interface DomainMeta {
   defaultTimeSpan: string | null;
   timeSpanToDataId: Record<string, string>;
   layer: { overlay: boolean; stations: boolean };
-  direction: "DW" | false;
   secondaryOverlay?: { file: string; type: OverlayType; domain?: DomainId };
 }
 
@@ -312,7 +302,11 @@ function buildDomainConfig(
     layer: meta.layer,
     imageOverlay: { file: overlayFile(entry.imageOverlayURL) },
     dataOverlays,
-    direction: meta.direction
+    direction: Object.values(meta.timeSpanToDataId).some(id =>
+      ["VW", "VW_MAX", "wind700hpa"].includes(id)
+    )
+      ? "DW"
+      : false
   };
 }
 
