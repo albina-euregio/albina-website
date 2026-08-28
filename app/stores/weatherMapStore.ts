@@ -8,6 +8,14 @@ import { getDefaultTime, snapToSlot } from "./weatherMapSlots";
 
 const SIMULATE_START = null; //"2023-11-28T22:00Z"; // for debugging day light saving, simulates certain time
 
+/**
+ * `relative-snow` stays fully hardcoded/unmigrated: its own two-URL
+ * overlay/failover setup and metaFiles-less flow. Every other domain is
+ * driven by the live `config.json` published per domain at
+ * `.../zamg_meteo/overlays/{domain}/config.json` (see `RemoteDomainConfig`
+ * below) — this object now only carries the structural, non-meteorological
+ * metadata that endpoint doesn't provide.
+ */
 export const config = {
   settings: {
     timeRange: ["-17520", "+72"],
@@ -18,121 +26,33 @@ export const config = {
   domains: {
     "snow-height": {
       item: {
-        timeSpans: ["-1"],
+        sign: "-",
         defaultTimeSpan: null,
         timeSpanToDataId: { "-1": "HS" },
-        updateTimesOffset: { "-1": 1 },
-        units: "cm",
-        thresholds: [1, 10, 25, 50, 100, 200, 300, 400],
-        colors: {
-          1: [255, 255, 254],
-          2: [255, 255, 179],
-          3: [176, 255, 188],
-          4: [140, 255, 255],
-          5: [3, 205, 255],
-          6: [4, 129, 255],
-          7: [3, 91, 190],
-          8: [120, 75, 255],
-          9: [204, 12, 232]
-        },
-        layer: {
-          overlay: true,
-          stations: true
-        },
-        metaFiles: {
-          agl: "agl.ok",
-          startDate: "startDate.ok"
-        },
-        imageOverlay: { file: "{date}_{time}_{domain}_V2.gif" },
-        dataOverlays: [
-          { file: "{date}_{time}_{domain}_V2.png", type: "snowHeight" }
-        ],
-        direction: false,
-        clusterOperation: "max"
+        layer: { overlay: true, stations: true },
+        direction: false
       }
     },
     "new-snow": {
       item: {
-        timeSpans: ["+6", "+12", "+24", "+48", "+72"],
+        sign: "+",
         defaultTimeSpan: "+12",
         timeSpanToDataId: {},
-        updateTimesOffset: { "*": 12 },
-        units: "cm",
-        thresholds: [1, 5, 10, 20, 30, 50, 75, 100],
-        colors: {
-          1: [255, 255, 254],
-          2: [255, 255, 179],
-          3: [176, 255, 188],
-          4: [140, 255, 255],
-          5: [3, 205, 255],
-          6: [4, 129, 255],
-          7: [3, 91, 190],
-          8: [120, 75, 255],
-          9: [204, 12, 232]
-        },
-        layer: {
-          overlay: true,
-          stations: false
-        },
-        metaFiles: {
-          agl: "agl.ok",
-          startDate: "startDate.ok"
-        },
-        imageOverlay: { file: "{date}_{time}_{domain}_{timespan}h_V2.gif" },
-        dataOverlays: [
-          {
-            file: "{date}_{time}_{domain}_{timespan}h_V2.png",
-            type: "snowHeight"
-          }
-        ],
-        displayedItems: ["snow6f"],
-        direction: false,
-        clusterOperation: "max"
+        layer: { overlay: true, stations: false },
+        direction: false
       }
     },
     "diff-snow": {
       item: {
-        timeSpans: ["-6", "-12", "-24", "-48", "-72"],
+        sign: "-",
         defaultTimeSpan: null,
         timeSpanToDataId: {
           "-24": "HSD_24",
           "-48": "HSD_48",
           "-72": "HSD_72"
         },
-        updateTimesOffset: { "*": 24, "-6": 6, "-12": 12 },
-        metaFiles: {
-          startDate: "startDate.ok",
-          agl: "agl_{timespan}h.ok"
-        },
-        units: "cm",
-        thresholds: [-20, -10, -5, 1, 5, 10, 20, 30, 50, 75, 100],
-        colors: {
-          1: [255, 100, 100],
-          2: [255, 160, 160],
-          3: [255, 210, 210],
-          4: [255, 255, 254],
-          5: [255, 255, 179],
-          6: [176, 255, 188],
-          7: [140, 255, 255],
-          8: [3, 205, 255],
-          9: [4, 129, 255],
-          10: [3, 91, 190],
-          11: [120, 75, 255],
-          12: [204, 12, 232]
-        },
-        layer: {
-          overlay: true,
-          stations: true
-        },
-        imageOverlay: { file: "{date}_{time}_{domain}_{timespan}h_V2.gif" },
-        dataOverlays: [
-          {
-            file: "{date}_{time}_{domain}_{timespan}h_V2.png",
-            type: "snowHeight"
-          }
-        ],
-        direction: false,
-        clusterOperation: "max"
+        layer: { overlay: true, stations: true },
+        direction: false
       }
     },
     "relative-snow": {
@@ -145,7 +65,6 @@ export const config = {
         defaultTimeSpan: null,
         timeSpanToDataId: {},
         updateTimesOffset: { "*": 24 },
-        metaFiles: {},
         units: "%",
         thresholds: [-1, 30, 60, 90, 110, 140, 170, 200, 230, 260],
         colors: {
@@ -161,95 +80,35 @@ export const config = {
           9: "#08519c",
           10: "#08306b"
         },
-        layer: {
-          overlay: true,
-          stations: false
-        },
+        layer: { overlay: true, stations: false },
         imageOverlay: { file: "{date}/{date}_00-00_REL.gif" },
         dataOverlays: [
           { file: "{date}/{date}_00-00_REL.png", type: "snowHeight" }
         ],
-        direction: false,
-        clusterOperation: "max",
-        timeRange: ["-17520", "+24"]
+        direction: false
       }
     },
     "snow-line": {
       item: {
-        timeSpans: ["+-1"],
+        sign: "+-",
         defaultTimeSpan: null,
         timeSpanToDataId: {},
-        updateTimesOffset: { "*": 1 },
-        units: "m",
-        thresholds: [
-          100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300,
-          1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400,
-          2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200, 3300, 3400, 3500, 9876
-        ],
-        colors: {
-          1: [192, 96, 255],
-          2: [155, 0, 224],
-          3: [128, 0, 255],
-          4: [102, 0, 192],
-          5: [51, 0, 128],
-          6: [0, 0, 192],
-          7: [0, 0, 255],
-          8: [51, 153, 255],
-          9: [128, 204, 255],
-          10: [128, 255, 255],
-          11: [0, 255, 192],
-          12: [0, 255, 128],
-          13: [0, 228, 0],
-          14: [0, 192, 0],
-          15: [0, 155, 0],
-          16: [0, 128, 0],
-          17: [96, 155, 0],
-          18: [155, 155, 0],
-          19: [192, 155, 0],
-          20: [192, 192, 0],
-          21: [192, 224, 0],
-          22: [192, 255, 0],
-          23: [255, 255, 0],
-          24: [255, 192, 0],
-          25: [255, 155, 0],
-          26: [255, 128, 0],
-          27: [255, 0, 0],
-          28: [224, 0, 0],
-          29: [192, 0, 0],
-          30: [176, 0, 0],
-          31: [128, 0, 0],
-          32: [153, 0, 102],
-          33: [192, 0, 102],
-          34: [204, 0, 102],
-          35: [204, 0, 92],
-          36: [204, 0, 92]
-        },
-        layer: {
-          overlay: true,
-          stations: false
-        },
-        imageOverlay: { file: "{date}_{time}_{domain}_V3.gif" },
-        dataOverlays: [
-          { file: "{date}_{time}_{domain}_V3.png", type: "snowLine" }
-        ],
-        direction: false,
-        clusterOperation: "max",
-        metaFiles: {
-          startDate: "startDate.ok",
-          agl: "c-laef_agl.ok"
-        },
-        timeRange: ["-17520", "+60"]
+        layer: { overlay: true, stations: false },
+        direction: false
       }
     },
     temp: {
       item: {
-        timeSpans: ["+-1"],
+        sign: "+-",
         defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "TA" },
-        updateTimesOffset: { "*": 1 },
-        units: "\u00b0C",
-        thresholds: [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
-        colors: {
+        layer: { overlay: true, stations: true },
+        direction: false,
+        // The live config.json currently returns an empty `thresholds` array
+        // for temp (the overlay image doesn't need discrete buckets), but
+        // station-marker coloring does — fall back to the previous scale.
+        fallbackThresholds: [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
+        fallbackColors: {
           1: [159, 128, 255],
           2: [120, 75, 255],
           3: [3, 91, 190],
@@ -263,152 +122,260 @@ export const config = {
           11: [255, 85, 54],
           12: [255, 5, 5],
           13: [250, 55, 150]
-        },
-        layer: {
-          overlay: true,
-          stations: true
-        },
-        imageOverlay: { file: "{date}_{time}_{domain}_V3.gif" },
-        dataOverlays: [
-          { file: "{date}_{time}_{domain}_V3.png", type: "temperature" }
-        ],
-        direction: false,
-        clusterOperation: "min",
-        metaFiles: {
-          startDate: "startDate.ok",
-          agl: "c-laef_agl.ok"
-        },
-        timeRange: ["-17520", "+60"]
+        }
       }
     },
     wind: {
       item: {
-        timeSpans: ["+-1"],
+        sign: "+-",
         defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "VW" },
-        updateTimesOffset: { "*": 1 },
-        units: "km/h",
-        thresholds: [5, 10, 20, 40, 60, 80],
-        colors: {
-          1: [255, 255, 100],
-          2: [200, 255, 100],
-          3: [150, 255, 150],
-          4: [50, 200, 255],
-          5: [100, 150, 255],
-          6: [150, 100, 255],
-          7: [255, 50, 50]
-        },
-        layer: {
-          overlay: true,
-          stations: true
-        },
-        imageOverlay: { file: "{date}_{time}_wind_V3.gif" },
-        dataOverlays: [
-          { file: "{date}_{time}_wind_V3.png", type: "windSpeed" },
-          {
-            file: "{date}_{time}_wind-dir_V3.png",
-            type: "windDirection"
-          }
-        ],
+        layer: { overlay: true, stations: true },
         direction: "DW",
-        clusterOperation: "max",
-        metaFiles: {
-          startDate: "startDate.ok",
-          agl: "c-laef_agl.ok"
-        },
-        timeRange: ["-17520", "+60"]
+        // The live config.json only exposes the wind-speed overlay; the
+        // direction overlay has no remote equivalent, so its filename stays
+        // hardcoded here.
+        secondaryOverlay: {
+          file: "{date}_{time}-00_wind-dir_V3.png",
+          type: "windDirection"
+        }
       }
     },
     gust: {
       item: {
-        timeSpans: ["+-1"],
+        sign: "+-",
         defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "VW_MAX" },
-        updateTimesOffset: { "*": 12 },
-        units: "km/h",
-        thresholds: [5, 10, 20, 40, 60, 80],
-        colors: {
-          1: [255, 255, 100],
-          2: [200, 255, 100],
-          3: [150, 255, 150],
-          4: [50, 200, 255],
-          5: [100, 150, 255],
-          6: [150, 100, 255],
-          7: [255, 50, 50]
-        },
-        layer: {
-          overlay: true,
-          stations: true
-        },
-        imageOverlay: { file: "{date}_{time}_gust_V3.gif" },
-        dataOverlays: [
-          { file: "{date}_{time}_gust_V3.png", type: "windSpeed" },
-          {
-            file: "{date}_{time}_wind-dir_V3.png",
-            domain: "wind",
-            type: "windDirection"
-          }
-        ],
+        layer: { overlay: true, stations: true },
         direction: "DW",
-        clusterOperation: "max",
-        metaFiles: {
-          startDate: "../wind/startDate.ok",
-          agl: "c-laef_agl.ok"
-        },
-        timeRange: ["-17520", "+60"]
+        // Gust borrows the wind domain's direction overlay, same as today.
+        secondaryOverlay: {
+          file: "{date}_{time}-00_wind-dir_V3.png",
+          type: "windDirection",
+          domain: "wind"
+        }
       }
     },
     wind700hpa: {
       item: {
-        timeSpans: ["+-1"],
+        sign: "+-",
         defaultTimeSpan: null,
         timeSpanToDataId: { "+-1": "wind700hpa" },
-        updateTimesOffset: { "*": 12 },
-        units: "km/h",
-        thresholds: [5, 10, 20, 40, 60, 80],
-        colors: {
-          1: [255, 255, 100],
-          2: [200, 255, 100],
-          3: [150, 255, 150],
-          4: [50, 200, 255],
-          5: [100, 150, 255],
-          6: [150, 100, 255],
-          7: [255, 50, 50]
-        },
-        layer: {
-          overlay: true,
-          stations: true
-        },
-        imageOverlay: { file: "{date}_{time}_wind700hpa.gif" },
-        dataOverlays: [
-          { file: "{date}_{time}_wind700hpa.png", type: "windSpeed" },
-          {
-            file: "{date}_{time}_wind-dir700hpa.png",
-            type: "windDirection"
-          }
-        ],
+        layer: { overlay: true, stations: true },
         direction: "DW",
-        clusterOperation: "max",
-        metaFiles: {
-          startDate: "startDate.ok",
-          agl: "c-laef_agl.ok"
-        },
-        timeRange: ["-17520", "+60"]
+        secondaryOverlay: {
+          file: "{date}_{time}-00_wind-dir700hpa.png",
+          type: "windDirection"
+        }
       }
     }
   }
 };
 
+type RGB = [number, number, number];
+
 export type DomainId = keyof typeof config.domains;
-export type Domain = (typeof config.domains)[DomainId];
 export type OverlayType =
   | "snowHeight"
   | "snowLine"
   | "temperature"
   | "windSpeed"
   | "windDirection";
-type TimeSpans = Domain["item"]["timeSpans"];
-type TimeSpan = TimeSpans[number];
+export type TimeSpan = string;
+
+/** The runtime, per-domain config consumers read via `domainConfig`. */
+export interface DomainConfig {
+  timeSpans: string[];
+  defaultTimeSpan: string | null;
+  timeSpanToDataId: Record<string, string>;
+  updateTimesOffset: Record<string, number>;
+  units: string;
+  thresholds: number[];
+  colors: Record<number, RGB | string>;
+  layer: { overlay: boolean; stations: boolean };
+  imageOverlay: { file: string };
+  dataOverlays: { file: string; type: OverlayType; domain?: DomainId }[];
+  direction: "DW" | false;
+}
+
+/** Structural, non-meteorological metadata for a remote-driven domain. */
+interface DomainMeta {
+  sign: "+" | "-" | "+-";
+  defaultTimeSpan: string | null;
+  timeSpanToDataId: Record<string, string>;
+  layer: { overlay: boolean; stations: boolean };
+  direction: "DW" | false;
+  secondaryOverlay?: { file: string; type: OverlayType; domain?: DomainId };
+  fallbackThresholds?: number[];
+  fallbackColors?: Record<number, RGB>;
+}
+
+function domainMeta(domainId: DomainId): DomainMeta {
+  return config.domains[domainId].item as unknown as DomainMeta;
+}
+
+/** A single `{ range: [from, to], color }` entry from the live config.json. */
+interface RemoteThreshold {
+  range: [number | null, number | null];
+  color: string;
+}
+
+/** A single per-timespan entry from the live config.json's `timeRanges`. */
+interface RemoteTimeRange {
+  timeRange: number;
+  timeStepHours: number;
+  imageOverlayURL: string;
+  dataOverlayURL: string;
+  initialValidity: [string, string];
+  initialTimestamp: string;
+  maxForecastTimestamp: string;
+  maxAnalysisTimestamp: string;
+}
+
+/** The shape of `.../zamg_meteo/overlays/{domain}/config.json`. */
+interface RemoteDomainConfig {
+  parameter: string;
+  units: string;
+  thresholds: RemoteThreshold[];
+  timeRanges: RemoteTimeRange[];
+  startDate: string;
+  startDateModifyTimestamp: string;
+}
+
+/** Parse a "#rrggbb" hex color into an [r, g, b] triple. */
+function hexToRgb(hex: string): RGB {
+  const n = parseInt(hex.replace("#", ""), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+
+/**
+ * Convert the live `thresholds` (`{range,color}` pairs, ordered low→high)
+ * into the numeric-cutpoints + RGB-record shape the map/marker rendering
+ * code expects. Exact conversion: `thresholds[i] = ranges[i].range[1]` for
+ * every entry but the last (open-ended) one.
+ */
+function buildThresholdsAndColors(
+  remoteThresholds: RemoteThreshold[],
+  fallbackThresholds?: number[],
+  fallbackColors?: Record<number, RGB>
+): { thresholds: number[]; colors: Record<number, RGB> } {
+  if (remoteThresholds.length === 0 && fallbackThresholds && fallbackColors) {
+    return { thresholds: fallbackThresholds, colors: fallbackColors };
+  }
+  const colors: Record<number, RGB> = {};
+  remoteThresholds.forEach((t, i) => {
+    colors[i + 1] = hexToRgb(t.color);
+  });
+  const thresholds = remoteThresholds
+    .slice(0, -1)
+    .map(t => t.range[1] as number);
+  return { thresholds, colors };
+}
+
+/**
+ * The live `imageOverlayURL`/`dataOverlayURL` are absolute wiski.tirol.gv.at
+ * URLs (which send no CORS headers) using `$year`/`$date`/`$hour` tokens. We
+ * only want the filename, translated to the `{year}`/`{date}`/`{time}`
+ * template syntax `getOverlayURLs` already builds against the existing,
+ * CORS-safe proxied base URL.
+ */
+function filenameFromRemoteUrl(url: string): string {
+  const filename = url.slice(url.lastIndexOf("/") + 1);
+  return filename
+    .replace(/\$year/g, "{year}")
+    .replace(/\$date/g, "{date}")
+    .replace(/\$hour/g, "{time}");
+}
+
+function buildUpdateTimesOffset(
+  timeRanges: RemoteTimeRange[],
+  sign: string
+): Record<string, number> {
+  const offset: Record<string, number> = {};
+  timeRanges.forEach(tr => {
+    offset[sign + tr.timeRange] = tr.timeStepHours;
+  });
+  return offset;
+}
+
+/** The `timeRanges[]` entry matching `timeSpan`, else the first entry. */
+function findTimeRangeEntry(
+  domainId: DomainId,
+  timeSpan: TimeSpan | null,
+  remote: RemoteDomainConfig
+): RemoteTimeRange | undefined {
+  const sign = domainMeta(domainId).sign;
+  return (
+    remote.timeRanges.find(tr => sign + tr.timeRange === timeSpan) ??
+    remote.timeRanges[0]
+  );
+}
+
+/**
+ * Build the runtime `DomainConfig` for `domainId`/`timeSpan` from structural
+ * metadata plus the live remote config. `relative-snow` bypasses `remote`
+ * entirely. Returns `null` while `remote` hasn't resolved yet (or belongs to
+ * a domain other than `domainId`, e.g. mid domain-switch) — callers already
+ * null-check `domainConfig`.
+ */
+function buildDomainConfig(
+  domainId: DomainId | null,
+  timeSpan: TimeSpan | null,
+  remote: RemoteDomainConfig | null
+): DomainConfig | null {
+  if (!domainId) return null;
+  if (domainId === "relative-snow") {
+    return config.domains["relative-snow"].item as unknown as DomainConfig;
+  }
+  if (!remote || remote.parameter !== domainId) return null;
+
+  const meta = domainMeta(domainId);
+  const timeSpans = remote.timeRanges.map(tr => meta.sign + tr.timeRange);
+  const entry = findTimeRangeEntry(domainId, timeSpan, remote);
+  if (!entry) return null;
+
+  const { thresholds, colors } = buildThresholdsAndColors(
+    remote.thresholds,
+    meta.fallbackThresholds,
+    meta.fallbackColors
+  );
+
+  const dataOverlays: DomainConfig["dataOverlays"] = [
+    {
+      file: filenameFromRemoteUrl(entry.dataOverlayURL),
+      type: OVERLAY_TYPE_BY_DOMAIN[domainId]
+    }
+  ];
+  if (meta.secondaryOverlay) dataOverlays.push(meta.secondaryOverlay);
+
+  return {
+    timeSpans,
+    defaultTimeSpan: meta.defaultTimeSpan,
+    timeSpanToDataId: meta.timeSpanToDataId,
+    updateTimesOffset: buildUpdateTimesOffset(remote.timeRanges, meta.sign),
+    units: remote.units,
+    thresholds,
+    colors,
+    layer: meta.layer,
+    imageOverlay: { file: filenameFromRemoteUrl(entry.imageOverlayURL) },
+    dataOverlays,
+    direction: meta.direction
+  };
+}
+
+const OVERLAY_TYPE_BY_DOMAIN: Record<
+  Exclude<DomainId, "relative-snow">,
+  OverlayType
+> = {
+  "snow-height": "snowHeight",
+  "new-snow": "snowHeight",
+  "diff-snow": "snowHeight",
+  "snow-line": "snowLine",
+  temp: "temperature",
+  wind: "windSpeed",
+  gust: "windSpeed",
+  wind700hpa: "windSpeed"
+};
 
 export const stations = atom<StationData[]>([]);
 /*
@@ -444,17 +411,19 @@ export const currentTime = atom<Temporal.Instant | null>(null);
 export const selectedFeature = atom(null);
 
 /*
- * returns domain data based on the active domain id
+ * the last config.json fetched for the current domain (null for
+ * relative-snow, which stays fully hardcoded)
  */
-export const domain = computed(
-  [domainId],
-  domainId => config.domains[domainId] as Domain
-);
+export const remoteConfig = atom<RemoteDomainConfig | null>(null);
 
 /*
- * returns domain
+ * returns domain config for the active domain/timespan
  */
-export const domainConfig = computed([domain], domain => domain?.item);
+export const domainConfig = computed(
+  [domainId, timeSpan, remoteConfig],
+  (domainId, timeSpan, remoteConfig) =>
+    buildDomainConfig(domainId, timeSpan, remoteConfig)
+);
 /** A loaded data overlay image, sampled by `valueForPixel` at a coordinate. */
 export interface DataOverlay {
   type: OverlayType;
@@ -475,6 +444,26 @@ function getDomainOverlayBaseURLs(
     | [string, string]
     | undefined;
   return urls ?? null;
+}
+
+/**
+ * Fetch the live per-domain config.json through the same proxied base URL
+ * used for overlay images (CORS-safe, same-origin) — never directly from
+ * wiski.tirol.gv.at, which sends no CORS headers.
+ */
+async function fetchRemoteDomainConfig(
+  domain: DomainId
+): Promise<RemoteDomainConfig> {
+  const baseUrl = getDomainOverlayBaseURLs(domain)?.[0];
+  if (!baseUrl) {
+    throw new Error(`No overlay base URL configured for ${domain}`);
+  }
+  const url = window.config.template(baseUrl + "config.json", { domain });
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status}`);
+  }
+  return response.json();
 }
 
 /**
@@ -547,15 +536,6 @@ function _updateDataOverlays() {
 }
 
 /*
- * returns timeRange
- */
-export const timeRange = computed(
-  [domainConfig],
-  domainConfig =>
-    (domainConfig?.timeRange || config.settings?.timeRange) as string[]
-);
-
-/*
  * get data for currentTime
  */
 let _loadIndexGeneration = 0;
@@ -586,36 +566,11 @@ async function _loadIndexData() {
 }
 
 /*
- * Fetch a metadata date file (startDate.ok or agl.ok)
- */
-async function fetchMetaDate(url: string): Promise<Temporal.Instant | null> {
-  if (SIMULATE_START) {
-    return Temporal.Instant.from(SIMULATE_START);
-  }
-  const response = await fetch(url);
-  if (!response.ok) {
-    return Temporal.Now.instant();
-  }
-
-  const lastModified = response.headers.get("last-modified");
-  if (lastModified) {
-    const date = Temporal.Instant.fromEpochMilliseconds(
-      Date.parse(lastModified)
-    );
-    const update = lastDataUpdate.get();
-    if (!update || Temporal.Instant.compare(date, update) > 0) {
-      lastDataUpdate.set(date);
-    }
-  }
-
-  const text = await response.text();
-  return text.includes("T") ? Temporal.Instant.from(text.trim()) : null;
-}
-
-/*
  * Single entry point for all weather map state changes.
  * Called from weather.tsx when URL params change.
- * - Skips metadata fetch if domain+timeSpan unchanged
+ * - Fetches the domain's live config.json when the domain changes (skipped
+ *   for relative-snow, which stays fully hardcoded)
+ * - Skips the fetch (and metadata resolution) if domain+timeSpan unchanged
  * - Resolves time from URL timestamp or calculates default
  * - Generation counter cancels stale responses
  */
@@ -631,23 +586,37 @@ export async function initDomain(
   newDomain ||= "new-snow";
   if (!checkDomainId(newDomain)) return;
 
-  // 2. Resolve timespan
-  const domainConf = config.domains[newDomain].item;
+  // 2. Fetch the domain's live config when the domain changed
+  const domainChanged = newDomain !== domainId.get();
+  let remote = remoteConfig.get();
+  if (domainChanged) {
+    if (newDomain === "relative-snow") {
+      remote = null;
+    } else {
+      try {
+        remote = await fetchRemoteDomainConfig(newDomain);
+      } catch (err) {
+        console.error("Weather data API is not available", err);
+        return;
+      }
+      if (gen !== _generation) return;
+    }
+    remoteConfig.set(remote);
+  }
+
+  // 3. Resolve timespan
+  const domainConf = buildDomainConfig(newDomain, newTimeSpan ?? null, remote);
+  if (!domainConf) return;
   const resolvedTimeSpan =
-    newTimeSpan && checkTimeSpan(newDomain, newTimeSpan as TimeSpan)
-      ? (newTimeSpan as TimeSpan)
+    newTimeSpan && domainConf.timeSpans.includes(newTimeSpan)
+      ? newTimeSpan
       : domainConf.defaultTimeSpan || domainConf.timeSpans[0];
 
-  // 3. Detect what changed
-  const domainChanged = newDomain !== domainId.get();
+  // 4. Detect what changed
   const timeSpanChanged = resolvedTimeSpan !== timeSpan.get();
   const needsMetadata = domainChanged || timeSpanChanged;
-  const metaFiles = domainConf.metaFiles as
-    | { startDate?: string; agl?: string }
-    | undefined;
-  const hasMetaFiles = Boolean(metaFiles?.startDate && metaFiles?.agl);
 
-  // 4. Set domain and timespan atoms
+  // 5. Set domain and timespan atoms
   if (domainChanged) {
     domainId.set(newDomain);
     selectedFeature.set(null);
@@ -656,14 +625,10 @@ export async function initDomain(
     timeSpan.set(resolvedTimeSpan);
   }
 
-  // 5. Fetch metadata only when domain or timeSpan actually changed
+  // 6. Resolve metadata (startDate/agl/lastDataUpdate) only when domain or
+  // timeSpan actually changed
   if (needsMetadata) {
-    const baseUrl = getDomainOverlayBaseURLs(newDomain)?.[0];
-    const absSpan = Math.abs(
-      parseInt(String(resolvedTimeSpan).replace("+-", ""), 10)
-    );
-
-    if (!hasMetaFiles || !baseUrl) {
+    if (newDomain === "relative-snow") {
       const fallback = SIMULATE_START
         ? Temporal.Instant.from(SIMULATE_START)
         : Temporal.Now.zonedDateTimeISO()
@@ -671,35 +636,31 @@ export async function initDomain(
             .toInstant();
       startDate.set(fallback);
       agl.set(fallback);
-    } else {
-      const knownMeta = metaFiles as { startDate: string; agl: string };
-      const startDateUrl = window.config.template(
-        baseUrl + knownMeta.startDate,
-        { domain: newDomain }
+    } else if (remote) {
+      const entry = findTimeRangeEntry(newDomain, resolvedTimeSpan, remote);
+      startDate.set(
+        SIMULATE_START
+          ? Temporal.Instant.from(SIMULATE_START)
+          : Temporal.Instant.from(remote.startDate)
       );
-      const aglUrl = window.config.template(baseUrl + knownMeta.agl, {
-        domain: newDomain,
-        timespan: absSpan
-      });
-
-      try {
-        const [start, aglDate] = await Promise.all([
-          fetchMetaDate(startDateUrl),
-          fetchMetaDate(aglUrl)
-        ]);
-        if (gen !== _generation) return; // stale — newer call superseded this one
-        startDate.set(start);
-        agl.set(aglDate);
-      } catch (err) {
-        console.error("Weather data API is not available", err);
-        return;
-      }
+      agl.set(
+        SIMULATE_START
+          ? Temporal.Instant.from(SIMULATE_START)
+          : Temporal.Instant.from(
+              entry?.maxAnalysisTimestamp ?? remote.startDate
+            )
+      );
+      lastDataUpdate.set(
+        Temporal.Instant.from(remote.startDateModifyTimestamp)
+      );
+    } else {
+      return;
     }
   }
 
   if (gen !== _generation) return;
 
-  // 6. Resolve time — URL timestamp if provided and valid, else calculate default
+  // 7. Resolve time — URL timestamp if provided and valid, else calculate default
   const absSpan = absTimeSpan.get();
   const now = SIMULATE_START
     ? Temporal.Instant.from(SIMULATE_START)
@@ -732,7 +693,7 @@ export async function initDomain(
     );
   }
 
-  if (newDomain === "relative-snow" && !hasMetaFiles) {
+  if (newDomain === "relative-snow") {
     lastDataUpdate.set(resolvedTime.subtract({ hours: 24 }));
   }
 
@@ -745,7 +706,7 @@ export async function initDomain(
     currentTime.set(resolvedTime);
   }
 
-  // 7. Load overlay images and station data only if something actually changed
+  // 8. Load overlay images and station data only if something actually changed
   if (needsMetadata || timeChanged) {
     _updateDataOverlays();
     if (gen === _generation) {
@@ -755,34 +716,36 @@ export async function initDomain(
 }
 
 export const startTime = computed(
-  [startDate, timeRange],
-  (startDate, timeRange): Temporal.Instant | null => {
+  [startDate],
+  (startDate): Temporal.Instant | null => {
     if (!startDate) return null;
-    return startDate.add({ hours: +timeRange[0] });
+    return startDate.add({ hours: +config.settings.timeRange[0] });
   }
 );
 
+/*
+ * returns endTime — for relative-snow, agl + its fixed 24h forecast window;
+ * for every other (remote-driven) domain, the live config's own resolved
+ * forecast/analysis bound for the current timespan (replaces the previous
+ * hour-of-day heuristics, which the server now resolves itself).
+ */
 export const endTime = computed(
-  [agl, timeSpan, timeSpanInt, timeRange],
-  (agl, timeSpan, timeSpanInt, timeRange): Temporal.Instant | null => {
+  [domainId, timeSpan, remoteConfig, agl],
+  (domainId, timeSpan, remote, agl): Temporal.Instant | null => {
     if (!agl) return null;
-
-    if (timeSpan?.includes("+")) {
-      return agl.add({ hours: +timeRange[1] });
+    if (domainId === "relative-snow") {
+      return agl.add({ hours: 24 });
     }
-    if (
-      timeSpanInt === 12 &&
-      [6, 18].includes(agl.toZonedDateTimeISO("UTC").hour)
-    ) {
-      return agl.subtract({ hours: 6 });
+    if (!domainId || !timeSpan || !remote || remote.parameter !== domainId) {
+      return null;
     }
-    if (
-      timeSpanInt % 24 === 0 &&
-      [12].includes(agl.toZonedDateTimeISO("UTC").hour)
-    ) {
-      return agl.subtract({ hours: 12 });
-    }
-    return agl;
+    const entry = findTimeRangeEntry(domainId, timeSpan, remote);
+    if (!entry) return agl;
+    return Temporal.Instant.from(
+      timeSpan.includes("+")
+        ? entry.maxForecastTimestamp
+        : entry.maxAnalysisTimestamp
+    );
   }
 );
 
@@ -808,6 +771,7 @@ export const initialDate = computed(
 export const overlayURLs = computed(
   [currentTime, domainConfig, domainId, absTimeSpan],
   (currentTime, domainConfig, domainId, absTimeSpan) => {
+    if (!domainConfig) return ["", ""] as [string, string];
     return getOverlayURLs(
       currentTime,
       domainId,
@@ -833,9 +797,10 @@ function getOverlayURLs(
   const data = {
     year: effectiveTime.toString().slice(0, "2025".length),
     date: effectiveTime.toString().slice(0, "2025-03-14".length),
-    time:
-      currentTime.toZonedDateTimeISO("UTC").hour.toString().padStart(2, "0") +
-      "-00",
+    time: currentTime
+      .toZonedDateTimeISO("UTC")
+      .hour.toString()
+      .padStart(2, "0"),
     domain,
     timespan
   };
@@ -851,10 +816,10 @@ function getOverlayURLs(
 export const nextUpdateTime = computed(
   [domainConfig, lastDataUpdate, timeSpan],
   (domainConfig, lastDataUpdate, timeSpan) => {
-    if (!domainConfig.updateTimesOffset || !lastDataUpdate) return null;
+    if (!domainConfig?.updateTimesOffset || !lastDataUpdate) return null;
     const timesConfig = domainConfig.updateTimesOffset;
 
-    const addHours = timesConfig[timeSpan] || timesConfig["*"];
+    const addHours = (timeSpan && timesConfig[timeSpan]) || timesConfig["*"];
     if (addHours) {
       return lastDataUpdate.add({ hours: addHours });
     }
@@ -904,14 +869,4 @@ export function valueForPixel(
  */
 function checkDomainId(domainId: DomainId) {
   return Boolean(domainId && config?.domains[domainId]?.item);
-}
-
-/*
- * control method to check if the item does exist in the config
- */
-function checkTimeSpan(domainId: DomainId, timeSpan: TimeSpan) {
-  return Boolean(
-    checkDomainId(domainId) &&
-    config.domains[domainId].item.timeSpans.includes(timeSpan)
-  );
 }

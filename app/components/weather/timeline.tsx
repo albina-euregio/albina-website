@@ -261,8 +261,8 @@ const Timeline = () => {
   const jumpTimeSpan = (direction: 1 | -1 | number) => {
     cancelPendingNav();
     if (!timeSpan0) return;
-    const timeSpans = store.domainConfig.get().timeSpans;
-    if (timeSpans.length < 2) return;
+    const timeSpans = store.domainConfig.get()?.timeSpans;
+    if (!timeSpans || timeSpans.length < 2) return;
     let index = timeSpans.indexOf(timeSpan0);
     if (index < 0) return;
     index = (index + direction + timeSpans.length) % timeSpans.length;

@@ -50,6 +50,7 @@ const WeatherMapCockpit = () => {
   const timeSpan = useStore(store.timeSpan);
   const nextUpdateTime = useStore(store.nextUpdateTime);
   const lastUpdateTime = useStore(store.lastDataUpdate);
+  const domainConfig = useStore(store.domainConfig);
 
   useEffect(() => {
     window.addEventListener("resize", redraw);
@@ -155,9 +156,7 @@ const WeatherMapCockpit = () => {
   const getTimeSpanOptions = () => {
     let allButtons;
 
-    if (store.config?.domains?.[domainId]) {
-      const domainConfig = store.config.domains[domainId].item;
-
+    if (domainConfig) {
       const buttons = domainConfig.timeSpans.map(aItem => {
         const nrOnlyTimespan = aItem.replace(/\D/g, "");
         return (
