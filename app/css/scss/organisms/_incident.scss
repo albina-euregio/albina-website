@@ -180,6 +180,29 @@
       }
     }
   }
+
+  // Attachments that can't be previewed (anything but images), styled like
+  // the external-links list below them.
+  .incident-details-attachment-links {
+    margin: variables.$padding 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: variables.$table-small-font-size;
+
+    li {
+      margin-bottom: (variables.$padding * 0.5);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .incident-details-attachment-links__meta {
+      margin-left: 0.5em;
+      color: variables.$grey-light;
+      font-size: 0.85em;
+    }
+  }
 }
 
 .incident-details-danger-rating {
@@ -196,12 +219,13 @@
   }
 }
 
-.incident-details-bulletin-link {
+.incident-details-link-icon {
   display: inline-flex;
   align-items: center;
   gap: 0.35em;
 
-  .icon-external:before {
+  .icon-external:before,
+  .icon-download:before {
     margin: 0;
   }
 }

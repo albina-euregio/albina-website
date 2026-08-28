@@ -153,9 +153,65 @@ function aspectLabel(
 
 type GalleryAttachment = IncidentAttachmentView & { id: string };
 
-/** Renders a grid of attachment figures (images or download links). Images
- * open enlarged in a lightbox, flipping through the other images of this
- * grid — mirrors the bulletin report's photo gallery. */
+function isImageAttachment(a: IncidentAttachmentView): a is GalleryAttachment {
+  return !!a.id && !!a.mediaType?.startsWith("image/");
+}
+
+/** Fallback extensions for attachments whose `fileName` doesn't already carry
+ * one, keyed by `mediaType` — used so a forced download still gets a correct
+ * file-ending even when the uploaded name didn't have one. */
+const MEDIA_TYPE_EXTENSIONS: Record<string, string> = {
+  "application/pdf": "pdf",
+  "application/msword": "doc",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+    "docx",
+  "application/vnd.ms-excel": "xls",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+  "application/zip": "zip",
+  "application/gpx+xml": "gpx",
+  "text/csv": "csv",
+  "text/plain": "txt"
+};
+
+function attachmentDownloadName(a: IncidentAttachmentView): string | undefined {
+  const { fileName, mediaType } = a;
+  if (fileName && /\.[a-z0-9]+$/i.test(fileName)) return fileName;
+  const ext = mediaType && MEDIA_TYPE_EXTENSIONS[mediaType];
+  if (!ext) return fileName;
+  return fileName ? `${fileName}.${ext}` : `attachment.${ext}`;
+}
+
+/** A non-image attachment rendered as a download link — same shape as a
+ * plain external link, just with a download icon instead of an external one. */
+function AttachmentLinkValue({ a }: { a: IncidentAttachmentView }): ReactNode {
+  return (
+    <>
+      <a
+        className="incident-details-link-icon"
+        href={a.url}
+        download={attachmentDownloadName(a)}
+      >
+        {a.fileName ?? a.url}
+        <span className="icon-download" aria-hidden="true" />
+      </a>
+      {(a.caption || a.credit) && (
+        <span className="incident-details-attachment-links__meta">
+          {a.caption}
+          {a.credit && <span className="credit"> © {a.credit}</span>}
+        </span>
+      )}
+    </>
+  );
+}
+
+function attachmentLinkField(a: IncidentAttachmentView): Field {
+  return { label: "", value: <AttachmentLinkValue a={a} /> };
+}
+
+/** Renders a grid of image attachments, opening enlarged in a lightbox that
+ * flips through the other images of this grid — mirrors the bulletin
+ * report's photo gallery. Non-image attachments (PDFs, other files) can't be
+ * previewed this way, so they're rendered as plain download links instead. */
 function AttachmentGrid({
   attachments
 }: {
@@ -163,40 +219,46 @@ function AttachmentGrid({
 }) {
   const [openId, setOpenId] = useState("");
   if (!attachments?.length) return null;
-  const images = attachments.filter(
-    (a): a is GalleryAttachment => !!a.id && !!a.mediaType?.startsWith("image/")
-  );
+  const images = attachments.filter(isImageAttachment);
+  const linkOnly = attachments.filter(a => !isImageAttachment(a));
   return (
-    <div className="incident-details-attachments">
-      {attachments.map(a => (
-        <figure key={a.id} className="incident-details-attachment">
-          {a.id && a.mediaType?.startsWith("image/") ? (
-            <button
-              type="button"
-              className="incident-details-attachment-trigger"
-              onClick={() => setOpenId(a.id ?? "")}
-            >
-              <img src={a.url} alt={a.altText || a.caption || a.fileName} />
-            </button>
-          ) : (
-            <a href={a.url} target="_blank" rel="noreferrer">
-              {a.fileName ?? a.url}
-            </a>
-          )}
-          {(a.caption || a.credit) && (
-            <figcaption>
-              {a.caption}
-              {a.credit && <span className="credit"> © {a.credit}</span>}
-            </figcaption>
-          )}
-        </figure>
-      ))}
+    <>
+      {images.length > 0 && (
+        <div className="incident-details-attachments">
+          {images.map(a => (
+            <figure key={a.id} className="incident-details-attachment">
+              <button
+                type="button"
+                className="incident-details-attachment-trigger"
+                onClick={() => setOpenId(a.id ?? "")}
+              >
+                <img src={a.url} alt={a.altText || a.caption || a.fileName} />
+              </button>
+              {(a.caption || a.credit) && (
+                <figcaption>
+                  {a.caption}
+                  {a.credit && <span className="credit"> © {a.credit}</span>}
+                </figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+      )}
+      {linkOnly.length > 0 && (
+        <ul className="incident-details-attachment-links">
+          {linkOnly.map(a => (
+            <li key={a.id}>
+              <AttachmentLinkValue a={a} />
+            </li>
+          ))}
+        </ul>
+      )}
       <AttachmentLightbox
         images={images}
         openId={openId}
         setOpenId={setOpenId}
       />
-    </div>
+    </>
   );
 }
 
@@ -346,18 +408,30 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const { bySection: attachments } = groupAttachmentsByCategory(
     incident.attachments
   );
+  const imageAttachments = incident.attachments.filter(isImageAttachment);
+  const nonImageAttachments = incident.attachments.filter(
+    a => !isImageAttachment(a)
+  );
   const attachmentLinks = d.publicExternalLinks
     ?.split(/[\s,]+/)
     .filter(url => /^https?:\/\//.test(url));
-  const attachmentLinkFields: Field[] =
-    attachmentLinks?.map(url => ({
+  const attachmentFields: Field[] = [
+    ...nonImageAttachments.map(attachmentLinkField),
+    ...(attachmentLinks?.map(url => ({
       label: "",
       value: (
-        <a href={url} target="_blank" rel="noreferrer">
+        <a
+          className="incident-details-link-icon"
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+        >
           {url}
+          <span className="icon-external" aria-hidden="true" />
         </a>
       )
-    })) ?? [];
+    })) ?? [])
+  ];
 
   const ledeHtml = textBlock(d.incidentLede, d.incidentLedePublic);
   const dateTime =
@@ -596,7 +670,7 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             label: intl.formatMessage({ id: "bulletin:header:forecast" }),
             value: bulletinDate && incident.microRegion && (
               <a
-                className="incident-details-bulletin-link"
+                className="incident-details-link-icon"
                 href={`/bulletin/${bulletinDate}?${new URLSearchParams({
                   region: incident.microRegion
                 })}`}
@@ -614,11 +688,8 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         ]}
       />
 
-      <Section
-        title={label("incidentAttachments")}
-        fields={attachmentLinkFields}
-      >
-        <AttachmentGrid attachments={incident.attachments} />
+      <Section title={label("incidentAttachments")} fields={attachmentFields}>
+        <AttachmentGrid attachments={imageAttachments} />
       </Section>
 
       {ledeHtml?.trim() && (
