@@ -4,7 +4,7 @@ import {
   _loadStationData as loadStationData,
   type StationData
 } from "./stationDataStore";
-import { getDefaultTime, snapToSlot } from "./weatherMapSlots";
+import { snapToSlot } from "./weatherMapSlots";
 
 /**
  * Every domain is driven by the live `config.json` published per domain at
@@ -604,16 +604,15 @@ export async function initDomain(
 
   if (gen !== _generation) return;
 
-  // 7. Resolve time — URL timestamp if provided and valid, else calculate default
-  const absSpan = absTimeSpan.get();
-  const now = Temporal.Now.zonedDateTimeISO()
-    .round({ smallestUnit: "hours", roundingMode: "trunc" })
-    .toInstant();
+  // 7. Resolve time — URL timestamp if provided and valid, else the live
+  // config's own resolved default for this domain/timespan
+  const entry = remoteTimeRange.get();
+  if (!entry) return;
   let resolvedTime: Temporal.Instant;
 
   if (timestamp) {
     const parsed = Temporal.Instant.from(timestamp);
-    const snapped = snapToSlot(parsed, absSpan);
+    const snapped = snapToSlot(parsed, absTimeSpan.get());
     const st = startTime.get();
     const et = endTime.get();
     if (st && et) {
@@ -627,12 +626,7 @@ export async function initDomain(
       resolvedTime = snapped;
     }
   } else {
-    resolvedTime = getDefaultTime(
-      now,
-      startDate.get(),
-      timeSpan.get(),
-      absSpan
-    );
+    resolvedTime = Temporal.Instant.from(entry.initialTimestamp);
   }
 
   const timeChanged =
