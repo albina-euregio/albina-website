@@ -43,7 +43,7 @@ export type TimeSpan = number;
 /** The runtime, per-domain config consumers read via `domainConfig`. */
 export interface DomainConfig {
   timeSpans: TimeSpan[];
-  timeSpanToDataId: Record<string, string>;
+  timeSpanToDataId: Record<TimeSpan, string>;
   /** How often this domain/timeSpan is published, in hours. */
   timeStepHours: number;
   units: string;
@@ -69,21 +69,20 @@ const WIND_DIRECTION_OVERLAY_BY_DOMAIN: Partial<
 };
 
 /**
- * `[domainId, timeSpan, dataId]` triples for the live config.json
- * `parameter`/dataId each domain/timeSpan combination corresponds to.
- * Combinations not listed here have no dedicated dataId (e.g. new-snow,
- * relative-snow, snow-line).
+ * The station dataId each domain/timeSpan combination corresponds to.
+ * Domains missing here have no dedicated dataId (new-snow, relative-snow,
+ * snow-line), and neither do a listed domain's other timespans.
  */
-const DATA_ID_BY_DOMAIN_TIME_SPAN: [DomainId, TimeSpan, string][] = [
-  ["snow-height", 1, "HS"],
-  ["diff-snow", 24, "HSD_24"],
-  ["diff-snow", 48, "HSD_48"],
-  ["diff-snow", 72, "HSD_72"],
-  ["temp", 1, "TA"],
-  ["wind", 1, "VW"],
-  ["gust", 1, "VW_MAX"],
-  ["wind700hpa", 1, "wind700hpa"]
-];
+const DATA_ID_BY_DOMAIN_TIME_SPAN: Partial<
+  Record<DomainId, Record<TimeSpan, string>>
+> = {
+  "snow-height": { 1: "HS" },
+  "diff-snow": { 24: "HSD_24", 48: "HSD_48", 72: "HSD_72" },
+  temp: { 1: "TA" },
+  wind: { 1: "VW" },
+  gust: { 1: "VW_MAX" },
+  wind700hpa: { 1: "wind700hpa" }
+};
 
 /** A single `{ range: [from, to], color }` entry from the live config.json. */
 export interface RemoteThreshold {
@@ -143,12 +142,8 @@ function buildDomainConfig(
   if (!domainId || !remoteDomainConfig || !remoteTimeRange) return null;
 
   const timeSpans = remoteDomainConfig.timeRanges.map(tr => tr.timeRange);
-  // this domain's slice of DATA_ID_BY_DOMAIN_TIME_SPAN, keyed by timeSpan
-  const timeSpanToDataId: Record<string, string> = Object.fromEntries(
-    DATA_ID_BY_DOMAIN_TIME_SPAN.filter(([id]) => id === domainId).map(
-      ([, timeSpan, dataId]) => [timeSpan, dataId]
-    )
-  );
+  const timeSpanToDataId: DomainConfig["timeSpanToDataId"] =
+    DATA_ID_BY_DOMAIN_TIME_SPAN[domainId] ?? {};
 
   // relative-snow's own server sends CORS headers, so its URL is used
   // directly — every other domain's is wiski.tirol.gv.at (no CORS headers),
