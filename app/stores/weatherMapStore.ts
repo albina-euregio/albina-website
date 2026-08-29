@@ -167,13 +167,14 @@ function buildUpdateTimesOffset(
 function findTimeRangeEntry(
   domainId: DomainId,
   timeSpan: TimeSpan | null,
-  remote: RemoteDomainConfig
+  remoteDomainConfig: RemoteDomainConfig
 ): RemoteTimeRange | undefined {
   const item = config.domains[domainId].item as unknown as DomainMeta;
   const sign = item.sign ?? "+-";
   return (
-    remote.timeRanges.find(tr => sign + tr.timeRange === timeSpan) ??
-    remote.timeRanges[0]
+    remoteDomainConfig.timeRanges.find(
+      tr => sign + tr.timeRange === timeSpan
+    ) ?? remoteDomainConfig.timeRanges[0]
   );
 }
 
@@ -188,23 +189,35 @@ function timeSpanToDataIdFor(domainId: DomainId): Record<string, string> {
 
 /**
  * Build the runtime `DomainConfig` for `domainId`/`timeSpan` from structural
- * metadata plus the live remote config. Returns `null` while `remote` hasn't
- * resolved yet (or belongs to a domain other than `domainId`, e.g. mid
- * domain-switch) — callers already null-check `domainConfig`.
+ * metadata plus the live remote config. Returns `null` while
+ * `remoteDomainConfig` hasn't resolved yet (or belongs to a domain other
+ * than `domainId`, e.g. mid domain-switch) — callers already null-check
+ * `domainConfig`.
  */
 function buildDomainConfig(
   domainId: DomainId | null,
   timeSpan: TimeSpan | null,
-  remote: RemoteDomainConfig | null
+  remoteDomainConfig: RemoteDomainConfig | null
 ): DomainConfig | null {
-  if (!domainId || !remote || remote.parameter !== domainId) return null;
+  if (
+    !domainId ||
+    !remoteDomainConfig ||
+    remoteDomainConfig.parameter !== domainId
+  )
+    return null;
 
   const item = config.domains[domainId].item as unknown as DomainMeta;
   const meta = { sign: "+-" as const, ...item };
-  const timeSpans = remote.timeRanges.map(tr => meta.sign + tr.timeRange);
+  const timeSpans = remoteDomainConfig.timeRanges.map(
+    tr => meta.sign + tr.timeRange
+  );
   const timeSpanToDataId = timeSpanToDataIdFor(domainId);
-  const entry = findTimeRangeEntry(domainId, timeSpan, remote);
-  if (!entry) return null;
+  const remoteTimeRange = findTimeRangeEntry(
+    domainId,
+    timeSpan,
+    remoteDomainConfig
+  );
+  if (!remoteTimeRange) return null;
 
   // relative-snow's own server sends CORS headers, so its URL is used
   // directly — every other domain's is wiski.tirol.gv.at (no CORS headers),
@@ -214,7 +227,7 @@ function buildDomainConfig(
 
   const dataOverlays: DomainConfig["dataOverlays"] = [
     {
-      file: overlayFile(entry.dataOverlayURL),
+      file: overlayFile(remoteTimeRange.dataOverlayURL),
       type: OVERLAY_TYPE_BY_DOMAIN[domainId]
     }
   ];
@@ -223,11 +236,14 @@ function buildDomainConfig(
   return {
     timeSpans,
     timeSpanToDataId,
-    updateTimesOffset: buildUpdateTimesOffset(remote.timeRanges, meta.sign),
-    units: remote.units,
-    thresholds: remote.thresholds,
+    updateTimesOffset: buildUpdateTimesOffset(
+      remoteDomainConfig.timeRanges,
+      meta.sign
+    ),
+    units: remoteDomainConfig.units,
+    thresholds: remoteDomainConfig.thresholds,
     stations: Object.keys(timeSpanToDataId).length > 0,
-    imageOverlay: { file: overlayFile(entry.imageOverlayURL) },
+    imageOverlay: { file: overlayFile(remoteTimeRange.imageOverlayURL) },
     dataOverlays,
     direction: Object.values(timeSpanToDataId).some(id =>
       ["VW", "VW_MAX", "wind700hpa"].includes(id)
@@ -273,7 +289,7 @@ export const selectedFeature = atom(null);
 /*
  * the last config.json fetched for the current domain
  */
-export const remoteConfig = atom<RemoteDomainConfig | null>(null);
+export const remoteDomainConfig = atom<RemoteDomainConfig | null>(null);
 /*
  * the `timeRanges[]` entry resolved for the active domain/timespan —
  * `endTime` below just reads fields off this, rather than being tracked as
@@ -284,23 +300,29 @@ export const remoteTimeRange = atom<RemoteTimeRange | null>(null);
 /*
  * returns the start date for history information
  */
-export const startDate = computed([remoteConfig], remote =>
-  remote ? Temporal.Instant.from(remote.startDate) : null
+export const startDate = computed([remoteDomainConfig], remoteDomainConfig =>
+  remoteDomainConfig
+    ? Temporal.Instant.from(remoteDomainConfig.startDate)
+    : null
 );
 /*
   returns lastUpdateTime
 */
-export const lastDataUpdate = computed([remoteConfig], remote =>
-  remote ? Temporal.Instant.from(remote.startDateModifyTimestamp) : null
+export const lastDataUpdate = computed(
+  [remoteDomainConfig],
+  remoteDomainConfig =>
+    remoteDomainConfig
+      ? Temporal.Instant.from(remoteDomainConfig.startDateModifyTimestamp)
+      : null
 );
 
 /*
  * returns domain config for the active domain/timespan
  */
 export const domainConfig = computed(
-  [domainId, timeSpan, remoteConfig],
-  (domainId, timeSpan, remoteConfig) =>
-    buildDomainConfig(domainId, timeSpan, remoteConfig)
+  [domainId, timeSpan, remoteDomainConfig],
+  (domainId, timeSpan, remoteDomainConfig) =>
+    buildDomainConfig(domainId, timeSpan, remoteDomainConfig)
 );
 /**
  * A loaded data overlay image, sampled by `valueForPixel` at a coordinate.
@@ -530,20 +552,24 @@ export async function initDomain(
 
   // 2. Fetch the domain's live config when the domain changed
   const domainChanged = newDomain !== domainId.get();
-  let remote = remoteConfig.get();
+  let currentRemoteDomainConfig = remoteDomainConfig.get();
   if (domainChanged) {
     try {
-      remote = await fetchRemoteDomainConfig(newDomain);
+      currentRemoteDomainConfig = await fetchRemoteDomainConfig(newDomain);
     } catch (err) {
       console.error("Weather data API is not available", err);
       return;
     }
     if (gen !== _generation) return;
-    remoteConfig.set(remote);
+    remoteDomainConfig.set(currentRemoteDomainConfig);
   }
 
   // 3. Resolve timespan
-  const domainConf = buildDomainConfig(newDomain, newTimeSpan ?? null, remote);
+  const domainConf = buildDomainConfig(
+    newDomain,
+    newTimeSpan ?? null,
+    currentRemoteDomainConfig
+  );
   if (!domainConf) return;
   const resolvedTimeSpan =
     newTimeSpan && domainConf.timeSpans.includes(newTimeSpan)
@@ -566,9 +592,13 @@ export async function initDomain(
   // 6. Resolve the active timeRanges[] entry (drives endTime) only when
   // domain or timeSpan actually changed
   if (needsMetadata) {
-    if (!remote) return;
+    if (!currentRemoteDomainConfig) return;
     remoteTimeRange.set(
-      findTimeRangeEntry(newDomain, resolvedTimeSpan, remote) ?? null
+      findTimeRangeEntry(
+        newDomain,
+        resolvedTimeSpan,
+        currentRemoteDomainConfig
+      ) ?? null
     );
   }
 
@@ -576,8 +606,8 @@ export async function initDomain(
 
   // 7. Resolve time — URL timestamp if provided and valid, else the live
   // config's own resolved default for this domain/timespan
-  const entry = remoteTimeRange.get();
-  if (!entry) return;
+  const currentRemoteTimeRange = remoteTimeRange.get();
+  if (!currentRemoteTimeRange) return;
   let resolvedTime: Temporal.Instant;
 
   if (timestamp) {
@@ -596,7 +626,9 @@ export async function initDomain(
       resolvedTime = snapped;
     }
   } else {
-    resolvedTime = Temporal.Instant.from(entry.initialTimestamp);
+    resolvedTime = Temporal.Instant.from(
+      currentRemoteTimeRange.initialTimestamp
+    );
   }
 
   const timeChanged =
@@ -634,8 +666,10 @@ export const startTime = computed(
   }
 );
 
-export const endTime = computed([remoteTimeRange], entry =>
-  entry ? Temporal.Instant.from(entry.maxForecastTimestamp) : null
+export const endTime = computed([remoteTimeRange], remoteTimeRange =>
+  remoteTimeRange
+    ? Temporal.Instant.from(remoteTimeRange.maxForecastTimestamp)
+    : null
 );
 
 export const overlayURLs = computed(
