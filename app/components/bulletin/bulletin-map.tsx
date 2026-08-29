@@ -25,6 +25,7 @@ import {
   padBounds
 } from "../../stores/eawsRegions";
 import {
+  EawsRegionDataLayer,
   filterFeatureSpecification,
   getMacroRegion,
   microRegionIds
@@ -85,12 +86,27 @@ interface RegionFeatureStates {
   internById: Record<string, boolean>;
   hoverStateById: Record<string, RegionState>;
   hoverGroup: Record<string, string[]>;
+  /** ids living in the `outline` source-layer (foreign EAWS providers). */
+  outlineIds: Set<string>;
 }
 
-const REGION_SOURCE = {
-  source: "eaws-regions",
-  sourceLayer: "micro-regions"
-} as const;
+const REGION_SOURCE = "eaws-regions";
+
+// Fill layers hit-tested for click / hover, in rendering order (topmost last).
+const FILL_LAYERS = ["eaws-regions-fill", "eaws-outline-fill"];
+
+// Own/extra regions are styled per micro-region, foreign EAWS providers as a
+// whole outline, so a feature-state has to be addressed on the right
+// source-layer (ids of the two layers are disjoint).
+function regionFeature(fs: RegionFeatureStates, id: string) {
+  return {
+    source: REGION_SOURCE,
+    sourceLayer: fs.outlineIds.has(id)
+      ? EawsRegionDataLayer.outline
+      : EawsRegionDataLayer.micro_regions,
+    id
+  };
+}
 
 // Push the per-region `state` / `dangerRating` / `intern` feature-states onto the
 // overlay source, then re-apply the active hover group on top of the new base
@@ -100,22 +116,18 @@ function applyFeatureStates(
   fs: RegionFeatureStates,
   hoverActive: string[]
 ) {
-  if (!map?.getSource(REGION_SOURCE.source)) return;
+  if (!map?.getSource(REGION_SOURCE)) return;
   for (const id of Object.keys(fs.stateById)) {
-    map.setFeatureState(
-      { ...REGION_SOURCE, id },
-      {
-        state: fs.stateById[id],
-        dangerRating: fs.dangerRatingById[id] ?? 0,
-        intern: !!fs.internById[id]
-      }
-    );
+    map.setFeatureState(regionFeature(fs, id), {
+      state: fs.stateById[id],
+      dangerRating: fs.dangerRatingById[id] ?? 0,
+      intern: !!fs.internById[id]
+    });
   }
   for (const id of hoverActive) {
-    map.setFeatureState(
-      { ...REGION_SOURCE, id },
-      { state: fs.hoverStateById[id] }
-    );
+    map.setFeatureState(regionFeature(fs, id), {
+      state: fs.hoverStateById[id]
+    });
   }
 }
 
@@ -541,10 +553,13 @@ function MapLibreMap({
       ]),
     [activeBulletinCollection?.date]
   );
-  const eawsRegions = useMemo(
-    () => eawsRegionIds().filter(r => !config.extraRegions.includes(r)),
-    []
-  );
+  // Foreign EAWS providers, rendered as whole outlines (`outline` source-layer).
+  const eawsRegions = useMemo(() => {
+    const exclude: string[] = config.eawsRegionsExclude ?? [];
+    return eawsRegionIds().filter(
+      r => !config.extraRegions.includes(r) && !exclude.includes(r)
+    );
+  }, []);
   const eawsMicroRegions = useMemo(
     () =>
       Object.keys(activeBulletinCollection?.eawsMaxDangerRatings || {}).filter(
@@ -744,7 +759,8 @@ function MapLibreMap({
       dangerRatingById,
       internById,
       hoverStateById,
-      hoverGroup
+      hoverGroup,
+      outlineIds: new Set(eawsRegions)
     };
   }, [
     activeBulletinCollection,
@@ -769,6 +785,15 @@ function MapLibreMap({
     const today = activeBulletinCollection?.date?.toString();
     return filterFeatureSpecification(today);
   }, [activeBulletinCollection?.date]);
+
+  // The `outline` source-layer holds every EAWS provider, including our own
+  // regions (drawn per micro-region instead) and the configured exclusions, so
+  // it is restricted to the foreign providers we actually style. Outlines carry
+  // no start_date/end_date, so the only date check left is "is there a date".
+  const outlineFilter = useMemo((): FilterSpecification => {
+    if (!activeBulletinCollection?.date) return false;
+    return ["in", ["get", "id"], ["literal", eawsRegions]];
+  }, [activeBulletinCollection?.date, eawsRegions]);
 
   useEffect(() => {
     if (!webglSupported) return;
@@ -870,6 +895,24 @@ function MapLibreMap({
         filter: featureFilter,
         paint: REGION_LINE_PAINT
       });
+      // Foreign EAWS providers are styled as a whole outline (grey when the
+      // provider publishes no ratings at all), on top of their micro-regions.
+      overlay.addLayer({
+        id: "eaws-outline-fill",
+        type: "fill",
+        source: "eaws-regions",
+        "source-layer": EawsRegionDataLayer.outline,
+        filter: outlineFilter,
+        paint: REGION_FILL_PAINT
+      });
+      overlay.addLayer({
+        id: "eaws-outline-line",
+        type: "line",
+        source: "eaws-regions",
+        "source-layer": EawsRegionDataLayer.outline,
+        filter: outlineFilter,
+        paint: REGION_LINE_PAINT
+      });
 
       // Push the initial feature-states now that the source exists (subsequent
       // changes flow through the effect below).
@@ -883,7 +926,7 @@ function MapLibreMap({
       // event handlers: select on click (empty space deselects), track hover.
       overlay.on("click", e => {
         const [feature] = overlay.queryRenderedFeatures(e.point, {
-          layers: ["eaws-regions-fill"]
+          layers: FILL_LAYERS
         });
         const id = feature?.properties?.id ?? "";
         if (!id || microRegionsRef.current.includes(id)) {
@@ -902,20 +945,18 @@ function MapLibreMap({
       const setHover = (ids: string[]) => {
         const fs = featureStatesRef.current;
         for (const id of hoverActiveRef.current) {
-          overlay.setFeatureState(
-            { ...REGION_SOURCE, id },
-            { state: fs.stateById[id] }
-          );
+          overlay.setFeatureState(regionFeature(fs, id), {
+            state: fs.stateById[id]
+          });
         }
         hoverActiveRef.current = ids;
         for (const id of ids) {
-          overlay.setFeatureState(
-            { ...REGION_SOURCE, id },
-            { state: fs.hoverStateById[id] }
-          );
+          overlay.setFeatureState(regionFeature(fs, id), {
+            state: fs.hoverStateById[id]
+          });
         }
       };
-      overlay.on("mousemove", "eaws-regions-fill", e => {
+      overlay.on("mousemove", FILL_LAYERS, e => {
         overlay.getCanvas().style.cursor = "pointer";
         const id = e.features?.[0]?.id;
         if (id == null || String(id) === hoverAnchorRef.current) return;
@@ -925,7 +966,7 @@ function MapLibreMap({
         ];
         setHover(group);
       });
-      overlay.on("mouseleave", "eaws-regions-fill", () => {
+      overlay.on("mouseleave", FILL_LAYERS, () => {
         overlay.getCanvas().style.cursor = "";
         hoverAnchorRef.current = "";
         setHover([]);
@@ -987,11 +1028,16 @@ function MapLibreMap({
   // Re-apply the date-validity filter to both region layers when the date changes.
   useEffect(() => {
     const map = overlayMapRef.current;
-    for (const id of ["eaws-regions-fill", "eaws-regions-line"]) {
+    for (const [id, filter] of [
+      ["eaws-regions-fill", featureFilter],
+      ["eaws-regions-line", featureFilter],
+      ["eaws-outline-fill", outlineFilter],
+      ["eaws-outline-line", outlineFilter]
+    ] as const) {
       if (!map?.getLayer(id)) break;
-      map.setFilter(id, featureFilter);
+      map.setFilter(id, filter);
     }
-  }, [featureFilter]);
+  }, [featureFilter, outlineFilter]);
 
   if (!webglSupported) {
     return (
