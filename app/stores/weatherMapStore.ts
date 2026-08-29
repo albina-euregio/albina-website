@@ -523,7 +523,7 @@ export async function initDomain(
   if (timestamp) {
     const parsed = Temporal.Instant.from(timestamp);
     const snapped = snapToSlot(parsed, currentRemoteTimeRange.timeStepHours);
-    const min = startTime.get();
+    const min = minTimestamp.get();
     const max = maxForecastTimestamp.get();
     if (min && max) {
       resolvedTime =
@@ -571,7 +571,7 @@ export async function initDomain(
  * returns the earliest selectable time — the config's `startDate` less the
  * history window the timeline offers
  */
-export const startTime = computed(
+export const minTimestamp = computed(
   [remoteDomainConfig],
   (remoteDomainConfig): Temporal.Instant | null =>
     remoteDomainConfig

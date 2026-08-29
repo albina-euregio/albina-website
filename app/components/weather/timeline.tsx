@@ -23,7 +23,7 @@ const Timeline = () => {
   // NaN until the domain's config.json has resolved.
   const timeStepHours = useStore(store.domainConfig)?.timeStepHours ?? NaN;
   const maxAnalysisTimestamp = useStore(store.maxAnalysisTimestamp);
-  const startTime = useStore(store.startTime);
+  const minTimestamp = useStore(store.minTimestamp);
   const maxForecastTimestamp = useStore(store.maxForecastTimestamp);
   const currentTime = useStore(store.currentTime);
   const barDuration = timeSpan;
@@ -154,12 +154,12 @@ const Timeline = () => {
   }, [currentTime]);
 
   useEffect(() => {
-    if (!startTime || !maxForecastTimestamp) return;
-    setMaxStartDay(Math.floor(now.until(startTime).total({ unit: "days" })));
+    if (!minTimestamp || !maxForecastTimestamp) return;
+    setMaxStartDay(Math.floor(now.until(minTimestamp).total({ unit: "days" })));
     setMaxEndDay(
       Math.floor(now.until(maxForecastTimestamp).total({ unit: "days" }))
     );
-  }, [startTime, maxForecastTimestamp, now]);
+  }, [minTimestamp, maxForecastTimestamp, now]);
 
   useEffect(() => {
     if (targetDate && containerRef?.current?.clientWidth) {
@@ -241,7 +241,7 @@ const Timeline = () => {
   };
 
   const jumpStep = (direction: 1 | -1 | number) => {
-    if (!maxForecastTimestamp || !startTime) return;
+    if (!maxForecastTimestamp || !minTimestamp) return;
     const newDate = currentDateRef.current?.add({
       hours: direction * timeStepHours
     });
@@ -249,7 +249,7 @@ const Timeline = () => {
 
     if (
       Temporal.Instant.compare(newDate, maxForecastTimestamp) <= 0 &&
-      Temporal.Instant.compare(newDate, startTime) >= 0
+      Temporal.Instant.compare(newDate, minTimestamp) >= 0
     ) {
       // Update the ref eagerly so rapid keypresses accumulate steps
       currentDateRef.current = newDate;
@@ -324,9 +324,9 @@ const Timeline = () => {
 
         if (
           isSelectable &&
-          startTime &&
+          minTimestamp &&
           maxForecastTimestamp &&
-          Temporal.Instant.compare(markDate, startTime) >= 0 &&
+          Temporal.Instant.compare(markDate, minTimestamp) >= 0 &&
           Temporal.Instant.compare(markDate, maxForecastTimestamp) <= 0
         ) {
           markClass.push("selectable-hour-mark");
@@ -345,7 +345,10 @@ const Timeline = () => {
             markClass.push("selectable-hours-end");
           }
         }
-        if (startTime && Temporal.Instant.compare(markDate, startTime) === 0) {
+        if (
+          minTimestamp &&
+          Temporal.Instant.compare(markDate, minTimestamp) === 0
+        ) {
           markClass.push("selectable-hours-start");
         }
 
@@ -420,10 +423,10 @@ const Timeline = () => {
     }
 
     // Clamp to the valid selectable range so the user can't drag past
-    // startTime / maxForecastTimestamp
-    if (startTime && maxForecastTimestamp) {
+    // minTimestamp / maxForecastTimestamp
+    if (minTimestamp && maxForecastTimestamp) {
       const minTranslateX =
-        startOfDay.until(startTime).total({ unit: "hours" }) * pixelsPerHour;
+        startOfDay.until(minTimestamp).total({ unit: "hours" }) * pixelsPerHour;
       const maxTranslateX =
         startOfDay.until(maxForecastTimestamp).total({ unit: "hours" }) *
         pixelsPerHour;
@@ -612,7 +615,7 @@ const Timeline = () => {
               width: 0,
               height: 0
             }}
-            min={startTime
+            min={minTimestamp
               ?.toZonedDateTimeISO("UTC")
               .toPlainDateTime()
               .toString()}
