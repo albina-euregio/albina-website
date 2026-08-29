@@ -66,14 +66,16 @@ const Timeline = () => {
 
   const navigateToWeatermapWithParams = (
     timestamp: string,
-    timeSpan: string | null
+    timeSpan: store.TimeSpan | null
   ) => {
     // Preserve the domain parameter while updating timestamp
     const domain = store.domainId.get();
     redirectPage(
       $router,
       "weatherMapDomainTimestamp",
-      timeSpan ? { domain, timestamp, timeSpan } : { domain, timestamp }
+      timeSpan
+        ? { domain, timestamp, timeSpan: String(timeSpan) }
+        : { domain, timestamp }
     );
   };
 
@@ -274,7 +276,7 @@ const Timeline = () => {
   const jumpDomain = (direction: 1 | -1 | number) => {
     cancelPendingNav();
     if (!domainId) return;
-    const domains = Object.keys(store.config.domains);
+    const domains = store.config.domains;
     let index = domains.indexOf(domainId);
     if (index < 0) return;
     index = (index + direction + domains.length) % domains.length;

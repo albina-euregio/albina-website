@@ -18,51 +18,31 @@ export const config = {
     // [sw, ne] as [lng, lat].
     bbox: new LngLatBounds([9.4, 45.6167], [13.0333, 47.8167])
   },
-  domains: {
-    // `sign` defaults to `"+-"` (see `findTimeRangeEntry`) — so only the
-    // domains below that deviate need to state it.
-    "snow-height": {
-      item: { sign: "-" }
-    },
-    "new-snow": {
-      item: { sign: "+" }
-    },
-    "diff-snow": {
-      item: { sign: "-" }
-    },
-    "relative-snow": {
-      item: {}
-    },
-    "snow-line": {
-      item: {}
-    },
-    temp: {
-      item: {}
-    },
-    wind: {
-      item: {}
-    },
-    gust: {
-      item: {}
-    },
-    wind700hpa: {
-      item: {}
-    }
-  }
+  domains: [
+    "snow-height",
+    "new-snow",
+    "diff-snow",
+    "relative-snow",
+    "snow-line",
+    "temp",
+    "wind",
+    "gust",
+    "wind700hpa"
+  ] as const
 };
 
-export type DomainId = keyof typeof config.domains;
+export type DomainId = (typeof config.domains)[number];
 export type OverlayType =
   | "snowHeight"
   | "snowLine"
   | "temperature"
   | "windSpeed"
   | "windDirection";
-export type TimeSpan = string;
+export type TimeSpan = number;
 
 /** The runtime, per-domain config consumers read via `domainConfig`. */
 export interface DomainConfig {
-  timeSpans: string[];
+  timeSpans: TimeSpan[];
   timeSpanToDataId: Record<string, string>;
   updateTimesOffset: Record<string, number>;
   units: string;
@@ -71,11 +51,6 @@ export interface DomainConfig {
   imageOverlay: { file: string };
   dataOverlays: { file: string; type: OverlayType; domain?: DomainId }[];
   direction: "DW" | false;
-}
-
-/** Structural, non-meteorological metadata for a remote-driven domain. */
-interface DomainMeta {
-  sign?: "+" | "-" | "+-";
 }
 
 /**
@@ -99,14 +74,14 @@ const WIND_DIRECTION_OVERLAY_BY_DOMAIN: Partial<
  * relative-snow, snow-line).
  */
 const DATA_ID_BY_DOMAIN_TIME_SPAN: [DomainId, TimeSpan, string][] = [
-  ["snow-height", "-1", "HS"],
-  ["diff-snow", "-24", "HSD_24"],
-  ["diff-snow", "-48", "HSD_48"],
-  ["diff-snow", "-72", "HSD_72"],
-  ["temp", "+-1", "TA"],
-  ["wind", "+-1", "VW"],
-  ["gust", "+-1", "VW_MAX"],
-  ["wind700hpa", "+-1", "wind700hpa"]
+  ["snow-height", 1, "HS"],
+  ["diff-snow", 24, "HSD_24"],
+  ["diff-snow", 48, "HSD_48"],
+  ["diff-snow", 72, "HSD_72"],
+  ["temp", 1, "TA"],
+  ["wind", 1, "VW"],
+  ["gust", 1, "VW_MAX"],
+  ["wind700hpa", 1, "wind700hpa"]
 ];
 
 /** A single `{ range: [from, to], color }` entry from the live config.json. */
@@ -148,26 +123,21 @@ function filenameFromRemoteUrl(url: string): string {
 }
 
 function buildUpdateTimesOffset(
-  timeRanges: RemoteTimeRange[],
-  sign: string
+  timeRanges: RemoteTimeRange[]
 ): Record<string, number> {
   return Object.fromEntries(
-    timeRanges.map(tr => [sign + tr.timeRange, tr.timeStepHours])
+    timeRanges.map(tr => [tr.timeRange, tr.timeStepHours])
   );
 }
 
 /** The `timeRanges[]` entry matching `timeSpan`, else the first entry. */
 function findTimeRangeEntry(
-  domainId: DomainId,
   timeSpan: TimeSpan | null,
   remoteDomainConfig: RemoteDomainConfig
 ): RemoteTimeRange | undefined {
-  const item = config.domains[domainId].item as unknown as DomainMeta;
-  const sign = item.sign ?? "+-";
   return (
-    remoteDomainConfig.timeRanges.find(
-      tr => sign + tr.timeRange === timeSpan
-    ) ?? remoteDomainConfig.timeRanges[0]
+    remoteDomainConfig.timeRanges.find(tr => tr.timeRange === timeSpan) ??
+    remoteDomainConfig.timeRanges[0]
   );
 }
 
@@ -199,17 +169,9 @@ function buildDomainConfig(
   )
     return null;
 
-  const item = config.domains[domainId].item as unknown as DomainMeta;
-  const meta = { sign: "+-" as const, ...item };
-  const timeSpans = remoteDomainConfig.timeRanges.map(
-    tr => meta.sign + tr.timeRange
-  );
+  const timeSpans = remoteDomainConfig.timeRanges.map(tr => tr.timeRange);
   const timeSpanToDataId = timeSpanToDataIdFor(domainId);
-  const remoteTimeRange = findTimeRangeEntry(
-    domainId,
-    timeSpan,
-    remoteDomainConfig
-  );
+  const remoteTimeRange = findTimeRangeEntry(timeSpan, remoteDomainConfig);
   if (!remoteTimeRange) return null;
 
   // relative-snow's own server sends CORS headers, so its URL is used
@@ -232,10 +194,7 @@ function buildDomainConfig(
   return {
     timeSpans,
     timeSpanToDataId,
-    updateTimesOffset: buildUpdateTimesOffset(
-      remoteDomainConfig.timeRanges,
-      meta.sign
-    ),
+    updateTimesOffset: buildUpdateTimesOffset(remoteDomainConfig.timeRanges),
     units: remoteDomainConfig.units,
     thresholds: remoteDomainConfig.thresholds,
     stations: Object.keys(timeSpanToDataId).length > 0,
@@ -270,12 +229,8 @@ export const domainId = atom<DomainId | null>(null);
  * returns current timespan selection
  */
 export const timeSpan = atom<TimeSpan | null>(null);
-export const absTimeSpan = computed([timeSpan], timeSpan =>
-  Math.abs(parseInt(String(timeSpan).replace("+-", ""), 10))
-);
-export const timeSpanInt = computed([timeSpan], timeSpan =>
-  parseInt(String(timeSpan).replace(/\D/g, ""), 10)
-);
+export const absTimeSpan = computed([timeSpan], timeSpan => timeSpan ?? NaN);
+export const timeSpanInt = computed([timeSpan], timeSpan => timeSpan ?? NaN);
 /*
  * returns current time of interest
  */
@@ -561,15 +516,16 @@ export async function initDomain(
   }
 
   // 3. Resolve timespan
+  const parsedTimeSpan = newTimeSpan ? parseInt(newTimeSpan, 10) : null;
   const domainConf = buildDomainConfig(
     newDomain,
-    newTimeSpan ?? null,
+    parsedTimeSpan,
     currentRemoteDomainConfig
   );
   if (!domainConf) return;
   const resolvedTimeSpan =
-    newTimeSpan && domainConf.timeSpans.includes(newTimeSpan)
-      ? newTimeSpan
+    parsedTimeSpan !== null && domainConf.timeSpans.includes(parsedTimeSpan)
+      ? parsedTimeSpan
       : domainConf.timeSpans[0];
 
   // 4. Detect what changed
@@ -590,11 +546,7 @@ export async function initDomain(
   if (needsMetadata) {
     if (!currentRemoteDomainConfig) return;
     remoteTimeRange.set(
-      findTimeRangeEntry(
-        newDomain,
-        resolvedTimeSpan,
-        currentRemoteDomainConfig
-      ) ?? null
+      findTimeRangeEntry(resolvedTimeSpan, currentRemoteDomainConfig) ?? null
     );
   }
 
@@ -741,5 +693,5 @@ export const nextUpdateTime = computed(
  * control method to check if the domain does exist in the config
  */
 function checkDomainId(domainId: DomainId) {
-  return Boolean(domainId && config?.domains[domainId]?.item);
+  return Boolean(domainId && config.domains.includes(domainId));
 }

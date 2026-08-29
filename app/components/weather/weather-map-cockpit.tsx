@@ -96,7 +96,7 @@ const WeatherMapCockpit = () => {
         redirectPage($router, "weatherMapDomainTimestamp", {
           domain,
           timestamp: ct ? ct.toString() : "",
-          timeSpan: value
+          timeSpan: String(value)
         });
         break;
       }
@@ -107,7 +107,7 @@ const WeatherMapCockpit = () => {
 
   const getDomainButtons = () => {
     const domainButtons = store.config
-      ? Object.keys(store.config.domains).map(domainId => {
+      ? store.config.domains.map(domainId => {
           return {
             id: domainId,
             title: (
@@ -158,7 +158,7 @@ const WeatherMapCockpit = () => {
 
     if (domainConfig) {
       const buttons = domainConfig.timeSpans.map(aItem => {
-        const nrOnlyTimespan = aItem.replace(/\D/g, "");
+        const nrOnlyTimespan = String(aItem);
         return (
           <a
             role="button"

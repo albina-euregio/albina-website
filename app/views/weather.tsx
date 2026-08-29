@@ -38,7 +38,7 @@ const Weather = () => {
       redirectPage($router, "weatherMapDomainTimestamp", {
         domain: domainId,
         timestamp: currentTime.toString(),
-        timeSpan: store.timeSpan.get()
+        timeSpan: String(store.timeSpan.get())
       });
     }
   }, [currentTime, domainId, params.timestamp]);
