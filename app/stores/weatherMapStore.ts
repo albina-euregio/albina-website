@@ -71,8 +71,6 @@ export const config = {
   }
 };
 
-export type RGB = [number, number, number];
-
 export type DomainId = keyof typeof config.domains;
 export type OverlayType =
   | "snowHeight"
@@ -144,12 +142,6 @@ interface RemoteDomainConfig {
   timeRanges: RemoteTimeRange[];
   startDate: string;
   startDateModifyTimestamp: string;
-}
-
-/** Parse a "#rrggbb" hex color into an [r, g, b] triple. */
-export function hexToRgb(hex: string): RGB {
-  const n = parseInt(hex.replace("#", ""), 16);
-  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
 
 /**

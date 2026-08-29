@@ -119,6 +119,18 @@ async function readOverlayValue(lngLat: LngLatLike): Promise<number | null> {
   );
 }
 
+type RGB = [number, number, number];
+
+/**
+ * Parse a "#rrggbb" hex color into an [r, g, b] triple — only needed to
+ * bridge into MapLibreMap's `MarkerItem` contract below, which is RGB-native
+ * because it's shared with the real stations feature's hardcoded RGB data.
+ */
+function hexToRgb(hex: string): RGB {
+  const n = parseInt(hex.replace("#", ""), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+
 /**
  * The data marker's DOM: a dashed (forecast) disc colored by the value's
  * highest exceeded threshold (white when missing), with the value as text in a
@@ -132,15 +144,15 @@ function createDataMarkerElement(
   let fillColor = "#fff";
   let textColor = "#000";
   if (value != null) {
-    let color = store.hexToRgb(thresholds[0].color);
+    let hex = thresholds[0].color;
     for (let i = 0; i < thresholds.length - 1; i++) {
       if (value > (thresholds[i].range[1] as number)) {
-        color = store.hexToRgb(thresholds[i + 1].color);
+        hex = thresholds[i + 1].color;
       }
     }
-    const [r, g, b] = color;
+    const [r, g, b] = hexToRgb(hex);
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-    fillColor = `rgb(${r}, ${g}, ${b})`;
+    fillColor = hex;
     textColor = luminance > 0.435 ? "#000" : "#fff";
   }
   const el = document.createElement("div");
@@ -398,7 +410,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   // this one remaining boundary.
   const markerItem: MarkerItem = {
     colors: Object.fromEntries(
-      domainConfig.thresholds.map((t, i) => [i + 1, store.hexToRgb(t.color)])
+      domainConfig.thresholds.map((t, i) => [i + 1, hexToRgb(t.color)])
     ),
     thresholds: domainConfig.thresholds
       .slice(0, -1)
