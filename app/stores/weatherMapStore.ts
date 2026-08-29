@@ -487,7 +487,7 @@ export async function initDomain(
 
   // 1. Validate and resolve domain
   newDomain ||= "new-snow";
-  if (!checkDomainId(newDomain)) return;
+  if (!config.domains.includes(newDomain)) return;
 
   // 2. Fetch the domain's live config when the domain changed
   const domainChanged = newDomain !== domainId.get();
@@ -673,10 +673,3 @@ export const nextUpdateTime = computed(
       ? startDateModifyTimestamp.add({ hours: domainConfig.timeStepHours })
       : null
 );
-
-/*
- * control method to check if the domain does exist in the config
- */
-function checkDomainId(domainId: DomainId) {
-  return Boolean(domainId && config.domains.includes(domainId));
-}
