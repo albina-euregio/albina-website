@@ -232,10 +232,17 @@ export const selectedFeature = atom(null);
 export const remoteDomainConfig = atom<RemoteDomainConfig | null>(null);
 /*
  * the `timeRanges[]` entry resolved for the active domain/timespan —
- * `endTime` below just reads fields off this, rather than being tracked as
- * its own atom.
+ * `endTime` below just reads fields off this. Null while the config hasn't
+ * resolved, or belongs to another domain (mid domain-switch), so it can
+ * never describe a different domain than `domainConfig` does.
  */
-export const remoteTimeRange = atom<RemoteTimeRange | null>(null);
+export const remoteTimeRange = computed(
+  [domainId, timeSpan, remoteDomainConfig],
+  (domainId, timeSpan, remoteDomainConfig) =>
+    domainId && remoteDomainConfig?.parameter === domainId
+      ? (findTimeRangeEntry(timeSpan, remoteDomainConfig) ?? null)
+      : null
+);
 
 /*
  * returns the start date for history information
@@ -481,8 +488,8 @@ async function _loadIndexData() {
  * Single entry point for all weather map state changes.
  * Called from weather.tsx when URL params change.
  * - Fetches the domain's live config.json when the domain changes
- * - Skips the fetch (and metadata resolution) if domain+timeSpan unchanged
  * - Resolves time from URL timestamp or calculates default
+ * - Reloads overlays/stations only when domain, timespan or time changed
  * - Generation counter cancels stale responses
  */
 let _generation = 0;
@@ -525,11 +532,10 @@ export async function initDomain(
       ? parsedTimeSpan
       : timeSpans[0];
 
-  // 4. Detect what changed
   const timeSpanChanged = resolvedTimeSpan !== timeSpan.get();
-  const needsMetadata = domainChanged || timeSpanChanged;
 
-  // 5. Set domain and timespan atoms
+  // 4. Set domain and timespan atoms — `remoteTimeRange` and `domainConfig`
+  // follow from these
   if (domainChanged) {
     domainId.set(newDomain);
     selectedFeature.set(null);
@@ -538,17 +544,9 @@ export async function initDomain(
     timeSpan.set(resolvedTimeSpan);
   }
 
-  // 6. Resolve the active timeRanges[] entry (drives endTime) only when
-  // domain or timeSpan actually changed
-  if (needsMetadata) {
-    remoteTimeRange.set(
-      findTimeRangeEntry(resolvedTimeSpan, currentRemoteDomainConfig) ?? null
-    );
-  }
-
   if (gen !== _generation) return;
 
-  // 7. Resolve time — URL timestamp if provided and valid, else the live
+  // 5. Resolve time — URL timestamp if provided and valid, else the live
   // config's own resolved default for this domain/timespan
   const currentRemoteTimeRange = remoteTimeRange.get();
   if (!currentRemoteTimeRange) return;
@@ -584,8 +582,8 @@ export async function initDomain(
     currentTime.set(resolvedTime);
   }
 
-  // 8. Load overlay images and station data only if something actually changed
-  if (needsMetadata || timeChanged) {
+  // 6. Load overlay images and station data only if something actually changed
+  if (domainChanged || timeSpanChanged || timeChanged) {
     // Load data overlay images for pixel-value reading. Separated from a
     // computed to avoid side effects (Image creation) in pure derivations.
     const dc = domainConfig.get();
