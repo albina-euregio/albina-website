@@ -655,21 +655,8 @@ export const startTime = computed(
   }
 );
 
-/*
- * returns endTime — the live config's own resolved forecast/analysis bound
- * for the current domain/timespan (replaces the previous hour-of-day
- * heuristics, which the server now resolves itself).
- */
-export const endTime = computed(
-  [remoteTimeRange, timeSpan],
-  (entry, timeSpan): Temporal.Instant | null => {
-    if (!entry || !timeSpan) return null;
-    return Temporal.Instant.from(
-      timeSpan.includes("+")
-        ? entry.maxForecastTimestamp
-        : entry.maxAnalysisTimestamp
-    );
-  }
+export const endTime = computed([remoteTimeRange], entry =>
+  entry ? Temporal.Instant.from(entry.maxForecastTimestamp) : null
 );
 
 export const initialDate = computed(
