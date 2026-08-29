@@ -17,6 +17,9 @@ const Timeline = () => {
   const domainId = useStore(store.domainId);
   const timeSpan0 = useStore(store.timeSpan);
   const timeSpanInt = useStore(store.timeSpanInt);
+  // The spacing of selectable times: how often this domain/timespan is
+  // actually published, straight from the live config's `timeStepHours`.
+  const timeStepHours = useStore(store.timeStepHours);
   const startDate = useStore(store.startDate);
   const startTime = useStore(store.startTime);
   const endTime = useStore(store.endTime);
@@ -44,8 +47,6 @@ const Timeline = () => {
   const [barOffset, setBarOffset] = useState(0);
   const [playerIsActive, setPlayerIsActive] = useState(false);
   const [pixelsPerHour, setPixelsPerHour] = useState(5);
-  const [selectableHoursOffset, setSelectableHoursOffset] =
-    useState(timeSpanInt);
   const currentDateRef = useRef(currentTime);
   const pendingNav = useRef<number | null>(null);
 
@@ -155,8 +156,6 @@ const Timeline = () => {
 
   useEffect(() => {
     if (targetDate && containerRef?.current?.clientWidth) {
-      setSelectableHoursOffset(timeSpanInt >= 24 ? 24 : timeSpanInt);
-
       calcIndicatorOffset();
 
       const targetDay = Math.floor(
@@ -186,7 +185,7 @@ const Timeline = () => {
       snapToDate(targetDate);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]);
+  }, [rulerStartDay, rulerEndDay, endTime, targetDate, timeStepHours]);
 
   useEffect(() => {
     setPlayerIsActive(false);
@@ -210,11 +209,8 @@ const Timeline = () => {
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    const factor = event.ctrlKey
-      ? timeSpanInt > 24
-        ? 24
-        : 24 / timeSpanInt
-      : 1;
+    // ctrl+arrow jumps a whole day, whatever the publication step is
+    const factor = event.ctrlKey ? 24 / timeStepHours : 1;
     switch (event.key) {
       case "ArrowLeft":
         return jumpStep(-1 * factor);
@@ -234,7 +230,7 @@ const Timeline = () => {
   const jumpStep = (direction: 1 | -1 | number) => {
     if (!endTime || !startTime) return;
     const newDate = currentDateRef.current?.add({
-      hours: direction * selectableHoursOffset
+      hours: direction * timeStepHours
     });
     if (!newDate) return;
 
@@ -311,7 +307,7 @@ const Timeline = () => {
         const localHour = localDate.hour;
         const markClass = [localHour === 0 ? "day-mark" : ""];
 
-        const isSelectable = hour % selectableHoursOffset === 0 && hour >= 0;
+        const isSelectable = hour % timeStepHours === 0 && hour >= 0;
 
         if (
           isSelectable &&
@@ -326,7 +322,7 @@ const Timeline = () => {
         }
         if (isSelectable && endTime) {
           const nextSelectableDate = localDate
-            .add({ hours: selectableHoursOffset })
+            .add({ hours: timeStepHours })
             .toInstant();
           if (
             Temporal.Instant.compare(endTime, markDate) >= 0 &&
@@ -391,12 +387,12 @@ const Timeline = () => {
       </div>
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rulerStartDay, rulerEndDay, endTime, targetDate, selectableHoursOffset]);
+  }, [rulerStartDay, rulerEndDay, endTime, targetDate, timeStepHours]);
 
   const updateTimelinePosition = (newTranslateX: number, snap: boolean) => {
     let usedTranslateX = newTranslateX;
     if (snap) {
-      const snapToHours = selectableHoursOffset * pixelsPerHour;
+      const snapToHours = timeStepHours * pixelsPerHour;
       usedTranslateX = Math.round(usedTranslateX / snapToHours) * snapToHours;
     }
 
@@ -449,8 +445,7 @@ const Timeline = () => {
     // Work on a copy so we never mutate the caller's Date (e.g. targetDate state).
     let snapped = newTargetDate.toZonedDateTimeISO("UTC");
     snapped = snapped.with({
-      hour:
-        Math.round(snapped.hour / selectableHoursOffset) * selectableHoursOffset
+      hour: Math.round(snapped.hour / timeStepHours) * timeStepHours
     });
 
     const { targetMarker } = getMarkerCenterX(snapped.toInstant());

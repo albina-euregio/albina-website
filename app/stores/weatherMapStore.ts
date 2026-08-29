@@ -44,7 +44,8 @@ export type TimeSpan = number;
 export interface DomainConfig {
   timeSpans: TimeSpan[];
   timeSpanToDataId: Record<string, string>;
-  updateTimesOffset: Record<string, number>;
+  /** How often this domain/timeSpan is published, in hours. */
+  timeStepHours: number;
   units: string;
   thresholds: RemoteThreshold[];
   stations: boolean;
@@ -122,14 +123,6 @@ function filenameFromRemoteUrl(url: string): string {
   return url.slice(url.lastIndexOf("/") + 1);
 }
 
-function buildUpdateTimesOffset(
-  timeRanges: RemoteTimeRange[]
-): Record<string, number> {
-  return Object.fromEntries(
-    timeRanges.map(tr => [tr.timeRange, tr.timeStepHours])
-  );
-}
-
 /** The `timeRanges[]` entry matching `timeSpan`, else the first entry. */
 function findTimeRangeEntry(
   timeSpan: TimeSpan | null,
@@ -194,7 +187,7 @@ function buildDomainConfig(
   return {
     timeSpans,
     timeSpanToDataId,
-    updateTimesOffset: buildUpdateTimesOffset(remoteDomainConfig.timeRanges),
+    timeStepHours: remoteTimeRange.timeStepHours,
     units: remoteDomainConfig.units,
     thresholds: remoteDomainConfig.thresholds,
     stations: Object.keys(timeSpanToDataId).length > 0,
@@ -274,6 +267,15 @@ export const domainConfig = computed(
   [domainId, timeSpan, remoteDomainConfig],
   (domainId, timeSpan, remoteDomainConfig) =>
     buildDomainConfig(domainId, timeSpan, remoteDomainConfig)
+);
+/*
+ * returns how often the active domain/timeSpan is published, in hours —
+ * the spacing of the selectable times on the timeline. NaN until the
+ * domain's config.json has resolved.
+ */
+export const timeStepHours = computed(
+  [domainConfig],
+  domainConfig => domainConfig?.timeStepHours ?? NaN
 );
 /**
  * A loaded data overlay image, sampled by `valueForPixel` at a coordinate.
@@ -560,7 +562,7 @@ export async function initDomain(
 
   if (timestamp) {
     const parsed = Temporal.Instant.from(timestamp);
-    const snapped = snapToSlot(parsed, absTimeSpan.get());
+    const snapped = snapToSlot(parsed, currentRemoteTimeRange.timeStepHours);
     const st = startTime.get();
     const et = endTime.get();
     if (st && et) {
@@ -675,18 +677,11 @@ function getOverlayURLs(
  * returns nextUpdateTime
  */
 export const nextUpdateTime = computed(
-  [domainConfig, lastDataUpdate, timeSpan],
-  (domainConfig, lastDataUpdate, timeSpan) => {
-    if (!domainConfig?.updateTimesOffset || !lastDataUpdate) return null;
-    const timesConfig = domainConfig.updateTimesOffset;
-
-    const addHours = (timeSpan && timesConfig[timeSpan]) || timesConfig["*"];
-    if (addHours) {
-      return lastDataUpdate.add({ hours: addHours });
-    }
-
-    return lastDataUpdate;
-  }
+  [domainConfig, lastDataUpdate],
+  (domainConfig, lastDataUpdate) =>
+    domainConfig && lastDataUpdate
+      ? lastDataUpdate.add({ hours: domainConfig.timeStepHours })
+      : null
 );
 
 /*
