@@ -32,18 +32,6 @@ const DOMAIN_LEGEND_CLASSES = {
   wind700hpa: "cp-legend-windhigh"
 };
 
-const DOMAIN_UNITS = {
-  "snow-height": "cm",
-  "new-snow": "cm",
-  "diff-snow": "cm",
-  "relative-snow": "%",
-  "snow-line": "m",
-  temp: "°C",
-  wind: "km/h",
-  gust: "km/h",
-  wind700hpa: "km/h"
-};
-
 const WeatherMapCockpit = () => {
   const [lastRedraw, setLastRedraw] = useState(+new Date());
   const domainId = useStore(store.domainId);
@@ -261,7 +249,6 @@ const WeatherMapCockpit = () => {
     );
   };
   const getReleaseInfo = () => {
-    const unit = (domainId && DOMAIN_UNITS[domainId]) || domainConfig?.units;
     return (
       <div key="cp-release" className="cp-release">
         <Tooltip
@@ -297,7 +284,7 @@ const WeatherMapCockpit = () => {
           placement="left-end"
           label={<FormattedMessage id="weathermap:cockpit:unit:title" />}
         >
-          <span className="cp-legend-unit">{unit}</span>
+          <span className="cp-legend-unit">{domainConfig?.units}</span>
         </Tooltip>
         <span key="cp-release-copyright" className="cp-release-copyright">
           <a
