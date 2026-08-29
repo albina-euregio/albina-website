@@ -193,11 +193,9 @@ function buildDomainConfig(
     stations: Object.keys(timeSpanToDataId).length > 0,
     imageOverlay: { file: overlayFile(remoteTimeRange.imageOverlayURL) },
     dataOverlays,
-    direction: Object.values(timeSpanToDataId).some(id =>
-      ["VW", "VW_MAX", "wind700hpa"].includes(id)
-    )
-      ? "DW"
-      : false
+    // Station wind arrows are drawn exactly for the domains that have a
+    // wind-direction overlay.
+    direction: windDirectionOverlay ? "DW" : false
   };
 }
 
