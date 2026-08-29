@@ -142,6 +142,17 @@ function snapToSlot(
   return snapped.toInstant();
 }
 
+/** `instant` bounded to [min, max]; a null bound does not apply. */
+function clampInstant(
+  instant: Temporal.Instant,
+  min: Temporal.Instant | null,
+  max: Temporal.Instant | null
+): Temporal.Instant {
+  if (min && Temporal.Instant.compare(instant, min) < 0) return min;
+  if (max && Temporal.Instant.compare(instant, max) > 0) return max;
+  return instant;
+}
+
 /**
  * Most domains' `imageOverlayURL`/`dataOverlayURL` are absolute
  * wiski.tirol.gv.at URLs that send no CORS headers, so only the filename is
@@ -544,34 +555,19 @@ export async function initDomain(
   // config's own resolved default for this domain/time range
   const currentRemoteTimeRange = remoteTimeRange.get();
   if (!currentRemoteTimeRange) return;
-  let resolvedTime: Temporal.Instant;
+  const resolvedTime = timestamp
+    ? clampInstant(
+        snapToSlot(
+          Temporal.Instant.from(timestamp),
+          currentRemoteTimeRange.timeStepHours
+        ),
+        minTimestamp.get(),
+        maxForecastTimestamp.get()
+      )
+    : Temporal.Instant.from(currentRemoteTimeRange.initialTimestamp);
 
-  if (timestamp) {
-    const parsed = Temporal.Instant.from(timestamp);
-    const snapped = snapToSlot(parsed, currentRemoteTimeRange.timeStepHours);
-    const min = minTimestamp.get();
-    const max = maxForecastTimestamp.get();
-    if (min && max) {
-      resolvedTime =
-        Temporal.Instant.compare(snapped, min) < 0
-          ? min
-          : Temporal.Instant.compare(snapped, max) > 0
-            ? max
-            : snapped;
-    } else {
-      resolvedTime = snapped;
-    }
-  } else {
-    resolvedTime = Temporal.Instant.from(
-      currentRemoteTimeRange.initialTimestamp
-    );
-  }
-
-  const timeChanged =
-    Temporal.Instant.compare(
-      resolvedTime,
-      currentTime.get() || Temporal.Instant.fromEpochMilliseconds(0)
-    ) !== 0;
+  const previousTime = currentTime.get();
+  const timeChanged = !previousTime || !resolvedTime.equals(previousTime);
   if (timeChanged) {
     currentTime.set(resolvedTime);
   }
