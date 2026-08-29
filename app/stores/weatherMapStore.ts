@@ -251,15 +251,6 @@ export const domainConfig = computed(
   [domainId, remoteDomainConfig, remoteTimeRange],
   buildDomainConfig
 );
-/*
- * returns how often the active domain/timeSpan is published, in hours —
- * the spacing of the selectable times on the timeline. NaN until the
- * domain's config.json has resolved.
- */
-export const timeStepHours = computed(
-  [domainConfig],
-  domainConfig => domainConfig?.timeStepHours ?? NaN
-);
 /**
  * A loaded data overlay image, sampled by `valueForPixel` at a coordinate.
  * Loads the image once, on construction. Data PNGs encode values in their

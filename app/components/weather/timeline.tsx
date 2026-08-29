@@ -20,7 +20,8 @@ const Timeline = () => {
   const timeSpan = useStore(store.timeSpan) ?? NaN;
   // The spacing of selectable times: how often this domain/timespan is
   // actually published, straight from the live config's `timeStepHours`.
-  const timeStepHours = useStore(store.timeStepHours);
+  // NaN until the domain's config.json has resolved.
+  const timeStepHours = useStore(store.domainConfig)?.timeStepHours ?? NaN;
   const startDate = useStore(store.startDate);
   const startTime = useStore(store.startTime);
   const endTime = useStore(store.endTime);
