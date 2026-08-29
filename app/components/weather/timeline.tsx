@@ -8,7 +8,7 @@ import React, {
   useState
 } from "react";
 import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
-import { TIME_ZONE_FORMAT } from "../../util/date";
+import { TIME_FORMAT, TIME_ZONE_FORMAT } from "../../util/date";
 import * as store from "../../stores/weatherMapStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { $router } from "../router";
@@ -666,9 +666,10 @@ const Timeline = () => {
               >
                 <span className="cp-scale-stamp-range-bar"></span>
                 <span className="cp-scale-stamp-range-begin">
+                  {/* the zone is stated once per range, on the end stamp */}
                   <FormattedDate
                     date={currentDate?.subtract({ hours: timeRange }) ?? null}
-                    options={TIME_ZONE_FORMAT}
+                    options={TIME_FORMAT}
                   />
                 </span>
                 <span className="cp-scale-stamp-range-end">

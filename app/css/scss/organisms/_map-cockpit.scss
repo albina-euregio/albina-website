@@ -272,9 +272,6 @@ $cp-breakpoint-3: 1024px;
 }
 .cp-scale-stamp-range-begin {
   position: absolute;
-  // the bar is only as wide as the range, so "15:00 UTC" would
-  // otherwise wrap at its space
-  white-space: nowrap;
   top: 0;
   left: 0;
   height: calc(#{$cp-timeline-height} - #{$cp-scale-height});
