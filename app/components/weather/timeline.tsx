@@ -16,9 +16,9 @@ import { redirectPage } from "@nanostores/router";
 const Timeline = () => {
   const domainId = useStore(store.domainId);
   // NaN until the first initDomain resolves; the comparisons below then all
-  // read false, which is what the "no timespan yet" render wants.
-  const timeSpan = useStore(store.timeSpan) ?? NaN;
-  // The spacing of selectable times: how often this domain/timespan is
+  // read false, which is what the "no time range yet" render wants.
+  const timeRange = useStore(store.timeRange) ?? NaN;
+  // The spacing of selectable times: how often this domain/time range is
   // actually published, straight from the live config's `timeStepHours`.
   // NaN until the domain's config.json has resolved.
   const timeStepHours = useStore(store.domainConfig)?.timeStepHours ?? NaN;
@@ -26,9 +26,9 @@ const Timeline = () => {
   const minTimestamp = useStore(store.minTimestamp);
   const maxForecastTimestamp = useStore(store.maxForecastTimestamp);
   const currentTime = useStore(store.currentTime);
-  const barDuration = timeSpan;
-  const markerPosition = timeSpan > 24 ? "75%" : "50%";
-  const showBar = timeSpan > 1;
+  const barDuration = timeRange;
+  const markerPosition = timeRange > 24 ? "75%" : "50%";
+  const showBar = timeRange > 1;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const rulerRef = useRef<HTMLDivElement>(null);
@@ -69,15 +69,15 @@ const Timeline = () => {
 
   const navigateToWeatermapWithParams = (
     timestamp: string,
-    newTimeSpan: store.TimeSpan | null
+    newTimeRange: store.TimeRange | null
   ) => {
     // Preserve the domain parameter while updating timestamp
     const domain = store.domainId.get();
     redirectPage(
       $router,
       "weatherMapDomainTimestamp",
-      newTimeSpan
-        ? { domain, timestamp, timeSpan: String(newTimeSpan) }
+      newTimeRange
+        ? { domain, timestamp, timeRange: String(newTimeRange) }
         : { domain, timestamp }
     );
   };
@@ -175,7 +175,7 @@ const Timeline = () => {
       setRulerEndDay(Math.min(maxEndDay + rulerPadding, targetDay + daysBuild));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeSpan, targetDate, showBar, maxEndDay]);
+  }, [timeRange, targetDate, showBar, maxEndDay]);
 
   useEffect(() => {
     if (markersReady.current) {
@@ -202,7 +202,7 @@ const Timeline = () => {
 
   useEffect(() => {
     setPlayerIsActive(false);
-  }, [timeSpan, domainId]);
+  }, [timeRange, domainId]);
 
   useEffect(() => {
     if (indicatorOffset) {
@@ -230,9 +230,9 @@ const Timeline = () => {
       case "ArrowRight":
         return jumpStep(1 * factor);
       case "ArrowUp":
-        return jumpTimeSpan(1);
+        return jumpTimeRange(1);
       case "ArrowDown":
-        return jumpTimeSpan(-1);
+        return jumpTimeRange(-1);
       case "n": // next domain
         return jumpDomain(1);
       case "p": // previous domain
@@ -257,7 +257,10 @@ const Timeline = () => {
       if (pendingNav.current) cancelAnimationFrame(pendingNav.current);
       pendingNav.current = requestAnimationFrame(() => {
         pendingNav.current = null;
-        navigateToWeatermapWithParams(newDate.toString(), store.timeSpan.get());
+        navigateToWeatermapWithParams(
+          newDate.toString(),
+          store.timeRange.get()
+        );
       });
     }
   };
@@ -269,17 +272,17 @@ const Timeline = () => {
     }
   };
 
-  const jumpTimeSpan = (direction: 1 | -1 | number) => {
+  const jumpTimeRange = (direction: 1 | -1 | number) => {
     cancelPendingNav();
-    if (!timeSpan) return;
-    const timeSpans = store.domainConfig.get()?.timeSpans;
-    if (!timeSpans || timeSpans.length < 2) return;
-    let index = timeSpans.indexOf(timeSpan);
+    if (!timeRange) return;
+    const timeRanges = store.domainConfig.get()?.timeRanges;
+    if (!timeRanges || timeRanges.length < 2) return;
+    let index = timeRanges.indexOf(timeRange);
     if (index < 0) return;
-    index = (index + direction + timeSpans.length) % timeSpans.length;
-    const newTimeSpan = timeSpans[index];
+    index = (index + direction + timeRanges.length) % timeRanges.length;
+    const newTimeRange = timeRanges[index];
     const ct = currentDateRef.current;
-    navigateToWeatermapWithParams(ct ? ct.toString() : "", newTimeSpan);
+    navigateToWeatermapWithParams(ct ? ct.toString() : "", newTimeRange);
   };
 
   const jumpDomain = (direction: 1 | -1 | number) => {
@@ -463,13 +466,16 @@ const Timeline = () => {
       const nearestMarker = getNearestMarker();
       if (nearestMarker) {
         const newDate = Temporal.Instant.from(nearestMarker?.dataset?.date);
-        navigateToWeatermapWithParams(newDate.toString(), store.timeSpan.get());
+        navigateToWeatermapWithParams(
+          newDate.toString(),
+          store.timeRange.get()
+        );
       }
     }
   };
 
   const snapToDate = (newTargetDate: Temporal.Instant) => {
-    // Adjust to the nearest valid hour based on firstHour and timeSpan.
+    // Adjust to the nearest valid hour based on firstHour and timeRange.
     // Work on a copy so we never mutate the caller's Date (e.g. targetDate state).
     let snapped = newTargetDate.toZonedDateTimeISO("UTC");
     snapped = snapped.with({
@@ -523,18 +529,18 @@ const Timeline = () => {
   const handleSelectDateClick: ChangeEventHandler<HTMLInputElement> = e => {
     let newTargetDate = Temporal.Instant.from(e.target.value + "Z");
 
-    // For range timespans (>1h), the URL timestamp is the period END,
-    // so add the timespan to convert from the user-picked start time.
+    // For multi-hour ranges the URL timestamp is the period END, so add
+    // the time range to convert from the user-picked start time.
     // For instantaneous (1h), the user picks the exact time — no offset.
     if (showBar) {
-      newTargetDate = newTargetDate.add({ hours: timeSpan });
+      newTargetDate = newTargetDate.add({ hours: timeRange });
     }
 
     // FIXME with minutes=0 seconds=0
 
     navigateToWeatermapWithParams(
       newTargetDate.toString(),
-      store.timeSpan.get()
+      store.timeRange.get()
     );
   };
 
@@ -648,19 +654,19 @@ const Timeline = () => {
 
         {
           <div className="cp-scale-stamp">
-            {timeSpan > 1 && (
+            {timeRange > 1 && (
               <div
                 ref={indicatorRef}
                 className="cp-scale-stamp-range js-active"
                 style={{
                   left: barOffset,
-                  width: timeSpan * pixelsPerHour
+                  width: timeRange * pixelsPerHour
                 }}
               >
                 <span className="cp-scale-stamp-range-bar"></span>
                 <span className="cp-scale-stamp-range-begin">
                   <FormattedDate
-                    date={currentDate?.subtract({ hours: timeSpan }) ?? null}
+                    date={currentDate?.subtract({ hours: timeRange }) ?? null}
                     options={{ timeStyle: "short", timeZone: "UTC" }}
                   />
                 </span>
@@ -673,7 +679,7 @@ const Timeline = () => {
               </div>
             )}
 
-            {timeSpan === 1 && (
+            {timeRange === 1 && (
               <div
                 ref={indicatorRef}
                 className="cp-scale-stamp-point js-active"

@@ -38,17 +38,17 @@ export type OverlayType =
   | "temperature"
   | "windSpeed"
   | "windDirection";
-export type TimeSpan = number;
+export type TimeRange = number;
 
 /** The runtime, per-domain config consumers read via `domainConfig`. */
 export interface DomainConfig {
-  timeSpans: TimeSpan[];
+  timeRanges: TimeRange[];
   /**
-   * The station dataId for the active domain/timeSpan, if it has one —
+   * The station dataId for the active domain/timeRange, if it has one —
    * both the parameter the station markers show and whether to show them.
    */
   dataId: string | undefined;
-  /** How often this domain/timeSpan is published, in hours. */
+  /** How often this domain/timeRange is published, in hours. */
   timeStepHours: number;
   units: string;
   thresholds: RemoteThreshold[];
@@ -72,12 +72,12 @@ const WIND_DIRECTION_OVERLAY_BY_DOMAIN: Partial<
 };
 
 /**
- * The station dataId each domain/timeSpan combination corresponds to.
+ * The station dataId each domain/timeRange combination corresponds to.
  * Domains missing here have no dedicated dataId (new-snow, relative-snow,
- * snow-line), and neither do a listed domain's other timespans.
+ * snow-line), and neither do a listed domain's other time ranges.
  */
-const DATA_ID_BY_DOMAIN_TIME_SPAN: Partial<
-  Record<DomainId, Record<TimeSpan, string>>
+const DATA_ID_BY_DOMAIN_TIME_RANGE: Partial<
+  Record<DomainId, Record<TimeRange, string>>
 > = {
   "snow-height": { 1: "HS" },
   "diff-snow": { 24: "HSD_24", 48: "HSD_48", 72: "HSD_72" },
@@ -93,7 +93,7 @@ export interface RemoteThreshold {
   color: string;
 }
 
-/** A single per-timespan entry from the live config.json's `timeRanges`. */
+/** A single entry from the live config.json's `timeRanges`. */
 interface RemoteTimeRange {
   timeRange: number;
   timeStepHours: number;
@@ -122,7 +122,7 @@ interface RemoteDomainConfig {
 
 /**
  * Snap a date to the nearest hour the data is actually published at, i.e. a
- * multiple of the live config's `timeStepHours` for this domain/timespan.
+ * multiple of the live config's `timeStepHours` for this domain/time range.
  * Returns an instant with minutes/seconds/ms zeroed.
  */
 function snapToSlot(
@@ -154,7 +154,7 @@ function filenameFromRemoteUrl(url: string): string {
 
 /**
  * Build the runtime `DomainConfig` from structural metadata plus the live
- * remote config and its `timeRanges[]` entry for the active timespan.
+ * remote config and its `timeRanges[]` entry for the active time range.
  * Returns `null` while the config hasn't resolved yet — a non-null
  * `remoteTimeRange` already implies it belongs to `domainId` (see the
  * computed), so there is nothing left to re-check here.
@@ -166,9 +166,8 @@ function buildDomainConfig(
 ): DomainConfig | null {
   if (!domainId || !remoteDomainConfig || !remoteTimeRange) return null;
 
-  const timeSpans = remoteDomainConfig.timeRanges.map(tr => tr.timeRange);
   const dataId =
-    DATA_ID_BY_DOMAIN_TIME_SPAN[domainId]?.[remoteTimeRange.timeRange];
+    DATA_ID_BY_DOMAIN_TIME_RANGE[domainId]?.[remoteTimeRange.timeRange];
 
   // relative-snow's own server sends CORS headers, so its URL is used
   // directly — every other domain's is wiski.tirol.gv.at (no CORS headers),
@@ -188,7 +187,7 @@ function buildDomainConfig(
   }
 
   return {
-    timeSpans,
+    timeRanges: remoteDomainConfig.timeRanges.map(tr => tr.timeRange),
     dataId,
     timeStepHours: remoteTimeRange.timeStepHours,
     units: remoteDomainConfig.units,
@@ -219,9 +218,9 @@ export const stations = atom<StationData[]>([]);
  */
 export const domainId = atom<DomainId | null>(null);
 /*
- * returns current timespan selection
+ * returns current time range selection
  */
-export const timeSpan = atom<TimeSpan | null>(null);
+export const timeRange = atom<TimeRange | null>(null);
 /*
  * returns current time of interest
  */
@@ -233,18 +232,18 @@ export const selectedFeature = atom(null);
  */
 export const remoteDomainConfig = atom<RemoteDomainConfig | null>(null);
 /*
- * the `timeRanges[]` entry matching the active timespan, else the first one —
+ * the `timeRanges[]` entry matching the active time range, else the first one —
  * `maxForecastTimestamp` below just reads a field off this. Null while the
  * config hasn't resolved, or belongs to another domain (mid domain-switch),
  * so it can never describe a different domain than `domainConfig` does.
  */
 export const remoteTimeRange = computed(
-  [domainId, timeSpan, remoteDomainConfig],
-  (domainId, timeSpan, remoteDomainConfig) => {
+  [domainId, timeRange, remoteDomainConfig],
+  (domainId, timeRange, remoteDomainConfig) => {
     if (!domainId || remoteDomainConfig?.parameter !== domainId) return null;
     const { timeRanges } = remoteDomainConfig;
     return (
-      timeRanges.find(tr => tr.timeRange === timeSpan) ?? timeRanges[0] ?? null
+      timeRanges.find(tr => tr.timeRange === timeRange) ?? timeRanges[0] ?? null
     );
   }
 );
@@ -261,7 +260,7 @@ export const startDateModifyTimestamp = computed(
 );
 
 /*
- * returns domain config for the active domain/timespan
+ * returns domain config for the active domain/time range
  */
 export const domainConfig = computed(
   [domainId, remoteDomainConfig, remoteTimeRange],
@@ -476,13 +475,13 @@ async function _loadIndexData() {
  * Called from weather.tsx when URL params change.
  * - Fetches the domain's live config.json when the domain changes
  * - Resolves time from URL timestamp or calculates default
- * - Reloads overlays/stations only when domain, timespan or time changed
+ * - Reloads overlays/stations only when domain, time range or time changed
  * - Generation counter cancels stale responses
  */
 let _generation = 0;
 export async function initDomain(
   newDomain: DomainId,
-  newTimeSpan?: string,
+  newTimeRange?: string,
   timestamp?: string
 ) {
   const gen = ++_generation;
@@ -505,36 +504,36 @@ export async function initDomain(
     remoteDomainConfig.set(currentRemoteDomainConfig);
   }
 
-  // 3. Resolve the timespan against the ones this domain publishes. Bail on a
+  // 3. Resolve the time range against the ones this domain publishes. Bail on a
   // config that isn't this domain's (or has no timeRanges) — the same cases
   // `buildDomainConfig` returns null for, rather than half-initializing.
   if (currentRemoteDomainConfig?.parameter !== newDomain) return;
-  const timeSpans = currentRemoteDomainConfig.timeRanges.map(
+  const timeRanges = currentRemoteDomainConfig.timeRanges.map(
     tr => tr.timeRange
   );
-  if (!timeSpans.length) return;
-  const parsedTimeSpan = newTimeSpan ? parseInt(newTimeSpan, 10) : null;
-  const resolvedTimeSpan =
-    parsedTimeSpan !== null && timeSpans.includes(parsedTimeSpan)
-      ? parsedTimeSpan
-      : timeSpans[0];
+  if (!timeRanges.length) return;
+  const parsedTimeRange = newTimeRange ? parseInt(newTimeRange, 10) : null;
+  const resolvedTimeRange =
+    parsedTimeRange !== null && timeRanges.includes(parsedTimeRange)
+      ? parsedTimeRange
+      : timeRanges[0];
 
-  const timeSpanChanged = resolvedTimeSpan !== timeSpan.get();
+  const timeRangeChanged = resolvedTimeRange !== timeRange.get();
 
-  // 4. Set domain and timespan atoms — `remoteTimeRange` and `domainConfig`
+  // 4. Set domain and time range atoms — `remoteTimeRange` and `domainConfig`
   // follow from these
   if (domainChanged) {
     domainId.set(newDomain);
     selectedFeature.set(null);
   }
-  if (timeSpanChanged) {
-    timeSpan.set(resolvedTimeSpan);
+  if (timeRangeChanged) {
+    timeRange.set(resolvedTimeRange);
   }
 
   if (gen !== _generation) return;
 
   // 5. Resolve time — URL timestamp if provided and valid, else the live
-  // config's own resolved default for this domain/timespan
+  // config's own resolved default for this domain/time range
   const currentRemoteTimeRange = remoteTimeRange.get();
   if (!currentRemoteTimeRange) return;
   let resolvedTime: Temporal.Instant;
@@ -570,7 +569,7 @@ export async function initDomain(
   }
 
   // 6. Load overlay images and station data only if something actually changed
-  if (domainChanged || timeSpanChanged || timeChanged) {
+  if (domainChanged || timeRangeChanged || timeChanged) {
     // Load data overlay images for pixel-value reading. Separated from a
     // computed to avoid side effects (Image creation) in pure derivations.
     const dc = domainConfig.get();
@@ -602,7 +601,7 @@ export const minTimestamp = computed(
 
 /*
  * returns the boundary between analysis and forecast for the active
- * domain/timespan — times at or before this are measured, later ones are
+ * domain/time range — times at or before this are measured, later ones are
  * forecast
  */
 export const maxAnalysisTimestamp = computed(

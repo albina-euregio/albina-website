@@ -35,7 +35,7 @@ const DOMAIN_LEGEND_CLASSES = {
 const WeatherMapCockpit = () => {
   const [lastRedraw, setLastRedraw] = useState(+new Date());
   const domainId = useStore(store.domainId);
-  const timeSpan = useStore(store.timeSpan);
+  const timeRange = useStore(store.timeRange);
   const nextUpdateTime = useStore(store.nextUpdateTime);
   const startDateModifyTimestamp = useStore(store.startDateModifyTimestamp);
   const domainConfig = useStore(store.domainConfig);
@@ -77,14 +77,14 @@ const WeatherMapCockpit = () => {
         }
         break;
       }
-      case "timeSpan": {
-        // Route through URL — weather.tsx calls initDomain with new timeSpan
+      case "timeRange": {
+        // Route through URL — weather.tsx calls initDomain with new timeRange
         const ct = store.currentTime.get();
         const domain = store.domainId.get();
         redirectPage($router, "weatherMapDomainTimestamp", {
           domain,
           timestamp: ct ? ct.toString() : "",
-          timeSpan: String(value)
+          timeRange: String(value)
         });
         break;
       }
@@ -141,21 +141,21 @@ const WeatherMapCockpit = () => {
     return buttons;
   };
 
-  const getTimeSpanOptions = () => {
+  const getTimeRangeOptions = () => {
     let allButtons;
 
     if (domainConfig) {
-      const buttons = domainConfig.timeSpans.map(aItem => {
-        const nrOnlyTimespan = String(aItem);
+      const buttons = domainConfig.timeRanges.map(aItem => {
+        const nrOnlyTimeRange = String(aItem);
         return (
           <a
             role="button"
             tabIndex="0"
             key={aItem}
-            onClick={() => handleEvent("timeSpan", aItem)}
-            className={`cp-range-${nrOnlyTimespan} ${timeSpan === aItem ? "js-active" : ""}`}
+            onClick={() => handleEvent("timeRange", aItem)}
+            className={`cp-range-${nrOnlyTimeRange} ${timeRange === aItem ? "js-active" : ""}`}
           >
-            {nrOnlyTimespan}h
+            {nrOnlyTimeRange}h
           </a>
         );
       });
@@ -322,7 +322,7 @@ const WeatherMapCockpit = () => {
           <Timeline key="cp-timeline" />
         </div>
 
-        {getTimeSpanOptions()}
+        {getTimeRangeOptions()}
 
         <div
           key="cp-containerl-legend-release"
