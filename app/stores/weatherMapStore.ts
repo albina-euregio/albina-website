@@ -14,7 +14,8 @@ import { snapToSlot } from "./weatherMapSlots";
  */
 export const config = {
   settings: {
-    timeRange: ["-17520", "+72"],
+    /** How far back before the config's `startDate` the timeline reaches. */
+    historyHours: 17520,
     // [sw, ne] as [lng, lat].
     bbox: new LngLatBounds([9.4, 45.6167], [13.0333, 47.8167])
   },
@@ -570,8 +571,8 @@ export const minTimestamp = computed(
   [remoteDomainConfig],
   (remoteDomainConfig): Temporal.Instant | null =>
     remoteDomainConfig
-      ? Temporal.Instant.from(remoteDomainConfig.startDate).add({
-          hours: +config.settings.timeRange[0]
+      ? Temporal.Instant.from(remoteDomainConfig.startDate).subtract({
+          hours: config.settings.historyHours
         })
       : null
 );
