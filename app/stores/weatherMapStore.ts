@@ -24,49 +24,38 @@ export const config = {
     "snow-height": {
       item: {
         sign: "-",
-        timeSpanToDataId: { "-1": "HS" },
         layer: { overlay: true, stations: true }
       }
     },
     "new-snow": {
       item: {
         sign: "+",
-        timeSpanToDataId: {},
         layer: { overlay: true, stations: false }
       }
     },
     "diff-snow": {
       item: {
         sign: "-",
-        timeSpanToDataId: {
-          "-24": "HSD_24",
-          "-48": "HSD_48",
-          "-72": "HSD_72"
-        },
         layer: { overlay: true, stations: true }
       }
     },
     "relative-snow": {
       item: {
-        timeSpanToDataId: {},
         layer: { overlay: true, stations: false }
       }
     },
     "snow-line": {
       item: {
-        timeSpanToDataId: {},
         layer: { overlay: true, stations: false }
       }
     },
     temp: {
       item: {
-        timeSpanToDataId: { "+-1": "TA" },
         layer: { overlay: true, stations: true }
       }
     },
     wind: {
       item: {
-        timeSpanToDataId: { "+-1": "VW" },
         layer: { overlay: true, stations: true },
         // The live config.json only exposes the wind-speed overlay; the
         // direction overlay has no remote equivalent, so its filename stays
@@ -79,7 +68,6 @@ export const config = {
     },
     gust: {
       item: {
-        timeSpanToDataId: { "+-1": "VW_MAX" },
         layer: { overlay: true, stations: true },
         // Gust borrows the wind domain's direction overlay, same as today.
         secondaryOverlay: {
@@ -91,7 +79,6 @@ export const config = {
     },
     wind700hpa: {
       item: {
-        timeSpanToDataId: { "+-1": "wind700hpa" },
         layer: { overlay: true, stations: true },
         secondaryOverlay: {
           file: "{date}_{time}-00_wind-dir700hpa.png",
@@ -130,10 +117,26 @@ export interface DomainConfig {
 /** Structural, non-meteorological metadata for a remote-driven domain. */
 interface DomainMeta {
   sign?: "+" | "-" | "+-";
-  timeSpanToDataId: Record<string, string>;
   layer: { overlay: boolean; stations: boolean };
   secondaryOverlay?: { file: string; type: OverlayType; domain?: DomainId };
 }
+
+/**
+ * `[domainId, timeSpan, dataId]` triples for the live config.json
+ * `parameter`/dataId each domain/timeSpan combination corresponds to.
+ * Combinations not listed here have no dedicated dataId (e.g. new-snow,
+ * relative-snow, snow-line).
+ */
+const DATA_ID_BY_DOMAIN_TIME_SPAN: [DomainId, TimeSpan, string][] = [
+  ["snow-height", "-1", "HS"],
+  ["diff-snow", "-24", "HSD_24"],
+  ["diff-snow", "-48", "HSD_48"],
+  ["diff-snow", "-72", "HSD_72"],
+  ["temp", "+-1", "TA"],
+  ["wind", "+-1", "VW"],
+  ["gust", "+-1", "VW_MAX"],
+  ["wind700hpa", "+-1", "wind700hpa"]
+];
 
 /** A single `{ range: [from, to], color }` entry from the live config.json. */
 interface RemoteThreshold {
@@ -221,6 +224,15 @@ function findTimeRangeEntry(
   );
 }
 
+/** This domain's slice of `DATA_ID_BY_DOMAIN_TIME_SPAN`, keyed by timeSpan. */
+function timeSpanToDataIdFor(domainId: DomainId): Record<string, string> {
+  return Object.fromEntries(
+    DATA_ID_BY_DOMAIN_TIME_SPAN.filter(([id]) => id === domainId).map(
+      ([, timeSpan, dataId]) => [timeSpan, dataId]
+    )
+  );
+}
+
 /**
  * Build the runtime `DomainConfig` for `domainId`/`timeSpan` from structural
  * metadata plus the live remote config. Returns `null` while `remote` hasn't
@@ -237,6 +249,7 @@ function buildDomainConfig(
   const item = config.domains[domainId].item as unknown as DomainMeta;
   const meta = { sign: "+-" as const, ...item };
   const timeSpans = remote.timeRanges.map(tr => meta.sign + tr.timeRange);
+  const timeSpanToDataId = timeSpanToDataIdFor(domainId);
   const entry = findTimeRangeEntry(domainId, timeSpan, remote);
   if (!entry) return null;
 
@@ -258,7 +271,7 @@ function buildDomainConfig(
 
   return {
     timeSpans,
-    timeSpanToDataId: meta.timeSpanToDataId,
+    timeSpanToDataId,
     updateTimesOffset: buildUpdateTimesOffset(remote.timeRanges, meta.sign),
     units: remote.units,
     thresholds,
@@ -266,7 +279,7 @@ function buildDomainConfig(
     layer: meta.layer,
     imageOverlay: { file: overlayFile(entry.imageOverlayURL) },
     dataOverlays,
-    direction: Object.values(meta.timeSpanToDataId).some(id =>
+    direction: Object.values(timeSpanToDataId).some(id =>
       ["VW", "VW_MAX", "wind700hpa"].includes(id)
     )
       ? "DW"
