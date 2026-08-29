@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { debounce } from "es-toolkit";
 import {
   GeoJSONSource,
@@ -400,23 +400,31 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     dataMarkerRef.current = null;
   }, [dataOverlays]);
 
-  if (!domainConfig) return null;
-
-  const itemId = domainConfig.timeSpanToDataId[timeSpan] as ParameterType;
-  const showStations = domainConfig.stations && !isPlaying;
   // MapLibreMap's marker coloring is shared with the (unrelated) real
   // stations feature, whose parameter data is already in this
   // numeric-cutpoints + RGB-record shape — so convert to it only here, at
-  // this one remaining boundary.
-  const markerItem: MarkerItem = {
-    colors: Object.fromEntries(
-      domainConfig.thresholds.map((t, i) => [i + 1, hexToRgb(t.color)])
-    ),
-    thresholds: domainConfig.thresholds
-      .slice(0, -1)
-      .map(t => t.range[1] as number),
-    direction: domainConfig.direction
-  };
+  // this one remaining boundary. Memoized because MapLibreMap redraws its
+  // markers whenever this changes identity.
+  const markerItem: MarkerItem | null = useMemo(
+    () =>
+      domainConfig
+        ? {
+            colors: Object.fromEntries(
+              domainConfig.thresholds.map((t, i) => [i + 1, hexToRgb(t.color)])
+            ),
+            thresholds: domainConfig.thresholds
+              .slice(0, -1)
+              .map(t => t.range[1] as number),
+            direction: domainConfig.direction
+          }
+        : null,
+    [domainConfig]
+  );
+
+  if (!domainConfig || !markerItem) return null;
+
+  const itemId = domainConfig.timeSpanToDataId[timeSpan] as ParameterType;
+  const showStations = domainConfig.stations && !isPlaying;
 
   // Three stacked maps so the weather raster can multiply against the basemap
   // while the station markers (and wind arrows) stay crisp on top:
