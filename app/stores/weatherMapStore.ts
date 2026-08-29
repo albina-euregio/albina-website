@@ -144,28 +144,21 @@ function timeSpanToDataIdFor(domainId: DomainId): Record<string, string> {
 }
 
 /**
- * Build the runtime `DomainConfig` for `domainId`/`timeSpan` from structural
- * metadata plus the live remote config. Returns `null` while
- * `remoteDomainConfig` hasn't resolved yet (or belongs to a domain other
- * than `domainId`, e.g. mid domain-switch) — callers already null-check
- * `domainConfig`.
+ * Build the runtime `DomainConfig` from structural metadata plus the live
+ * remote config and its `timeRanges[]` entry for the active timespan.
+ * Returns `null` while the config hasn't resolved yet — a non-null
+ * `remoteTimeRange` already implies it belongs to `domainId` (see the
+ * computed), so there is nothing left to re-check here.
  */
 function buildDomainConfig(
   domainId: DomainId | null,
-  timeSpan: TimeSpan | null,
-  remoteDomainConfig: RemoteDomainConfig | null
+  remoteDomainConfig: RemoteDomainConfig | null,
+  remoteTimeRange: RemoteTimeRange | null
 ): DomainConfig | null {
-  if (
-    !domainId ||
-    !remoteDomainConfig ||
-    remoteDomainConfig.parameter !== domainId
-  )
-    return null;
+  if (!domainId || !remoteDomainConfig || !remoteTimeRange) return null;
 
   const timeSpans = remoteDomainConfig.timeRanges.map(tr => tr.timeRange);
   const timeSpanToDataId = timeSpanToDataIdFor(domainId);
-  const remoteTimeRange = findTimeRangeEntry(timeSpan, remoteDomainConfig);
-  if (!remoteTimeRange) return null;
 
   // relative-snow's own server sends CORS headers, so its URL is used
   // directly — every other domain's is wiski.tirol.gv.at (no CORS headers),
@@ -267,9 +260,8 @@ export const lastDataUpdate = computed(
  * returns domain config for the active domain/timespan
  */
 export const domainConfig = computed(
-  [domainId, timeSpan, remoteDomainConfig],
-  (domainId, timeSpan, remoteDomainConfig) =>
-    buildDomainConfig(domainId, timeSpan, remoteDomainConfig)
+  [domainId, remoteDomainConfig, remoteTimeRange],
+  buildDomainConfig
 );
 /*
  * returns how often the active domain/timeSpan is published, in hours —
