@@ -498,24 +498,6 @@ async function fetchRemoteDomainConfig(
   return response.json();
 }
 
-/**
- * Load data overlay images for pixel-value reading.
- * Separated from computed to avoid side effects (Image creation) in pure derivations.
- */
-function _updateDataOverlays() {
-  const dc = domainConfig.get();
-  const di = domainId.get();
-  const ct = currentTime.get();
-  const ats = absTimeSpan.get();
-
-  if (!dc?.dataOverlays) {
-    dataOverlays.set([]);
-    return;
-  }
-
-  dataOverlays.set(dc.dataOverlays.map(o => new DataOverlay(o, di, ct, ats)));
-}
-
 /*
  * get data for currentTime
  */
@@ -648,7 +630,16 @@ export async function initDomain(
 
   // 8. Load overlay images and station data only if something actually changed
   if (needsMetadata || timeChanged) {
-    _updateDataOverlays();
+    // Load data overlay images for pixel-value reading. Separated from a
+    // computed to avoid side effects (Image creation) in pure derivations.
+    const dc = domainConfig.get();
+    const di = domainId.get();
+    const ct = currentTime.get();
+    const ats = absTimeSpan.get();
+    dataOverlays.set(
+      (dc?.dataOverlays ?? []).map(o => new DataOverlay(o, di, ct, ats))
+    );
+
     if (gen === _generation) {
       await _loadIndexData();
     }
