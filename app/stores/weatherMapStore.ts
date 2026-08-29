@@ -40,33 +40,13 @@ export const config = {
       item: {}
     },
     wind: {
-      item: {
-        // The live config.json only exposes the wind-speed overlay; the
-        // direction overlay has no remote equivalent, so its filename stays
-        // hardcoded here.
-        secondaryOverlay: {
-          file: "{date}_{time}-00_wind-dir_V3.png",
-          type: "windDirection"
-        }
-      }
+      item: {}
     },
     gust: {
-      item: {
-        // Gust borrows the wind domain's direction overlay, same as today.
-        secondaryOverlay: {
-          file: "{date}_{time}-00_wind-dir_V3.png",
-          type: "windDirection",
-          domain: "wind"
-        }
-      }
+      item: {}
     },
     wind700hpa: {
-      item: {
-        secondaryOverlay: {
-          file: "{date}_{time}-00_wind-dir700hpa.png",
-          type: "windDirection"
-        }
-      }
+      item: {}
     }
   }
 };
@@ -96,8 +76,21 @@ export interface DomainConfig {
 /** Structural, non-meteorological metadata for a remote-driven domain. */
 interface DomainMeta {
   sign?: "+" | "-" | "+-";
-  secondaryOverlay?: { file: string; type: OverlayType; domain?: DomainId };
 }
+
+/**
+ * The live config.json only exposes the wind-speed overlay; the direction
+ * overlay has no remote equivalent, so its filename is hardcoded here for
+ * the domains that have one. `gust` borrows `wind`'s direction overlay
+ * (its own domain has no such file).
+ */
+const WIND_DIRECTION_OVERLAY_BY_DOMAIN: Partial<
+  Record<DomainId, { file: string; domain?: DomainId }>
+> = {
+  wind: { file: "{date}_{time}-00_wind-dir_V3.png" },
+  gust: { file: "{date}_{time}-00_wind-dir_V3.png", domain: "wind" },
+  wind700hpa: { file: "{date}_{time}-00_wind-dir700hpa.png" }
+};
 
 /**
  * `[domainId, timeSpan, dataId]` triples for the live config.json
@@ -231,7 +224,10 @@ function buildDomainConfig(
       type: OVERLAY_TYPE_BY_DOMAIN[domainId]
     }
   ];
-  if (meta.secondaryOverlay) dataOverlays.push(meta.secondaryOverlay);
+  const windDirectionOverlay = WIND_DIRECTION_OVERLAY_BY_DOMAIN[domainId];
+  if (windDirectionOverlay) {
+    dataOverlays.push({ ...windDirectionOverlay, type: "windDirection" });
+  }
 
   return {
     timeSpans,
