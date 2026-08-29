@@ -49,7 +49,7 @@ export interface DomainConfig {
   units: string;
   thresholds: RemoteThreshold[];
   stations: boolean;
-  imageOverlay: { file: string };
+  imageOverlayFile: string;
   dataOverlays: { file: string; type: OverlayType; domain?: DomainId }[];
   direction: "DW" | false;
 }
@@ -191,7 +191,7 @@ function buildDomainConfig(
     units: remoteDomainConfig.units,
     thresholds: remoteDomainConfig.thresholds,
     stations: Object.keys(timeSpanToDataId).length > 0,
-    imageOverlay: { file: overlayFile(remoteTimeRange.imageOverlayURL) },
+    imageOverlayFile: overlayFile(remoteTimeRange.imageOverlayURL),
     dataOverlays,
     // Station wind arrows are drawn exactly for the domains that have a
     // wind-direction overlay.
@@ -623,8 +623,7 @@ export const imageOverlayURLs = computed(
   [currentTime, domainConfig, domainId],
   (currentTime, domainConfig, domainId) => {
     if (!domainConfig) return ["", ""] as [string, string];
-    const file = domainConfig.imageOverlay.file;
-    return getOverlayURLs(currentTime, domainId, file);
+    return getOverlayURLs(currentTime, domainId, domainConfig.imageOverlayFile);
   }
 );
 
