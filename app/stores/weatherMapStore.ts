@@ -43,12 +43,15 @@ export type TimeSpan = number;
 /** The runtime, per-domain config consumers read via `domainConfig`. */
 export interface DomainConfig {
   timeSpans: TimeSpan[];
-  timeSpanToDataId: Record<TimeSpan, string>;
+  /**
+   * The station dataId for the active domain/timeSpan, if it has one —
+   * both the parameter the station markers show and whether to show them.
+   */
+  dataId: string | undefined;
   /** How often this domain/timeSpan is published, in hours. */
   timeStepHours: number;
   units: string;
   thresholds: RemoteThreshold[];
-  stations: boolean;
   imageOverlayFile: string;
   dataOverlays: { file: string; type: OverlayType; domain?: DomainId }[];
   direction: "DW" | false;
@@ -164,8 +167,8 @@ function buildDomainConfig(
   if (!domainId || !remoteDomainConfig || !remoteTimeRange) return null;
 
   const timeSpans = remoteDomainConfig.timeRanges.map(tr => tr.timeRange);
-  const timeSpanToDataId: DomainConfig["timeSpanToDataId"] =
-    DATA_ID_BY_DOMAIN_TIME_SPAN[domainId] ?? {};
+  const dataId =
+    DATA_ID_BY_DOMAIN_TIME_SPAN[domainId]?.[remoteTimeRange.timeRange];
 
   // relative-snow's own server sends CORS headers, so its URL is used
   // directly — every other domain's is wiski.tirol.gv.at (no CORS headers),
@@ -186,11 +189,10 @@ function buildDomainConfig(
 
   return {
     timeSpans,
-    timeSpanToDataId,
+    dataId,
     timeStepHours: remoteTimeRange.timeStepHours,
     units: remoteDomainConfig.units,
     thresholds: remoteDomainConfig.thresholds,
-    stations: Object.keys(timeSpanToDataId).length > 0,
     imageOverlayFile: overlayFile(remoteTimeRange.imageOverlayURL),
     dataOverlays,
     // Station wind arrows are drawn exactly for the domains that have a
@@ -447,7 +449,7 @@ async function _loadIndexData() {
   const generation = ++_loadIndexGeneration;
   stations.set([]);
 
-  if (!domainConfig.get()?.stations) return;
+  if (!domainConfig.get()?.dataId) return;
   const currentTime0 = currentTime.get();
   if (
     !currentTime0 ||

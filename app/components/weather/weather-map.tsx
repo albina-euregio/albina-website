@@ -163,7 +163,6 @@ function createDataMarkerElement(
 
 const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   const intl = useIntl();
-  const timeSpan = useStore(store.timeSpan);
   const domainConfig = useStore(store.domainConfig);
   const stations = useStore(store.stations);
   const imageOverlayURLs = useStore(store.imageOverlayURLs);
@@ -423,8 +422,8 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
 
   if (!domainConfig || !markerItem) return null;
 
-  const itemId = domainConfig.timeSpanToDataId[timeSpan] as ParameterType;
-  const showStations = domainConfig.stations && !isPlaying;
+  const itemId = domainConfig.dataId as ParameterType;
+  const showStations = !!domainConfig.dataId && !isPlaying;
 
   // Three stacked maps so the weather raster can multiply against the basemap
   // while the station markers (and wind arrows) stay crisp on top:
