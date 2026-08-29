@@ -123,15 +123,6 @@ function filenameFromRemoteUrl(url: string): string {
   return url.slice(url.lastIndexOf("/") + 1);
 }
 
-/** This domain's slice of `DATA_ID_BY_DOMAIN_TIME_SPAN`, keyed by timeSpan. */
-function timeSpanToDataIdFor(domainId: DomainId): Record<string, string> {
-  return Object.fromEntries(
-    DATA_ID_BY_DOMAIN_TIME_SPAN.filter(([id]) => id === domainId).map(
-      ([, timeSpan, dataId]) => [timeSpan, dataId]
-    )
-  );
-}
-
 /**
  * Build the runtime `DomainConfig` from structural metadata plus the live
  * remote config and its `timeRanges[]` entry for the active timespan.
@@ -147,7 +138,12 @@ function buildDomainConfig(
   if (!domainId || !remoteDomainConfig || !remoteTimeRange) return null;
 
   const timeSpans = remoteDomainConfig.timeRanges.map(tr => tr.timeRange);
-  const timeSpanToDataId = timeSpanToDataIdFor(domainId);
+  // this domain's slice of DATA_ID_BY_DOMAIN_TIME_SPAN, keyed by timeSpan
+  const timeSpanToDataId: Record<string, string> = Object.fromEntries(
+    DATA_ID_BY_DOMAIN_TIME_SPAN.filter(([id]) => id === domainId).map(
+      ([, timeSpan, dataId]) => [timeSpan, dataId]
+    )
+  );
 
   // relative-snow's own server sends CORS headers, so its URL is used
   // directly — every other domain's is wiski.tirol.gv.at (no CORS headers),
