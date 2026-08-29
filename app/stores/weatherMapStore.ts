@@ -356,11 +356,70 @@ export const domainConfig = computed(
   (domainId, timeSpan, remoteConfig) =>
     buildDomainConfig(domainId, timeSpan, remoteConfig)
 );
-/** A loaded data overlay image, sampled by `valueForPixel` at a coordinate. */
-export interface DataOverlay {
-  type: OverlayType;
-  valueForPixel(lngLat: LngLatLike): Promise<number | null>;
+/**
+ * A loaded data overlay image, sampled by `valueForPixel` at a coordinate.
+ * Loads the image once, on construction. Data PNGs encode values in their
+ * pixels, so they're drawn 1:1 with smoothing off: reads must return exact
+ * source pixels. Any scaling or interpolation blends neighbouring pixels and
+ * corrupts the encoding.
+ */
+export class DataOverlay {
+  readonly type: OverlayType;
+  private readonly ctx: Promise<CanvasRenderingContext2D>;
+
+  constructor(
+    o: { file: string; type: OverlayType; domain?: DomainId },
+    domainId: DomainId | null,
+    currentTime: Temporal.Instant | null,
+    absTimeSpan: number
+  ) {
+    this.type = o.type;
+    const [, url] = getOverlayURLs(
+      currentTime,
+      (o.domain || domainId) as DomainId,
+      o.file,
+      absTimeSpan
+    );
+    this.ctx = new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        const canvas = new OffscreenCanvas(img.naturalWidth, img.naturalHeight);
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(img, 0, 0);
+        resolve(ctx);
+      };
+      img.onerror = e => {
+        reject(new Error(`Failed to fetch ${img.src}: ${JSON.stringify(e)}`));
+      };
+      img.src = url;
+    });
+  }
+
+  async valueForPixel(lngLat: LngLatLike): Promise<number | null> {
+    const resolvedCtx = await this.ctx;
+    const w = resolvedCtx.canvas.width;
+    const h = resolvedCtx.canvas.height;
+    // Normalized position within the bbox, in Web Mercator (linear in lng,
+    // non-linear in lat) — matching how the overlay images are projected.
+    const bbox = config.settings.bbox;
+    const sw = MercatorCoordinate.fromLngLat(bbox.getSouthWest());
+    const ne = MercatorCoordinate.fromLngLat(bbox.getNorthEast());
+    const p0 = MercatorCoordinate.fromLngLat(lngLat);
+    const fx = (p0.x - sw.x) / (ne.x - sw.x);
+    const fy = (p0.y - ne.y) / (sw.y - ne.y);
+    const pixelX = Math.round(Math.max(0, Math.min(1, fx)) * (w - 1));
+    const pixelY = Math.round(Math.max(0, Math.min(1, fy)) * (h - 1));
+    const p = resolvedCtx.getImageData(pixelX, pixelY, 1, 1);
+    return valueForPixel(this.type, {
+      r: p.data[0],
+      g: p.data[1],
+      b: p.data[2]
+    });
+  }
 }
+
 export const dataOverlays = atom<DataOverlay[]>([]);
 
 function overlayBaseURLs(): [string, string] | null {
@@ -454,58 +513,7 @@ function _updateDataOverlays() {
     return;
   }
 
-  const overlays = dc.dataOverlays.map(o => {
-    const ctx = new Promise<CanvasRenderingContext2D>((resolve, reject) => {
-      const overlayDomain = ((o as { domain?: DomainId }).domain ||
-        di) as DomainId;
-      const [, url] = getOverlayURLs(ct, overlayDomain, o.file, ats);
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.onload = () => {
-        // Data PNGs encode values in their pixels, so draw them 1:1 with
-        // smoothing off: reads must return exact source pixels. Any scaling or
-        // interpolation blends neighbouring pixels and corrupts the encoding.
-        const canvas = new OffscreenCanvas(img.naturalWidth, img.naturalHeight);
-        const ctx = canvas.getContext("2d", { willReadFrequently: true });
-        ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(img, 0, 0);
-        resolve(ctx);
-      };
-      img.onerror = e => {
-        reject(new Error(`Failed to fetch ${img.src}: ${JSON.stringify(e)}`));
-      };
-      img.src = url;
-    });
-
-    return {
-      ...o,
-      type: o.type as OverlayType,
-      ctx,
-      async valueForPixel(lngLat: LngLatLike): Promise<number | null> {
-        const resolvedCtx = await ctx;
-        const w = resolvedCtx.canvas.width;
-        const h = resolvedCtx.canvas.height;
-        // Normalized position within the bbox, in Web Mercator (linear in lng,
-        // non-linear in lat) — matching how the overlay images are projected.
-        const bbox = config.settings.bbox;
-        const sw = MercatorCoordinate.fromLngLat(bbox.getSouthWest());
-        const ne = MercatorCoordinate.fromLngLat(bbox.getNorthEast());
-        const p0 = MercatorCoordinate.fromLngLat(lngLat);
-        const fx = (p0.x - sw.x) / (ne.x - sw.x);
-        const fy = (p0.y - ne.y) / (sw.y - ne.y);
-        const pixelX = Math.round(Math.max(0, Math.min(1, fx)) * (w - 1));
-        const pixelY = Math.round(Math.max(0, Math.min(1, fy)) * (h - 1));
-        const p = resolvedCtx.getImageData(pixelX, pixelY, 1, 1);
-        return valueForPixel(o.type as OverlayType, {
-          r: p.data[0],
-          g: p.data[1],
-          b: p.data[2]
-        });
-      }
-    };
-  });
-
-  dataOverlays.set(overlays);
+  dataOverlays.set(dc.dataOverlays.map(o => new DataOverlay(o, di, ct, ats)));
 }
 
 /*
