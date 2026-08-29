@@ -123,17 +123,6 @@ function filenameFromRemoteUrl(url: string): string {
   return url.slice(url.lastIndexOf("/") + 1);
 }
 
-/** The `timeRanges[]` entry matching `timeSpan`, else the first entry. */
-function findTimeRangeEntry(
-  timeSpan: TimeSpan | null,
-  remoteDomainConfig: RemoteDomainConfig
-): RemoteTimeRange | undefined {
-  return (
-    remoteDomainConfig.timeRanges.find(tr => tr.timeRange === timeSpan) ??
-    remoteDomainConfig.timeRanges[0]
-  );
-}
-
 /** This domain's slice of `DATA_ID_BY_DOMAIN_TIME_SPAN`, keyed by timeSpan. */
 function timeSpanToDataIdFor(domainId: DomainId): Record<string, string> {
   return Object.fromEntries(
@@ -224,17 +213,20 @@ export const selectedFeature = atom(null);
  */
 export const remoteDomainConfig = atom<RemoteDomainConfig | null>(null);
 /*
- * the `timeRanges[]` entry resolved for the active domain/timespan —
+ * the `timeRanges[]` entry matching the active timespan, else the first one —
  * `endTime` below just reads fields off this. Null while the config hasn't
  * resolved, or belongs to another domain (mid domain-switch), so it can
  * never describe a different domain than `domainConfig` does.
  */
 export const remoteTimeRange = computed(
   [domainId, timeSpan, remoteDomainConfig],
-  (domainId, timeSpan, remoteDomainConfig) =>
-    domainId && remoteDomainConfig?.parameter === domainId
-      ? (findTimeRangeEntry(timeSpan, remoteDomainConfig) ?? null)
-      : null
+  (domainId, timeSpan, remoteDomainConfig) => {
+    if (!domainId || remoteDomainConfig?.parameter !== domainId) return null;
+    const { timeRanges } = remoteDomainConfig;
+    return (
+      timeRanges.find(tr => tr.timeRange === timeSpan) ?? timeRanges[0] ?? null
+    );
+  }
 );
 
 /*
