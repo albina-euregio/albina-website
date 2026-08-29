@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { debounce } from "es-toolkit";
 import {
   GeoJSONSource,
@@ -119,8 +119,14 @@ async function readOverlayValue(lngLat: LngLatLike): Promise<number | null> {
   );
 }
 
-/** Parse a "#rrggbb" hex color into an [r, g, b] triple. */
-function hexToRgb(hex: string): [number, number, number] {
+type RGB = [number, number, number];
+
+/**
+ * Parse a "#rrggbb" hex color into an [r, g, b] triple — only needed to
+ * bridge into MapLibreMap's `MarkerItem` contract below, which is RGB-native
+ * because it's shared with the real stations feature's hardcoded RGB data.
+ */
+function hexToRgb(hex: string): RGB {
   const n = parseInt(hex.replace("#", ""), 16);
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
@@ -133,22 +139,20 @@ function hexToRgb(hex: string): [number, number, number] {
  */
 function createDataMarkerElement(
   value: number | null,
-  item: MarkerItem
+  thresholds: store.RemoteThreshold[]
 ): HTMLDivElement {
   let fillColor = "#fff";
   let textColor = "#000";
   if (value != null) {
-    const colors = Object.values(item.colors);
-    let color = colors[0];
-    item.thresholds.forEach((threshold, i) => {
-      if (value > threshold) color = colors[i + 1];
-    });
-    // Colors are either an [r, g, b] triple or a "#rrggbb" hex string
-    // (relative-snow uses hex); normalize both to numeric channels.
-    const [r, g, b] =
-      typeof color === "string" ? hexToRgb(color) : (color as number[]);
+    let hex = thresholds[0].color;
+    for (let i = 0; i < thresholds.length - 1; i++) {
+      if (value > (thresholds[i].range[1] as number)) {
+        hex = thresholds[i + 1].color;
+      }
+    }
+    const [r, g, b] = hexToRgb(hex);
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-    fillColor = `rgb(${r}, ${g}, ${b})`;
+    fillColor = hex;
     textColor = luminance > 0.435 ? "#000" : "#fff";
   }
   const el = document.createElement("div");
@@ -159,10 +163,9 @@ function createDataMarkerElement(
 
 const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   const intl = useIntl();
-  const timeSpan = useStore(store.timeSpan);
   const domainConfig = useStore(store.domainConfig);
   const stations = useStore(store.stations);
-  const overlayURLs = useStore(store.overlayURLs);
+  const imageOverlayURLs = useStore(store.imageOverlayURLs);
   const dataOverlays = useStore(store.dataOverlays);
 
   // Top stations map (the interaction driver) and the two synced maps below it.
@@ -240,7 +243,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   // station markers live on the separate map above, so they stay unaffected.
   useEffect(() => {
     const map = overlayRef.current;
-    const [, url] = overlayURLs;
+    const [, url] = imageOverlayURLs;
     if (!overlayReady || !map || !url) return;
 
     // MapLibre image sources want the four corners as `[lng, lat]` in
@@ -265,7 +268,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
         paint: { "raster-opacity": 1, "raster-fade-duration": 0 }
       });
     }
-  }, [overlayURLs, overlayReady]);
+  }, [imageOverlayURLs, overlayReady]);
 
   // Wind-direction indicators: a grid of black arrows across the bbox, each
   // sampled from the `windDirection` overlay image. Present only for domains
@@ -370,8 +373,9 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       const value = await readOverlayValue(e.lngLat);
       if (gen !== clickGenRef.current || !mapRef.current) return;
 
-      const item = store.domainConfig.get() as unknown as MarkerItem;
-      const element = createDataMarkerElement(value, item);
+      const dc = store.domainConfig.get();
+      if (!dc) return;
+      const element = createDataMarkerElement(value, dc.thresholds);
       dataMarkerRef.current?.remove();
       dataMarkerRef.current = new Marker({
         element,
@@ -395,10 +399,31 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     dataMarkerRef.current = null;
   }, [dataOverlays]);
 
-  if (!domainConfig) return null;
+  // MapLibreMap's marker coloring is shared with the (unrelated) real
+  // stations feature, whose parameter data is already in this
+  // numeric-cutpoints + RGB-record shape — so convert to it only here, at
+  // this one remaining boundary. Memoized because MapLibreMap redraws its
+  // markers whenever this changes identity.
+  const markerItem: MarkerItem | null = useMemo(
+    () =>
+      domainConfig
+        ? {
+            colors: Object.fromEntries(
+              domainConfig.thresholds.map((t, i) => [i + 1, hexToRgb(t.color)])
+            ),
+            thresholds: domainConfig.thresholds
+              .slice(0, -1)
+              .map(t => t.range[1] as number),
+            direction: domainConfig.direction
+          }
+        : null,
+    [domainConfig]
+  );
 
-  const itemId = domainConfig.timeSpanToDataId[timeSpan] as ParameterType;
-  const showStations = domainConfig.layer.stations && !isPlaying;
+  if (!domainConfig || !markerItem) return null;
+
+  const itemId = domainConfig.dataId as ParameterType;
+  const showStations = !!domainConfig.dataId && !isPlaying;
 
   // Three stacked maps so the weather raster can multiply against the basemap
   // while the station markers (and wind arrows) stay crisp on top:
@@ -416,7 +441,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       <div style={{ ...fill, zIndex: 2 }}>
         <MapLibreMap
           features={showStations ? stations : []}
-          item={domainConfig as unknown as MarkerItem}
+          item={markerItem}
           itemId={itemId}
           pinDisplayModes={
             SHOW_PINS_BY_DEFAULT

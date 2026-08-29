@@ -32,24 +32,13 @@ const DOMAIN_LEGEND_CLASSES = {
   wind700hpa: "cp-legend-windhigh"
 };
 
-const DOMAIN_UNITS = {
-  "snow-height": "cm",
-  "new-snow": "cm",
-  "diff-snow": "cm",
-  "relative-snow": "%",
-  "snow-line": "m",
-  temp: "°C",
-  wind: "km/h",
-  gust: "km/h",
-  wind700hpa: "km/h"
-};
-
 const WeatherMapCockpit = () => {
   const [lastRedraw, setLastRedraw] = useState(+new Date());
   const domainId = useStore(store.domainId);
-  const timeSpan = useStore(store.timeSpan);
+  const timeRange = useStore(store.timeRange);
   const nextUpdateTime = useStore(store.nextUpdateTime);
-  const lastUpdateTime = useStore(store.lastDataUpdate);
+  const startDateModifyTimestamp = useStore(store.startDateModifyTimestamp);
+  const domainConfig = useStore(store.domainConfig);
 
   useEffect(() => {
     window.addEventListener("resize", redraw);
@@ -88,14 +77,14 @@ const WeatherMapCockpit = () => {
         }
         break;
       }
-      case "timeSpan": {
-        // Route through URL — weather.tsx calls initDomain with new timeSpan
+      case "timeRange": {
+        // Route through URL — weather.tsx calls initDomain with new timeRange
         const ct = store.currentTime.get();
         const domain = store.domainId.get();
         redirectPage($router, "weatherMapDomainTimestamp", {
           domain,
           timestamp: ct ? ct.toString() : "",
-          timeSpan: value
+          timeRange: String(value)
         });
         break;
       }
@@ -106,7 +95,7 @@ const WeatherMapCockpit = () => {
 
   const getDomainButtons = () => {
     const domainButtons = store.config
-      ? Object.keys(store.config.domains).map(domainId => {
+      ? store.config.domains.map(domainId => {
           return {
             id: domainId,
             title: (
@@ -152,23 +141,21 @@ const WeatherMapCockpit = () => {
     return buttons;
   };
 
-  const getTimeSpanOptions = () => {
+  const getTimeRangeOptions = () => {
     let allButtons;
 
-    if (store.config?.domains?.[domainId]) {
-      const domainConfig = store.config.domains[domainId].item;
-
-      const buttons = domainConfig.timeSpans.map(aItem => {
-        const nrOnlyTimespan = aItem.replace(/\D/g, "");
+    if (domainConfig) {
+      const buttons = domainConfig.timeRanges.map(aItem => {
+        const nrOnlyTimeRange = String(aItem);
         return (
           <a
             role="button"
             tabIndex="0"
             key={aItem}
-            onClick={() => handleEvent("timeSpan", aItem)}
-            className={`cp-range-${nrOnlyTimespan} ${timeSpan === aItem ? "js-active" : ""}`}
+            onClick={() => handleEvent("timeRange", aItem)}
+            className={`cp-range-${nrOnlyTimeRange} ${timeRange === aItem ? "js-active" : ""}`}
           >
-            {nrOnlyTimespan}h
+            {nrOnlyTimeRange}h
           </a>
         );
       });
@@ -262,7 +249,6 @@ const WeatherMapCockpit = () => {
     );
   };
   const getReleaseInfo = () => {
-    const unit = (domainId && DOMAIN_UNITS[domainId]) || domainConfig?.units;
     return (
       <div key="cp-release" className="cp-release">
         <Tooltip
@@ -276,7 +262,10 @@ const WeatherMapCockpit = () => {
             <span>
               <FormattedMessage id="weathermap:cockpit:maps-creation-date:prefix" />
             </span>{" "}
-            <FormattedDate date={lastUpdateTime} options={DATE_TIME_FORMAT} />
+            <FormattedDate
+              date={startDateModifyTimestamp}
+              options={DATE_TIME_FORMAT}
+            />
           </span>
         </Tooltip>
         <Tooltip
@@ -298,7 +287,7 @@ const WeatherMapCockpit = () => {
           placement="left-end"
           label={<FormattedMessage id="weathermap:cockpit:unit:title" />}
         >
-          <span className="cp-legend-unit">{unit}</span>
+          <span className="cp-legend-unit">{domainConfig?.units}</span>
         </Tooltip>
         <span key="cp-release-copyright" className="cp-release-copyright">
           <a
@@ -333,7 +322,7 @@ const WeatherMapCockpit = () => {
           <Timeline key="cp-timeline" />
         </div>
 
-        {getTimeSpanOptions()}
+        {getTimeRangeOptions()}
 
         <div
           key="cp-containerl-legend-release"

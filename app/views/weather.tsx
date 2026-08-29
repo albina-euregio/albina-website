@@ -28,8 +28,8 @@ const Weather = () => {
   useHiddenFooter();
 
   useEffect(() => {
-    store.initDomain(params.domain, params.timeSpan, params.timestamp);
-  }, [params.domain, params.timeSpan, params.timestamp]);
+    store.initDomain(params.domain, params.timeRange, params.timestamp);
+  }, [params.domain, params.timeRange, params.timestamp]);
 
   // Sync resolved timestamp to URL when navigating without one (e.g., /weather/map/new-snow/)
   // This ensures the URL always reflects the current state for bookmarking and reload.
@@ -38,7 +38,7 @@ const Weather = () => {
       redirectPage($router, "weatherMapDomainTimestamp", {
         domain: domainId,
         timestamp: currentTime.toString(),
-        timeSpan: store.timeSpan.get()
+        timeRange: String(store.timeRange.get())
       });
     }
   }, [currentTime, domainId, params.timestamp]);
