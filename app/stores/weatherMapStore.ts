@@ -71,7 +71,7 @@ export const config = {
   }
 };
 
-type RGB = [number, number, number];
+export type RGB = [number, number, number];
 
 export type DomainId = keyof typeof config.domains;
 export type OverlayType =
@@ -88,8 +88,7 @@ export interface DomainConfig {
   timeSpanToDataId: Record<string, string>;
   updateTimesOffset: Record<string, number>;
   units: string;
-  thresholds: number[];
-  colors: Record<number, RGB>;
+  thresholds: RemoteThreshold[];
   stations: boolean;
   imageOverlay: { file: string };
   dataOverlays: { file: string; type: OverlayType; domain?: DomainId }[];
@@ -120,7 +119,7 @@ const DATA_ID_BY_DOMAIN_TIME_SPAN: [DomainId, TimeSpan, string][] = [
 ];
 
 /** A single `{ range: [from, to], color }` entry from the live config.json. */
-interface RemoteThreshold {
+export interface RemoteThreshold {
   range: [number | null, number | null];
   color: string;
 }
@@ -148,28 +147,9 @@ interface RemoteDomainConfig {
 }
 
 /** Parse a "#rrggbb" hex color into an [r, g, b] triple. */
-function hexToRgb(hex: string): RGB {
+export function hexToRgb(hex: string): RGB {
   const n = parseInt(hex.replace("#", ""), 16);
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
-}
-
-/**
- * Convert the live `thresholds` (`{range,color}` pairs, ordered low→high)
- * into the numeric-cutpoints + RGB-record shape the map/marker rendering
- * code expects. Exact conversion: `thresholds[i] = ranges[i].range[1]` for
- * every entry but the last (open-ended) one.
- */
-function buildThresholdsAndColors(remoteThresholds: RemoteThreshold[]): {
-  thresholds: number[];
-  colors: Record<number, RGB>;
-} {
-  const colors = Object.fromEntries(
-    remoteThresholds.map((t, i) => [i + 1, hexToRgb(t.color)])
-  ) as Record<number, RGB>;
-  const thresholds = remoteThresholds
-    .slice(0, -1)
-    .map(t => t.range[1] as number);
-  return { thresholds, colors };
 }
 
 /**
@@ -234,8 +214,6 @@ function buildDomainConfig(
   const entry = findTimeRangeEntry(domainId, timeSpan, remote);
   if (!entry) return null;
 
-  const { thresholds, colors } = buildThresholdsAndColors(remote.thresholds);
-
   // relative-snow's own server sends CORS headers, so its URL is used
   // directly — every other domain's is wiski.tirol.gv.at (no CORS headers),
   // reduced to a filename templated against the proxied base URL instead.
@@ -255,8 +233,7 @@ function buildDomainConfig(
     timeSpanToDataId,
     updateTimesOffset: buildUpdateTimesOffset(remote.timeRanges, meta.sign),
     units: remote.units,
-    thresholds,
-    colors,
+    thresholds: remote.thresholds,
     stations: Object.keys(timeSpanToDataId).length > 0,
     imageOverlay: { file: overlayFile(entry.imageOverlayURL) },
     dataOverlays,

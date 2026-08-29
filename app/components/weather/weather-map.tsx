@@ -127,16 +127,17 @@ async function readOverlayValue(lngLat: LngLatLike): Promise<number | null> {
  */
 function createDataMarkerElement(
   value: number | null,
-  item: MarkerItem
+  thresholds: store.RemoteThreshold[]
 ): HTMLDivElement {
   let fillColor = "#fff";
   let textColor = "#000";
   if (value != null) {
-    const colors = Object.values(item.colors);
-    let color = colors[0];
-    item.thresholds.forEach((threshold, i) => {
-      if (value > threshold) color = colors[i + 1];
-    });
+    let color = store.hexToRgb(thresholds[0].color);
+    for (let i = 0; i < thresholds.length - 1; i++) {
+      if (value > (thresholds[i].range[1] as number)) {
+        color = store.hexToRgb(thresholds[i + 1].color);
+      }
+    }
     const [r, g, b] = color;
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
     fillColor = `rgb(${r}, ${g}, ${b})`;
@@ -361,8 +362,9 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       const value = await readOverlayValue(e.lngLat);
       if (gen !== clickGenRef.current || !mapRef.current) return;
 
-      const item = store.domainConfig.get() as unknown as MarkerItem;
-      const element = createDataMarkerElement(value, item);
+      const dc = store.domainConfig.get();
+      if (!dc) return;
+      const element = createDataMarkerElement(value, dc.thresholds);
       dataMarkerRef.current?.remove();
       dataMarkerRef.current = new Marker({
         element,
@@ -390,6 +392,19 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
 
   const itemId = domainConfig.timeSpanToDataId[timeSpan] as ParameterType;
   const showStations = domainConfig.stations && !isPlaying;
+  // MapLibreMap's marker coloring is shared with the (unrelated) real
+  // stations feature, whose parameter data is already in this
+  // numeric-cutpoints + RGB-record shape — so convert to it only here, at
+  // this one remaining boundary.
+  const markerItem: MarkerItem = {
+    colors: Object.fromEntries(
+      domainConfig.thresholds.map((t, i) => [i + 1, store.hexToRgb(t.color)])
+    ),
+    thresholds: domainConfig.thresholds
+      .slice(0, -1)
+      .map(t => t.range[1] as number),
+    direction: domainConfig.direction
+  };
 
   // Three stacked maps so the weather raster can multiply against the basemap
   // while the station markers (and wind arrows) stay crisp on top:
@@ -407,7 +422,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       <div style={{ ...fill, zIndex: 2 }}>
         <MapLibreMap
           features={showStations ? stations : []}
-          item={domainConfig as unknown as MarkerItem}
+          item={markerItem}
           itemId={itemId}
           pinDisplayModes={
             SHOW_PINS_BY_DEFAULT
