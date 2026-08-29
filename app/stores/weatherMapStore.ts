@@ -659,23 +659,8 @@ export const endTime = computed([remoteTimeRange], entry =>
   entry ? Temporal.Instant.from(entry.maxForecastTimestamp) : null
 );
 
-export const initialDate = computed(
-  [currentTime, endTime, timeSpanInt],
-  (currentTime, endTime, timeSpanInt): Temporal.Instant | null => {
-    if (!currentTime || !endTime) return null;
-    let date =
-      Temporal.Instant.compare(currentTime, endTime) > 0
-        ? endTime.toZonedDateTimeISO("UTC")
-        : currentTime.toZonedDateTimeISO("UTC");
-
-    if (timeSpanInt === 12 && [6, 18].includes(date.hour)) {
-      date = date.subtract({ hours: 6 });
-    }
-    if (timeSpanInt % 24 === 0 && [6, 12, 18].includes(date.hour)) {
-      date = date.subtract({ hours: date.hour });
-    }
-    return date.toInstant();
-  }
+export const initialDate = computed([remoteTimeRange], entry =>
+  entry ? Temporal.Instant.from(entry.initialTimestamp) : null
 );
 
 export const overlayURLs = computed(
