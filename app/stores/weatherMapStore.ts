@@ -19,9 +19,8 @@ export const config = {
     bbox: new LngLatBounds([9.4, 45.6167], [13.0333, 47.8167])
   },
   domains: {
-    // `sign`/`defaultTimeSpan` default to `"+-"`/`null` (see `findTimeRangeEntry`
-    // / `buildDomainConfig`) — so only the domains below that deviate need to
-    // state them.
+    // `sign` defaults to `"+-"` (see `findTimeRangeEntry`) — so only the
+    // domains below that deviate need to state it.
     "snow-height": {
       item: {
         sign: "-",
@@ -32,7 +31,6 @@ export const config = {
     "new-snow": {
       item: {
         sign: "+",
-        defaultTimeSpan: "+12",
         timeSpanToDataId: {},
         layer: { overlay: true, stations: false }
       }
@@ -118,7 +116,6 @@ export type TimeSpan = string;
 /** The runtime, per-domain config consumers read via `domainConfig`. */
 export interface DomainConfig {
   timeSpans: string[];
-  defaultTimeSpan: string | null;
   timeSpanToDataId: Record<string, string>;
   updateTimesOffset: Record<string, number>;
   units: string;
@@ -133,7 +130,6 @@ export interface DomainConfig {
 /** Structural, non-meteorological metadata for a remote-driven domain. */
 interface DomainMeta {
   sign?: "+" | "-" | "+-";
-  defaultTimeSpan?: string | null;
   timeSpanToDataId: Record<string, string>;
   layer: { overlay: boolean; stations: boolean };
   secondaryOverlay?: { file: string; type: OverlayType; domain?: DomainId };
@@ -239,7 +235,7 @@ function buildDomainConfig(
   if (!domainId || !remote || remote.parameter !== domainId) return null;
 
   const item = config.domains[domainId].item as unknown as DomainMeta;
-  const meta = { sign: "+-" as const, defaultTimeSpan: null, ...item };
+  const meta = { sign: "+-" as const, ...item };
   const timeSpans = remote.timeRanges.map(tr => meta.sign + tr.timeRange);
   const entry = findTimeRangeEntry(domainId, timeSpan, remote);
   if (!entry) return null;
@@ -262,7 +258,6 @@ function buildDomainConfig(
 
   return {
     timeSpans,
-    defaultTimeSpan: meta.defaultTimeSpan,
     timeSpanToDataId: meta.timeSpanToDataId,
     updateTimesOffset: buildUpdateTimesOffset(remote.timeRanges, meta.sign),
     units: remote.units,
@@ -590,7 +585,7 @@ export async function initDomain(
   const resolvedTimeSpan =
     newTimeSpan && domainConf.timeSpans.includes(newTimeSpan)
       ? newTimeSpan
-      : domainConf.defaultTimeSpan || domainConf.timeSpans[0];
+      : domainConf.timeSpans[0];
 
   // 4. Detect what changed
   const timeSpanChanged = resolvedTimeSpan !== timeSpan.get();
