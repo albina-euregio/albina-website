@@ -22,7 +22,7 @@ const Timeline = () => {
   // actually published, straight from the live config's `timeStepHours`.
   // NaN until the domain's config.json has resolved.
   const timeStepHours = useStore(store.domainConfig)?.timeStepHours ?? NaN;
-  const startDate = useStore(store.startDate);
+  const maxAnalysisTimestamp = useStore(store.maxAnalysisTimestamp);
   const startTime = useStore(store.startTime);
   const maxForecastTimestamp = useStore(store.maxForecastTimestamp);
   const currentTime = useStore(store.currentTime);
@@ -387,7 +387,10 @@ const Timeline = () => {
             ></div>
           </div>
         );
-        if (startDate && Temporal.Instant.compare(markDate, startDate) < 0) {
+        if (
+          maxAnalysisTimestamp &&
+          Temporal.Instant.compare(markDate, maxAnalysisTimestamp) < 0
+        ) {
           markingsAnalysis.push(marking);
         } else {
           markingsForecast.push(marking);

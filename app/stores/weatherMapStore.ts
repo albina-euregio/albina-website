@@ -103,7 +103,12 @@ interface RemoteTimeRange {
   maxAnalysisTimestamp: string;
 }
 
-/** The shape of `.../zamg_meteo/overlays/{domain}/config.json`. */
+/**
+ * The shape of `.../zamg_meteo/overlays/{domain}/config.json`. The payload
+ * also carries `startDateURL`, a wiski.tirol.gv.at URL (no CORS headers)
+ * serving the same `startDate` this config already states — nothing reads it,
+ * so it is left out.
+ */
 interface RemoteDomainConfig {
   parameter: string;
   units: string;
@@ -228,7 +233,7 @@ export const remoteTimeRange = computed(
 /*
  * returns the start date for history information
  */
-export const startDate = computed([remoteDomainConfig], remoteDomainConfig =>
+const startDate = computed([remoteDomainConfig], remoteDomainConfig =>
   remoteDomainConfig
     ? Temporal.Instant.from(remoteDomainConfig.startDate)
     : null
@@ -437,7 +442,7 @@ async function _loadIndexData() {
   const currentTime0 = currentTime.get();
   if (
     !currentTime0 ||
-    Temporal.Instant.compare(currentTime0, startDate.get()) > 0
+    Temporal.Instant.compare(currentTime0, maxAnalysisTimestamp.get()) > 0
   )
     return;
 
@@ -576,6 +581,19 @@ export const startTime = computed(
     if (!startDate) return null;
     return startDate.add({ hours: +config.settings.timeRange[0] });
   }
+);
+
+/*
+ * returns the boundary between analysis and forecast for the active
+ * domain/timespan — times at or before this are measured, later ones are
+ * forecast
+ */
+export const maxAnalysisTimestamp = computed(
+  [remoteTimeRange],
+  remoteTimeRange =>
+    remoteTimeRange
+      ? Temporal.Instant.from(remoteTimeRange.maxAnalysisTimestamp)
+      : null
 );
 
 export const maxForecastTimestamp = computed(
