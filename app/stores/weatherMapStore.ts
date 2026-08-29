@@ -425,14 +425,15 @@ function buildRelativeSnowFallbackConfig(): RemoteDomainConfig {
  * ships.
  */
 async function fetchRemoteDomainConfig(
-  domain: DomainId
+  domain: DomainId,
+  signal: AbortSignal
 ): Promise<RemoteDomainConfig> {
   const baseUrl = overlayBaseURLs()?.[0];
   if (!baseUrl) {
     throw new Error(`No overlay base URL configured for ${domain}`);
   }
   const url = window.config.template(baseUrl + "config.json", { domain });
-  const response = await fetch(url);
+  const response = await fetch(url, { signal });
   if (!response.ok) {
     if (domain === "relative-snow") return buildRelativeSnowFallbackConfig();
     throw new Error(`Failed to fetch ${url}: ${response.status}`);
@@ -443,9 +444,7 @@ async function fetchRemoteDomainConfig(
 /*
  * get data for currentTime
  */
-let _loadIndexGeneration = 0;
-async function _loadIndexData() {
-  const generation = ++_loadIndexGeneration;
+async function _loadIndexData(signal: AbortSignal) {
   stations.set([]);
 
   if (!domainConfig.get()?.dataId) return;
@@ -459,12 +458,13 @@ async function _loadIndexData() {
   try {
     await loadStationData({
       consumer: s => {
-        if (generation !== _loadIndexGeneration) return;
+        if (signal.aborted) return;
         stations.set([...stations.get(), ...s]);
       },
       dateTime: currentTime0?.toZonedDateTimeISO("UTC")
     });
   } catch (err) {
+    if (signal.aborted) return;
     // TODO fail with error dialog
     console.error("Data for timeindex not available", err);
   }
@@ -476,15 +476,19 @@ async function _loadIndexData() {
  * - Fetches the domain's live config.json when the domain changes
  * - Resolves time from URL timestamp or calculates default
  * - Reloads overlays/stations only when domain, time range or time changed
- * - Generation counter cancels stale responses
+ * - Superseded calls are aborted, so they can't write stale state
  */
-let _generation = 0;
+let _run: AbortController | undefined;
 export async function initDomain(
   newDomain: DomainId,
   newTimeRange?: string,
   timestamp?: string
 ) {
-  const gen = ++_generation;
+  // Every call supersedes the one before it: the signal both cancels an
+  // in-flight config request and gates each await point below, so a call that
+  // has been overtaken never writes to a store.
+  _run?.abort();
+  const { signal } = (_run = new AbortController());
 
   // 1. Validate and resolve domain
   newDomain ||= "new-snow";
@@ -495,12 +499,16 @@ export async function initDomain(
   let currentRemoteDomainConfig = remoteDomainConfig.get();
   if (domainChanged) {
     try {
-      currentRemoteDomainConfig = await fetchRemoteDomainConfig(newDomain);
+      currentRemoteDomainConfig = await fetchRemoteDomainConfig(
+        newDomain,
+        signal
+      );
     } catch (err) {
+      if (signal.aborted) return;
       console.error("Weather data API is not available", err);
       return;
     }
-    if (gen !== _generation) return;
+    if (signal.aborted) return;
     remoteDomainConfig.set(currentRemoteDomainConfig);
   }
 
@@ -530,7 +538,7 @@ export async function initDomain(
     timeRange.set(resolvedTimeRange);
   }
 
-  if (gen !== _generation) return;
+  if (signal.aborted) return;
 
   // 5. Resolve time — URL timestamp if provided and valid, else the live
   // config's own resolved default for this domain/time range
@@ -579,8 +587,8 @@ export async function initDomain(
       (dc?.dataOverlays ?? []).map(o => new DataOverlay(o, di, ct))
     );
 
-    if (gen === _generation) {
-      await _loadIndexData();
+    if (!signal.aborted) {
+      await _loadIndexData(signal);
     }
   }
 }
