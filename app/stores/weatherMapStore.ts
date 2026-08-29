@@ -400,11 +400,45 @@ export class DataOverlay {
     const pixelX = Math.round(Math.max(0, Math.min(1, fx)) * (w - 1));
     const pixelY = Math.round(Math.max(0, Math.min(1, fy)) * (h - 1));
     const p = resolvedCtx.getImageData(pixelX, pixelY, 1, 1);
-    return valueForPixel(this.type, {
+    return DataOverlay.valueForPixel(this.type, {
       r: p.data[0],
       g: p.data[1],
       b: p.data[2]
     });
+  }
+
+  /** Returns the value for a pixel color. */
+  static valueForPixel(
+    overlayType: OverlayType,
+    pixelRGB: { r: number; g: number; b: number }
+  ): number | null {
+    switch (overlayType) {
+      case "temperature":
+        if (pixelRGB.r <= 0) return null;
+        if (pixelRGB.r >= 255) return null;
+        return Math.round(-59.5 + (pixelRGB.r - 1) * 0.5);
+      case "windDirection":
+        if (pixelRGB.r < 0 || pixelRGB.r > 180) return null;
+        return pixelRGB.r * 2;
+      case "windSpeed":
+        if (pixelRGB.r < 0 || pixelRGB.r >= 255) return null;
+        return pixelRGB.r;
+      case "snowLine":
+        if (pixelRGB.r < 0 || pixelRGB.r >= 100) return null;
+        return pixelRGB.r * 50;
+      case "snowHeight":
+        if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 0) return 0;
+        if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 255 * 3) return null;
+        if (pixelRGB.g + pixelRGB.b === 0) return -251 + pixelRGB.r;
+        if (pixelRGB.r + pixelRGB.g === 0) return 249 + pixelRGB.b;
+        if (pixelRGB.r + pixelRGB.b === 0) return 2019 + pixelRGB.g;
+        // r=0, g>0, b>0: encodes gap range 505–2019 cm
+        // formula: 504 + (g - 1) * 255 + b
+        if (pixelRGB.r === 0) return 504 + (pixelRGB.g - 1) * 255 + pixelRGB.b;
+        if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0)
+          return pixelRGB.r;
+    }
+    return null;
   }
 }
 
@@ -718,42 +752,6 @@ export const nextUpdateTime = computed(
     return lastDataUpdate;
   }
 );
-
-/*
- * returns value for pixel color
- */
-export function valueForPixel(
-  overlayType: OverlayType,
-  pixelRGB: { r: number; g: number; b: number }
-): number | null {
-  switch (overlayType) {
-    case "temperature":
-      if (pixelRGB.r <= 0) return null;
-      if (pixelRGB.r >= 255) return null;
-      return Math.round(-59.5 + (pixelRGB.r - 1) * 0.5);
-    case "windDirection":
-      if (pixelRGB.r < 0 || pixelRGB.r > 180) return null;
-      return pixelRGB.r * 2;
-    case "windSpeed":
-      if (pixelRGB.r < 0 || pixelRGB.r >= 255) return null;
-      return pixelRGB.r;
-    case "snowLine":
-      if (pixelRGB.r < 0 || pixelRGB.r >= 100) return null;
-      return pixelRGB.r * 50;
-    case "snowHeight":
-      if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 0) return 0;
-      if (pixelRGB.r + pixelRGB.g + pixelRGB.b === 255 * 3) return null;
-      if (pixelRGB.g + pixelRGB.b === 0) return -251 + pixelRGB.r;
-      if (pixelRGB.r + pixelRGB.g === 0) return 249 + pixelRGB.b;
-      if (pixelRGB.r + pixelRGB.b === 0) return 2019 + pixelRGB.g;
-      // r=0, g>0, b>0: encodes gap range 505–2019 cm
-      // formula: 504 + (g - 1) * 255 + b
-      if (pixelRGB.r === 0) return 504 + (pixelRGB.g - 1) * 255 + pixelRGB.b;
-      if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0)
-        return pixelRGB.r;
-  }
-  return null;
-}
 
 /*
  * control method to check if the domain does exist in the config
