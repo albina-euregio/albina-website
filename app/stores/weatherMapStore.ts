@@ -638,10 +638,6 @@ export const endTime = computed([remoteTimeRange], entry =>
   entry ? Temporal.Instant.from(entry.maxForecastTimestamp) : null
 );
 
-export const initialDate = computed([remoteTimeRange], entry =>
-  entry ? Temporal.Instant.from(entry.initialTimestamp) : null
-);
-
 export const overlayURLs = computed(
   [currentTime, domainConfig, domainId, absTimeSpan],
   (currentTime, domainConfig, domainId, absTimeSpan) => {

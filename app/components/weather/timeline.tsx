@@ -20,7 +20,7 @@ const Timeline = () => {
   const startDate = useStore(store.startDate);
   const startTime = useStore(store.startTime);
   const endTime = useStore(store.endTime);
-  const initialDate = useStore(store.initialDate);
+  const currentTime = useStore(store.currentTime);
   const barDuration = timeSpanInt;
   const markerPosition = timeSpanInt > 24 ? "75%" : "50%";
   const showBar = timeSpanInt > 1;
@@ -31,7 +31,7 @@ const Timeline = () => {
   const markersReady = useRef(false);
   const [targetDate, setTargetDate] = useState<Temporal.Instant>();
   // currentDate is derived from the store — single source of truth
-  const currentDate = initialDate;
+  const currentDate = currentTime;
   const [currentTranslateX, setCurrentTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -46,7 +46,7 @@ const Timeline = () => {
   const [pixelsPerHour, setPixelsPerHour] = useState(5);
   const [selectableHoursOffset, setSelectableHoursOffset] =
     useState(timeSpanInt);
-  const currentDateRef = useRef(initialDate);
+  const currentDateRef = useRef(currentTime);
   const pendingNav = useRef<number | null>(null);
 
   const hoursPerDay = 24;
@@ -99,20 +99,20 @@ const Timeline = () => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
-  // Sync targetDate (for visual ruler positioning) from store's initialDate.
+  // Sync targetDate (for visual ruler positioning) from the store's currentTime.
   // Depend on the timestamp number (not the Date reference) so this only fires
   // when the actual time value changes, preventing cascading re-renders.
   useEffect(() => {
-    if (initialDate) {
+    if (currentTime) {
       if (
         !targetDate ||
-        Temporal.Instant.compare(initialDate, targetDate) !== 0
+        Temporal.Instant.compare(currentTime, targetDate) !== 0
       ) {
-        setTargetDate(initialDate);
+        setTargetDate(currentTime);
       }
     }
     // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps
-  }, [initialDate]);
+  }, [currentTime]);
 
   useEffect(() => {
     let intervalId: ReturnType<typeof setInterval> | null = null;
@@ -142,8 +142,8 @@ const Timeline = () => {
   }, [playerIsActive]);
 
   useEffect(() => {
-    currentDateRef.current = initialDate;
-  }, [initialDate]);
+    currentDateRef.current = currentTime;
+  }, [currentTime]);
 
   useEffect(() => {
     if (!startTime || !endTime) return;
