@@ -234,9 +234,9 @@ export const startDate = computed([remoteDomainConfig], remoteDomainConfig =>
     : null
 );
 /*
-  returns lastUpdateTime
-*/
-export const lastDataUpdate = computed(
+ * returns when the domain's data was last modified
+ */
+export const startDateModifyTimestamp = computed(
   [remoteDomainConfig],
   remoteDomainConfig =>
     remoteDomainConfig
@@ -642,10 +642,10 @@ function getOverlayURLs(
  * returns nextUpdateTime
  */
 export const nextUpdateTime = computed(
-  [domainConfig, lastDataUpdate],
-  (domainConfig, lastDataUpdate) =>
-    domainConfig && lastDataUpdate
-      ? lastDataUpdate.add({ hours: domainConfig.timeStepHours })
+  [domainConfig, startDateModifyTimestamp],
+  (domainConfig, startDateModifyTimestamp) =>
+    domainConfig && startDateModifyTimestamp
+      ? startDateModifyTimestamp.add({ hours: domainConfig.timeStepHours })
       : null
 );
 

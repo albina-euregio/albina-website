@@ -37,7 +37,7 @@ const WeatherMapCockpit = () => {
   const domainId = useStore(store.domainId);
   const timeSpan = useStore(store.timeSpan);
   const nextUpdateTime = useStore(store.nextUpdateTime);
-  const lastUpdateTime = useStore(store.lastDataUpdate);
+  const startDateModifyTimestamp = useStore(store.startDateModifyTimestamp);
   const domainConfig = useStore(store.domainConfig);
 
   useEffect(() => {
@@ -262,7 +262,10 @@ const WeatherMapCockpit = () => {
             <span>
               <FormattedMessage id="weathermap:cockpit:maps-creation-date:prefix" />
             </span>{" "}
-            <FormattedDate date={lastUpdateTime} options={DATE_TIME_FORMAT} />
+            <FormattedDate
+              date={startDateModifyTimestamp}
+              options={DATE_TIME_FORMAT}
+            />
           </span>
         </Tooltip>
         <Tooltip
