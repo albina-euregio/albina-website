@@ -220,8 +220,6 @@ export const domainId = atom<DomainId | null>(null);
  * returns current timespan selection
  */
 export const timeSpan = atom<TimeSpan | null>(null);
-export const absTimeSpan = computed([timeSpan], timeSpan => timeSpan ?? NaN);
-export const timeSpanInt = computed([timeSpan], timeSpan => timeSpan ?? NaN);
 /*
  * returns current time of interest
  */
@@ -289,15 +287,13 @@ export class DataOverlay {
   constructor(
     o: { file: string; type: OverlayType; domain?: DomainId },
     domainId: DomainId | null,
-    currentTime: Temporal.Instant | null,
-    absTimeSpan: number
+    currentTime: Temporal.Instant | null
   ) {
     this.type = o.type;
     const [, url] = getOverlayURLs(
       currentTime,
       (o.domain || domainId) as DomainId,
-      o.file,
-      absTimeSpan
+      o.file
     );
     this.ctx = new Promise((resolve, reject) => {
       const img = new Image();
@@ -595,9 +591,8 @@ export async function initDomain(
     const dc = domainConfig.get();
     const di = domainId.get();
     const ct = currentTime.get();
-    const ats = absTimeSpan.get();
     dataOverlays.set(
-      (dc?.dataOverlays ?? []).map(o => new DataOverlay(o, di, ct, ats))
+      (dc?.dataOverlays ?? []).map(o => new DataOverlay(o, di, ct))
     );
 
     if (gen === _generation) {
@@ -621,23 +616,18 @@ export const endTime = computed([remoteTimeRange], remoteTimeRange =>
 );
 
 export const overlayURLs = computed(
-  [currentTime, domainConfig, domainId, absTimeSpan],
-  (currentTime, domainConfig, domainId, absTimeSpan) => {
+  [currentTime, domainConfig, domainId],
+  (currentTime, domainConfig, domainId) => {
     if (!domainConfig) return ["", ""] as [string, string];
-    return getOverlayURLs(
-      currentTime,
-      domainId,
-      domainConfig.imageOverlay.file,
-      absTimeSpan
-    );
+    const file = domainConfig.imageOverlay.file;
+    return getOverlayURLs(currentTime, domainId, file);
   }
 );
 
 function getOverlayURLs(
   currentTime: Temporal.Instant | null,
   domain: DomainId,
-  file: string | undefined,
-  timespan: number
+  file: string | undefined
 ): [string, string] {
   if (!currentTime || !file) return ["", ""];
   // Translate the live `imageOverlayURL`/`dataOverlayURL`'s `$year`/`$date`/
@@ -654,8 +644,7 @@ function getOverlayURLs(
       .toZonedDateTimeISO("UTC")
       .hour.toString()
       .padStart(2, "0"),
-    domain,
-    timespan
+    domain
   };
   // A bare filename (from filenameFromRemoteUrl) needs the proxied base URL
   // prefixed; a full URL (relative-snow only) is already fetchable as-is.

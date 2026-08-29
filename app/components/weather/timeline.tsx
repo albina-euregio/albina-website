@@ -15,8 +15,9 @@ import { redirectPage } from "@nanostores/router";
 
 const Timeline = () => {
   const domainId = useStore(store.domainId);
-  const timeSpan0 = useStore(store.timeSpan);
-  const timeSpanInt = useStore(store.timeSpanInt);
+  // NaN until the first initDomain resolves; the comparisons below then all
+  // read false, which is what the "no timespan yet" render wants.
+  const timeSpan = useStore(store.timeSpan) ?? NaN;
   // The spacing of selectable times: how often this domain/timespan is
   // actually published, straight from the live config's `timeStepHours`.
   const timeStepHours = useStore(store.timeStepHours);
@@ -24,9 +25,9 @@ const Timeline = () => {
   const startTime = useStore(store.startTime);
   const endTime = useStore(store.endTime);
   const currentTime = useStore(store.currentTime);
-  const barDuration = timeSpanInt;
-  const markerPosition = timeSpanInt > 24 ? "75%" : "50%";
-  const showBar = timeSpanInt > 1;
+  const barDuration = timeSpan;
+  const markerPosition = timeSpan > 24 ? "75%" : "50%";
+  const showBar = timeSpan > 1;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const rulerRef = useRef<HTMLDivElement>(null);
@@ -67,15 +68,15 @@ const Timeline = () => {
 
   const navigateToWeatermapWithParams = (
     timestamp: string,
-    timeSpan: store.TimeSpan | null
+    newTimeSpan: store.TimeSpan | null
   ) => {
     // Preserve the domain parameter while updating timestamp
     const domain = store.domainId.get();
     redirectPage(
       $router,
       "weatherMapDomainTimestamp",
-      timeSpan
-        ? { domain, timestamp, timeSpan: String(timeSpan) }
+      newTimeSpan
+        ? { domain, timestamp, timeSpan: String(newTimeSpan) }
         : { domain, timestamp }
     );
   };
@@ -168,7 +169,7 @@ const Timeline = () => {
       setRulerEndDay(Math.min(maxEndDay + rulerPadding, targetDay + daysBuild));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeSpanInt, targetDate, showBar, maxEndDay]);
+  }, [timeSpan, targetDate, showBar, maxEndDay]);
 
   useEffect(() => {
     if (markersReady.current) {
@@ -189,7 +190,7 @@ const Timeline = () => {
 
   useEffect(() => {
     setPlayerIsActive(false);
-  }, [timeSpanInt, domainId]);
+  }, [timeSpan, domainId]);
 
   useEffect(() => {
     if (indicatorOffset) {
@@ -258,10 +259,10 @@ const Timeline = () => {
 
   const jumpTimeSpan = (direction: 1 | -1 | number) => {
     cancelPendingNav();
-    if (!timeSpan0) return;
+    if (!timeSpan) return;
     const timeSpans = store.domainConfig.get()?.timeSpans;
     if (!timeSpans || timeSpans.length < 2) return;
-    let index = timeSpans.indexOf(timeSpan0);
+    let index = timeSpans.indexOf(timeSpan);
     if (index < 0) return;
     index = (index + direction + timeSpans.length) % timeSpans.length;
     const newTimeSpan = timeSpans[index];
@@ -499,7 +500,7 @@ const Timeline = () => {
     // so add the timespan to convert from the user-picked start time.
     // For instantaneous (1h), the user picks the exact time — no offset.
     if (showBar) {
-      newTargetDate = newTargetDate.add({ hours: timeSpanInt });
+      newTargetDate = newTargetDate.add({ hours: timeSpan });
     }
 
     // FIXME with minutes=0 seconds=0
@@ -620,19 +621,19 @@ const Timeline = () => {
 
         {
           <div className="cp-scale-stamp">
-            {timeSpanInt > 1 && (
+            {timeSpan > 1 && (
               <div
                 ref={indicatorRef}
                 className="cp-scale-stamp-range js-active"
                 style={{
                   left: barOffset,
-                  width: timeSpanInt * pixelsPerHour
+                  width: timeSpan * pixelsPerHour
                 }}
               >
                 <span className="cp-scale-stamp-range-bar"></span>
                 <span className="cp-scale-stamp-range-begin">
                   <FormattedDate
-                    date={currentDate?.subtract({ hours: timeSpanInt }) ?? null}
+                    date={currentDate?.subtract({ hours: timeSpan }) ?? null}
                     options={{ timeStyle: "short", timeZone: "UTC" }}
                   />
                 </span>
@@ -645,7 +646,7 @@ const Timeline = () => {
               </div>
             )}
 
-            {timeSpanInt === 1 && (
+            {timeSpan === 1 && (
               <div
                 ref={indicatorRef}
                 className="cp-scale-stamp-point js-active"
