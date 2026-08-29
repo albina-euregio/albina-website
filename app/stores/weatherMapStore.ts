@@ -511,18 +511,19 @@ export async function initDomain(
     remoteDomainConfig.set(currentRemoteDomainConfig);
   }
 
-  // 3. Resolve timespan
-  const parsedTimeSpan = newTimeSpan ? parseInt(newTimeSpan, 10) : null;
-  const domainConf = buildDomainConfig(
-    newDomain,
-    parsedTimeSpan,
-    currentRemoteDomainConfig
+  // 3. Resolve the timespan against the ones this domain publishes. Bail on a
+  // config that isn't this domain's (or has no timeRanges) — the same cases
+  // `buildDomainConfig` returns null for, rather than half-initializing.
+  if (currentRemoteDomainConfig?.parameter !== newDomain) return;
+  const timeSpans = currentRemoteDomainConfig.timeRanges.map(
+    tr => tr.timeRange
   );
-  if (!domainConf) return;
+  if (!timeSpans.length) return;
+  const parsedTimeSpan = newTimeSpan ? parseInt(newTimeSpan, 10) : null;
   const resolvedTimeSpan =
-    parsedTimeSpan !== null && domainConf.timeSpans.includes(parsedTimeSpan)
+    parsedTimeSpan !== null && timeSpans.includes(parsedTimeSpan)
       ? parsedTimeSpan
-      : domainConf.timeSpans[0];
+      : timeSpans[0];
 
   // 4. Detect what changed
   const timeSpanChanged = resolvedTimeSpan !== timeSpan.get();
@@ -540,7 +541,6 @@ export async function initDomain(
   // 6. Resolve the active timeRanges[] entry (drives endTime) only when
   // domain or timeSpan actually changed
   if (needsMetadata) {
-    if (!currentRemoteDomainConfig) return;
     remoteTimeRange.set(
       findTimeRangeEntry(resolvedTimeSpan, currentRemoteDomainConfig) ?? null
     );
