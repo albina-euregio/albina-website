@@ -515,8 +515,9 @@ export async function initDomain(
         signal
       );
     } catch (err) {
-      if (signal.aborted) return;
-      console.error("Weather data API is not available", err);
+      if (!signal.aborted) {
+        console.error("Weather data API is not available", err);
+      }
       return;
     }
     if (signal.aborted) return;
@@ -531,11 +532,10 @@ export async function initDomain(
     tr => tr.timeRange
   );
   if (!timeRanges.length) return;
-  const parsedTimeRange = newTimeRange ? parseInt(newTimeRange, 10) : null;
-  const resolvedTimeRange =
-    parsedTimeRange !== null && timeRanges.includes(parsedTimeRange)
-      ? parsedTimeRange
-      : timeRanges[0];
+  const requestedTimeRange = Number(newTimeRange);
+  const resolvedTimeRange = timeRanges.includes(requestedTimeRange)
+    ? requestedTimeRange
+    : timeRanges[0];
 
   const timeRangeChanged = resolvedTimeRange !== timeRange.get();
 
@@ -576,11 +576,10 @@ export async function initDomain(
   if (domainChanged || timeRangeChanged || timeChanged) {
     // Load data overlay images for pixel-value reading. Separated from a
     // computed to avoid side effects (Image creation) in pure derivations.
-    const dc = domainConfig.get();
-    const di = domainId.get();
-    const ct = currentTime.get();
     dataOverlays.set(
-      (dc?.dataOverlays ?? []).map(o => new DataOverlay(o, di, ct))
+      (domainConfig.get()?.dataOverlays ?? []).map(
+        o => new DataOverlay(o, newDomain, resolvedTime)
+      )
     );
 
     if (!signal.aborted) {
