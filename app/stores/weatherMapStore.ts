@@ -22,41 +22,25 @@ export const config = {
     // `sign` defaults to `"+-"` (see `findTimeRangeEntry`) — so only the
     // domains below that deviate need to state it.
     "snow-height": {
-      item: {
-        sign: "-",
-        layer: { overlay: true, stations: true }
-      }
+      item: { sign: "-" }
     },
     "new-snow": {
-      item: {
-        sign: "+",
-        layer: { overlay: true, stations: false }
-      }
+      item: { sign: "+" }
     },
     "diff-snow": {
-      item: {
-        sign: "-",
-        layer: { overlay: true, stations: true }
-      }
+      item: { sign: "-" }
     },
     "relative-snow": {
-      item: {
-        layer: { overlay: true, stations: false }
-      }
+      item: {}
     },
     "snow-line": {
-      item: {
-        layer: { overlay: true, stations: false }
-      }
+      item: {}
     },
     temp: {
-      item: {
-        layer: { overlay: true, stations: true }
-      }
+      item: {}
     },
     wind: {
       item: {
-        layer: { overlay: true, stations: true },
         // The live config.json only exposes the wind-speed overlay; the
         // direction overlay has no remote equivalent, so its filename stays
         // hardcoded here.
@@ -68,7 +52,6 @@ export const config = {
     },
     gust: {
       item: {
-        layer: { overlay: true, stations: true },
         // Gust borrows the wind domain's direction overlay, same as today.
         secondaryOverlay: {
           file: "{date}_{time}-00_wind-dir_V3.png",
@@ -79,7 +62,6 @@ export const config = {
     },
     wind700hpa: {
       item: {
-        layer: { overlay: true, stations: true },
         secondaryOverlay: {
           file: "{date}_{time}-00_wind-dir700hpa.png",
           type: "windDirection"
@@ -108,7 +90,7 @@ export interface DomainConfig {
   units: string;
   thresholds: number[];
   colors: Record<number, RGB>;
-  layer: { overlay: boolean; stations: boolean };
+  stations: boolean;
   imageOverlay: { file: string };
   dataOverlays: { file: string; type: OverlayType; domain?: DomainId }[];
   direction: "DW" | false;
@@ -117,7 +99,6 @@ export interface DomainConfig {
 /** Structural, non-meteorological metadata for a remote-driven domain. */
 interface DomainMeta {
   sign?: "+" | "-" | "+-";
-  layer: { overlay: boolean; stations: boolean };
   secondaryOverlay?: { file: string; type: OverlayType; domain?: DomainId };
 }
 
@@ -276,7 +257,7 @@ function buildDomainConfig(
     units: remote.units,
     thresholds,
     colors,
-    layer: meta.layer,
+    stations: Object.keys(timeSpanToDataId).length > 0,
     imageOverlay: { file: overlayFile(entry.imageOverlayURL) },
     dataOverlays,
     direction: Object.values(timeSpanToDataId).some(id =>
@@ -536,7 +517,7 @@ async function _loadIndexData() {
   const generation = ++_loadIndexGeneration;
   stations.set([]);
 
-  if (!domainConfig.get()?.layer.stations) return;
+  if (!domainConfig.get()?.stations) return;
   const currentTime0 = currentTime.get();
   if (
     !currentTime0 ||
