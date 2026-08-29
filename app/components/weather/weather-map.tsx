@@ -166,7 +166,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   const timeSpan = useStore(store.timeSpan);
   const domainConfig = useStore(store.domainConfig);
   const stations = useStore(store.stations);
-  const overlayURLs = useStore(store.overlayURLs);
+  const imageOverlayURLs = useStore(store.imageOverlayURLs);
   const dataOverlays = useStore(store.dataOverlays);
 
   // Top stations map (the interaction driver) and the two synced maps below it.
@@ -244,7 +244,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   // station markers live on the separate map above, so they stay unaffected.
   useEffect(() => {
     const map = overlayRef.current;
-    const [, url] = overlayURLs;
+    const [, url] = imageOverlayURLs;
     if (!overlayReady || !map || !url) return;
 
     // MapLibre image sources want the four corners as `[lng, lat]` in
@@ -269,7 +269,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
         paint: { "raster-opacity": 1, "raster-fade-duration": 0 }
       });
     }
-  }, [overlayURLs, overlayReady]);
+  }, [imageOverlayURLs, overlayReady]);
 
   // Wind-direction indicators: a grid of black arrows across the bbox, each
   // sampled from the `windDirection` overlay image. Present only for domains

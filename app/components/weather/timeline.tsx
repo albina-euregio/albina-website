@@ -24,7 +24,7 @@ const Timeline = () => {
   const timeStepHours = useStore(store.domainConfig)?.timeStepHours ?? NaN;
   const startDate = useStore(store.startDate);
   const startTime = useStore(store.startTime);
-  const endTime = useStore(store.endTime);
+  const maxForecastTimestamp = useStore(store.maxForecastTimestamp);
   const currentTime = useStore(store.currentTime);
   const barDuration = timeSpan;
   const markerPosition = timeSpan > 24 ? "75%" : "50%";
@@ -127,8 +127,11 @@ const Timeline = () => {
       intervalId = setInterval(() => {
         if (
           currentDateRef.current &&
-          endTime &&
-          Temporal.Instant.compare(currentDateRef.current, endTime) >= 0
+          maxForecastTimestamp &&
+          Temporal.Instant.compare(
+            currentDateRef.current,
+            maxForecastTimestamp
+          ) >= 0
         ) {
           setPlayerIsActive(false);
         } else {
@@ -151,10 +154,12 @@ const Timeline = () => {
   }, [currentTime]);
 
   useEffect(() => {
-    if (!startTime || !endTime) return;
+    if (!startTime || !maxForecastTimestamp) return;
     setMaxStartDay(Math.floor(now.until(startTime).total({ unit: "days" })));
-    setMaxEndDay(Math.floor(now.until(endTime).total({ unit: "days" })));
-  }, [startTime, endTime, now]);
+    setMaxEndDay(
+      Math.floor(now.until(maxForecastTimestamp).total({ unit: "days" }))
+    );
+  }, [startTime, maxForecastTimestamp, now]);
 
   useEffect(() => {
     if (targetDate && containerRef?.current?.clientWidth) {
@@ -187,7 +192,13 @@ const Timeline = () => {
       snapToDate(targetDate);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rulerStartDay, rulerEndDay, endTime, targetDate, timeStepHours]);
+  }, [
+    rulerStartDay,
+    rulerEndDay,
+    maxForecastTimestamp,
+    targetDate,
+    timeStepHours
+  ]);
 
   useEffect(() => {
     setPlayerIsActive(false);
@@ -230,14 +241,14 @@ const Timeline = () => {
   };
 
   const jumpStep = (direction: 1 | -1 | number) => {
-    if (!endTime || !startTime) return;
+    if (!maxForecastTimestamp || !startTime) return;
     const newDate = currentDateRef.current?.add({
       hours: direction * timeStepHours
     });
     if (!newDate) return;
 
     if (
-      Temporal.Instant.compare(newDate, endTime) <= 0 &&
+      Temporal.Instant.compare(newDate, maxForecastTimestamp) <= 0 &&
       Temporal.Instant.compare(newDate, startTime) >= 0
     ) {
       // Update the ref eagerly so rapid keypresses accumulate steps
@@ -314,21 +325,22 @@ const Timeline = () => {
         if (
           isSelectable &&
           startTime &&
-          endTime &&
+          maxForecastTimestamp &&
           Temporal.Instant.compare(markDate, startTime) >= 0 &&
-          Temporal.Instant.compare(markDate, endTime) <= 0
+          Temporal.Instant.compare(markDate, maxForecastTimestamp) <= 0
         ) {
           markClass.push("selectable-hour-mark");
         } else {
           markClass.push("hour-mark");
         }
-        if (isSelectable && endTime) {
+        if (isSelectable && maxForecastTimestamp) {
           const nextSelectableDate = localDate
             .add({ hours: timeStepHours })
             .toInstant();
           if (
-            Temporal.Instant.compare(endTime, markDate) >= 0 &&
-            Temporal.Instant.compare(nextSelectableDate, endTime) > 0
+            Temporal.Instant.compare(maxForecastTimestamp, markDate) >= 0 &&
+            Temporal.Instant.compare(nextSelectableDate, maxForecastTimestamp) >
+              0
           ) {
             markClass.push("selectable-hours-end");
           }
@@ -389,7 +401,13 @@ const Timeline = () => {
       </div>
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rulerStartDay, rulerEndDay, endTime, targetDate, timeStepHours]);
+  }, [
+    rulerStartDay,
+    rulerEndDay,
+    maxForecastTimestamp,
+    targetDate,
+    timeStepHours
+  ]);
 
   const updateTimelinePosition = (newTranslateX: number, snap: boolean) => {
     let usedTranslateX = newTranslateX;
@@ -398,12 +416,14 @@ const Timeline = () => {
       usedTranslateX = Math.round(usedTranslateX / snapToHours) * snapToHours;
     }
 
-    // Clamp to valid selectable range so the user can't drag past startTime/endTime
-    if (startTime && endTime) {
+    // Clamp to the valid selectable range so the user can't drag past
+    // startTime / maxForecastTimestamp
+    if (startTime && maxForecastTimestamp) {
       const minTranslateX =
         startOfDay.until(startTime).total({ unit: "hours" }) * pixelsPerHour;
       const maxTranslateX =
-        startOfDay.until(endTime).total({ unit: "hours" }) * pixelsPerHour;
+        startOfDay.until(maxForecastTimestamp).total({ unit: "hours" }) *
+        pixelsPerHour;
       usedTranslateX = Math.max(
         minTranslateX,
         Math.min(maxTranslateX, usedTranslateX)
@@ -593,7 +613,7 @@ const Timeline = () => {
               ?.toZonedDateTimeISO("UTC")
               .toPlainDateTime()
               .toString()}
-            max={endTime
+            max={maxForecastTimestamp
               ?.toZonedDateTimeISO("UTC")
               .toPlainDateTime()
               .toString()}

@@ -210,9 +210,9 @@ export const selectedFeature = atom(null);
 export const remoteDomainConfig = atom<RemoteDomainConfig | null>(null);
 /*
  * the `timeRanges[]` entry matching the active timespan, else the first one —
- * `endTime` below just reads fields off this. Null while the config hasn't
- * resolved, or belongs to another domain (mid domain-switch), so it can
- * never describe a different domain than `domainConfig` does.
+ * `maxForecastTimestamp` below just reads a field off this. Null while the
+ * config hasn't resolved, or belongs to another domain (mid domain-switch),
+ * so it can never describe a different domain than `domainConfig` does.
  */
 export const remoteTimeRange = computed(
   [domainId, timeSpan, remoteDomainConfig],
@@ -526,14 +526,14 @@ export async function initDomain(
   if (timestamp) {
     const parsed = Temporal.Instant.from(timestamp);
     const snapped = snapToSlot(parsed, currentRemoteTimeRange.timeStepHours);
-    const st = startTime.get();
-    const et = endTime.get();
-    if (st && et) {
+    const min = startTime.get();
+    const max = maxForecastTimestamp.get();
+    if (min && max) {
       resolvedTime =
-        Temporal.Instant.compare(snapped, st) < 0
-          ? st
-          : Temporal.Instant.compare(snapped, et) > 0
-            ? et
+        Temporal.Instant.compare(snapped, min) < 0
+          ? min
+          : Temporal.Instant.compare(snapped, max) > 0
+            ? max
             : snapped;
     } else {
       resolvedTime = snapped;
@@ -578,13 +578,15 @@ export const startTime = computed(
   }
 );
 
-export const endTime = computed([remoteTimeRange], remoteTimeRange =>
-  remoteTimeRange
-    ? Temporal.Instant.from(remoteTimeRange.maxForecastTimestamp)
-    : null
+export const maxForecastTimestamp = computed(
+  [remoteTimeRange],
+  remoteTimeRange =>
+    remoteTimeRange
+      ? Temporal.Instant.from(remoteTimeRange.maxForecastTimestamp)
+      : null
 );
 
-export const overlayURLs = computed(
+export const imageOverlayURLs = computed(
   [currentTime, domainConfig, domainId],
   (currentTime, domainConfig, domainId) => {
     if (!domainConfig) return ["", ""] as [string, string];
