@@ -231,14 +231,6 @@ export const remoteTimeRange = computed(
 );
 
 /*
- * returns the start date for history information
- */
-const startDate = computed([remoteDomainConfig], remoteDomainConfig =>
-  remoteDomainConfig
-    ? Temporal.Instant.from(remoteDomainConfig.startDate)
-    : null
-);
-/*
  * returns when the domain's data was last modified
  */
 export const startDateModifyTimestamp = computed(
@@ -575,12 +567,18 @@ export async function initDomain(
   }
 }
 
+/*
+ * returns the earliest selectable time — the config's `startDate` less the
+ * history window the timeline offers
+ */
 export const startTime = computed(
-  [startDate],
-  (startDate): Temporal.Instant | null => {
-    if (!startDate) return null;
-    return startDate.add({ hours: +config.settings.timeRange[0] });
-  }
+  [remoteDomainConfig],
+  (remoteDomainConfig): Temporal.Instant | null =>
+    remoteDomainConfig
+      ? Temporal.Instant.from(remoteDomainConfig.startDate).add({
+          hours: +config.settings.timeRange[0]
+        })
+      : null
 );
 
 /*
