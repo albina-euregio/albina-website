@@ -8,6 +8,7 @@ import React, {
   useState
 } from "react";
 import { FormattedDate, FormattedMessage, useIntl } from "../../i18n";
+import { TIME_ZONE_FORMAT } from "../../util/date";
 import * as store from "../../stores/weatherMapStore";
 import { Tooltip } from "../tooltips/tooltip";
 import { $router } from "../router";
@@ -667,13 +668,13 @@ const Timeline = () => {
                 <span className="cp-scale-stamp-range-begin">
                   <FormattedDate
                     date={currentDate?.subtract({ hours: timeRange }) ?? null}
-                    options={{ timeStyle: "short", timeZone: "UTC" }}
+                    options={TIME_ZONE_FORMAT}
                   />
                 </span>
                 <span className="cp-scale-stamp-range-end">
                   <FormattedDate
                     date={currentDate}
-                    options={{ timeStyle: "short", timeZone: "UTC" }}
+                    options={TIME_ZONE_FORMAT}
                   />
                 </span>
               </div>
@@ -691,7 +692,7 @@ const Timeline = () => {
                 <span className="cp-scale-stamp-point-exact">
                   <FormattedDate
                     date={currentDate}
-                    options={{ timeStyle: "short", timeZone: "UTC" }}
+                    options={TIME_ZONE_FORMAT}
                   />
                 </span>
               </div>

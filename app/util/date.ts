@@ -35,6 +35,19 @@ export const DATE_TIME_FORMAT_SHORT: Intl.DateTimeFormatOptions = {
 };
 Object.freeze(DATE_TIME_FORMAT_SHORT);
 
+/**
+ * Time of day with its zone, e.g. "15:00 UTC" — `timeStyle` cannot carry
+ * `timeZoneName`, so the components are spelled out.
+ */
+export const TIME_ZONE_FORMAT: Intl.DateTimeFormatOptions = {
+  hour: "2-digit",
+  minute: "2-digit",
+  timeZoneName: "short",
+  hour12: false,
+  timeZone: "UTC"
+};
+Object.freeze(TIME_ZONE_FORMAT);
+
 export const DATE_TIME_ZONE_FORMAT: Intl.DateTimeFormatOptions = {
   weekday: "long",
   year: "numeric",
