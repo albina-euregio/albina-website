@@ -33,7 +33,6 @@ const Timeline = () => {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const rulerRef = useRef<HTMLDivElement>(null);
-  const indicatorRef = useRef<HTMLDivElement>(null);
   const markersReady = useRef(false);
   const [targetDate, setTargetDate] = useState<Temporal.Instant>();
   // currentDate is derived from the store — single source of truth
@@ -443,6 +442,22 @@ const Timeline = () => {
     setCurrentTranslateX(usedTranslateX);
   };
 
+  // The time a release at `translateX` selects: the ruler is translated by
+  // (hours since startOfDay) * pixelsPerHour, so snapping that back to the
+  // publication step names the marker sitting under the indicator.
+  const dateAtTranslateX = (
+    translateX: number
+  ): Temporal.Instant | undefined => {
+    if (!timeStepHours || !minTimestamp || !maxForecastTimestamp) return;
+    const hours =
+      Math.round(translateX / pixelsPerHour / timeStepHours) * timeStepHours;
+    const date = startOfDay.add({ hours });
+    if (Temporal.Instant.compare(date, minTimestamp) < 0) return minTimestamp;
+    if (Temporal.Instant.compare(date, maxForecastTimestamp) > 0)
+      return maxForecastTimestamp;
+    return date;
+  };
+
   const handleDragStart: MouseEventHandler<HTMLDivElement> = e => {
     setIsDragging(true);
     const clientX = e.type === "mousedown" ? e.clientX : e.touches[0].clientX;
@@ -461,17 +476,12 @@ const Timeline = () => {
   };
 
   const handleDragEnd: MouseEventHandler<HTMLDivElement> = () => {
-    if (isDragging) {
-      setIsDragging(false);
-      rulerRef.current.style.transition = "transform 0.3s ease";
-      const nearestMarker = getNearestMarker();
-      if (nearestMarker) {
-        const newDate = Temporal.Instant.from(nearestMarker?.dataset?.date);
-        navigateToWeatermapWithParams(
-          newDate.toString(),
-          store.timeRange.get()
-        );
-      }
+    if (!isDragging) return;
+    setIsDragging(false);
+    rulerRef.current.style.transition = "transform 0.3s ease";
+    const newDate = dateAtTranslateX(currentTranslateX);
+    if (newDate) {
+      navigateToWeatermapWithParams(newDate.toString(), store.timeRange.get());
     }
   };
 
@@ -490,28 +500,6 @@ const Timeline = () => {
     if (!Number.isFinite(distanceToMove)) return;
 
     updateTimelinePosition(distanceToMove, true);
-  };
-
-  const getNearestMarker = () => {
-    const markers = rulerRef.current.querySelectorAll(".selectable-hour-mark");
-    const indicatorRect = indicatorRef.current.getBoundingClientRect();
-    const targetCenterX = indicatorRect.right;
-
-    let nearestMarker = null;
-    let minDistance = Infinity;
-
-    markers.forEach(marker => {
-      const markerRect = marker.getBoundingClientRect();
-      const markerCenterX = markerRect.left + markerRect.width / 2;
-      const distance = Math.abs(markerCenterX - targetCenterX);
-
-      if (distance < minDistance) {
-        minDistance = distance;
-        nearestMarker = marker;
-      }
-    });
-
-    return nearestMarker;
   };
 
   const getMarkerCenterX = (newTargetDate: Temporal.Instant) => {
@@ -592,6 +580,11 @@ const Timeline = () => {
     );
   };
 
+  // While dragging, the stamps announce the time the release will land on.
+  const displayedDate =
+    (isDragging ? dateAtTranslateX(currentTranslateX) : undefined) ??
+    currentDate;
+
   return (
     <>
       <div className="cp-calendar">
@@ -657,7 +650,6 @@ const Timeline = () => {
           <div className="cp-scale-stamp">
             {timeRange > 1 && (
               <div
-                ref={indicatorRef}
                 className="cp-scale-stamp-range js-active"
                 style={{
                   left: barOffset,
@@ -668,13 +660,13 @@ const Timeline = () => {
                 <span className="cp-scale-stamp-range-begin">
                   {/* the zone is stated once per range, on the end stamp */}
                   <FormattedDate
-                    date={currentDate?.subtract({ hours: timeRange }) ?? null}
+                    date={displayedDate?.subtract({ hours: timeRange }) ?? null}
                     options={TIME_FORMAT}
                   />
                 </span>
                 <span className="cp-scale-stamp-range-end">
                   <FormattedDate
-                    date={currentDate}
+                    date={displayedDate}
                     options={TIME_ZONE_FORMAT}
                   />
                 </span>
@@ -683,7 +675,6 @@ const Timeline = () => {
 
             {timeRange === 1 && (
               <div
-                ref={indicatorRef}
                 className="cp-scale-stamp-point js-active"
                 style={{
                   left: indicatorOffset
@@ -692,7 +683,7 @@ const Timeline = () => {
                 <span className="cp-scale-stamp-point-arrow"></span>
                 <span className="cp-scale-stamp-point-exact">
                   <FormattedDate
-                    date={currentDate}
+                    date={displayedDate}
                     options={TIME_ZONE_FORMAT}
                   />
                 </span>
