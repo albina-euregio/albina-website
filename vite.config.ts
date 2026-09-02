@@ -69,7 +69,7 @@ export default defineConfig({
     }
   },
   envPrefix: ["APP_", "VITE_"],
-  plugins: [react()],
+  plugins: [react({ compiler: true })],
   server: {
     watch: {
       // Ignore pnpm store to prevent ELOOP errors in CI where store is inside project
@@ -323,6 +323,21 @@ export default defineConfig({
       "no-with": "error",
       "react-hooks/exhaustive-deps": "warn",
       "react-hooks/rules-of-hooks": "error",
+      // React Compiler rules (Rules of React), see
+      // https://oxc.rs/blog/2026-08-18-react-compiler-support
+      "react/error-boundaries": "error",
+      "react/globals": "error",
+      "react/incompatible-library": "error",
+      "react/preserve-manual-memoization": "error",
+      "react/set-state-in-render": "error",
+      "react/static-components": "error",
+      "react/use-memo": "error",
+      // Off until the existing violations are fixed; the compiler bails out of
+      // the affected components in the meantime.
+      "react/immutability": "off",
+      "react/purity": "off",
+      "react/refs": "off",
+      "react/set-state-in-effect": "off",
       "react/jsx-key": "warn",
       "react/jsx-no-comment-textnodes": "warn",
       "react/jsx-no-duplicate-props": "warn",
