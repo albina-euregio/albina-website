@@ -163,6 +163,7 @@
   "bulletin:report:problem:avalanche-type:glide": "Glide-snow avalanche",
   "bulletin:report:problem:avalanche-size:hover": "Expected avalanche size in the avalanche prone areas.",
   "bulletin:report:additional:headline": "Additional Information",
+  "bulletin:report:additional:info": "The map shows the weather stations of the selected micro-region and the observations reported in the last seven days.",
   "bulletin:report:danger-patterns:hover": "Danger Patterns expected in the avalanche prone areas.",
   "bulletin:report:provider": "Provided by",
   "bulletin:report:update": "Update",

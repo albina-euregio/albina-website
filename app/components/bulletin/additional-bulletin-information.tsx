@@ -20,6 +20,7 @@ import { Bulletin, getMainDate } from "../../stores/bulletin";
 import { vObservation, type Observation } from "../../stores/observations";
 import { fetchJSON } from "../../util/fetch.ts";
 import ObservationDetailsDialog from "./observation-details-dialog.tsx";
+import { Tooltip } from "../tooltips/tooltip.tsx";
 
 const STATION_COLOR = "rgb(46, 46, 46)";
 const OBSERVATION_COLOR = "rgb(25, 171, 255)";
@@ -393,6 +394,7 @@ export function AdditionalBulletinInformation({
   bulletin,
   region
 }: Props) {
+  const intl = useIntl();
   const stationMarkerColor = STATION_COLOR;
   const observationMarkerColor = OBSERVATION_COLOR;
   const [showStations, setShowStations] = useState(true);
@@ -424,6 +426,14 @@ export function AdditionalBulletinInformation({
 
       <h2 className="subheader">
         <FormattedMessage id="bulletin:report:additional:headline" />
+        <Tooltip
+          html={true}
+          label={`<p>${intl.formatMessage({
+            id: "bulletin:report:additional:info"
+          })}</p>`}
+        >
+          <span className="tooltip-trigger icon-info"></span>
+        </Tooltip>
       </h2>
 
       <div className="addmap-container">
