@@ -391,20 +391,30 @@ const RegionDropdown: FunctionComponent<{
   );
 };
 
+const TENDENCY_DAYS = 7;
+
 // "Letzte 7 Tage" series: the per-micro-region daily-max danger level for the
-// last 7 days, sourced from the tendency endpoint (BulletinCollection.load()).
+// seven days before the bulletin date, sourced from the tendency endpoint
+// (BulletinCollection.load()). Days the endpoint does not cover show an en dash.
 function getTendencyTrend(
   bulletin: Bulletin,
-  regionId: string
+  regionId: string,
+  date: Temporal.PlainDate
 ): (number | string)[] {
-  const ratings = getTendencyProgression(bulletin.customData)?.dangerRatings?.[
-    regionId
-  ];
-  return (ratings ?? []).map(rating =>
-    rating === "missing" || rating === "no_rating" || rating === "no_snow"
+  const progression = getTendencyProgression(bulletin.customData);
+  const ratings = progression?.dangerRatings?.[regionId] ?? [];
+  // The endpoint dates the days by their local midnight, e.g. "…T23:00:00Z".
+  const days = (progression?.dates ?? []).map(day => day.slice(0, 10));
+  return Array.from({ length: TENDENCY_DAYS }, (_, index) => {
+    const day = date.subtract({ days: TENDENCY_DAYS - index }).toString();
+    const rating = ratings[days.indexOf(day)];
+    return rating === undefined ||
+      rating === "missing" ||
+      rating === "no_rating" ||
+      rating === "no_snow"
       ? "–"
-      : getWarnlevelNumber(rating)
-  );
+      : getWarnlevelNumber(rating);
+  });
 }
 
 interface Props {
@@ -920,7 +930,7 @@ function BulletinReport({
                   <div className="bulletin-additional-tendency-progression">
                     <div className="progression-item progression-last-week">
                       <div className="progression-value progression-week">
-                        {getTendencyTrend(bulletin, region).map(
+                        {getTendencyTrend(bulletin, region, date).map(
                           (value, index) => (
                             <span key={index}>{value}</span>
                           )
