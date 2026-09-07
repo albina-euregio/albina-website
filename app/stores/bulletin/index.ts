@@ -147,6 +147,10 @@ export function getBulletinPhotos(
   return data?.ALBINA?.bulletinPhotos || [];
 }
 
+export function getMainDate(data: Bulletin["customData"]): string | undefined {
+  return data?.ALBINA?.mainDate;
+}
+
 export function getTendencyProgression(
   data: Bulletin["customData"]
 ): AlbinaCustomData["ALBINA"]["tendencyProgression"] | undefined {

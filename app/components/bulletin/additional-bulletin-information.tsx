@@ -16,7 +16,7 @@ import { microRegionBounds } from "../../stores/microRegions";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
 import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
-import { Bulletin } from "../../stores/bulletin";
+import { Bulletin, getMainDate } from "../../stores/bulletin";
 import { vObservation, type Observation } from "../../stores/observations";
 import { fetchJSON } from "../../util/fetch.ts";
 import ObservationDetailsDialog from "./observation-details-dialog.tsx";
@@ -94,17 +94,29 @@ function useWeatherStations() {
   return { data, stationFeatures, stationId, setStationId };
 }
 
-function useObservations() {
+function useObservations(date: string) {
   const [observations, setObservations] = useState<LocatedObservation[]>([]);
   const [observationId, setObservationId] = useState<string>("");
 
-  async function loadObservations() {
-    if (!config.apis.snobs) return;
-    const snobs = await fetchJSON<unknown>(config.apis.snobs);
-    setObservations(
-      Array.isArray(snobs) ? snobs.filter(isLocatedObservation) : []
-    );
-  }
+  useEffect(() => {
+    const url = config.apis.snobs;
+    if (!url) return;
+    let ignore = false;
+    fetchJSON<unknown>(config.template(url, { date }))
+      .then(snobs => {
+        if (ignore) return;
+        setObservations(
+          Array.isArray(snobs) ? snobs.filter(isLocatedObservation) : []
+        );
+      })
+      // Days without published observations have no file at all.
+      .catch(() => {
+        if (!ignore) setObservations([]);
+      });
+    return () => {
+      ignore = true;
+    };
+  }, [date]);
 
   const observationFeatures = useMemo(
     (): GeoJSON.FeatureCollection<GeoJSON.Point> => ({
@@ -131,8 +143,7 @@ function useObservations() {
   return {
     observationFeatures,
     observation,
-    setObservationId,
-    loadObservations
+    setObservationId
   };
 }
 
@@ -388,18 +399,8 @@ export function AdditionalBulletinInformation({
   const [showObservations, setShowObservations] = useState(true);
   const { data, stationFeatures, stationId, setStationId } =
     useWeatherStations();
-  const {
-    observationFeatures,
-    observation,
-    setObservationId,
-    loadObservations
-  } = useObservations();
-
-  useEffect(
-    () => void loadObservations(),
-    // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps
-    []
-  );
+  const { observationFeatures, observation, setObservationId } =
+    useObservations(getMainDate(bulletin.customData) ?? date.toString());
 
   const bounds = useMemo((): LngLatBoundsLike | undefined => {
     const b = microRegionBounds(date, region);
