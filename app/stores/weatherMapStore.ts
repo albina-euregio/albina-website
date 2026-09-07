@@ -125,14 +125,19 @@ interface RemoteTimeRange {
   maxAnalysisTimestamp: string;
 }
 
+/** A single entry from the live config.json's `boundingBoxes`. */
+interface RemoteBoundingBox {
+  /** Start and end of the period this bounding box applies to (ISO 8601). */
+  validity: [string, string];
+  /** Extent of the overlay images, as min lng, min lat, max lng, max lat. */
+  bbox: [number, number, number, number];
+}
+
 /**
  * The shape of `.../zamg_meteo/overlays/{domain}/config.json`, as described
- * by the `config.schema.json` published next to it. Two of its fields are
- * left out because nothing reads them: `startDateURL`, a wiski.tirol.gv.at
- * URL (no CORS headers) serving the same `startDate` this config already
- * states, and `boundingBoxes`, the overlay images' extent per period of
- * validity — whose currently valid entry is what `config.settings.bbox`
- * hardcodes.
+ * by the `config.schema.json` published next to it. Its `startDateURL` is
+ * left out because nothing reads it: a wiski.tirol.gv.at URL (no CORS
+ * headers) serving the same `startDate` this config already states.
  */
 interface RemoteDomainConfig {
   /** Identifier of the meteo parameter, also its directory name. */
@@ -143,6 +148,8 @@ interface RemoteDomainConfig {
   thresholds: RemoteThreshold[];
   /** Available aggregation periods together with their overlay URLs. */
   timeRanges: RemoteTimeRange[];
+  /** Extent of the overlay images, per period of validity. */
+  boundingBoxes: RemoteBoundingBox[];
   /** Analysis start timestamp (ISO 8601), read from `startDateURL`. */
   startDate: string;
   /** Last modification time (ISO 8601) of the `startDate.ok` file. */
@@ -450,6 +457,13 @@ function buildRelativeSnowFallbackConfig(): RemoteDomainConfig {
         initialTimestamp: now,
         maxForecastTimestamp: now,
         maxAnalysisTimestamp: now
+      }
+    ],
+    // The one extent this domain has ever had, valid for the whole timeline.
+    boundingBoxes: [
+      {
+        validity: ["1970-01-01T00:00:00Z", "2100-01-01T00:00:00Z"],
+        bbox: config.settings.bbox.toArray().flat() as RemoteBoundingBox["bbox"]
       }
     ],
     startDate: now,
