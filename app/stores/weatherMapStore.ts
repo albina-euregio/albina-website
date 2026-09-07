@@ -8,14 +8,10 @@ import {
 /**
  * Every domain is driven by the live `config.json` published per domain at
  * `.../zamg_meteo/overlays/{domain}/config.json` (see `RemoteDomainConfig`
- * below) — this object now only carries the structural, non-meteorological
- * metadata that endpoint doesn't provide.
+ * below) — all this object still carries is which domains exist, the one
+ * thing that endpoint cannot state about the others.
  */
 export const config = {
-  settings: {
-    /** How far back before the config's `startDate` the timeline reaches. */
-    historyHours: 17520
-  },
   domains: [
     "snow-height",
     "new-snow",
@@ -469,10 +465,11 @@ function buildRelativeSnowFallbackConfig(): RemoteDomainConfig {
         maxAnalysisTimestamp: now
       }
     ],
-    // The one extent this domain has ever had, valid for the whole timeline.
+    // The one extent this domain has ever had, starting when the other
+    // domains' overlays do — `validity[0]` is also where the timeline begins.
     boundingBoxes: [
       {
-        validity: ["1970-01-01T00:00:00Z", "2100-01-01T00:00:00Z"],
+        validity: ["2021-01-01T00:00:00Z", "2100-01-01T00:00:00Z"],
         bbox: [9.4, 45.6167, 13.0333, 47.8167]
       }
     ],
@@ -644,17 +641,15 @@ export async function initDomain(
 }
 
 /*
- * returns the earliest selectable time — the config's `startDate` less the
- * history window the timeline offers
+ * returns the earliest selectable time — when the first extent the overlay
+ * images ever had took effect, i.e. when the domain's data begins
  */
 export const minTimestamp = computed(
   [remoteDomainConfig],
-  (remoteDomainConfig): Temporal.Instant | null =>
-    remoteDomainConfig
-      ? Temporal.Instant.from(remoteDomainConfig.startDate).subtract({
-          hours: config.settings.historyHours
-        })
-      : null
+  (remoteDomainConfig): Temporal.Instant | null => {
+    const start = remoteDomainConfig?.boundingBoxes[0]?.validity[0];
+    return start ? Temporal.Instant.from(start) : null;
+  }
 );
 
 /*
