@@ -87,36 +87,65 @@ const DATA_ID_BY_DOMAIN_TIME_RANGE: Partial<
   wind700hpa: { 1: "wind700hpa" }
 };
 
-/** A single `{ range: [from, to], color }` entry from the live config.json. */
+/**
+ * A single `{ range: [from, to], color }` entry from the live config.json:
+ * a value band and the color the legend renders it with. Both bounds are
+ * integers in the config's `units`, the lower one inclusive and the upper
+ * one exclusive, `null` meaning unbounded.
+ */
 export interface RemoteThreshold {
   range: [number | null, number | null];
   color: string;
 }
 
-/** A single entry from the live config.json's `timeRanges`. */
+/**
+ * A single entry from the live config.json's `timeRanges`, i.e. one
+ * aggregation period together with its overlay URLs. All timestamps are
+ * ISO 8601.
+ */
 interface RemoteTimeRange {
+  /** Period in hours covered by a single overlay image. */
   timeRange: number;
+  /** Spacing in hours between consecutive overlay images. */
   timeStepHours: number;
+  /**
+   * URL template of the colored GIF overlay, with `$year`/`$date`/`$hour`
+   * placeholders.
+   */
   imageOverlayURL: string;
+  /** URL template of the PNG overlay holding the raw values, likewise. */
   dataOverlayURL: string;
+  /** Start and end of the period the initially shown overlay covers. */
   initialValidity: [string, string];
+  /** Timestamp of the overlay to show initially. */
   initialTimestamp: string;
+  /** Timestamp of the latest available forecast overlay. */
   maxForecastTimestamp: string;
+  /** Timestamp of the latest analysis; later overlays are forecasts. */
   maxAnalysisTimestamp: string;
 }
 
 /**
- * The shape of `.../zamg_meteo/overlays/{domain}/config.json`. The payload
- * also carries `startDateURL`, a wiski.tirol.gv.at URL (no CORS headers)
- * serving the same `startDate` this config already states — nothing reads it,
- * so it is left out.
+ * The shape of `.../zamg_meteo/overlays/{domain}/config.json`, as described
+ * by the `config.schema.json` published next to it. Two of its fields are
+ * left out because nothing reads them: `startDateURL`, a wiski.tirol.gv.at
+ * URL (no CORS headers) serving the same `startDate` this config already
+ * states, and `boundingBoxes`, the overlay images' extent per period of
+ * validity — whose currently valid entry is what `config.settings.bbox`
+ * hardcodes.
  */
 interface RemoteDomainConfig {
+  /** Identifier of the meteo parameter, also its directory name. */
   parameter: string;
+  /** Unit of the parameter values, e.g. `cm`. */
   units: string;
+  /** Value bands and their colors, used to render the legend. */
   thresholds: RemoteThreshold[];
+  /** Available aggregation periods together with their overlay URLs. */
   timeRanges: RemoteTimeRange[];
+  /** Analysis start timestamp (ISO 8601), read from `startDateURL`. */
   startDate: string;
+  /** Last modification time (ISO 8601) of the `startDate.ok` file. */
   startDateModifyTimestamp: string;
 }
 
