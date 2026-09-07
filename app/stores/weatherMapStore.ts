@@ -14,9 +14,7 @@ import {
 export const config = {
   settings: {
     /** How far back before the config's `startDate` the timeline reaches. */
-    historyHours: 17520,
-    // [sw, ne] as [lng, lat].
-    bbox: new LngLatBounds([9.4, 45.6167], [13.0333, 47.8167])
+    historyHours: 17520
   },
   domains: [
     "snow-height",
@@ -52,6 +50,8 @@ export interface DomainConfig {
   timeStepHours: number;
   units: string;
   thresholds: RemoteThreshold[];
+  /** The extent the overlay images cover. */
+  bbox: LngLatBounds;
   imageOverlayFile: string;
   dataOverlays: { file: string; type: OverlayType; domain?: DomainId }[];
   direction: "DW" | false;
@@ -202,9 +202,10 @@ function filenameFromRemoteUrl(url: string): string {
 /**
  * Build the runtime `DomainConfig` from structural metadata plus the live
  * remote config and its `timeRanges[]` entry for the active time range.
- * Returns `null` while the config hasn't resolved yet — a non-null
- * `remoteTimeRange` already implies it belongs to `domainId` (see the
- * computed), so there is nothing left to re-check here.
+ * Returns `null` while the config hasn't resolved yet, or if it states no
+ * extent for the overlay images — without one they cannot be placed. A
+ * non-null `remoteTimeRange` already implies it belongs to `domainId` (see
+ * the computed), so there is nothing left to re-check here.
  */
 function buildDomainConfig(
   domainId: DomainId | null,
@@ -212,6 +213,11 @@ function buildDomainConfig(
   remoteTimeRange: RemoteTimeRange | null
 ): DomainConfig | null {
   if (!domainId || !remoteDomainConfig || !remoteTimeRange) return null;
+  // `boundingBoxes` is ordered by validity, so the last entry is the one in
+  // force now; the earlier ones only cover overlays from before it took over.
+  const { boundingBoxes } = remoteDomainConfig;
+  const boundingBox = boundingBoxes[boundingBoxes.length - 1];
+  if (!boundingBox) return null;
 
   const dataId =
     DATA_ID_BY_DOMAIN_TIME_RANGE[domainId]?.[remoteTimeRange.timeRange];
@@ -239,6 +245,7 @@ function buildDomainConfig(
     timeStepHours: remoteTimeRange.timeStepHours,
     units: remoteDomainConfig.units,
     thresholds: remoteDomainConfig.thresholds,
+    bbox: new LngLatBounds(boundingBox.bbox),
     imageOverlayFile: overlayFile(remoteTimeRange.imageOverlayURL),
     dataOverlays,
     // Station wind arrows are drawn exactly for the domains that have a
@@ -322,14 +329,17 @@ export const domainConfig = computed(
  */
 export class DataOverlay {
   readonly type: OverlayType;
+  private readonly bbox: LngLatBounds;
   private readonly ctx: Promise<CanvasRenderingContext2D>;
 
   constructor(
     o: { file: string; type: OverlayType; domain?: DomainId },
     domainId: DomainId | null,
-    currentTime: Temporal.Instant | null
+    currentTime: Temporal.Instant | null,
+    bbox: LngLatBounds
   ) {
     this.type = o.type;
+    this.bbox = bbox;
     const [, url] = getOverlayURLs(
       currentTime,
       (o.domain || domainId) as DomainId,
@@ -358,7 +368,7 @@ export class DataOverlay {
     const h = resolvedCtx.canvas.height;
     // Normalized position within the bbox, in Web Mercator (linear in lng,
     // non-linear in lat) — matching how the overlay images are projected.
-    const bbox = config.settings.bbox;
+    const bbox = this.bbox;
     const sw = MercatorCoordinate.fromLngLat(bbox.getSouthWest());
     const ne = MercatorCoordinate.fromLngLat(bbox.getNorthEast());
     const p0 = MercatorCoordinate.fromLngLat(lngLat);
@@ -463,7 +473,7 @@ function buildRelativeSnowFallbackConfig(): RemoteDomainConfig {
     boundingBoxes: [
       {
         validity: ["1970-01-01T00:00:00Z", "2100-01-01T00:00:00Z"],
-        bbox: config.settings.bbox.toArray().flat() as RemoteBoundingBox["bbox"]
+        bbox: [9.4, 45.6167, 13.0333, 47.8167]
       }
     ],
     startDate: now,
@@ -619,10 +629,12 @@ export async function initDomain(
   if (domainChanged || timeRangeChanged || timeChanged) {
     // Load data overlay images for pixel-value reading. Separated from a
     // computed to avoid side effects (Image creation) in pure derivations.
+    const currentDomainConfig = domainConfig.get();
     dataOverlays.set(
-      (domainConfig.get()?.dataOverlays ?? []).map(
-        o => new DataOverlay(o, newDomain, resolvedTime)
-      )
+      currentDomainConfig?.dataOverlays.map(
+        o =>
+          new DataOverlay(o, newDomain, resolvedTime, currentDomainConfig.bbox)
+      ) ?? []
     );
 
     if (!signal.aborted) {

@@ -244,11 +244,11 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   useEffect(() => {
     const map = overlayRef.current;
     const [, url] = imageOverlayURLs;
-    if (!overlayReady || !map || !url) return;
+    if (!overlayReady || !map || !url || !domainConfig) return;
 
     // MapLibre image sources want the four corners as `[lng, lat]` in
     // TL, TR, BR, BL (i.e. NW, NE, SE, SW) order.
-    const bbox = store.config.settings.bbox;
+    const bbox = domainConfig.bbox;
     const coordinates: ImageSourceSpecification["coordinates"] = [
       bbox.getNorthWest().toArray(),
       bbox.getNorthEast().toArray(),
@@ -268,7 +268,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
         paint: { "raster-opacity": 1, "raster-fade-duration": 0 }
       });
     }
-  }, [imageOverlayURLs, overlayReady]);
+  }, [domainConfig, imageOverlayURLs, overlayReady]);
 
   // Wind-direction indicators: a grid of black arrows across the bbox, each
   // sampled from the `windDirection` overlay image. Present only for domains
@@ -295,7 +295,8 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       }
 
       // Sample direction at each interior grid point.
-      const bbox = store.config.settings.bbox;
+      const bbox = store.domainConfig.get()?.bbox;
+      if (!bbox) return;
       const west = bbox.getWest();
       const east = bbox.getEast();
       const south = bbox.getSouth();
@@ -367,7 +368,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       )
         return;
 
-      if (!store.config.settings.bbox.contains(e.lngLat)) return;
+      if (!store.domainConfig.get()?.bbox.contains(e.lngLat)) return;
 
       const gen = ++clickGenRef.current;
       const value = await readOverlayValue(e.lngLat);
