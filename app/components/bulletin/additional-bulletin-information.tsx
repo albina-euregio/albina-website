@@ -27,12 +27,19 @@ import {
 import SnowProfileDetailsDialog, {
   useSnowProfileId
 } from "../profile/profile-details-dialog.tsx";
+import {
+  loadIncidentData,
+  type IncidentData
+} from "../../stores/incidentDataStore.ts";
+import IncidentDetailsDialog from "../incident/incident-details-dialog.tsx";
+import { seasonYear } from "../../util/date-season.ts";
 import ObservationDetailsDialog from "./observation-details-dialog.tsx";
 import { Tooltip } from "../tooltips/tooltip.tsx";
 
 const STATION_COLOR = "rgb(46, 46, 46)";
 const OBSERVATION_COLOR = "rgb(25, 171, 255)";
 const SNOW_PROFILE_COLOR = "rgb(140, 82, 255)";
+const INCIDENT_COLOR = "rgb(199, 51, 147)";
 
 const STATIONS_SOURCE = "stations";
 const STATIONS_LAYER = "stations-circles";
@@ -40,9 +47,11 @@ const OBSERVATIONS_SOURCE = "observations";
 const OBSERVATIONS_LAYER = "observations-circles";
 const SNOW_PROFILES_SOURCE = "snow-profiles";
 const SNOW_PROFILES_LAYER = "snow-profiles-circles";
+const INCIDENTS_SOURCE = "incidents";
+const INCIDENTS_LAYER = "incidents-circles";
 
-/** Days of snow profiles shown before the bulletin's main date. */
-const SNOW_PROFILE_DAYS = 7;
+/** Days of snow profiles and incidents shown before the bulletin's main date. */
+const RECENT_DAYS = 7;
 
 /**
  * Validates that coordinates are valid numbers and not NaN
@@ -173,7 +182,7 @@ function useSnowProfiles(date: string) {
 
   useEffect(() => {
     const dateTo = Temporal.PlainDate.from(date);
-    const dateFrom = dateTo.subtract({ days: SNOW_PROFILE_DAYS });
+    const dateFrom = dateTo.subtract({ days: RECENT_DAYS });
     let ignore = false;
     void fetchSnowProfiles(dateFrom.toString(), dateTo.toString()).then(
       profiles => {
@@ -216,35 +225,111 @@ function useSnowProfiles(date: string) {
   };
 }
 
+/** Whether a timestamp falls into the inclusive `dateFrom`..`dateTo` range. */
+function isWithin(
+  dateTime: Date | undefined,
+  dateFrom: Temporal.PlainDate,
+  dateTo: Temporal.PlainDate
+): boolean {
+  if (!dateTime) return false;
+  const day = Temporal.Instant.fromEpochMilliseconds(+dateTime)
+    .toZonedDateTimeISO(Temporal.Now.timeZoneId())
+    .toPlainDate();
+  return (
+    Temporal.PlainDate.compare(day, dateFrom) >= 0 &&
+    Temporal.PlainDate.compare(day, dateTo) <= 0
+  );
+}
+
+/**
+ * Incidents of the seven days leading up to the bulletin's main date, for the
+ * whole domain — like the snow profiles they are not restricted to the
+ * bulletin's micro-region. The API is season-based, so the window is applied
+ * here.
+ */
+function useIncidents(date: string) {
+  const [incidents, setIncidents] = useState<IncidentData[]>([]);
+  const [incidentId, setIncidentId] = useState<string>("");
+
+  useEffect(() => {
+    const dateTo = Temporal.PlainDate.from(date);
+    const dateFrom = dateTo.subtract({ days: RECENT_DAYS });
+    let ignore = false;
+    void loadIncidentData(seasonYear(dateTo)).then(all => {
+      if (ignore) return;
+      setIncidents(all.filter(i => isWithin(i.dateTime, dateFrom, dateTo)));
+    });
+    return () => {
+      ignore = true;
+    };
+  }, [date]);
+
+  const incidentFeatures = useMemo(
+    (): GeoJSON.FeatureCollection<GeoJSON.Point> => ({
+      type: "FeatureCollection",
+      features: incidents.flatMap(incident => {
+        const { lon, lat } = incident;
+        if (lon === undefined || lat === undefined) return [];
+        if (!isValidCoordinates(lat, lon)) return [];
+        return [
+          {
+            type: "Feature" as const,
+            geometry: { type: "Point" as const, coordinates: [lon, lat] },
+            properties: {
+              id: incident.id,
+              dateTime: incident.dateTime?.toISOString() ?? "",
+              location: incident.location
+            }
+          }
+        ];
+      })
+    }),
+    [incidents]
+  );
+
+  const incident = useMemo(
+    () => incidents.find(i => i.id === incidentId),
+    [incidents, incidentId]
+  );
+
+  return { incidentFeatures, incident, setIncidentId };
+}
+
 /**
  * Mini map (MapLibre GL) showing the micro-region's weather stations plus the
- * observations and snow profiles as colored circle markers over the shared
- * raster basemap (MAPLIBRE_STYLE). Hovering a marker shows a tooltip; clicking
- * a station opens its diagrams, clicking an observation or snow profile opens
- * its details dialog. The three layers are toggled via the `show*` props.
+ * observations, snow profiles and incidents as colored circle markers over the
+ * shared raster basemap (MAPLIBRE_STYLE). Hovering a marker shows a tooltip;
+ * clicking a station opens its diagrams, clicking any of the others opens its
+ * details dialog. The four layers are toggled via the `show*` props.
  */
 function BulletinMiniMap({
   bounds,
   stations,
   observations,
   snowProfiles,
+  incidents,
   showStations,
   showObservations,
   showSnowProfiles,
+  showIncidents,
   onStationClick,
   onObservationClick,
-  onSnowProfileClick
+  onSnowProfileClick,
+  onIncidentClick
 }: {
   bounds: LngLatBoundsLike | undefined;
   stations: GeoJSON.FeatureCollection<GeoJSON.Point>;
   observations: GeoJSON.FeatureCollection<GeoJSON.Point>;
   snowProfiles: GeoJSON.FeatureCollection<GeoJSON.Point>;
+  incidents: GeoJSON.FeatureCollection<GeoJSON.Point>;
   showStations: boolean;
   showObservations: boolean;
   showSnowProfiles: boolean;
+  showIncidents: boolean;
   onStationClick: (id: string) => void;
   onObservationClick: (observationId: string) => void;
   onSnowProfileClick: (snowProfileId: string) => void;
+  onIncidentClick: (incidentId: string) => void;
 }) {
   const intl = useIntl();
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -255,20 +340,30 @@ function BulletinMiniMap({
   const onStationClickRef = useRef(onStationClick);
   const onObservationClickRef = useRef(onObservationClick);
   const onSnowProfileClickRef = useRef(onSnowProfileClick);
+  const onIncidentClickRef = useRef(onIncidentClick);
   const intlRef = useRef(intl);
   const stationsRef = useRef(stations);
   const observationsRef = useRef(observations);
   const snowProfilesRef = useRef(snowProfiles);
+  const incidentsRef = useRef(incidents);
   const showStationsRef = useRef(showStations);
   const showObservationsRef = useRef(showObservations);
   const showSnowProfilesRef = useRef(showSnowProfiles);
+  const showIncidentsRef = useRef(showIncidents);
 
   useEffect(() => {
     onStationClickRef.current = onStationClick;
     onObservationClickRef.current = onObservationClick;
     onSnowProfileClickRef.current = onSnowProfileClick;
+    onIncidentClickRef.current = onIncidentClick;
     intlRef.current = intl;
-  }, [onStationClick, onObservationClick, onSnowProfileClick, intl]);
+  }, [
+    onStationClick,
+    onObservationClick,
+    onSnowProfileClick,
+    onIncidentClick,
+    intl
+  ]);
 
   // Initialize the map once: basemap, the two marker sources/layers, hover
   // tooltip and a ResizeObserver. Data and visibility are kept in sync below.
@@ -324,6 +419,10 @@ function BulletinMiniMap({
         type: "geojson",
         data: snowProfilesRef.current
       });
+      map.addSource(INCIDENTS_SOURCE, {
+        type: "geojson",
+        data: incidentsRef.current
+      });
 
       map.addLayer({
         id: STATIONS_LAYER,
@@ -372,12 +471,32 @@ function BulletinMiniMap({
           "circle-stroke-width": 1
         }
       });
+      map.addLayer({
+        id: INCIDENTS_LAYER,
+        type: "circle",
+        source: INCIDENTS_SOURCE,
+        layout: {
+          visibility: showIncidentsRef.current ? "visible" : "none"
+        },
+        paint: {
+          "circle-radius": 12,
+          "circle-color": INCIDENT_COLOR,
+          "circle-opacity": 0.8,
+          "circle-stroke-color": INCIDENT_COLOR,
+          "circle-stroke-width": 1
+        }
+      });
 
       // Handle both layers in one click so that when a station and an
       // observation marker overlap, only the topmost feature opens a dialog.
       map.on("click", e => {
         const features = map.queryRenderedFeatures(e.point, {
-          layers: [STATIONS_LAYER, OBSERVATIONS_LAYER, SNOW_PROFILES_LAYER]
+          layers: [
+            STATIONS_LAYER,
+            OBSERVATIONS_LAYER,
+            SNOW_PROFILES_LAYER,
+            INCIDENTS_LAYER
+          ]
         });
         const feature = features[0];
         if (!feature) return;
@@ -390,13 +509,17 @@ function BulletinMiniMap({
         } else if (feature.layer.id === SNOW_PROFILES_LAYER) {
           const id = feature.properties?.id;
           if (typeof id === "string") onSnowProfileClickRef.current(id);
+        } else if (feature.layer.id === INCIDENTS_LAYER) {
+          const id = feature.properties?.id;
+          if (typeof id === "string") onIncidentClickRef.current(id);
         }
       });
 
       for (const layer of [
         STATIONS_LAYER,
         OBSERVATIONS_LAYER,
-        SNOW_PROFILES_LAYER
+        SNOW_PROFILES_LAYER,
+        INCIDENTS_LAYER
       ]) {
         map.on("mouseenter", layer, () => {
           map.getCanvas().style.cursor = "pointer";
@@ -425,7 +548,7 @@ function BulletinMiniMap({
                 ]
                   .filter(Boolean)
                   .join("<br>")
-              : layer === SNOW_PROFILES_LAYER
+              : layer === SNOW_PROFILES_LAYER || layer === INCIDENTS_LAYER
                 ? [
                     profile.dateTime &&
                       intlRef.current.formatDate(profile.dateTime),
@@ -479,6 +602,11 @@ function BulletinMiniMap({
     const source = mapRef.current?.getSource(SNOW_PROFILES_SOURCE);
     if (source instanceof GeoJSONSource) source.setData(snowProfiles);
   }, [snowProfiles]);
+  useEffect(() => {
+    incidentsRef.current = incidents;
+    const source = mapRef.current?.getSource(INCIDENTS_SOURCE);
+    if (source instanceof GeoJSONSource) source.setData(incidents);
+  }, [incidents]);
 
   // Toggle layer visibility (no-op until the layers exist after load).
   useEffect(() => {
@@ -511,6 +639,16 @@ function BulletinMiniMap({
       showSnowProfiles ? "visible" : "none"
     );
   }, [showSnowProfiles]);
+  useEffect(() => {
+    showIncidentsRef.current = showIncidents;
+    const map = mapRef.current;
+    if (!map?.getLayer(INCIDENTS_LAYER)) return;
+    map.setLayoutProperty(
+      INCIDENTS_LAYER,
+      "visibility",
+      showIncidents ? "visible" : "none"
+    );
+  }, [showIncidents]);
 
   return (
     <div
@@ -530,9 +668,11 @@ export function AdditionalBulletinInformation({
   const stationMarkerColor = STATION_COLOR;
   const observationMarkerColor = OBSERVATION_COLOR;
   const snowProfileMarkerColor = SNOW_PROFILE_COLOR;
+  const incidentMarkerColor = INCIDENT_COLOR;
   const [showStations, setShowStations] = useState(true);
   const [showObservations, setShowObservations] = useState(true);
   const [showSnowProfiles, setShowSnowProfiles] = useState(true);
+  const [showIncidents, setShowIncidents] = useState(true);
   const { data, stationFeatures, stationId, setStationId } =
     useWeatherStations();
   const mainDate = getMainDate(bulletin.customData) ?? date.toString();
@@ -540,6 +680,7 @@ export function AdditionalBulletinInformation({
     useObservations(mainDate);
   const { snowProfiles, snowProfileFeatures, snowProfileId, setSnowProfileId } =
     useSnowProfiles(mainDate);
+  const { incidentFeatures, incident, setIncidentId } = useIncidents(mainDate);
 
   const bounds = useMemo((): LngLatBoundsLike | undefined => {
     const b = microRegionBounds(date, region);
@@ -567,6 +708,11 @@ export function AdditionalBulletinInformation({
         setProfileId={setSnowProfileId}
       />
 
+      <IncidentDetailsDialog
+        incident={incident}
+        onClose={() => setIncidentId("")}
+      />
+
       <h2 className="subheader">
         <FormattedMessage id="bulletin:report:additional:headline" />
         <Tooltip
@@ -587,12 +733,15 @@ export function AdditionalBulletinInformation({
             stations={stationFeatures}
             observations={observationFeatures}
             snowProfiles={snowProfileFeatures}
+            incidents={incidentFeatures}
             showStations={showStations}
             showObservations={showObservations}
             showSnowProfiles={showSnowProfiles}
+            showIncidents={showIncidents}
             onStationClick={setStationId}
             onObservationClick={setObservationId}
             onSnowProfileClick={setSnowProfileId}
+            onIncidentClick={setIncidentId}
           />
         </div>
 
@@ -667,6 +816,30 @@ export function AdditionalBulletinInformation({
             <span className="addmap-legend-swatch" />
             <span className="addmap-label">
               <FormattedMessage id="bulletin:add-on:legend:snow-profiles" />
+            </span>
+          </div>
+          <div
+            className="addmap-legend-item"
+            aria-label="Map legend"
+            role="button"
+            tabIndex={0}
+            aria-pressed={showIncidents}
+            onClick={() => setShowIncidents(value => !value)}
+            onKeyDown={event => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setShowIncidents(value => !value);
+              }
+            }}
+            style={{
+              ["--bulletin-additional-addmap-marker-color" as string]:
+                incidentMarkerColor,
+              opacity: showIncidents ? 1 : 0.55
+            }}
+          >
+            <span className="addmap-legend-swatch" />
+            <span className="addmap-label">
+              <FormattedMessage id="bulletin:add-on:legend:incidents" />
             </span>
           </div>
         </div>

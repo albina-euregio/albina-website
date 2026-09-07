@@ -1,4 +1,8 @@
+/** The winter season a date belongs to, named after the year it starts in. */
+export function seasonYear(date: Temporal.PlainDate) {
+  return date.month < 9 ? date.year - 1 : date.year;
+}
+
 export function currentSeasonYear() {
-  const now = Temporal.Now.plainDateISO();
-  return now.month < 9 ? now.year - 1 : now.year;
+  return seasonYear(Temporal.Now.plainDateISO());
 }
