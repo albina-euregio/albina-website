@@ -791,6 +791,7 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
 
   .addmap-legend {
     display: flex;
+    flex-wrap: wrap;
     gap: variables.$padding * 2;
     user-select: none;
   }

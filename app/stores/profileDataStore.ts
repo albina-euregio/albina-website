@@ -132,7 +132,7 @@ function defaultDateTo() {
   return toISODate(Temporal.Now.plainDateISO());
 }
 
-async function fetchSnowProfiles(
+export async function fetchSnowProfiles(
   dateFrom: string,
   dateTo: string
 ): Promise<SnowProfileData[]> {
