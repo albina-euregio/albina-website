@@ -119,8 +119,8 @@ importers:
   .:
     dependencies:
       '@albina-euregio/linea':
-        specifier: ^8.25.1
-        version: 8.25.1(valibot@1.4.2(typescript@6.0.3))
+        specifier: ^8.26.0
+        version: 8.26.0(valibot@1.4.2(typescript@6.0.3))
       '@eaws/micro-regions_names':
         specifier: ^8.4.0
         version: 8.4.0
@@ -230,8 +230,8 @@ importers:
 
 packages:
 
-  '@albina-euregio/linea@8.25.1':
-    resolution: {integrity: sha1-gU2XWX1muhsFlQfUH9P9wtWom50=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.25.1.tgz}
+  '@albina-euregio/linea@8.26.0':
+    resolution: {integrity: sha1-Rb/UmiQ1yAEd6cGjFHTKnkhtWkk=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.26.0.tgz}
     peerDependencies:
       valibot: ^1.4.2
 
@@ -1971,7 +1971,7 @@ ignoredOptionalDependencies:
 
 snapshots:
 
-  '@albina-euregio/linea@8.25.1(valibot@1.4.2(typescript@6.0.3))':
+  '@albina-euregio/linea@8.26.0(valibot@1.4.2(typescript@6.0.3))':
     dependencies:
       air-datepicker: 3.6.0
       temporal-polyfill: 1.0.4
