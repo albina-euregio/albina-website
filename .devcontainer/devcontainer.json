@@ -1,5 +1,5 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:5.2.1-26-trixie",
   "postAttachCommand": "pnpm dev",
   "postCreateCommand": "pnpm ci",
   "mounts": [
