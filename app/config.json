@@ -498,6 +498,13 @@
       "stationsArchiveOperators": ""
     },
     {
+      "dataProviderID": "IT-32-BZ",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
       "dataProviderID": "SLF",
       "png": "",
       "pngOperators": "---",

@@ -176,8 +176,8 @@ importers:
   .:
     dependencies:
       '@albina-euregio/linea':
-        specifier: ^8.26.0
-        version: 8.26.0(valibot@1.4.2(typescript@6.0.3))
+        specifier: ^8.26.1
+        version: 8.26.1(valibot@1.4.2(typescript@6.0.3))
       '@eaws/micro-regions_names':
         specifier: ^8.4.0
         version: 8.4.0
@@ -287,8 +287,8 @@ importers:
 
 packages:
 
-  '@albina-euregio/linea@8.26.0':
-    resolution: {integrity: sha1-Rb/UmiQ1yAEd6cGjFHTKnkhtWkk=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.26.0.tgz}
+  '@albina-euregio/linea@8.26.1':
+    resolution: {integrity: sha1-gh6z/5vMT/exUm5MfETBeMbnMsQ=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.26.1.tgz}
     peerDependencies:
       valibot: ^1.4.2
 
@@ -1415,11 +1415,6 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  fsevents@2.3.3:
-    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-
   get-stream@9.0.1:
     resolution: {integrity: sha512-kVCxPF3vQM/N0B1PmoqVUqgHP+EeVjmZSQn+1oCRPxd2P21P2F19lIgbR3HBosbB1PUhOAoctJnfEn2GbN2eZA==}
     engines: {node: '>=18'}
@@ -2028,7 +2023,7 @@ ignoredOptionalDependencies:
 
 snapshots:
 
-  '@albina-euregio/linea@8.26.0(valibot@1.4.2(typescript@6.0.3))':
+  '@albina-euregio/linea@8.26.1(valibot@1.4.2(typescript@6.0.3))':
     dependencies:
       air-datepicker: 3.6.0
       temporal-polyfill: 1.0.4
@@ -2575,7 +2570,6 @@ snapshots:
       '@voidzero-dev/vite-plus-linux-x64-musl': 0.3.0
       '@voidzero-dev/vite-plus-win32-arm64-msvc': 0.3.0
       '@voidzero-dev/vite-plus-win32-x64-msvc': 0.3.0
-      fsevents: 2.3.3
       jiti: 2.7.0
       sass: 1.99.0
       typescript: 6.0.3
@@ -2819,9 +2813,6 @@ snapshots:
       is-unicode-supported: 2.1.0
 
   fsevents@2.3.2:
-    optional: true
-
-  fsevents@2.3.3:
     optional: true
 
   get-stream@9.0.1:
