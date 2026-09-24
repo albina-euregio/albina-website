@@ -33,6 +33,20 @@ import type {
 
 const ANALYSIS_SECTION_ID = "incident-analysis";
 
+/** Icon per public report status, shape-coded rather than color-coded. */
+const REPORT_STATUS_ICONS: Record<string, string> = {
+  Incomplete: "icon-attention",
+  InReview: "icon-info",
+  Verified: "icon-check-small"
+};
+
+/** Explanatory tooltip per public report status, shown on hover. */
+const REPORT_STATUS_TOOLTIPS: Record<string, MessageId> = {
+  Incomplete: "incidents:reportStatus:incomplete",
+  InReview: "incidents:reportStatus:inReview",
+  Verified: "incidents:reportStatus:verified"
+};
+
 /** The picklist fields shown as a table at the top of the analysis section. */
 const ANALYSIS_ENUM_FIELDS = [
   "recentSlabAvalanches",
@@ -482,6 +496,12 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const publishedAt =
     incident.publishedAt &&
     intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT_SHORT);
+  const reportStatus = tr("reportStatus", d.reportStatus);
+  const reportStatusIcon =
+    REPORT_STATUS_ICONS[d.reportStatus ?? ""] ?? "icon-info";
+  const reportStatusTooltipId = REPORT_STATUS_TOOLTIPS[d.reportStatus ?? ""];
+  const reportStatusTooltip =
+    reportStatusTooltipId && intl.formatMessage({ id: reportStatusTooltipId });
   const outcome = involvementText(incident, intl);
   const badges = incidentBadges(
     incident,
@@ -529,11 +549,27 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       }
     >
       {publishedAt && (
-        <p className="incident-details-updated text-icon">
-          <span className="icon icon-release" />
-          <span className="text">
-            {intl.formatMessage({ id: "incidents:updatedAt" })}: {publishedAt}
+        <p className="incident-details-updated">
+          <span className="text-icon">
+            <span className="icon icon-release" />
+            <span className="text">
+              {intl.formatMessage({ id: "incidents:updatedAt" })}: {publishedAt}
+            </span>
           </span>
+          {reportStatus &&
+            (reportStatusTooltip ? (
+              <Tooltip label={reportStatusTooltip} enableClick={true}>
+                <span className="text-icon incident-report-status">
+                  <span className={`icon ${reportStatusIcon}`} />
+                  <span className="text">{reportStatus}</span>
+                </span>
+              </Tooltip>
+            ) : (
+              <span className="text-icon">
+                <span className={`icon ${reportStatusIcon}`} />
+                <span className="text">{reportStatus}</span>
+              </span>
+            ))}
         </p>
       )}
 

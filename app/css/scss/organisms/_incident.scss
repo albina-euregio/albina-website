@@ -1,22 +1,37 @@
 @use "../abstracts/variables";
 @use "../abstracts/mixins";
 
+// Higher specificity than `.modal-container` alone so this wins over its
+// doubled mobile padding-top (see _modals.scss) at every breakpoint, the
+// same pattern `.modal-container.snowprofile-details` uses.
+.modal-container.incident-details {
+  padding-top: 1.25rem;
+}
+
 .incident-details {
   // Keep long content readable and away from the dialog edges. The outer
   // padding comes from the shared `.modal-container`; this caps line length.
   max-width: 60rem;
   margin: 0 auto;
-  padding-top: 1.25rem;
 
   // The "last updated" note leads the dialog, above the header's severity
   // spine, mirroring the bulletin report header's icon + label pairing.
   .incident-details-updated {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0 (variables.$padding * 0.5);
+    gap: (variables.$padding * 0.3) (variables.$padding * 0.75);
     margin-bottom: (variables.$padding * 0.75);
     color: variables.$grey;
     font-size: variables.$micro-font-size;
+
+    // Each "updated" / "status" fact is its own icon + label pair, so a
+    // narrow viewport can wrap them onto separate lines individually.
+    .text-icon {
+      display: flex;
+      align-items: center;
+      gap: 0 (variables.$padding * 0.35);
+    }
 
     .icon {
       display: flex;
@@ -25,6 +40,11 @@
       &:before {
         margin: 0 -0.25em;
       }
+    }
+
+    // Explains the status via a tooltip (see REPORT_STATUS_TOOLTIPS).
+    .incident-report-status {
+      cursor: help;
     }
   }
 
