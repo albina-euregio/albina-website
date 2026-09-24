@@ -165,7 +165,21 @@
       overflow-y: hidden;
       overscroll-behavior-x: contain;
       scroll-snap-type: x mandatory;
-      @include mixins.scrollbar-hide;
+      // A visible scrollbar hints there are more images than fit on screen.
+      padding-bottom: variables.$padding * 0.5;
+      scrollbar-width: thin;
+      scrollbar-color: variables.$grey-light transparent;
+
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: variables.$grey-light;
+        border-radius: variables.$global-rounded;
+      }
     }
 
     .incident-details-attachment-item {
@@ -201,6 +215,25 @@
         margin-top: (variables.$padding * 0.5);
         font-size: 0.85em;
         text-align: center;
+
+        // A plain-text-looking button: the caption is part of the same
+        // clickable card as the image, not a distinct link/control, so it
+        // carries none of the usual button/link chrome.
+        .incident-details-attachment-caption-trigger {
+          display: -webkit-box;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          border: 0;
+          background: none;
+          font: inherit;
+          color: inherit;
+          text-align: inherit;
+          cursor: zoom-in;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
 
         .credit {
           color: variables.$grey-light;
@@ -295,7 +328,8 @@
 
   &__caption {
     text-align: center;
-    font-size: variables.$micro-font-size;
+    // Matches the thumbnail caption's size
+    font-size: 0.85em;
 
     .credit {
       color: variables.$grey-light;

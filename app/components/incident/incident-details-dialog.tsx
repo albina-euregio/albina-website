@@ -213,6 +213,32 @@ function AttachmentLinkValue({ a }: { a: IncidentAttachmentView }): ReactNode {
   );
 }
 
+/** A thumbnail's caption, clamped to 2 lines — clicking it (like clicking the
+ * image itself) opens the lightbox, where the full, unclamped caption is
+ * already shown. No separate "show more" affordance needed: the caption is
+ * part of the same clickable card as the image, not a standalone control. */
+function AttachmentCaption({
+  a,
+  onOpen
+}: {
+  a: IncidentAttachmentView;
+  onOpen: () => void;
+}) {
+  if (!a.caption && !a.credit) return null;
+  return (
+    <figcaption>
+      <button
+        type="button"
+        className="incident-details-attachment-caption-trigger"
+        onClick={onOpen}
+      >
+        {a.caption}
+        {a.credit && <span className="credit"> © {a.credit}</span>}
+      </button>
+    </figcaption>
+  );
+}
+
 /** Renders the image attachments as a horizontally scrolling, drag-to-scroll
  * carousel, opening enlarged in a lightbox that flips through the other
  * images of this carousel — mirrors the bulletin report's photo gallery.
@@ -249,14 +275,10 @@ function AttachmentGrid({
                       alt={a.altText || a.caption || a.fileName}
                     />
                   </button>
-                  {(a.caption || a.credit) && (
-                    <figcaption>
-                      {a.caption}
-                      {a.credit && (
-                        <span className="credit"> © {a.credit}</span>
-                      )}
-                    </figcaption>
-                  )}
+                  <AttachmentCaption
+                    a={a}
+                    onOpen={() => setOpenId(a.id ?? "")}
+                  />
                 </figure>
               </li>
             ))}
