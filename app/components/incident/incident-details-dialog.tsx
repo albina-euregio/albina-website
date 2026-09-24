@@ -602,129 +602,131 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         <IncidentLocationMap incident={incident} />
       </Section>
 
-      <Section
-        title={label("avalancheInformation")}
-        fields={[
-          {
-            label: intl.formatMessage({ id: "caaml:avalancheSize.label" }),
-            value: tr("avalancheSize", d.avalancheSize)
-          },
-          {
-            label: label("avalancheType"),
-            value: tr("avalancheType", d.avalancheType)
-          },
-          {
-            label: label("relevantAvalancheProblem"),
-            value:
-              d.relevantAvalancheProblem &&
-              intl.formatMessage({
-                id: problemTypeMessageId(d.relevantAvalancheProblem)
-              })
-          },
-          {
-            label: label("avalancheLength"),
-            value: number(d.avalancheLength, "m")
-          },
-          {
-            label: label("startZoneAspect"),
-            value: withAccuracy(
-              aspectLabel(d.startZoneAspect, intl),
-              tr("startZoneAspectAccuracy", d.startZoneAspectAccuracy),
-              accuracyLabel
-            )
-          },
-          {
-            label: label("startZoneElevation"),
-            value: withAccuracy(
-              number(d.startZoneElevation, "m"),
-              tr("startZoneElevationAccuracy", d.startZoneElevationAccuracy),
-              accuracyLabel
-            )
-          },
-          {
-            label: label("startZoneIncline"),
-            value: number(d.startZoneIncline, "°")
-          },
-          {
-            label: label("startZoneMoisture"),
-            value: tr("startZoneMoisture", d.startZoneMoisture)
-          },
-          { label: label("trigger"), value: tr("trigger", d.trigger) },
-          {
-            label: label("weakLayerGrainType1"),
-            value: tr("weakLayerGrainType", d.weakLayerGrainType1)
-          },
-          {
-            label: label("weakLayerGrainType2"),
-            value: tr("weakLayerGrainType", d.weakLayerGrainType2)
-          },
-          {
-            label: label("weakLayerLocation"),
-            value: tr("weakLayerLocation", d.weakLayerLocation)
-          }
-        ]}
-      />
+      <div className="incident-details-columns">
+        <Section
+          title={label("avalancheInformation")}
+          fields={[
+            {
+              label: intl.formatMessage({ id: "caaml:avalancheSize.label" }),
+              value: tr("avalancheSize", d.avalancheSize)
+            },
+            {
+              label: label("avalancheType"),
+              value: tr("avalancheType", d.avalancheType)
+            },
+            {
+              label: label("relevantAvalancheProblem"),
+              value:
+                d.relevantAvalancheProblem &&
+                intl.formatMessage({
+                  id: problemTypeMessageId(d.relevantAvalancheProblem)
+                })
+            },
+            {
+              label: label("avalancheLength"),
+              value: number(d.avalancheLength, "m")
+            },
+            {
+              label: label("startZoneAspect"),
+              value: withAccuracy(
+                aspectLabel(d.startZoneAspect, intl),
+                tr("startZoneAspectAccuracy", d.startZoneAspectAccuracy),
+                accuracyLabel
+              )
+            },
+            {
+              label: label("startZoneElevation"),
+              value: withAccuracy(
+                number(d.startZoneElevation, "m"),
+                tr("startZoneElevationAccuracy", d.startZoneElevationAccuracy),
+                accuracyLabel
+              )
+            },
+            {
+              label: label("startZoneIncline"),
+              value: number(d.startZoneIncline, "°")
+            },
+            {
+              label: label("startZoneMoisture"),
+              value: tr("startZoneMoisture", d.startZoneMoisture)
+            },
+            { label: label("trigger"), value: tr("trigger", d.trigger) },
+            {
+              label: label("weakLayerGrainType1"),
+              value: tr("weakLayerGrainType", d.weakLayerGrainType1)
+            },
+            {
+              label: label("weakLayerGrainType2"),
+              value: tr("weakLayerGrainType", d.weakLayerGrainType2)
+            },
+            {
+              label: label("weakLayerLocation"),
+              value: tr("weakLayerLocation", d.weakLayerLocation)
+            }
+          ]}
+        />
 
-      <Section
-        title={
-          <>
-            {intl.formatMessage({ id: "incidents:documentedInvolvements" })}
-            <Tooltip
-              html={true}
-              enableClick={true}
-              label={`<p>${intl.formatMessage({
-                id: "incidents:documentedInvolvements.info"
-              })}</p>`}
-            >
-              <span className="tooltip-trigger icon-info"></span>
-            </Tooltip>
-          </>
-        }
-        fields={[
-          {
-            label: label("numberInvolved"),
-            value: d.involvementsFatalitiesBurials?.numberInvolved
-          },
-          {
-            label: label("activities"),
-            value: trList(
-              "incidentActivity",
-              d.involvementsFatalitiesBurials?.incidentActivity
-            )
-          },
-          {
-            label: label("terrainTypes"),
-            value: trList(
-              "incidentTerrainType",
-              d.involvementsFatalitiesBurials?.incidentTerrainType
-            )
-          },
-          {
-            label: label("fatalities"),
-            value: d.involvementsFatalitiesBurials?.fatalities
-          },
-          {
-            label: label("injuredSurvivors"),
-            value: d.involvementsFatalitiesBurials?.injuredSurvivors
-          },
-          {
-            label: label("uninjuredSurvivors"),
-            value: d.involvementsFatalitiesBurials?.uninjuredSurvivors
-          },
-          {
-            label: label("caughtOnly"),
-            value: d.involvementsFatalitiesBurials?.caughtOnly
-          },
-          {
-            label: label("fullyBuried"),
-            value: d.involvementsFatalitiesBurials?.fullyBuried
-          },
-          {
-            label: label("partlyBuried"),
-            value: d.involvementsFatalitiesBurials?.partlyBuried
+        <Section
+          title={
+            <>
+              {intl.formatMessage({ id: "incidents:documentedInvolvements" })}
+              <Tooltip
+                html={true}
+                enableClick={true}
+                label={`<p>${intl.formatMessage({
+                  id: "incidents:documentedInvolvements.info"
+                })}</p>`}
+              >
+                <span className="tooltip-trigger icon-info"></span>
+              </Tooltip>
+            </>
           }
-        ]}
-      />
+          fields={[
+            {
+              label: label("numberInvolved"),
+              value: d.involvementsFatalitiesBurials?.numberInvolved
+            },
+            {
+              label: label("activities"),
+              value: trList(
+                "incidentActivity",
+                d.involvementsFatalitiesBurials?.incidentActivity
+              )
+            },
+            {
+              label: label("terrainTypes"),
+              value: trList(
+                "incidentTerrainType",
+                d.involvementsFatalitiesBurials?.incidentTerrainType
+              )
+            },
+            {
+              label: label("fatalities"),
+              value: d.involvementsFatalitiesBurials?.fatalities
+            },
+            {
+              label: label("injuredSurvivors"),
+              value: d.involvementsFatalitiesBurials?.injuredSurvivors
+            },
+            {
+              label: label("uninjuredSurvivors"),
+              value: d.involvementsFatalitiesBurials?.uninjuredSurvivors
+            },
+            {
+              label: label("caughtOnly"),
+              value: d.involvementsFatalitiesBurials?.caughtOnly
+            },
+            {
+              label: label("fullyBuried"),
+              value: d.involvementsFatalitiesBurials?.fullyBuried
+            },
+            {
+              label: label("partlyBuried"),
+              value: d.involvementsFatalitiesBurials?.partlyBuried
+            }
+          ]}
+        />
+      </div>
 
       <Section
         title={label("bulletinInformation")}

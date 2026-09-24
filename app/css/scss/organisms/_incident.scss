@@ -80,6 +80,34 @@
     font-size: variables.$medium-font-size;
   }
 
+  // The avalanche info and involvement tables are both narrow relative to
+  // the dialog width, so once there's enough room, show them side by side
+  // instead of stacked.
+  .incident-details-columns {
+    @media #{variables.breakpoint-up(medium)} {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 (variables.$padding * 2);
+      margin-bottom: (variables.$margin-bottom * 1.5);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .incident-details-section {
+        margin-bottom: 0;
+
+        // The columns are narrower than the full-width sections above and
+        // below, so the label column needs relatively more room than the
+        // usual 34% to keep labels like "Anzahl beteiligte Personen" from
+        // wrapping.
+        th {
+          width: 50%;
+        }
+      }
+    }
+  }
+
   .incident-details-section {
     margin-bottom: (variables.$margin-bottom * 1.5);
 
