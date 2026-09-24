@@ -148,13 +148,35 @@
   }
 
   .incident-details-attachments {
-    display: flex;
-    flex-wrap: wrap;
-    gap: (variables.$padding * 2);
     margin-top: variables.$padding;
 
+    // A horizontally scrolling, snap-aligned strip, dragged with the mouse
+    // via useDragScroll and swiped/scrolled natively on touch.
+    .incident-details-attachments-list {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: variables.$padding;
+      @media #{variables.breakpoint-up(medium)} {
+        gap: variables.$padding * 2;
+      }
+      margin: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      @include mixins.scrollbar-hide;
+    }
+
+    .incident-details-attachment-item {
+      flex: 0 0 calc((100% - #{variables.$padding * 2}) / 2.5);
+      scroll-snap-align: start;
+      @media #{variables.breakpoint-up(medium)} {
+        flex: 0 0 calc((100% - #{variables.$padding * 6}) / 3.5);
+      }
+    }
+
     .incident-details-attachment {
-      max-width: 16rem;
       margin: 0;
 
       .incident-details-attachment-trigger {
@@ -168,8 +190,10 @@
       }
 
       img {
-        max-width: 100%;
-        height: auto;
+        display: block;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
         margin-bottom: 0;
       }
 

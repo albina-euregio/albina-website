@@ -1,4 +1,4 @@
-import React, { useState, type ReactNode } from "react";
+import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import Modal from "../dialogs/albina-modal";
 import {
   DialogFlipperButtons,
@@ -212,16 +212,83 @@ function AttachmentLinkValue({ a }: { a: IncidentAttachmentView }): ReactNode {
   );
 }
 
-/** Renders a grid of image attachments, opening enlarged in a lightbox that
- * flips through the other images of this grid — mirrors the bulletin
- * report's photo gallery. Non-image attachments (PDFs, other files) can't be
- * previewed this way, so they're rendered as plain download links instead. */
+/** Lets the horizontally scrolling attachment strip be dragged with the
+ * mouse like a touch swipe. Suppresses the click that would otherwise fire
+ * on the item under the cursor once a drag has actually moved it. */
+function useDragScroll<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const drag = useRef({ active: false, moved: false, startX: 0, startLeft: 0 });
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const onDown = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      drag.current = {
+        active: true,
+        moved: false,
+        startX: e.clientX,
+        startLeft: el.scrollLeft
+      };
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!drag.current.active) return;
+      const dx = e.clientX - drag.current.startX;
+      if (Math.abs(dx) > 3 && !drag.current.moved) {
+        drag.current.moved = true;
+        el.style.scrollSnapType = "none";
+        el.setPointerCapture(e.pointerId);
+      }
+      el.scrollLeft = drag.current.startLeft - dx;
+    };
+    const onUp = (e: PointerEvent) => {
+      drag.current.active = false;
+      el.style.scrollSnapType = "";
+      if (el.hasPointerCapture(e.pointerId))
+        el.releasePointerCapture(e.pointerId);
+    };
+    const onClick = (e: MouseEvent) => {
+      if (drag.current.moved) {
+        e.preventDefault();
+        e.stopPropagation();
+        drag.current.moved = false;
+      }
+    };
+    const onDragStart = (e: Event) => e.preventDefault();
+    el.addEventListener("pointerdown", onDown);
+    // Pointer capture (set in onMove, once a drag is confirmed) retargets
+    // these to `el` regardless of where the cursor physically is, so `el` —
+    // not `window` — sees them.
+    el.addEventListener("pointermove", onMove);
+    el.addEventListener("pointerup", onUp);
+    el.addEventListener("pointercancel", onUp);
+    el.addEventListener("click", onClick, true);
+    el.addEventListener("dragstart", onDragStart);
+    return () => {
+      el.removeEventListener("pointerdown", onDown);
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerup", onUp);
+      el.removeEventListener("pointercancel", onUp);
+      el.removeEventListener("click", onClick, true);
+      el.removeEventListener("dragstart", onDragStart);
+    };
+  }, []);
+
+  return ref;
+}
+
+/** Renders the image attachments as a horizontally scrolling, drag-to-scroll
+ * carousel, opening enlarged in a lightbox that flips through the other
+ * images of this carousel — mirrors the bulletin report's photo gallery.
+ * Non-image attachments (PDFs, other files) can't be previewed this way, so
+ * they're rendered as plain download links below the carousel instead. */
 function AttachmentGrid({
   attachments
 }: {
   attachments: IncidentAttachmentView[] | undefined;
 }) {
   const [openId, setOpenId] = useState("");
+  const dragRef = useDragScroll<HTMLUListElement>();
   if (!attachments?.length) return null;
   const images = attachments.filter(isImageAttachment);
   const linkOnly = attachments.filter(a => !isImageAttachment(a));
@@ -229,23 +296,35 @@ function AttachmentGrid({
     <>
       {images.length > 0 && (
         <div className="incident-details-attachments">
-          {images.map(a => (
-            <figure key={a.id} className="incident-details-attachment">
-              <button
-                type="button"
-                className="incident-details-attachment-trigger"
-                onClick={() => setOpenId(a.id ?? "")}
-              >
-                <img src={a.url} alt={a.altText || a.caption || a.fileName} />
-              </button>
-              {(a.caption || a.credit) && (
-                <figcaption>
-                  {a.caption}
-                  {a.credit && <span className="credit"> © {a.credit}</span>}
-                </figcaption>
-              )}
-            </figure>
-          ))}
+          <ul
+            ref={dragRef}
+            className="list-plain incident-details-attachments-list"
+          >
+            {images.map(a => (
+              <li key={a.id} className="incident-details-attachment-item">
+                <figure className="incident-details-attachment">
+                  <button
+                    type="button"
+                    className="incident-details-attachment-trigger"
+                    onClick={() => setOpenId(a.id ?? "")}
+                  >
+                    <img
+                      src={a.url}
+                      alt={a.altText || a.caption || a.fileName}
+                    />
+                  </button>
+                  {(a.caption || a.credit) && (
+                    <figcaption>
+                      {a.caption}
+                      {a.credit && (
+                        <span className="credit"> © {a.credit}</span>
+                      )}
+                    </figcaption>
+                  )}
+                </figure>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
       {linkOnly.length > 0 && (
