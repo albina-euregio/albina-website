@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState, type ReactNode } from "react";
+import React, { useState, type ReactNode } from "react";
 import Modal from "../dialogs/albina-modal";
 import {
   DialogFlipperButtons,
   useDialogFlipper
 } from "../dialogs/dialog-flipper";
+import { useDragScroll } from "../dialogs/use-drag-scroll";
 import { useIntl, type MessageId } from "../../i18n";
 import {
   useIncidentReportMessages,
@@ -210,71 +211,6 @@ function AttachmentLinkValue({ a }: { a: IncidentAttachmentView }): ReactNode {
       )}
     </>
   );
-}
-
-/** Lets the horizontally scrolling attachment strip be dragged with the
- * mouse like a touch swipe. Suppresses the click that would otherwise fire
- * on the item under the cursor once a drag has actually moved it. */
-function useDragScroll<T extends HTMLElement>() {
-  const ref = useRef<T>(null);
-  const drag = useRef({ active: false, moved: false, startX: 0, startLeft: 0 });
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const onDown = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse") return;
-      drag.current = {
-        active: true,
-        moved: false,
-        startX: e.clientX,
-        startLeft: el.scrollLeft
-      };
-    };
-    const onMove = (e: PointerEvent) => {
-      if (!drag.current.active) return;
-      const dx = e.clientX - drag.current.startX;
-      if (Math.abs(dx) > 3 && !drag.current.moved) {
-        drag.current.moved = true;
-        el.style.scrollSnapType = "none";
-        el.setPointerCapture(e.pointerId);
-      }
-      el.scrollLeft = drag.current.startLeft - dx;
-    };
-    const onUp = (e: PointerEvent) => {
-      drag.current.active = false;
-      el.style.scrollSnapType = "";
-      if (el.hasPointerCapture(e.pointerId))
-        el.releasePointerCapture(e.pointerId);
-    };
-    const onClick = (e: MouseEvent) => {
-      if (drag.current.moved) {
-        e.preventDefault();
-        e.stopPropagation();
-        drag.current.moved = false;
-      }
-    };
-    const onDragStart = (e: Event) => e.preventDefault();
-    el.addEventListener("pointerdown", onDown);
-    // Pointer capture (set in onMove, once a drag is confirmed) retargets
-    // these to `el` regardless of where the cursor physically is, so `el` —
-    // not `window` — sees them.
-    el.addEventListener("pointermove", onMove);
-    el.addEventListener("pointerup", onUp);
-    el.addEventListener("pointercancel", onUp);
-    el.addEventListener("click", onClick, true);
-    el.addEventListener("dragstart", onDragStart);
-    return () => {
-      el.removeEventListener("pointerdown", onDown);
-      el.removeEventListener("pointermove", onMove);
-      el.removeEventListener("pointerup", onUp);
-      el.removeEventListener("pointercancel", onUp);
-      el.removeEventListener("click", onClick, true);
-      el.removeEventListener("dragstart", onDragStart);
-    };
-  }, []);
-
-  return ref;
 }
 
 /** Renders the image attachments as a horizontally scrolling, drag-to-scroll
