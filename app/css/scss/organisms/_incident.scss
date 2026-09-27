@@ -167,6 +167,77 @@
     }
   }
 
+  // The four warning-sign picklists (recent slab avalanches, instability,
+  // loading, warming), set off as their own box: all four stay visible even
+  // when unanswered, unlike the label/value tables above which drop empty
+  // rows. Status is a plain dot + word, the same minimal language as
+  // `.incident-involvement-dot` elsewhere in this dialog.
+  .incident-warning-signs {
+    padding: variables.$padding (variables.$padding * 1.5);
+    background: variables.$grey-very-very-light;
+    border: variables.$border-width solid variables.$grey-very-light;
+  }
+
+  .incident-warning-signs__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: variables.$padding (variables.$padding * 1.5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media #{variables.breakpoint-up(medium)} {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .incident-warning-signs__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+
+  .incident-warning-signs__label {
+    font-size: variables.$tiny-font-size;
+    color: variables.$grey-dark;
+  }
+
+  .incident-warning-signs__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    color: variables.$text-color;
+  }
+
+  .incident-warning-signs__dot {
+    flex: 0 0 auto;
+    width: 0.6em;
+    height: 0.6em;
+    border-radius: 50%;
+    background: variables.$grey-light;
+  }
+
+  // Present/absent reuse the snowprofile stability badges' brown/teal pair,
+  // so "a sign was observed" reads with the same colours as "poor stability"
+  // does elsewhere in the app.
+  .incident-warning-signs__status--present .incident-warning-signs__dot {
+    background: #a6611a;
+  }
+
+  .incident-warning-signs__status--absent .incident-warning-signs__dot {
+    background: #018571;
+  }
+
+  // No answer was given at all — kept visibly distinct from an explicit
+  // "Unknown", with no dot at all.
+  .incident-warning-signs__status--none {
+    color: variables.$grey-light;
+
+    .incident-warning-signs__dot {
+      display: none;
+    }
+  }
+
   // The analysis is the dialog's second half — set off by a rule from the
   // factual sections above it, and headed like the dialog's own title rather
   // than like the <h3> sections it contains.

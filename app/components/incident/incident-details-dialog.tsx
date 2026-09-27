@@ -105,6 +105,49 @@ function Section({
   );
 }
 
+interface WarningSign {
+  label: ReactNode;
+  status?: "Present" | "Absent" | "Unknown";
+  text?: string;
+}
+
+/**
+ * The four warning-sign picklists as a factbox: unlike {@link Section}, every
+ * sign stays visible even without an answer, so "not selected" reads as a
+ * gap in the report rather than a row that silently disappears.
+ */
+function WarningSigns({
+  title,
+  signs
+}: {
+  title: ReactNode;
+  signs: WarningSign[];
+}) {
+  return (
+    <section className="incident-details-section incident-warning-signs">
+      <h3>{title}</h3>
+      <ul className="incident-warning-signs__grid">
+        {signs.map((sign, i) => (
+          <li key={i} className="incident-warning-signs__item">
+            <span className="incident-warning-signs__label">{sign.label}</span>
+            <span
+              className={`incident-warning-signs__status incident-warning-signs__status--${(
+                sign.status ?? "none"
+              ).toLowerCase()}`}
+            >
+              <span
+                className="incident-warning-signs__dot"
+                aria-hidden="true"
+              />
+              {sign.text ?? "–"}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 /** The "⌖ label" accuracy badge — standalone (e.g. next to a section title)
  * or trailing a value via {@link withAccuracy}. */
 function AccuracyNote({
@@ -789,10 +832,12 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             />
           )}
 
-          <Section
-            fields={ANALYSIS_ENUM_FIELDS.map(field => ({
+          <WarningSigns
+            title={label("warningSigns")}
+            signs={ANALYSIS_ENUM_FIELDS.map(field => ({
               label: label(field),
-              value: tr(field, d[field])
+              status: d[field],
+              text: tr(field, d[field])
             }))}
           />
 
