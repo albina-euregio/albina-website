@@ -1,22 +1,37 @@
 @use "../abstracts/variables";
 @use "../abstracts/mixins";
 
+// Higher specificity than `.modal-container` alone so this wins over its
+// doubled mobile padding-top (see _modals.scss) at every breakpoint, the
+// same pattern `.modal-container.snowprofile-details` uses.
+.modal-container.incident-details {
+  padding-top: 1.25rem;
+}
+
 .incident-details {
   // Keep long content readable and away from the dialog edges. The outer
   // padding comes from the shared `.modal-container`; this caps line length.
   max-width: 60rem;
   margin: 0 auto;
-  padding-top: 1.25rem;
 
   // The "last updated" note leads the dialog, above the header's severity
   // spine, mirroring the bulletin report header's icon + label pairing.
   .incident-details-updated {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0 (variables.$padding * 0.5);
+    gap: (variables.$padding * 0.3) (variables.$padding * 0.75);
     margin-bottom: (variables.$padding * 0.75);
     color: variables.$grey;
     font-size: variables.$micro-font-size;
+
+    // Each "updated" / "status" fact is its own icon + label pair, so a
+    // narrow viewport can wrap them onto separate lines individually.
+    .text-icon {
+      display: flex;
+      align-items: center;
+      gap: 0 (variables.$padding * 0.35);
+    }
 
     .icon {
       display: flex;
@@ -25,6 +40,11 @@
       &:before {
         margin: 0 -0.25em;
       }
+    }
+
+    // Explains the status via a tooltip (see REPORT_STATUS_TOOLTIPS).
+    .incident-report-status {
+      cursor: help;
     }
   }
 
@@ -58,6 +78,34 @@
     margin-bottom: (variables.$margin-bottom * 1.5);
     color: variables.$grey-dark;
     font-size: variables.$medium-font-size;
+  }
+
+  // The avalanche info and involvement tables are both narrow relative to
+  // the dialog width, so once there's enough room, show them side by side
+  // instead of stacked.
+  .incident-details-columns {
+    @media #{variables.breakpoint-up(medium)} {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 (variables.$padding * 2);
+      margin-bottom: (variables.$margin-bottom * 1.5);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .incident-details-section {
+        margin-bottom: 0;
+
+        // The columns are narrower than the full-width sections above and
+        // below, so the label column needs relatively more room than the
+        // usual 34% to keep labels like "Anzahl beteiligte Personen" from
+        // wrapping.
+        th {
+          width: 50%;
+        }
+      }
+    }
   }
 
   .incident-details-section {
@@ -119,6 +167,77 @@
     }
   }
 
+  // The four warning-sign picklists (recent slab avalanches, instability,
+  // loading, warming), set off as their own box: all four stay visible even
+  // when unanswered, unlike the label/value tables above which drop empty
+  // rows. Status is a plain dot + word, the same minimal language as
+  // `.incident-involvement-dot` elsewhere in this dialog.
+  .incident-warning-signs {
+    padding: variables.$padding (variables.$padding * 1.5);
+    background: variables.$grey-very-very-light;
+    border: variables.$border-width solid variables.$grey-very-light;
+  }
+
+  .incident-warning-signs__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: variables.$padding (variables.$padding * 1.5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media #{variables.breakpoint-up(medium)} {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .incident-warning-signs__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+
+  .incident-warning-signs__label {
+    font-size: variables.$tiny-font-size;
+    color: variables.$grey-dark;
+  }
+
+  .incident-warning-signs__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    color: variables.$text-color;
+  }
+
+  .incident-warning-signs__dot {
+    flex: 0 0 auto;
+    width: 0.6em;
+    height: 0.6em;
+    border-radius: 50%;
+    background: variables.$grey-light;
+  }
+
+  // Present/absent reuse the snowprofile stability badges' brown/teal pair,
+  // so "a sign was observed" reads with the same colours as "poor stability"
+  // does elsewhere in the app.
+  .incident-warning-signs__status--present .incident-warning-signs__dot {
+    background: #a6611a;
+  }
+
+  .incident-warning-signs__status--absent .incident-warning-signs__dot {
+    background: #018571;
+  }
+
+  // No answer was given at all — kept visibly distinct from an explicit
+  // "Unknown", with no dot at all.
+  .incident-warning-signs__status--none {
+    color: variables.$grey-light;
+
+    .incident-warning-signs__dot {
+      display: none;
+    }
+  }
+
   // The analysis is the dialog's second half — set off by a rule from the
   // factual sections above it, and headed like the dialog's own title rather
   // than like the <h3> sections it contains.
@@ -148,13 +267,49 @@
   }
 
   .incident-details-attachments {
-    display: flex;
-    flex-wrap: wrap;
-    gap: (variables.$padding * 2);
     margin-top: variables.$padding;
 
+    // A horizontally scrolling, snap-aligned strip, dragged with the mouse
+    // via useDragScroll and swiped/scrolled natively on touch.
+    .incident-details-attachments-list {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: variables.$padding;
+      @media #{variables.breakpoint-up(medium)} {
+        gap: variables.$padding * 2;
+      }
+      margin: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      // A visible scrollbar hints there are more images than fit on screen.
+      padding-bottom: variables.$padding * 0.5;
+      scrollbar-width: thin;
+      scrollbar-color: variables.$grey-light transparent;
+
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: variables.$grey-light;
+        border-radius: variables.$global-rounded;
+      }
+    }
+
+    .incident-details-attachment-item {
+      flex: 0 0 calc((100% - #{variables.$padding * 2}) / 2.5);
+      scroll-snap-align: start;
+      @media #{variables.breakpoint-up(medium)} {
+        flex: 0 0 calc((100% - #{variables.$padding * 6}) / 3.5);
+      }
+    }
+
     .incident-details-attachment {
-      max-width: 16rem;
       margin: 0;
 
       .incident-details-attachment-trigger {
@@ -168,8 +323,10 @@
       }
 
       img {
-        max-width: 100%;
-        height: auto;
+        display: block;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
         margin-bottom: 0;
       }
 
@@ -177,6 +334,25 @@
         margin-top: (variables.$padding * 0.5);
         font-size: 0.85em;
         text-align: center;
+
+        // A plain-text-looking button: the caption is part of the same
+        // clickable card as the image, not a distinct link/control, so it
+        // carries none of the usual button/link chrome.
+        .incident-details-attachment-caption-trigger {
+          display: -webkit-box;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          border: 0;
+          background: none;
+          font: inherit;
+          color: inherit;
+          text-align: inherit;
+          cursor: zoom-in;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
 
         .credit {
           color: variables.$grey-light;
@@ -271,7 +447,8 @@
 
   &__caption {
     text-align: center;
-    font-size: variables.$micro-font-size;
+    // Matches the thumbnail caption's size
+    font-size: 0.85em;
 
     .credit {
       color: variables.$grey-light;

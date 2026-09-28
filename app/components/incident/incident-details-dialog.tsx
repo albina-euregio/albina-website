@@ -4,6 +4,7 @@ import {
   DialogFlipperButtons,
   useDialogFlipper
 } from "../dialogs/dialog-flipper";
+import { useDragScroll } from "../dialogs/use-drag-scroll";
 import { useIntl, type MessageId } from "../../i18n";
 import {
   useIncidentReportMessages,
@@ -31,6 +32,20 @@ import type {
 } from "../../stores/incidentDataStore";
 
 const ANALYSIS_SECTION_ID = "incident-analysis";
+
+/** Icon per public report status, shape-coded rather than color-coded. */
+const REPORT_STATUS_ICONS: Record<string, string> = {
+  Incomplete: "icon-attention",
+  InReview: "icon-info",
+  Verified: "icon-check-small"
+};
+
+/** Explanatory tooltip per public report status, shown on hover. */
+const REPORT_STATUS_TOOLTIPS: Record<string, MessageId> = {
+  Incomplete: "incidents:reportStatus:incomplete",
+  InReview: "incidents:reportStatus:inReview",
+  Verified: "incidents:reportStatus:verified"
+};
 
 /** The picklist fields shown as a table at the top of the analysis section. */
 const ANALYSIS_ENUM_FIELDS = [
@@ -86,6 +101,49 @@ function Section({
           </tbody>
         </table>
       )}
+    </section>
+  );
+}
+
+interface WarningSign {
+  label: ReactNode;
+  status?: "Present" | "Absent" | "Unknown";
+  text?: string;
+}
+
+/**
+ * The four warning-sign picklists as a factbox: unlike {@link Section}, every
+ * sign stays visible even without an answer, so "not selected" reads as a
+ * gap in the report rather than a row that silently disappears.
+ */
+function WarningSigns({
+  title,
+  signs
+}: {
+  title: ReactNode;
+  signs: WarningSign[];
+}) {
+  return (
+    <section className="incident-details-section incident-warning-signs">
+      <h3>{title}</h3>
+      <ul className="incident-warning-signs__grid">
+        {signs.map((sign, i) => (
+          <li key={i} className="incident-warning-signs__item">
+            <span className="incident-warning-signs__label">{sign.label}</span>
+            <span
+              className={`incident-warning-signs__status incident-warning-signs__status--${(
+                sign.status ?? "none"
+              ).toLowerCase()}`}
+            >
+              <span
+                className="incident-warning-signs__dot"
+                aria-hidden="true"
+              />
+              {sign.text ?? "–"}
+            </span>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
@@ -212,16 +270,44 @@ function AttachmentLinkValue({ a }: { a: IncidentAttachmentView }): ReactNode {
   );
 }
 
-/** Renders a grid of image attachments, opening enlarged in a lightbox that
- * flips through the other images of this grid — mirrors the bulletin
- * report's photo gallery. Non-image attachments (PDFs, other files) can't be
- * previewed this way, so they're rendered as plain download links instead. */
+/** A thumbnail's caption, clamped to 2 lines — clicking it (like clicking the
+ * image itself) opens the lightbox, where the full, unclamped caption is
+ * already shown. No separate "show more" affordance needed: the caption is
+ * part of the same clickable card as the image, not a standalone control. */
+function AttachmentCaption({
+  a,
+  onOpen
+}: {
+  a: IncidentAttachmentView;
+  onOpen: () => void;
+}) {
+  if (!a.caption && !a.credit) return null;
+  return (
+    <figcaption>
+      <button
+        type="button"
+        className="incident-details-attachment-caption-trigger"
+        onClick={onOpen}
+      >
+        {a.caption}
+        {a.credit && <span className="credit"> © {a.credit}</span>}
+      </button>
+    </figcaption>
+  );
+}
+
+/** Renders the image attachments as a horizontally scrolling, drag-to-scroll
+ * carousel, opening enlarged in a lightbox that flips through the other
+ * images of this carousel — mirrors the bulletin report's photo gallery.
+ * Non-image attachments (PDFs, other files) can't be previewed this way, so
+ * they're rendered as plain download links below the carousel instead. */
 function AttachmentGrid({
   attachments
 }: {
   attachments: IncidentAttachmentView[] | undefined;
 }) {
   const [openId, setOpenId] = useState("");
+  const dragRef = useDragScroll<HTMLUListElement>();
   if (!attachments?.length) return null;
   const images = attachments.filter(isImageAttachment);
   const linkOnly = attachments.filter(a => !isImageAttachment(a));
@@ -229,23 +315,31 @@ function AttachmentGrid({
     <>
       {images.length > 0 && (
         <div className="incident-details-attachments">
-          {images.map(a => (
-            <figure key={a.id} className="incident-details-attachment">
-              <button
-                type="button"
-                className="incident-details-attachment-trigger"
-                onClick={() => setOpenId(a.id ?? "")}
-              >
-                <img src={a.url} alt={a.altText || a.caption || a.fileName} />
-              </button>
-              {(a.caption || a.credit) && (
-                <figcaption>
-                  {a.caption}
-                  {a.credit && <span className="credit"> © {a.credit}</span>}
-                </figcaption>
-              )}
-            </figure>
-          ))}
+          <ul
+            ref={dragRef}
+            className="list-plain incident-details-attachments-list"
+          >
+            {images.map(a => (
+              <li key={a.id} className="incident-details-attachment-item">
+                <figure className="incident-details-attachment">
+                  <button
+                    type="button"
+                    className="incident-details-attachment-trigger"
+                    onClick={() => setOpenId(a.id ?? "")}
+                  >
+                    <img
+                      src={a.url}
+                      alt={a.altText || a.caption || a.fileName}
+                    />
+                  </button>
+                  <AttachmentCaption
+                    a={a}
+                    onOpen={() => setOpenId(a.id ?? "")}
+                  />
+                </figure>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
       {linkOnly.length > 0 && (
@@ -445,6 +539,12 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
   const publishedAt =
     incident.publishedAt &&
     intl.formatDate(incident.publishedAt, DATE_TIME_FORMAT_SHORT);
+  const reportStatus = tr("reportStatus", d.reportStatus);
+  const reportStatusIcon =
+    REPORT_STATUS_ICONS[d.reportStatus ?? ""] ?? "icon-info";
+  const reportStatusTooltipId = REPORT_STATUS_TOOLTIPS[d.reportStatus ?? ""];
+  const reportStatusTooltip =
+    reportStatusTooltipId && intl.formatMessage({ id: reportStatusTooltipId });
   const outcome = involvementText(incident, intl);
   const badges = incidentBadges(
     incident,
@@ -492,11 +592,27 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       }
     >
       {publishedAt && (
-        <p className="incident-details-updated text-icon">
-          <span className="icon icon-release" />
-          <span className="text">
-            {intl.formatMessage({ id: "incidents:updatedAt" })}: {publishedAt}
+        <p className="incident-details-updated">
+          <span className="text-icon">
+            <span className="icon icon-release" />
+            <span className="text">
+              {intl.formatMessage({ id: "incidents:updatedAt" })}: {publishedAt}
+            </span>
           </span>
+          {reportStatus &&
+            (reportStatusTooltip ? (
+              <Tooltip label={reportStatusTooltip} enableClick={true}>
+                <span className="text-icon incident-report-status">
+                  <span className={`icon ${reportStatusIcon}`} />
+                  <span className="text">{reportStatus}</span>
+                </span>
+              </Tooltip>
+            ) : (
+              <span className="text-icon">
+                <span className={`icon ${reportStatusIcon}`} />
+                <span className="text">{reportStatus}</span>
+              </span>
+            ))}
         </p>
       )}
 
@@ -529,129 +645,131 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         <IncidentLocationMap incident={incident} />
       </Section>
 
-      <Section
-        title={label("avalancheInformation")}
-        fields={[
-          {
-            label: intl.formatMessage({ id: "caaml:avalancheSize.label" }),
-            value: tr("avalancheSize", d.avalancheSize)
-          },
-          {
-            label: label("avalancheType"),
-            value: tr("avalancheType", d.avalancheType)
-          },
-          {
-            label: label("relevantAvalancheProblem"),
-            value:
-              d.relevantAvalancheProblem &&
-              intl.formatMessage({
-                id: problemTypeMessageId(d.relevantAvalancheProblem)
-              })
-          },
-          {
-            label: label("avalancheLength"),
-            value: number(d.avalancheLength, "m")
-          },
-          {
-            label: label("startZoneAspect"),
-            value: withAccuracy(
-              aspectLabel(d.startZoneAspect, intl),
-              tr("startZoneAspectAccuracy", d.startZoneAspectAccuracy),
-              accuracyLabel
-            )
-          },
-          {
-            label: label("startZoneElevation"),
-            value: withAccuracy(
-              number(d.startZoneElevation, "m"),
-              tr("startZoneElevationAccuracy", d.startZoneElevationAccuracy),
-              accuracyLabel
-            )
-          },
-          {
-            label: label("startZoneIncline"),
-            value: number(d.startZoneIncline, "°")
-          },
-          {
-            label: label("startZoneMoisture"),
-            value: tr("startZoneMoisture", d.startZoneMoisture)
-          },
-          { label: label("trigger"), value: tr("trigger", d.trigger) },
-          {
-            label: label("weakLayerGrainType1"),
-            value: tr("weakLayerGrainType", d.weakLayerGrainType1)
-          },
-          {
-            label: label("weakLayerGrainType2"),
-            value: tr("weakLayerGrainType", d.weakLayerGrainType2)
-          },
-          {
-            label: label("weakLayerLocation"),
-            value: tr("weakLayerLocation", d.weakLayerLocation)
-          }
-        ]}
-      />
+      <div className="incident-details-columns">
+        <Section
+          title={label("avalancheInformation")}
+          fields={[
+            {
+              label: intl.formatMessage({ id: "caaml:avalancheSize.label" }),
+              value: tr("avalancheSize", d.avalancheSize)
+            },
+            {
+              label: label("avalancheType"),
+              value: tr("avalancheType", d.avalancheType)
+            },
+            {
+              label: label("relevantAvalancheProblem"),
+              value:
+                d.relevantAvalancheProblem &&
+                intl.formatMessage({
+                  id: problemTypeMessageId(d.relevantAvalancheProblem)
+                })
+            },
+            {
+              label: label("avalancheLength"),
+              value: number(d.avalancheLength, "m")
+            },
+            {
+              label: label("startZoneAspect"),
+              value: withAccuracy(
+                aspectLabel(d.startZoneAspect, intl),
+                tr("startZoneAspectAccuracy", d.startZoneAspectAccuracy),
+                accuracyLabel
+              )
+            },
+            {
+              label: label("startZoneElevation"),
+              value: withAccuracy(
+                number(d.startZoneElevation, "m"),
+                tr("startZoneElevationAccuracy", d.startZoneElevationAccuracy),
+                accuracyLabel
+              )
+            },
+            {
+              label: label("startZoneIncline"),
+              value: number(d.startZoneIncline, "°")
+            },
+            {
+              label: label("startZoneMoisture"),
+              value: tr("startZoneMoisture", d.startZoneMoisture)
+            },
+            { label: label("trigger"), value: tr("trigger", d.trigger) },
+            {
+              label: label("weakLayerGrainType1"),
+              value: tr("weakLayerGrainType", d.weakLayerGrainType1)
+            },
+            {
+              label: label("weakLayerGrainType2"),
+              value: tr("weakLayerGrainType", d.weakLayerGrainType2)
+            },
+            {
+              label: label("weakLayerLocation"),
+              value: tr("weakLayerLocation", d.weakLayerLocation)
+            }
+          ]}
+        />
 
-      <Section
-        title={
-          <>
-            {intl.formatMessage({ id: "incidents:documentedInvolvements" })}
-            <Tooltip
-              html={true}
-              enableClick={true}
-              label={`<p>${intl.formatMessage({
-                id: "incidents:documentedInvolvements.info"
-              })}</p>`}
-            >
-              <span className="tooltip-trigger icon-info"></span>
-            </Tooltip>
-          </>
-        }
-        fields={[
-          {
-            label: label("numberInvolved"),
-            value: d.involvementsFatalitiesBurials?.numberInvolved
-          },
-          {
-            label: label("activities"),
-            value: trList(
-              "incidentActivity",
-              d.involvementsFatalitiesBurials?.incidentActivity
-            )
-          },
-          {
-            label: label("terrainTypes"),
-            value: trList(
-              "incidentTerrainType",
-              d.involvementsFatalitiesBurials?.incidentTerrainType
-            )
-          },
-          {
-            label: label("fatalities"),
-            value: d.involvementsFatalitiesBurials?.fatalities
-          },
-          {
-            label: label("injuredSurvivors"),
-            value: d.involvementsFatalitiesBurials?.injuredSurvivors
-          },
-          {
-            label: label("uninjuredSurvivors"),
-            value: d.involvementsFatalitiesBurials?.uninjuredSurvivors
-          },
-          {
-            label: label("caughtOnly"),
-            value: d.involvementsFatalitiesBurials?.caughtOnly
-          },
-          {
-            label: label("fullyBuried"),
-            value: d.involvementsFatalitiesBurials?.fullyBuried
-          },
-          {
-            label: label("partlyBuried"),
-            value: d.involvementsFatalitiesBurials?.partlyBuried
+        <Section
+          title={
+            <>
+              {intl.formatMessage({ id: "incidents:documentedInvolvements" })}
+              <Tooltip
+                html={true}
+                enableClick={true}
+                label={`<p>${intl.formatMessage({
+                  id: "incidents:documentedInvolvements.info"
+                })}</p>`}
+              >
+                <span className="tooltip-trigger icon-info"></span>
+              </Tooltip>
+            </>
           }
-        ]}
-      />
+          fields={[
+            {
+              label: label("numberInvolved"),
+              value: d.involvementsFatalitiesBurials?.numberInvolved
+            },
+            {
+              label: label("activities"),
+              value: trList(
+                "incidentActivity",
+                d.involvementsFatalitiesBurials?.incidentActivity
+              )
+            },
+            {
+              label: label("terrainTypes"),
+              value: trList(
+                "incidentTerrainType",
+                d.involvementsFatalitiesBurials?.incidentTerrainType
+              )
+            },
+            {
+              label: label("fatalities"),
+              value: d.involvementsFatalitiesBurials?.fatalities
+            },
+            {
+              label: label("injuredSurvivors"),
+              value: d.involvementsFatalitiesBurials?.injuredSurvivors
+            },
+            {
+              label: label("uninjuredSurvivors"),
+              value: d.involvementsFatalitiesBurials?.uninjuredSurvivors
+            },
+            {
+              label: label("caughtOnly"),
+              value: d.involvementsFatalitiesBurials?.caughtOnly
+            },
+            {
+              label: label("fullyBuried"),
+              value: d.involvementsFatalitiesBurials?.fullyBuried
+            },
+            {
+              label: label("partlyBuried"),
+              value: d.involvementsFatalitiesBurials?.partlyBuried
+            }
+          ]}
+        />
+      </div>
 
       <Section
         title={label("bulletinInformation")}
@@ -714,10 +832,12 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             />
           )}
 
-          <Section
-            fields={ANALYSIS_ENUM_FIELDS.map(field => ({
+          <WarningSigns
+            title={label("warningSigns")}
+            signs={ANALYSIS_ENUM_FIELDS.map(field => ({
               label: label(field),
-              value: tr(field, d[field])
+              status: d[field],
+              text: tr(field, d[field])
             }))}
           />
 
