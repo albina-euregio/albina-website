@@ -112,6 +112,33 @@ function SnowProfileDetail({
   const imageSrc = profileImageSrc(profileId, language);
   const { loaded, pending, error } = usePreloadedImage(imageSrc);
 
+  const handlePrint = useCallback(async () => {
+    const response = await fetch(imageSrc);
+    const svgMarkup = await response.text();
+    const profile = profiles.find(p => p.id === profileId);
+    const place = (profile?.location || "profile").replace(
+      /[^a-zA-Z0-9]+/g,
+      "_"
+    );
+    const date = profile?.dateTime?.toISOString().slice(0, 10) ?? profileId;
+    const win = window.open("", "_blank");
+    if (!win) return;
+    const doc = win.document;
+    doc.title = `${place}_${date}_snowprofile`;
+    const style = doc.createElement("style");
+    // The served SVG carries an inline `max-height:calc(100vh - 70px)` (profea's
+    // on-screen default); without max-height:none it caps the print height below
+    // A4 and the page never fills. @page + zeroed body remove the sheet margins.
+    style.textContent =
+      `@page{size:A4 portrait;margin:0}html,body{margin:0;padding:0}` +
+      `svg{width:210mm!important;height:297mm!important;` +
+      `max-width:none!important;max-height:none!important;display:block!important}`;
+    doc.head.appendChild(style);
+    doc.body.innerHTML = svgMarkup;
+    win.onafterprint = () => win.close();
+    setTimeout(() => win.print(), 300);
+  }, [imageSrc, profileId, profiles]);
+
   // Start the shown profile from the top left, not wherever its predecessor was
   // panned to.
   useEffect(() => {
@@ -175,6 +202,30 @@ function SnowProfileDetail({
         >
           <span className="icon-download" aria-hidden="true" />
         </a>
+        <button
+          type="button"
+          className="snowprofile-detail__action"
+          onClick={handlePrint}
+          title={intl.formatMessage({ id: "profiles:detail:print-pdf" })}
+          aria-label={intl.formatMessage({ id: "profiles:detail:print-pdf" })}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M6 9V2h12v7" />
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+            <rect x="6" y="14" width="12" height="8" />
+          </svg>
+        </button>
         <a
           className="snowprofile-detail__action"
           href={imageSrc}
