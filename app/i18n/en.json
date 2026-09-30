@@ -350,6 +350,7 @@
   "profiles:detail:error": "Failed to load snow profile.",
   "profiles:detail:open-tab": "Open in new tab",
   "profiles:detail:download-xml": "Download XML",
+  "profiles:detail:print-pdf": "Print as PDF",
   "profiles:add": "New snow profile",
   "profiles:export": "Export",
   "profiles:export:csv": "Filtered table",
