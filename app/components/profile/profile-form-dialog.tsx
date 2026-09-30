@@ -127,7 +127,6 @@ export function SnowProfileFormDialog({
               id: editId ? "profiles:edit" : "profiles:form:title"
             })}
             src={profileFormSrc(language, editId)}
-            style={{ width: "100%", height: "85vh", border: 0 }}
             allow="camera"
           />
         </div>
