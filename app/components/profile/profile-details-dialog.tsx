@@ -36,10 +36,19 @@ interface Props {
  * embeds it as an image. `lang` drives that localisation; the backend falls back
  * to English for languages it doesn't yet have label tables for.
  */
-function profileImageSrc(profileId: string, language: string): string {
+function profileImageSrc(
+  profileId: string,
+  language: string,
+  lastEdit: string | undefined
+): string {
+  // The edit time versions the URL: after an edit the browser fetches the new
+  // rendering instead of showing the cached old one. Never-edited profiles go
+  // without, which the backend serves as must-revalidate.
+  const version = lastEdit ? `&v=${encodeURIComponent(lastEdit)}` : "";
   return (
     `${config.apis.profiles}/profiles/${encodeURIComponent(profileId)}/svg` +
-    `?lang=${encodeURIComponent(language || "en")}&colorizeByGrain=true`
+    `?lang=${encodeURIComponent(language || "en")}&colorizeByGrain=true` +
+    version
   );
 }
 
@@ -164,18 +173,18 @@ function SnowProfileDetail({
     canSwipe
   });
 
-  const imageSrc = profileImageSrc(profileId, language);
+  const profile = profiles.find(p => p.id === profileId);
+  const imageSrc = profileImageSrc(profileId, language, profile?.lastEdit);
   const { loaded, pending, error } = usePreloadedImage(imageSrc);
 
   const fileBaseName = useCallback(() => {
-    const profile = profiles.find(p => p.id === profileId);
     const place = (profile?.location || "profile").replace(
       /[^a-zA-Z0-9]+/g,
       "_"
     );
     const date = profile?.dateTime?.toISOString().slice(0, 10) ?? profileId;
     return `${place}_${date}_snowprofile`;
-  }, [profileId, profiles]);
+  }, [profile, profileId]);
 
   const handlePrint = useCallback(async () => {
     const response = await fetch(imageSrc);
@@ -221,7 +230,7 @@ function SnowProfileDetail({
     for (const neighbour of [flipper.previousItem, flipper.nextItem]) {
       if (!neighbour) continue;
       const image = new Image();
-      image.src = profileImageSrc(neighbour.id, language);
+      image.src = profileImageSrc(neighbour.id, language, neighbour.lastEdit);
     }
   }, [flipper.previousItem, flipper.nextItem, language, pending]);
 

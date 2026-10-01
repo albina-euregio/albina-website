@@ -112,6 +112,14 @@ export class SnowProfileData {
       : undefined;
   }
 
+  /**
+   * Time of the last edit as sent by the backend, or undefined if never edited.
+   * Changes on every edit, so it versions the rendered SVG's URL.
+   */
+  get lastEdit(): string | undefined {
+    return this.raw.lastEdit ?? undefined;
+  }
+
   /** Micro-region id, e.g. "AT-07-14". */
   get microRegion(): string | undefined {
     return this.raw.regionId ?? undefined;

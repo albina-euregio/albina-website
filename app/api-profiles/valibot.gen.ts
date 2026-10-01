@@ -71,7 +71,8 @@ export const vProfileListItem = v.object({
   snowHeight: v.nullish(v.number()),
   ectScore: v.nullish(v.string()),
   rbScore: v.nullish(v.string()),
-  stability: v.optional(vStability)
+  stability: v.optional(vStability),
+  lastEdit: v.nullish(v.pipe(v.string(), v.isoTimestamp()))
 });
 
 export const vCreateProfileResponse = v.object({
@@ -155,7 +156,8 @@ export const vGetProfileSvgPath = v.object({
 export const vGetProfileSvgQuery = v.object({
   lang: v.optional(v.picklist(["en", "de"]), "en"),
   colorizeByGrain: v.optional(v.boolean(), true),
-  hardnessDisplay: v.optional(v.picklist(["both", "hand", "ram"]), "both")
+  hardnessDisplay: v.optional(v.picklist(["both", "hand", "ram"]), "both"),
+  v: v.optional(v.string())
 });
 
 /**
