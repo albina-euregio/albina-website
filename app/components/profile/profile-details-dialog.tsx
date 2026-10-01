@@ -46,6 +46,59 @@ function profileXmlSrc(profileId: string): string {
   return `${config.apis.profiles}/profiles/${encodeURIComponent(profileId)}?format=xml`;
 }
 
+/** Width of the exported PNG: A4 at 300 dpi, matching the PDF. */
+const PNG_WIDTH = 2480;
+
+/**
+ * Rasterises the served SVG. Loading it from a blob URL keeps the canvas
+ * untainted; the explicit size replaces profea's inline on-screen sizing.
+ */
+async function svgToPng(svgMarkup: string): Promise<Blob> {
+  const svg = new DOMParser().parseFromString(
+    svgMarkup,
+    "image/svg+xml"
+  ).documentElement;
+  const [, , vbWidth, vbHeight] = (svg.getAttribute("viewBox") ?? "")
+    .split(/[\s,]+/)
+    .map(Number);
+  const width = PNG_WIDTH;
+  const height = Math.round(
+    vbWidth && vbHeight
+      ? (PNG_WIDTH * vbHeight) / vbWidth
+      : PNG_WIDTH * Math.SQRT2
+  );
+  svg.setAttribute("width", String(width));
+  svg.setAttribute("height", String(height));
+  svg.removeAttribute("style");
+
+  const url = URL.createObjectURL(
+    new Blob([new XMLSerializer().serializeToString(svg)], {
+      type: "image/svg+xml"
+    })
+  );
+  try {
+    const image = new Image();
+    image.src = url;
+    await image.decode();
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Canvas 2D context unavailable");
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, width, height);
+    ctx.drawImage(image, 0, 0, width, height);
+    return await new Promise((resolve, reject) =>
+      canvas.toBlob(
+        b => (b ? resolve(b) : reject(new Error("PNG export failed"))),
+        "image/png"
+      )
+    );
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
 /**
  * Loads `src` off-screen and only hands it over once it is ready to paint, so
  * that flipping to another profile keeps the current one on screen instead of
@@ -112,19 +165,23 @@ function SnowProfileDetail({
   const imageSrc = profileImageSrc(profileId, language);
   const { loaded, pending, error } = usePreloadedImage(imageSrc);
 
-  const handlePrint = useCallback(async () => {
-    const response = await fetch(imageSrc);
-    const svgMarkup = await response.text();
+  const fileBaseName = useCallback(() => {
     const profile = profiles.find(p => p.id === profileId);
     const place = (profile?.location || "profile").replace(
       /[^a-zA-Z0-9]+/g,
       "_"
     );
     const date = profile?.dateTime?.toISOString().slice(0, 10) ?? profileId;
+    return `${place}_${date}_snowprofile`;
+  }, [profileId, profiles]);
+
+  const handlePrint = useCallback(async () => {
+    const response = await fetch(imageSrc);
+    const svgMarkup = await response.text();
     const win = window.open("", "_blank");
     if (!win) return;
     const doc = win.document;
-    doc.title = `${place}_${date}_snowprofile`;
+    doc.title = fileBaseName();
     const style = doc.createElement("style");
     // The served SVG carries an inline `max-height:calc(100vh - 70px)` (profea's
     // on-screen default); without max-height:none it caps the print height below
@@ -137,7 +194,18 @@ function SnowProfileDetail({
     doc.body.innerHTML = svgMarkup;
     win.onafterprint = () => win.close();
     setTimeout(() => win.print(), 300);
-  }, [imageSrc, profileId, profiles]);
+  }, [imageSrc, fileBaseName]);
+
+  const handleSavePng = useCallback(async () => {
+    const response = await fetch(imageSrc);
+    const blob = await svgToPng(await response.text());
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${fileBaseName()}.png`;
+    link.click();
+    URL.revokeObjectURL(url);
+  }, [imageSrc, fileBaseName]);
 
   // Start the shown profile from the top left, not wherever its predecessor was
   // panned to.
@@ -224,6 +292,30 @@ function SnowProfileDetail({
             <path d="M6 9V2h12v7" />
             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
             <rect x="6" y="14" width="12" height="8" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          className="snowprofile-detail__action"
+          onClick={handleSavePng}
+          title={intl.formatMessage({ id: "profiles:detail:save-png" })}
+          aria-label={intl.formatMessage({ id: "profiles:detail:save-png" })}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="9" cy="9" r="2" />
+            <path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21" />
           </svg>
         </button>
         <a

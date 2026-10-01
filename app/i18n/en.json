@@ -351,6 +351,7 @@
   "profiles:detail:open-tab": "Open in new tab",
   "profiles:detail:download-xml": "Download XML",
   "profiles:detail:print-pdf": "Print as PDF",
+  "profiles:detail:save-png": "Save as PNG",
   "profiles:add": "New snow profile",
   "profiles:export": "Export",
   "profiles:export:csv": "Filtered table",
