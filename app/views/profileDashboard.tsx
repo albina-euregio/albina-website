@@ -177,11 +177,22 @@ function SnowProfileDashboard() {
   // Set once the iframe reports a save, consumed when the modal finally closes.
   const savedId = useRef<string | undefined>(undefined);
 
+  // The detail dialog reopened by closeForm takes the form's place directly,
+  // without its opening animation. Reset once it's closed again.
+  const [detailFromForm, setDetailFromForm] = useState(false);
+  useEffect(() => {
+    if (!profileId) setDetailFromForm(false);
+  }, [profileId]);
+
   const closeForm = () => {
     setFormOpen(false);
     setEditId(undefined);
-    // One navigation: drop ?edit and, if something was saved, open its detail.
-    redirectPageQuery({ edit: "", profile: savedId.current ?? "" });
+    // One navigation: drop ?edit and open the detail of the saved profile, or —
+    // when an edit is left unsaved (e.g. the token prompt was cancelled) — of
+    // the profile we came from.
+    const returnTo = savedId.current ?? editId ?? "";
+    setDetailFromForm(!!returnTo);
+    redirectPageQuery({ edit: "", profile: returnTo });
     savedId.current = undefined;
   };
 
@@ -478,6 +489,7 @@ function SnowProfileDashboard() {
         profileId={profileId}
         setProfileId={setProfileId}
         onEdit={openEditProfile}
+        skipOpenAnimation={detailFromForm}
       />
 
       <SnowProfileFormDialog

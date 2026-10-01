@@ -67,6 +67,12 @@ dialog[open]::backdrop {
   }
 }
 
+// Opens without the transition above (see Modal's skipOpenAnimation).
+dialog.modal--instant,
+dialog.modal--instant::backdrop {
+  transition: none;
+}
+
 //custom container
 .modal-container {
   position: relative;

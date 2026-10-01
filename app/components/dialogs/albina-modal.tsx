@@ -10,6 +10,9 @@ export interface ModalProps {
    * parent must flip isOpen (lets it veto/defer closing, e.g. to confirm
    * unsaved changes). */
   guardClose?: boolean;
+  /** When true, the dialog appears without its opening animation (it still
+   * animates when closing), e.g. when it replaces another dialog in place. */
+  skipOpenAnimation?: boolean;
 }
 
 // https://blog.logrocket.com/creating-reusable-pop-up-modal-react/
@@ -18,7 +21,8 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   children,
   width,
-  guardClose
+  guardClose,
+  skipOpenAnimation
 }) => {
   const [isModalOpen, setModalOpen] = useState(isOpen);
   const modalRef = useRef<HTMLDialogElement | null>(null);
@@ -50,11 +54,22 @@ const Modal: React.FC<ModalProps> = ({
 
     if (modalElement) {
       if (isModalOpen) {
-        modalElement.showModal();
+        if (skipOpenAnimation) {
+          // Suppress transitions just for the opening style change: flush
+          // styles while the class is set, then drop it again so closing still
+          // animates.
+          modalElement.classList.add("modal--instant");
+          modalElement.showModal();
+          modalElement.getBoundingClientRect();
+          modalElement.classList.remove("modal--instant");
+        } else {
+          modalElement.showModal();
+        }
       } else {
         modalElement.close();
       }
     }
+    // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps (skipOpenAnimation only matters when opening)
   }, [isModalOpen]);
 
   return (

@@ -26,6 +26,8 @@ interface Props {
   profileId: string;
   setProfileId: (id: string) => void;
   onEdit?: (id: string) => void;
+  /** Open without the dialog animation, e.g. when returning from the form. */
+  skipOpenAnimation?: boolean;
 }
 
 /**
@@ -352,6 +354,7 @@ export function SnowProfileDetailsDialog(props: Props) {
       isOpen={!!props.profileId}
       onClose={() => props.setProfileId("")}
       width="fit-content"
+      skipOpenAnimation={props.skipOpenAnimation}
     >
       {!!props.profileId && <SnowProfileDetail {...props} />}
     </Modal>
