@@ -58,7 +58,14 @@ export default defineConfig({
   },
   pack: {
     entry: ["app/iframe.ts"],
-    deps: { alwaysBundle: /@iframe-resizer/, onlyBundle: false },
+    deps: {
+      // tsdown <0.23 compatibility: resolve external dependency subpaths.
+      // Remove to preserve subpath imports as written (the new default).
+      // https://tsdown.dev/options/dependencies#deps-resolvedepsubpath
+      resolveDepSubpath: true,
+      alwaysBundle: /@iframe-resizer/,
+      onlyBundle: false
+    },
     platform: "browser",
     clean: false,
     sourcemap: true

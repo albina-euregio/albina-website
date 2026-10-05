@@ -1,15 +1,15 @@
 allowBuilds:
   '@parcel/watcher': false
 catalog:
-  vite: npm:@voidzero-dev/vite-plus-core@0.3.0
-  vite-plus: 0.3.0
+  vite: npm:@voidzero-dev/vite-plus-core@1.0.0
+  vite-plus: 1.0.0
 ignoredOptionalDependencies:
   - "@parcel/watcher"
   - fsevents
 minimumReleaseAgeExclude:
   - maplibre-gl@6.4.1
 overrides:
-  vite: 'catalog:'
+  vite@*: 'catalog:'
 peerDependencyRules:
   allowAny:
     - vite
