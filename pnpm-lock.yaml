@@ -200,11 +200,11 @@ importers:
         specifier: ^5.5.1
         version: 5.5.7
       '@nanostores/react':
-        specifier: ^1.1.0
-        version: 1.1.0(nanostores@1.2.0)(react@19.2.0)
+        specifier: ^2.0.1
+        version: 2.0.1(nanostores@1.5.4)(react@19.2.0)
       '@nanostores/router':
-        specifier: ^1.0.0
-        version: 1.0.0(nanostores@1.2.0)
+        specifier: ^2.0.0
+        version: 2.0.0(nanostores@1.5.4)
       diff-match-patch:
         specifier: ^1.0.5
         version: 1.0.5
@@ -218,8 +218,8 @@ importers:
         specifier: ^6.8.0
         version: 6.8.0
       nanostores:
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: ^1.5.4
+        version: 1.5.4
       normalize.css:
         specifier: ^8.0.1
         version: 8.0.1
@@ -405,16 +405,16 @@ packages:
   '@maplibre/vt-pbf@4.3.2':
     resolution: {integrity: sha512-j6p0AdjvAR19Z3XaCysle7A4ZSo08tYOzxD0Y9NQylwPAkwJJeYub5b2eVucdeDh7erhv69DahoLOevDRERRUw==}
 
-  '@nanostores/react@1.1.0':
-    resolution: {integrity: sha512-MbH35fjhcf7LAubYX5vhOChYUfTLzNLqH/mBGLVsHkcvjy0F8crO1WQwdmQ2xKbAmtpalDa2zBt3Hlg5kqr8iw==}
-    engines: {node: ^20.0.0 || >=22.0.0}
+  '@nanostores/react@2.0.1':
+    resolution: {integrity: sha512-txbZTd+7/hnO7FhtF8Pmr+cu0ThdCuCnOyEEh0DsEM2Hp9PfOa5EY4uj3wpZpypSzp5BuqDgf2AxVAKoUIWOFQ==}
+    engines: {node: ^22.0.0 || ^24.0.0 || >=26.0.0}
     peerDependencies:
       nanostores: ^1.2.0
       react: '>=18.0.0'
 
-  '@nanostores/router@1.0.0':
-    resolution: {integrity: sha512-U1pT7u18Yk9yrir/im2sEo8bZcWWWMnOGFoqS2JOkN1vuAntUWNIeUC+8/Q6qPjgatIHGl9IEWB0U7+WdkjzMQ==}
-    engines: {node: ^20.0.0 || >=22.0.0}
+  '@nanostores/router@2.0.0':
+    resolution: {integrity: sha512-Ikphqq8D95/EGdVNEeMK0b5ZN0inu7P56mMITBESJoJAwogSGm/GKvA3QPsSv9yRPkS7/rYNfmp05e5NAFXsBw==}
+    engines: {node: ^22.0.0 || ^24.0.0 || >=26.0.0}
     peerDependencies:
       nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
 
@@ -1567,8 +1567,8 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  nanostores@1.2.0:
-    resolution: {integrity: sha512-F0wCzbsH80G7XXo0Jd9/AVQC7ouWY6idUCTnMwW5t/Rv9W8qmO6endavDwg7TNp5GbugwSukFMVZqzPSrSMndg==}
+  nanostores@1.5.4:
+    resolution: {integrity: sha512-4UXY7OAJEK0Y6V3SudBU7cXjAzTDc189R78dDOh0Xbm19gpKYto6WizSg58LJf12lTsRxKSLGyE117OiLpM4DQ==}
     engines: {node: ^20.0.0 || >=22.0.0}
 
   normalize.css@8.0.1:
@@ -2097,14 +2097,14 @@ snapshots:
       '@types/geojson': 7946.0.16
       pbf: 5.1.2
 
-  '@nanostores/react@1.1.0(nanostores@1.2.0)(react@19.2.0)':
+  '@nanostores/react@2.0.1(nanostores@1.5.4)(react@19.2.0)':
     dependencies:
-      nanostores: 1.2.0
+      nanostores: 1.5.4
       react: 19.2.0
 
-  '@nanostores/router@1.0.0(nanostores@1.2.0)':
+  '@nanostores/router@2.0.0(nanostores@1.5.4)':
     dependencies:
-      nanostores: 1.2.0
+      nanostores: 1.5.4
 
   '@oxc-project/runtime@0.151.0': {}
 
@@ -2876,7 +2876,7 @@ snapshots:
 
   nanoid@3.3.11: {}
 
-  nanostores@1.2.0: {}
+  nanostores@1.5.4: {}
 
   normalize.css@8.0.1: {}
 
