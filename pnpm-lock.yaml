@@ -180,7 +180,7 @@ importers:
     dependencies:
       '@albina-euregio/linea':
         specifier: ^8.26.1
-        version: 8.26.1(valibot@1.4.2(typescript@6.0.3))
+        version: 8.26.1(valibot@1.5.0(typescript@6.0.3))
       '@eaws/micro-regions_names':
         specifier: ^8.4.0
         version: 8.4.0
@@ -279,8 +279,8 @@ importers:
         specifier: ^1.99.0
         version: 1.99.0
       valibot:
-        specifier: ^1.4.2
-        version: 1.4.2(typescript@6.0.3)
+        specifier: ^1.5.0
+        version: 1.5.0(typescript@6.0.3)
       vite:
         specifier: 'catalog:'
         version: '@voidzero-dev/vite-plus-core@1.0.0(@types/node@24.10.1)(jiti@2.7.0)(sass@1.99.0)(typescript@6.0.3)(yaml@2.8.2)'
@@ -1843,8 +1843,8 @@ packages:
   uplot@1.6.32:
     resolution: {integrity: sha512-KIMVnG68zvu5XXUbC4LQEPnhwOxBuLyW1AHtpm6IKTXImkbLgkMy+jabjLgSLMasNuGGzQm/ep3tOkyTxpiQIw==}
 
-  valibot@1.4.2:
-    resolution: {integrity: sha512-gjdCvJ6d3RyHAneqxMYMW9QMCwYMb3jpOO0IyHZV1bnRHFBHrX3VkIILt5XYR0WhwHiH7Mty8ovuPZ/O3gamrg==}
+  valibot@1.5.0:
+    resolution: {integrity: sha512-nil6AkP2TChWL43Z5uJ6GTxX01CUA+g8LWUM+N/rB9NBbkUMaUsi9PUNzlUPgoKASgmx9f7eGOYpJ04/fSa6FQ==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -1955,12 +1955,12 @@ ignoredOptionalDependencies:
 
 snapshots:
 
-  '@albina-euregio/linea@8.26.1(valibot@1.4.2(typescript@6.0.3))':
+  '@albina-euregio/linea@8.26.1(valibot@1.5.0(typescript@6.0.3))':
     dependencies:
       air-datepicker: 3.6.0
       temporal-polyfill: 1.0.4
       uplot: 1.6.32
-      valibot: 1.4.2(typescript@6.0.3)
+      valibot: 1.5.0(typescript@6.0.3)
 
   '@babel/code-frame@7.29.7':
     dependencies:
@@ -3142,7 +3142,7 @@ snapshots:
 
   uplot@1.6.32: {}
 
-  valibot@1.4.2(typescript@6.0.3):
+  valibot@1.5.0(typescript@6.0.3):
     optionalDependencies:
       typescript: 6.0.3
 
