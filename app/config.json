@@ -470,6 +470,13 @@
       "stationsArchiveOperators": ""
     },
     {
+      "dataProviderID": "AT-07-GEOSPHERE",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
       "dataProviderID": "AT-08",
       "png": "",
       "pngOperators": "---",
