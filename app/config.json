@@ -442,34 +442,6 @@
       "stationsArchiveOperators": "---"
     },
     {
-      "dataProviderID": "IT-36",
-      "png": "",
-      "pngOperators": "---",
-      "stationsArchiveFile": "",
-      "stationsArchiveOperators": "ARPA FVG"
-    },
-    {
-      "dataProviderID": "AT-05",
-      "png": "",
-      "pngOperators": "---",
-      "stationsArchiveFile": "",
-      "stationsArchiveOperators": "---"
-    },
-    {
-      "dataProviderID": "OEBB",
-      "png": "",
-      "pngOperators": "---",
-      "stationsArchiveFile": "",
-      "stationsArchiveOperators": "---"
-    },
-    {
-      "dataProviderID": "AT-06",
-      "png": "",
-      "pngOperators": "",
-      "stationsArchiveFile": "",
-      "stationsArchiveOperators": ""
-    },
-    {
       "dataProviderID": "AT-03",
       "png": "",
       "pngOperators": "---",
@@ -480,6 +452,20 @@
       "dataProviderID": "AT-04",
       "png": "",
       "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "AT-05",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
+      "dataProviderID": "AT-06",
+      "png": "",
+      "pngOperators": "",
       "stationsArchiveFile": "",
       "stationsArchiveOperators": ""
     },
@@ -498,13 +484,6 @@
       "stationsArchiveOperators": ""
     },
     {
-      "dataProviderID": "SI",
-      "png": "",
-      "pngOperators": "---",
-      "stationsArchiveFile": "",
-      "stationsArchiveOperators": ""
-    },
-    {
       "dataProviderID": "IT-32-BZ",
       "png": "",
       "pngOperators": "---",
@@ -512,14 +491,35 @@
       "stationsArchiveOperators": "---"
     },
     {
-      "dataProviderID": "SLF",
+      "dataProviderID": "IT-34",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",
       "stationsArchiveOperators": "---"
     },
     {
-      "dataProviderID": "IT-34",
+      "dataProviderID": "IT-36",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "ARPA FVG"
+    },
+    {
+      "dataProviderID": "OEBB",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
+      "dataProviderID": "SI",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": ""
+    },
+    {
+      "dataProviderID": "SLF",
       "png": "",
       "pngOperators": "---",
       "stationsArchiveFile": "",
