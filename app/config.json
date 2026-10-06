@@ -435,6 +435,13 @@
       "stationsArchiveOperators": "LWD Kärnten"
     },
     {
+      "dataProviderID": "AT-02-GEOSPHERE",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
       "dataProviderID": "IT-36",
       "png": "",
       "pngOperators": "---",
