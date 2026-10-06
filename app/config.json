@@ -450,8 +450,8 @@
     },
     {
       "dataProviderID": "AT-05",
-      "png": "https://www.salzburg.gv.at/lawine/grafiken/1100/standard/30/{name}.png?{t}",
-      "pngOperators": "LWD Salzburg.*",
+      "png": "",
+      "pngOperators": "---",
       "stationsArchiveFile": "",
       "stationsArchiveOperators": "---"
     },
