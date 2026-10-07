@@ -14,7 +14,7 @@ export const $router = createRouter({
   weather: "/weather",
   weatherMap: "/weather/map/",
   weatherMapDomain: "/weather/map/:domain",
-  weatherMapDomainTimestamp: "/weather/map/:domain/:timestamp",
+  weatherMapDomainTimestamp: "/weather/map/:domain/:timestamp/:timeRange?",
   weatherArchive: "/weather/archive",
   weatherMeasurements: "/weather/measurements",
   weatherStations: "/weather/stations",
