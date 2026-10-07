@@ -34,7 +34,7 @@ export class AlbinaProcessor implements BlogProcessor {
       endDate: state?.year ? state.endDate.toString() : undefined
     } satisfies GetBlogPostsQuery);
     const items = await fetchJSON<BlogItem[]>(
-      `${window.config.apis.blogs}/posts?${params}`,
+      `${config.api || window.config.apis.blogs}/posts?${params}`,
       {}
     );
     const posts = items.map(item => this.newItem(item, config));
@@ -55,7 +55,7 @@ export class AlbinaProcessor implements BlogProcessor {
       id: String(postId)
     } satisfies GetBlogPostQuery);
     const item = await fetchJSON<BlogItem>(
-      `${window.config.apis.blogs}/post?${params}`,
+      `${config.api || window.config.apis.blogs}/post?${params}`,
       {}
     );
     return this.newItem(item, config);

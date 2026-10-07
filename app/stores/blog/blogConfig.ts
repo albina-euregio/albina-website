@@ -1,6 +1,7 @@
 export interface BlogConfig {
   lang: string;
   name: string;
+  api?: string;
   apiType: "albina" | "blogger" | "wordpress";
   regions: string[];
   params: {
