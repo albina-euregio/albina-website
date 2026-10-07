@@ -22,7 +22,8 @@ import { ANALYSIS_BADGE_KEY, incidentBadges } from "../../util/incident-badges";
 import { IncidentBadges } from "./incident-badge";
 import {
   getDangerRatingIconFile,
-  getDangerRatingLabel
+  getDangerRatingLabel,
+  getWarnlevelNumber
 } from "../../util/warn-levels";
 import { INCIDENT_ANALYSIS_TEXT_FIELDS } from "../../stores/incidentDataStore";
 import type {
@@ -194,6 +195,50 @@ function localizedText(
 ): string | undefined {
   if (!record) return undefined;
   return record[locale] || record.en || Object.values(record).find(Boolean);
+}
+
+/** Anchors on /education/avalanche-sizes; a size range links its lower size. */
+const AVALANCHE_SIZE_ANCHORS: Record<string, number> = {
+  small: 1,
+  small_medium: 1,
+  medium: 2,
+  medium_large: 2,
+  large: 3,
+  large_very_large: 3,
+  very_large: 4,
+  very_large_extreme: 4,
+  extreme: 5
+};
+
+/** Anchors on /education/avalanche-problems. */
+const AVALANCHE_PROBLEM_ANCHORS = [
+  "new_snow",
+  "wind_slab",
+  "persistent_weak_layers",
+  "wet_snow",
+  "gliding_snow"
+];
+
+/** Links a value to its explanation on an education page. */
+function EducationLink({
+  href,
+  children
+}: {
+  href: string | undefined;
+  children: ReactNode;
+}) {
+  if (!children || !href) return children;
+  return (
+    <a
+      className="incident-details-link-icon"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {children}
+      <span className="icon-external" aria-hidden="true" />
+    </a>
+  );
 }
 
 function problemTypeMessageId(problemType: string): MessageId {
@@ -561,6 +606,8 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
         }
       : badge
   );
+  const sizeAnchor = AVALANCHE_SIZE_ANCHORS[d.avalancheSize ?? ""];
+  const dangerLevel = d.dangerRating && getWarnlevelNumber(d.dangerRating);
   const dangerRatingText =
     d.dangerRating &&
     intl.formatMessage({
@@ -651,7 +698,17 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           fields={[
             {
               label: intl.formatMessage({ id: "caaml:avalancheSize.label" }),
-              value: tr("avalancheSize", d.avalancheSize)
+              value: tr("avalancheSize", d.avalancheSize) && (
+                <EducationLink
+                  href={
+                    sizeAnchor
+                      ? `/education/avalanche-sizes#anchor-${sizeAnchor}`
+                      : undefined
+                  }
+                >
+                  {tr("avalancheSize", d.avalancheSize)}
+                </EducationLink>
+              )
             },
             {
               label: label("avalancheType"),
@@ -659,11 +716,21 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
             },
             {
               label: label("relevantAvalancheProblem"),
-              value:
-                d.relevantAvalancheProblem &&
-                intl.formatMessage({
-                  id: problemTypeMessageId(d.relevantAvalancheProblem)
-                })
+              value: d.relevantAvalancheProblem && (
+                <EducationLink
+                  href={`/education/avalanche-problems${
+                    AVALANCHE_PROBLEM_ANCHORS.includes(
+                      d.relevantAvalancheProblem
+                    )
+                      ? `#${d.relevantAvalancheProblem}`
+                      : ""
+                  }`}
+                >
+                  {intl.formatMessage({
+                    id: problemTypeMessageId(d.relevantAvalancheProblem)
+                  })}
+                </EducationLink>
+              )
             },
             {
               label: label("avalancheLength"),
@@ -781,13 +848,21 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
           {
             label: intl.formatMessage({ id: "caaml:dangerRating.label" }),
             value: d.dangerRating && dangerRatingText && (
-              <span className="incident-details-danger-rating">
-                <img
-                  src={`/images/pro/danger-levels/${getDangerRatingIconFile(d.dangerRating)}`}
-                  alt={dangerRatingText}
-                />
-                {getDangerRatingLabel(d.dangerRating, dangerRatingText)}
-              </span>
+              <EducationLink
+                href={
+                  dangerLevel
+                    ? `/education/danger-scale#level${dangerLevel}`
+                    : undefined
+                }
+              >
+                <span className="incident-details-danger-rating">
+                  <img
+                    src={`/images/pro/danger-levels/${getDangerRatingIconFile(d.dangerRating)}`}
+                    alt={dangerRatingText}
+                  />
+                  {getDangerRatingLabel(d.dangerRating, dangerRatingText)}
+                </span>
+              </EducationLink>
             )
           },
           {
