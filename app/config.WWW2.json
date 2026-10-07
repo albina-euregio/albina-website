@@ -383,6 +383,7 @@
     "baseUrl": "https://www2.avalanche.report",
     "bulletin": {
       "simple": "/simple/{date}/EUREGIO_{lang}.html",
+      "extra": "",
       "eaws": "",
       "map": "/bulletins/{date}/{publication}/{file}.webp",
       "pdf": "/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",

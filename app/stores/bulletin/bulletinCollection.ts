@@ -12,7 +12,6 @@ import {
 } from ".";
 import * as v from "valibot";
 import { $extraRegions, $focusRegions } from "../../appStore";
-import { eawsRegion } from "../eawsRegions";
 import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
 import {
   getDangerRatingValue,
@@ -196,48 +195,40 @@ class BulletinCollection {
   async loadExtraBulletins(): Promise<void> {
     this.extraBulletins = [];
     const extraRegions = $extraRegions.get();
+    const extraUrl = config.apis.bulletin.extra;
+    if (!extraUrl) {
+      extraRegions.forEach(id => (this.macroRegionStatuses[id] = "n/a"));
+      return;
+    }
     const data = await Promise.all(
-      extraRegions.flatMap(id => {
-        const awsList = eawsRegion(id)?.aws ?? [];
-        return awsList.map(async (aws): Promise<Bulletins | undefined> => {
-          try {
-            let url0 = aws.url["api:date"];
-            if (!url0?.endsWith("CAAMLv6.json")) return;
-            let data: Bulletins;
-            let url: string;
-            try {
-              url = config.template(url0, {
-                region: id,
-                date: this.date,
-                lang: this.lang
-              });
-              data = await this.fetchFromURL(url);
-            } catch (e) {
-              if (e instanceof NotFoundError || e instanceof TypeError) {
-                url = config.template(url0, {
-                  region: id,
-                  date: this.date,
-                  lang: "en" // fallback lang
-                });
-                data = await this.fetchFromURL(url);
-              } else {
-                throw e;
-              }
-            }
-            (data.bulletins ?? []).forEach(b => {
-              this.upgradeLegacyCAAML(b);
-              b.customData.extraRegionID = id;
+      extraRegions.map(async (id): Promise<Bulletins | undefined> => {
+        try {
+          const template = (lang: string) =>
+            config.template(extraUrl, {
+              region: `-${id}`,
+              date: this.date,
+              lang
             });
-            return data;
-          } catch (error) {
-            if (!(error instanceof NotFoundError)) {
-              console.error(
-                `Cannot load ${id} bulletin for date ${this.date}`,
-                error
-              );
-            }
+          let data: Bulletins;
+          try {
+            data = await this.fetchFromURL(template(`.${this.lang}`));
+          } catch (e) {
+            if (!(e instanceof NotFoundError)) throw e;
+            data = await this.fetchFromURL(template("")); // fallback lang
           }
-        });
+          (data.bulletins ?? []).forEach(b => {
+            this.upgradeLegacyCAAML(b);
+            b.customData.extraRegionID = id;
+          });
+          return data;
+        } catch (error) {
+          if (!(error instanceof NotFoundError)) {
+            console.error(
+              `Cannot load ${id} bulletin for date ${this.date}`,
+              error
+            );
+          }
+        }
       })
     );
     this.extraBulletins = data.flatMap(b => b?.bulletins ?? []);

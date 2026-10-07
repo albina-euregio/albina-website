@@ -398,6 +398,7 @@
     "baseUrl": "",
     "bulletin": {
       "simple": "/simple/{date}/EUREGIO_{lang}.html",
+      "extra": "/eaws_bulletins/{date}/{date}{region}{lang}.json",
       "eaws": "/eaws_bulletins/{date}/{date}{region}.ratings.json",
       "map": "/bulletins/{date}/{publication}/{file}.webp",
       "pdf": "/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",

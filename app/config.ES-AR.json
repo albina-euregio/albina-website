@@ -229,6 +229,7 @@
   "apis": {
     "bulletin": {
       "simple": "https://static-aludes.aragon.es/simple/{date}/ES-AR_{lang}.html",
+      "extra": "https://static.avalanche.report/eaws_bulletins/{date}/{date}{region}{lang}.json",
       "eaws": "https://static.avalanche.report/eaws_bulletins/{date}/{date}{region}.ratings.json",
       "map": "https://static-aludes.aragon.es/bulletins/{date}/{publication}/{file}.webp",
       "pdf": "https://api-aludes.aragon.es/albina/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
