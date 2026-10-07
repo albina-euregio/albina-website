@@ -1,6 +1,6 @@
 import { atom } from "nanostores";
 import { useStore } from "@nanostores/react";
-import { $language, type Language } from "../appStore";
+import { $language, mergeTranslations, type Language } from "../appStore";
 
 export type IncidentReportMessages = Record<string, Record<string, string>>;
 
@@ -17,10 +17,12 @@ let loadedLanguage: Language | "" = "";
 async function loadIncidentReportMessages(
   language: Language
 ): Promise<IncidentReportMessages> {
-  const importFile =
-    translationImports[`./incident-report/${language}.json`] ??
-    translationImports[`./incident-report/${FALLBACK_LANGUAGE}.json`];
-  return importFile ? await importFile() : {};
+  const [fallback, messages] = await Promise.all(
+    [FALLBACK_LANGUAGE, language].map(
+      lang => translationImports[`./incident-report/${lang}.json`]?.() ?? {}
+    )
+  );
+  return mergeTranslations(fallback, messages);
 }
 
 $language.subscribe(language => {

@@ -67,43 +67,43 @@
   },
   "snowpack-stability-fair": {
     "heading": "Schneedeckenstabilität: Mittel",
-    "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Fair</b> stability means that avalanches are difficult to trigger. Large loads such as multiple skiers, explosives or cornice falls are typically required to trigger an avalanche with <b>fair</b> snowpack stability conditions.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>fair</b>, within the warning region.</p>",
+    "text": "",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|2|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
     "heading": "Schneedeckenstabilität: Gut",
-    "text": "<p>The snowpack stability indicates you how easy it is to trigger an avalanche. <b>Good</b> stability means stable conditions. There are no signs of instability under <b>good</b> snowpack stability conditions.</p><p>Frequency and snowpack stability are closely related. The frequency indicates the expected number of avalanche-prone locations for a specific snowpack stability class, here <b>good</b>, within the warning region.</p>",
+    "text": "",
     "img": "__SIMPLE_SLIDER__|sehr schlecht,schlecht,mittel,gut|3|90__END_SLIDER__",
     "source": "false"
   },
   "avalanche-size-1": {
     "heading": "Größe 1: Kleine Lawine (Rutsch)",
-    "text": "<p>With avalanches of this size, it is unlikely that persons are buried, except in run out zones with adverse terrain features (i.e. terrain traps). In extremely steep terrain, the danger of falling prevails the danger of burials. Avalanches typically stop before the end of a slope.</p>",
+    "text": "",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|0|__END_SLIDER__ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-2": {
     "heading": "Größe 2: Mittlere Lawine",
-    "text": "<p>It is likely that avalanches could bury, injure or kill a person. Avalanches of this size correspond to the typical skier-triggered avalanche. They stop typically at the end of a slope.</p>",
+    "text": "",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|1|__END_SLIDER__ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "avalanche-size-3": {
     "heading": "Größe 3: Große Lawine",
-    "text": "<p>It is likely that avalanches could bury and destroy a car, damage a truck, destroy a small building or break a few trees. When skiers are caught by avalanches of this size, probability for severe consequences are very high. Avalanche could traverse flat terrain (considerably below 30°) over distances of up to 50 m.</p>",
+    "text": "",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|2|__END_SLIDER__ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-4": {
     "heading": "Größe 4: Sehr große Lawine",
-    "text": "<p>It is likely that avalanches could bury and destroy a railway car, large truck, several buildings or a piece of forest. Avalanches will traverse flat terrain (considerably below 30°) over distances more than 50 m and can reach valley ground.</p>",
+    "text": "",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|3|__END_SLIDER__ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-5": {
     "heading": "Größe 5: Extrem große Lawine",
-    "text": "<p>It is likely that avalanches could gouge the landscape and have disastrous damage potential. Avalanche will reach valley ground and might flow the largest runout distance known.</p>",
+    "text": "",
     "img": "__SIMPLE_SLIDER__|1,2,3,4,5|4|__END_SLIDER__ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
@@ -115,7 +115,7 @@
   },
   "problem-wind_slab": {
     "heading": "Lawinenproblem: Triebschnee",
-    "text": "<p>The avalanche problem is related to wind slabs. Snow can be transported by wind with or without a concurrent snowfall.</p><p><b>Travel advice</b><br/>Avoid snowdrift deposits in steep terrain, in particular in areas where the snow cover changes from thin to thick or from hard to soft.</p>",
+    "text": "",
     "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Triebschneeproblem\" alt=\"Triebschneeproblem\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },

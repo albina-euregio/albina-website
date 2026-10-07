@@ -180,7 +180,7 @@
     "burialDepth": "Profondità di seppellimento",
     "burialDuration": "Durata del seppellimento",
     "primaryLocationMethod": "Metodo di localizzazione primario",
-    "rescuedBy": "Rescued/Recovered by",
+    "rescuedBy": "",
     "medicalIntervention": "Intervento medico",
     "estimatedTimeOfDeath": "Ora stimata del decesso ",
     "causeOfDeath": "Causa del decesso",
@@ -437,7 +437,7 @@
     "Agriculture": "Agricoltura",
     "Livestock": "Bestiame",
     "UtilitiesTechnicalInfrastructure": "Infrastrutture tecniche o servizi di pubblica utilità",
-    "ResidentialBuilding": "Residential Building",
+    "ResidentialBuilding": "",
     "Other": "Altro"
   },
   "timeAccuracy": {

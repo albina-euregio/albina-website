@@ -168,7 +168,14 @@ $ tx push --source albina-website.website
 $ tx status albina-website.website
 # fetch updated translations from Transifex
 $ tx pull --use-git-timestamps
+# fetch only translated strings for the JSON resources (missing keys fall back to English)
+$ npm run tx-pull-json
 ```
+
+The `KEYVALUEJSON` resources in `.tx/config` must be pulled with
+`--mode onlytranslated` — the Transifex CLI does not support a per-resource
+mode in `.tx/config`, and the default mode fills untranslated keys with the
+English source string.
 
 ### Incident report strings
 
@@ -185,7 +192,7 @@ in sync automatically — never edit it by hand:
 
 ```sh
 # fetch updated translations from Transifex
-$ tx pull --use-git-timestamps
+$ tx pull --use-git-timestamps --mode onlytranslated albina-admin-gui.incident-report
 # also refresh en.json itself, since the source lives in albina-admin-gui
 $ tx pull --source --use-git-timestamps albina-admin-gui.incident-report
 ```

@@ -5,6 +5,31 @@ import { vLanguageCode } from "./api/valibot.gen";
 export type Language = v.InferOutput<typeof vLanguageCode>;
 
 // i18n
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/**
+ * Deep-merges Transifex translations over the English fallback.
+ *
+ * `tx pull --mode onlytranslated` writes untranslated keys as `""`, so empty
+ * strings are skipped to keep the fallback value.
+ */
+export function mergeTranslations<T>(fallback: T, translations: unknown): T {
+  if (!isPlainObject(fallback) || !isPlainObject(translations)) {
+    return fallback;
+  }
+  const result: Record<string, unknown> = { ...fallback };
+  for (const [key, value] of Object.entries(translations)) {
+    if (value === "") continue;
+    result[key] =
+      isPlainObject(value) && isPlainObject(result[key])
+        ? mergeTranslations(result[key], value)
+        : value;
+  }
+  return result as T;
+}
+
 const translationImports = import.meta.glob<Record<string, string>>(
   "./i18n/*.json",
   { import: "default" }
@@ -40,10 +65,10 @@ async function loadMessages(newLanguage: Language) {
         `../node_modules/@eaws/micro-regions_names/${newLanguage}.json`
       ]()
     ]);
-  const caamlAll = { ...caamlFallback, ...caamlMessages };
+  const caamlAll = mergeTranslations(caamlFallback, caamlMessages);
   const allMessages = Object.freeze(
     Object.assign(
-      { ...fallbackMessages, ...messages },
+      mergeTranslations(fallbackMessages, messages),
       { "region:Kärnten": regions["AT-02"] }, // for StationTable
       { "region:Salzburg": regions["AT-05"] }, // for StationTable
       { "region:Vorarlberg": regions["AT-08"] }, // for StationTable

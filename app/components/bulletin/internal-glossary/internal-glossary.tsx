@@ -4,6 +4,7 @@ import { FormattedMessage } from "../../../i18n";
 import reactStringReplace from "react-string-replace";
 import { preprocessContent } from "../../../util/htmlParser";
 import { LabeledSlider } from "../../../util/simple-slider";
+import { mergeTranslations } from "../../../appStore";
 
 /**
  * A React component that wraps the LabeledSlider utility.
@@ -72,9 +73,13 @@ class InternalGlossaryReplacer {
     if (!GLOSSARY_INTERNAL_CONTENT[locale]) {
       return undefined;
     }
+    const [fallback, content] = await Promise.all([
+      GLOSSARY_INTERNAL_CONTENT.en(),
+      GLOSSARY_INTERNAL_CONTENT[locale]()
+    ]);
     return new InternalGlossaryReplacer(
       locale,
-      await GLOSSARY_INTERNAL_CONTENT[locale]()
+      mergeTranslations(fallback, content)
     );
   }
 

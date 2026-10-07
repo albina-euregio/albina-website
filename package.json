@@ -30,6 +30,7 @@
     "build-dev": "APP_REGION=DEV vp build",
     "build-www2": "APP_REGION=WWW2 vp build",
     "build-iframe": "vp pack",
+    "tx-pull-json": "tx pull --use-git-timestamps --mode onlytranslated albina-website.website albina-website.caaml-json albina-website.internal-glossary bulletin-glossary.bulletin-glossary albina-admin-gui.incident-report",
     "changelog": "git-cliff --unreleased --prepend CHANGELOG.md --tag",
     "changelog-latest": "git-cliff --latest --prepend CHANGELOG.md"
   },
