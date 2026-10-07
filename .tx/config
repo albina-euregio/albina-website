@@ -1,6 +1,6 @@
 [main]
 host = https://app.transifex.com
-lang_map = sl_SI: sl
+lang_map = sl_SI: sl, sk_SK: sk
 
 [o:albina-euregio:p:albina-website:r:about]
 file_filter = public/content/more/about/<lang>.html
