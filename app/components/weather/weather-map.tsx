@@ -23,6 +23,11 @@ import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../../i18n";
 import type { ParameterType } from "../station/station-parameter-data";
+import {
+  AUSTRIA_LAMBERT_GRID,
+  isAustriaLambertImage,
+  reprojectAustriaLambertImage
+} from "../../util/austria-lambert";
 
 interface Props {
   isPlaying: boolean;
@@ -246,28 +251,51 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     const [, url] = imageOverlayURLs;
     if (!overlayReady || !map || !url || !domainConfig) return;
 
-    // MapLibre image sources want the four corners as `[lng, lat]` in
-    // TL, TR, BR, BL (i.e. NW, NE, SE, SW) order.
-    const bbox = domainConfig.bbox;
-    const coordinates: ImageSourceSpecification["coordinates"] = [
-      bbox.getNorthWest().toArray(),
-      bbox.getNorthEast().toArray(),
-      bbox.getSouthEast().toArray(),
-      bbox.getSouthWest().toArray()
-    ];
+    // An image published on the Austria Lambert grid can't be placed by its
+    // corners, so it is reprojected to Web Mercator first; an older image
+    // already is, and is shown as is.
+    let stale = false;
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onload = () => {
+      if (stale) return;
+      const lambert = isAustriaLambertImage(
+        image.naturalWidth,
+        image.naturalHeight
+      );
+      const bbox = lambert ? AUSTRIA_LAMBERT_GRID.bbox : domainConfig.bbox;
+      // MapLibre image sources want the four corners as `[lng, lat]` in
+      // TL, TR, BR, BL (i.e. NW, NE, SE, SW) order.
+      const coordinates: ImageSourceSpecification["coordinates"] = [
+        bbox.getNorthWest().toArray(),
+        bbox.getNorthEast().toArray(),
+        bbox.getSouthEast().toArray(),
+        bbox.getSouthWest().toArray()
+      ];
 
-    const source = map.getSource(IMAGE_SOURCE_ID);
-    if (source instanceof ImageSource) {
-      source.updateImage({ url, coordinates });
-    } else {
-      map.addSource(IMAGE_SOURCE_ID, { type: "image", url, coordinates });
-      map.addLayer({
-        id: IMAGE_LAYER_ID,
-        type: "raster",
-        source: IMAGE_SOURCE_ID,
-        paint: { "raster-opacity": 1, "raster-fade-duration": 0 }
+      if (!map.getSource(IMAGE_SOURCE_ID)) {
+        map.addSource(IMAGE_SOURCE_ID, { type: "image", coordinates });
+        map.addLayer({
+          id: IMAGE_LAYER_ID,
+          type: "raster",
+          source: IMAGE_SOURCE_ID,
+          paint: { "raster-opacity": 1, "raster-fade-duration": 0 }
+        });
+      }
+      const source = map.getSource(IMAGE_SOURCE_ID);
+      if (!(source instanceof ImageSource)) return;
+      source.setCoordinates(coordinates);
+      source.updateImage({
+        image: lambert ? reprojectAustriaLambertImage(image) : image
       });
-    }
+    };
+    image.onerror = () => {
+      if (!stale) console.error(`Failed to fetch ${url}`);
+    };
+    image.src = url;
+    return () => {
+      stale = true;
+    };
   }, [domainConfig, imageOverlayURLs, overlayReady]);
 
   // Wind-direction indicators: a grid of black arrows across the bbox, each
@@ -295,8 +323,8 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       }
 
       // Sample direction at each interior grid point.
-      const bbox = store.domainConfig.get()?.bbox;
-      if (!bbox) return;
+      const bbox = await windOverlay.bounds.catch(() => null);
+      if (!bbox || stale || gen !== generation) return;
       const west = bbox.getWest();
       const east = bbox.getEast();
       const south = bbox.getSouth();
@@ -368,9 +396,12 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       )
         return;
 
-      if (!store.domainConfig.get()?.bbox.contains(e.lngLat)) return;
-
       const gen = ++clickGenRef.current;
+      const bounds = await store.dataOverlays
+        .get()[0]
+        ?.bounds.catch(() => null);
+      if (gen !== clickGenRef.current || !bounds?.contains(e.lngLat)) return;
+
       const value = await readOverlayValue(e.lngLat);
       if (gen !== clickGenRef.current || !mapRef.current) return;
 

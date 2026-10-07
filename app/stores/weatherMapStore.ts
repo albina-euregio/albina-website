@@ -1,9 +1,19 @@
 import { atom, computed } from "nanostores";
-import { LngLatBounds, MercatorCoordinate, type LngLatLike } from "maplibre-gl";
+import {
+  LngLat,
+  LngLatBounds,
+  MercatorCoordinate,
+  type LngLatLike
+} from "maplibre-gl";
 import {
   _loadStationData as loadStationData,
   type StationData
 } from "./stationDataStore";
+import {
+  AUSTRIA_LAMBERT_GRID,
+  austriaLambertGridFraction,
+  isAustriaLambertImage
+} from "../util/austria-lambert";
 
 /**
  * Every domain is driven by the live `config.json` published per domain at
@@ -327,6 +337,11 @@ export class DataOverlay {
   readonly type: OverlayType;
   private readonly bbox: LngLatBounds;
   private readonly ctx: Promise<CanvasRenderingContext2D>;
+  /**
+   * The extent the image covers: `bbox` for a Web Mercator image, the
+   * envelope of the Austria Lambert grid for one published on it.
+   */
+  readonly bounds: Promise<LngLatBounds>;
 
   constructor(
     o: { file: string; type: OverlayType; domain?: DomainId },
@@ -356,12 +371,27 @@ export class DataOverlay {
       };
       img.src = url;
     });
+    this.bounds = this.ctx.then(ctx =>
+      isAustriaLambertImage(ctx.canvas.width, ctx.canvas.height)
+        ? AUSTRIA_LAMBERT_GRID.bbox
+        : bbox
+    );
   }
 
   async valueForPixel(lngLat: LngLatLike): Promise<number | null> {
     const resolvedCtx = await this.ctx;
     const w = resolvedCtx.canvas.width;
     const h = resolvedCtx.canvas.height;
+    if (isAustriaLambertImage(w, h)) {
+      const { lng, lat } = LngLat.convert(lngLat);
+      const fraction = austriaLambertGridFraction(lng, lat);
+      if (!fraction) return null;
+      return this.valueAt(
+        resolvedCtx,
+        Math.floor(fraction[0] * w),
+        Math.floor(fraction[1] * h)
+      );
+    }
     // Normalized position within the bbox, in Web Mercator (linear in lng,
     // non-linear in lat) — matching how the overlay images are projected.
     const bbox = this.bbox;
@@ -372,7 +402,15 @@ export class DataOverlay {
     const fy = (p0.y - ne.y) / (sw.y - ne.y);
     const pixelX = Math.round(Math.max(0, Math.min(1, fx)) * (w - 1));
     const pixelY = Math.round(Math.max(0, Math.min(1, fy)) * (h - 1));
-    const p = resolvedCtx.getImageData(pixelX, pixelY, 1, 1);
+    return this.valueAt(resolvedCtx, pixelX, pixelY);
+  }
+
+  private valueAt(
+    ctx: CanvasRenderingContext2D,
+    pixelX: number,
+    pixelY: number
+  ): number | null {
+    const p = ctx.getImageData(pixelX, pixelY, 1, 1);
     return DataOverlay.valueForPixel(this.type, {
       r: p.data[0],
       g: p.data[1],
