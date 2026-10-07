@@ -26,7 +26,7 @@ function clickDownload(
 }
 
 /**
- * Trigger a client-side download of text content. Prepends a UTF-8 BOM so
+ * Trigger a client-side download of text content. CSV gets a UTF-8 BOM so
  * Excel opens non-ASCII characters (e.g. localized headers) correctly.
  */
 export function downloadTextFile(
@@ -34,7 +34,8 @@ export function downloadTextFile(
   content: string,
   mime = "text/csv;charset=utf-8"
 ): void {
-  const blob = new Blob(["﻿", content], { type: mime });
+  const bom = mime.startsWith("text/csv") ? "﻿" : "";
+  const blob = new Blob([bom, content], { type: mime });
   const url = URL.createObjectURL(blob);
   clickDownload(url, { download: filename });
   URL.revokeObjectURL(url);

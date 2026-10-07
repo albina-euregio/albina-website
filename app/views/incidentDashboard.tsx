@@ -1,8 +1,13 @@
 import React from "react";
 import { useStore } from "@nanostores/react";
-import { useIntl } from "../i18n";
+import { useIntl, type MessageId } from "../i18n";
+import {
+  translateIncidentValue,
+  useIncidentReportMessages
+} from "../i18n/incident-report";
 import { useIncidentData } from "../stores/incidentDataStore";
 import { currentSeasonYear } from "../util/date-season";
+import { downloadTextFile, toCsv } from "../util/csv";
 import IncidentMapLibreMap from "../components/incident/incident-map.tsx";
 import IncidentTable from "../components/incident/incident-table";
 import IncidentDetailsDialog from "../components/incident/incident-details-dialog";
@@ -10,6 +15,9 @@ import HTMLHeader from "../components/organisms/html-header";
 import ProvinceFilter from "../components/filters/province-filter";
 import YearFilter from "../components/filters/year-filter";
 import SearchField from "../components/organisms/search-field";
+import ExportMenu, {
+  type ExportAction
+} from "../components/filters/export-menu";
 import { $router, redirectPageQuery } from "../components/router";
 import { useHiddenFooter } from "./useHiddenFooter.tsx";
 import { useFilterBarOffset } from "./useFilterBarOffset.ts";
@@ -43,6 +51,152 @@ function IncidentDashboard() {
     sortBy,
     sortedFilteredData
   } = useIncidentData();
+
+  const messages = useIncidentReportMessages();
+  const label = (field: string) =>
+    (messages.incidentReport?.[field] ?? field).trim();
+  const tr = (category: string, value: string | undefined) =>
+    translateIncidentValue(messages, category, value) ?? "";
+  const trList = (category: string, values: string[] | undefined) =>
+    values?.map(value => tr(category, value)).join("; ");
+  const regionName = (code: string | undefined) =>
+    code ? intl.formatMessage({ id: `region:${code}` as MessageId }) : "";
+  const exportFilename = `incidents_${seasonYear}-${seasonYear + 1}`;
+
+  // The visible (filtered + sorted) incidents, one row each, for own statistics.
+  const exportCsv = () => {
+    const header = [
+      intl.formatMessage({ id: "incidents:export:id" }),
+      intl.formatMessage({ id: "archive:table-header:date" }),
+      label("timeAccuracy"),
+      label("location"),
+      label("avalancheRegion"),
+      intl.formatMessage({ id: "measurements:table:header:microRegion" }),
+      intl.formatMessage({ id: "measurements:filter:province" }),
+      label("latitude"),
+      label("longitude"),
+      label("locationAccuracy"),
+      label("publicAvalancheWarningService"),
+      label("startZoneElevation"),
+      label("startZoneElevationAccuracy"),
+      label("startZoneAspect"),
+      label("startZoneAspectAccuracy"),
+      label("startZoneIncline"),
+      label("avalancheType"),
+      intl.formatMessage({ id: "caaml:avalancheSize.label" }),
+      label("avalancheLength"),
+      label("slabWidth"),
+      label("crownDepthAvg"),
+      label("relevantAvalancheProblem"),
+      label("dangerPattern"),
+      label("trigger"),
+      label("remoteTriggering"),
+      label("personInvolvement"),
+      label("activities"),
+      label("terrainTypes"),
+      label("numberInvolved"),
+      label("caughtOnly"),
+      label("partlyBuried"),
+      label("fullyBuried"),
+      label("uninjuredSurvivors"),
+      label("injuredSurvivors"),
+      label("fatalities")
+    ];
+    // ISO-like local date ("2026-02-18 09:44"), parseable by spreadsheets.
+    const dateFormat = new Intl.DateTimeFormat("sv-SE", {
+      dateStyle: "short",
+      timeStyle: "short"
+    });
+    const rows = sortedFilteredData.map(incident => {
+      const d = incident.publicData;
+      const counts = d.involvementsFatalitiesBurials;
+      return [
+        incident.id,
+        incident.dateTime ? dateFormat.format(incident.dateTime) : "",
+        tr("timeAccuracy", d.timeAccuracy),
+        incident.location,
+        incident.microRegion,
+        regionName(incident.microRegion),
+        regionName(incident.region),
+        incident.lat,
+        incident.lon,
+        tr("locationAccuracy", d.locationAccuracy),
+        d.publicAvalancheWarningService,
+        d.startZoneElevation,
+        tr("startZoneElevationAccuracy", d.startZoneElevationAccuracy),
+        d.startZoneAspect,
+        tr("startZoneAspectAccuracy", d.startZoneAspectAccuracy),
+        d.startZoneIncline,
+        tr("avalancheType", d.avalancheType),
+        tr("avalancheSize", d.avalancheSize),
+        d.avalancheLength,
+        d.slabWidth,
+        d.crownDepthAvg,
+        d.relevantAvalancheProblem
+          ? intl.formatMessage({
+              id: `caaml:avalancheProblem.${d.relevantAvalancheProblem}` as MessageId
+            })
+          : "",
+        d.dangerPattern
+          ?.map(dp =>
+            intl.formatMessage({ id: `caaml:dangerPattern.${dp}` as MessageId })
+          )
+          .join("; "),
+        tr("trigger", d.trigger),
+        tr("remoteTriggering", d.remoteTriggering),
+        tr("personInvolvement", d.personInvolvement),
+        trList("incidentActivity", counts?.incidentActivity),
+        trList("incidentTerrainType", counts?.incidentTerrainType),
+        counts?.numberInvolved,
+        counts?.caughtOnly,
+        counts?.partlyBuried,
+        counts?.fullyBuried,
+        counts?.uninjuredSurvivors,
+        counts?.injuredSurvivors,
+        counts?.fatalities
+      ];
+    });
+    downloadTextFile(`${exportFilename}.csv`, toCsv([header, ...rows]));
+  };
+
+  // The visible incidents with their full public data as feature properties.
+  const exportGeoJson = () => {
+    const featureCollection = {
+      type: "FeatureCollection",
+      features: sortedFilteredData.map(incident => ({
+        type: "Feature",
+        id: incident.id,
+        geometry: incident.hasLocation
+          ? { type: "Point", coordinates: [incident.lon, incident.lat] }
+          : null,
+        properties: {
+          ...incident.publicData,
+          id: incident.id,
+          region: incident.region
+        }
+      }))
+    };
+    downloadTextFile(
+      `${exportFilename}.geojson`,
+      JSON.stringify(featureCollection),
+      "application/geo+json"
+    );
+  };
+
+  const exportActions: ExportAction[] = [
+    {
+      format: "CSV",
+      labelId: "incidents:export:csv",
+      descId: "incidents:export:csv:desc",
+      run: exportCsv
+    },
+    {
+      format: "JSON",
+      labelId: "incidents:export:geojson",
+      descId: "incidents:export:geojson:desc",
+      run: exportGeoJson
+    }
+  ];
 
   const selectedIncident = sortedFilteredData.find(
     incident => incident.id === selectedId
@@ -121,6 +275,13 @@ function IncidentDashboard() {
                 value={searchText}
               />
             </div>
+
+            {viewMode === "table" && (
+              <ExportMenu
+                actions={exportActions}
+                disabled={sortedFilteredData.length === 0}
+              />
+            )}
           </div>
         </div>
       </section>
