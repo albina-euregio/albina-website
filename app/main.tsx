@@ -23,9 +23,24 @@ const configRequest =
     : import.meta.env.APP_REGION
       ? import(`./config.${import.meta.env.APP_REGION}.json`)
       : import("./config.json");
+// Incidents and snow profiles are not released in production yet
+// TODO: Remove this code again after release
+const unreleasedMenuUrls =
+  import.meta.env.APP_REGION === "BETA" ||
+  import.meta.env.APP_REGION === "DEV" ||
+  import.meta.env.DEV
+    ? []
+    : ["/incidents", "/profiles"];
+
 configRequest.then(async configParsed => {
   window.config = {
     ...configParsed,
+    menu: configParsed.menu.filter(
+      (e: { url: string }) => !unreleasedMenuUrls.includes(e.url)
+    ),
+    menuFooterMain: configParsed.menuFooterMain.filter(
+      (e: { url: string }) => !unreleasedMenuUrls.includes(e.url)
+    ),
     template,
     regionsRegex: newRegionRegex(configParsed.regionCodes),
     eawsRegionsRegex: newRegionRegex(configParsed.eawsRegions)
