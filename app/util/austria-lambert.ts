@@ -1,4 +1,4 @@
-import { LngLatBounds } from "maplibre-gl";
+import type { LngLatBounds } from "maplibre-gl";
 
 /**
  * MGI / Austria Lambert (EPSG:31287), the projection of the weather overlays
@@ -47,29 +47,26 @@ export function toAustriaLambert(lng: number, lat: number): [number, number] {
   return [X_0 + rho * Math.sin(theta), Y_0 + RHO_0 - rho * Math.cos(theta)];
 }
 
-/** The overlay grid: 1 km cells, 699 × 429. */
-export const AUSTRIA_LAMBERT_GRID = {
-  /** Extent in EPSG:31287. */
-  minX: 20500,
-  minY: 190500,
-  maxX: 719500,
-  maxY: 619500,
-  /**
-   * WGS84 envelope (min lng, min lat, max lng, max lat), i.e. the extent of
-   * the reprojected images.
-   */
-  bbox: new LngLatBounds([8.10559, 45.50767, 17.74135, 49.47441])
-} as const;
+/** An overlay grid in EPSG:31287, as stated by the live config.json. */
+export interface AustriaLambertGrid {
+  /** Extent in EPSG:31287, as min x, min y, max x, max y. */
+  lambert: [number, number, number, number];
+  /** WGS84 envelope, i.e. the extent of the reprojected images. */
+  bbox: LngLatBounds;
+}
 
 /**
  * Whether an overlay image covers the Austria Lambert grid — told apart from
  * the older Web Mercator images by its aspect ratio, as images of either kind
  * keep being published side by side (and the GIFs at twice the resolution).
  */
-export function isAustriaLambertImage(width: number, height: number): boolean {
-  const gridAspect =
-    (AUSTRIA_LAMBERT_GRID.maxX - AUSTRIA_LAMBERT_GRID.minX) /
-    (AUSTRIA_LAMBERT_GRID.maxY - AUSTRIA_LAMBERT_GRID.minY);
+export function isAustriaLambertImage(
+  width: number,
+  height: number,
+  grid: AustriaLambertGrid
+): boolean {
+  const [minX, minY, maxX, maxY] = grid.lambert;
+  const gridAspect = (maxX - minX) / (maxY - minY);
   return Math.abs(width / height - gridAspect) < 0.01;
 }
 
@@ -79,15 +76,13 @@ export function isAustriaLambertImage(width: number, height: number): boolean {
  */
 export function austriaLambertGridFraction(
   lng: number,
-  lat: number
+  lat: number,
+  grid: AustriaLambertGrid
 ): [number, number] | null {
   const [x, y] = toAustriaLambert(lng, lat);
-  const fx =
-    (x - AUSTRIA_LAMBERT_GRID.minX) /
-    (AUSTRIA_LAMBERT_GRID.maxX - AUSTRIA_LAMBERT_GRID.minX);
-  const fy =
-    (AUSTRIA_LAMBERT_GRID.maxY - y) /
-    (AUSTRIA_LAMBERT_GRID.maxY - AUSTRIA_LAMBERT_GRID.minY);
+  const [minX, minY, maxX, maxY] = grid.lambert;
+  const fx = (x - minX) / (maxX - minX);
+  const fy = (maxY - y) / (maxY - minY);
   if (fx < 0 || fx >= 1 || fy < 0 || fy >= 1) return null;
   return [fx, fy];
 }
@@ -98,11 +93,12 @@ const mercatorY = (lat: number) =>
 
 /**
  * Reprojects an image of the overlay grid to Web Mercator, covering
- * `AUSTRIA_LAMBERT_GRID.bbox` — nearest neighbour, so colors stay exact. Pixels
+ * `grid.bbox` — nearest neighbour, so colors stay exact. Pixels
  * outside the grid are transparent.
  */
 export function reprojectAustriaLambertImage(
-  image: HTMLImageElement
+  image: HTMLImageElement,
+  grid: AustriaLambertGrid
 ): ImageData {
   const srcW = image.naturalWidth;
   const srcH = image.naturalHeight;
@@ -112,7 +108,7 @@ export function reprojectAustriaLambertImage(
   srcCtx.drawImage(image, 0, 0);
   const src = srcCtx.getImageData(0, 0, srcW, srcH).data;
 
-  const { bbox } = AUSTRIA_LAMBERT_GRID;
+  const { bbox } = grid;
   const [west, south, east, north] = [
     bbox.getWest(),
     bbox.getSouth(),
@@ -124,9 +120,7 @@ export function reprojectAustriaLambertImage(
   // Keep the source resolution: a grid cell spans 1/cos(lat) as much in Web
   // Mercator, taken at the grid's central latitude.
   const cellSize =
-    (AUSTRIA_LAMBERT_GRID.maxX - AUSTRIA_LAMBERT_GRID.minX) /
-    srcW /
-    Math.cos(rad(LAT_0));
+    (grid.lambert[2] - grid.lambert[0]) / srcW / Math.cos(rad(LAT_0));
   const outW = Math.round((R * rad(east - west)) / cellSize);
   const outH = Math.round((top - bottom) / cellSize);
   const out = new ImageData(outW, outH);
@@ -136,7 +130,7 @@ export function reprojectAustriaLambertImage(
     const lat = (Math.atan(Math.sinh(y / R)) * 180) / Math.PI;
     for (let i = 0; i < outW; i++) {
       const lng = west + ((i + 0.5) / outW) * (east - west);
-      const fraction = austriaLambertGridFraction(lng, lat);
+      const fraction = austriaLambertGridFraction(lng, lat, grid);
       if (!fraction) continue;
       const s =
         (Math.floor(fraction[1] * srcH) * srcW +

@@ -10,7 +10,7 @@ import {
   type StationData
 } from "./stationDataStore";
 import {
-  AUSTRIA_LAMBERT_GRID,
+  type AustriaLambertGrid,
   austriaLambertGridFraction,
   isAustriaLambertImage
 } from "../util/austria-lambert";
@@ -56,8 +56,10 @@ export interface DomainConfig {
   timeStepHours: number;
   units: string;
   thresholds: RemoteThreshold[];
-  /** The extent the overlay images cover. */
+  /** The extent the Web Mercator overlay images cover. */
   bbox: LngLatBounds;
+  /** The grid of the overlay images published on Austria Lambert, if any. */
+  lambertGrid: AustriaLambertGrid | null;
   imageOverlayFile: string;
   dataOverlays: { file: string; type: OverlayType; domain?: DomainId }[];
   direction: "DW" | false;
@@ -137,6 +139,11 @@ interface RemoteBoundingBox {
   validity: [string, string];
   /** Extent of the overlay images, as min lng, min lat, max lng, max lat. */
   bbox: [number, number, number, number];
+  /**
+   * Extent in EPSG:31287 (min x, min y, max x, max y), set for images on the
+   * Austria Lambert grid.
+   */
+  lambert?: [number, number, number, number];
 }
 
 /**
@@ -219,11 +226,18 @@ function buildDomainConfig(
   remoteTimeRange: RemoteTimeRange | null
 ): DomainConfig | null {
   if (!domainId || !remoteDomainConfig || !remoteTimeRange) return null;
-  // `boundingBoxes` is ordered by validity, so the last entry is the one in
-  // force now; the earlier ones only cover overlays from before it took over.
-  const { boundingBoxes } = remoteDomainConfig;
+  // The latest Web Mercator extent, for images not (yet) published on the
+  // Austria Lambert grid; `boundingBoxes` is ordered by validity.
+  const boundingBoxes = remoteDomainConfig.boundingBoxes.filter(
+    b => !b.lambert
+  );
   const boundingBox = boundingBoxes[boundingBoxes.length - 1];
   if (!boundingBox) return null;
+  const lambertBoundingBoxes = remoteDomainConfig.boundingBoxes.filter(
+    b => b.lambert
+  );
+  const lambertBoundingBox =
+    lambertBoundingBoxes[lambertBoundingBoxes.length - 1];
 
   const dataId =
     DATA_ID_BY_DOMAIN_TIME_RANGE[domainId]?.[remoteTimeRange.timeRange];
@@ -252,6 +266,12 @@ function buildDomainConfig(
     units: remoteDomainConfig.units,
     thresholds: remoteDomainConfig.thresholds,
     bbox: new LngLatBounds(boundingBox.bbox),
+    lambertGrid: lambertBoundingBox?.lambert
+      ? {
+          lambert: lambertBoundingBox.lambert,
+          bbox: new LngLatBounds(lambertBoundingBox.bbox)
+        }
+      : null,
     imageOverlayFile: overlayFile(remoteTimeRange.imageOverlayURL),
     dataOverlays,
     // Station wind arrows are drawn exactly for the domains that have a
@@ -336,6 +356,7 @@ export const domainConfig = computed(
 export class DataOverlay {
   readonly type: OverlayType;
   private readonly bbox: LngLatBounds;
+  private readonly lambertGrid: AustriaLambertGrid | null;
   private readonly ctx: Promise<CanvasRenderingContext2D>;
   /**
    * The extent the image covers: `bbox` for a Web Mercator image, the
@@ -347,10 +368,12 @@ export class DataOverlay {
     o: { file: string; type: OverlayType; domain?: DomainId },
     domainId: DomainId | null,
     currentTime: Temporal.Instant | null,
-    bbox: LngLatBounds
+    bbox: LngLatBounds,
+    lambertGrid: AustriaLambertGrid | null
   ) {
     this.type = o.type;
     this.bbox = bbox;
+    this.lambertGrid = lambertGrid;
     const [, url] = getOverlayURLs(
       currentTime,
       (o.domain || domainId) as DomainId,
@@ -371,10 +394,9 @@ export class DataOverlay {
       };
       img.src = url;
     });
-    this.bounds = this.ctx.then(ctx =>
-      isAustriaLambertImage(ctx.canvas.width, ctx.canvas.height)
-        ? AUSTRIA_LAMBERT_GRID.bbox
-        : bbox
+    this.bounds = this.ctx.then(
+      ctx =>
+        this.lambertGridOf(ctx.canvas.width, ctx.canvas.height)?.bbox ?? bbox
     );
   }
 
@@ -382,9 +404,10 @@ export class DataOverlay {
     const resolvedCtx = await this.ctx;
     const w = resolvedCtx.canvas.width;
     const h = resolvedCtx.canvas.height;
-    if (isAustriaLambertImage(w, h)) {
+    const lambertGrid = this.lambertGridOf(w, h);
+    if (lambertGrid) {
       const { lng, lat } = LngLat.convert(lngLat);
-      const fraction = austriaLambertGridFraction(lng, lat);
+      const fraction = austriaLambertGridFraction(lng, lat, lambertGrid);
       if (!fraction) return null;
       return this.valueAt(
         resolvedCtx,
@@ -403,6 +426,11 @@ export class DataOverlay {
     const pixelX = Math.round(Math.max(0, Math.min(1, fx)) * (w - 1));
     const pixelY = Math.round(Math.max(0, Math.min(1, fy)) * (h - 1));
     return this.valueAt(resolvedCtx, pixelX, pixelY);
+  }
+
+  private lambertGridOf(w: number, h: number): AustriaLambertGrid | null {
+    const grid = this.lambertGrid;
+    return grid && isAustriaLambertImage(w, h, grid) ? grid : null;
   }
 
   private valueAt(
@@ -668,7 +696,13 @@ export async function initDomain(
     dataOverlays.set(
       currentDomainConfig?.dataOverlays.map(
         o =>
-          new DataOverlay(o, newDomain, resolvedTime, currentDomainConfig.bbox)
+          new DataOverlay(
+            o,
+            newDomain,
+            resolvedTime,
+            currentDomainConfig.bbox,
+            currentDomainConfig.lambertGrid
+          )
       ) ?? []
     );
 

@@ -24,7 +24,6 @@ import { useStore } from "@nanostores/react";
 import { useIntl } from "../../i18n";
 import type { ParameterType } from "../station/station-parameter-data";
 import {
-  AUSTRIA_LAMBERT_GRID,
   isAustriaLambertImage,
   reprojectAustriaLambertImage
 } from "../../util/austria-lambert";
@@ -259,11 +258,17 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     image.crossOrigin = "anonymous";
     image.onload = () => {
       if (stale) return;
-      const lambert = isAustriaLambertImage(
-        image.naturalWidth,
-        image.naturalHeight
-      );
-      const bbox = lambert ? AUSTRIA_LAMBERT_GRID.bbox : domainConfig.bbox;
+      const { lambertGrid } = domainConfig;
+      const lambert =
+        lambertGrid &&
+        isAustriaLambertImage(
+          image.naturalWidth,
+          image.naturalHeight,
+          lambertGrid
+        )
+          ? lambertGrid
+          : null;
+      const bbox = lambert?.bbox ?? domainConfig.bbox;
       // MapLibre image sources want the four corners as `[lng, lat]` in
       // TL, TR, BR, BL (i.e. NW, NE, SE, SW) order.
       const coordinates: ImageSourceSpecification["coordinates"] = [
@@ -286,7 +291,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       if (!(source instanceof ImageSource)) return;
       source.setCoordinates(coordinates);
       source.updateImage({
-        image: lambert ? reprojectAustriaLambertImage(image) : image
+        image: lambert ? reprojectAustriaLambertImage(image, lambert) : image
       });
     };
     image.onerror = () => {
