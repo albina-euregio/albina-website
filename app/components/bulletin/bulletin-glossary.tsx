@@ -13,13 +13,16 @@ const RAW_GLOSSARY_LINKS = Object.freeze({
   oc: () => import("./bulletin-glossary-oc-links.json").then(d => d.default)
 });
 
-const GLOSSARY_CONTENT = Object.freeze({
+export const GLOSSARY_CONTENT = Object.freeze({
   ca: () => import("./bulletin-glossary-ca-content.json").then(d => d.default),
   de: () => import("./bulletin-glossary-de-content.json").then(d => d.default),
   en: () => import("./bulletin-glossary-en-content.json").then(d => d.default),
   es: () => import("./bulletin-glossary-es-content.json").then(d => d.default),
+  fr: () => import("./bulletin-glossary-fr-content.json").then(d => d.default),
   it: () => import("./bulletin-glossary-it-content.json").then(d => d.default),
-  oc: () => import("./bulletin-glossary-oc-content.json").then(d => d.default)
+  oc: () => import("./bulletin-glossary-oc-content.json").then(d => d.default),
+  sk: () => import("./bulletin-glossary-sk-content.json").then(d => d.default),
+  sl: () => import("./bulletin-glossary-sl-content.json").then(d => d.default)
 });
 
 export type EnabledLanguages = keyof typeof RAW_GLOSSARY_LINKS &
