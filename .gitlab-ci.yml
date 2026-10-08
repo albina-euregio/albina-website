@@ -138,9 +138,11 @@ deploy:www2:
 .playwright:
   stage: playwright
   image: mcr.microsoft.com/playwright:v1.61.1
+  parallel: 2
   artifacts:
     when: always
     paths:
+      - blob-report/
       - playwright-report/
       - test-results/
     reports:
@@ -150,7 +152,7 @@ deploy:www2:
     - pnpm config set store-dir .pnpm-store
     - pnpm install --frozen-lockfile
   script:
-    - pnpm playwright test
+    - pnpm playwright test --shard=$CI_NODE_INDEX/$CI_NODE_TOTAL
 
 playwright:beta:
   extends: .playwright
