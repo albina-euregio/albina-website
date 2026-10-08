@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "../../i18n";
-import { useIncidentReportMessages } from "../../i18n/incident-report";
+import { useIncidentLabels } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { involvementText } from "../../util/incident-involvement";
 import { avalancheBadgeText } from "../../util/incident-badges";
@@ -22,11 +22,7 @@ interface Props {
 
 export default function IncidentTable(props: Props) {
   const intl = useIntl();
-  const messages = useIncidentReportMessages();
-  // Column headers come from the async-loaded `incident-report` Transifex
-  // resource (see i18n/incident-report.ts); fall back to the raw field name
-  // until it loads / if a label is missing.
-  const label = (field: string) => messages.incidentReport?.[field] ?? field;
+  const { messages, label } = useIncidentLabels();
 
   const columns: ColumnDef<IncidentData>[] = [
     {

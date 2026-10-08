@@ -7,8 +7,8 @@ import {
 import { useDragScroll } from "../dialogs/use-drag-scroll";
 import { useIntl, type MessageId } from "../../i18n";
 import {
-  useIncidentReportMessages,
-  translateIncidentValue
+  problemTypeMessageId,
+  useIncidentLabels
 } from "../../i18n/incident-report";
 import {
   DATE_TIME_FORMAT,
@@ -239,10 +239,6 @@ function EducationLink({
       <span className="icon-external" aria-hidden="true" />
     </a>
   );
-}
-
-function problemTypeMessageId(problemType: string): MessageId {
-  return `caaml:avalancheProblem.${problemType}` as MessageId;
 }
 
 function aspectLabel(
@@ -524,19 +520,7 @@ function RichText({
 
 function IncidentDetails({ incident }: { incident: IncidentData }) {
   const intl = useIntl();
-  const t = useIncidentReportMessages();
-  const label = (key: string) => t.incidentReport?.[key] ?? key;
-  const tr = (category: string, value: string | undefined) =>
-    translateIncidentValue(t, category, value);
-  /** Translates each entry of a list and joins them, dropping empty values. */
-  const trList = (
-    category: string,
-    values: (string | undefined)[] | undefined
-  ) =>
-    values
-      ?.map(v => tr(category, v))
-      .filter(Boolean)
-      .join(", ");
+  const { messages: t, label, tr, trList } = useIncidentLabels();
 
   const d: IncidentPublicData = incident.publicData;
   const number = (value: number | undefined, unit?: string) =>

@@ -2,8 +2,8 @@ import React from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl, type MessageId } from "../i18n";
 import {
-  translateIncidentValue,
-  useIncidentReportMessages
+  problemTypeMessageId,
+  useIncidentLabels
 } from "../i18n/incident-report";
 import { useIncidentData } from "../stores/incidentDataStore";
 import { currentSeasonYear } from "../util/date-season";
@@ -52,13 +52,7 @@ function IncidentDashboard() {
     sortedFilteredData
   } = useIncidentData();
 
-  const messages = useIncidentReportMessages();
-  const label = (field: string) =>
-    (messages.incidentReport?.[field] ?? field).trim();
-  const tr = (category: string, value: string | undefined) =>
-    translateIncidentValue(messages, category, value) ?? "";
-  const trList = (category: string, values: string[] | undefined) =>
-    values?.map(value => tr(category, value)).join("; ");
+  const { label, tr, trList } = useIncidentLabels();
   const regionName = (code: string | undefined) =>
     code ? intl.formatMessage({ id: `region:${code}` as MessageId }) : "";
   const exportFilename = `incidents_${seasonYear}-${seasonYear + 1}`;
@@ -134,7 +128,7 @@ function IncidentDashboard() {
         d.crownDepthAvg,
         d.relevantAvalancheProblem
           ? intl.formatMessage({
-              id: `caaml:avalancheProblem.${d.relevantAvalancheProblem}` as MessageId
+              id: problemTypeMessageId(d.relevantAvalancheProblem)
             })
           : "",
         d.dangerPattern
@@ -145,8 +139,8 @@ function IncidentDashboard() {
         tr("trigger", d.trigger),
         tr("remoteTriggering", d.remoteTriggering),
         tr("personInvolvement", d.personInvolvement),
-        trList("incidentActivity", counts?.incidentActivity),
-        trList("incidentTerrainType", counts?.incidentTerrainType),
+        trList("incidentActivity", counts?.incidentActivity, "; "),
+        trList("incidentTerrainType", counts?.incidentTerrainType, "; "),
         counts?.numberInvolved,
         counts?.caughtOnly,
         counts?.partlyBuried,
