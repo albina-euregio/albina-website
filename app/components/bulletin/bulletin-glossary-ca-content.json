@@ -37,7 +37,7 @@
     },
     "heading": "Allau (allau de neu)",
     "text": "<p>Massa de neu que normalment arrossega un volum superior a 100 m\u00b3 amb una m\u00ednima allargada de 50 m que es despla\u00e7a r\u00e0pidament.</p>",
-    "img": "<img alt=\"Avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services.jpg 800w\">\n<img alt=\"Avalanche\" class=\"wis-lzload-img-plchldr\" decoding=\"async\" src=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg\"/>\n<div class=\"wis-lzload-img-plchldr\" style=\"background-image: url('https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg')\"></div>\n</img>"
+    "img": "<img alt=\"Avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services.jpg 800w\"/>"
   },
   "loose-snow-avalanche-point-release-avalanche": {
     "ids": {
@@ -554,7 +554,7 @@
       "ca": "carena"
     },
     "heading": "Carena",
-    "text": "<p>Cresta d\u2018una muntanya llarga i marcada</p><p>Explicaci\u00f3 m\u00e9s detallada:<br>Una aresta \u00e9s una cresta que connecta dos pics d\u2018una serralada</br></p>",
+    "text": "<p>Cresta d\u2018una muntanya llarga i marcada</p><p>Explicaci\u00f3 m\u00e9s detallada:<br/>Una aresta \u00e9s una cresta que connecta dos pics d\u2018una serralada</p>",
     "img": "<img alt=\"Ridgeline\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_060_ridgeline-1_thomas-mariacher_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "endangered-traffic-route": {
@@ -1370,7 +1370,7 @@
       "ca": "gebre-opac"
     },
     "heading": "Gebre opac",
-    "text": "<p>Neu precipitada que s\u2018adhereix fermament als objectes per la cara de sobrevent, com arbres, cables el\u00e8ctric, creus dels cimes etc.<br>En per\u00edodes de gel, boira i vent.</br></p>",
+    "text": "<p>Neu precipitada que s\u2018adhereix fermament als objectes per la cara de sobrevent, com arbres, cables el\u00e8ctric, creus dels cimes etc.<br/>En per\u00edodes de gel, boira i vent.</p>",
     "img": "<img alt=\"Frost buildup\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_174_frost-buildup-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_174_frost-buildup-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_174_frost-buildup-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_174_frost-buildup-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_174_frost-buildup-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_174_frost-buildup-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "surface-hoar-hoar-frost": {
@@ -1500,7 +1500,7 @@
       "de": "anrisshohe",
       "en": "fracture-depth",
       "es": "espesor-de-la-fractura",
-      "fr": "epaisseur-de-la-cassure",
+      "fr": "epaisseur-de-la-plaque-a-la-cassure",
       "is": "haed-brotstals",
       "it": "spessore-della-frattura",
       "no": "bruddkanthoyde",
@@ -1520,7 +1520,7 @@
       "de": "anrissmachtigkeit-dicke-bei-schneebrettlawinen",
       "en": "slab-thickness",
       "es": "espesor-de-la-placa",
-      "fr": "epaisseur-de-la-plaque",
+      "fr": "hauteur-de-la-plaque-a-la-cassure",
       "is": "thykkt-brotstals",
       "it": "spessore-della-frattura-nel-caso-di-valanga-di-neve-a-lastroni",
       "no": "flaktykkelse",
@@ -1670,7 +1670,7 @@
       "ca": "llocs-propensos-a-la-caiguda-dallaus-indrets-perrillosos-per-allau"
     },
     "heading": "Llocs propensos a la caiguda d\u2019allaus, indrets perrillosos (per allau)",
-    "text": "<p>Llocs on la gent o objectes poden estar afectats per allaus.</p><p><span class=\"wis-ce-fw-bld\">Atenci\u00f3:</span><br>En el butllet\u00ed de perill d\u2019allaus normalment s\u2019utilitza per referir-se a llocs on una allau pot desencadenar-se per sobrec\u00e0rrega.</br></p>",
+    "text": "<p>Llocs on la gent o objectes poden estar afectats per allaus.</p><p><span class=\"wis-ce-fw-bld\">Atenci\u00f3:</span><br/>En el butllet\u00ed de perill d\u2019allaus normalment s\u2019utilitza per referir-se a llocs on una allau pot desencadenar-se per sobrec\u00e0rrega.</p>",
     "img": ""
   },
   "broad-ridge": {
@@ -1870,7 +1870,7 @@
       "ca": "metamorfisme-dalt-i-mig-gradient-metamorfisme-constructiu-de-la-neu-formacio-de-facetes-facetament"
     },
     "heading": "Metamorfisme d\u2019alt i mig gradient, metamorfisme constructiu de la neu, formaci\u00f3 de facetes (facetament)",
-    "text": "<p>Proc\u00e9s metam\u00f2rfic de neu seca amb alt gradient de temperatura; els grans creixen en forma de cares planes i angles rectes; finalment es formen cristalls grans en forma de facetes o vasets; les capes formades per aquests tipus de grans tenen normalment baixa resist\u00e8ncia</p><p>Nota addicional:<br>El proc\u00e9s s\u2019accelera en orinetacions obagues amb poc gruix de neu I alt gradient t\u00e8rmic. Aquest porc\u00e9s pot afectar a a tot el mantel nival. A la superficie de la neu es desenvolupa preferentment durant les nits clares en pendents obacs.</br></p>",
+    "text": "<p>Proc\u00e9s metam\u00f2rfic de neu seca amb alt gradient de temperatura; els grans creixen en forma de cares planes i angles rectes; finalment es formen cristalls grans en forma de facetes o vasets; les capes formades per aquests tipus de grans tenen normalment baixa resist\u00e8ncia</p><p>Nota addicional:<br/>El proc\u00e9s s\u2019accelera en orinetacions obagues amb poc gruix de neu I alt gradient t\u00e8rmic. Aquest porc\u00e9s pot afectar a a tot el mantel nival. A la superficie de la neu es desenvolupa preferentment durant les nits clares en pendents obacs.</p>",
     "img": "<img alt=\"Kinetic metamorphism\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-150x48.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-300x96.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-768x245.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-1024x326.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services.jpg 1450w\"/>"
   },
   "size-of-the-starting-zone-for-slab-avalanches": {
@@ -2084,7 +2084,7 @@
       "is": "snjoskrid",
       "it": "slittamento",
       "no": "glidning-snoglidning",
-      "ro": "miscarea-de-alunecare-a-stratului-de-zapada",
+      "ro": "alunecare-a-zapezii",
       "sk": "klzuci-sneh",
       "sl": "drseci-sneg",
       "ca": "neu-reptant"
@@ -2289,7 +2289,7 @@
       "ca": "pla-de-lliscament"
     },
     "heading": "Pla de lliscament",
-    "text": "<p>Superf\u00edcie sobre la que es despla\u00e7a una allau de placa (pot ser el terra)</p><p><span class=\"wis-ce-fw-bld\">Atenci\u00f3:</span><br>No s\u2019ha de confondre amb la capa feble</br></p>",
+    "text": "<p>Superf\u00edcie sobre la que es despla\u00e7a una allau de placa (pot ser el terra)</p><p><span class=\"wis-ce-fw-bld\">Atenci\u00f3:</span><br/>No s\u2019ha de confondre amb la capa feble</p>",
     "img": ""
   },
   "possible-potential": {

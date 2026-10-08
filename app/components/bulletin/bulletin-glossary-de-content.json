@@ -17,7 +17,7 @@
     },
     "heading": "Abbauende Schneeumwandlung, isotherme Metamorphose",
     "text": "<p>Umwandlungsprozess von abgelagertem, trockenem Neuschnee bei <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=de#isotherme-schneedecke\" href=\"https://www.avalanches.org/glossary/?lang=de#isotherme-schneedecke\">isothermer Schneedecke</a> oder geringem <a data-mce-href=\"https://www.avalanches.org/glossary/?lang=de#temperaturgradient\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/?lang=de#temperaturgradient\">Temperaturgradient</a>.</p><p>Dabei vereinfachen Neuschneekristalle ihre Form im Bestreben die Kugelform zu erreichen. Damit verbunden ist eine Setzung und Verfestigung des Neuschnees.</p>",
-    "img": "<img alt=\"Snow metamorphism\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-150x23.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-300x46.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-768x118.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-1024x158.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services.jpg 1452w\">\n<img alt=\"Snow metamorphism\" class=\"wis-lzload-img-plchldr\" decoding=\"async\" src=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-150x23.jpg\"/>\n<div class=\"wis-lzload-img-plchldr\" style=\"background-image: url('https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-150x23.jpg')\"></div>\n<p class=\"img-copyr\"><span>\u00a9 Lisa Manneh</span></p>\n</img>"
+    "img": "<img alt=\"Snow metamorphism\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-150x23.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-300x46.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-768x118.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services-1024x158.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_1_Lisa_Mannehl_european-avalanche-warning-services.jpg 1452w\"/>"
   },
   "slab-width": {
     "ids": {
@@ -141,7 +141,7 @@
       "cs": "vyska-odtrhu",
       "en": "fracture-depth",
       "es": "espesor-de-la-fractura",
-      "fr": "epaisseur-de-la-cassure",
+      "fr": "epaisseur-de-la-plaque-a-la-cassure",
       "is": "haed-brotstals",
       "it": "spessore-della-frattura",
       "no": "bruddkanthoyde",
@@ -181,7 +181,7 @@
       "cs": "vyska-odtrhu",
       "en": "slab-thickness",
       "es": "espesor-de-la-placa",
-      "fr": "epaisseur-de-la-plaque",
+      "fr": "hauteur-de-la-plaque-a-la-cassure",
       "is": "thykkt-brotstals",
       "it": "spessore-della-frattura-nel-caso-di-valanga-di-neve-a-lastroni",
       "no": "flaktykkelse",
@@ -880,7 +880,7 @@
       "is": "snjoskrid",
       "it": "slittamento",
       "no": "glidning-snoglidning",
-      "ro": "miscarea-de-alunecare-a-stratului-de-zapada",
+      "ro": "alunecare-a-zapezii",
       "sk": "klzuci-sneh",
       "sl": "drseci-sneg",
       "de": "gleiten-schneegleiten"
@@ -915,9 +915,10 @@
       "cs": "problem-klouzave-laviny",
       "en": "gliding-snow-problem",
       "es": "problema-de-deslizamiento-basal",
-      "fr": "neige-glissante-situation-avalancheuse-typique",
+      "fr": "avalanche-de-glissement-situation-avalancheuse-typique",
       "is": "snjoskrid-sem-snjoflodavandi",
       "it": "valanghe-di-slittamento-problema-tipico-valanghivo",
+      "ro": "problema-alunecarii-zapezii",
       "sl": "problem-drsecega-snega",
       "de": "gleitschneeproblem"
     },

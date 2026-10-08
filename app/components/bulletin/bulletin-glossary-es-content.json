@@ -92,7 +92,7 @@
     },
     "heading": "Alud (avalancha de nieve)",
     "text": "<p>Masa de nieve que normalmente arrastra un volumen superior a 100 m\u00b3 con una longitud m\u00ednima de 50 m que se desplaza r\u00e1pidamente.</p>",
-    "img": "<img alt=\"Avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services.jpg 800w\">\n<img alt=\"Avalanche\" class=\"wis-lzload-img-plchldr\" decoding=\"async\" src=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg\"/>\n<div class=\"wis-lzload-img-plchldr\" style=\"background-image: url('https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg')\"></div>\n</img>"
+    "img": "<img alt=\"Avalanche\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_068_avalanche-1_no-name_european-avalanche-warning-services.jpg 800w\"/>"
   },
   "ground-avalanche": {
     "ids": {
@@ -1177,7 +1177,7 @@
       "es": "en-particular-por-sobrecarga-fuerte"
     },
     "heading": "En particular (por sobrecarga fuerte)",
-    "text": "<p>En general los aludes pueden desencadenarse por un grupo de personas en una misma vertiente pero tambi\u00e9n existe la posibilidad, en ciertas situaciones, de desencadenamiento al paso de una sola persona</p><p>Nota:<br>T\u00e9rmino de la escala de peligro de aludes \u00a0utilizado en el bolet\u00edn diario</br></p>",
+    "text": "<p>En general los aludes pueden desencadenarse por un grupo de personas en una misma vertiente pero tambi\u00e9n existe la posibilidad, en ciertas situaciones, de desencadenamiento al paso de una sola persona</p><p>Nota:<br/>T\u00e9rmino de la escala de peligro de aludes \u00a0utilizado en el bolet\u00edn diario</p>",
     "img": ""
   },
   "snow-water-equivalent": {
@@ -1283,7 +1283,7 @@
       "cs": "vyska-odtrhu",
       "de": "anrisshohe",
       "en": "fracture-depth",
-      "fr": "epaisseur-de-la-cassure",
+      "fr": "epaisseur-de-la-plaque-a-la-cassure",
       "is": "haed-brotstals",
       "it": "spessore-della-frattura",
       "no": "bruddkanthoyde",
@@ -1303,7 +1303,7 @@
       "cs": "vyska-odtrhu",
       "de": "anrissmachtigkeit-dicke-bei-schneebrettlawinen",
       "en": "slab-thickness",
-      "fr": "epaisseur-de-la-plaque",
+      "fr": "hauteur-de-la-plaque-a-la-cassure",
       "is": "thykkt-brotstals",
       "it": "spessore-della-frattura-nel-caso-di-valanga-di-neve-a-lastroni",
       "no": "flaktykkelse",
@@ -1768,7 +1768,7 @@
       "es": "ladera-umbria-ladera-sombria"
     },
     "heading": "Ladera umbr\u00eda, ladera sombr\u00eda",
-    "text": "<p>Vertiente que est\u00e1 a la sombra, sin que le toque la luz solar, t\u00edpicamente orientadas al norte</p><p>Explicaci\u00f3n m\u00e1s detallada:<br>En pleno invierno, cuando el sol se encuentra m\u00e1s bajo respecto al horizonte, las zonas en sombra son m\u00e1s numerosas que en primavera, cuando el sol se eleva sobre el horizonte. Seg\u00fan la influencia producida por obst\u00e1culos \u00a0cercanos, la sombra puede encontrarse en otras orientaciones, no exclusivamente en las septentrionales.</br></p>",
+    "text": "<p>Vertiente que est\u00e1 a la sombra, sin que le toque la luz solar, t\u00edpicamente orientadas al norte</p><p>Explicaci\u00f3n m\u00e1s detallada:<br/>En pleno invierno, cuando el sol se encuentra m\u00e1s bajo respecto al horizonte, las zonas en sombra son m\u00e1s numerosas que en primavera, cuando el sol se eleva sobre el horizonte. Seg\u00fan la influencia producida por obst\u00e1culos \u00a0cercanos, la sombra puede encontrarse en otras orientaciones, no exclusivamente en las septentrionales.</p>",
     "img": "<img alt=\"Shady slope\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "local-from-place-to-place": {
@@ -1968,7 +1968,7 @@
       "es": "metamorfosis-por-accion-del-viento-formacion-de-caras-planas"
     },
     "heading": "Metamorfosis por acci\u00f3n del viento (formaci\u00f3n de caras planas)",
-    "text": "<p>Proceso metam\u00f3rfico de nieve seca con alto gradiente de temperatura; los granos crecen en forma de caras planas y \u00e1ngulos rectos; finalmente se forman cristales grandes en forma de caras planas o cubiletes; las capas formadas por estos tipos de granos tienen normalmente baja resistencia</p><p>Nota adicional:<br>El proceso se acelera en orinetacions umbr\u00edas con poco espesor de nieve y alto gradiente t\u00e9rmico. Este proceso puede afectar a en todo el manto nivoso. En la superficie de la nieve se desarrolla preferentemente durante las noches claras en pendientes umbr\u00edas.</br></p>",
+    "text": "<p>Proceso metam\u00f3rfico de nieve seca con alto gradiente de temperatura; los granos crecen en forma de caras planas y \u00e1ngulos rectos; finalmente se forman cristales grandes en forma de caras planas o cubiletes; las capas formadas por estos tipos de granos tienen normalmente baja resistencia</p><p>Nota adicional:<br/>El proceso se acelera en orinetacions umbr\u00edas con poco espesor de nieve y alto gradiente t\u00e9rmico. Este proceso puede afectar a en todo el manto nivoso. En la superficie de la nieve se desarrolla preferentemente durante las noches claras en pendientes umbr\u00edas.</p>",
     "img": "<img alt=\"Kinetic metamorphism\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-150x48.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-300x96.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-768x245.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services-1024x326.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_111_snow_metamorphism_2_Lisa_Mannehl_european-avalanche-warning-services.jpg 1450w\"/>"
   },
   "multiple-starting-zones": {
@@ -2022,7 +2022,7 @@
       "is": "snjoskrid",
       "it": "slittamento",
       "no": "glidning-snoglidning",
-      "ro": "miscarea-de-alunecare-a-stratului-de-zapada",
+      "ro": "alunecare-a-zapezii",
       "sk": "klzuci-sneh",
       "sl": "drseci-sneg",
       "es": "nieve-deslizante"
@@ -2187,7 +2187,7 @@
       "es": "nieve-reciente-o-fresca"
     },
     "heading": "Nieve reciente o fresca",
-    "text": "<p>Nieve reci\u00e9n ca\u00edda<br>Se trata de nieve poco transformada y poco compactada que resulta de nevadas actuales o muy recientes</br></p><p>El tama\u00f1o de grano caracter\u00edstico: 1-3 mm</p><p>El per\u00edodo de la nevada se indica en el bolet\u00edn de peligro de aludes.</p>",
+    "text": "<p>Nieve reci\u00e9n ca\u00edda<br/>Se trata de nieve poco transformada y poco compactada que resulta de nevadas actuales o muy recientes</p><p>El tama\u00f1o de grano caracter\u00edstico: 1-3 mm</p><p>El per\u00edodo de la nevada se indica en el bolet\u00edn de peligro de aludes.</p>",
     "img": "<img alt=\"New fallen snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_079_new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "transported-snow": {
@@ -2360,7 +2360,7 @@
       "es": "perfil-estratigrafico"
     },
     "heading": "Perfil estratigr\u00e1fico",
-    "text": "<p>Los perfiles estratigr\u00e1ficos son registros realizados en una localizaci\u00f3n y en un momento concretos del manto nivoso y desempe\u00f1an un papel importante en la evaluaci\u00f3n del peligro de aludes. En dicho perfil, el manto queda expuesta hasta el suelo para su inspecci\u00f3n transversal. De esta manera, las diferentes capas se hacen visibles, pudi\u00e9ndose estimar par\u00e1metros como la dureza, el tipo de nieve/forma del grano, el contenido de agua/humedad y la temperatura de la nieve.<br>Debido a la transformaci\u00f3n de la nieve, las distintas capas se encuentran en constante cambio y, por lo tanto, este perfil permite sacar conclusiones sobre la influencia meteorol\u00f3gica en el momento de la formaci\u00f3n de cada una de las capas (nieve fresca, lluvia, viento, radiaci\u00f3n solar, etc\u2026), al igual que su desarrollo posterior dentro del manto (presi\u00f3n inherente, pendiente, etc.).<br/>El perfil estratigr\u00e1fico permite identificar posibles capas d\u00e9biles dentro del manto nivoso, pero no se puede evaluar su estabilidad real. Esto se puede determinar mediante un test de estabilidad</br></p>",
+    "text": "<p>Los perfiles estratigr\u00e1ficos son registros realizados en una localizaci\u00f3n y en un momento concretos del manto nivoso y desempe\u00f1an un papel importante en la evaluaci\u00f3n del peligro de aludes. En dicho perfil, el manto queda expuesta hasta el suelo para su inspecci\u00f3n transversal. De esta manera, las diferentes capas se hacen visibles, pudi\u00e9ndose estimar par\u00e1metros como la dureza, el tipo de nieve/forma del grano, el contenido de agua/humedad y la temperatura de la nieve.<br/>Debido a la transformaci\u00f3n de la nieve, las distintas capas se encuentran en constante cambio y, por lo tanto, este perfil permite sacar conclusiones sobre la influencia meteorol\u00f3gica en el momento de la formaci\u00f3n de cada una de las capas (nieve fresca, lluvia, viento, radiaci\u00f3n solar, etc\u2026), al igual que su desarrollo posterior dentro del manto (presi\u00f3n inherente, pendiente, etc.).<br/>El perfil estratigr\u00e1fico permite identificar posibles capas d\u00e9biles dentro del manto nivoso, pero no se puede evaluar su estabilidad real. Esto se puede determinar mediante un test de estabilidad</p>",
     "img": "<img alt=\"Snow profile\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/Glossary-Schneeprofil-\u00a9-LWD-Tirol-EAWS-European-Avalanche-Warning-Services-150x114.png 150w, https://www.avalanches.org/wp-content/uploads/2022/07/Glossary-Schneeprofil-\u00a9-LWD-Tirol-EAWS-European-Avalanche-Warning-Services-300x227.png 300w, https://www.avalanches.org/wp-content/uploads/2022/07/Glossary-Schneeprofil-\u00a9-LWD-Tirol-EAWS-European-Avalanche-Warning-Services-768x581.png 768w, https://www.avalanches.org/wp-content/uploads/2022/07/Glossary-Schneeprofil-\u00a9-LWD-Tirol-EAWS-European-Avalanche-Warning-Services.png 905w\"/>"
   },
   "base-of-a-rock-wall": {
@@ -2449,9 +2449,10 @@
       "cs": "problem-klouzave-laviny",
       "de": "gleitschneeproblem",
       "en": "gliding-snow-problem",
-      "fr": "neige-glissante-situation-avalancheuse-typique",
+      "fr": "avalanche-de-glissement-situation-avalancheuse-typique",
       "is": "snjoskrid-sem-snjoflodavandi",
       "it": "valanghe-di-slittamento-problema-tipico-valanghivo",
+      "ro": "problema-alunecarii-zapezii",
       "sl": "problem-drsecega-snega",
       "es": "problema-de-deslizamiento-basal"
     },
@@ -3149,7 +3150,7 @@
       "es": "zonas-favorables-a-desencadenamiento-de-aludes-zonas-peligrosas"
     },
     "heading": "Zonas favorables a desencadenamiento de aludes, zonas peligrosas",
-    "text": "<p>Lugar donde personas u objetos pueden verse afectados por aludes</p><p><span class=\"wis-ce-fw-bld\">Atenci\u00f3n:</span><br>En el bolet\u00edn de peligro de aludes normalmente se emplea para indicar lugares donde un alud puede desencadenarse por sobrecarga.</br></p>",
+    "text": "<p>Lugar donde personas u objetos pueden verse afectados por aludes</p><p><span class=\"wis-ce-fw-bld\">Atenci\u00f3n:</span><br/>En el bolet\u00edn de peligro de aludes normalmente se emplea para indicar lugares donde un alud puede desencadenarse por sobrecarga.</p>",
     "img": ""
   }
 }

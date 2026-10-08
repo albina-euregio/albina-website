@@ -17,7 +17,7 @@
     },
     "heading": "Accumulation zone",
     "text": "<p>Area of slope where snow, transported by wind, accumulates and builds.</p>",
-    "img": "<img alt=\"Wafted slope area\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie.jpg 2048w\">\n<img alt=\"Wafted slope area\" class=\"wis-lzload-img-plchldr\" decoding=\"async\" src=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-150x100.jpg\"/>\n<div class=\"wis-lzload-img-plchldr\" style=\"background-image: url('https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-150x100.jpg')\"></div>\n<p class=\"img-copyr\"><span>\u00a9 Avalanche Warning Service Tyrol</span></p>\n</img>"
+    "img": "<img alt=\"Wafted slope area\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_151_wafted-slope-area-1_lwd-tirol_european-avalanche-warning-services-Kopie.jpg 2048w\"/>"
   },
   "additional-load": {
     "ids": {
@@ -135,7 +135,7 @@
       "en": "artificial-avalanche-release"
     },
     "heading": "Artificial avalanche release",
-    "text": "<p>An avalanche triggered by artificially applied force (e.g. explosives, snow machines, people).</p>",
+    "text": "<p>An avalanche triggered by artifically applied force (e.g. explosives, snow machines, people).</p>",
     "img": ""
   },
   "aspect": {
@@ -238,6 +238,14 @@
     "text": "<p>Total length of an avalanche measured from the highest point of the fracture line to the lowest point of the deposition.</p>",
     "img": "<img alt=\"Avalanche length\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_067_avalanche-length-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_067_avalanche-length-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_067_avalanche-length-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_067_avalanche-length-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_067_avalanche-length-1_lwd-tirol_european-avalanche-warning-services.jpg 1500w\"/>"
   },
+  "avalanche-path": {
+    "ids": {
+      "en": "avalanche-path"
+    },
+    "heading": "Avalanche Path",
+    "text": "<p>An avalanche path describes the area where an avalanche can occur, from its starting point (in a <a data-mce-href=\"https://www.avalanches.org/glossary/#starting-zone\" href=\"https://www.avalanches.org/glossary/#starting-zone\" rel=\"noopener\" target=\"_blank\">Starting Zone</a>), its <a data-mce-href=\"https://www.avalanches.org/glossary/#avalanche-track\" href=\"https://www.avalanches.org/glossary/#avalanche-track\" rel=\"noopener\" target=\"_blank\">track</a> and to its terminus (in the <a data-mce-href=\"https://www.avalanches.org/glossary/#avalanche-runout-zone\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/#avalanche-runout-zone\" rel=\"noopener\" target=\"_blank\">Runout Zone</a>).</p>",
+    "img": ""
+  },
   "avalanche-problems": {
     "ids": {
       "ar": "problemes-de-lauegi",
@@ -274,6 +282,14 @@
     "text": "<p>Locations delineated by <a data-mce-href=\"#aspect\" data-mce-selected=\"inline-boundary\" href=\"#aspect\">aspect </a>or <a data-mce-href=\"#altitudes\" href=\"#altitudes\">altitude </a>where <a data-mce-href=\"#avalanche\" href=\"#avalanche\">avalanches </a>can trigger and people or objects are at risk.</p>",
     "img": ""
   },
+  "avalanche-runout-zone": {
+    "ids": {
+      "en": "avalanche-runout-zone"
+    },
+    "heading": "Avalanche Runout zone",
+    "text": "<p>An avalanche runout zone is the lower portion of an avalanche path where debris slows and stops, typically occurring on slopes of 15 degrees or less. </p><p>It represents a high-consequence area even when the avalanche danger is low as avalanches may release from well above and reach low elevations.</p>",
+    "img": ""
+  },
   "avalanche-size": {
     "ids": {
       "ar": "mida-deth-laueg",
@@ -293,6 +309,22 @@
     "heading": "Avalanche size",
     "text": "<p>Size of avalanche, classified by destructive potential, runout length and dimension.</p><p><span class=\"wis-ce-fw-bld\">Size 1:</span> small avalanche (sluff)</p><ul>\n<li>minimal danger of burying (danger of people being carried/falling)</li>\n<li>snow relocation typically stops before the end of a slope</li>\n</ul><p>Small avalanche (sluff) \u2013 size 1</p><p><span class=\"wis-ce-fw-bld\">Size 2:</span> medium avalanche</p><ul>\n<li>could bury, injure or kill a person</li>\n<li>snow avalanche stops typically at the end of a slope</li>\n</ul><p>Medium avalanche \u2013 size 2</p><p><span class=\"wis-ce-fw-bld\">Size 3:</span> large avalanche</p><ul>\n<li>could bury and destroy a car, damage a truck; destroy a small building or break a few trees</li>\n<li>snow avalanche could traverse flat terrain (considerably below 30\u00b0) over distances of less than 50 m</li>\n</ul><p>Large avalanche \u2013 size 3</p><p><span class=\"wis-ce-fw-bld\">Size 4:</span> very large avalanche</p><ul>\n<li>could bury and destroy a railway car, large truck, several buildings or a piece of forest</li>\n<li>snow avalanche traverses flat terrain (considerably below 30\u00b0) over distances more than 50 m and can reach valley ground</li>\n</ul><p>Very large avalanche \u2013 size 4</p><p><span class=\"wis-ce-fw-bld\">Size 5:</span> extremely large avalanche</p><ul>\n<li>could gouge the landscape; disastrous damage potential</li>\n<li>snow avalanche reaches valley ground; largest runout distance known</li>\n</ul><p>Extremely large avalanche \u2013 size 5</p>",
     "img": "<img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/><img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/><img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/><img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\"/><img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\"/>"
+  },
+  "avalanche-terrain": {
+    "ids": {
+      "en": "avalanche-terrain"
+    },
+    "heading": "Avalanche Terrain",
+    "text": "<p>Avalanche terrain refers to any area where avalanches can start(<a data-mce-href=\"https://www.avalanches.org/glossary/#starting-zone\" href=\"https://www.avalanches.org/glossary/#starting-zone\" rel=\"noopener\" target=\"_blank\">Starting Zone</a>), travel(<a data-mce-href=\"https://www.avalanches.org/glossary/#avalanche-track\" href=\"https://www.avalanches.org/glossary/#avalanche-track\" rel=\"noopener\" target=\"_blank\">Avalanche track</a>), or stop (<a data-mce-href=\"https://www.avalanches.org/glossary/#avalanche-runout-zone\" href=\"https://www.avalanches.org/glossary/#avalanche-runout-zone\" rel=\"noopener\" target=\"_blank\">Avalanche Runout Zone</a>). It combines specific slope, snowpack, and terrain features that make avalanches possible or influence their behavior. An <a data-mce-href=\"https://www.avalanches.org/glossary/#avalanche-path\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/#avalanche-path\" rel=\"noopener\" target=\"_blank\">avalanche path</a> describes the route of the avalanche from its release point to the tip of the debris pile once it stops. Avalanche terrain may comprise many avalanche paths.</p>",
+    "img": ""
+  },
+  "avalanche-track": {
+    "ids": {
+      "en": "avalanche-track"
+    },
+    "heading": "Avalanche track",
+    "text": "<p>Where the avalanche gains speed and travels downslope. It is the middle zone of an avalanche Path. Between avalanche initiation in the <a data-mce-href=\"https://www.avalanches.org/glossary/#starting-zone\" href=\"https://www.avalanches.org/glossary/#starting-zone\" rel=\"noopener\" target=\"_blank\">Starting zone</a> and where the avalanche slows down and stops in the <a data-mce-href=\"https://www.avalanches.org/glossary/#avalanche-runout-zone\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/#avalanche-runout-zone\" rel=\"noopener\" target=\"_blank\">Runout Zone</a>.</p>",
+    "img": ""
   },
   "avalanche-types": {
     "ids": {
@@ -929,7 +961,7 @@
       "cs": "vyska-odtrhu",
       "de": "anrisshohe",
       "es": "espesor-de-la-fractura",
-      "fr": "epaisseur-de-la-cassure",
+      "fr": "epaisseur-de-la-plaque-a-la-cassure",
       "is": "haed-brotstals",
       "it": "spessore-della-frattura",
       "no": "bruddkanthoyde",
@@ -1032,7 +1064,7 @@
       "is": "snjoskrid",
       "it": "slittamento",
       "no": "glidning-snoglidning",
-      "ro": "miscarea-de-alunecare-a-stratului-de-zapada",
+      "ro": "alunecare-a-zapezii",
       "sk": "klzuci-sneh",
       "sl": "drseci-sneg",
       "en": "gliding-snow"
@@ -1047,9 +1079,10 @@
       "cs": "problem-klouzave-laviny",
       "de": "gleitschneeproblem",
       "es": "problema-de-deslizamiento-basal",
-      "fr": "neige-glissante-situation-avalancheuse-typique",
+      "fr": "avalanche-de-glissement-situation-avalancheuse-typique",
       "is": "snjoskrid-sem-snjoflodavandi",
       "it": "valanghe-di-slittamento-problema-tipico-valanghivo",
+      "ro": "problema-alunecarii-zapezii",
       "sl": "problem-drsecega-snega",
       "en": "gliding-snow-problem"
     },
@@ -2059,7 +2092,7 @@
       "cs": "vyska-odtrhu",
       "de": "anrissmachtigkeit-dicke-bei-schneebrettlawinen",
       "es": "espesor-de-la-placa",
-      "fr": "epaisseur-de-la-plaque",
+      "fr": "hauteur-de-la-plaque-a-la-cassure",
       "is": "thykkt-brotstals",
       "it": "spessore-della-frattura-nel-caso-di-valanga-di-neve-a-lastroni",
       "no": "flaktykkelse",
@@ -2347,7 +2380,7 @@
       "en": "snow-line"
     },
     "heading": "Snow line",
-    "text": "<p>Lower topographical limit of continuous snow cover, designated by <a data-mce-href=\"https://www.avalanches.org/glossary/#altitudes\" href=\"https://www.avalanches.org/glossary/#altitudes\">altitude</a>.<br>Depending on <a data-mce-href=\"https://www.avalanches.org/glossary/#aspect\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/#aspect\">slope aspect</a>, the snow line can vary greatly.</br></p>",
+    "text": "<p>Lower topographical limit of continuous snow cover, designated by <a data-mce-href=\"https://www.avalanches.org/glossary/#altitudes\" href=\"https://www.avalanches.org/glossary/#altitudes\">altitude</a>.<br/>Depending on <a data-mce-href=\"https://www.avalanches.org/glossary/#aspect\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/#aspect\">slope aspect</a>, the snow line can vary greatly.</p>",
     "img": "<img alt=\"Snow line\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_106_snow-line_lwd-tirol_european-avalanche-warning-services-150x120.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_106_snow-line_lwd-tirol_european-avalanche-warning-services-300x240.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_106_snow-line_lwd-tirol_european-avalanche-warning-services-768x614.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_106_snow-line_lwd-tirol_european-avalanche-warning-services-1024x819.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_106_snow-line_lwd-tirol_european-avalanche-warning-services.jpg 1280w\"/>"
   },
   "snow-metamorphism": {
@@ -2523,26 +2556,6 @@
     "text": "<p>Snow surface layer strong enough to support a person walking on it.</p>",
     "img": "<img alt=\"Snowpack capable of bearing loads\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_133_snowpack-capable-of-bearing-loads-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
-  "snowpack-stability": {
-    "ids": {
-      "ar": "estabilitat-deth-manteth-nivau",
-      "ca": "estabilitat-del-mantell-nival",
-      "cs": "stabilita-snehove-pokryvky",
-      "de": "schneedeckenstabilitat",
-      "es": "estabilidad-del-manto-de-nieve",
-      "fr": "stabilite-du-manteau-neigeux",
-      "is": "stodugleiki-snaevar",
-      "it": "stabilita-del-manto-nevoso",
-      "no": "stabilitet-snodekket",
-      "ro": "stabilitatea-stratului-de-zapada",
-      "sk": "stabilita-snehovej-pokryvky",
-      "sl": "stabilnost-snezne-odeje",
-      "en": "snowpack-stability"
-    },
-    "heading": "Snowpack stability",
-    "text": "<h6>Definition</h6> <p> Snowpack stability is a local property of the snowpack describing the propensity of a snow-covered slope to avalanche <a href=\"https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018GL078069\" >(Reuter and Schweizer, 2018)</a >. Snowpack stability is described using four classes: <i>Very Poor</i>, <i>Poor</i>, <i>Fair</i>, and <i>Good</i>. </p><h6>Remarks</h6><p>Depending on the avalanche type, snowpack stability is described by:</p><p class=\"small\" style=\"text-align: center\"> Table 1: Stability classes, and the type of triggering typically associated with these classes. </p> <div class=\"table-container\"> <table class=\"pure-table pure-table-striped full-width\"> <thead> <tr> <th>Stability class</th> <th>How easy is it to trigger an avalanche?</th> </tr> </thead> <tbody> <tr> <td>Very Poor</td> <td>Naturals / very easy to trigger</td> </tr> <tr> <td>Poor</td> <td>Easy to trigger (e.g. a single skier)</td> </tr> <tr> <td>Fair</td> <td>Difficult to trigger (e.g. explosives)</td> </tr> <tr> <td>Good</td> <td>Stable conditions</td> </tr> </tbody> </table> </div>",
-    "img": ""
-  },
   "spacing-distances-maintaining-distances": {
     "ids": {
       "ar": "separar-era-distancia-mantier-era-distancia",
@@ -2619,7 +2632,7 @@
       "en": "starting-zone"
     },
     "heading": "Starting zone",
-    "text": "<p>Sector of terrain where avalanche releases.</p>",
+    "text": "<p>Sector of terrain where avalanche releases.An avalanche start zone is the uppermost part of an <a data-mce-href=\"https://www.avalanches.org/glossary/#avalanche-path\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/#avalanche-path\" rel=\"noopener\" target=\"_blank\">avalanche path</a>, typically on slopes between 30 and 45 degrees, where unstable snow breaks away, caused by a natural, artificial or human triggers.</p>",
     "img": "<img alt=\"Starting zone\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_005_starting-zone-1_lwd-tiroll_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_005_starting-zone-1_lwd-tiroll_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_005_starting-zone-1_lwd-tiroll_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_005_starting-zone-1_lwd-tiroll_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_005_starting-zone-1_lwd-tiroll_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_005_starting-zone-1_lwd-tiroll_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "steep-terrain": {
@@ -3090,7 +3103,7 @@
       "en": "wind-slab-problem"
     },
     "heading": "Wind slab problem",
-    "text": "<p>The wind-drifted snow problem is related to wind-drifted snow. The transported snow is typically packed on <a data-mce-href=\"https://www.avalanches.org/glossary/#leeward\" href=\"https://www.avalanches.org/glossary/#leeward\">leeward sides</a> into gullies, bowls and behind ridgelines or other wind-sheltered locations. Also commonly known as \u201cwindslab\u201d. The problem is less widespread distributed than the <a data-mce-href=\"https://www.avalanches.org/glossary/#new-snow-problem\" data-mce-selected=\"inline-boundary\" href=\"https://www.avalanches.org/glossary/#new-snow-problem\">new snow problem</a>.</p><p>For more information see: Wind Slab Problem</p><p>Back to: <a data-mce-href=\"#avalanche-problems\" href=\"#avalanche-problems\" rel=\"noopener\" target=\"_blank\">Avalanche Problems</a></p>",
+    "text": "<p>The wind-drifted snow problem is related to wind transported snow. The transported snow is typically packed onto <a data-mce-href=\"https://www.avalanches.org/glossary/#leeward\" href=\"https://www.avalanches.org/glossary/#leeward\">leeward sides</a> or aspects, into gullies, bowls and behind ridgelines or other wind-sheltered locations. Also commonly known as \u201cwindslab\u201d. The problem is typically less widespread than the <a data-mce-href=\"https://www.avalanches.org/glossary/#new-snow-problem\" href=\"https://www.avalanches.org/glossary/#new-snow-problem\">new snow problem</a>.</p><p>For more information see: Wind Slab Problem</p><p>Back to: <a data-mce-href=\"#avalanche-problems\" href=\"#avalanche-problems\" rel=\"noopener\" target=\"_blank\">Avalanche Problems\ufeff</a></p>",
     "img": "<img alt=\"Wind slab\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-150x43.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-300x86.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-768x219.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-1024x293.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-1536x439.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-2048x585.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/04/Avalanche-Problems-Wind-drifted-Snow-EAWS-1-scaled.jpg 2560w\"/>"
   },
   "wind-speed": {

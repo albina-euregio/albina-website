@@ -17,7 +17,7 @@
     },
     "heading": "Altezza del manto nevoso",
     "text": "<p>Altezza del manto nevoso misurata verticalmente.</p>",
-    "img": "<img alt=\"Snow depth\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services.jpg 1066w\">\n<img alt=\"Snow depth\" class=\"wis-lzload-img-plchldr\" decoding=\"async\" src=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-150x113.jpg\"/>\n<div class=\"wis-lzload-img-plchldr\" style=\"background-image: url('https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-150x113.jpg')\"></div>\n<p class=\"img-copyr\"><span>\u00a9 Gerhard Figl</span></p>\n</img>"
+    "img": "<img alt=\"Snow depth\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_107_snow-depth-1_gerhard-figl_european-avalanche-warning-services.jpg 1066w\"/>"
   },
   "amount-of-new-snow": {
     "ids": {
@@ -1264,7 +1264,7 @@
       "it": "lontano-dal-crinale-pendio-aperto"
     },
     "heading": "Lontano dal crinale, pendio aperto",
-    "text": "<p>Zona che non \u00e8 direttamente collegata con il crinale</p><p><span class=\"wis-ce-fw-bld\">Spiegazione pi\u00f9 dettagliata:</span><br>Questa zona corrisponde spesso al passaggio da un terreno estremamente ripido a uno ripido. I tratti ripidi e i piccoli rilievi che non sono in relazione diretta con il crinale fanno ugualmente parte di questa zona. Le aree prossime al crinale e quelle lontane dal crinale non sono separate nettamente le une dalle altre. Il limite tra le due deve essere considerato come una zona di transizione.</br></p>",
+    "text": "<p>Zona che non \u00e8 direttamente collegata con il crinale</p><p><span class=\"wis-ce-fw-bld\">Spiegazione pi\u00f9 dettagliata:</span><br/>Questa zona corrisponde spesso al passaggio da un terreno estremamente ripido a uno ripido. I tratti ripidi e i piccoli rilievi che non sono in relazione diretta con il crinale fanno ugualmente parte di questa zona. Le aree prossime al crinale e quelle lontane dal crinale non sono separate nettamente le une dalle altre. Il limite tra le due deve essere considerato come una zona di transizione.</p>",
     "img": "<img alt=\"Area distant from ridgelines\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services-1024x682.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_061_area-from-ridgelines-2_lwd-tirol_european-avalanche-warning-services.jpg 2000w\"/>"
   },
   "size-of-the-starting-zone-for-slab-avalanches": {
@@ -1324,7 +1324,7 @@
       "it": "luogo-pericoloso-in-caso-di-valanga"
     },
     "heading": "Luogo pericoloso (in caso di valanga)",
-    "text": "<p>Luogo dove persone o beni possono essere travolti da una valanga</p><p><span class=\"wis-ce-fw-bld\">Attenzione:</span><br>Questo termine \u00e8 generalmente utilizzato nel bollettino valanghe nell\u2019accezione seguente: luogo in cui il sovraccarico prodotto da sciatori o alpinisti pu\u00f2 provocare il distacco di una valanga.</br></p>",
+    "text": "<p>Luogo dove persone o beni possono essere travolti da una valanga</p><p><span class=\"wis-ce-fw-bld\">Attenzione:</span><br/>Questo termine \u00e8 generalmente utilizzato nel bollettino valanghe nell\u2019accezione seguente: luogo in cui il sovraccarico prodotto da sciatori o alpinisti pu\u00f2 provocare il distacco di una valanga.</p>",
     "img": ""
   },
   "snow-cover-snowpack": {
@@ -1810,7 +1810,7 @@
       "it": "particelle-frammentate"
     },
     "heading": "Particelle frammentate",
-    "text": "<p>Particelle irregolari e biforcute risultanti dall\u2019arrotondamento dei cristalli di neve e/o da influssi meccanici come ad esempio dal vento. I frammenti di cristalli di neve fresca sono spesso ancora riconoscibili.<br>Granulometria caratteristica: da 1 a 2 mm circa</br></p><p>Vedi anche: <a data-mce-href=\"http://www.snowcrystals.it\" data-mce-selected=\"inline-boundary\" href=\"http://www.snowcrystals.it\" rel=\"noopener\" target=\"_blank\">www.snowcrystals.it</a><br data-mce-bogus=\"1\"/></p>",
+    "text": "<p>Particelle irregolari e biforcute risultanti dall\u2019arrotondamento dei cristalli di neve e/o da influssi meccanici come ad esempio dal vento. I frammenti di cristalli di neve fresca sono spesso ancora riconoscibili.<br/>Granulometria caratteristica: da 1 a 2 mm circa</p><p>Vedi anche: <a data-mce-href=\"http://www.snowcrystals.it\" data-mce-selected=\"inline-boundary\" href=\"http://www.snowcrystals.it\" rel=\"noopener\" target=\"_blank\">www.snowcrystals.it</a><br data-mce-bogus=\"1\"/></p>",
     "img": ""
   },
   "pass-area": {
@@ -1870,7 +1870,7 @@
       "it": "pendio-in-ombra-versante-allombra"
     },
     "heading": "Pendio in ombra, versante all\u2019ombra",
-    "text": "<p>Zona che risente solo marginalmente, o non risente affatto, della radiazione solare.</p><p>Spiegazione pi\u00f9 dettagliata:<br>in pieno inverno, quando il sole \u00e8 basso sull\u2019orizzonte, le zone in ombra sono pi\u00f9 numerose che in primavera, quando il sole si alza sempre pi\u00f9 al di sopra dell\u2019orizzonte. A seconda dell\u2019ombra prodotta dall\u2019orizzonte locale, le zone d\u2019ombra possono trovarsi a tutte le esposizioni e non solo sui pendii settentrionali.</br></p>",
+    "text": "<p>Zona che risente solo marginalmente, o non risente affatto, della radiazione solare.</p><p>Spiegazione pi\u00f9 dettagliata:<br/>in pieno inverno, quando il sole \u00e8 basso sull\u2019orizzonte, le zone in ombra sono pi\u00f9 numerose che in primavera, quando il sole si alza sempre pi\u00f9 al di sopra dell\u2019orizzonte. A seconda dell\u2019ombra prodotta dall\u2019orizzonte locale, le zone d\u2019ombra possono trovarsi a tutte le esposizioni e non solo sui pendii settentrionali.</p>",
     "img": "<img alt=\"Shady slope\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_093_shady-slope_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "sunny-slope": {
@@ -2084,7 +2084,7 @@
       "it": "quantita-critica-di-neve-fresca"
     },
     "heading": "Quantit\u00e0 critica di neve fresca",
-    "text": "<p>La neve fresca \u00e8 un carico per il manto nevoso presente e, di conseguenza, aumenta il pericolo di valanghe.</p><p>La regola empirica per un carico critico di neve fresca \u00e8:<br>10 a 20 cm con situazioni sfavorevoli<br>20 a 30 cm con situazioni intermedie<br>30 a 50 cm con favorevoli situazioni</br></br></br></p><p>Favorevoli:<br>Vento da debole a moderato, temperatura dell\u2018aria poco sotto 0 \u00b0 C, superficie fortemente irregolare del manto nevoso vecchio, pendio sciato continuamente</br></p><p>Sfavorevole:<br>precipitazioni intense in breve tempo, vento forte (&gt; 50 km/h, vento udibile, il bosco rumoreggia) bassa temperatura (inferiore a -5 a -10 \u00b0 C), nevicata su un vecchio manto sfavorevole (brina di superficie, croste o ghiaccio, superficie della neve vecchi; trasformata per gradiente, vecchio manto nevoso debole, pendio sciato raramente).</br></p>",
+    "text": "<p>La neve fresca \u00e8 un carico per il manto nevoso presente e, di conseguenza, aumenta il pericolo di valanghe.</p><p>La regola empirica per un carico critico di neve fresca \u00e8:<br/>10 a 20 cm con situazioni sfavorevoli<br/>20 a 30 cm con situazioni intermedie<br/>30 a 50 cm con favorevoli situazioni</p><p>Favorevoli:<br/>Vento da debole a moderato, temperatura dell\u2018aria poco sotto 0 \u00b0 C, superficie fortemente irregolare del manto nevoso vecchio, pendio sciato continuamente</p><p>Sfavorevole:<br/>precipitazioni intense in breve tempo, vento forte (&gt; 50 km/h, vento udibile, il bosco rumoreggia) bassa temperatura (inferiore a -5 a -10 \u00b0 C), nevicata su un vecchio manto sfavorevole (brina di superficie, croste o ghiaccio, superficie della neve vecchi; trasformata per gradiente, vecchio manto nevoso debole, pendio sciato raramente).</p>",
     "img": "<img alt=\"Critical depth of new fallen snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_065_critical-depth-of-new-fallen-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "depth-of-new-fresh-fallen-snow": {
@@ -2394,7 +2394,7 @@
       "it": "situazioni-tipo"
     },
     "heading": "Situazioni tipo",
-    "text": "<p>I problemi valanghivi e le situazioni tipo hanno una cosa in comune: indicano delle situazioni di pericolo ricorrenti e di solito evidenti.<br>La differenza sta nel livello d\u2019osservazione. Mentre i problemi valanghivi ci offrono una prima panoramica grossolana su possibili fonti di pericolo (ad. es. neve fresca), con le situazioni tipo si approfondisce la materia e sia va alla ricerca delle cause del problema (ad es. problema causato da carico troppo elevato di neve fresca su uno strato debole). Le situazioni tipo descrivono quindi processi e possibili scenari che portano ai determinati problemi valanghivi.<br/>L\u2019obiettivo \u00e8 chiaro: grazie alle situazioni tipo e ai problemi valanghivi le situazioni pericolose vengono identificate con maggiore tempestivit\u00e0, permettendo di adottare un comportamento adeguato e quindi evitare un incidente valanghivo.</br></p>",
+    "text": "<p>I problemi valanghivi e le situazioni tipo hanno una cosa in comune: indicano delle situazioni di pericolo ricorrenti e di solito evidenti.<br/>La differenza sta nel livello d\u2019osservazione. Mentre i problemi valanghivi ci offrono una prima panoramica grossolana su possibili fonti di pericolo (ad. es. neve fresca), con le situazioni tipo si approfondisce la materia e sia va alla ricerca delle cause del problema (ad es. problema causato da carico troppo elevato di neve fresca su uno strato debole). Le situazioni tipo descrivono quindi processi e possibili scenari che portano ai determinati problemi valanghivi.<br/>L\u2019obiettivo \u00e8 chiaro: grazie alle situazioni tipo e ai problemi valanghivi le situazioni pericolose vengono identificate con maggiore tempestivit\u00e0, permettendo di adottare un comportamento adeguato e quindi evitare un incidente valanghivo.</p>",
     "img": ""
   },
   "gliding-snow": {
@@ -2408,7 +2408,7 @@
       "fr": "reptation-de-la-neige",
       "is": "snjoskrid",
       "no": "glidning-snoglidning",
-      "ro": "miscarea-de-alunecare-a-stratului-de-zapada",
+      "ro": "alunecare-a-zapezii",
       "sk": "klzuci-sneh",
       "sl": "drseci-sneg",
       "it": "slittamento"
@@ -2485,7 +2485,7 @@
       "de": "anrisshohe",
       "en": "fracture-depth",
       "es": "espesor-de-la-fractura",
-      "fr": "epaisseur-de-la-cassure",
+      "fr": "epaisseur-de-la-plaque-a-la-cassure",
       "is": "haed-brotstals",
       "no": "bruddkanthoyde",
       "ro": "grosimea-stratului-de-ruptura",
@@ -2505,7 +2505,7 @@
       "de": "anrissmachtigkeit-dicke-bei-schneebrettlawinen",
       "en": "slab-thickness",
       "es": "espesor-de-la-placa",
-      "fr": "epaisseur-de-la-plaque",
+      "fr": "hauteur-de-la-plaque-a-la-cassure",
       "is": "thykkt-brotstals",
       "no": "flaktykkelse",
       "ro": "grosimea-placii",
@@ -2766,7 +2766,7 @@
       "it": "trasporto-eolico"
     },
     "heading": "Trasporto eolico",
-    "text": "<p>Trasporto della neve ad opera del vento; Tale fenomeno inizia ad una velocit\u00e0 di vento di circa 4 m/s (circa 15 km/h) sulla neve a scarsa coesione e circa 10 m/s (35 km/h) sulla neve pi\u00f9 compatta.</p><p>Spiegazione pi\u00f9 dettagliata:<br>L\u2019accumulo di neve ventata cresce al cubo della velocit\u00e0 di vento. Se la velocit\u00e0 di vento raddoppia, la quantit\u00e0 di neve ventata aumenta di 8 volte. Il processo di accumulo \u00e8 massimo quando il vento raggiunge 50-80km/h, perch\u00e9 al di l\u00e0 di tale limite la capacit\u00e0 di erosione da parte del vento diminuisce.</br></p>",
+    "text": "<p>Trasporto della neve ad opera del vento; Tale fenomeno inizia ad una velocit\u00e0 di vento di circa 4 m/s (circa 15 km/h) sulla neve a scarsa coesione e circa 10 m/s (35 km/h) sulla neve pi\u00f9 compatta.</p><p>Spiegazione pi\u00f9 dettagliata:<br/>L\u2019accumulo di neve ventata cresce al cubo della velocit\u00e0 di vento. Se la velocit\u00e0 di vento raddoppia, la quantit\u00e0 di neve ventata aumenta di 8 volte. Il processo di accumulo \u00e8 massimo quando il vento raggiunge 50-80km/h, perch\u00e9 al di l\u00e0 di tale limite la capacit\u00e0 di erosione da parte del vento diminuisce.</p>",
     "img": "<img alt=\"Transported snow\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_112_transported-snow-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\"/>"
   },
   "avalanche": {
@@ -3015,8 +3015,9 @@
       "de": "gleitschneeproblem",
       "en": "gliding-snow-problem",
       "es": "problema-de-deslizamiento-basal",
-      "fr": "neige-glissante-situation-avalancheuse-typique",
+      "fr": "avalanche-de-glissement-situation-avalancheuse-typique",
       "is": "snjoskrid-sem-snjoflodavandi",
+      "ro": "problema-alunecarii-zapezii",
       "sl": "problem-drsecega-snega",
       "it": "valanghe-di-slittamento-problema-tipico-valanghivo"
     },
