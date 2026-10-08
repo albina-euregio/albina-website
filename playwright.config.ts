@@ -12,8 +12,6 @@ import { devices } from "@playwright/test";
  */
 const config: PlaywrightTestConfig = {
   testDir: "./tests",
-  /* Exclude weather map tests in CI (too slow for CI time limit) */
-  // testIgnore: process.env.CI ? ["**/weather-map*.spec.ts"] : [],
   /* Maximum time one test can run for. */
   timeout: 12 * 1000,
   expect: {
@@ -73,18 +71,21 @@ const config: PlaywrightTestConfig = {
 
     {
       name: "webkit",
+      /* Only the tests tagged as rendering or input sensitive. */
+      grep: /@cross-browser/,
       use: {
         ...devices["Desktop Safari"]
       }
-    }
+    },
 
     /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: {
-    //     ...devices['Pixel 5'],
-    //   },
-    // },
+    {
+      name: "Mobile Chrome",
+      grep: /@cross-browser/,
+      use: {
+        ...devices["Pixel 8"]
+      }
+    }
     // {
     //   name: 'Mobile Safari',
     //   use: {

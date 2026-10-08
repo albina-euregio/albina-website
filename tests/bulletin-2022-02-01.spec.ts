@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("2022-02-01", async ({ page }) => {
+test("2022-02-01", { tag: "@cross-browser" }, async ({ page }) => {
   await page.goto("2022-02-01?region=AT-07-04");
 
   const header = page.locator("#section-bulletin-header");
@@ -124,27 +124,32 @@ test("2022-02-01 subscribe", async ({ page }) => {
   await page.getByRole("button", { name: "Close" }).click();
 });
 
-test("click on map + download pdf", async ({ page }) => {
-  await page.goto("2022-02-01");
+test(
+  "click on map + download pdf",
+  { tag: "@cross-browser" },
+  async ({ page, isMobile }) => {
+    await page.goto("2022-02-01");
 
-  const map = page.getByLabel("Map").nth(1);
-  const pdfLink = page.getByRole("link", { name: "PDF" }).first();
-  await expect(async () => {
-    await map.click({ position: { x: 671, y: 91 } });
-    await expect(pdfLink).toHaveAttribute("href", /microRegionId=AT-07-16/);
-  }).toPass();
+    const map = page.getByLabel("Map").nth(1);
+    const pdfLink = page.getByRole("link", { name: "PDF" }).first();
+    await expect(async () => {
+      const clickPosition = isMobile ? { x: 245, y: 101 } : { x: 671, y: 91 };
+      await map.click({ position: clickPosition });
+      await expect(pdfLink).toHaveAttribute("href", /microRegionId=AT-07-16/);
+    }).toPass();
 
-  const pdfUrl = await pdfLink.getAttribute("href");
-  expect(pdfUrl).toContain(
-    "/api/bulletins/pdf?date=2022-01-31T23:00:00Z&region=EUREGIO&microRegionId=AT-07-16&lang=en&grayscale=false"
-  );
+    const pdfUrl = await pdfLink.getAttribute("href");
+    expect(pdfUrl).toContain(
+      "/api/bulletins/pdf?date=2022-01-31T23:00:00Z&region=EUREGIO&microRegionId=AT-07-16&lang=en&grayscale=false"
+    );
 
-  // Verify the link actually serves a non-empty PDF, not a dead URL.
-  const pdfResponse = await page.request.get(pdfUrl ?? "");
-  expect(pdfResponse.status()).toBe(200);
-  expect(pdfResponse.headers()["content-type"]).toContain("application/pdf");
-  expect((await pdfResponse.body()).byteLength).toBeGreaterThan(0);
-});
+    // Verify the link actually serves a non-empty PDF, not a dead URL.
+    const pdfResponse = await page.request.get(pdfUrl ?? "");
+    expect(pdfResponse.status()).toBe(200);
+    expect(pdfResponse.headers()["content-type"]).toContain("application/pdf");
+    expect((await pdfResponse.body()).byteLength).toBeGreaterThan(0);
+  }
+);
 
 test("map hint shows until a region is selected", async ({ page }) => {
   // visible immediately once the map is ready, no hover needed

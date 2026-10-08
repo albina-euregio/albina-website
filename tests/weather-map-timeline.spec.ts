@@ -117,44 +117,49 @@ test.describe("DST", () => {
 });
 
 test.describe("dragging", () => {
-  test("dragging the ruler right goes back in time, by whole steps", async ({
-    weather,
-    page
-  }) => {
-    const cfg = await weather.config("new-snow");
-    const tr = cfg.timeRanges[0];
-    const time = resolveTime(tr.maxAnalysisTimestamp, tr, cfg);
-    await weather.open("new-snow", time, tr.timeRange);
-    await expect(page.locator(SEL.rangeIndicator)).toBeVisible();
+  test(
+    "dragging the ruler right goes back in time, by whole steps",
+    { tag: "@cross-browser" },
+    async ({ weather, page }) => {
+      const cfg = await weather.config("new-snow");
+      const tr = cfg.timeRanges[0];
+      const time = resolveTime(tr.maxAnalysisTimestamp, tr, cfg);
+      await weather.open("new-snow", time, tr.timeRange);
+      await expect(page.locator(SEL.rangeIndicator)).toBeVisible();
 
-    const box = await page.locator(SEL.ruler).boundingBox();
-    if (!box) throw new Error("Ruler not rendered");
-    const y = box.y + box.height / 2;
-    await page.mouse.move(box.x + box.width / 2, y);
-    await page.mouse.down();
-    await page.mouse.move(box.x + box.width / 2 + 150, y, { steps: 10 });
-    await page.mouse.up();
+      const box = await page.locator(SEL.ruler).boundingBox();
+      if (!box) throw new Error("Ruler not rendered");
+      const y = box.y + box.height / 2;
+      await page.mouse.move(box.x + box.width / 2, y);
+      await page.mouse.down();
+      await page.mouse.move(box.x + box.width / 2 + 150, y, { steps: 10 });
+      await page.mouse.up();
 
-    await expect.poll(() => weather.time()).toBeLessThan(time);
-    const dragged = weather.time();
-    expect((time - dragged) % (tr.timeStepHours * HOUR)).toBe(0);
-    await weather.expectOverlay("new-snow", tr.timeRange, dragged);
-  });
+      await expect.poll(() => weather.time()).toBeLessThan(time);
+      const dragged = weather.time();
+      expect((time - dragged) % (tr.timeStepHours * HOUR)).toBe(0);
+      await weather.expectOverlay("new-snow", tr.timeRange, dragged);
+    }
+  );
 });
 
 test.describe("date picker", () => {
-  test("picks the hour to show", async ({ weather, page }) => {
-    const tr = await weather.timeRangeConfig("temp");
-    await weather.open("temp");
-    const time = tr.maxAnalysisTimestamp - 30 * HOUR;
+  test(
+    "picks the hour to show",
+    { tag: "@cross-browser" },
+    async ({ weather, page }) => {
+      const tr = await weather.timeRangeConfig("temp");
+      await weather.open("temp");
+      const time = tr.maxAnalysisTimestamp - 30 * HOUR;
 
-    await page.locator(SEL.calendarInput).fill(pickerValue(time));
-    await weather.expectTime(time);
-    await weather.expectOverlay("temp", 1, time);
-    await expect(page.locator(SEL.pointExact)).toHaveText(
-      `${iso(time).slice(11, 16)} UTC`
-    );
-  });
+      await page.locator(SEL.calendarInput).fill(pickerValue(time));
+      await weather.expectTime(time);
+      await weather.expectOverlay("temp", 1, time);
+      await expect(page.locator(SEL.pointExact)).toHaveText(
+        `${iso(time).slice(11, 16)} UTC`
+      );
+    }
+  );
 
   test("picks the start of a period", async ({ weather, page }) => {
     const tr = await weather.timeRangeConfig("new-snow");
