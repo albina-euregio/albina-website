@@ -74,8 +74,8 @@ export interface DomainConfig {
 const WIND_DIRECTION_OVERLAY_BY_DOMAIN: Partial<
   Record<DomainId, { file: string; domain?: DomainId }>
 > = {
-  wind: { file: "{date}_{time}-00_wind-dir_V3.png" },
-  gust: { file: "{date}_{time}-00_wind-dir_V3.png", domain: "wind" },
+  wind: { file: "{date}_{time}-00_wind-dir.png" },
+  gust: { file: "{date}_{time}-00_wind-dir.png", domain: "wind" },
   wind700hpa: { file: "{date}_{time}-00_wind-dir700hpa.png" }
 };
 
