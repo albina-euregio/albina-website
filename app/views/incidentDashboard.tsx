@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useStore } from "@nanostores/react";
 import { useIntl, type MessageId } from "../i18n";
 import {
@@ -18,6 +18,7 @@ import SearchField from "../components/organisms/search-field";
 import ExportMenu, {
   type ExportAction
 } from "../components/filters/export-menu";
+import FilterBarToggle from "../components/filters/filter-bar-toggle";
 import { $router, redirectPageQuery } from "../components/router";
 import { useHiddenFooter } from "./useHiddenFooter.tsx";
 import { useFilterBarOffset } from "./useFilterBarOffset.ts";
@@ -38,6 +39,7 @@ function IncidentDashboard() {
   const setSelectedId = (id: string | undefined) =>
     redirectPageQuery({ incident: id ?? "" });
   const { filterRef, offsetStyle, topStyle } = useFilterBarOffset();
+  const [isFiltersExpanded, setIsFiltersExpanded] = useState(false);
 
   const {
     activeRegion,
@@ -235,47 +237,54 @@ function IncidentDashboard() {
 
       <section
         ref={filterRef}
-        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode} station-dashboard-filter--incidents`}
+        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode} station-dashboard-filter--grouped station-dashboard-filter--incidents${isFiltersExpanded ? " is-expanded" : ""}`}
         style={topStyle}
       >
         <div className="section-centered station-dashboard-filter__inner">
           <div className="station-dashboard-filter__bar">
-            <div className="station-dashboard-filter__season">
-              <YearFilter
-                title={intl.formatMessage({ id: "archive:filter:year" })}
-                minYear={minYear}
-                maxYear={currentSeasonYear()}
-                formatter={y => `${y}/${y + 1}`}
-                handleChange={setSeasonYear}
-                value={seasonYear}
-              />
-            </div>
-            <div className="station-dashboard-filter__province">
-              <ProvinceFilter
-                title={intl.formatMessage({
-                  id: "measurements:filter:province"
-                })}
-                all={intl.formatMessage({ id: "filter:all" })}
-                handleChange={val => setActiveRegion(val)}
-                regionCodes={config.incidentRegions}
-                value={activeRegion}
-              />
+            <div className="station-dashboard-filter__group">
+              <div className="station-dashboard-filter__season">
+                <YearFilter
+                  title={intl.formatMessage({ id: "archive:filter:year" })}
+                  minYear={minYear}
+                  maxYear={currentSeasonYear()}
+                  formatter={y => `${y}/${y + 1}`}
+                  handleChange={setSeasonYear}
+                  value={seasonYear}
+                />
+              </div>
+              <div className="station-dashboard-filter__province">
+                <ProvinceFilter
+                  title={intl.formatMessage({
+                    id: "measurements:filter:province"
+                  })}
+                  all={intl.formatMessage({ id: "filter:all" })}
+                  handleChange={val => setActiveRegion(val)}
+                  regionCodes={config.incidentRegions}
+                  value={activeRegion}
+                />
+              </div>
+
+              <div className="station-dashboard-filter__search">
+                <SearchField
+                  title={intl.formatMessage({ id: "filter:search" })}
+                  handleSearch={setSearchText}
+                  value={searchText}
+                />
+              </div>
             </div>
 
-            <div className="station-dashboard-filter__search">
-              <SearchField
-                title={intl.formatMessage({ id: "filter:search" })}
-                handleSearch={setSearchText}
-                value={searchText}
-              />
-            </div>
+            <ExportMenu
+              id="incident-filter-export"
+              actions={exportActions}
+              disabled={sortedFilteredData.length === 0}
+            />
 
-            {viewMode === "table" && (
-              <ExportMenu
-                actions={exportActions}
-                disabled={sortedFilteredData.length === 0}
-              />
-            )}
+            <FilterBarToggle
+              expanded={isFiltersExpanded}
+              onToggle={() => setIsFiltersExpanded(prev => !prev)}
+              controls="incident-filter-export"
+            />
           </div>
         </div>
       </section>
