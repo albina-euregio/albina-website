@@ -12,27 +12,81 @@ import {
 
 for (const domain of DOMAINS) {
   test.describe(domain, () => {
-    test("opens at the config's default time and time range", async ({
+    const stationTimeRanges = STATION_TIME_RANGES[domain];
+    const windDirection = WIND_DIRECTION_OVERLAYS[domain];
+
+    test("opens at the config's default, flipper steps by the time step", async ({
       weather,
       page
     }) => {
       await weather.open(domain);
-      const { timeRanges } = await weather.config(domain);
+      const cfg = await weather.config(domain);
+      const { timeRanges } = cfg;
       const tr = timeRanges[0];
 
-      await weather.expectTime(tr.initialTimestamp);
-      await weather.expectTimeRange(tr.timeRange);
-      await weather.expectOverlay(domain, tr.timeRange, tr.initialTimestamp);
-      await expect(
-        page.locator(tr.timeRange > 1 ? SEL.rangeIndicator : SEL.pointIndicator)
-      ).toBeAttached();
-      if (timeRanges.length > 1) {
-        await expect(page.locator(SEL.rangeButtons)).toHaveText(
-          timeRanges.map(t => `${t.timeRange}h`)
-        );
-      } else {
-        await expect(page.locator(SEL.rangeLabel)).toBeVisible();
+      await test.step("default time and time range", async () => {
+        await weather.expectTime(tr.initialTimestamp);
+        await weather.expectTimeRange(tr.timeRange);
+        await weather.expectOverlay(domain, tr.timeRange, tr.initialTimestamp);
+        await expect(
+          page.locator(
+            tr.timeRange > 1 ? SEL.rangeIndicator : SEL.pointIndicator
+          )
+        ).toBeAttached();
+        if (timeRanges.length > 1) {
+          await expect(page.locator(SEL.rangeButtons)).toHaveText(
+            timeRanges.map(t => `${t.timeRange}h`)
+          );
+        } else {
+          await expect(page.locator(SEL.rangeLabel)).toBeVisible();
+        }
+      });
+
+      if (!stationTimeRanges) {
+        await test.step("loads no station data", () => {
+          expect(weather.wasRequested("_linea.geojson")).toBe(false);
+        });
       }
+
+      await test.step(
+        windDirection
+          ? "loads the wind direction overlay"
+          : "loads no wind direction overlay",
+        async () => {
+          if (windDirection) {
+            const s = iso(tr.initialTimestamp);
+            await weather.expectLoaded(
+              `/zamg_meteo/overlays/${windDirection.domain}/${s.slice(0, 4)}/${s.slice(0, 10)}/${s.slice(0, 10)}_${s.slice(11, 13)}-00_${windDirection.file}.png`
+            );
+          } else {
+            expect(weather.wasRequested("wind-dir")).toBe(false);
+          }
+        }
+      );
+
+      await test.step("flipper steps by the time step, reload keeps the time", async () => {
+        const step = tr.timeStepHours * HOUR;
+        // The default URL is re-read and snapped to a slot (matters for
+        // relative-snow, whose synthesized default is the current hour).
+        const start = resolveTime(tr.initialTimestamp, tr, cfg);
+
+        await page.locator(SEL.flipperLeft).click();
+        await weather.expectTime(start - step);
+        await weather.expectOverlay(domain, tr.timeRange, start - step);
+
+        await page.locator(SEL.flipperRight).click();
+        await weather.expectTime(start);
+        if (start + step <= tr.maxForecastTimestamp) {
+          await page.locator(SEL.flipperRight).click();
+          await weather.expectTime(start + step);
+          await weather.expectOverlay(domain, tr.timeRange, start + step);
+        }
+
+        const url = page.url();
+        await page.reload();
+        await weather.expectDomain(domain);
+        expect(page.url()).toBe(url);
+      });
     });
 
     test("loads the overlay of every time range", async ({ weather, page }) => {
@@ -50,37 +104,6 @@ for (const domain of DOMAINS) {
       }
     });
 
-    test("flipper steps by the time step, reload keeps the time", async ({
-      weather,
-      page
-    }) => {
-      await weather.open(domain);
-      const cfg = await weather.config(domain);
-      const tr = cfg.timeRanges[0];
-      const step = tr.timeStepHours * HOUR;
-      // The default URL is re-read and snapped to a slot (matters for
-      // relative-snow, whose synthesized default is the current hour).
-      const start = resolveTime(tr.initialTimestamp, tr, cfg);
-
-      await page.locator(SEL.flipperLeft).click();
-      await weather.expectTime(start - step);
-      await weather.expectOverlay(domain, tr.timeRange, start - step);
-
-      await page.locator(SEL.flipperRight).click();
-      await weather.expectTime(start);
-      if (start + step <= tr.maxForecastTimestamp) {
-        await page.locator(SEL.flipperRight).click();
-        await weather.expectTime(start + step);
-        await weather.expectOverlay(domain, tr.timeRange, start + step);
-      }
-
-      const url = page.url();
-      await page.reload();
-      await weather.expectDomain(domain);
-      expect(page.url()).toBe(url);
-    });
-
-    const stationTimeRanges = STATION_TIME_RANGES[domain];
     if (stationTimeRanges) {
       test("loads station data up to the analysis time only", async ({
         weather
@@ -101,34 +124,6 @@ for (const domain of DOMAINS) {
         await weather.expectOverlay(domain, timeRange, forecast);
         expect(weather.wasRequested(weather.stationsURL(forecast))).toBe(false);
       });
-    } else {
-      test("loads no station data", async ({ weather }) => {
-        await weather.open(domain);
-        const tr = await weather.timeRangeConfig(domain);
-        await weather.expectOverlay(domain, tr.timeRange, tr.initialTimestamp);
-        expect(weather.wasRequested("_linea.geojson")).toBe(false);
-      });
     }
-
-    const windDirection = WIND_DIRECTION_OVERLAYS[domain];
-    test(
-      windDirection
-        ? "loads the wind direction overlay"
-        : "loads no wind direction overlay",
-      async ({ weather }) => {
-        await weather.open(domain);
-        const tr = await weather.timeRangeConfig(domain);
-        const time = tr.initialTimestamp;
-        await weather.expectOverlay(domain, tr.timeRange, time);
-        if (windDirection) {
-          const s = iso(time);
-          await weather.expectLoaded(
-            `/zamg_meteo/overlays/${windDirection.domain}/${s.slice(0, 4)}/${s.slice(0, 10)}/${s.slice(0, 10)}_${s.slice(11, 13)}-00_${windDirection.file}.png`
-          );
-        } else {
-          expect(weather.wasRequested("wind-dir")).toBe(false);
-        }
-      }
-    );
   });
 }

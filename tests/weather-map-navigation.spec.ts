@@ -35,21 +35,27 @@ async function expectSwitchedTo(
 }
 
 test.describe("domain switching", () => {
-  for (const target of DOMAINS) {
-    test(`click switches to ${target}, keeping the time`, async ({
-      weather,
-      page
-    }) => {
-      const time = await pastTime(weather);
-      await weather.open(target === "temp" ? "wind" : "temp", time);
+  test("clicking switches to every domain, keeping the time", async ({
+    weather,
+    page
+  }) => {
+    test.setTimeout(90_000);
+    let time = await pastTime(weather);
+    await weather.open("temp", time);
+    // Ends on temp, so every click switches to a different domain.
+    const start = DOMAINS.indexOf("temp") + 1;
+    const targets = [...DOMAINS.slice(start), ...DOMAINS.slice(0, start)];
 
-      await page.locator(SEL.layerTrigger).click();
-      await page
-        .locator(`${SEL.layerSelectorItem}[href="/weather/map/${target}"]`)
-        .click();
-      await expectSwitchedTo(weather, target, time);
-    });
-  }
+    for (const target of targets) {
+      await test.step(target, async () => {
+        await page.locator(SEL.layerTrigger).click();
+        await page
+          .locator(`${SEL.layerSelectorItem}[href="/weather/map/${target}"]`)
+          .click();
+        time = await expectSwitchedTo(weather, target, time);
+      });
+    }
+  });
 
   for (const [key, direction] of [
     ["n", 1],

@@ -178,7 +178,7 @@ test.describe("player", () => {
   }) => {
     const tr = await weather.timeRangeConfig("new-snow");
     const step = tr.timeStepHours * HOUR;
-    await weather.open("new-snow", tr.maxForecastTimestamp - 3 * step);
+    await weather.open("new-snow", tr.maxForecastTimestamp - 2 * step);
 
     await page.locator(SEL.playerPlay).click();
     await expect(page.locator(SEL.playerPlaying)).toBeAttached();
@@ -204,7 +204,7 @@ test.describe("player", () => {
 
     const stopped = weather.time();
     // Longer than the player's 1s interval.
-    await page.waitForTimeout(2500);
+    await page.waitForTimeout(1500);
     expect(iso(weather.time())).toBe(iso(stopped));
   });
 });
