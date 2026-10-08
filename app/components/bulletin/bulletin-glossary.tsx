@@ -142,17 +142,14 @@ class GlossaryReplacer {
         }
         const { heading, text, ids, img } = glossaryContent;
         const anchor = ids?.[this.locale];
-        const href = `https://www.avalanches.org/glossary/?lang=${this.locale}#${anchor}`;
+        const href = `/education/glossary#${anchor}`;
         const content = () => (
           <>
             <h3>{heading}</h3>
             {preprocessContent(text + (img ?? ""))}
             <p className="tooltip-source">
               (<FormattedMessage id={"glossary:source"} />:{" "}
-              <a href={href} target="_blank" rel="external noreferrer">
-                EAWS
-              </a>
-              )
+              <a href={href}>EAWS</a>)
             </p>
           </>
         );
