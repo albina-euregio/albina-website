@@ -138,7 +138,7 @@ deploy:www2:
 .playwright:
   stage: playwright
   image: mcr.microsoft.com/playwright:v1.61.1
-  parallel: 3
+  parallel: 2
   artifacts:
     when: always
     paths:
