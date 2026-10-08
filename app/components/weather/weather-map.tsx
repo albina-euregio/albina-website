@@ -52,9 +52,6 @@ class WindUtil {
   static readonly SOURCE_ID = "weather-wind-direction";
   static readonly LAYER_ID = "weather-wind-direction";
   static readonly ARROW_IMAGE = "weather-wind-arrow";
-  // Grid density scales with zoom from this base (the historical weather-map
-  // minZoom): `max(4, round((zoom - base) * 8))` cells across the bbox.
-  static readonly GRID_ZOOM_BASE = 7;
   // Small black arrow (9×12 box), the same `directionArrow-centered` shape the
   // Leaflet grid markers drew. Points up; rotated by `direction + 180`.
   static readonly ARROW_PATH =
@@ -334,10 +331,8 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       const east = bbox.getEast();
       const south = bbox.getSouth();
       const north = bbox.getNorth();
-      const grids = Math.max(
-        4,
-        Math.round((map.getZoom() - WindUtil.GRID_ZOOM_BASE) * 8)
-      );
+      // Grid density scales with zoom, in cells across the bbox.
+      const grids = Math.max(16, Math.round((map.getZoom() - 7) * 32));
       const distH = (east - west) / grids;
       const distV = (north - south) / grids;
 
