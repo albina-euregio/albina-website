@@ -6,7 +6,6 @@ import HTMLHeader from "../components/organisms/html-header";
 import { GLOSSARY_CONTENT } from "../components/bulletin/bulletin-glossary";
 import { $router } from "../components/router";
 import { useIntl } from "../i18n";
-import { scrollIntoView } from "../util/scrollIntoView";
 
 interface GlossaryEntry {
   ids?: Record<string, string>;
@@ -79,7 +78,7 @@ function renderHtml(html: string, anchors: Map<string, string>) {
             : undefined;
           if (anchor) {
             return (
-              <a key={key} href={`#${anchor}`} onClick={scrollIntoView}>
+              <a key={key} href={`#${anchor}`}>
                 {children}
               </a>
             );
@@ -124,10 +123,12 @@ export default function Glossary() {
       }));
   }, [glossary]);
 
+  const hash = decodeURIComponent(router?.hash.slice(1) ?? "");
+  const selected = entries.find(({ id }) => id === hash);
+
   useEffect(() => {
-    const id = decodeURIComponent(router?.hash.slice(1) ?? "");
-    if (id) document.getElementById(id)?.scrollIntoView();
-  }, [router?.hash, entries]);
+    if (selected) document.getElementById(selected.id)?.scrollIntoView();
+  }, [selected]);
 
   const title = intl.formatMessage({
     id: "education:overview:glossary:headline"
@@ -156,20 +157,23 @@ export default function Glossary() {
           <ul className="square glossary-toc-list">
             {entries.map(({ id, heading }) => (
               <li key={id}>
-                <a href={`#${id}`} onClick={scrollIntoView}>
-                  {heading}
-                </a>
+                <a href={`#${id}`}>{heading}</a>
               </li>
             ))}
           </ul>
         </details>
-        {entries.map(({ id, heading, text, img }) => (
+        {selected && (
+          <p>
+            <a href="/education/glossary" className="secondary pure-button">
+              {intl.formatMessage({ id: "glossary:all" })}
+            </a>
+          </p>
+        )}
+        {(selected ? [selected] : entries).map(({ id, heading, text, img }) => (
           <div key={id} id={id} className="panel field border glossary-entry">
             <div className="panel-header">
               <h2>
-                <a href={`#${id}`} onClick={scrollIntoView}>
-                  {heading}
-                </a>
+                <a href={`#${id}`}>{heading}</a>
               </h2>
             </div>
             {text}
