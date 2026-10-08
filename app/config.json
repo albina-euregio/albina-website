@@ -172,9 +172,7 @@
         {
           "key": "glossary",
           "indexKey": "education:overview:glossary",
-          "url": "https://www.avalanches.org/glossary/?lang=en",
-          "url:de": "https://www.avalanches.org/glossary/?lang=de",
-          "url:it": "https://www.avalanches.org/glossary/?lang=it",
+          "url": "/education/glossary",
           "img": "/content_files/feature_glossary.webp"
         },
         {

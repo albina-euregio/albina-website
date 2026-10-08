@@ -1,0 +1,76 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
+.glossary-toc {
+  summary {
+    display: flex;
+    align-items: baseline;
+    gap: variables.$padding;
+    cursor: pointer;
+    list-style: none;
+    &::-webkit-details-marker {
+      display: none;
+    }
+    .glossary-toc-icon {
+      margin-left: auto;
+      @include mixins.rollout;
+      &:before {
+        margin-right: 0;
+      }
+    }
+    &:hover {
+      @include mixins.text-color(variables.$anchor-font-color-hover);
+    }
+  }
+  &[open] .glossary-toc-icon {
+    transform: rotate(180deg);
+  }
+
+  .glossary-toc-title {
+    font-weight: bold;
+  }
+
+  .glossary-toc-count {
+    color: variables.$grey;
+    font-size: variables.$micro-font-size;
+  }
+
+  .glossary-toc-list {
+    margin: variables.$padding 0 0 1em;
+    columns: 3 16rem;
+    column-gap: variables.$all-h-padding;
+    li {
+      break-inside: avoid;
+    }
+  }
+}
+
+.glossary-toc-list,
+.glossary-entry ul {
+  list-style-type: square;
+  li {
+    padding-left: 0;
+  }
+  li::marker {
+    color: variables.$anchor-font-color;
+  }
+}
+
+.glossary-entry {
+  .panel-header a {
+    color: inherit;
+  }
+
+  img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 30rem;
+    margin-top: variables.$padding;
+  }
+}
+
+.glossary-source {
+  color: variables.$grey;
+  font-size: variables.$micro-font-size;
+}

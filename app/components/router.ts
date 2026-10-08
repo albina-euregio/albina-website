@@ -29,6 +29,7 @@ export const $router = createRouter({
   moreArchive: "/more/archive",
   moreLinkTree: "/more/linktree",
   archive: "/archive",
+  educationGlossary: "/education/glossary",
   educationStar: "/education/*",
   staticName: "/:name",
   staticSegmentName: "/:segment/:name"

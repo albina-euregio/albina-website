@@ -4,7 +4,7 @@ interface Props {
   marginal?: string;
   subtitle: string;
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export default function PageHeadline(props: Props) {

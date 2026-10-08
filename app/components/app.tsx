@@ -30,6 +30,7 @@ const StaticPageLinkbox = React.lazy(
 );
 const Archive = React.lazy(() => import("../views/archive"));
 const Linktree = React.lazy(() => import("../views/linkTree.jsx"));
+const Glossary = React.lazy(() => import("../views/glossary"));
 const StaticPage = React.lazy(() => import("../views/staticPage"));
 
 const RouteStaticPage = () => {
@@ -132,6 +133,8 @@ const App = () => {
       case "archive":
         redirectPage($router, "moreArchive");
         break;
+      case "educationGlossary":
+        return <Glossary />;
       case "educationStar":
       case "staticName":
       case "staticSegmentName":
