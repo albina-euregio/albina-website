@@ -50,6 +50,7 @@ const Education = () => {
                         id: `${key}:text`
                       })}
                       className=""
+                      loading="lazy"
                     />
                   </div>
                   <div className="content-text">
