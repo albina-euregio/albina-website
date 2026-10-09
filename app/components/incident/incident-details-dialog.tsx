@@ -371,6 +371,7 @@ function AttachmentGrid({
                     <img
                       src={a.url}
                       alt={a.altText || a.caption || a.fileName}
+                      loading="lazy"
                     />
                   </button>
                   <AttachmentCaption
