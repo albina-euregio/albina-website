@@ -55,6 +55,8 @@ export const Tooltip = ({
   const tooltipId = `tooltip-${rawId}`;
 
   const [open, setOpen] = useState(false);
+  // defer rendering the label (and loading its images) until first opened
+  const [rendered, setRendered] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
   const referenceRef = useRef<Element>(null);
   const openTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -165,6 +167,7 @@ export const Tooltip = ({
           popover="manual"
           role="tooltip"
           data-placement={placement}
+          onBeforeToggle={e => e.newState === "open" && setRendered(true)}
           onToggle={e => setOpen(e.newState === "open")}
           onPointerEnter={clearTimers}
           onPointerLeave={scheduleHide}
@@ -179,7 +182,7 @@ export const Tooltip = ({
             className={html ? "tooltip-inner-html" : "tooltip-inner"}
             style={widthStyle}
           >
-            {typeof label === "string" ? (
+            {!rendered ? null : typeof label === "string" ? (
               <div
                 className="tooltip-content"
                 dangerouslySetInnerHTML={{
