@@ -10,6 +10,8 @@ import {
 } from "@albina-euregio/linea/listing";
 import { fetchJSON } from "../util/fetch";
 
+const collator = new Intl.Collator("de");
+
 export class StationData implements Feature {
   readonly type = "Feature" as const;
   id: Feature["id"];
@@ -239,7 +241,6 @@ export function useStationData(
 
   const compareStationData = useCallback(
     function compareStationData(val1: StationData, val2: StationData): number {
-      const collator = new Intl.Collator("de");
       const order = sortDir == "asc" ? [-1, 1] : [1, -1];
       const a = val1[sortValue];
       const b = val2[sortValue];
