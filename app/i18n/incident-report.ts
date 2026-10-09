@@ -1,4 +1,4 @@
-import { atom } from "nanostores";
+import { atom, onMount } from "nanostores";
 import { useStore } from "@nanostores/react";
 import { $language, mergeTranslations, type Language } from "../appStore";
 import type { MessageId } from ".";
@@ -26,13 +26,16 @@ async function loadIncidentReportMessages(
   return mergeTranslations(fallback, messages);
 }
 
-$language.subscribe(language => {
-  if (!language || language === loadedLanguage) return;
-  loadedLanguage = language;
-  void loadIncidentReportMessages(language).then(messages =>
-    $incidentReportMessages.set(messages)
-  );
-});
+// load on first use, e.g. when an incident dialog opens
+onMount($incidentReportMessages, () =>
+  $language.subscribe(language => {
+    if (!language || language === loadedLanguage) return;
+    loadedLanguage = language;
+    void loadIncidentReportMessages(language).then(messages =>
+      $incidentReportMessages.set(messages)
+    );
+  })
+);
 
 /** Reactive access to the `incident-report` Transifex resource (see README). */
 export function useIncidentReportMessages(): IncidentReportMessages {
