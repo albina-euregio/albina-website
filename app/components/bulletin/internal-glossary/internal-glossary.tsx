@@ -170,7 +170,7 @@ class InternalGlossaryReplacer {
       tooltipProps.width = width;
     }
     return (
-      <Tooltip key={textKey} {...tooltipProps} label={content()}>
+      <Tooltip key={textKey} {...tooltipProps} label={content}>
         <span className="glossary">{idText}</span>
       </Tooltip>
     );
