@@ -201,7 +201,7 @@ importers:
         version: 5.5.7
       '@nanostores/react':
         specifier: ^2.0.1
-        version: 2.0.1(nanostores@1.5.4)(react@19.2.0)
+        version: 2.0.1(nanostores@1.5.4)(react@19.3.0)
       '@nanostores/router':
         specifier: ^2.0.0
         version: 2.0.0(nanostores@1.5.4)
@@ -213,7 +213,7 @@ importers:
         version: 1.47.1
       htmr:
         specifier: ^1.0.2
-        version: 1.0.2(react@19.2.0)
+        version: 1.0.2(react@19.3.0)
       maplibre-gl:
         specifier: ^6.12.0
         version: 6.12.0
@@ -230,17 +230,17 @@ importers:
         specifier: 3.0.1
         version: 3.0.1
       react:
-        specifier: 19.2.0
-        version: 19.2.0
+        specifier: 19.3.0
+        version: 19.3.0
       react-dom:
-        specifier: 19.2.0
-        version: 19.2.0(react@19.2.0)
+        specifier: 19.3.0
+        version: 19.3.0(react@19.3.0)
       react-string-replace:
         specifier: ^1.1.1
         version: 1.1.1
       react-swipeable:
         specifier: ^7.0.2
-        version: 7.0.2(react@19.2.0)
+        version: 7.0.2(react@19.3.0)
       temporal-polyfill:
         specifier: ^1.0.1
         version: 1.0.4
@@ -261,11 +261,11 @@ importers:
         specifier: ^24.3.0
         version: 24.10.1
       '@types/react':
-        specifier: ^19.1.2
-        version: 19.2.7
+        specifier: ^19.3.0
+        version: 19.3.0
       '@types/react-dom':
-        specifier: ^19.2.2
-        version: 19.2.3(@types/react@19.2.7)
+        specifier: ^19.3.0
+        version: 19.3.0(@types/react@19.3.0)
       '@vitejs/plugin-react':
         specifier: ^6.1.1
         version: 6.1.1(@voidzero-dev/vite-plus-core@1.0.0(@types/node@24.10.1)(jiti@2.7.0)(sass@1.99.0)(typescript@6.0.3)(yaml@2.8.2))(oxc-transform-react@0.145.0)
@@ -877,13 +877,13 @@ packages:
   '@types/node@24.10.1':
     resolution: {integrity: sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ==}
 
-  '@types/react-dom@19.2.3':
-    resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
+  '@types/react-dom@19.3.0':
+    resolution: {integrity: sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==}
     peerDependencies:
-      '@types/react': ^19.2.0
+      '@types/react': ^19.3.0
 
-  '@types/react@19.2.7':
-    resolution: {integrity: sha512-MWtvHrGZLFttgeEj28VXHxpmwYbor/ATPYbBfSFZEIRK0ecCFLl2Qo55z52Hss+UV9CRN7trSeq1zbgx7YDWWg==}
+  '@types/react@19.3.0':
+    resolution: {integrity: sha512-N0rFCuH9YoxG9/m61l9MfpJKfmLOVU0em7ipIz6TRgSSkvReLB9vL85GB+yr8Bs5leqpvg96JSwF4ZS1s4viQg==}
 
   '@vitejs/plugin-react@6.1.1':
     resolution: {integrity: sha512-yxLaQV9gkhS8ezJqCM6+ndU7mDY6gqAg75NQ+0IjwEI8IYOmQCgkRwHKVSfWXW076DsqMo0Dk+0FK1U+M5RgFw==}
@@ -1734,10 +1734,10 @@ packages:
   rc9@3.0.1:
     resolution: {integrity: sha512-gMDyleLWVE+i6Sgtc0QbbY6pEKqYs97NGi6isHQPqYlLemPoO8dxQ3uGi0f4NiP98c+jMW6cG1Kx9dDwfvqARQ==}
 
-  react-dom@19.2.0:
-    resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
+  react-dom@19.3.0:
+    resolution: {integrity: sha512-JDk8dgif51OjFoDE70+OT9ICyYr+69HlmihNwp1+Nsfbna3t5sIiCa9ZJktDmQ4/1b/rn26hIAR2uYXDMr5r0Q==}
     peerDependencies:
-      react: ^19.2.0
+      react: ^19.3.0
 
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
@@ -1751,8 +1751,8 @@ packages:
     peerDependencies:
       react: ^16.8.3 || ^17 || ^18 || ^19.0.0 || ^19.0.0-rc
 
-  react@19.2.0:
-    resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
+  react@19.3.0:
+    resolution: {integrity: sha512-E8LUcbtBWt20bbl2YoHfx4ZDBdxVTfOKtCZn9cDSJ4l6/nuoApcpIBcj47t2wZoVX8g2ZHuMHbiShgCR1T5Sog==}
     engines: {node: '>=0.10.0'}
 
   readdirp@4.1.2:
@@ -1782,8 +1782,8 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  scheduler@0.27.0:
-    resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
+  scheduler@0.28.0:
+    resolution: {integrity: sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==}
 
   semver@7.8.4:
     resolution: {integrity: sha512-rUCObTnP32Q08R2uuIrt7r9PlEonuTmtuXYcW6s5kjdlj3xbnwe+21yXptAUYcMAABLkYYTtnmzb3w3EDZfueA==}
@@ -2128,10 +2128,10 @@ snapshots:
       '@types/geojson': 7946.0.16
       pbf: 5.1.2
 
-  '@nanostores/react@2.0.1(nanostores@1.5.4)(react@19.2.0)':
+  '@nanostores/react@2.0.1(nanostores@1.5.4)(react@19.3.0)':
     dependencies:
       nanostores: 1.5.4
-      react: 19.2.0
+      react: 19.3.0
 
   '@nanostores/router@2.0.0(nanostores@1.5.4)':
     dependencies:
@@ -2380,11 +2380,11 @@ snapshots:
     dependencies:
       undici-types: 7.16.0
 
-  '@types/react-dom@19.2.3(@types/react@19.2.7)':
+  '@types/react-dom@19.3.0(@types/react@19.3.0)':
     dependencies:
-      '@types/react': 19.2.7
+      '@types/react': 19.3.0
 
-  '@types/react@19.2.7':
+  '@types/react@19.3.0':
     dependencies:
       csstype: 3.2.3
 
@@ -2786,11 +2786,11 @@ snapshots:
       domutils: 2.8.0
       entities: 2.2.0
 
-  htmr@1.0.2(react@19.2.0):
+  htmr@1.0.2(react@19.3.0):
     dependencies:
       html-entities: 2.6.0
       htmlparser2: 6.1.0
-      react: 19.2.0
+      react: 19.3.0
 
   human-signals@8.0.1: {}
 
@@ -3083,20 +3083,20 @@ snapshots:
       defu: 6.1.7
       destr: 2.0.5
 
-  react-dom@19.2.0(react@19.2.0):
+  react-dom@19.3.0(react@19.3.0):
     dependencies:
-      react: 19.2.0
-      scheduler: 0.27.0
+      react: 19.3.0
+      scheduler: 0.28.0
 
   react-is@17.0.2: {}
 
   react-string-replace@1.1.1: {}
 
-  react-swipeable@7.0.2(react@19.2.0):
+  react-swipeable@7.0.2(react@19.3.0):
     dependencies:
-      react: 19.2.0
+      react: 19.3.0
 
-  react@19.2.0: {}
+  react@19.3.0: {}
 
   readdirp@4.1.2: {}
 
@@ -3118,7 +3118,7 @@ snapshots:
       immutable: 5.1.5
       source-map-js: 1.2.1
 
-  scheduler@0.27.0: {}
+  scheduler@0.28.0: {}
 
   semver@7.8.4: {}
 
