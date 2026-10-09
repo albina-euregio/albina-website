@@ -54,7 +54,7 @@
     "purecss-sass": "3.0.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "react-string-replace": "^1.1.1",
+    "react-string-replace": "^2.0.1",
     "react-swipeable": "^7.0.2",
     "temporal-polyfill": "^1.0.1"
   },
