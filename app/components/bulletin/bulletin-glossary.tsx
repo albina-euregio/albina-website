@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, use } from "react";
 import { Tooltip } from "../tooltips/tooltip";
 import { FormattedMessage } from "../../i18n";
 import reactStringReplace from "react-string-replace";
@@ -36,14 +36,43 @@ type GlossaryContent = Awaited<
   ReturnType<(typeof GLOSSARY_CONTENT)[EnabledLanguages]>
 >;
 
+const GLOSSARY_CONTENT_CACHE: Partial<
+  Record<EnabledLanguages, Promise<GlossaryContent>>
+> = {};
+
+function loadContent(locale: EnabledLanguages) {
+  return (GLOSSARY_CONTENT_CACHE[locale] ??= GLOSSARY_CONTENT[locale]());
+}
+
+function GlossaryTooltipContent({
+  locale,
+  glossary
+}: {
+  locale: EnabledLanguages;
+  glossary: keyof GlossaryContent;
+}) {
+  // fall back to English for entries not translated yet
+  const { heading, text, ids, img } =
+    use(loadContent(locale))[glossary] ?? use(loadContent("en"))[glossary];
+  const href = `/education/glossary#${ids?.[locale]}`;
+  return (
+    <>
+      <h3>{heading}</h3>
+      {preprocessContent(text + (img ?? ""))}
+      <p className="tooltip-source">
+        (<FormattedMessage id={"glossary:source"} />: <a href={href}>EAWS</a>)
+      </p>
+    </>
+  );
+}
+
 class GlossaryReplacer {
   glossaryLinks: Record<string, string>;
   regex: RegExp;
 
   private constructor(
     public readonly locale: EnabledLanguages,
-    public readonly links: GlossaryLinks,
-    public readonly content: GlossaryContent
+    public readonly links: GlossaryLinks
   ) {
     this.glossaryLinks = Object.fromEntries(
       Object.entries(links).flatMap(([id, phrases]) =>
@@ -71,11 +100,7 @@ class GlossaryReplacer {
     if (!RAW_GLOSSARY_LINKS[locale] || !GLOSSARY_CONTENT[locale]) {
       return undefined;
     }
-    return new GlossaryReplacer(
-      locale,
-      await RAW_GLOSSARY_LINKS[locale](),
-      await GLOSSARY_CONTENT[locale]()
-    );
+    return new GlossaryReplacer(locale, await RAW_GLOSSARY_LINKS[locale]());
   }
 
   static findBreaks(textRaw: string): React.ReactNode[] {
@@ -136,22 +161,12 @@ class GlossaryReplacer {
           );
         }
         const glossary = this.glossaryLinks[substring] as keyof GlossaryContent;
-        const glossaryContent = this.content[glossary];
-        if (!glossaryContent) {
-          return <>{substring}</>;
-        }
-        const { heading, text, ids, img } = glossaryContent;
-        const anchor = ids?.[this.locale];
-        const href = `/education/glossary#${anchor}`;
         const content = () => (
-          <>
-            <h3>{heading}</h3>
-            {preprocessContent(text + (img ?? ""))}
-            <p className="tooltip-source">
-              (<FormattedMessage id={"glossary:source"} />:{" "}
-              <a href={href}>EAWS</a>)
-            </p>
-          </>
+          <Suspense
+            fallback={<FormattedMessage id="bulletin:header:loading" />}
+          >
+            <GlossaryTooltipContent locale={this.locale} glossary={glossary} />
+          </Suspense>
         );
 
         return (
