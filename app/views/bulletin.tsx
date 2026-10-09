@@ -74,38 +74,46 @@ const Bulletin = () => {
   const headless = useStore($headless);
 
   useEffect(() => {
+    let cancelled = false;
+    let timer: ReturnType<typeof setTimeout>;
     _latestBulletinChecker();
     async function _latestBulletinChecker() {
       const today = Temporal.Now.plainDateISO();
+      let next = today;
       if (BulletinCollection.isAfter1700()) {
         const tomorrow = Temporal.Now.plainDateISO().add({ days: 1 });
         const status = await new BulletinCollection(
           tomorrow,
           lang
         ).loadStatus();
-        setLatest(status === "ok" ? tomorrow : today);
-      } else {
-        setLatest(today);
+        if (status === "ok") next = tomorrow;
       }
-      window.setTimeout(
+      if (cancelled) return;
+      setLatest(next);
+      timer = setTimeout(
         () => _latestBulletinChecker(),
         config.bulletin.checkForLatestInterval * 60000
       );
     }
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [lang]);
 
+  const dateKey = (
+    dateParam ? Temporal.PlainDate.from(dateParam) : latest
+  )?.toString();
+
   useEffect(() => {
-    const date = dateParam ? Temporal.PlainDate.from(dateParam) : latest;
-    if (!date) return;
-    if (
-      date?.toString() === collection?.date?.toString() &&
-      lang === collection?.lang
-    ) {
-      return;
-    }
+    if (!dateKey) return;
+    let ignore = false;
     (async () => {
       setLoadingStart(Date.now());
-      const collection = new BulletinCollection(date, lang);
+      const collection = new BulletinCollection(
+        Temporal.PlainDate.from(dateKey),
+        lang
+      );
       setStatus(collection.status);
       try {
         await Promise.all([
@@ -113,23 +121,18 @@ const Bulletin = () => {
           collection.loadExtraBulletins(),
           collection.loadEawsBulletins()
         ]);
-        setStatus(collection.status);
-        setCollection(collection);
       } catch (error) {
-        console.error(`Cannot load bulletin for date ${date}`, error);
+        console.error(`Cannot load bulletin for date ${dateKey}`, error);
         collection.status = "n/a";
       }
+      if (ignore) return;
       setStatus(collection.status);
       setCollection(collection);
     })();
-  }, [
-    collection?.date,
-    collection?.lang,
-    lang,
-    latest,
-    dateParam,
-    setLoadingStart
-  ]);
+    return () => {
+      ignore = true;
+    };
+  }, [dateKey, lang, setLoadingStart]);
 
   useEffect(() => setRegion(router.search.region), [router.search]);
 
