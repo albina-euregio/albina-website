@@ -5,6 +5,7 @@ import { setLanguage } from "./appStore";
 import { isWebPushSupported } from "./util/isWebPushSupported";
 import { template } from "./util/template";
 import { newRegionRegex } from "./util/newRegionRegex";
+import { $router } from "./components/router";
 
 window["scroll_duration"] = 1000;
 
@@ -63,11 +64,23 @@ configRequest.then(async configParsed => {
     location.host = location.host.substring("www.".length);
   }
 
-  await setLanguage(language || configParsed.mainLanguages?.[0] || "en");
-
   if (!globalThis.Temporal) {
     await import("temporal-polyfill/global");
   }
+
+  // Load the bulletin view in parallel with the language (needs config and Temporal).
+  const bulletinRoutes = [
+    "home",
+    "homeDate",
+    "bulletin",
+    "bulletinDate",
+    "bulletinLatest"
+  ];
+  if (bulletinRoutes.includes($router.get()?.route ?? "")) {
+    void import("./views/bulletin");
+  }
+
+  await setLanguage(language || configParsed.mainLanguages?.[0] || "en");
 
   const root = document.body.appendChild(document.getElementById("page-all"));
   createRoot(root).render(<App />);
