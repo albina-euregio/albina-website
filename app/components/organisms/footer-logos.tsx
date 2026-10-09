@@ -19,6 +19,7 @@ export default function FooterLogos() {
                 className="footer-logo-img"
                 alt={icon.title}
                 src={`/images/pro/footer/${icon.img}`}
+                loading="lazy"
               />
             </a>
           </Tooltip>
