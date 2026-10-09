@@ -68,7 +68,7 @@ configRequest.then(async configParsed => {
     await import("temporal-polyfill/global");
   }
 
-  // Load the bulletin view in parallel with the language (needs config and Temporal).
+  // Load the view in parallel with the language (needs config and Temporal).
   const bulletinRoutes = [
     "home",
     "homeDate",
@@ -76,8 +76,11 @@ configRequest.then(async configParsed => {
     "bulletinDate",
     "bulletinLatest"
   ];
-  if (bulletinRoutes.includes($router.get()?.route ?? "")) {
+  const route = $router.get()?.route ?? "";
+  if (bulletinRoutes.includes(route)) {
     void import("./views/bulletin");
+  } else if (route === "weatherStations" || route === "weatherMeasurements") {
+    void import("./views/stationDashboard");
   }
 
   await setLanguage(language || configParsed.mainLanguages?.[0] || "en");
