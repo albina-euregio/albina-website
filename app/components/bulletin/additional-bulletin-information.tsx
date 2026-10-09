@@ -82,10 +82,30 @@ function isLocatedObservation(value: unknown): value is LocatedObservation {
   );
 }
 
-function useWeatherStations() {
+/** Whether the element has been near the viewport at least once. */
+function useHasBeenInView(ref: React.RefObject<Element | null>): boolean {
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || inView) return;
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries.some(e => e.isIntersecting)) setInView(true);
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [ref, inView]);
+  return inView;
+}
+
+function useWeatherStations(enabled: boolean) {
   const [stationId, setStationId] = useStationId();
   const { data, loadStationData } = useStationData("microRegion");
-  useEffect(() => void loadStationData(), [loadStationData]);
+  useEffect(() => {
+    if (enabled) void loadStationData();
+  }, [enabled, loadStationData]);
 
   const stationFeatures = useMemo(
     (): GeoJSON.FeatureCollection<GeoJSON.Point> => ({
@@ -118,13 +138,13 @@ function useWeatherStations() {
   return { data, stationFeatures, stationId, setStationId };
 }
 
-function useObservations(date: string) {
+function useObservations(date: string, enabled: boolean) {
   const [observations, setObservations] = useState<LocatedObservation[]>([]);
   const [observationId, setObservationId] = useState<string>("");
 
   useEffect(() => {
     const url = config.apis.snobs;
-    if (!url) return;
+    if (!url || !enabled) return;
     let ignore = false;
     fetchJSON<unknown>(config.template(url, { date }))
       .then(snobs => {
@@ -140,7 +160,7 @@ function useObservations(date: string) {
     return () => {
       ignore = true;
     };
-  }, [date]);
+  }, [date, enabled]);
 
   const observationFeatures = useMemo(
     (): GeoJSON.FeatureCollection<GeoJSON.Point> => ({
@@ -176,11 +196,12 @@ function useObservations(date: string) {
  * the whole domain — unlike the stations and observations, they are not
  * restricted to the bulletin's micro-region.
  */
-function useSnowProfiles(date: string) {
+function useSnowProfiles(date: string, enabled: boolean) {
   const [snowProfiles, setSnowProfiles] = useState<SnowProfileData[]>([]);
   const [snowProfileId, setSnowProfileId] = useSnowProfileId();
 
   useEffect(() => {
+    if (!enabled) return;
     const dateTo = Temporal.PlainDate.from(date);
     const dateFrom = dateTo.subtract({ days: RECENT_DAYS });
     let ignore = false;
@@ -192,7 +213,7 @@ function useSnowProfiles(date: string) {
     return () => {
       ignore = true;
     };
-  }, [date]);
+  }, [date, enabled]);
 
   const snowProfileFeatures = useMemo(
     (): GeoJSON.FeatureCollection<GeoJSON.Point> => ({
@@ -247,11 +268,12 @@ function isWithin(
  * bulletin's micro-region. The API is season-based, so the window is applied
  * here.
  */
-function useIncidents(date: string) {
+function useIncidents(date: string, enabled: boolean) {
   const [incidents, setIncidents] = useState<IncidentData[]>([]);
   const [incidentId, setIncidentId] = useState<string>("");
 
   useEffect(() => {
+    if (!enabled) return;
     const dateTo = Temporal.PlainDate.from(date);
     const dateFrom = dateTo.subtract({ days: RECENT_DAYS });
     let ignore = false;
@@ -262,7 +284,7 @@ function useIncidents(date: string) {
     return () => {
       ignore = true;
     };
-  }, [date]);
+  }, [date, enabled]);
 
   const incidentFeatures = useMemo(
     (): GeoJSON.FeatureCollection<GeoJSON.Point> => ({
@@ -673,14 +695,19 @@ export function AdditionalBulletinInformation({
   const [showObservations, setShowObservations] = useState(true);
   const [showSnowProfiles, setShowSnowProfiles] = useState(true);
   const [showIncidents, setShowIncidents] = useState(true);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const inView = useHasBeenInView(mapContainerRef);
   const { data, stationFeatures, stationId, setStationId } =
-    useWeatherStations();
+    useWeatherStations(inView);
   const mainDate = getMainDate(bulletin.customData) ?? date.toString();
   const { observationFeatures, observation, setObservationId } =
-    useObservations(mainDate);
+    useObservations(mainDate, inView);
   const { snowProfiles, snowProfileFeatures, snowProfileId, setSnowProfileId } =
-    useSnowProfiles(mainDate);
-  const { incidentFeatures, incident, setIncidentId } = useIncidents(mainDate);
+    useSnowProfiles(mainDate, inView);
+  const { incidentFeatures, incident, setIncidentId } = useIncidents(
+    mainDate,
+    inView
+  );
 
   const bounds = useMemo((): LngLatBoundsLike | undefined => {
     const b = microRegionBounds(date, region);
@@ -726,23 +753,25 @@ export function AdditionalBulletinInformation({
       </h2>
 
       <div className="addmap-container">
-        <div className="addmap">
-          <BulletinMiniMap
-            key={`${bulletin.bulletinID}-${region}`}
-            bounds={bounds}
-            stations={stationFeatures}
-            observations={observationFeatures}
-            snowProfiles={snowProfileFeatures}
-            incidents={incidentFeatures}
-            showStations={showStations}
-            showObservations={showObservations}
-            showSnowProfiles={showSnowProfiles}
-            showIncidents={showIncidents}
-            onStationClick={setStationId}
-            onObservationClick={setObservationId}
-            onSnowProfileClick={setSnowProfileId}
-            onIncidentClick={setIncidentId}
-          />
+        <div className="addmap" ref={mapContainerRef}>
+          {inView && (
+            <BulletinMiniMap
+              key={`${bulletin.bulletinID}-${region}`}
+              bounds={bounds}
+              stations={stationFeatures}
+              observations={observationFeatures}
+              snowProfiles={snowProfileFeatures}
+              incidents={incidentFeatures}
+              showStations={showStations}
+              showObservations={showObservations}
+              showSnowProfiles={showSnowProfiles}
+              showIncidents={showIncidents}
+              onStationClick={setStationId}
+              onObservationClick={setObservationId}
+              onSnowProfileClick={setSnowProfileId}
+              onIncidentClick={setIncidentId}
+            />
+          )}
         </div>
 
         <div className="addmap-legend">
