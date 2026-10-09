@@ -66,6 +66,20 @@
       }
     </style>
 
+    <!-- !fallback: only shown if the app has not started after 3s -->
+    <style>
+      @keyframes showFallback {
+        to {
+          visibility: visible;
+        }
+      }
+
+      .page-fallback {
+        visibility: hidden;
+        animation: showFallback 0s 3s forwards;
+      }
+    </style>
+
     <!-- !javascript -->
 
     <!-- !web manifest + favicons -->
@@ -129,30 +143,38 @@
       </p>
     </noscript>
     <div id="page-all" class="page-all">
-      <h2>Lawinen.report</h2>
-      <p>
-        Diese Website erfordert einen modernen Browser und JavaScript-Module;
-        für eine vereinfachte Version siehe
-        <a href="https://lawinen.report/simple/de.html" aria-label="reines html"
-          >/simple</a
-        >.
-      </p>
-      <h2>Valanghe.report</h2>
-      <p>
-        Questo sito web richiede un browser moderno e moduli JavaScript; per
-        un'alternativa leggera vedi
-        <a href="https://valanghe.report/simple/it.html" aria-label="puro html"
-          >/simple</a
-        >.
-      </p>
-      <h2>Avalanche.report</h2>
-      <p>
-        This website requires a modern browser and JavaScript modules; for a
-        lightweight alternative see
-        <a href="https://avalanche.report/simple/en.html" aria-label="pure html"
-          >/simple</a
-        >.
-      </p>
+      <div class="page-fallback">
+        <h2>Lawinen.report</h2>
+        <p>
+          Diese Website erfordert einen modernen Browser und JavaScript-Module;
+          für eine vereinfachte Version siehe
+          <a
+            href="https://lawinen.report/simple/de.html"
+            aria-label="reines html"
+            >/simple</a
+          >.
+        </p>
+        <h2>Valanghe.report</h2>
+        <p>
+          Questo sito web richiede un browser moderno e moduli JavaScript; per
+          un'alternativa leggera vedi
+          <a
+            href="https://valanghe.report/simple/it.html"
+            aria-label="puro html"
+            >/simple</a
+          >.
+        </p>
+        <h2>Avalanche.report</h2>
+        <p>
+          This website requires a modern browser and JavaScript modules; for a
+          lightweight alternative see
+          <a
+            href="https://avalanche.report/simple/en.html"
+            aria-label="pure html"
+            >/simple</a
+          >.
+        </p>
+      </div>
     </div>
     <script type="module" src="/app/main.tsx"></script>
   </body>
