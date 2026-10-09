@@ -34,6 +34,8 @@ function withPictureMeta(node: React.ReactNode): React.ReactNode {
 }
 
 export function preprocessContent(content: string, blogMode = false) {
+  // htmr parses via innerHTML, which already fetches images: mark them lazy beforehand
+  content = content.replace(/<img(?![^>]*\sloading=)/gi, '<img loading="lazy"');
   return htmr(content, {
     transform: {
       _(type, props: AllHTMLAttributes<HTMLLinkElement>, children) {
