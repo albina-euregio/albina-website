@@ -425,8 +425,17 @@ function MapLibreMap({
 
   // Initialize the map once: basemap, source + layers, the hover tooltip and a
   // ResizeObserver. The data itself is kept in sync by the effect below.
+  // Create the map after the first paint, so it doesn't delay it.
+  const [afterPaint, setAfterPaint] = useState(false);
   useEffect(() => {
-    if (!containerRef.current || mapRef.current) return;
+    const frame = requestAnimationFrame(() =>
+      setTimeout(() => setAfterPaint(true))
+    );
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
+    if (!afterPaint || !containerRef.current || mapRef.current) return;
 
     const bounds = padBounds(eawsRegionsBounds(focusRegions), 0.1);
 
@@ -554,7 +563,7 @@ function MapLibreMap({
       mapRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [afterPaint]);
 
   // Recompute the GeoJSON whenever the data or the selected parameter changes
   // and push it to the source (or stash it for the load handler to seed).
