@@ -237,7 +237,7 @@ function IncidentDashboard() {
 
       <section
         ref={filterRef}
-        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode} station-dashboard-filter--grouped station-dashboard-filter--incidents${isFiltersExpanded ? " is-expanded" : ""}`}
+        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode} station-dashboard-filter--grouped${isFiltersExpanded ? " is-expanded" : ""}`}
         style={topStyle}
       >
         <div className="section-centered station-dashboard-filter__inner">
