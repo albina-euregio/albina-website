@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
@@ -791,8 +791,17 @@ function MapLibreMap({
     return ["in", ["get", "id"], ["literal", eawsRegions]];
   }, [activeBulletinCollection?.date, eawsRegions]);
 
+  // Create the maps after the first paint, so they don't delay it.
+  const [afterPaint, setAfterPaint] = useState(false);
   useEffect(() => {
-    if (!webglSupported) return;
+    const frame = requestAnimationFrame(() =>
+      setTimeout(() => setAfterPaint(true))
+    );
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
+    if (!webglSupported || !afterPaint) return;
     if (!baseRef.current || !overlayRef.current || baseMapRef.current) return;
 
     const initialBounds: LngLatBoundsLike = padBounds(
@@ -1007,7 +1016,7 @@ function MapLibreMap({
       overlayMapRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [afterPaint]);
 
   // Re-style the region fill + borders on danger / selection / filter changes by
   // updating the per-region `state` / `dangerRating` / `intern` feature-states; the
