@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "../../i18n";
 
 interface Props {
   expanded: boolean;
@@ -13,13 +14,14 @@ export default function FilterBarToggle({
   onToggle,
   controls
 }: Props) {
+  const intl = useIntl();
   return (
     <button
       className="station-dashboard-filter__toggle"
       type="button"
       aria-expanded={expanded}
       aria-controls={controls}
-      aria-label="Toggle additional filters"
+      aria-label={intl.formatMessage({ id: "filter:toggle" })}
       onClick={onToggle}
     >
       <span

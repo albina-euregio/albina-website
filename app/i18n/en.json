@@ -51,6 +51,7 @@
   "menu:education:xarxa-observacions": "Observations network",
   "filter:all": "All",
   "filter:search": "Search",
+  "filter:toggle": "Toggle additional filters",
   "jumpnav:content": "Go to Content",
   "jumpnav:navigation": "Go to Navigation",
   "jumpnav:footer": "Go to Footer",
