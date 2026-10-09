@@ -1,8 +1,16 @@
-import React, { type MouseEvent, type ReactNode } from "react";
+import React, {
+  type MouseEvent,
+  type ReactNode,
+  useEffect,
+  useState
+} from "react";
 import { useIntl } from "../../i18n";
 import { Tooltip } from "../tooltips/tooltip";
 
 export type SortDir = "asc" | "desc";
+
+/** Rows rendered before the first paint; the rest follow a frame later. */
+const INITIAL_ROWS = 100;
 
 export interface ColumnDef<T> {
   /** Stable key, doubling as the sort id sent to `onSort`. */
@@ -39,6 +47,16 @@ interface DataTableProps<T> {
 
 export default function DataTable<T>(props: DataTableProps<T>) {
   const intl = useIntl();
+
+  const [showAll, setShowAll] = useState(false);
+  useEffect(() => {
+    if (showAll || props.rows.length <= INITIAL_ROWS) return;
+    const frame = requestAnimationFrame(() =>
+      setTimeout(() => setShowAll(true))
+    );
+    return () => cancelAnimationFrame(frame);
+  }, [showAll, props.rows.length]);
+  const rows = showAll ? props.rows : props.rows.slice(0, INITIAL_ROWS);
 
   const handleSort = (e: MouseEvent, col: ColumnDef<T>) => {
     e.preventDefault();
@@ -116,7 +134,7 @@ export default function DataTable<T>(props: DataTableProps<T>) {
         </tr>
       </thead>
       <tbody>
-        {props.rows.map(row => {
+        {rows.map(row => {
           const key = props.getRowKey(row);
           return (
             <tr key={key} onClick={() => props.onRowClick?.(row)}>
