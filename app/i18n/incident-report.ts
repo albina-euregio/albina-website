@@ -1,6 +1,7 @@
 import { atom } from "nanostores";
 import { useStore } from "@nanostores/react";
 import { $language, mergeTranslations, type Language } from "../appStore";
+import type { MessageId } from ".";
 
 export type IncidentReportMessages = Record<string, Record<string, string>>;
 
@@ -46,4 +47,31 @@ export function translateIncidentValue(
 ): string | undefined {
   if (!value) return undefined;
   return messages[category]?.[value] ?? value;
+}
+
+/**
+ * Field labels and value translations of the `incident-report` resource.
+ * Until it has loaded, labels fall back to the raw field name.
+ */
+export function useIncidentLabels() {
+  const messages = useIncidentReportMessages();
+  const label = (field: string) =>
+    (messages.incidentReport?.[field] ?? field).trim();
+  const tr = (category: string, value: string | undefined) =>
+    translateIncidentValue(messages, category, value);
+  /** Translates each entry of a list and joins them, dropping empty values. */
+  const trList = (
+    category: string,
+    values: (string | undefined)[] | undefined,
+    separator = ", "
+  ) =>
+    values
+      ?.map(value => tr(category, value))
+      .filter(Boolean)
+      .join(separator);
+  return { messages, label, tr, trList };
+}
+
+export function problemTypeMessageId(problemType: string): MessageId {
+  return `caaml:avalancheProblem.${problemType}` as MessageId;
 }

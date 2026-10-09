@@ -1246,43 +1246,17 @@ $search-width-wide: 300px;
     }
   }
 
-  &.station-dashboard-filter--incidents {
-    @media screen and (max-width: 53em) {
-      .station-dashboard-filter__bar {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-        grid-template-areas: "province season search";
-      }
-
-      .station-dashboard-filter__season {
-        grid-area: season;
-        min-width: 0;
-        width: 100%;
-
-        .selectric-wrapper,
-        .selectric,
-        .dropdown.selectric {
-          min-width: 0;
-          width: 100%;
-        }
-      }
-    }
-  }
-
-  // the snow-profile date filter is a from/to range (two date inputs), unlike
-  // the single datetime-local on the weather dashboard, so give it room and let
-  // the two inputs share the space instead of overflowing into the province
-  // dropdown next to it
-  &.station-dashboard-filter--profiles {
+  // Filters in one centered group, Export at the far right. On small screens
+  // Export collapses behind the toggle.
+  &.station-dashboard-filter--grouped {
     // use the full viewport width instead of the shared .section-centered cap
     // (body line-length, 55em), which is far too narrow for these controls
     .station-dashboard-filter__inner {
       max-width: none;
     }
 
-    // Larger screens: keep the filters in one centered group with the add
-    // button at the far right. The group does not shrink, so when the button
-    // no longer fits beside it the button drops onto its own line (still
-    // right-aligned).
+    // Larger screens: the group does not shrink, so when Export no longer
+    // fits beside it, it drops onto its own line (still right-aligned).
     @media screen and (min-width: 53.0625em) {
       .station-dashboard-filter__bar {
         display: flex;
@@ -1327,21 +1301,18 @@ $search-width-wide: 300px;
         gap: variables.$padding * 0.5;
       }
 
-      // the from/to date range needs the full width on its own row, below
-      // the province dropdown and search (source order keeps it first, for
-      // the unchanged desktop layout). Collapsed behind the toggle by
-      // default, like the extras on the weather-station bar.
-      .station-dashboard-filter__date {
-        flex: 1 1 100%;
-        min-width: 0;
-        order: 1;
-        display: none;
-      }
-
       .station-dashboard-filter__province,
+      .station-dashboard-filter__season,
       .station-dashboard-filter__search {
         flex: 1 1 0;
         min-width: 0;
+      }
+
+      .station-dashboard-filter__season .selectric-wrapper,
+      .station-dashboard-filter__season .selectric,
+      .station-dashboard-filter__season .dropdown.selectric {
+        min-width: 0;
+        width: 100%;
       }
 
       .station-dashboard-filter__search {
@@ -1375,8 +1346,34 @@ $search-width-wide: 300px;
 
     &.is-expanded {
       @media screen and (max-width: 53em) {
-        .station-dashboard-filter__date,
         .station-dashboard-filter__export {
+          display: block;
+        }
+      }
+    }
+  }
+
+  // the snow-profile date filter is a from/to range (two date inputs), unlike
+  // the single datetime-local on the weather dashboard, so give it room and let
+  // the two inputs share the space instead of overflowing into the province
+  // dropdown next to it
+  &.station-dashboard-filter--profiles {
+    @media screen and (max-width: 53em) {
+      // the from/to date range needs the full width on its own row, below
+      // the province dropdown and search (source order keeps it first, for
+      // the unchanged desktop layout). Collapsed behind the toggle by
+      // default, like the extras on the weather-station bar.
+      .station-dashboard-filter__date {
+        flex: 1 1 100%;
+        min-width: 0;
+        order: 1;
+        display: none;
+      }
+    }
+
+    &.is-expanded {
+      @media screen and (max-width: 53em) {
+        .station-dashboard-filter__date {
           display: block;
         }
       }

@@ -17,6 +17,7 @@ import {
 } from "../components/station/station-parameter-control";
 import ProvinceFilter from "../components/filters/province-filter";
 import DualRangeSlider from "../components/filters/dual-range-slider";
+import FilterBarToggle from "../components/filters/filter-bar-toggle";
 import SearchField from "../components/organisms/search-field";
 import StationTable from "../components/station/station-table";
 import { useStore } from "@nanostores/react";
@@ -305,21 +306,11 @@ function StationDashboard() {
             />
           </div>
 
-          <button
-            className="station-dashboard-filter__toggle"
-            type="button"
-            aria-expanded={isFiltersExpanded}
-            aria-controls="station-dashboard-filter-extras"
-            aria-label="Toggle additional filters"
-            onClick={() => {
-              setIsFiltersExpanded(prev => !prev);
-            }}
-          >
-            <span
-              className="station-dashboard-filter__toggle-chevron"
-              aria-hidden="true"
-            />
-          </button>
+          <FilterBarToggle
+            expanded={isFiltersExpanded}
+            onToggle={() => setIsFiltersExpanded(prev => !prev)}
+            controls="station-dashboard-filter-extras"
+          />
         </div>
       </div>
     </section>

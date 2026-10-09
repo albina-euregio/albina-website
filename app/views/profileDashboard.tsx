@@ -20,6 +20,7 @@ import SearchField from "../components/organisms/search-field";
 import ExportMenu, {
   type ExportAction
 } from "../components/filters/export-menu";
+import FilterBarToggle from "../components/filters/filter-bar-toggle";
 import { $router, redirectPageQuery } from "../components/router";
 import { useHiddenFooter } from "./useHiddenFooter";
 import { useFilterBarOffset } from "./useFilterBarOffset";
@@ -229,7 +230,7 @@ function SnowProfileDashboard() {
 
       <section
         ref={filterRef}
-        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode} station-dashboard-filter--profiles${isFiltersExpanded ? " is-expanded" : ""}`}
+        className={`section controlbar station-dashboard-filter station-dashboard-filter--${viewMode} station-dashboard-filter--grouped station-dashboard-filter--profiles${isFiltersExpanded ? " is-expanded" : ""}`}
         style={topStyle}
       >
         <div className="section-centered station-dashboard-filter__inner">
@@ -275,21 +276,11 @@ function SnowProfileDashboard() {
               }
             />
 
-            <button
-              className="station-dashboard-filter__toggle"
-              type="button"
-              aria-expanded={isFiltersExpanded}
-              aria-controls="profile-filter-date profile-filter-export"
-              aria-label="Toggle additional filters"
-              onClick={() => {
-                setIsFiltersExpanded(prev => !prev);
-              }}
-            >
-              <span
-                className="station-dashboard-filter__toggle-chevron"
-                aria-hidden="true"
-              />
-            </button>
+            <FilterBarToggle
+              expanded={isFiltersExpanded}
+              onToggle={() => setIsFiltersExpanded(prev => !prev)}
+              controls="profile-filter-date profile-filter-export"
+            />
           </div>
         </div>
       </section>
