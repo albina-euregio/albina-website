@@ -8,7 +8,10 @@ import {
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useStore } from "@nanostores/react";
 import { $focusRegions } from "../../appStore.ts";
-import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
+import {
+  eawsRegionsBounds,
+  padBounds
+} from "../../stores/eawsRegionsBounds.ts";
 import { useIntl } from "../../i18n";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { escapeHtml } from "../../util/escape-html.ts";

@@ -1,5 +1,4 @@
 import outline_properties from "@eaws/outline_properties/index.json";
-import { LngLatBounds } from "maplibre-gl";
 import * as v from "valibot";
 import { vLanguageCode } from "../api/valibot.gen";
 
@@ -44,34 +43,4 @@ export function eawsRegionIds(): string[] {
   return eawsRegions
     .map(properties => properties.id)
     .filter(id => !config.regionsRegex.test(id));
-}
-
-/**
- * Grow `bounds` by `n` degrees in every direction. Returns a new instance;
- * the input is left untouched. For an empty bounds the result stays empty.
- */
-export function padBounds(bounds: LngLatBounds, n: number): LngLatBounds {
-  if (bounds.isEmpty()) return bounds;
-  return new LngLatBounds([
-    bounds.getWest() - n,
-    bounds.getSouth() - n,
-    bounds.getEast() + n,
-    bounds.getNorth() + n
-  ]);
-}
-
-export function eawsRegionsBounds(
-  regionCodes: string[],
-  f: (
-    regionCode: string
-  ) => undefined | { bbox: [number, number, number, number] } = eawsRegion
-): LngLatBounds {
-  const bounds = new LngLatBounds();
-  for (const r of regionCodes) {
-    const region = f(r);
-    if (region?.bbox) {
-      bounds.extend(new LngLatBounds(region.bbox));
-    }
-  }
-  return bounds;
 }

@@ -13,7 +13,10 @@ import type { Feature } from "@albina-euregio/linea/listing";
 import { useIntl } from "../../i18n/index.tsx";
 import type { ParameterType } from "./station-parameter-data.ts";
 import { $focusRegions } from "../../appStore.ts";
-import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
+import {
+  eawsRegionsBounds,
+  padBounds
+} from "../../stores/eawsRegionsBounds.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 
 /**

@@ -18,12 +18,8 @@ import {
   ValidTimePeriod
 } from "../../stores/bulletin";
 import { useStore } from "@nanostores/react";
-import {
-  eawsRegion,
-  eawsRegionIds,
-  eawsRegionsBounds,
-  padBounds
-} from "../../stores/eawsRegions";
+import { eawsRegion, eawsRegionIds } from "../../stores/eawsRegions";
+import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegionsBounds";
 import {
   EawsRegionDataLayer,
   filterFeatureSpecification,

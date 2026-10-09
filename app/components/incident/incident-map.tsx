@@ -8,7 +8,10 @@ import {
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useStore } from "@nanostores/react";
 import { $focusRegions } from "../../appStore.ts";
-import { eawsRegionsBounds, padBounds } from "../../stores/eawsRegions.ts";
+import {
+  eawsRegionsBounds,
+  padBounds
+} from "../../stores/eawsRegionsBounds.ts";
 import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
 import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
 import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
