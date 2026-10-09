@@ -11,9 +11,10 @@ interface Props {
 const BulletinStatusLine = ({ bulletins, status }: Props) => {
   const intl = useIntl();
 
-  if (status == "pending") {
+  if (!status || status == "pending") {
     return (
-      <p className="marginal">
+      // reserve the validity and publication lines
+      <p className="marginal" style={{ minHeight: "2lh" }}>
         {intl.formatMessage({ id: "bulletin:header:loading" }) + "\u2026"}
       </p>
     );

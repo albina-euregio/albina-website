@@ -44,6 +44,9 @@ function useProblems() {
   return { problems, toggleProblem };
 }
 
+// keeps content below the bulletin list from shifting while it loads
+const bulletinListPlaceholder = <div style={{ minHeight: "100vh" }} />;
+
 const Bulletin = () => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
@@ -101,9 +104,8 @@ const Bulletin = () => {
     };
   }, [lang]);
 
-  const dateKey = (
-    dateParam ? Temporal.PlainDate.from(dateParam) : latest
-  )?.toString();
+  const date = dateParam ? Temporal.PlainDate.from(dateParam) : latest;
+  const dateKey = date?.toString();
 
   useEffect(() => {
     if (!dateKey) return;
@@ -191,7 +193,7 @@ const Bulletin = () => {
       <HTMLHeader title={intl.formatMessage({ id: "caaml:forecast.label" })} />
       <HTMLPageLoadingScreen loading={status === "pending"} />
       <BulletinHeader
-        date={collection?.date}
+        date={collection?.date ?? date ?? undefined}
         latestDate={latest}
         status={status}
         bulletins={collection?.bulletinsWith170000}
@@ -210,7 +212,14 @@ const Bulletin = () => {
         />
       )}
 
-      <Suspense fallback={<div>...</div>}>
+      <Suspense
+        fallback={
+          // same size as the lazy map, avoids a layout shift
+          <section className="section section-bulletin-map">
+            <div className="section-map" />
+          </section>
+        }
+      >
         <div className="bulletin-map-cta-container">
           {daytimeDependency ? (
             <div
@@ -262,12 +271,13 @@ const Bulletin = () => {
           </div>
         </section>
       )}
+      {!collection && router.search.region && bulletinListPlaceholder}
       {collection && (
         // Own Suspense boundary: selecting the first region renders that report
         // for the first time, which lazily loads the glossary chunk/data. Without
         // a boundary here that suspend bubbles to the app-level Suspense and blanks
         // the whole page; contain it to the report area instead.
-        <Suspense fallback={null}>
+        <Suspense fallback={bulletinListPlaceholder}>
           <BulletinList
             bulletins={collection.bulletinsWith170000}
             date={collection?.date}
