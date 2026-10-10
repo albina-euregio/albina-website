@@ -91,11 +91,79 @@ const R = 6378137; // Web Mercator sphere
 const mercatorY = (lat: number) =>
   R * Math.log(Math.tan(Math.PI / 4 + rad(lat) / 2));
 
+/** Mapping from Web Mercator output pixels to source pixels. */
+export interface AustriaLambertReprojection {
+  width: number;
+  height: number;
+  /** Per output pixel the byte offset of its source pixel, or -1 outside. */
+  sourceOffsets: Int32Array;
+}
+
+let cachedReprojection:
+  | { key: string; reprojection: AustriaLambertReprojection }
+  | undefined;
+
 /**
- * Reprojects an image of the overlay grid to Web Mercator, covering
- * `grid.bbox` — nearest neighbour, so colors stay exact. Pixels
- * outside the grid are transparent.
+ * Maps the overlay grid (as a `srcW`×`srcH` image) to Web Mercator, covering
+ * `grid.bbox` — nearest neighbour, so colors stay exact. The mapping is the
+ * same for every image of a grid, so the last one is cached.
  */
+export function austriaLambertReprojection(
+  srcW: number,
+  srcH: number,
+  grid: AustriaLambertGrid
+): AustriaLambertReprojection {
+  const { bbox } = grid;
+  const [west, south, east, north] = [
+    bbox.getWest(),
+    bbox.getSouth(),
+    bbox.getEast(),
+    bbox.getNorth()
+  ];
+  const key = [srcW, srcH, ...grid.lambert, west, south, east, north].join();
+  if (cachedReprojection?.key === key) return cachedReprojection.reprojection;
+
+  const top = mercatorY(north);
+  const bottom = mercatorY(south);
+  // Keep the source resolution: a grid cell spans 1/cos(lat) as much in Web
+  // Mercator, taken at the grid's central latitude.
+  const cellSize =
+    (grid.lambert[2] - grid.lambert[0]) / srcW / Math.cos(rad(LAT_0));
+  const width = Math.round((R * rad(east - west)) / cellSize);
+  const height = Math.round((top - bottom) / cellSize);
+  const sourceOffsets = new Int32Array(width * height).fill(-1);
+  const [minX, minY, maxX, maxY] = grid.lambert;
+
+  // toAustriaLambert, split into its latitude (per row) and longitude (per
+  // column) parts.
+  const sinTheta = new Float64Array(width);
+  const cosTheta = new Float64Array(width);
+  for (let i = 0; i < width; i++) {
+    const lng = west + ((i + 0.5) / width) * (east - west);
+    const theta = N * rad(lng - LNG_0);
+    sinTheta[i] = Math.sin(theta);
+    cosTheta[i] = Math.cos(theta);
+  }
+
+  for (let j = 0; j < height; j++) {
+    const y = top - ((j + 0.5) / height) * (top - bottom);
+    const lat = (Math.atan(Math.sinh(y / R)) * 180) / Math.PI;
+    const rho = AF * Math.pow(t(rad(lat)), N);
+    for (let i = 0; i < width; i++) {
+      const fx = (X_0 + rho * sinTheta[i] - minX) / (maxX - minX);
+      const fy = (maxY - (Y_0 + RHO_0 - rho * cosTheta[i])) / (maxY - minY);
+      if (fx < 0 || fx >= 1 || fy < 0 || fy >= 1) continue;
+      sourceOffsets[j * width + i] =
+        (Math.floor(fy * srcH) * srcW + Math.floor(fx * srcW)) * 4;
+    }
+  }
+
+  const reprojection = { width, height, sourceOffsets };
+  cachedReprojection = { key, reprojection };
+  return reprojection;
+}
+
+/** Reprojects an image of the overlay grid to Web Mercator, see above. */
 export function reprojectAustriaLambertImage(
   image: HTMLImageElement,
   grid: AustriaLambertGrid
@@ -108,40 +176,20 @@ export function reprojectAustriaLambertImage(
   srcCtx.drawImage(image, 0, 0);
   const src = srcCtx.getImageData(0, 0, srcW, srcH).data;
 
-  const { bbox } = grid;
-  const [west, south, east, north] = [
-    bbox.getWest(),
-    bbox.getSouth(),
-    bbox.getEast(),
-    bbox.getNorth()
-  ];
-  const top = mercatorY(north);
-  const bottom = mercatorY(south);
-  // Keep the source resolution: a grid cell spans 1/cos(lat) as much in Web
-  // Mercator, taken at the grid's central latitude.
-  const cellSize =
-    (grid.lambert[2] - grid.lambert[0]) / srcW / Math.cos(rad(LAT_0));
-  const outW = Math.round((R * rad(east - west)) / cellSize);
-  const outH = Math.round((top - bottom) / cellSize);
-  const out = new ImageData(outW, outH);
-
-  for (let j = 0; j < outH; j++) {
-    const y = top - ((j + 0.5) / outH) * (top - bottom);
-    const lat = (Math.atan(Math.sinh(y / R)) * 180) / Math.PI;
-    for (let i = 0; i < outW; i++) {
-      const lng = west + ((i + 0.5) / outW) * (east - west);
-      const fraction = austriaLambertGridFraction(lng, lat, grid);
-      if (!fraction) continue;
-      const s =
-        (Math.floor(fraction[1] * srcH) * srcW +
-          Math.floor(fraction[0] * srcW)) *
-        4;
-      const o = (j * outW + i) * 4;
-      out.data[o] = src[s];
-      out.data[o + 1] = src[s + 1];
-      out.data[o + 2] = src[s + 2];
-      out.data[o + 3] = src[s + 3];
-    }
+  const { width, height, sourceOffsets } = austriaLambertReprojection(
+    srcW,
+    srcH,
+    grid
+  );
+  const out = new ImageData(width, height);
+  for (let p = 0; p < sourceOffsets.length; p++) {
+    const s = sourceOffsets[p];
+    if (s < 0) continue;
+    const o = p * 4;
+    out.data[o] = src[s];
+    out.data[o + 1] = src[s + 1];
+    out.data[o + 2] = src[s + 2];
+    out.data[o + 3] = src[s + 3];
   }
   return out;
 }
