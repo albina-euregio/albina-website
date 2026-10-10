@@ -6,6 +6,9 @@ import { isWebPushSupported } from "./util/isWebPushSupported";
 import { template } from "./util/template";
 import { newRegionRegex } from "./util/newRegionRegex";
 import { $router } from "./components/router";
+import { initErrorTracking } from "./util/errorTracking";
+
+initErrorTracking(import.meta.env.APP_SENTRY_DSN);
 
 window["scroll_duration"] = 1000;
 
