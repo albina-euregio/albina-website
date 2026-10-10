@@ -456,7 +456,8 @@ function MapLibreMap({
       className: "maplibre-station-tooltip"
     });
 
-    map.on("load", () => {
+    // "style.load" rather than "load": don't wait for all basemap tiles.
+    map.once("style.load", () => {
       // Wind arrow images (one per wind-speed color) for the current data.
       WindUtil.ensureImages(map, dataRef.current);
 
