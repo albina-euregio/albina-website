@@ -2,6 +2,7 @@ import React, {
   type MouseEvent,
   type ReactNode,
   useEffect,
+  useRef,
   useState
 } from "react";
 import { useIntl } from "../../i18n";
@@ -9,8 +10,8 @@ import { Tooltip } from "../tooltips/tooltip";
 
 export type SortDir = "asc" | "desc";
 
-/** Rows rendered before the first paint; the rest follow a frame later. */
-const INITIAL_ROWS = 100;
+/** Rows rendered at first; more follow in steps as the user scrolls down. */
+const ROWS_STEP = 100;
 
 export interface ColumnDef<T> {
   /** Stable key, doubling as the sort id sent to `onSort`. */
@@ -48,15 +49,25 @@ interface DataTableProps<T> {
 export default function DataTable<T>(props: DataTableProps<T>) {
   const intl = useIntl();
 
-  const [showAll, setShowAll] = useState(false);
+  const [rowLimit, setRowLimit] = useState(ROWS_STEP);
+  const sentinelRef = useRef<HTMLTableRowElement>(null);
+  // Re-created per step: a fresh observer reports the sentinel again if it is
+  // still in view after rendering more rows.
   useEffect(() => {
-    if (showAll || props.rows.length <= INITIAL_ROWS) return;
-    const frame = requestAnimationFrame(() =>
-      setTimeout(() => setShowAll(true))
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries.some(e => e.isIntersecting)) {
+          setRowLimit(limit => limit + ROWS_STEP);
+        }
+      },
+      { root: sentinel.closest(".table-container"), rootMargin: "500px" }
     );
-    return () => cancelAnimationFrame(frame);
-  }, [showAll, props.rows.length]);
-  const rows = showAll ? props.rows : props.rows.slice(0, INITIAL_ROWS);
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [rowLimit, props.rows.length]);
+  const rows = props.rows.slice(0, rowLimit);
 
   const handleSort = (e: MouseEvent, col: ColumnDef<T>) => {
     e.preventDefault();
@@ -150,6 +161,11 @@ export default function DataTable<T>(props: DataTableProps<T>) {
             </tr>
           );
         })}
+        {props.rows.length > rowLimit && (
+          <tr ref={sentinelRef} aria-hidden="true">
+            <td colSpan={props.columns.length} />
+          </tr>
+        )}
       </tbody>
     </table>
   );
