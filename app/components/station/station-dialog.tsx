@@ -1,8 +1,10 @@
 import { useStore } from "@nanostores/react";
-import React from "react";
+import React, { Suspense } from "react";
 import { $router, redirectPageQuery } from "../router";
 import Modal from "../dialogs/albina-modal";
-import WeatherStationDiagrams, { type Props } from "./station-diagrams";
+import type { Props } from "./station-diagrams";
+
+const WeatherStationDiagrams = React.lazy(() => import("./station-diagrams"));
 
 export function useStationId() {
   const router = useStore($router);
@@ -18,7 +20,9 @@ export const WeatherStationDialog: React.FC<Props> = props => (
     onClose={() => props.setStationId("")}
     width={"90vw"}
   >
-    {!!props.stationId && <WeatherStationDiagrams {...props} />}
+    <Suspense fallback={"..."}>
+      {!!props.stationId && <WeatherStationDiagrams {...props} />}
+    </Suspense>
   </Modal>
 );
 
