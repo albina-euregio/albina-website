@@ -348,7 +348,7 @@ export const domainConfig = computed(
 );
 /**
  * A loaded data overlay image, sampled by `valueForPixel` at a coordinate.
- * Loads the image once, on construction. Data PNGs encode values in their
+ * Loads the image once, on first use (most are only read on a click). Data PNGs encode values in their
  * pixels, so they're drawn 1:1 with smoothing off: reads must return exact
  * source pixels. Any scaling or interpolation blends neighbouring pixels and
  * corrupts the encoding.
@@ -357,12 +357,8 @@ export class DataOverlay {
   readonly type: OverlayType;
   private readonly bbox: LngLatBounds;
   private readonly lambertGrid: AustriaLambertGrid | null;
-  private readonly ctx: Promise<CanvasRenderingContext2D>;
-  /**
-   * The extent the image covers: `bbox` for a Web Mercator image, the
-   * envelope of the Austria Lambert grid for one published on it.
-   */
-  readonly bounds: Promise<LngLatBounds>;
+  private readonly url: string;
+  private loadedCtx?: Promise<CanvasRenderingContext2D>;
 
   constructor(
     o: { file: string; type: OverlayType; domain?: DomainId },
@@ -374,12 +370,15 @@ export class DataOverlay {
     this.type = o.type;
     this.bbox = bbox;
     this.lambertGrid = lambertGrid;
-    const [, url] = getOverlayURLs(
+    [, this.url] = getOverlayURLs(
       currentTime,
       (o.domain || domainId) as DomainId,
       o.file
     );
-    this.ctx = new Promise((resolve, reject) => {
+  }
+
+  private get ctx(): Promise<CanvasRenderingContext2D> {
+    return (this.loadedCtx ??= new Promise((resolve, reject) => {
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = () => {
@@ -392,11 +391,19 @@ export class DataOverlay {
       img.onerror = e => {
         reject(new Error(`Failed to fetch ${img.src}: ${JSON.stringify(e)}`));
       };
-      img.src = url;
-    });
-    this.bounds = this.ctx.then(
+      img.src = this.url;
+    }));
+  }
+
+  /**
+   * The extent the image covers: `bbox` for a Web Mercator image, the
+   * envelope of the Austria Lambert grid for one published on it.
+   */
+  get bounds(): Promise<LngLatBounds> {
+    return this.ctx.then(
       ctx =>
-        this.lambertGridOf(ctx.canvas.width, ctx.canvas.height)?.bbox ?? bbox
+        this.lambertGridOf(ctx.canvas.width, ctx.canvas.height)?.bbox ??
+        this.bbox
     );
   }
 
