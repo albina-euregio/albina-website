@@ -103,24 +103,25 @@ let cachedReprojection:
   | { key: string; reprojection: AustriaLambertReprojection }
   | undefined;
 
+/** `AustriaLambertGrid` as plain data, e.g. for a worker. */
+export interface AustriaLambertGridData {
+  lambert: AustriaLambertGrid["lambert"];
+  /** `bbox` as west, south, east, north. */
+  bounds: [number, number, number, number];
+}
+
 /**
  * Maps the overlay grid (as a `srcW`×`srcH` image) to Web Mercator, covering
- * `grid.bbox` — nearest neighbour, so colors stay exact. The mapping is the
+ * `grid.bounds` — nearest neighbour, so colors stay exact. The mapping is the
  * same for every image of a grid, so the last one is cached.
  */
 export function austriaLambertReprojection(
   srcW: number,
   srcH: number,
-  grid: AustriaLambertGrid
+  grid: AustriaLambertGridData
 ): AustriaLambertReprojection {
-  const { bbox } = grid;
-  const [west, south, east, north] = [
-    bbox.getWest(),
-    bbox.getSouth(),
-    bbox.getEast(),
-    bbox.getNorth()
-  ];
-  const key = [srcW, srcH, ...grid.lambert, west, south, east, north].join();
+  const [west, south, east, north] = grid.bounds;
+  const key = [srcW, srcH, ...grid.lambert, ...grid.bounds].join();
   if (cachedReprojection?.key === key) return cachedReprojection.reprojection;
 
   const top = mercatorY(north);
@@ -165,11 +166,11 @@ export function austriaLambertReprojection(
 
 /** Reprojects an image of the overlay grid to Web Mercator, see above. */
 export function reprojectAustriaLambertImage(
-  image: HTMLImageElement,
-  grid: AustriaLambertGrid
+  image: ImageBitmap,
+  grid: AustriaLambertGridData
 ): ImageData {
-  const srcW = image.naturalWidth;
-  const srcH = image.naturalHeight;
+  const srcW = image.width;
+  const srcH = image.height;
   const srcCanvas = new OffscreenCanvas(srcW, srcH);
   const srcCtx = srcCanvas.getContext("2d");
   if (!srcCtx) throw new Error("Canvas 2d context unavailable");

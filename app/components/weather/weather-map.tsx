@@ -24,9 +24,46 @@ import { useStore } from "@nanostores/react";
 import { useIntl } from "../../i18n";
 import type { ParameterType } from "../station/station-parameter-data";
 import {
-  isAustriaLambertImage,
-  reprojectAustriaLambertImage
+  type AustriaLambertGrid,
+  isAustriaLambertImage
 } from "../../util/austria-lambert";
+import type {
+  ReprojectionRequest,
+  ReprojectionResponse
+} from "../../util/austria-lambert.worker";
+
+let reprojectionWorker: Worker | undefined;
+let reprojectionId = 0;
+
+/** Reprojects an overlay image off the main thread. */
+async function reprojectInWorker(
+  image: HTMLImageElement,
+  { lambert, bbox }: AustriaLambertGrid
+): Promise<ImageData> {
+  reprojectionWorker ??= new Worker(
+    new URL("../../util/austria-lambert.worker.ts", import.meta.url),
+    { type: "module" }
+  );
+  const worker = reprojectionWorker;
+  const request: ReprojectionRequest = {
+    id: ++reprojectionId,
+    image: await createImageBitmap(image),
+    grid: {
+      lambert,
+      bounds: [bbox.getWest(), bbox.getSouth(), bbox.getEast(), bbox.getNorth()]
+    }
+  };
+  return new Promise((resolve, reject) => {
+    const onMessage = ({ data }: MessageEvent<ReprojectionResponse>) => {
+      if (data.id !== request.id) return;
+      worker.removeEventListener("message", onMessage);
+      if ("image" in data) resolve(data.image);
+      else reject(new Error(data.error));
+    };
+    worker.addEventListener("message", onMessage);
+    worker.postMessage(request, [request.image]);
+  });
+}
 
 interface Props {
   isPlaying: boolean;
@@ -253,7 +290,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     let stale = false;
     const image = new Image();
     image.crossOrigin = "anonymous";
-    image.onload = () => {
+    image.onload = async () => {
       if (stale) return;
       const { lambertGrid } = domainConfig;
       const lambert =
@@ -265,6 +302,16 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
         )
           ? lambertGrid
           : null;
+      let overlay: HTMLImageElement | ImageData = image;
+      if (lambert) {
+        try {
+          overlay = await reprojectInWorker(image, lambert);
+        } catch (e) {
+          console.error(`Failed to reproject ${url}`, e);
+          return;
+        }
+        if (stale) return;
+      }
       const bbox = lambert?.bbox ?? domainConfig.bbox;
       // MapLibre image sources want the four corners as `[lng, lat]` in
       // TL, TR, BR, BL (i.e. NW, NE, SE, SW) order.
@@ -287,9 +334,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
       const source = map.getSource(IMAGE_SOURCE_ID);
       if (!(source instanceof ImageSource)) return;
       source.setCoordinates(coordinates);
-      source.updateImage({
-        image: lambert ? reprojectAustriaLambertImage(image, lambert) : image
-      });
+      source.updateImage({ image: overlay });
     };
     image.onerror = () => {
       if (!stale) console.error(`Failed to fetch ${url}`);
