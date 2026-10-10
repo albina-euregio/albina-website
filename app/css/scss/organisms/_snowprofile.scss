@@ -173,7 +173,7 @@ button.snowprofile-detail__action {
   height: $snowprofile-control-size;
   width: $snowprofile-control-size;
   color: variables.$brand;
-  background-color: rgba(variables.$white, 0.75);
+  background-color: color-mix(in srgb, variables.$white 75%, transparent);
   border: 0;
   padding: 0;
   cursor: pointer;

@@ -8,6 +8,7 @@ import { setLanguage } from "../../appStore";
 function PageHeader() {
   const langButtonRef = useRef<HTMLAnchorElement>(null);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const [theme, setTheme] = useState(document.documentElement.dataset.theme);
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const openDropdownMenu = " ";
@@ -47,6 +48,36 @@ function PageHeader() {
       setLanguage(newLanguage);
     }
   };
+
+  const applyTheme = (newTheme: string) => {
+    const apply = () => (document.documentElement.dataset.theme = newTheme);
+    if (
+      document.startViewTransition &&
+      !matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      document.startViewTransition(apply);
+    } else {
+      apply();
+    }
+    setTheme(newTheme);
+  };
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    applyTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
+  // follow OS changes unless the user has chosen a theme
+  useEffect(() => {
+    const query = matchMedia("(prefers-color-scheme: dark)");
+    function handleChange() {
+      if (localStorage.getItem("theme")) return;
+      applyTheme(query.matches ? "dark" : "light");
+    }
+    query.addEventListener("change", handleChange);
+    return () => query.removeEventListener("change", handleChange);
+  }, []);
 
   // Use state for navOpen to trigger re-render and accessibility updates
   const [navOpen, setNavOpen] = React.useState(false);
@@ -286,6 +317,22 @@ function PageHeader() {
         )}
       </div>
       <div className="page-header-language">
+        <Tooltip
+          label={intl.formatMessage({
+            id: theme === "dark" ? "header:theme:light" : "header:theme:dark"
+          })}
+        >
+          <button
+            type="button"
+            className="theme-trigger"
+            onClick={toggleTheme}
+            aria-label={intl.formatMessage({
+              id: theme === "dark" ? "header:theme:light" : "header:theme:dark"
+            })}
+          >
+            {theme === "dark" ? "☀" : "☾"}
+          </button>
+        </Tooltip>
         <ul className="list-plain language-trigger">
           <li>
             <a

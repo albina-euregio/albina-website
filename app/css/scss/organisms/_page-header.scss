@@ -375,6 +375,20 @@ $page-header-logo-width: 3.25em;
   align-items: stretch;
   justify-content: flex-end;
 
+  .theme-trigger {
+    padding: 0 0.5em;
+    font-size: 1.25em;
+    line-height: 1;
+    color: variables.$anchor-font-color;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+
+    &:hover {
+      color: variables.$anchor-font-color-hover;
+    }
+  }
+
   .language-trigger {
     display: flex;
     align-items: stretch;

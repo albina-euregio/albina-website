@@ -31,7 +31,7 @@
     .label {
       &:hover,
       &.js-active {
-        color: variables.$white;
+        color: variables.$white-fixed;
         border-color: variables.$anchor-font-color;
         background-color: variables.$anchor-font-color;
       }

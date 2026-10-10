@@ -110,7 +110,7 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     align-items: center;
     gap: variables.$padding;
 
-    color: variables.$white;
+    color: variables.$white-fixed;
     background-color: variables.$brand;
     @include mixins.box-shadow(0.15);
     opacity: 1;

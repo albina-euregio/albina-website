@@ -334,7 +334,7 @@ input[type="range"] {
       @include mixins.rollout;
       &:first-child {
         padding-left: variables.$padding;
-        color: variables.$white;
+        color: variables.$white-fixed;
         background-color: variables.$brand;
         border-radius: variables.$global-rounded 0 0 variables.$global-rounded;
       }
@@ -358,7 +358,7 @@ input[type="range"] {
         background-color: transparent;
       }
       &:last-child {
-        color: variables.$white;
+        color: variables.$white-fixed;
         background-color: variables.$brand;
       }
     }
@@ -407,7 +407,7 @@ $selectric-max-width: 20em;
   @include mixins.rollout;
 
   .controlbar & {
-    color: variables.$white;
+    color: variables.$white-fixed;
     background: variables.$brand;
     border-color: variables.$white;
   }
@@ -422,7 +422,7 @@ $selectric-max-width: 20em;
     @include icons.icon(down-open, variables.$icon-font-size, 0, auto, 0, none);
     @include mixins.rollout;
     .controlbar & {
-      color: variables.$white;
+      color: variables.$white-fixed;
     }
   }
 
@@ -440,7 +440,7 @@ $selectric-max-width: 20em;
     border: none;
     border-radius: 0;
     .controlbar & {
-      color: variables.$white;
+      color: variables.$white-fixed;
     }
   }
   .button {
@@ -450,7 +450,7 @@ $selectric-max-width: 20em;
   &:hover,
   .selectric-open &,
   .selectric-changed & {
-    color: variables.$white;
+    color: variables.$white-fixed;
     background: variables.$brand;
     border-color: variables.$brand;
     @include mixins.box-shadow;
@@ -462,14 +462,14 @@ $selectric-max-width: 20em;
     }
 
     &:before {
-      color: variables.$white;
+      color: variables.$white-fixed;
       .controlbar & {
         color: variables.$brand;
       }
     }
 
     .label {
-      color: variables.$white;
+      color: variables.$white-fixed;
       .controlbar & {
         color: variables.$brand;
       }
@@ -641,4 +641,9 @@ $selectric-max-width: 20em;
       opacity: 1;
     }
   }
+}
+
+html[data-theme="dark"] input:-webkit-autofill {
+  -webkit-text-fill-color: variables.$text-color;
+  box-shadow: 0 0 0 1000px variables.$white inset;
 }

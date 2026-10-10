@@ -24,12 +24,12 @@
   border-radius: 1em;
 
   &.primary {
-    color: variables.$white;
+    color: variables.$white-fixed;
     background: variables.$primary-color;
     border-color: variables.$primary-color;
   }
   &.secondary {
-    color: variables.$white;
+    color: variables.$white-fixed;
     background: variables.$secondary-color;
     border-color: variables.$secondary-color;
   }
@@ -51,13 +51,13 @@
   }
   &.badge {
     @include mixins.font-heavy;
-    color: variables.$white;
+    color: variables.$white-fixed;
     background: variables.$error-color;
     border-color: variables.$error-color;
   }
 
   &.black {
-    color: variables.$white;
+    color: variables.$white-fixed;
     background: variables.$black;
     border: variables.$black;
   }

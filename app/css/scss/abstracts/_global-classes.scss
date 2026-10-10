@@ -15,7 +15,7 @@
   color: variables.$trans-color;
 }
 .color-white {
-  color: variables.$white;
+  color: variables.$white-fixed;
 }
 .color-black {
   color: variables.$black;
@@ -114,7 +114,7 @@
 //style classes generieren
 @mixin style-generator($property) {
   @for $i from 1 through 10 {
-    .#{$property}-#{$i*5} {
+    .#{$property}-#{$i * 5} {
       #{$property}: $i * 5px !important;
     }
   }

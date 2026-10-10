@@ -47,6 +47,22 @@ html[data-province="ES-CT-L"] {
   --brand-very-very-light: #ff4184;
 }
 
+html[data-theme="dark"] {
+  color-scheme: dark;
+  background-color: var(--grey-very-very-light);
+  // cards ($white) lighter than the page ($grey-very-very-light)
+  --white: #1b2226;
+  --grey-very-very-light: #14191c;
+  --grey-very-light: #273036;
+  --grey-medium-light: #323d43;
+  --grey-light: #4f5d63;
+  --grey: #8a989b;
+  --grey-dark: #c9d3d7;
+  --grey-very-dark: #eef3f5;
+  --brand-very-light: color-mix(in srgb, var(--brand) 45%, var(--white));
+  --brand-very-very-light: color-mix(in srgb, var(--brand) 25%, var(--white));
+}
+
 html,
 body {
   //height: 100%;//ioS 12 Pro Safari //https://www.freecodecamp.org/news/html-page-width-height/
@@ -108,28 +124,28 @@ body {
   }
 }
 
-@media #{variables.breakpoint-up(medium)} and (min-height:#{variables.breakpoint-min(normal)}) {
+@media #{variables.breakpoint-up(medium)} and (min-height: #{variables.breakpoint-min(normal)}) {
   html,
   body {
     font-size: variables.$body-font-size-medium;
   }
 }
 
-@media #{variables.breakpoint-up(large)} and (min-height:#{variables.breakpoint-min(medium) - $min-height-adjustment}) {
+@media #{variables.breakpoint-up(large)} and (min-height: #{variables.breakpoint-min(medium) - $min-height-adjustment}) {
   html,
   body {
     font-size: variables.$body-font-size-large;
   }
 }
 
-@media #{variables.breakpoint-up(xlarge)} and (min-height:#{variables.breakpoint-min(medium)}) {
+@media #{variables.breakpoint-up(xlarge)} and (min-height: #{variables.breakpoint-min(medium)}) {
   html,
   body {
     font-size: variables.$body-font-size-xlarge;
   }
 }
 
-@media #{variables.breakpoint-up(xxlarge)} and (min-height:#{variables.breakpoint-min(medium) + $min-height-adjustment}) {
+@media #{variables.breakpoint-up(xxlarge)} and (min-height: #{variables.breakpoint-min(medium) + $min-height-adjustment}) {
   html,
   body {
     font-size: variables.$body-font-size-xxlarge;

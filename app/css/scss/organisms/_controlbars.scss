@@ -16,8 +16,8 @@
   padding: (variables.$all-v-padding * 0.5) variables.$all-h-padding;
 
   @extend .bg-brand;
-  @include mixins.text-color(variables.$white);
-  @include mixins.link-color(variables.$black, variables.$white);
+  @include mixins.text-color(variables.$white-fixed);
+  @include mixins.link-color(variables.$black, variables.$white-fixed);
 
   ~ .controlbar {
     z-index: 9;
@@ -61,7 +61,7 @@
       padding-right: variables.$padding * 0.5;
     }
     .label {
-      color: variables.$white;
+      color: variables.$white-fixed;
       border-color: variables.$white;
       background: transparent;
       &:hover,
@@ -80,7 +80,7 @@
     text-align: center;
     a {
       display: inline-block;
-      color: variables.$white;
+      color: variables.$white-fixed;
       span {
         display: none;
       }
@@ -92,7 +92,7 @@
 @media (hover: none) {
   // disable hover styles on touch devices
   .controlbar .filter a.label:not(.js-active):hover {
-    color: variables.$white;
+    color: variables.$white-fixed;
     background: transparent;
   }
 }

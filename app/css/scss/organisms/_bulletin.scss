@@ -188,7 +188,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
 //eg. ctas
 .section-bulletin-controlbar {
   .controlbar {
-    @include mixins.link-color(variables.$white, variables.$white);
+    @include mixins.link-color(variables.$white-fixed, variables.$white-fixed);
   }
 }
 
@@ -205,7 +205,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   gap: variables.$padding;
 
   font-size: variables.$tiny-font-size;
-  background-color: rgba(variables.$white, 0.95);
+  background-color: color-mix(in srgb, variables.$white 95%, transparent);
   @include mixins.box-shadow(0.15);
   opacity: 0;
   @include mixins.rollout();
@@ -364,14 +364,14 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
         }
       }
       &:hover {
-        color: variables.$white;
+        color: variables.$white-fixed;
         background: variables.$anchor-font-color;
         border: none;
       }
       &.is-de-highlighted {
         color: variables.$grey;
         &:hover {
-          color: variables.$white;
+          color: variables.$white-fixed;
         }
       }
     }
@@ -476,7 +476,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
       top: 50%;
       margin-right: 0;
       font-size: 3rem;
-      color: variables.$white;
+      color: variables.$white-fixed;
       transform: translate(-50%, 0%);
       opacity: 0;
     }
@@ -843,7 +843,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   padding: (variables.$padding * 0.4) (variables.$padding * 0.65);
   font-size: variables.$tiny-font-size;
   color: variables.$grey-dark;
-  background: rgba(variables.$white, 0.7);
+  background: color-mix(in srgb, variables.$white 70%, transparent);
   border: variables.$border-width variables.$border-style
     variables.$border-color;
 
