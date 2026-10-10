@@ -28,10 +28,15 @@ export default function StationTable(props: Props) {
   const intl = useIntl();
   const [, setStationId] = useStationId();
 
+  // Cached: called once per cell.
+  const titles = new Map<keyof StationData, string>();
   function title(id: keyof StationData) {
-    return intl.formatMessage({
-      id: `measurements:table:header:${id}`
-    });
+    let t = titles.get(id);
+    if (t === undefined) {
+      t = intl.formatMessage({ id: `measurements:table:header:${id}` });
+      titles.set(id, t);
+    }
+    return t;
   }
 
   const columns: StationColumn[] = [
@@ -101,30 +106,28 @@ export default function StationTable(props: Props) {
         ["HSD_48", "PSUM_48"],
         ["HSD_72", "PSUM_72"]
       ] as const
-    ).map(
-      ([hsd, psum]): StationColumn => ({
-        // 24h/48h/72h Differenz Schneehöhe <br> (24h/48h/72h Niederschlag)
-        group: "snow",
-        id: hsd,
-        title: title(hsd),
-        subtitle: "(" + title(psum) + ")",
-        render: row => (
-          <>
-            <span className={hsd} title={title(hsd)}>
-              {intl.formatNumberUnit(row[hsd], "cm")}
+    ).map(([hsd, psum]): StationColumn => ({
+      // 24h/48h/72h Differenz Schneehöhe <br> (24h/48h/72h Niederschlag)
+      group: "snow",
+      id: hsd,
+      title: title(hsd),
+      subtitle: "(" + title(psum) + ")",
+      render: row => (
+        <>
+          <span className={hsd} title={title(hsd)}>
+            {intl.formatNumberUnit(row[hsd], "cm")}
+          </span>
+          {isFinite(row[psum]) && (
+            <span className={psum} title={title(psum)}>
+              {"("}
+              {intl.formatNumberUnit(row[psum], "mm")}
+              {")"}
             </span>
-            {isFinite(row[psum]) && (
-              <span className={psum} title={title(psum)}>
-                {"("}
-                {intl.formatNumberUnit(row[psum], "mm")}
-                {")"}
-              </span>
-            )}
-          </>
-        ),
-        className: `mb-snow m-${hsd}`
-      })
-    ),
+          )}
+        </>
+      ),
+      className: `mb-snow m-${hsd}`
+    })),
     {
       // <b>Temperatur jetzt</b> <br> (Temperatur min / Temperatur max)
       group: "temp",
