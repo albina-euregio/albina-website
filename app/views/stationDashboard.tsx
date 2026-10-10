@@ -1,6 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useIntl } from "../i18n";
-import { useStationData } from "../stores/stationDataStore";
+import {
+  prefetchStationData,
+  useStationData
+} from "../stores/stationDataStore";
 import MapLibreMap, {
   PinDisplayMode,
   type MarkerItem
@@ -28,6 +31,8 @@ import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
 import { useHiddenFooter } from "./useHiddenFooter.tsx";
 import { useFilterBarOffset } from "./useFilterBarOffset.ts";
+
+if (!$router.get()?.search?.dateTime) prefetchStationData();
 
 const longitudeOffset = /Beobachter (Boden|Obertilliach|Nordkette|Kühtai)/;
 const DATE_TIME_INPUT_LENGTH = "2006-01-02T12".length;

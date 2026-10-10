@@ -340,6 +340,14 @@ export function useStationData(
   };
 }
 
+let prefetched: Promise<unknown> | undefined;
+
+/** Starts fetching the latest station data ahead of the first render. */
+export function prefetchStationData() {
+  prefetched ??= fetchJSON(config.apis.linea.stations);
+  prefetched.catch(() => {});
+}
+
 interface LoadOptions {
   consumer?: (station: StationData[]) => void;
   dateTime?: Temporal.ZonedDateTime;
@@ -367,9 +375,11 @@ export async function _loadStationData({
   }
 
   let collection: FeatureCollection;
+  const prefetchedJson = url === config.apis.linea.stations && prefetched;
+  prefetched = undefined;
 
   try {
-    const json = await fetchJSON(url);
+    const json = await (prefetchedJson || fetchJSON(url));
     collection = await v.parseAsync(FeatureCollectionSchema, json);
   } catch (e) {
     console.error("Failed fetching station data from " + url, e);
