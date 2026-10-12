@@ -22,14 +22,17 @@ $trans-color-dark: color.adjust($trans-color, $lightness: -10%);
 
 //neutral
 $black: #000;
-$grey-very-dark: #222;
-$grey-dark: #565f61;
-$grey: #839194;
-$grey-light: #b1c1c7;
-$grey-medium-light: #dae2e6;
-$grey-very-light: #e6eef2;
-$grey-very-very-light: #f2f7fa;
-$white: #fff;
+$grey-very-dark: var(--grey-very-dark, #222);
+$grey-dark: var(--grey-dark, #565f61);
+$grey: var(--grey, #839194);
+$grey-light: var(--grey-light, #b1c1c7);
+$grey-medium-light: var(--grey-medium-light, #dae2e6);
+$grey-very-light: var(--grey-very-light, #e6eef2);
+$grey-very-very-light: var(--grey-very-very-light, #f2f7fa);
+$white: var(--white, #fff);
+// stays white in dark mode, e.g. text on brand or danger-level surfaces
+$white-fixed: #fff;
+$grey-dark-fixed: #565f61;
 
 //brand
 $brand: var(--brand, #19abff);
@@ -54,14 +57,14 @@ $warning-level-config: (
   1: (
     color: $warning-level-1-color,
     headline-bg: true,
-    headline-color: $grey-dark,
+    headline-color: $grey-dark-fixed,
     patterned: false,
     surface-mode: none
   ),
   2: (
     color: $warning-level-2-color,
     headline-bg: true,
-    headline-color: $grey-dark,
+    headline-color: $grey-dark-fixed,
     patterned: false,
     surface-mode: none
   ),
@@ -191,39 +194,39 @@ $breakpoint-ranges: (
   ),
   // 0px, 479px
   tiny: (
-      30em,
-      39.9375em
-    ),
+    30em,
+    39.9375em
+  ),
   // 480px, 639px
   small: (
-      40em,
-      47.9375em
-    ),
+    40em,
+    47.9375em
+  ),
   // 640px, 767px
   normal: (
-      48em,
-      63.95em
-    ),
+    48em,
+    63.95em
+  ),
   // 768px, 1023px
   medium: (
-      64em,
-      79.9375em
-    ),
+    64em,
+    79.9375em
+  ),
   // 1024px, 1279px
   large: (
-      80em,
-      89.9375em
-    ),
+    80em,
+    89.9375em
+  ),
   // 1280px, 1439px
   xlarge: (
-      90em,
-      99.9375em
-    ),
+    90em,
+    99.9375em
+  ),
   // 1440px, 1599px
   xxlarge: (
-      100em,
-      119.9375em
-    ),
+    100em,
+    119.9375em
+  ),
   // 1600px, 1919px
   xxxlarge: (120em),
   // 1920px+

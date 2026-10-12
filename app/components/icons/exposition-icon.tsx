@@ -35,7 +35,12 @@ export default function ExpositionIcon({ title, expositions }: Props) {
             {expositions.map(e => (
               <path d={paths[e]} fill="#19ABFF" fillRule="evenodd" key={e} />
             ))}
-            <g fill="#222" fontSize="8" fontWeight="bold" letterSpacing=".5">
+            <g
+              fill="currentColor"
+              fontSize="8"
+              fontWeight="bold"
+              letterSpacing=".5"
+            >
               <text transform="translate(21 5)">
                 <tspan x=".928" y="8">
                   N
@@ -47,7 +52,13 @@ export default function ExpositionIcon({ title, expositions }: Props) {
                 </tspan>
               </text>
             </g>
-            <g stroke="#222" strokeLinecap="round" strokeLinejoin="round">
+            {/* same rendered width as ElevationIcon lines (2.5rem/48 vs 3rem/50) */}
+            <g
+              stroke="currentColor"
+              strokeWidth="0.87"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="m.958 25 7.071-7.071L25 25 8.03 32.071z" />
               <path d="m49 25-7.071-7.071L24.959 25l16.97 7.071z" />
               <path d="m25 .958 7.071 7.071L25 25 17.929 8.03z" />

@@ -48,8 +48,11 @@
 
 .bg-brand,
 .bg-gradient-brand {
-  @include mixins.text-color(rgba(variables.$white, 0.9));
-  @include mixins.link-color(variables.$white, rgba(variables.$white, 0.9));
+  @include mixins.text-color(rgba(variables.$white-fixed, 0.9));
+  @include mixins.link-color(
+    variables.$white-fixed,
+    rgba(variables.$white-fixed, 0.9)
+  );
 }
 
 .bg-colorbar {

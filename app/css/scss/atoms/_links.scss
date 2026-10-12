@@ -33,7 +33,7 @@ a.textlink {
   &:visited {
     margin: 0;
     padding: 0 0.25em;
-    color: variables.$white;
+    color: variables.$white-fixed;
     background-color: variables.$anchor-font-color;
     border: variables.$border-width variables.$border-style transparent;
     border-radius: variables.$global-radius;
@@ -49,7 +49,7 @@ a.textlink {
 .glossary {
   color: inherit;
   //Safari wants it like that
-  text-decoration-color: variables.$brand;
+  text-decoration-color: color-mix(in srgb, variables.$brand 70%, transparent);
   text-decoration-style: dotted;
   text-decoration-line: underline;
   cursor: pointer;
@@ -69,7 +69,7 @@ a.translink {
     background-color: transparent;
   }
   &:hover {
-    color: variables.$white;
+    color: variables.$white-fixed;
     background-color: variables.$trans-color;
     border-color: variables.$trans-color;
   }
@@ -168,10 +168,10 @@ a.icon-link {
 
 // from 202202
 a[href^="http"][target*="_blank"]:not([class*="pure-button"]):not(
-  [class*="sm-button"]
-):not([class*="logo"]):not([class*="internal"]):not([class*="linkbox"]):not(
-  [class*="avoid-external-icon"]
-):not([class*="pp"])::after:not([href*="mapliblre"]) {
+    [class*="sm-button"]
+  ):not([class*="logo"]):not([class*="internal"]):not([class*="linkbox"]):not(
+    [class*="avoid-external-icon"]
+  ):not([class*="pp"])::after:not([href*="mapliblre"]) {
   display: inline-block;
   width: 1em;
   height: 1em;

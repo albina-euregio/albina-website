@@ -239,11 +239,11 @@ abbr {
 //auswahl
 ::-moz-selection {
   background: variables.$primary-color;
-  color: variables.$white;
+  color: variables.$white-fixed;
   text-shadow: none;
 }
 ::selection {
   background: variables.$primary-color;
-  color: variables.$white;
+  color: variables.$white-fixed;
   text-shadow: none;
 }

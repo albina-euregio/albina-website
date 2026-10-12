@@ -23,12 +23,18 @@
   $mode: variables.warning-level($level, surface-mode);
 
   @if $mode == link-light {
-    @include mixins.link-color(variables.$white, rgba(variables.$white, 0.9));
+    @include mixins.link-color(
+      variables.$white-fixed,
+      rgba(variables.$white-fixed, 0.9)
+    );
   } @else if $mode == text-link-light {
-    @include mixins.text-color(rgba(variables.$white, 0.9));
-    @include mixins.link-color(variables.$white, rgba(variables.$white, 0.9));
+    @include mixins.text-color(rgba(variables.$white-fixed, 0.9));
+    @include mixins.link-color(
+      variables.$white-fixed,
+      rgba(variables.$white-fixed, 0.9)
+    );
   } @else if $mode == text-light {
-    @include mixins.text-color(variables.$white);
+    @include mixins.text-color(variables.$white-fixed);
   }
 }
 
@@ -53,7 +59,7 @@
         color: $headline-color;
 
         @if $with-headline-bg {
-          color: variables.$text-color;
+          color: variables.$grey-dark-fixed;
           background-color: $color;
         }
       }

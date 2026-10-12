@@ -102,7 +102,7 @@ button.modal-close-btn {
   padding: 0 !important;
   font-size: 1rem;
   color: variables.$brand;
-  background-color: rgba(variables.$white, 0.75);
+  background-color: color-mix(in srgb, variables.$white 75%, transparent);
   border-radius: variables.$global-radius !important;
   @include mixins.rollout;
 
@@ -172,7 +172,7 @@ button.modal-flipper__button {
   margin: 0;
   padding: 0;
   color: variables.$brand;
-  background-color: rgba(variables.$white, 0.75);
+  background-color: color-mix(in srgb, variables.$white 75%, transparent);
   border: 0;
   border-radius: variables.$global-radius;
   @include mixins.rollout;
@@ -378,7 +378,7 @@ button.modal-flipper__button {
       color: variables.$text-color;
       border-color: variables.$grey-light;
       &:hover {
-        color: variables.$white;
+        color: variables.$white-fixed;
         border-color: variables.$anchor-font-color;
         background-color: variables.$anchor-font-color;
       }

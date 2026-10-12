@@ -98,7 +98,7 @@ a.linkbox {
 
     .content-text {
       background-color: variables.$anchor-font-color;
-      @include mixins.text-color(variables.$white);
+      @include mixins.text-color(variables.$white-fixed);
       @include mixins.rollover(
         all,
         variables.$transition-duration * 2,
@@ -167,7 +167,7 @@ a.linkbox-feature {
 
     .content-additional {
       display: block;
-      @include mixins.text-color(variables.$white);
+      @include mixins.text-color(variables.$white-fixed);
       @include mixins.rollover(
         all,
         variables.$transition-duration * 2,

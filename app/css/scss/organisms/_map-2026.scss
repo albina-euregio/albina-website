@@ -34,7 +34,7 @@ $map-height-bulletin: 50vh;
   color: variables.$text-color;
   font-size: variables.$tiny-font-size;
   line-height: 1.6;
-  background-color: rgba(variables.$white, 0.9);
+  background-color: color-mix(in srgb, variables.$white 90%, transparent);
   @include mixins.box-shadow(0.15);
 
   ul {
@@ -203,7 +203,7 @@ $search-width-wide: 300px;
   border-radius: 0;
   color: variables.$text-color;
   font-size: variables.$tiny-font-size;
-  background: rgba(variables.$white, 1) !important;
+  background: color-mix(in srgb, variables.$white 100%, transparent) !important;
   @include mixins.box-shadow(0.15);
 }
 
@@ -234,11 +234,15 @@ $search-width-wide: 300px;
     text-indent: 0;
     line-height: 0;
     color: variables.$brand !important;
-    background-color: rgba(variables.$white, 0.95) !important;
+    background-color: color-mix(
+      in srgb,
+      variables.$white 95%,
+      transparent
+    ) !important;
     border: none !important;
     border-radius: 0 !important;
     &:hover {
-      color: variables.$white !important;
+      color: variables.$white-fixed !important;
       background-color: variables.$anchor-font-color !important;
     }
     &.leaflet-disabled {
@@ -248,7 +252,11 @@ $search-width-wide: 300px;
       }
       &:hover {
         color: variables.$grey-light !important;
-        background-color: rgba(variables.$white, 0.95) !important;
+        background-color: color-mix(
+          in srgb,
+          variables.$white 95%,
+          transparent
+        ) !important;
       }
     }
   }
@@ -422,7 +430,7 @@ $search-width-wide: 300px;
     font-size: variables.$micro-font-size;
     border-width: variables.$border-width;
     border-color: variables.$grey-dark;
-    background: rgba(variables.$white, 0.5);
+    background: color-mix(in srgb, variables.$white 50%, transparent);
     text-shadow: none;
   }
 }
@@ -520,7 +528,7 @@ $search-width-wide: 300px;
         background: variables.$anchor-font-color !important;
         border-radius: none !important;
         &:before {
-          color: variables.$white;
+          color: variables.$white-fixed;
         }
       }
       &:focus:first-child,
@@ -566,7 +574,7 @@ $search-width-wide: 300px;
       &:hover {
         background: variables.$anchor-font-color;
         .geonames-ctrl-icon:before {
-          color: variables.$white;
+          color: variables.$white-fixed;
         }
       }
     }
@@ -645,7 +653,7 @@ $search-width-wide: 300px;
     font-size: variables.$micro-font-size;
     border: variables.$border-width variables.$border-style variables.$grey-dark;
     border-top: none;
-    background: rgba(variables.$white, 0.5);
+    background: color-mix(in srgb, variables.$white 50%, transparent);
     text-shadow: none;
   }
 }
@@ -661,7 +669,7 @@ $search-width-wide: 300px;
   .leaflet-control-attribution {
     position: relative;
     font-size: variables.$nano-font-size;
-    background-color: rgba(variables.$white, 0.5);
+    background-color: color-mix(in srgb, variables.$white 50%, transparent);
     transform-origin: bottom left;
     transform: translateX(100%) rotate(-90deg);
     .section-weather-map & {
@@ -697,7 +705,7 @@ $search-width-wide: 300px;
 //     }
 //     a:link,
 //     a:visited {
-//       color: variables.$white;
+//       color: variables.$white-fixed;
 //     }
 //   }
 // }
@@ -724,7 +732,7 @@ $search-width-wide: 300px;
     color: variables.$brand-dark;
     background-color: variables.$white;
     &.active {
-      color: variables.$white;
+      color: variables.$white-fixed;
       background-color: variables.$brand-dark;
     }
   }
@@ -738,7 +746,7 @@ $search-width-wide: 300px;
   margin: 0;
   padding: 0.2rem;
   list-style: none;
-  background: rgba(variables.$white, 0.96);
+  background: color-mix(in srgb, variables.$white 96%, transparent);
   @include mixins.box-shadow(0.08);
 
   li {
@@ -771,7 +779,7 @@ $search-width-wide: 300px;
     }
 
     &.is-active {
-      color: variables.$white;
+      color: variables.$white-fixed;
       background: variables.$brand;
     }
   }
@@ -793,7 +801,7 @@ $search-width-wide: 300px;
 .station-view-toggle-panel {
   display: inline-flex;
   padding: variables.$padding * 0.25;
-  background: rgba(variables.$white, 0.88);
+  background: color-mix(in srgb, variables.$white 88%, transparent);
   border: 1px solid rgba(variables.$brand, 0.18);
 }
 
@@ -889,7 +897,7 @@ $search-width-wide: 300px;
       box-sizing: border-box;
       padding: variables.$padding * 0.35 variables.$padding;
       background: variables.$brand;
-      border-color: rgba(variables.$white, 0.85);
+      border-color: color-mix(in srgb, variables.$white 85%, transparent);
       border-radius: variables.$global-radius;
     }
 
@@ -897,7 +905,7 @@ $search-width-wide: 300px;
       margin-bottom: variables.$padding * 0.15;
       font-size: variables.$nano-font-size;
       line-height: 1;
-      color: variables.$white;
+      color: variables.$white-fixed;
     }
 
     .dual-range-slider__track {
@@ -913,7 +921,7 @@ $search-width-wide: 300px;
     }
 
     .dual-range-slider__rail {
-      background: rgba(variables.$white, 0.35);
+      background: color-mix(in srgb, variables.$white 35%, transparent);
     }
 
     .dual-range-slider__fill {
@@ -1020,7 +1028,7 @@ $search-width-wide: 300px;
       }
 
       &:hover:not(:disabled) {
-        color: variables.$white;
+        color: variables.$white-fixed;
         background-color: variables.$anchor-font-color;
       }
 
@@ -1082,13 +1090,13 @@ $search-width-wide: 300px;
 
         &:hover,
         &:focus-visible {
-          color: variables.$white;
+          color: variables.$white-fixed;
           background-color: variables.$anchor-font-color;
           outline: none;
 
           svg,
           .station-dashboard-filter__export-menu-desc {
-            color: rgba(variables.$white, 0.9);
+            color: color-mix(in srgb, variables.$white 90%, transparent);
           }
         }
       }
@@ -1438,7 +1446,7 @@ $search-width-wide: 300px;
   cursor: pointer;
 
   color: variables.$brand;
-  background-color: rgba(variables.$white, 0.95);
+  background-color: color-mix(in srgb, variables.$white 95%, transparent);
   @include mixins.box-shadow(0.15);
   box-shadow:
     0 0 15px 0 rgba(black, 0.15),
@@ -1450,7 +1458,7 @@ $search-width-wide: 300px;
   }
 
   &:hover {
-    color: variables.$white;
+    color: variables.$white-fixed;
     background-color: variables.$anchor-font-color;
     @include mixins.rollover;
   }
@@ -1478,7 +1486,7 @@ $search-width-wide: 300px;
   white-space: nowrap;
   font-weight: 600;
 
-  color: variables.$white;
+  color: variables.$white-fixed;
   background-color: variables.$brand;
   box-shadow:
     0 0 15px 0 rgba(black, 0.15),
@@ -1561,7 +1569,7 @@ $search-width-wide: 300px;
   .station-selected-clustered circle.inner {
     stroke: variables.$black;
     stroke-width: 2;
-    fill: variables.$white;
+    fill: variables.$white-fixed;
   }
 
   //grid point
@@ -1619,7 +1627,7 @@ $search-width-wide: 300px;
   max-width: 75% !important;
   padding: 0;
   font-size: variables.$tiny-font-size;
-  background-color: rgba(variables.$white, 0.95);
+  background-color: color-mix(in srgb, variables.$white 95%, transparent);
   @include mixins.box-shadow(0.15);
   @include mixins.rollout();
 
@@ -1657,7 +1665,7 @@ a.weather-map-details-button {
     }
   }
   &:hover {
-    color: variables.$white;
+    color: variables.$white-fixed;
     background: variables.$anchor-font-color;
     border-color: variables.$anchor-font-color;
   }
@@ -1681,7 +1689,7 @@ a.weather-map-details-button {
     width: $controls-width-height;
     height: $controls-width-height;
     color: variables.$brand;
-    background-color: rgba(variables.$white, 0.95);
+    background-color: color-mix(in srgb, variables.$white 95%, transparent);
     border: none;
     cursor: pointer;
     &:before {
@@ -1690,7 +1698,7 @@ a.weather-map-details-button {
       line-height: $controls-width-height;
     }
     &:hover {
-      color: variables.$white;
+      color: variables.$white-fixed;
       background-color: variables.$anchor-font-color;
     }
   }
@@ -1707,6 +1715,10 @@ a.weather-map-details-button {
     padding: 0 0.25em !important;
     font-size: 10px;
     border-radius: 0 !important;
-    background-color: rgba(variables.$white, 0.5) !important;
+    background-color: color-mix(
+      in srgb,
+      variables.$white 50%,
+      transparent
+    ) !important;
   }
 }

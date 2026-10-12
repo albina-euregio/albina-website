@@ -56,6 +56,8 @@
   "jumpnav:navigation": "Go to Navigation",
   "jumpnav:footer": "Go to Footer",
   "header:languages:title": "Languages",
+  "header:theme:dark": "Switch to dark mode",
+  "header:theme:light": "Switch to light mode",
   "header:logo:hover": "Home",
   "header:euregio:hover": "European Region Tyrol - South Tyrol - Trentino",
   "header:hamburger:hover": "Menu",

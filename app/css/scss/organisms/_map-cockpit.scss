@@ -157,7 +157,7 @@ $cp-breakpoint-3: 1024px;
   &.js-active {
     @extend .bg-brand;
     .layer-select-info {
-      color: variables.$white;
+      color: variables.$white-fixed;
     }
   }
 
@@ -450,8 +450,8 @@ $cp-breakpoint-3: 1024px;
     left: 0;
     background: linear-gradient(
       to left,
-      rgba(variables.$grey-dark, 0),
-      rgba(variables.$grey-dark, 0.25)
+      color-mix(in srgb, variables.$grey-dark 0%, transparent),
+      color-mix(in srgb, variables.$grey-dark 25%, transparent)
     );
   }
 }
@@ -461,8 +461,8 @@ $cp-breakpoint-3: 1024px;
     left: -50px;
     background: linear-gradient(
       to right,
-      rgba(variables.$grey-dark, 0),
-      rgba(variables.$grey-dark, 0.25)
+      color-mix(in srgb, variables.$grey-dark 0%, transparent),
+      color-mix(in srgb, variables.$grey-dark 25%, transparent)
     );
   }
 }
@@ -633,7 +633,7 @@ $cp-breakpoint-3: 1024px;
     }
     &:hover,
     &.js-active {
-      color: variables.$white;
+      color: variables.$white-fixed;
       @extend .bg-brand;
     }
     &.js-inactive {
