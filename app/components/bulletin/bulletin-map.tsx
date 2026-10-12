@@ -292,35 +292,38 @@ const BulletinMap = (props: Props) => {
           matchesValidTimePeriod(props.validTimePeriod, r.validTimePeriod)
         )
         .some(r => r.mainValue === "no_snow");
-      res.push(
-        activeBulletin?.bulletinID &&
-          (isNoSnowBulletin ? (
-            <PopupButton
-              key="tp-education"
-              href="/education/danger-scale"
-              label={intl.formatMessage({
-                id: "bulletin:map:education:button:title"
-              })}
-            >
-              {intl.formatMessage({ id: "bulletin:map:education:button" })}{" "}
-              <span className="icon-arrow-right" />
-            </PopupButton>
-          ) : (
-            <PopupButton
-              key="tp-link"
-              href={"#" + activeBulletin.bulletinID}
-              label={intl.formatMessage({
-                id: "bulletin:map:info:details:hover"
-              })}
-              onClick={e => scrollIntoView(e)}
-            >
-              {preprocessContent(
-                intl.formatMessage({ id: "bulletin:map:info:details" })
-              )}
-              <span className="icon-arrow-down" />
-            </PopupButton>
-          ))
-      );
+      if (activeBulletin?.bulletinID && !isNoSnowBulletin) {
+        res.push(
+          <PopupButton
+            key="tp-link"
+            href={"#" + activeBulletin.bulletinID}
+            label={intl.formatMessage({
+              id: "bulletin:map:info:details:hover"
+            })}
+            onClick={e => scrollIntoView(e)}
+          >
+            {preprocessContent(
+              intl.formatMessage({ id: "bulletin:map:info:details" })
+            )}
+            <span className="icon-arrow-down" />
+          </PopupButton>
+        );
+      }
+      // TODO: re-enable once the link target exists
+      // if (activeBulletin?.bulletinID && isNoSnowBulletin) {
+      //   res.push(
+      //     <PopupButton
+      //       key="tp-education"
+      //       href="/education/danger-scale"
+      //       label={intl.formatMessage({
+      //         id: "bulletin:map:education:button:title"
+      //       })}
+      //     >
+      //       {intl.formatMessage({ id: "bulletin:map:education:button" })}{" "}
+      //       <span className="icon-arrow-right" />
+      //     </PopupButton>
+      //   );
+      // }
     } else if (activeEaws) {
       detailsClasses.push("js-active");
       const country = activeEaws.id.replace(/-.*/, "");
@@ -401,18 +404,19 @@ const BulletinMap = (props: Props) => {
             onClose={() => props.handleSelectRegion("")}
           />
         );
-        res.push(
-          <PopupButton
-            key="tp-education"
-            href="/education"
-            label={intl.formatMessage({
-              id: "bulletin:map:education:button:title"
-            })}
-          >
-            {intl.formatMessage({ id: "bulletin:map:education:button" })}{" "}
-            <span className="icon-arrow-right" />
-          </PopupButton>
-        );
+        // TODO: re-enable once the link target exists
+        // res.push(
+        //   <PopupButton
+        //     key="tp-education"
+        //     href="/education"
+        //     label={intl.formatMessage({
+        //       id: "bulletin:map:education:button:title"
+        //     })}
+        //   >
+        //     {intl.formatMessage({ id: "bulletin:map:education:button" })}{" "}
+        //     <span className="icon-arrow-right" />
+        //   </PopupButton>
+        // );
       } else if (isNoDataMacro) {
         // extraRegion with no rating: no-rating icon/text + external AWS links
         const greyEaws = eawsRegion(macroRegion);
