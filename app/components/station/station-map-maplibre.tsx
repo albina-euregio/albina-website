@@ -103,6 +103,7 @@ const SOURCE_ID = "stations";
  */
 export const CIRCLE_LAYER_ID = "stations-circles";
 const LABEL_LAYER_ID = "stations-labels";
+const LABEL_BOX_IMAGE = "stations-label-box";
 // Self-hosted glyphs (see public/fonts/). LABEL_FONT must match the folder name.
 const LABEL_FONT = ["Noto Sans Regular"];
 
@@ -484,16 +485,27 @@ function MapLibreMap({
       WindUtil.addLayer(map, SOURCE_ID);
 
       // Numeric value, drawn on top of discs and arrows. Collision detection
-      // (the default, i.e. no allow-overlap) hides labels that would overlap;
-      // a lower sort key is placed first and wins, so higher values stay.
+      // hides labels that would overlap; a lower sort key is placed first and
+      // wins, so higher values stay. Collisions use a transparent disc-sized
+      // icon instead of the text, whose width varies: otherwise a narrow
+      // label of a covered disc could fit where the topmost disc's wider
+      // label did not.
+      map.addImage(LABEL_BOX_IMAGE, {
+        width: 22,
+        height: 22,
+        data: new Uint8Array(22 * 22 * 4)
+      });
       map.addLayer({
         id: LABEL_LAYER_ID,
         type: "symbol",
         source: SOURCE_ID,
         layout: {
+          "icon-image": LABEL_BOX_IMAGE,
           "text-field": ["get", "value"],
           "text-font": LABEL_FONT,
           "text-size": 11,
+          "text-allow-overlap": true,
+          "text-ignore-placement": true,
           "symbol-sort-key": ["-", 0, ["get", "sortKey"]]
         },
         paint: { "text-color": ["get", "textColor"] }
