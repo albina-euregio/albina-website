@@ -307,7 +307,10 @@ function toFeatureCollection(
         value: hasValue ? formatNumber(value) : "",
         ...WindUtil.properties(feature, value, item),
         // Markers with values stack above markers without, ordered by value.
-        sortKey: hasValue ? Math.round(Math.abs(value)) : -1
+        // A tiny random offset breaks ties, so circles (drawn in ascending
+        // order) and labels (placed in descending order) agree on which
+        // marker is topmost and gets the label.
+        sortKey: hasValue ? Math.abs(value) + Math.random() * 1e-6 : -1
       }
     });
   }
