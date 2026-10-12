@@ -35,13 +35,15 @@ export type EawsAvalancheProblems = Record<
 export function getMaxMainValue(
   dangerRatings: DangerRating[] | DangerRatingValue[] = []
 ): DangerRatingValue {
-  return dangerRatings
+  // Don't start the comparison at "low": no_snow and no_rating (level 0) could
+  // then never be returned, e.g. a no_snow bulletin would turn green on the map.
+  const values = dangerRatings
     .map(r => (typeof r === "object" ? r.mainValue : r))
-    .reduce(
-      (a, b): DangerRatingValue =>
-        getWarnlevelNumber(a) > getWarnlevelNumber(b) ? a : b,
-      "low" as DangerRatingValue
-    );
+    .filter((v): v is DangerRatingValue => v !== undefined);
+  if (!values.length) return "low";
+  return values.reduce((a, b): DangerRatingValue =>
+    getWarnlevelNumber(a) > getWarnlevelNumber(b) ? a : b
+  );
 }
 
 /**
