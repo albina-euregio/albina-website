@@ -13,10 +13,16 @@ interface Props {
 
 export default function ProvinceFilter(props: Props) {
   const intl = useIntl();
+  const regions = (props.regionCodes ?? config.regionCodes)
+    .map(region => ({
+      region,
+      label: intl.formatMessage({ id: `region:${region}` })
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label, intl.locale));
   if (props.buttongroup) {
     return (
       <ul className="list-inline list-buttongroup-dense">
-        {(props.regionCodes ?? config.regionCodes).map(region => (
+        {regions.map(({ region, label }) => (
           <li key={region}>
             <button
               className={
@@ -27,7 +33,7 @@ export default function ProvinceFilter(props: Props) {
                 props.handleChange(region);
               }}
             >
-              {intl.formatMessage({ id: `region:${region}` })}
+              {label}
             </button>
           </li>
         ))}
@@ -44,9 +50,9 @@ export default function ProvinceFilter(props: Props) {
       >
         {props.all && <option value="">{props.all}</option>}
         {props.none && <option value="none">{props.none}</option>}
-        {(props.regionCodes ?? config.regionCodes).map(r => (
-          <option key={r} value={r}>
-            {intl.formatMessage({ id: `region:${r}` })}
+        {regions.map(({ region, label }) => (
+          <option key={region} value={region}>
+            {label}
           </option>
         ))}
       </select>
