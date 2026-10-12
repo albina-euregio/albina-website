@@ -49,7 +49,7 @@ a.textlink {
 .glossary {
   color: inherit;
   //Safari wants it like that
-  text-decoration-color: variables.$brand;
+  text-decoration-color: color-mix(in srgb, variables.$brand 70%, transparent);
   text-decoration-style: dotted;
   text-decoration-line: underline;
   cursor: pointer;
