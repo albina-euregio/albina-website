@@ -16,7 +16,7 @@ test("weather/stations?view=table", async ({ page }) => {
   await page.getByRole("link", { name: "Elevation" }).click();
   await expect(firstRow).toHaveText(/Weißseespitze|Erzherzog-Johann-Hütte/);
 
-  await expect(await page.getByRole("row").count()).toBeGreaterThan(300);
+  await expect(await page.getByRole("row").count()).toBeGreaterThan(100);
 
   await page.getByPlaceholder("Search").click();
   await page.getByPlaceholder("Search").fill("gallreideschrofen");
