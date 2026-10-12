@@ -52,8 +52,10 @@ export default function ExpositionIcon({ title, expositions }: Props) {
                 </tspan>
               </text>
             </g>
+            {/* same rendered width as ElevationIcon lines (2.5rem/48 vs 3rem/50) */}
             <g
               stroke="currentColor"
+              strokeWidth="0.87"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
