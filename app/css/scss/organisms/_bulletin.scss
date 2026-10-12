@@ -645,6 +645,9 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
     svg {
       height: $bulletin-picto-size-minus;
     }
+    svg {
+      color: variables.$grey-very-dark;
+    }
     span {
       position: relative;
       @media #{variables.breakpoint-below(tiny)} {
@@ -778,6 +781,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   .bulletin-report-exposition-rose {
     display: block;
     z-index: 10;
+    color: variables.$grey-very-dark;
   }
 }
 
