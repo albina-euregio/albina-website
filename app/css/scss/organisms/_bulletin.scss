@@ -199,6 +199,10 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   left: 50%;
   transform: translateX(-50%);
   padding: 0;
+  // `left` near 100% leaves no room for shrink-to-fit, which would squeeze
+  // the content to its narrowest width
+  width: max-content;
+  max-width: calc(100vw - #{variables.$padding * 2});
 
   display: flex;
   flex-direction: column;
@@ -279,6 +283,10 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
     gap: variables.$padding;
     padding: (variables.$padding * 1.5) (variables.$padding * 2) 0
       (variables.$padding * 2);
+    // otherwise the buttons below provide the bottom spacing
+    &:last-child {
+      padding-bottom: variables.$padding * 1.5;
+    }
   }
   .bulletin-report-region-name {
     display: flex;
@@ -311,6 +319,11 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
         max-width: none; //<- why?
         box-sizing: content-box;
       }
+    }
+    // no_snow: center like the no-rating popup
+    li:has(> .bulletin-report-no-bulletin) {
+      flex: 1;
+      justify-content: center;
     }
   }
 
