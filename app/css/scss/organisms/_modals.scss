@@ -384,5 +384,86 @@ button.modal-flipper__button {
         background-color: variables.$anchor-font-color;
       }
     }
+
+    /* square, themed date picker with the avalanche.report accent */
+    .air-datepicker {
+      --adp-font-family: inherit;
+      --adp-accent-color: #19abff;
+      --adp-color: CanvasText;
+      --adp-color-secondary: color-mix(in srgb, CanvasText 60%, transparent);
+      --adp-color-other-month: color-mix(in srgb, CanvasText 30%, transparent);
+      --adp-color-other-month-hover: color-mix(
+        in srgb,
+        CanvasText 45%,
+        transparent
+      );
+      --adp-color-disabled: color-mix(in srgb, CanvasText 30%, transparent);
+      --adp-color-disabled-in-range: color-mix(
+        in srgb,
+        CanvasText 45%,
+        transparent
+      );
+      --adp-day-name-color: color-mix(in srgb, CanvasText 60%, transparent);
+      --adp-background-color: Canvas;
+      --adp-background-color-hover: color-mix(
+        in srgb,
+        CanvasText 10%,
+        transparent
+      );
+      --adp-background-color-active: color-mix(
+        in srgb,
+        CanvasText 15%,
+        transparent
+      );
+      --adp-border-color: #19abff;
+      --adp-border-color-inline: #19abff;
+      --adp-border-color-inner: color-mix(in srgb, CanvasText 15%, transparent);
+      --adp-border-radius: 0;
+      --adp-cell-border-radius: 0;
+      --adp-poiner-border-radius: 0;
+      --adp-cell-background-color-selected: #19abff;
+      --adp-cell-background-color-selected-hover: #0091e6;
+      --adp-cell-background-color-in-range: color-mix(
+        in srgb,
+        #19abff 20%,
+        transparent
+      );
+      --adp-cell-background-color-in-range-hover: color-mix(
+        in srgb,
+        #19abff 30%,
+        transparent
+      );
+      --adp-background-color-selected-other-month: color-mix(
+        in srgb,
+        #19abff 60%,
+        transparent
+      );
+      --adp-background-color-selected-other-month-focused: color-mix(
+        in srgb,
+        #19abff 70%,
+        transparent
+      );
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+      .air-datepicker--pointer::after {
+        background: Canvas;
+      }
+
+      .air-datepicker-nav--title {
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .air-datepicker-body--day-name {
+        font-size: 0.8em;
+        font-weight: 700;
+      }
+
+      .air-datepicker-cell.-selected- {
+        color: #fff;
+        font-weight: 700;
+      }
+    }
   }
 }
