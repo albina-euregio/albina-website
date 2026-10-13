@@ -308,8 +308,6 @@ $icon-font-margin: 0.25em;
   &:before {
     @include icon-mask;
     position: relative;
-    // former font descent, keeps the icon on the text baseline
-    vertical-align: -0.15em;
     margin-right: $icon-font-margin;
     font-size: variables.$icon-font-size;
     line-height: 1em;

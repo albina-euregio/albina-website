@@ -235,7 +235,8 @@ a.pure-button {
       display: block;
       width: 1em;
       height: 1em;
-      overflow: hidden;
+      font-size: 0.8rem;
+      // overflow: hidden;
       &:before {
         margin: -0.25em;
       }

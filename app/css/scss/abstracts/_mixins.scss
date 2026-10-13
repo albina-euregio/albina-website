@@ -351,6 +351,7 @@
   &.list-tags,
   &.list-buttongroup {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     .label {
       margin-right: 0;
@@ -358,6 +359,7 @@
   }
   &.list-buttongroup-dense {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     //overflow: hidden;//removed to let keyboard focus style appear
     > li {

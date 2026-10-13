@@ -415,6 +415,8 @@ $page-header-logo-width: 3.25em;
         }
 
         span {
+          display: flex;
+          align-items: center;
           margin: 0 -0.75em 0 -0.25em;
           @include icons.icon(
             down-open,

@@ -130,9 +130,9 @@ a.label {
 
 a.icon-link {
   @include mixins.letter-spacing;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   &:before {
-    top: 0.15em;
     left: 0;
     font-size: 2rem;
   }

@@ -45,7 +45,8 @@ $item-padding: 0.175em;
     &:before {
       display: block;
       position: absolute;
-      top: 0.3em;
+      top: 50%;
+      transform: translateY(-50%);
       right: 0.5em;
     }
     &:hover,
