@@ -438,7 +438,7 @@ $search-width-wide: 300px;
 // ---- MapLibre GL controls (bulletin map) ----
 // The Leaflet controls above are styled via .leaflet-* selectors; MapLibre
 // renders .maplibregl-ctrl-* DOM instead, so the same brand look is reapplied
-// here: square white buttons with brand Fontello glyphs, an expanding GeoNames
+// here: square white buttons with brand icons, an expanding GeoNames
 // search and a subtle scale bar. This first block holds the bulletin-only
 // positioning/overlay rules; the reusable control look below is shared with the
 // weather map. The bulletin stations mini-map (.bulletin-report-mini-map)
@@ -486,7 +486,7 @@ $search-width-wide: 300px;
   }
 }
 
-// Reusable brand control look — square white buttons with brand Fontello
+// Reusable brand control look — square white buttons with brand
 // glyphs, the expanding GeoNames search and the scale bar. Shared with the
 // weather map; the bulletin-only positioning/overlay rules stay in the block
 // above.
@@ -517,9 +517,7 @@ $search-width-wide: 300px;
         display: none;
       }
       &:before {
-        font-family: "Fontello";
-        font-weight: normal;
-        font-style: normal;
+        @include icons.icon-mask;
         font-size: $controls-width-height * 0.6;
         line-height: $controls-width-height;
         color: variables.$brand;
@@ -540,14 +538,14 @@ $search-width-wide: 300px;
       }
     }
   }
-  .maplibregl-ctrl-zoom-in:before {
-    content: "\e824";
+  .maplibregl-ctrl-zoom-in {
+    @include icons.icon-glyph(plus-big);
   }
-  .maplibregl-ctrl-zoom-out:before {
-    content: "\e823";
+  .maplibregl-ctrl-zoom-out {
+    @include icons.icon-glyph(minus-big);
   }
-  .maplibregl-ctrl-geolocate:before {
-    content: "\e841";
+  .maplibregl-ctrl-geolocate {
+    @include icons.icon-glyph(location);
   }
 
   // GeoNames search: magnifier toggle expands an input + results dropdown.
@@ -564,9 +562,11 @@ $search-width-wide: 300px;
       background: variables.$white;
       border: none;
       cursor: pointer;
+      .geonames-ctrl-icon {
+        @include icons.icon-glyph(search-midsize);
+      }
       .geonames-ctrl-icon:before {
-        content: "\e83a";
-        font-family: "Fontello";
+        @include icons.icon-mask;
         font-size: $controls-width-height * 0.6;
         line-height: $controls-width-height;
         color: variables.$brand;
@@ -1709,7 +1709,7 @@ a.weather-map-details-button {
 }
 
 // Show/hide-pins control (StationPinsControl), matching the look of the
-// Leaflet map controls (square, brand-colored Fontello icon, inverted hover).
+// Leaflet map controls (square, brand-colored icon, inverted hover).
 .maplibregl-ctrl-group.maplibregl-ctrl-station-pins {
   button {
     width: $controls-width-height;

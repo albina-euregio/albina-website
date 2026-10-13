@@ -10,211 +10,252 @@
     #ICONS
 \*------------------------------------*/
 
-//http://www.fontello.com
-
-@charset "UTF-8";
-
-$icon-font-name: "Fontello";
-$icon-font-path: "../fonts/fontello";
 $icon-font-margin: 0.25em;
 
-@font-face {
-  font-family: "#{$icon-font-name}";
-  src: url("#{$icon-font-path}/fontello.eot?88268438");
-  src:
-    url("#{$icon-font-path}/fontello.eot?88268438#iefix")
-      format("embedded-opentype"),
-    url("#{$icon-font-path}/fontello.woff2?88268438") format("woff2"),
-    url("#{$icon-font-path}/fontello.woff?88268438") format("woff"),
-    url("#{$icon-font-path}/fontello.ttf?88268438") format("truetype"),
-    url("#{$icon-font-path}/fontello.svg?88268438#fontello") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
 .icon-copyright:before {
-  content: "\e800";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/copyright.svg");
+}
 .icon-language:before {
-  content: "\e801";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/language.svg");
+}
 .icon-arrow-steady:before {
-  content: "\e802";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/arrow-steady.svg");
+}
 .icon-hide:before {
-  content: "\e803";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/hide.svg");
+}
 .icon-listen-small:before {
-  content: "\e804";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/listen-small.svg");
+}
 .icon-ok-small:before {
-  content: "\e805";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/ok-small.svg");
+}
 .icon-location-small:before {
-  content: "\e806";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/location-small.svg");
+}
 .icon-show-small:before {
-  content: "\e807";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/show-small.svg");
+}
 .icon-hide-small:before {
-  content: "\e808";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/hide-small.svg");
+}
 .icon-sm-facebook:before {
-  content: "\e809";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/sm-facebook.svg");
+}
 .icon-sm-instagram:before {
-  content: "\e80a";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/sm-instagram.svg");
+}
 .icon-sm-twitter:before {
-  content: "\e80b";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/sm-twitter.svg");
+}
 .icon-sm-youtube:before {
-  content: "\e80d";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/sm-youtube.svg");
+}
 .icon-close:before {
-  content: "\e810";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/close.svg");
+}
 .icon-down-open-big:before {
-  content: "\e811";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/down-open-big.svg");
+}
 .icon-up-open-big:before {
-  content: "\e812";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/up-open-big.svg");
+}
 .icon-search-big:before {
-  content: "\e813";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/search-big.svg");
+}
 .icon-hamburger:before {
-  content: "\e814";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/hamburger.svg");
+}
 .icon-arrow-down:before {
-  content: "\e815";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/arrow-down.svg");
+}
 .icon-arrow-left:before {
-  content: "\e816";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/arrow-left.svg");
+}
 .icon-arrow-right:before {
-  content: "\e817";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/arrow-right.svg");
+}
 .icon-arrow-up:before {
-  content: "\e818";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/arrow-up.svg");
+}
 .icon-sm-telegram:before {
-  content: "\e819";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/sm-telegram.svg");
+}
 .icon-attention:before {
-  content: "\e81a";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/attention.svg");
+}
 .icon-info:before {
-  content: "\e81b";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/info.svg");
+}
 .icon-down-open:before {
-  content: "\e81c";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/down-open.svg");
+}
 .icon-up-open:before {
-  content: "\e81d";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/up-open.svg");
+}
 .icon-search:before {
-  content: "\e81e";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/search.svg");
+}
 .icon-external:before {
-  content: "\e81f";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/external.svg");
+}
 .icon-download:before {
-  content: "\e820";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/download.svg");
+}
 .icon-arrow-decrease:before {
-  content: "\e821";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/arrow-decrease.svg");
+}
 .icon-arrow-increase:before {
-  content: "\e822";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/arrow-increase.svg");
+}
 .icon-minus-big:before {
-  content: "\e823";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/minus-big.svg");
+}
 .icon-plus-big:before {
-  content: "\e824";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/plus-big.svg");
+}
 .icon-temperature:before {
-  content: "\e826";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/temperature.svg");
+}
 .icon-snow-drop:before {
-  content: "\e828";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/snow-drop.svg");
+}
 .icon-snow-line:before {
-  content: "\e82a";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/snow-line.svg");
+}
 .icon-show:before {
-  content: "\e82b";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/show.svg");
+}
 .icon-release:before {
-  content: "\e82d";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/release.svg");
+}
 .icon-update:before {
-  content: "\e82e";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/update.svg");
+}
 .icon-validity:before {
-  content: "\e82f";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/validity.svg");
+}
 .icon-close-small:before {
-  content: "\e832";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/close-small.svg");
+}
 .icon-check-small:before {
-  content: "\e833";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/check-small.svg");
+}
 .icon-pause:before {
-  content: "\e838";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/pause.svg");
+}
 .icon-play:before {
-  content: "\e839";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/play.svg");
+}
 .icon-search-midsize:before {
-  content: "\e83a";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/search-midsize.svg");
+}
 .icon-snow:before {
-  content: "\e83b";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/snow.svg");
+}
 .icon-snow-diff:before {
-  content: "\e83c";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/snow-diff.svg");
+}
 .icon-snow-new:before {
-  content: "\e83d";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/snow-new.svg");
+}
 .icon-wind:before {
-  content: "\e83f";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/wind.svg");
+}
 .icon-wind-gust:before {
-  content: "\e840";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/wind-gust.svg");
+}
 .icon-location:before {
-  content: "\e841";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/location.svg");
+}
 .icon-sm-whatsapp:before {
-  content: "\e847";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/sm-whatsapp.svg");
+}
 .icon-wind-high:before {
-  content: "\e860";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/wind-high.svg");
+}
 .icon-sun-big:before {
-  content: "\e872";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/sun-big.svg");
+}
 .icon-moon-big:before {
-  content: "\e873";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/moon-big.svg");
+}
 .icon-moon:before {
-  content: "\e874";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/moon.svg");
+}
 .icon-sun:before {
-  content: "\e875";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/sun.svg");
+}
 .icon-calendar-big:before {
-  content: "\e892";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/calendar-big.svg");
+}
 .icon-calendar:before {
-  content: "\e893";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/calendar.svg");
+}
 .icon-snow-relative:before {
-  content: "\f295";
-} /* '' */
+  content: "";
+  mask-image: url("../../../images/pro/icons/snow-relative.svg");
+}
 
 // mit diesem mixin können icons in sass inkludiert werden
 // z.B. @include icon(attention, 1.5em, 0.5em, #F00, 0, 2px 2px 5px #FFF);
@@ -252,29 +293,26 @@ $icon-font-margin: 0.25em;
   @extend .icon-#{$type};
 }
 
+// 1em box painted in currentColor, masked by the icon svg
+@mixin icon-mask {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
 %icon {
   &:before {
+    @include icon-mask;
     position: relative;
-    display: inline-block;
-    width: 1em;
+    // former font descent, keeps the icon on the text baseline
+    vertical-align: -0.15em;
     margin-right: $icon-font-margin;
-    /* Animation center compensation - margins should be symmetric, remove if not needed */
-    //margin-left: $icon-margin;
-    //vertical-align: middle;
-    font-family: "Fontello";
-    font-weight: normal;
-    font-style: normal;
     font-size: variables.$icon-font-size;
-    text-decoration: none;
-    speak: none;
-    text-align: center;
-    /* you can be more comfortable with increased icons size */
-    //font-size: 1.2em;
-    /* fix buttons height, for twitter bootstrap */
     line-height: 1em;
-    //background-color: #fac;
-    /* Uncomment for 3D effect */
-    //text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3);
     @include mixins.rollover;
   }
 }
