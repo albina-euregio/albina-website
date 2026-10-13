@@ -59,8 +59,6 @@ a.pure-button {
     outline: none;
   }
 
-  &.primary {
-  }
   &.inverse {
     color: variables.$primary-color;
     background: variables.$white;
@@ -241,8 +239,6 @@ a.pure-button {
       &:before {
         margin: -0.25em;
       }
-    }
-    .text {
     }
   }
 

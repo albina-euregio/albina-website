@@ -28,11 +28,6 @@ $tooltip-offset: 10px;
   transition: all variables.$transition-duration;
 }
 
-// CSS anchor positioning (unsupported browsers keep the UA default
-// popover behavior: centered fixed position, still readable). `margin`
-// must stay scoped here too: the UA default pairs `inset: 0` with
-// `margin: auto` to center the popover, and overriding only one of the
-// two outside this block would stretch it to fill the viewport instead.
 @supports (anchor-name: --tooltip-fallback-check) {
   .tooltip-container {
     position: fixed;
@@ -40,8 +35,6 @@ $tooltip-offset: 10px;
     margin: 0;
   }
 
-  // placement is chosen by the `data-placement` attribute the component
-  // sets from its `placement` prop (e.g. "bottom", "left-end")
   .tooltip-container[data-placement^="top"] {
     position-area: top;
     position-try-fallbacks: flip-block;
