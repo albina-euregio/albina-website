@@ -56,6 +56,10 @@ function profileFormSrc(language: string, editId?: string) {
   // The app lives at config.apis.profiles without the trailing "/api".
   const base = config.apis.profiles.replace(/\/api$/, "/");
   const params = new URLSearchParams({ embed: "1", lang: language || "en" });
+  // The iframe can't see our <html data-theme> (set by the header toggle),
+  // so hand the current theme over explicitly.
+  const theme = document.documentElement.dataset.theme;
+  if (theme === "dark" || theme === "light") params.set("theme", theme);
   if (editId) params.set("id", editId);
   return `${base}?${params.toString()}`;
 }

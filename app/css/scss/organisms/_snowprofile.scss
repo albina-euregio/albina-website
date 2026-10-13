@@ -108,8 +108,13 @@ $snowprofile-stabilities: (
 }
 
 // Match profea-app's own body colour so there's no white frame around the grey form.
+// (profea-app's --color-bg, light and dark).
 dialog.modal:has(.snowprofile-form) {
-  background-color: #f5f7fa;
+  background-color: #f2f7fa;
+}
+
+html[data-theme="dark"] dialog.modal:has(.snowprofile-form) {
+  background-color: #0f1419;
 }
 
 .modal-container.snowprofile-form {
