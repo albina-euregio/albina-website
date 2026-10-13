@@ -1672,6 +1672,33 @@ a.weather-map-details-button {
 }
 //...to here
 
+// Theme-aware popup background (MapLibre hardcodes #fff), incl. the tip arrow.
+.maplibregl-map {
+  .maplibregl-popup-content {
+    background: variables.$white;
+  }
+  .maplibregl-popup-anchor-top,
+  .maplibregl-popup-anchor-top-left,
+  .maplibregl-popup-anchor-top-right {
+    .maplibregl-popup-tip {
+      border-bottom-color: variables.$white;
+    }
+  }
+  .maplibregl-popup-anchor-bottom,
+  .maplibregl-popup-anchor-bottom-left,
+  .maplibregl-popup-anchor-bottom-right {
+    .maplibregl-popup-tip {
+      border-top-color: variables.$white;
+    }
+  }
+  .maplibregl-popup-anchor-left .maplibregl-popup-tip {
+    border-right-color: variables.$white;
+  }
+  .maplibregl-popup-anchor-right .maplibregl-popup-tip {
+    border-left-color: variables.$white;
+  }
+}
+
 .maplibre-station-tooltip {
   .maplibregl-popup-content {
     padding: 0.25em 0.5em;
