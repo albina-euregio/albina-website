@@ -33,7 +33,7 @@ function Archive() {
     +(router?.search?.month || Temporal.Now.plainDateISO().month),
     (month: number) => redirectPageQuery({ month })
   ];
-  if (month < minMonth) setMonth(month + 12);
+  if (month < minMonth) setMonth(month + 12 <= minMonth + 6 ? month + 12 : 12);
 
   const [year, setYear] = [
     +(router?.search?.year || currentSeasonYear()),
