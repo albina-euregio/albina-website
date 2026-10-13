@@ -181,8 +181,6 @@ input[type="range"] {
     cursor: pointer;
     -webkit-appearance: none;
     @include mixins.rollout;
-    &:hover {
-    }
   }
 
   &::-moz-range-track {

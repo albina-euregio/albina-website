@@ -116,8 +116,8 @@ img {
   // font-size: 1rem !important;
   // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
   > *:not(.wp-block-post-featured-image):not(.wp-block-image):not(
-    .wp-block-gallery
-  ):not(.wp-block-video) {
+      .wp-block-gallery
+    ):not(.wp-block-video) {
     padding-left: variables.$all-h-padding;
     padding-right: variables.$all-h-padding;
   }
@@ -160,7 +160,6 @@ img {
       margin: 0;
     }
 
-    // crop the thumbnail only, not the zoomed image in the dialog
     > div img {
       display: block;
       width: 100%;

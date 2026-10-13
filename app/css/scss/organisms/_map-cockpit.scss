@@ -284,8 +284,6 @@ $cp-breakpoint-3: 1024px;
 }
 .cp-scale-stamp-range-end {
   position: absolute;
-  // the bar is only as wide as the range, so "15:00 UTC" would
-  // otherwise wrap at its space
   white-space: nowrap;
   top: 0;
   right: 0;
@@ -331,8 +329,6 @@ $cp-breakpoint-3: 1024px;
 }
 .cp-scale-stamp-point-exact {
   position: absolute;
-  // the containing block is zero-width, so "15:00 UTC" would otherwise wrap
-  // at its space down to the min-content width
   white-space: nowrap;
   top: 0;
   left: calc(#{$cp-timeline-height} - #{$cp-scale-height});
@@ -472,11 +468,6 @@ $cp-breakpoint-3: 1024px;
 .cp-scale-analyse {
   .ruler-mark-bg {
     background-color: variables.$grey-very-very-light;
-  }
-}
-.cp-scale-forecast {
-  .ruler-mark-bg {
-    // background-color: variables.$grey-very-very-light;
   }
 }
 
