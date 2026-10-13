@@ -1,5 +1,6 @@
 @use "../abstracts/variables";
 @use "../abstracts/mixins";
+@use "icons";
 
 /*	TRANSPORTER
 	Creating Your Web
@@ -35,12 +36,12 @@ ol {
     margin-left: 0;
 
     li {
+      @include icons.icon-glyph(ok-small);
       position: relative;
       padding-left: variables.$list-side-padding * 4;
 
       &:before {
-        content: "\e805";
-        font-family: "Fontello";
+        @include icons.icon-mask;
         font-size: variables.$xlarge-font-size;
         position: absolute;
         left: 0;
