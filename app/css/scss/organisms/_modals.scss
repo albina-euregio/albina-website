@@ -377,6 +377,7 @@ button.modal-flipper__button {
       margin-right: 0px;
       color: variables.$text-color;
       border-color: variables.$grey-light;
+      border-radius: 0;
       &:hover {
         color: variables.$white-fixed;
         border-color: variables.$anchor-font-color;
