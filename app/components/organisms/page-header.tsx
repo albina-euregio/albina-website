@@ -324,14 +324,12 @@ function PageHeader() {
         >
           <button
             type="button"
-            className="theme-trigger"
+            className={`theme-trigger icon-margin-no ${theme === "dark" ? "icon-sun-big" : "icon-moon-big"}`}
             onClick={toggleTheme}
             aria-label={intl.formatMessage({
               id: theme === "dark" ? "header:theme:light" : "header:theme:dark"
             })}
-          >
-            {theme === "dark" ? "☀" : "☾"}
-          </button>
+          />
         </Tooltip>
         <ul className="list-plain language-trigger">
           <li>
