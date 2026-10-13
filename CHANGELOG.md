@@ -2,6 +2,92 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [Unreleased]
+
+### 🚀 Features
+
+- _(bulletin)_ Load bulletins of additional EAWS regions
+- _(incidents)_ Download incidents as CSV or GeoJSON
+- _(incidents)_ Link avalanche size, problem and danger rating to the education pages
+- _(weather)_ Show more wind direction arrows
+- _(weather-stations)_ Sort the province filter alphabetically
+- _(blog)_ Fetch Austrian regional blogs via the ALBINA API
+- _(glossary)_ Show the full EAWS glossary on `/education/glossary` and link bulletin tooltips to it
+- _(i18n)_ Add Slovak translations
+- Dark mode with a theme switch in the page header
+- Report errors to GitLab error tracking (configured via `APP_SENTRY_DSN`)
+
+### 🐛 Bug Fixes
+
+- _(bulletin)_ Show no-snow regions transparent instead of green
+- _(archive)_ Fall back to December instead of November
+
+### ⚡ Performance
+
+- Lazy-load images, station diagrams and data overlays; render long tables incrementally
+- Load the bulletin and station views in parallel with the language files
+
+## [9.0.1] - 2026-10-07
+
+### 🚀 Features
+
+- _(weather)_ Add weather maps on the Austrian Lambert grid (GeoSphere)
+
+### 🐛 Bug Fixes
+
+- _(weather)_ Restore the optional time range in weather map URLs
+
+### ⚙️ Miscellaneous Tasks
+
+- Hide incidents and snow profiles from the production menus
+- Remove the Lawine Tirol app
+
+## [9.0.0] - 2026-10-06
+
+### 💥 Breaking Changes
+
+- The website must be deployed at the server root; support for a sub-path (`config.projectRoot`) has been removed
+- API URLs in the config are now relative and need to be served (or proxied) from the same host
+- All maps (bulletin, weather, weather stations) moved from Leaflet to MapLibre with a self-hosted PMTiles basemap
+
+### 🚀 Features
+
+- _(bulletin)_ Redesigned avalanche report: new header, recommendation block, grouped avalanche problems with core-zone matrix, danger development section, snowpack and weather containers
+- _(bulletin)_ Listen to the avalanche report with a built-in audio player
+- _(bulletin)_ Switch between micro-regions within a warning region
+- _(bulletin)_ Show the danger trend of the last 7 days
+- _(bulletin)_ Photo gallery with drag-to-scroll and a lightbox
+- _(bulletin)_ Show incidents and snow profiles on the additional information map
+- _(bulletin)_ Show observation details in a dialog instead of an external page
+- _(bulletin)_ Merge legend and link bar into one row, show a "select region" hint on the map
+- _(bulletin)_ Bulletins are now available at `/` and `/<date>` (old `/bulletin/…` links keep working)
+- _(bulletin)_ Show a simple text bulletin on browsers without WebGL2
+- _(maps)_ Synchronized bulletin maps, zoom buttons, location search, geolocation and scale; zoom with Ctrl+scroll
+- _(incidents)_ New incident dashboard with table and map, season filter, detail dialog with location map, images, avalanche problems and danger rating
+- _(incidents)_ Sortable table, colored map markers by severity, rich tooltips, report status and shareable links
+- _(profiles)_ New snow profile dashboard with map, date filter and table, colored by snowpack stability
+- _(profiles)_ Create and edit snow profiles directly on the website
+- _(profiles)_ Flip through profiles in the detail dialog; save as PNG, print as PDF, download CAAML XML
+- _(profiles)_ Export snow profiles as CSV (incl. ECT and RB results) or as a ZIP of CAAML files
+- _(weather)_ Weather maps rendered with MapLibre, including wind direction arrows and click-to-read values
+- _(weather)_ Weather maps are configured via each domain's `config.json`; the timeline shows time zones and a drag preview
+- _(weather-stations)_ Add weather stations of South Tyrol, and of Carinthia and Tyrol (GeoSphere)
+- _(weather-stations)_ Enable LINEA for all observers
+- _(blog)_ Fetch blogs via the ALBINA API, link to translated posts, show WordPress galleries
+- _(i18n)_ Add Slovenian translations; fall back to English for untranslated texts
+
+### 🚜 Refactor
+
+- Tooltips use the native Popover API instead of floating-ui
+- Data validation switched from zod to valibot with schemas generated from the API
+- Generic data table shared by weather stations, snow profiles and incidents
+
+## [8.4.1] - 2026-06-23
+
+### ⚙️ Miscellaneous Tasks
+
+- Update LINEA to v8.24.4
+
 ## [8.4.0] - 2026-05-26
 
 ### 🚀 Features
