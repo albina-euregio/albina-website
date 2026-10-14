@@ -2,6 +2,117 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [Unreleased]
+
+### 🚀 Features
+
+- _(bulletin)_ Load bulletins of additional EAWS regions
+- _(incidents)_ Download incidents as CSV or GeoJSON
+- _(incidents)_ Link avalanche size, problem and danger rating to the education pages
+- _(weather)_ Show more wind direction arrows
+- _(weather-stations)_ Sort the province filter alphabetically
+- _(blog)_ Fetch Austrian regional blogs via the ALBINA API
+- _(glossary)_ Show the full EAWS glossary on `/education/glossary` and link bulletin tooltips to it
+- _(i18n)_ Add Slovak translations
+- Dark mode with a theme switch in the page header
+- Report errors to GitLab error tracking (configured via `APP_SENTRY_DSN`)
+
+### 🐛 Bug Fixes
+
+- _(bulletin)_ Show no-snow regions transparent instead of green
+- _(archive)_ Fall back to December instead of November
+
+### ⚡ Performance
+
+- Lazy-load images, station diagrams and data overlays; render long tables incrementally
+- Load the bulletin and station views in parallel with the language files
+
+## [9.0.1] - 2026-10-07
+
+### 🚀 Features
+
+- _(weather)_ Add weather maps on the Austrian Lambert grid (GeoSphere)
+
+### 🐛 Bug Fixes
+
+- _(weather)_ Restore the optional time range in weather map URLs
+
+### ⚙️ Miscellaneous Tasks
+
+- Hide incidents and snow profiles from the production menus
+- Remove the Lawine Tirol app
+
+## [9.0.0] - 2026-10-06
+
+### 💥 Breaking Changes
+
+- The website must be deployed at the server root; support for a sub-path (`config.projectRoot`) has been removed
+- API URLs in the config are now relative and need to be served (or proxied) from the same host
+- All maps (bulletin, weather, weather stations) moved from Leaflet to MapLibre with a self-hosted PMTiles basemap
+
+### 🚀 Features
+
+#### ✨ New: Incidents
+
+- Incident dashboard with table and map, filterable by season
+- Sortable table, map markers colored by severity, rich tooltips and report status
+- Detail dialog with location map, images, avalanche problems and danger rating
+- Deep links to individual incidents
+
+#### ✨ New: Snow profiles
+
+- Snow profile dashboard with map, date filter and table, colored by snowpack stability
+- Create and edit snow profiles directly on the website
+- Flip through profiles in the detail dialog; save as PNG, print as PDF, download CAAML XML
+- Export snow profiles as CSV (incl. ECT and RB results) or as a ZIP of CAAML files
+
+#### Avalanche report
+
+- Redesigned report: new header, recommendation block, grouped avalanche problems with core-zone matrix, danger development section, snowpack and weather containers
+- Listen to the report with a built-in audio player
+- Switch between micro-regions within a warning region
+- Show the danger trend of the last 7 days
+- Photo gallery with drag-to-scroll and a lightbox
+- Show incidents and snow profiles on the additional information map
+- Show observation details in a dialog instead of an external page
+- Merge legend and link bar into one row, show a "select region" hint on the map
+- Bulletins are now available at `/` and `/<date>` (old `/bulletin/…` links keep working)
+- Show a simple text bulletin on browsers without WebGL2
+
+#### Maps
+
+- Synchronized bulletin maps, zoom buttons, location search, geolocation and scale; zoom with Ctrl+scroll
+
+#### Weather maps
+
+- Rendered with MapLibre, including wind direction arrows and click-to-read values
+- Configured via each domain's `config.json`; the timeline shows time zones and a drag preview
+
+#### Weather stations
+
+- Add weather stations of South Tyrol, and of Carinthia and Tyrol (GeoSphere)
+- Enable LINEA for all observers
+
+#### Blog
+
+- Fetch blogs via the ALBINA API, link to translated posts, show WordPress galleries
+
+#### Translations
+
+- Add Slovenian translations; fall back to English for untranslated texts
+
+### 🚜 Refactor
+
+- Tooltips use the native Popover API instead of floating-ui
+- Data validation switched from zod to valibot with schemas generated from the API
+- Generic data table shared by weather stations, snow profiles and incidents
+
+## [8.4.1] - 2026-06-23
+
+### ⚙️ Miscellaneous Tasks
+
+- Update LINEA to v8.24.4
+
 ## [8.4.0] - 2026-05-26
 
 ### 🚀 Features
