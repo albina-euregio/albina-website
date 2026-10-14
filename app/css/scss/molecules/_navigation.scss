@@ -76,7 +76,7 @@ $item-padding: 0.175em;
     }
   }
 
-  @media #{variables.breakpoint-below(medium)} {
+  @media #{variables.breakpoint-below(large)} {
     .navigation-open & {
       top: 0;
       margin: 0 calc(#{variables.$padding} * 6 + #{variables.$border-width} * 4)
@@ -112,7 +112,7 @@ $item-padding: 0.175em;
     }
   }
 
-  @media #{variables.breakpoint-up(medium)} {
+  @media #{variables.breakpoint-up(large)} {
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
@@ -168,7 +168,7 @@ $item-padding: 0.175em;
     }
   }
 
-  @media #{variables.breakpoint-below(medium)} {
+  @media #{variables.breakpoint-below(large)} {
     .navigation-open & {
       display: block;
       position: relative;

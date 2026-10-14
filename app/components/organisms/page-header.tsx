@@ -316,22 +316,28 @@ function PageHeader() {
           />
         )}
       </div>
-      <div className="page-header-language">
-        <Tooltip
-          label={intl.formatMessage({
-            id: theme === "dark" ? "header:theme:light" : "header:theme:dark"
-          })}
-        >
-          <button
-            type="button"
-            className={`theme-trigger icon-margin-no ${theme === "dark" ? "icon-sun-big" : "icon-moon-big"}`}
-            onClick={toggleTheme}
-            aria-label={intl.formatMessage({
-              id: theme === "dark" ? "header:theme:light" : "header:theme:dark"
-            })}
-          />
-        </Tooltip>
-        <ul className="list-plain language-trigger">
+      <div className="page-header-switches">
+        <ul className="list-plain list-switches">
+          <li>
+            <Tooltip
+              label={intl.formatMessage({
+                id:
+                  theme === "dark" ? "header:theme:light" : "header:theme:dark"
+              })}
+            >
+              <button
+                type="button"
+                className={`theme-trigger icon-margin-no ${theme === "dark" ? "icon-sun-big" : "icon-moon-big"}`}
+                onClick={toggleTheme}
+                aria-label={intl.formatMessage({
+                  id:
+                    theme === "dark"
+                      ? "header:theme:light"
+                      : "header:theme:dark"
+                })}
+              />
+            </Tooltip>
+          </li>
           <li>
             <a
               ref={langButtonRef}
@@ -347,7 +353,7 @@ function PageHeader() {
                   setLangDropdownOpen(true);
                 }
               }}
-              className={`has-sub${langDropdownOpen ? " open" : ""}`}
+              className={`language-trigger has-sub${langDropdownOpen ? " open" : ""}`}
               aria-expanded={langDropdownOpen}
               title={intl.formatMessage({
                 id: "header:languages:title"
