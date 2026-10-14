@@ -111,7 +111,7 @@ test("2022-02-01 subscribe", async ({ page }) => {
   await page.getByRole("button", { name: "Tyrol", exact: true }).click({
     force: true
   });
-  await page.getByRole("button", { name: "DE" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "DE" }).click();
 
   const pagePromise = page.waitForEvent("popup");
   await page.getByRole("button", { name: "Subscribe" }).click();
