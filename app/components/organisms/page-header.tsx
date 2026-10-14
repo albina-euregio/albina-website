@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useIntl } from "../../i18n";
-import Menu from "../menu";
+import Menu, { getDesktopBreakpoint } from "../menu";
 import { Tooltip } from "../tooltips/tooltip";
 
 import { setLanguage } from "../../appStore";
@@ -82,11 +82,13 @@ function PageHeader() {
   // Use state for navOpen to trigger re-render and accessibility updates
   const [navOpen, setNavOpen] = React.useState(false);
 
-  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 1024);
+  const [isMobile, setIsMobile] = React.useState(
+    window.innerWidth < getDesktopBreakpoint()
+  );
 
   React.useEffect(() => {
     function handleResize() {
-      setIsMobile(window.innerWidth <= 1024);
+      setIsMobile(window.innerWidth < getDesktopBreakpoint());
     }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);

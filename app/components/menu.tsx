@@ -1,10 +1,10 @@
 // Utility to get the desktop breakpoint from CSS custom property
-function getDesktopBreakpoint() {
-  if (typeof window === "undefined") return 1024;
+export function getDesktopBreakpoint() {
+  if (typeof window === "undefined") return 1280;
   const value = getComputedStyle(document.documentElement).getPropertyValue(
     "--breakpoint-desktop"
   );
-  return parseInt(value, 10) || 1024;
+  return parseInt(value, 10) || 1280;
 }
 import React, { useEffect, useState } from "react";
 import { useIntl } from "../i18n";
@@ -92,12 +92,12 @@ function Menu(props: Props) {
 
     // Handlers for mouse hover to open/close dropdowns (desktop only)
     const handleMouseEnter = (index: number) => {
-      if (window.innerWidth > getDesktopBreakpoint()) {
+      if (window.innerWidth >= getDesktopBreakpoint()) {
         setOpenDropdownIndex(index);
       }
     };
     const handleMouseLeave = () => {
-      if (window.innerWidth > getDesktopBreakpoint()) {
+      if (window.innerWidth >= getDesktopBreakpoint()) {
         setOpenDropdownIndex(null);
       }
     };
@@ -197,7 +197,7 @@ function MenuItem(props: MenuItemProps) {
       ) : (
         <a
           onTouchStart={() => {
-            if (window.innerWidth > getDesktopBreakpoint())
+            if (window.innerWidth >= getDesktopBreakpoint())
               isTouchingDevice = true;
           }}
           onClick={ev => {

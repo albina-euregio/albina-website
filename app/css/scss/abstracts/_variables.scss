@@ -487,6 +487,6 @@ $transition-duration: 0.25s;
 :root {
   --desktop-map-ratio: 1/1;
   --mobile-map-ratio: 1/1;
-  // Set --breakpoint-desktop to the lower bound of breakpoint medium in px (1em = 16px)
-  --breakpoint-desktop: #{math.div(breakpoint-min(medium), 1em) * $rem-base}px;
+  // Set --breakpoint-desktop to the lower bound of breakpoint large in px (1em = 16px)
+  --breakpoint-desktop: #{math.div(breakpoint-min(large), 1em) * $rem-base}px;
 }
