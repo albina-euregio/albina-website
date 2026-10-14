@@ -70,8 +70,7 @@ for (const domain of DOMAINS) {
 
         await test.step("flipper steps by the time step, reload keeps the time", async () => {
           const step = tr.timeStepHours * HOUR;
-          // The default URL is re-read and snapped to a slot (matters for
-          // relative-snow, whose synthesized default is the current hour).
+          // The default URL is re-read and snapped to a slot.
           const start = resolveTime(tr.initialTimestamp, tr, cfg);
 
           await page.locator(SEL.flipperLeft).click();

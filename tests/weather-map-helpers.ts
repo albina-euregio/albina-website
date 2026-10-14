@@ -85,11 +85,11 @@ export interface DomainConfig {
 }
 
 /**
- * relative-snow has no config.json yet; the app synthesizes one around the
- * current hour (`buildRelativeSnowFallbackConfig`).
+ * relative-snow has no config.json yet; the app synthesizes one at today's
+ * 00:00 UTC (`buildRelativeSnowFallbackConfig`).
  */
 function relativeSnowConfig(): DomainConfig {
-  const now = Math.floor(Date.now() / HOUR) * HOUR;
+  const now = Math.floor(Date.now() / (24 * HOUR)) * 24 * HOUR;
   return {
     timeRanges: [
       {

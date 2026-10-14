@@ -504,8 +504,10 @@ function overlayBaseURLs(): [string, string] | null {
  * migration to the live endpoint, so the domain stays functional meanwhile.
  */
 function buildRelativeSnowFallbackConfig(): RemoteDomainConfig {
+  // Today's 00:00 UTC, the domain's only daily slot: an off-slot default
+  // would be snapped onto a different day once the flipper steps from it.
   const now = Temporal.Now.zonedDateTimeISO("UTC")
-    .round({ smallestUnit: "hours", roundingMode: "trunc" })
+    .startOfDay()
     .toInstant()
     .toString();
   return {
