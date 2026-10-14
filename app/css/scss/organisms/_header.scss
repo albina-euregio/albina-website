@@ -127,8 +127,9 @@ ul.bulletin-flipper {
     padding: 0;
   }
   a {
+    display: flex;
+    align-items: center;
     span:before {
-      top: 0.175em;
       line-height: 0;
       @include mixins.rollover;
     }
