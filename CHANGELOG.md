@@ -52,29 +52,54 @@
 
 ### 🚀 Features
 
-- _(bulletin)_ Redesigned avalanche report: new header, recommendation block, grouped avalanche problems with core-zone matrix, danger development section, snowpack and weather containers
-- _(bulletin)_ Listen to the avalanche report with a built-in audio player
-- _(bulletin)_ Switch between micro-regions within a warning region
-- _(bulletin)_ Show the danger trend of the last 7 days
-- _(bulletin)_ Photo gallery with drag-to-scroll and a lightbox
-- _(bulletin)_ Show incidents and snow profiles on the additional information map
-- _(bulletin)_ Show observation details in a dialog instead of an external page
-- _(bulletin)_ Merge legend and link bar into one row, show a "select region" hint on the map
-- _(bulletin)_ Bulletins are now available at `/` and `/<date>` (old `/bulletin/…` links keep working)
-- _(bulletin)_ Show a simple text bulletin on browsers without WebGL2
-- _(maps)_ Synchronized bulletin maps, zoom buttons, location search, geolocation and scale; zoom with Ctrl+scroll
-- _(incidents)_ New incident dashboard with table and map, season filter, detail dialog with location map, images, avalanche problems and danger rating
-- _(incidents)_ Sortable table, colored map markers by severity, rich tooltips, report status and shareable links
-- _(profiles)_ New snow profile dashboard with map, date filter and table, colored by snowpack stability
-- _(profiles)_ Create and edit snow profiles directly on the website
-- _(profiles)_ Flip through profiles in the detail dialog; save as PNG, print as PDF, download CAAML XML
-- _(profiles)_ Export snow profiles as CSV (incl. ECT and RB results) or as a ZIP of CAAML files
-- _(weather)_ Weather maps rendered with MapLibre, including wind direction arrows and click-to-read values
-- _(weather)_ Weather maps are configured via each domain's `config.json`; the timeline shows time zones and a drag preview
-- _(weather-stations)_ Add weather stations of South Tyrol, and of Carinthia and Tyrol (GeoSphere)
-- _(weather-stations)_ Enable LINEA for all observers
-- _(blog)_ Fetch blogs via the ALBINA API, link to translated posts, show WordPress galleries
-- _(i18n)_ Add Slovenian translations; fall back to English for untranslated texts
+#### ✨ New: Incidents
+
+- Incident dashboard with table and map, filterable by season
+- Sortable table, map markers colored by severity, rich tooltips and report status
+- Detail dialog with location map, images, avalanche problems and danger rating
+- Deep links to individual incidents
+
+#### ✨ New: Snow profiles
+
+- Snow profile dashboard with map, date filter and table, colored by snowpack stability
+- Create and edit snow profiles directly on the website
+- Flip through profiles in the detail dialog; save as PNG, print as PDF, download CAAML XML
+- Export snow profiles as CSV (incl. ECT and RB results) or as a ZIP of CAAML files
+
+#### Avalanche report
+
+- Redesigned report: new header, recommendation block, grouped avalanche problems with core-zone matrix, danger development section, snowpack and weather containers
+- Listen to the report with a built-in audio player
+- Switch between micro-regions within a warning region
+- Show the danger trend of the last 7 days
+- Photo gallery with drag-to-scroll and a lightbox
+- Show incidents and snow profiles on the additional information map
+- Show observation details in a dialog instead of an external page
+- Merge legend and link bar into one row, show a "select region" hint on the map
+- Bulletins are now available at `/` and `/<date>` (old `/bulletin/…` links keep working)
+- Show a simple text bulletin on browsers without WebGL2
+
+#### Maps
+
+- Synchronized bulletin maps, zoom buttons, location search, geolocation and scale; zoom with Ctrl+scroll
+
+#### Weather maps
+
+- Rendered with MapLibre, including wind direction arrows and click-to-read values
+- Configured via each domain's `config.json`; the timeline shows time zones and a drag preview
+
+#### Weather stations
+
+- Add weather stations of South Tyrol, and of Carinthia and Tyrol (GeoSphere)
+- Enable LINEA for all observers
+
+#### Blog
+
+- Fetch blogs via the ALBINA API, link to translated posts, show WordPress galleries
+
+#### Translations
+
+- Add Slovenian translations; fall back to English for untranslated texts
 
 ### 🚜 Refactor
 
