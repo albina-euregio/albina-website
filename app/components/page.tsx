@@ -15,13 +15,15 @@ const Page = ({ children }: Props) => {
   const page = useStore($router);
   const headless = useStore($headless);
 
+  // Scroll only on path changes: query changes (e.g. opening a station dialog) keep the position.
+  const path = page?.path;
   useEffect(() => {
-    if (!page?.path.split("/").includes("bulletin")) {
-      if (!page?.hash) {
+    if (!path?.split("/").includes("bulletin")) {
+      if (!$router.get()?.hash) {
         window.scrollTo(0, 0);
       }
     }
-  }, [page]);
+  }, [path]);
 
   const dev = import.meta.env.APP_REGION === "DEV" && (
     <ControlBar
