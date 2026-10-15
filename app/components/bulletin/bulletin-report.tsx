@@ -35,7 +35,11 @@ import {
 import { Tooltip } from "../tooltips/tooltip.tsx";
 import { useStore } from "@nanostores/react";
 import { $focusRegions, $province } from "../../appStore.ts";
-import { AdditionalBulletinInformation } from "./additional-bulletin-information.tsx";
+const AdditionalBulletinInformation = React.lazy(() =>
+  import("./additional-bulletin-information.tsx").then(m => ({
+    default: m.AdditionalBulletinInformation
+  }))
+);
 import Modal from "../dialogs/albina-modal";
 import {
   DialogFlipperButtons,
@@ -956,11 +960,13 @@ function BulletinReport({
           className="section-centered section-bulletin section-bulletin-additional"
         >
           <div className="panel secondary-light">
-            <AdditionalBulletinInformation
-              bulletin={bulletin}
-              date={date}
-              region={region}
-            />
+            <Suspense>
+              <AdditionalBulletinInformation
+                bulletin={bulletin}
+                date={date}
+                region={region}
+              />
+            </Suspense>
           </div>
         </section>
       </div>
