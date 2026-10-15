@@ -76,7 +76,17 @@ export default defineConfig({
     }
   },
   envPrefix: ["APP_", "VITE_"],
-  plugins: [react({ compiler: true })],
+  plugins: [
+    react({ compiler: true }),
+    {
+      // lets unused generated schemas be tree-shaken
+      name: "pure-valibot-gen",
+      transform: {
+        filter: { id: /\/valibot\.gen\.ts$/ },
+        handler: code => code.replace(/\bv\.\w+\(/g, "/* @__PURE__ */ $&")
+      }
+    }
+  ],
   server: {
     watch: {
       // Ignore pnpm store to prevent ELOOP errors in CI where store is inside project
