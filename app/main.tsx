@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./components/app.jsx";
+import App, { Bulletin, StationDashboard } from "./components/app.jsx";
 import { setLanguage } from "./appStore";
 import { isWebPushSupported } from "./util/isWebPushSupported";
 import { template } from "./util/template";
@@ -80,13 +80,16 @@ configRequest.then(async configParsed => {
     "bulletinLatest"
   ];
   const route = $router.get()?.route ?? "";
-  if (bulletinRoutes.includes(route)) {
-    void import("./views/bulletin");
-  } else if (route === "weatherStations" || route === "weatherMeasurements") {
-    void import("./views/stationDashboard");
-  }
+  const view = bulletinRoutes.includes(route)
+    ? Bulletin.preload()
+    : route === "weatherStations" || route === "weatherMeasurements"
+      ? StationDashboard.preload()
+      : undefined;
 
-  await setLanguage(language || configParsed.mainLanguages?.[0] || "en");
+  await Promise.all([
+    setLanguage(language || configParsed.mainLanguages?.[0] || "en"),
+    view?.catch(() => undefined)
+  ]);
 
   const root = document.body.appendChild(document.getElementById("page-all"));
   createRoot(root).render(<App />);

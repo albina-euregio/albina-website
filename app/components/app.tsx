@@ -13,14 +13,38 @@ import Page from "./page";
 
 import "../css/style.scss"; // CSS overrides
 
-const Bulletin = React.lazy(() => import("../views/bulletin"));
+/**
+ * React.lazy with a preload(): once loaded, the view renders without suspending.
+ * Otherwise the Suspense fallback is committed, and React delays revealing the
+ * view by its 300ms fallback throttle.
+ */
+function lazyWithPreload<T extends React.ComponentType>(
+  load: () => Promise<{ default: T }>
+) {
+  let loaded: { default: T } | undefined;
+  const preload = () => load().then(m => (loaded = m));
+  const Component = React.lazy(() => {
+    const m = loaded;
+    // a synchronous thenable lets React.lazy resolve without suspending
+    return m
+      ? ({
+          then: (resolve: (m: { default: T }) => void) => resolve(m)
+        } as unknown as Promise<{ default: T }>)
+      : preload();
+  });
+  return Object.assign(Component, { preload });
+}
+
+export const Bulletin = lazyWithPreload(() => import("../views/bulletin"));
 const BlogPostList = React.lazy(() => import("../views/blogPostList"));
 const BlogPost = React.lazy(() => import("../views/blogPost"));
 const Weather = React.lazy(() => import("../views/weather"));
 const IncidentDashboard = React.lazy(
   () => import("../views/incidentDashboard")
 );
-const StationDashboard = React.lazy(() => import("../views/stationDashboard"));
+export const StationDashboard = lazyWithPreload(
+  () => import("../views/stationDashboard")
+);
 const SnowProfileDashboard = React.lazy(
   () => import("../views/profileDashboard.js")
 );
