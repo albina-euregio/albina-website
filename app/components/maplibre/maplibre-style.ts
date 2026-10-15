@@ -4,7 +4,13 @@ import {
   type StyleSpecification
 } from "maplibre-gl";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
-import { Protocol } from "pmtiles";
+import {
+  EtagMismatch,
+  PMTiles,
+  Protocol,
+  type RangeResponse,
+  type Source
+} from "pmtiles";
 
 // Since v6 MapLibre loads its worker as a separate ES module whose URL bundlers
 // cannot resolve from `import.meta.url`. `?worker&url` routes it through Vite's
@@ -15,7 +21,45 @@ setWorkerUrl(workerUrl);
 
 // Register the pmtiles:// protocol once so MapLibre can read PMTiles archives.
 // https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles-source-and-protocol/
-addProtocol("pmtiles", new Protocol().tile);
+const protocol = new Protocol();
+protocol.add(new PMTiles(rangeUrlSource("/albina-basemap.pmtiles")));
+addProtocol("pmtiles", protocol.tile);
+
+/**
+ * Like pmtiles' FetchSource, but with the byte range in the URL. Chrome's HTTP
+ * cache lets only one request per URL proceed at a time, so tiles that are all
+ * ranges of the same URL load one after another (and are hardly cached).
+ */
+function rangeUrlSource(url: string): Source {
+  let mustReload = false;
+  return {
+    getKey: () => url,
+    async getBytes(offset, length, signal, etag): Promise<RangeResponse> {
+      const range = `${offset}-${offset + length - 1}`;
+      const res = await fetch(`${url}?range=${range}`, {
+        signal,
+        cache: mustReload ? "reload" : undefined,
+        headers: { range: `bytes=${range}` }
+      });
+      if (res.status !== 206) {
+        // e.g. 200: server ignored the range and is sending the whole archive
+        await res.body?.cancel();
+        throw new Error(`Bad response code: ${res.status}`);
+      }
+      const newEtag = res.headers.get("ETag");
+      if (etag && newEtag && !newEtag.startsWith("W/") && newEtag !== etag) {
+        mustReload = true;
+        throw new EtagMismatch(`ETag ${newEtag} does not match ${etag}`);
+      }
+      return {
+        data: await res.arrayBuffer(),
+        etag: newEtag ?? undefined,
+        cacheControl: res.headers.get("Cache-Control") ?? undefined,
+        expires: res.headers.get("Expires") ?? undefined
+      };
+    }
+  };
+}
 
 export const MAPLIBRE_STYLE: StyleSpecification = {
   version: 8,
