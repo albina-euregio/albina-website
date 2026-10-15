@@ -1,5 +1,7 @@
 import DiffMatchPatch from "diff-match-patch";
 
+export { DiffMatchPatch };
+
 // https://github.com/google/diff-match-patch/wiki/Line-or-Word-Diffs
 export function wordDiff(text1: string, text2: string) {
   const dmp = new DiffMatchPatch();

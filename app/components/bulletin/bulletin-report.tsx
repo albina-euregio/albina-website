@@ -1,11 +1,11 @@
 import React, {
   type FunctionComponent,
   Suspense,
+  use,
   useEffect,
   useRef,
   useState
 } from "react";
-import DiffMatchPatch from "diff-match-patch";
 import { FormattedMessage, MessageId, useIntl } from "../../i18n";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport, {
@@ -32,7 +32,6 @@ import {
   getTendencyProgression,
   getMaxMainValue
 } from "../../stores/bulletin";
-import { wordDiff } from "../../util/wordDiff";
 import { Tooltip } from "../tooltips/tooltip.tsx";
 import { useStore } from "@nanostores/react";
 import { $focusRegions, $province } from "../../appStore.ts";
@@ -45,17 +44,43 @@ import {
 import { useDragScroll } from "../dialogs/use-drag-scroll";
 import { eawsRegion } from "../../stores/eawsRegions";
 
-const LocalizedText: FunctionComponent<{
+let wordDiffModule: Promise<typeof import("../../util/wordDiff")>;
+
+interface LocalizedTextProps {
   text: string;
   text170000: string;
   showDiff: 0 | 1 | 2;
-}> = ({ text, text170000, showDiff }) => {
+}
+
+const toHtml = (text: string) =>
+  text.replace(/&lt;br\/&gt;/g, "<br/>").replace(/\n/g, "<br/>");
+
+const LocalizedText: FunctionComponent<LocalizedTextProps> = props => {
+  // bulletins are loaded in correct language
+  if (!props.text) return <></>;
+  return (
+    <Suspense
+      fallback={
+        <span dangerouslySetInnerHTML={{ __html: toHtml(props.text) }} />
+      }
+    >
+      <LocalizedTextDiff {...props} />
+    </Suspense>
+  );
+};
+
+const LocalizedTextDiff: FunctionComponent<LocalizedTextProps> = ({
+  text,
+  text170000,
+  showDiff
+}) => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
-  // bulletins are loaded in correct language
-  if (!text) return <></>;
-  text = text.replace(/&lt;br\/&gt;/g, "<br/>").replace(/\n/g, "<br/>");
+  text = toHtml(text);
   if (text !== text170000 && text170000 && showDiff > 0) {
+    const { wordDiff, DiffMatchPatch } = use(
+      (wordDiffModule ??= import("../../util/wordDiff"))
+    );
     text = wordDiff(text170000, text)
       .map(([diff, value]) =>
         diff === DiffMatchPatch.DIFF_INSERT
@@ -68,11 +93,7 @@ const LocalizedText: FunctionComponent<{
       )
       .join("");
   }
-  return (
-    <Suspense fallback={<span dangerouslySetInnerHTML={{ __html: text }} />}>
-      <BulletinGlossaryText text={text} locale={lang} />
-    </Suspense>
-  );
+  return <BulletinGlossaryText text={text} locale={lang} />;
 };
 
 // One gallery card. Copyright is always visible; date + micro-region are hidden
