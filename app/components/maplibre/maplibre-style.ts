@@ -22,8 +22,13 @@ setWorkerUrl(workerUrl);
 // Register the pmtiles:// protocol once so MapLibre can read PMTiles archives.
 // https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles-source-and-protocol/
 const protocol = new Protocol();
-protocol.add(new PMTiles(rangeUrlSource("/albina-basemap.pmtiles")));
 addProtocol("pmtiles", protocol.tile);
+
+/** Returns the pmtiles:// URL for the archive, read via rangeUrlSource. */
+export function pmtilesUrl(url: string): string {
+  if (!protocol.get(url)) protocol.add(new PMTiles(rangeUrlSource(url)));
+  return `pmtiles://${url}`;
+}
 
 /**
  * Like pmtiles' FetchSource, but with the byte range in the URL. Chrome's HTTP
@@ -67,7 +72,7 @@ export const MAPLIBRE_STYLE: StyleSpecification = {
   sources: {
     basemap: {
       type: "raster",
-      url: "pmtiles:///albina-basemap.pmtiles",
+      url: pmtilesUrl("/albina-basemap.pmtiles"),
       tileSize: 256,
       minzoom: 5,
       maxzoom: 10,

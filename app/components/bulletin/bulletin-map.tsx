@@ -39,7 +39,7 @@ import {
   type StyleSpecification
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
+import { MAPLIBRE_STYLE, pmtilesUrl } from "../maplibre/maplibre-style";
 import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import eawsPmtimes from "@eaws/pmtiles/eaws-regions.pmtiles?url";
 import { REGION_FILL_PAINT, REGION_LINE_PAINT } from "./bulletin-map-paint";
@@ -884,7 +884,7 @@ function MapLibreMap({
     overlay.on("load", () => {
       overlay.addSource("eaws-regions", {
         type: "vector",
-        url: `pmtiles://${eawsPmtimes}`,
+        url: pmtilesUrl(eawsPmtimes),
         // Promote `id` to the feature id so hover feature-state can be keyed by it.
         promoteId: "id"
       });
