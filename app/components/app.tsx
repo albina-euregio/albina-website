@@ -1,5 +1,4 @@
 import React, { Suspense, useEffect } from "react";
-import "@iframe-resizer/child";
 import { useStore } from "@nanostores/react";
 import { redirectPage } from "@nanostores/router";
 import { $router } from "./router";
@@ -7,6 +6,7 @@ import { $router } from "./router";
 window.iFrameResizer = {
   sizeSelector: "#page-all"
 };
+if (window.self !== window.top) import("@iframe-resizer/child");
 
 import { $headless, $province, setLanguage } from "../appStore";
 import Page from "./page";
