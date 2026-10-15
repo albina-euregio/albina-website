@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { warnlevelNumbers } from "../../util/warn-levels";
 import { Tooltip } from "../tooltips/tooltip";
@@ -71,13 +71,21 @@ function BulletinLegendLinkbar({ activeBulletinCollection }: Props) {
                       <span>
                         <strong>{num}</strong>{" "}
                         <a href={`/education/danger-scale/#level${num}`}>
-                          <BulletinInternalGlossaryText
-                            text={intl.formatMessage({
+                          <Suspense
+                            fallback={intl.formatMessage({
                               id: `caaml:dangerRating.${id}`
                             })}
-                            locale={intl.locale.slice(0, 2) as EnabledLanguages}
-                            textKey={"danger-scale-" + num}
-                          />
+                          >
+                            <BulletinInternalGlossaryText
+                              text={intl.formatMessage({
+                                id: `caaml:dangerRating.${id}`
+                              })}
+                              locale={
+                                intl.locale.slice(0, 2) as EnabledLanguages
+                              }
+                              textKey={"danger-scale-" + num}
+                            />
+                          </Suspense>
                         </a>
                       </span>
                     </li>
