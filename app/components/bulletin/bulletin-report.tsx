@@ -378,7 +378,7 @@ function getTendencyTrend(
   return Array.from({ length: TENDENCY_DAYS }, (_, index) => {
     const day = date.subtract({ days: TENDENCY_DAYS - index }).toString();
     const rating = ratings[days.indexOf(day)];
-    return rating === undefined ||
+    return rating == null ||
       rating === "missing" ||
       rating === "no_rating" ||
       rating === "no_snow"

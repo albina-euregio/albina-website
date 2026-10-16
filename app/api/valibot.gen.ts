@@ -182,7 +182,10 @@ export const vCaamlDangerRatingValue = v.picklist([
 
 export const vCaamlAvalancheBulletinCustomDataTendencyProgression = v.object({
   dates: v.array(v.pipe(v.string(), v.isoDate())),
-  dangerRatings: v.record(v.string(), v.array(vCaamlDangerRatingValue))
+  dangerRatings: v.record(
+    v.string(),
+    v.array(v.nullable(vCaamlDangerRatingValue))
+  )
 });
 
 export const vCaamlAvalancheBulletinCustomDataAlbina = v.object({
@@ -1407,6 +1410,11 @@ export const vPasskeyServiceRegistrationChallenge = v.object({
   publicKey: vPasskeyServicePublicKeyCredentialCreationOptions
 });
 
+/**
+ * Password strength check following NIST SP 800-63B-4 (2025) and OWASP ASVS 5.0 (V6.2): length is what matters, composition rules (upper/lower/digit/symbol) are explicitly discouraged.
+ */
+export const vPasswordStrength = v.picklist(["VERY_WEAK", "WEAK", "STRONG"]);
+
 export const vPosition = v.picklist([
   "topleft",
   "topright",
@@ -1914,13 +1922,31 @@ export const vUser = v.object({
   organization: v.optional(v.string()),
   languageCode: v.optional(vLanguageCode),
   deleted: v.optional(v.boolean()),
-  lastUsedAt: v.optional(v.pipe(v.string(), v.isoTimestamp()))
+  lastUsedAt: v.optional(v.pipe(v.string(), v.isoTimestamp())),
+  passkeyCount: v.optional(
+    v.pipe(
+      v.pipe(
+        v.number(),
+        v.integer(),
+        v.minValue(
+          -2147483648,
+          "Invalid value: Expected int32 to be >= -2147483648"
+        ),
+        v.maxValue(
+          2147483647,
+          "Invalid value: Expected int32 to be <= 2147483647"
+        )
+      ),
+      v.readonly()
+    )
+  )
 });
 
 export const vAuthenticationServiceAuthenticationResponse = v.object({
   user: vUser,
   regions: v.array(vRegion),
-  access_token: v.string()
+  access_token: v.string(),
+  passwordStrength: vPasswordStrength
 });
 
 /**
@@ -2302,6 +2328,80 @@ export const vDangerSourceVariant = v.intersect([
   })
 ]);
 
+export const vUserWritable = v.object({
+  email: v.optional(v.string()),
+  password: v.optional(v.string()),
+  name: v.optional(v.string()),
+  roles: v.optional(v.array(vRole)),
+  regions: v.optional(v.array(v.string())),
+  image: v.optional(v.string()),
+  organization: v.optional(v.string()),
+  languageCode: v.optional(vLanguageCode),
+  deleted: v.optional(v.boolean()),
+  lastUsedAt: v.optional(v.pipe(v.string(), v.isoTimestamp()))
+});
+
+export const vAuthenticationServiceAuthenticationResponseWritable = v.object({
+  user: vUserWritable,
+  regions: v.array(vRegion),
+  access_token: v.string(),
+  passwordStrength: vPasswordStrength
+});
+
+/**
+ * This class holds all information about one avalanche bulletin.
+ */
+export const vAvalancheBulletinWritable = v.intersect([
+  vAbstractPersistentObject,
+  v.object({
+    id: v.nullish(v.string()),
+    author: v.nullish(vUserWritable),
+    additionalAuthors: v.optional(v.array(v.string())),
+    updateDate: v.optional(v.pipe(v.string(), v.isoTimestamp())),
+    ownerRegion: v.optional(v.string()),
+    highlightsTextcat: v.optional(v.string()),
+    avActivityHighlightsTextcat: v.optional(v.string()),
+    avActivityCommentTextcat: v.optional(v.string()),
+    snowpackStructureHighlightsTextcat: v.optional(v.string()),
+    snowpackStructureCommentTextcat: v.optional(v.string()),
+    tendencyCommentTextcat: v.optional(v.string()),
+    generalHeadlineCommentTextcat: v.optional(v.string()),
+    synopsisCommentTextcat: v.optional(v.string()),
+    avActivityHighlightsNotes: v.optional(v.string()),
+    avActivityCommentNotes: v.optional(v.string()),
+    snowpackStructureHighlightsNotes: v.optional(v.string()),
+    snowpackStructureCommentNotes: v.optional(v.string()),
+    tendencyCommentNotes: v.optional(v.string()),
+    generalHeadlineCommentNotes: v.optional(v.string()),
+    highlights: v.optional(v.array(vAvalancheBulletinText)),
+    avActivityHighlights: v.optional(v.array(vAvalancheBulletinText)),
+    avActivityComment: v.optional(v.array(vAvalancheBulletinText)),
+    synopsisHighlights: v.optional(v.array(vAvalancheBulletinText)),
+    synopsisComment: v.optional(v.array(vAvalancheBulletinText)),
+    snowpackStructureHighlights: v.optional(v.array(vAvalancheBulletinText)),
+    snowpackStructureComment: v.optional(v.array(vAvalancheBulletinText)),
+    travelAdvisoryHighlights: v.optional(v.array(vAvalancheBulletinText)),
+    travelAdvisoryComment: v.optional(v.array(vAvalancheBulletinText)),
+    tendencyComment: v.optional(v.array(vAvalancheBulletinText)),
+    generalHeadlineComment: v.optional(v.array(vAvalancheBulletinText)),
+    tendency: v.optional(vTendency),
+    dangerPattern1: v.optional(vDangerPattern),
+    dangerPattern2: v.optional(vDangerPattern),
+    publicationDate: v.optional(v.pipe(v.string(), v.isoTimestamp())),
+    validity: v.optional(vAvalancheBulletinValidity),
+    suggestedRegions: v.optional(v.array(v.string())),
+    savedRegions: v.optional(v.array(v.string())),
+    savedOrPublishedRegions: v.optional(v.array(v.string())),
+    regions: v.optional(v.array(v.string())),
+    publishedRegions: v.optional(v.array(v.string())),
+    strategicMindset: v.optional(vStrategicMindset),
+    forenoon: v.nullish(vAvalancheBulletinDaytimeDescription),
+    afternoon: v.nullish(vAvalancheBulletinDaytimeDescription),
+    photos: v.optional(v.array(vAvalancheBulletinPhoto)),
+    hasDaytimeDependency: v.optional(v.boolean())
+  })
+]);
+
 /**
  * Date of validity in the format yyyy-MM-dd
  */
@@ -2377,6 +2477,10 @@ export const vDeletePasskeyPath = v.object({
  */
 export const vTestAuthResponse = vAuthenticationServiceUsername;
 
+export const vGetBlogPostHeaders = v.object({
+  "If-None-Match": v.nullish(v.string())
+});
+
 export const vGetBlogPostQuery = v.object({
   region: v.optional(v.string(), "AT-07"),
   lang: v.optional(vLanguageCode),
@@ -2387,6 +2491,10 @@ export const vGetBlogPostQuery = v.object({
  * getBlogPost 200 response
  */
 export const vGetBlogPostResponse = vBlogItem;
+
+export const vGetBlogPostsHeaders = v.object({
+  "If-None-Match": v.nullish(v.string())
+});
 
 export const vGetBlogPostsQuery = v.object({
   region: v.optional(v.string(), "AT-07"),
@@ -2440,7 +2548,7 @@ export const vGetPublishedJsonBulletins0Query = v.object({
  */
 export const vGetPublishedJsonBulletins0Response = v.array(vAvalancheBulletin);
 
-export const vCreateJsonBulletinsBody = v.array(vAvalancheBulletin);
+export const vCreateJsonBulletinsBody = v.array(vAvalancheBulletinWritable);
 
 export const vCreateJsonBulletinsQuery = v.object({
   date: v.string(),
@@ -2452,7 +2560,7 @@ export const vCreateJsonBulletinsQuery = v.object({
  */
 export const vCreateJsonBulletinsResponse = v.array(vAvalancheBulletin);
 
-export const vCreateJsonBulletinBody = vAvalancheBulletin;
+export const vCreateJsonBulletinBody = vAvalancheBulletinWritable;
 
 export const vCreateJsonBulletinQuery = v.object({
   date: v.string(),
@@ -2574,7 +2682,7 @@ export const vUploadBulletinPhotoQuery = v.object({
 export const vUploadBulletinPhotoResponse =
   vCaamlAvalancheBulletinCustomDataBulletinPhoto;
 
-export const vGetPreviewPdfBody = v.array(vAvalancheBulletin);
+export const vGetPreviewPdfBody = v.array(vAvalancheBulletinWritable);
 
 export const vGetPreviewPdfQuery = v.object({
   region: v.string(),
@@ -2697,7 +2805,7 @@ export const vGetJsonBulletinPath = v.object({
  */
 export const vGetJsonBulletinResponse = vAvalancheBulletin;
 
-export const vUpdateJsonBulletinBody = vAvalancheBulletin;
+export const vUpdateJsonBulletinBody = vAvalancheBulletinWritable;
 
 export const vUpdateJsonBulletinPath = v.object({
   bulletinId: v.string()
@@ -3092,7 +3200,7 @@ export const vTriggerStatusChecksResponse = v.array(vStatusInformation);
  */
 export const vGetUsersResponse = v.array(vUser);
 
-export const vSaveUserBody = vUser;
+export const vSaveUserBody = vUserWritable;
 
 /**
  * saveUser 200 response
