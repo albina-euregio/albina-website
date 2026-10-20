@@ -692,13 +692,14 @@ function BulletinReport({
                     </span>
                   </p>
                 )}
-                {bulletin.travelAdvisory?.highlights && (
-                  <p className="bulletin-report-public-alert">
-                    <span className="bulletin-report-public-alert-text">
-                      {bulletin.travelAdvisory.highlights}
-                    </span>
-                  </p>
-                )}
+                {!bulletin.highlights &&
+                  bulletin.travelAdvisory?.highlights && (
+                    <p className="bulletin-report-public-alert">
+                      <span className="bulletin-report-public-alert-text">
+                        {bulletin.travelAdvisory.highlights}
+                      </span>
+                    </p>
+                  )}
                 {bulletin.travelAdvisory?.comment && (
                   <ul className="okay list-bulletin-report-recommendation">
                     {bulletin.travelAdvisory.comment
