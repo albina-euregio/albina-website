@@ -671,12 +671,17 @@ function BulletinReport({
               </div>
             </header>
 
-            {(bulletin.highlights || bulletin.travelAdvisory?.comment) && (
+            {(bulletin.highlights ||
+              bulletin.travelAdvisory?.highlights ||
+              bulletin.travelAdvisory?.comment) && (
               <div
                 className={
                   "bulletin-report-recommendation" +
                   (bulletin.highlights ? " is-alert" : "") +
-                  (bulletin.travelAdvisory?.comment ? " is-recommendation" : "")
+                  (bulletin.travelAdvisory?.highlights ||
+                  bulletin.travelAdvisory?.comment
+                    ? " is-recommendation"
+                    : "")
                 }
               >
                 {bulletin.highlights && (
@@ -684,6 +689,13 @@ function BulletinReport({
                     <span className="icon-attention bulletin-report-public-alert-icon"></span>
                     <span className="bulletin-report-public-alert-text">
                       {bulletin.highlights}
+                    </span>
+                  </p>
+                )}
+                {bulletin.travelAdvisory?.highlights && (
+                  <p className="bulletin-report-public-alert">
+                    <span className="bulletin-report-public-alert-text">
+                      {bulletin.travelAdvisory.highlights}
                     </span>
                   </p>
                 )}
