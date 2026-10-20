@@ -199,7 +199,7 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
   left: 50%;
   transform: translateX(-50%);
   width: max-content;
-  max-width: calc(100vw - #{variables.$padding * 2});
+  max-width: min(36em, calc(100vw - #{variables.$padding * 2}));
   padding: 0;
 
   display: flex;
@@ -303,7 +303,8 @@ $bulletin-overlay-hover: rgba(variables.$brand, 0.05);
 
   ul {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    row-gap: variables.$padding;
     margin: 0;
     li {
       display: flex;
