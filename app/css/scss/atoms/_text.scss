@@ -207,6 +207,18 @@ del {
   color: variables.$grey;
   background-color: color.adjust(variables.$red, $lightness: 46%);
 }
+html[data-theme="dark"] {
+  ins {
+    background-color: color-mix(
+      in srgb,
+      variables.$green 30%,
+      variables.$white
+    );
+  }
+  del {
+    background-color: color-mix(in srgb, variables.$red 30%, variables.$white);
+  }
+}
 
 code,
 samp {
