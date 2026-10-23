@@ -253,7 +253,7 @@
   "weathermap:domain:description:snow-line": "Precipitacion de 50% aigua / 50% gèu (C-LAEF)",
   "weathermap:domain:description:wind": "Vent promig a 10m (INCA/C-LAEF)",
   "weathermap:domain:description:gust": "Bohades maximes a 10 m (INCA/C-LAEF)",
-  "weathermap:domain:description:wind700hpa": "Vent a 3000m (ECMWF)",
+  "weathermap:domain:description:wind700hpa": "Vent a 3000m (C-LAEF AlpeAdria)",
   "weathermap:domain:timespan:description:1": "cada ora",
   "weathermap:domain:timespan:description:2": "",
   "weathermap:domain:timespan:description": "intervau de temps: {range} ores",

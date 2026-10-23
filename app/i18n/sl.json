@@ -253,7 +253,7 @@
   "weathermap:domain:description:snow-line": "Padavine 50% dež / 50% sneg (C-LAEF)",
   "weathermap:domain:description:wind": "Povprečna hitrost vetra na 10 m (INCA/C-LAEF)",
   "weathermap:domain:description:gust": "Najmočnejši sunki na 10m (INCA/C-LAEF)",
-  "weathermap:domain:description:wind700hpa": "Veter na 3000m (ECMWF)",
+  "weathermap:domain:description:wind700hpa": "Veter na 3000m (C-LAEF AlpeAdria)",
   "weathermap:domain:timespan:description:1": "urno",
   "weathermap:domain:timespan:description:2": "",
   "weathermap:domain:timespan:description": "Časovno obdobje: {range} ur",

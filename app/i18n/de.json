@@ -253,7 +253,7 @@
   "weathermap:domain:description:snow-line": "Niederschlag von 50% Wasser / 50% Eis (C-LAEF)",
   "weathermap:domain:description:wind": "Mittlerer Wind in 10m (INCA/C-LAEF)",
   "weathermap:domain:description:gust": "Maximale Windböe in 10m (INCA/C-LAEF)",
-  "weathermap:domain:description:wind700hpa": "Wind in 3000m (ECMWF)",
+  "weathermap:domain:description:wind700hpa": "Wind in 3000m (C-LAEF AlpeAdria)",
   "weathermap:domain:timespan:description:1": "stündlich",
   "weathermap:domain:timespan:description:2": "täglich",
   "weathermap:domain:timespan:description": "Zeitspanne: {range} Stunden",
