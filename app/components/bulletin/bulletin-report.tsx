@@ -720,17 +720,19 @@ function BulletinReport({
               </div>
             )}
 
-            <h2 className="subheader bulletin-report-problems-headline">
-              <FormattedMessage id="bulletin:report:problems:headline" />
-              <Tooltip
-                html={true}
-                label={`<p>${intl.formatMessage({
-                  id: "bulletin:report:problems:core-zone:info"
-                })}</p>`}
-              >
-                <span className="tooltip-trigger icon-info"></span>
-              </Tooltip>
-            </h2>
+            {!!bulletin.avalancheProblems?.length && (
+              <h2 className="subheader bulletin-report-problems-headline">
+                <FormattedMessage id="bulletin:report:problems:headline" />
+                <Tooltip
+                  html={true}
+                  label={`<p>${intl.formatMessage({
+                    id: "bulletin:report:problems:core-zone:info"
+                  })}</p>`}
+                >
+                  <span className="tooltip-trigger icon-info"></span>
+                </Tooltip>
+              </h2>
+            )}
             {hasDaytimeDependency(bulletin) ? (
               [
                 <BulletinDaytimeReport
