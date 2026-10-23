@@ -168,6 +168,7 @@
   "bulletin:report:provider": "Mis à disposition par",
   "bulletin:report:update": "Mise à jour",
   "bulletin:report:problems:headline": "Risques d'avalanche liés aux zones centrales",
+  "bulletin:report:problems:headline:one": "Risque d'avalanche lié à la zone centrale",
   "bulletin:report:problems:core-zone:info": "<b>Zones centrales</b><br><br>L'indice de risque publié s'applique toujours à la zone centrale (indiquée en bleu) — c'est-à-dire la zone où le risque d'avalanche est le plus élevé. La zone centrale comprend la fourchette d'altitude (en mètres au-dessus du niveau de la mer) et l'exposition (l'orientation de la pente ; par exemple, exposition nord : une pente orientée vers le nord).<br><br>Les fourchettes d'altitude et/ou les expositions situées en dehors de la zone centrale sont indiquées en blanc. Dans ces zones, le service de prévision des avalanches estime que le risque d'avalanche est inférieur d'environ un niveau par rapport à celui de la zone centrale.<br><br><b>Attention :</b> Sur le terrain, la zone centrale (en bleu) et les zones adjacentes (en blanc) ne peuvent pas être délimitées avec précision. Par conséquent, la transition entre les indices de risque est souvent progressive.",
   "bulletin:report:problem:matrix:toggle": "Afficher ou masquer les paramètres relatifs au risque d'avalanche",
   "bulletin:report:listen": "Écouter",

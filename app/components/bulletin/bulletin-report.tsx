@@ -722,7 +722,14 @@ function BulletinReport({
 
             {!!bulletin.avalancheProblems?.length && (
               <h2 className="subheader bulletin-report-problems-headline">
-                <FormattedMessage id="bulletin:report:problems:headline" />
+                <FormattedMessage
+                  id={
+                    new Set(bulletin.avalancheProblems.map(p => p.problemType))
+                      .size === 1
+                      ? "bulletin:report:problems:headline:one"
+                      : "bulletin:report:problems:headline"
+                  }
+                />
                 <Tooltip
                   html={true}
                   label={`<p>${intl.formatMessage({

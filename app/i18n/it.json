@@ -168,6 +168,7 @@
   "bulletin:report:provider": "Fornito da",
   "bulletin:report:update": "Aggiornamento",
   "bulletin:report:problems:headline": "Problemi valanghivi con zone centrali",
+  "bulletin:report:problems:headline:one": "Problema valanghivo con zona centrale",
   "bulletin:report:problems:core-zone:info": "<b>Zone centrali</b><br><br> Il grado di pericolo pubblicato si riferisce sempre alla zona centrale (segnata in blu), ovvero l’area in cui il pericolo di valanghe è più elevato. La zona centrale comprende la fascia altitudinale (in m s.l.m.) e l’esposizione (orientamento del pendio, ad es. esposizione a nord: pendio orientato verso nord).<br><br>Sono segnate in bianco le fasce altitudinali e/o le esposizioni al di fuori della zona centrale. In queste aree, il Servizio valanghe valuta il pericolo di valanghe di circa un grado di pericolo inferiore rispetto alla zona centrale.<br><br><b>Importante:</b> in natura, non è possibile delimitare con precisione la zona centrale (blu) e le aree adiacenti (bianche). Di conseguenza, anche il passaggio tra i gradi di pericolo è spesso graduale.",
   "bulletin:report:problem:matrix:toggle": "Mostra o nascondi i parametri di pericolo valanghe",
   "bulletin:report:listen": "Ascolta",

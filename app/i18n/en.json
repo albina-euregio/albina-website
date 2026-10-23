@@ -171,6 +171,7 @@
   "bulletin:report:provider": "Provided by",
   "bulletin:report:update": "Update",
   "bulletin:report:problems:headline": "Avalanche Problems with Core Zones",
+  "bulletin:report:problems:headline:one": "Avalanche Problem with Core Zone",
   "bulletin:report:problems:core-zone:info": "<b>Core Zones</b><br><br>The published danger level always applies to the core zone (marked in blue) — the area where avalanche danger is highest. The core zone includes the elevation range (in meters above sea level) and the aspect (the slope's orientation, e.g., north aspect: a slope facing north).<br><br>Elevation ranges and/or aspects outside the core zone are marked in white. In these areas, the avalanche warning service estimates the avalanche danger to be approximately one danger level lower than in the core zone.<br><br><b>Important:</b> In terrain, the core zone (blue) and adjacent areas (white) cannot be sharply defined. Consequently, the transition between danger levels is often gradual.",
   "bulletin:report:problem:matrix:toggle": "Show or hide avalanche danger parameters",
   "bulletin:report:listen": "Listen",
