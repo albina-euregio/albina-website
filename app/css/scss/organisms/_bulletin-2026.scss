@@ -355,6 +355,7 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
         flex-shrink: 0;
         width: variables.$bar-width;
         cursor: default;
+        background-color: variables.$grey-light;
         @media #{variables.breakpoint-up(normal)} {
           width: variables.$bar-width * 2;
         }

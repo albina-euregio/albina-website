@@ -32,15 +32,6 @@ function BulletinDaytimeReport({
     bulletin170000?.avalancheProblems?.filter(p =>
       matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
     ) || [];
-  const dangerRatings =
-    bulletin?.dangerRatings?.filter(p =>
-      matchesValidTimePeriod(validTimePeriod, p.validTimePeriod)
-    ) || [];
-  // D2 (Rainer, 23 Apr 2026): the per-problem danger digit is the headline
-  // danger-level number repeated — not problem.dangerRatingValue (empty in data).
-  const maxWarnlevelNumber = dangerRatings.length
-    ? Math.max(...dangerRatings.map(r => getWarnlevelNumber(r.mainValue)))
-    : 0;
 
   return (
     <div>
@@ -62,7 +53,7 @@ function BulletinDaytimeReport({
               warnlevelNumber={
                 problem.dangerRatingValue
                   ? getWarnlevelNumber(problem.dangerRatingValue)
-                  : maxWarnlevelNumber
+                  : 0
               }
             />
           ))}
