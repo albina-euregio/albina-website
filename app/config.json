@@ -469,7 +469,7 @@
     {
       "dataProviderID": "AT-06",
       "png": "",
-      "pngOperators": "",
+      "pngOperators": "---",
       "stationsArchiveFile": "",
       "stationsArchiveOperators": ""
     },
