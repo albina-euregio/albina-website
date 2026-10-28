@@ -2,30 +2,47 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
-## [Unreleased]
+## [9.1.0] - 2026-10-28
 
 ### 🚀 Features
 
+- **Dark mode** with a sun/moon switch in the page header
+- _(season reports)_ Add season report 2025/26 for South Tyrol
+- _(bulletin)_ Show the travel advisory headline; a special alert takes precedence
 - _(bulletin)_ Load bulletins of additional EAWS regions
+- _(blog)_ Fetch Austrian regional blogs via the ALBINA API
 - _(incidents)_ Download incidents as CSV or GeoJSON
 - _(incidents)_ Link avalanche size, problem and danger rating to the education pages
 - _(weather)_ Show more wind direction arrows
-- _(weather-stations)_ Sort the province filter alphabetically
-- _(blog)_ Fetch Austrian regional blogs via the ALBINA API
-- _(glossary)_ Show the full EAWS glossary on `/education/glossary` and link bulletin tooltips to it
+- _(weather stations)_ Sort the province filter alphabetically
+- _(education)_ Show the full EAWS glossary on `/education/glossary`, link bulletin tooltips to it
 - _(i18n)_ Add Slovak translations
-- Dark mode with a theme switch in the page header
-- Report errors to GitLab error tracking (configured via `APP_SENTRY_DSN`)
 
 ### 🐛 Bug Fixes
 
-- _(bulletin)_ Show no-snow regions transparent instead of green
+- _(bulletin)_ Show bulletins whose 7-day danger trend has days without a danger rating
+- _(bulletin)_ Hide the avalanche problems headline without problems; use the singular for a single problem
+- _(bulletin)_ Gray problem bar for avalanche problems without danger rating
+- _(bulletin)_ Show no-snow regions transparent instead of green; no links in no-snow and no-rating map popups
+- _(bulletin)_ Wrap long special alerts in the map popup
+- _(bulletin)_ Show the browser-not-supported fallback only after 3 seconds
+- _(weather)_ Restore wind direction arrows (the upstream wind direction image moved)
+- _(weather)_ Start the relative snow height fallback at its daily time slot
+- _(weather stations)_ Do not jump to the top when selecting a station in the mini map
+- _(weather stations)_ Label the topmost station marker and avoid overlapping labels
+- _(weather stations)_ Fix the configuration of the Styrian stations (AT-06)
 - _(archive)_ Fall back to December instead of November
 
 ### ⚡ Performance
 
 - Lazy-load images, station diagrams and data overlays; render long tables incrementally
 - Load the bulletin and station views in parallel with the language files
+- Shrink the main bundle by moving MapLibre into its own chunk and dropping unused schemas
+
+### ⚙️ Miscellaneous Tasks
+
+- Report errors to GitLab error tracking (configured via `APP_SENTRY_DSN`)
+- Update LINEA to v8.30.0
 
 ## [9.0.1] - 2026-10-07
 
