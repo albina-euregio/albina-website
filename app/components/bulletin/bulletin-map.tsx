@@ -673,6 +673,15 @@ function MapLibreMap({
       ) {
         return "highlighted";
       }
+      // micro-region of the selected foreign EAWS provider (cf. click handler)
+      if (
+        eawsRegions.includes(region) &&
+        regionId.startsWith(region) &&
+        !microRegions.includes(regionId) &&
+        eawsRegions.find(r => regionId.startsWith(r)) === region
+      ) {
+        return "highlighted";
+      }
       if (region) {
         // some other region is selected — keep n/a / partial regions colored, dim the rest
         return isNoData || isPartialNoData || isEawsWithNoData
@@ -741,7 +750,9 @@ function MapLibreMap({
 
     for (const regionId of allRegionIds) {
       stateById[regionId] = getRegionState(regionId, "");
-      dangerRatingById[regionId] = dangerRatingByRegion[regionId] ?? 0;
+      // Unrated features (e.g. the outline of a rated foreign provider, drawn on
+      // top of its micro-regions) must stay transparent, not paint a white veil.
+      dangerRatingById[regionId] = dangerRatingByRegion[regionId] ?? "no_snow";
       internById[regionId] = internRegex.test(regionId);
       // Hovering a region reproduces both individual and macro-group hover by
       // passing the region as its own hovered id.
