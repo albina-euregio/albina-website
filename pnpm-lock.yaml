@@ -182,17 +182,17 @@ importers:
         specifier: ^8.30.1
         version: 8.30.1(valibot@1.5.0(typescript@6.0.3))
       '@eaws/micro-regions_names':
-        specifier: ^8.4.0
-        version: 8.4.0
+        specifier: ^8.7.0
+        version: 8.7.0
       '@eaws/micro-regions_properties':
-        specifier: ^8.4.0
-        version: 8.4.0
+        specifier: ^8.7.0
+        version: 8.7.0
       '@eaws/outline_properties':
-        specifier: ^8.4.0
-        version: 8.4.0
+        specifier: ^8.7.0
+        version: 8.7.0
       '@eaws/pmtiles':
-        specifier: ^8.4.0
-        version: 8.4.0
+        specifier: ^8.7.0
+        version: 8.7.0
       '@iframe-resizer/child':
         specifier: ^5.5.1
         version: 5.5.7
@@ -310,17 +310,17 @@ packages:
   '@blazediff/core@1.10.0':
     resolution: {integrity: sha512-AOQff0zgR7cGsZL+4E7hVkmujoPUpm0J9xzWGWZj5wCjd3gmxESXAPfKyuzs93VdpQNFhHlBhfOjrcZ+XTERtQ==}
 
-  '@eaws/micro-regions_names@8.4.0':
-    resolution: {integrity: sha1-L/yfFP/hFWxISP+Xmev/Jq9YGqA=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-8.4.0.tgz}
+  '@eaws/micro-regions_names@8.7.0':
+    resolution: {integrity: sha1-BuvBaULrBRxY3mEheUYt+qgrd34=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-8.7.0.tgz}
 
-  '@eaws/micro-regions_properties@8.4.0':
-    resolution: {integrity: sha1-OZUSC86rzGJzFcX1Wtxl1MSD9Cs=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-8.4.0.tgz}
+  '@eaws/micro-regions_properties@8.7.0':
+    resolution: {integrity: sha1-ELLsxHrQz0qdvG2Qkl3QSMdldmE=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-8.7.0.tgz}
 
-  '@eaws/outline_properties@8.4.0':
-    resolution: {integrity: sha1-Qe01rrdaOcyI76wfGAuGdp2/d70=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-8.4.0.tgz}
+  '@eaws/outline_properties@8.7.0':
+    resolution: {integrity: sha1-GJRXC/XR/jLH9s9PuteQdK6jS5E=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-8.7.0.tgz}
 
-  '@eaws/pmtiles@8.4.0':
-    resolution: {integrity: sha1-6oUKIzbO746aUn53WI1qVRTAj4U=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/pmtiles/-/@eaws/pmtiles-8.4.0.tgz}
+  '@eaws/pmtiles@8.7.0':
+    resolution: {integrity: sha1-IUzTWY4gUNojrTlgzqPR1PLzlwU=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/pmtiles/-/@eaws/pmtiles-8.7.0.tgz}
 
   '@hey-api/codegen-core@0.9.1':
     resolution: {integrity: sha512-s97jL1dgTMuiMHv2BZ1X4Tgd99Mf9GOvGdNqNcGwIMmnR+PgYNoraj4Zvp134MKsNCap/m7k0r0vKKnl56pj4w==}
@@ -1918,13 +1918,13 @@ snapshots:
 
   '@blazediff/core@1.10.0': {}
 
-  '@eaws/micro-regions_names@8.4.0': {}
+  '@eaws/micro-regions_names@8.7.0': {}
 
-  '@eaws/micro-regions_properties@8.4.0': {}
+  '@eaws/micro-regions_properties@8.7.0': {}
 
-  '@eaws/outline_properties@8.4.0': {}
+  '@eaws/outline_properties@8.7.0': {}
 
-  '@eaws/pmtiles@8.4.0': {}
+  '@eaws/pmtiles@8.7.0': {}
 
   '@hey-api/codegen-core@0.9.1':
     dependencies:
