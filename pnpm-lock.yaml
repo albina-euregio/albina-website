@@ -179,8 +179,8 @@ importers:
   .:
     dependencies:
       '@albina-euregio/linea':
-        specifier: ^8.30.1
-        version: 8.30.1(valibot@1.5.0(typescript@6.0.3))
+        specifier: ^8.31.0
+        version: 8.31.0(valibot@1.5.0(typescript@6.0.3))
       '@eaws/micro-regions_names':
         specifier: ^8.7.0
         version: 8.7.0
@@ -290,8 +290,8 @@ importers:
 
 packages:
 
-  '@albina-euregio/linea@8.30.1':
-    resolution: {integrity: sha1-fJrvRrcO8B38wGI3OftsUaqyPng=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.30.1.tgz}
+  '@albina-euregio/linea@8.31.0':
+    resolution: {integrity: sha1-a5RS/lqHooMNDZqd7WhVoEse9UA=, tarball: https://gitlab.com/api/v4/projects/70517866/packages/npm/@albina-euregio/linea/-/@albina-euregio/linea-8.31.0.tgz}
     peerDependencies:
       valibot: ^1.5.0
 
@@ -1737,11 +1737,17 @@ packages:
   temporal-polyfill@1.0.4:
     resolution: {integrity: sha512-MLEU0qOD2uXlz24oINNtdLZQl8RgmMxSnRtKEGZGGetTJjlRwQJjk+VsJ4EREaUoiaTb8NJOcUiKtoAiWn9EBg==}
 
+  temporal-polyfill@1.0.6:
+    resolution: {integrity: sha512-tYyEry1HLGUDbm2356W3iYD0OZdo7rlP7h98Zr/EnjqLZQwTAfcBDUvJnJbfA15v/vQad57hJZScG5O0W2oKEA==}
+
   temporal-spec@1.0.1:
     resolution: {integrity: sha512-wxVoanmDeavXie1vu2JaQ3WIc3JZnWAOYFBsJyATaVsXsycKYUflGsyBmrRSnoCpZJpwPyr38VpgSUlQ8CbFxg==}
 
   temporal-utils@1.0.2:
     resolution: {integrity: sha512-1B8Dl4KzrOvsNUlpoWGno2VLQlxroLjDgc5NBjVC9ax9ymdo+ezfyvhyjEMx+IVfhINr6CIG2gcnlP95iRrybQ==}
+
+  temporal-utils@1.0.3:
+    resolution: {integrity: sha512-9jbTSX3HvkOWvDpNpFzwX/d1mkCrgQgwLmVTOEiuocZGKHsrQJtttGZFmybJ2zYP5zCSZuU5ZyeS8+eOEPABiQ==}
 
   tinybench@6.2.2:
     resolution: {integrity: sha512-nIZ2N2dFpjBsg2hgitKu7mA+FvsIJuGJOwysRngmVRRmWgR/UyPjwJj8c/fT/dhm8EkHnF5EOogRf+0Z2qrimA==}
@@ -1899,10 +1905,10 @@ ignoredOptionalDependencies:
 
 snapshots:
 
-  '@albina-euregio/linea@8.30.1(valibot@1.5.0(typescript@6.0.3))':
+  '@albina-euregio/linea@8.31.0(valibot@1.5.0(typescript@6.0.3))':
     dependencies:
       air-datepicker: 3.6.0
-      temporal-polyfill: 1.0.4
+      temporal-polyfill: 1.0.6
       uplot: 1.6.32
       valibot: 1.5.0(typescript@6.0.3)
 
@@ -3019,9 +3025,16 @@ snapshots:
       temporal-spec: 1.0.1
       temporal-utils: 1.0.2
 
+  temporal-polyfill@1.0.6:
+    dependencies:
+      temporal-spec: 1.0.1
+      temporal-utils: 1.0.3
+
   temporal-spec@1.0.1: {}
 
   temporal-utils@1.0.2: {}
+
+  temporal-utils@1.0.3: {}
 
   tinybench@6.2.2: {}
 
