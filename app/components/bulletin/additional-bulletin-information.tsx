@@ -710,7 +710,10 @@ export function AdditionalBulletinInformation({
   );
 
   const bounds = useMemo((): LngLatBoundsLike | undefined => {
-    const b = microRegionBounds(date, region);
+    const b = microRegionBounds(date, region, [
+      ...config.regionCodes,
+      ...config.extraRegions
+    ]);
     return b.isEmpty() ? undefined : b;
   }, [region, date]);
 
