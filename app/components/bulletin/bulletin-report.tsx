@@ -693,10 +693,13 @@ function BulletinReport({
                   </p>
                 )}
                 {!bulletin.highlights &&
-                  bulletin.travelAdvisory?.highlights && (
+                  (bulletin.travelAdvisory?.highlights ||
+                    bulletin.travelAdvisory?.comment) && (
                     <p className="bulletin-report-public-alert">
                       <span className="bulletin-report-public-alert-text">
-                        {bulletin.travelAdvisory.highlights}
+                        {bulletin.travelAdvisory.highlights || (
+                          <FormattedMessage id="caaml:travelAdvisory.label" />
+                        )}
                       </span>
                     </p>
                   )}

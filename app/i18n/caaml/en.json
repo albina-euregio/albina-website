@@ -91,6 +91,6 @@
   "elevation.band": "Between {0} and {1}",
   "synopsis.label": "Weather",
   "snowpack.label": "Snowpack",
-  "travelAdvisory.label": "Travel Advisory",
+  "travelAdvisory.label": "Terrain and Travel Advice",
   "forecast.label": "Avalanche Forecast"
 }
