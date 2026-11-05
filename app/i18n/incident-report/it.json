@@ -241,6 +241,7 @@
     "signsOfInstability": "Segnali d'allarme",
     "recentLoading": "Sovraccarico recente",
     "criticalWarming": "Riscaldamento critico",
+    "warningSigns": "",
     "incidentAnalysisComment": "Commento riguardo all'analisi dell'evento",
     "uuid": "UUID",
     "dateAdded": "Data aggiunta",
