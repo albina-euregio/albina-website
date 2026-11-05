@@ -576,5 +576,8 @@
   "button:education:avalanche-problems:text": "Avalanche Problems",
   "button:education:danger-patterns:text": "Danger Patterns",
   "button:education:handbook:text": "Handbook",
-  "date-picker:close-button:caption": "Close"
+  "date-picker:close-button:caption": "Close",
+  "bugreport:label": "Report bug",
+  "bugreport:issue:title": "Bug report",
+  "bugreport:issue:describtion": "## Describtion\n\nPlease provide a detailed describtion of the bug including screenshots if possible."
 }
