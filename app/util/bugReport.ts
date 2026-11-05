@@ -23,7 +23,7 @@ User-Agent: {user-agent}
 
   const resolvedDebugInfo = template(debugInfoTempl, {
     url: window.location.href,
-    version: [pkg.name, pkg.version].join("@"),
+    version: import.meta.env.APP_VERSION,
     "user-agent": navigator.userAgent
   });
 
