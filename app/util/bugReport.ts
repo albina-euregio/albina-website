@@ -11,7 +11,7 @@ export function getBugReportUrl(intl: AlbinaIntl): string {
   );
 
   const description = intl.formatMessage({
-    id: "bugreport:issue:describtion"
+    id: "bugreport:issue:description"
   });
 
   const debugInfoTempl = `## System-Information

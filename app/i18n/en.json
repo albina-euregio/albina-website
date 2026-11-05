@@ -579,5 +579,5 @@
   "date-picker:close-button:caption": "Close",
   "bugreport:label": "Report bug",
   "bugreport:issue:title": "Bug report",
-  "bugreport:issue:describtion": "## Describtion\n\nPlease provide a detailed describtion of the bug including screenshots if possible."
+  "bugreport:issue:description": "## Description\n\nPlease provide a detailed description of the bug including screenshots if possible."
 }
