@@ -131,6 +131,7 @@ export function useIntl() {
     formatMessage
   };
 }
+export type AlbinaIntl = ReturnType<typeof useIntl>;
 
 type FormattedMessageProps =
   | {

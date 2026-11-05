@@ -46,6 +46,9 @@
   @media #{variables.breakpoint-up(medium)} {
     font-size: variables.$tiny-font-size;
   }
+  .icon-arrow-right:before {
+    vertical-align: middle;
+  }
 }
 .page-footer-logo-secondary {
   @media #{variables.breakpoint-up(large)} {

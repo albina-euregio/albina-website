@@ -8,6 +8,7 @@ import { Tooltip } from "../tooltips/tooltip";
 import Modal from "../dialogs/albina-modal";
 import SubscribeDialog from "../dialogs/subscribe-dialog";
 import { scrollIntoView } from "../../util/scrollIntoView";
+import { getBugReportUrl } from "../../util/bugReport.js";
 
 const license = import.meta.env.APP_LICENSE; // included via vite.config.js
 const repository = import.meta.env.APP_REPOSITORY; // included via vite.config.js
@@ -17,6 +18,7 @@ const versionDate = import.meta.env.APP_VERSION_DATE; // included via vite.confi
 const PageFooter = () => {
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
+  const bugreportUrl = getBugReportUrl(intl);
   const [isSubscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
   return (
     <div id="page-footer" className="page-footer">
@@ -72,6 +74,19 @@ const PageFooter = () => {
                 albina-website {version}
               </a>
               , {versionDate}, {license}
+              <br />
+              <a
+                href={bugreportUrl}
+                onMouseDown={e =>
+                  (e.currentTarget.href = getBugReportUrl(intl))
+                }
+                onClick={e => (e.currentTarget.href = getBugReportUrl(intl))}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {intl.formatMessage({ id: "bugreport:label" })}&nbsp;
+                <span className="icon-arrow-right" />
+              </a>
             </p>
 
             <p className="page-footer-logo-tertiary">
