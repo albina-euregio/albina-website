@@ -75,7 +75,15 @@ const PageFooter = () => {
               </a>
               , {versionDate}, {license}
               <br />
-              <a href={bugreportUrl} rel="noopener noreferrer" target="_blank">
+              <a
+                href={bugreportUrl}
+                onMouseDown={e =>
+                  (e.currentTarget.href = getBugReportUrl(intl))
+                }
+                onClick={e => (e.currentTarget.href = getBugReportUrl(intl))}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 {intl.formatMessage({ id: "bugreport:label" })}&nbsp;
                 <span className="icon-arrow-right" />
               </a>
