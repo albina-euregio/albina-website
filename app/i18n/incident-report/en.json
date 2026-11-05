@@ -731,12 +731,14 @@
   },
   "professionalCertification": {
     "None": "None",
-    "IFMGAGuide": "IFMGA Guide",
-    "FullSkiGuide": "Full Ski guide",
+    "MountainGuide": "Mountain Guide",
+    "FullSkiGuide": "Ski Guide",
     "SkiInstructor": "Ski Instructor",
     "ApprenticeGuide": "Apprentice Guide",
-    "AvalancheProfessional": "Avalanche Professional",
-    "AvalancheEducator": "Avalanche Educator",
+    "AlpineClubLeader": "Alpine Club Leader",
+    "MountainRescuer": "Mountain Rescuer",
+    "AvalancheTechnician": "Avalanche Technician",
+    "AvalancheForecaster": "Avalanche Forecaster",
     "Other": "Other"
   },
   "avalancheTraining": {

@@ -731,12 +731,14 @@
   },
   "professionalCertification": {
     "None": "",
-    "IFMGAGuide": "",
+    "MountainGuide": "",
     "FullSkiGuide": "",
     "SkiInstructor": "",
     "ApprenticeGuide": "",
-    "AvalancheProfessional": "",
-    "AvalancheEducator": "",
+    "AlpineClubLeader": "",
+    "MountainRescuer": "",
+    "AvalancheTechnician": "",
+    "AvalancheForecaster": "",
     "Other": ""
   },
   "avalancheTraining": {

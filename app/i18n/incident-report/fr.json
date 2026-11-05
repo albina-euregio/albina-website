@@ -731,12 +731,14 @@
   },
   "professionalCertification": {
     "None": "Aucune",
-    "IFMGAGuide": "Guide UIAGM",
-    "FullSkiGuide": "Guide de ski",
+    "MountainGuide": "",
+    "FullSkiGuide": "",
     "SkiInstructor": "Moniteur/monitrice de ski",
     "ApprenticeGuide": "Aspirant/e guide de montagne",
-    "AvalancheProfessional": "Professionnel/le spécialiste des avalanches",
-    "AvalancheEducator": "Formateur/formatrice avalanches",
+    "AlpineClubLeader": "",
+    "MountainRescuer": "",
+    "AvalancheTechnician": "",
+    "AvalancheForecaster": "",
     "Other": "Autres"
   },
   "avalancheTraining": {

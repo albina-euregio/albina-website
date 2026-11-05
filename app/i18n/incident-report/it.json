@@ -731,12 +731,14 @@
   },
   "professionalCertification": {
     "None": "Nessuno",
-    "IFMGAGuide": "Guida UIAGM",
-    "FullSkiGuide": "Guida sciistica certificata",
+    "MountainGuide": "",
+    "FullSkiGuide": "",
     "SkiInstructor": "Maestro di sci",
     "ApprenticeGuide": "Guida in corso di formazione",
-    "AvalancheProfessional": "Esperto professionista in valanghe",
-    "AvalancheEducator": "Formatore in sicurezza valanghe",
+    "AlpineClubLeader": "",
+    "MountainRescuer": "",
+    "AvalancheTechnician": "",
+    "AvalancheForecaster": "",
     "Other": "Altro"
   },
   "avalancheTraining": {
