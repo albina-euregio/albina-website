@@ -12,7 +12,10 @@ import {
   eawsRegionsBounds,
   padBounds
 } from "../../stores/eawsRegionsBounds.ts";
-import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
+import {
+  MAPLIBRE_MIN_ZOOM,
+  MAPLIBRE_STYLE
+} from "../maplibre/maplibre-style.ts";
 import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
 import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
 import { useIntl } from "../../i18n";
@@ -168,6 +171,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
       dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
+      minZoom: MAPLIBRE_MIN_ZOOM,
       bounds
     });
 

@@ -17,7 +17,10 @@ import {
   eawsRegionsBounds,
   padBounds
 } from "../../stores/eawsRegionsBounds.ts";
-import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
+import {
+  MAPLIBRE_MIN_ZOOM,
+  MAPLIBRE_STYLE
+} from "../maplibre/maplibre-style.ts";
 
 /**
  * Station dashboard map (MapLibre GL).
@@ -447,6 +450,7 @@ function MapLibreMap({
       dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
+      minZoom: MAPLIBRE_MIN_ZOOM,
       bounds,
       ...mapOptions
     });

@@ -27,9 +27,18 @@ test("archive", async ({ page }) => {
     .getByRole("combobox")
     .selectOption("AT-07-22");
 
-  await expect(page).toHaveURL(
-    "more/archive?month=15&year=2024&region=AT-07-22"
-  );
+  await expect
+    .poll(() => {
+      const url = new URL(page.url());
+      return {
+        pathname: url.pathname,
+        params: Object.fromEntries(url.searchParams)
+      };
+    })
+    .toEqual({
+      pathname: "/more/archive",
+      params: { month: "15", year: "2024", region: "AT-07-22" }
+    });
 
   await expect(preview).toHaveAttribute("href", "/2025-03-29");
   await expect(preview.getByRole("img")).toHaveAttribute(

@@ -39,7 +39,11 @@ import {
   type StyleSpecification
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { MAPLIBRE_STYLE, pmtilesUrl } from "../maplibre/maplibre-style";
+import {
+  MAPLIBRE_MIN_ZOOM,
+  MAPLIBRE_STYLE,
+  pmtilesUrl
+} from "../maplibre/maplibre-style";
 import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import eawsPmtimes from "@eaws/pmtiles/eaws-regions.pmtiles?url";
 import { REGION_FILL_PAINT, REGION_LINE_PAINT } from "./bulletin-map-paint";
@@ -830,7 +834,7 @@ function MapLibreMap({
     const base = new MlMap({
       container: baseRef.current,
       style: MAPLIBRE_STYLE,
-      minZoom: 5,
+      minZoom: MAPLIBRE_MIN_ZOOM,
       maxZoom: 10,
       bounds: initialBounds,
       interactive: false
@@ -861,7 +865,7 @@ function MapLibreMap({
       },
       container: overlayRef.current,
       style: OVERLAY_STYLE,
-      minZoom: 5,
+      minZoom: MAPLIBRE_MIN_ZOOM,
       maxZoom: 10,
       bounds: initialBounds
     });

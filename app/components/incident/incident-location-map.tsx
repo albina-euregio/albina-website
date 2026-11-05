@@ -6,7 +6,10 @@ import {
   NavigationControl
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style.ts";
+import {
+  MAPLIBRE_MIN_ZOOM,
+  MAPLIBRE_STYLE
+} from "../maplibre/maplibre-style.ts";
 import type { IncidentData } from "../../stores/incidentDataStore.ts";
 
 const SOURCE_ID = "incident-geometry";
@@ -84,6 +87,7 @@ function IncidentLocationMap({ incident }: { incident: IncidentData }) {
       dragRotate: false,
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
+      minZoom: MAPLIBRE_MIN_ZOOM,
       center: allPoints[0] ?? [11.404, 47.268],
       zoom: 12,
       maxZoom: 17,

@@ -66,23 +66,48 @@ function rangeUrlSource(url: string): Source {
   };
 }
 
+export const MAPLIBRE_MIN_ZOOM = 5;
+
+const OPENTOPOMAP_TILES = "https://tile.opentopomap.org/{z}/{x}/{y}.png";
+
+// basemap://{z}/{x}/{y} serves tiles from the basemap archive. Where the
+// archive has no tile (outside its coverage, e.g. Latin America), it serves
+// the OpenTopoMap tile instead, so OpenTopoMap is only requested where needed.
+const basemapArchive = new PMTiles(rangeUrlSource("/albina-basemap.pmtiles"));
+addProtocol("basemap", async ({ url }, { signal }) => {
+  const [, z, x, y] = /^basemap:\/\/(\d+)\/(\d+)\/(\d+)$/.exec(url) ?? [];
+  if (!z || !x || !y) throw new Error(`Invalid basemap URL: ${url}`);
+  const tile = await basemapArchive.getZxy(+z, +x, +y, signal);
+  if (tile) {
+    const { data, cacheControl, expires } = tile;
+    return { data, cacheControl, expires };
+  }
+  const res = await fetch(
+    OPENTOPOMAP_TILES.replace("{z}", z).replace("{x}", x).replace("{y}", y),
+    { signal }
+  );
+  if (!res.ok) throw new Error(`Bad response code: ${res.status}`);
+  return { data: await res.arrayBuffer() };
+});
+
 export const MAPLIBRE_STYLE: StyleSpecification = {
   version: 8,
   glyphs: "/fonts/{fontstack}/{range}.pbf",
   sources: {
     basemap: {
       type: "raster",
-      url: pmtilesUrl("/albina-basemap.pmtiles"),
+      tiles: ["basemap://{z}/{x}/{y}"],
       tileSize: 256,
-      minzoom: 5,
+      minzoom: MAPLIBRE_MIN_ZOOM,
       maxzoom: 10,
       attribution:
         "© <a href='https://sonny.4lima.de/'>Sonny</a>, CC BY 4.0 | © <a href='https://www.eea.europa.eu/en/datahub/datahubitem-view/d08852bc-7b5f-4835-a776-08362e2fbf4b'>EU-DEM</a>, CC BY 4.0 | © avalanche.report, CC BY 4.0"
     },
     opentopomap: {
       type: "raster",
-      tiles: ["https://tile.opentopomap.org/{z}/{x}/{y}.png"],
+      tiles: [OPENTOPOMAP_TILES],
       tileSize: 256,
+      minzoom: MAPLIBRE_MIN_ZOOM,
       maxzoom: 17,
       attribution:
         "Map data: OpenStreetMap contributors, SRTM | Map style: OpenTopoMap (CC-BY-SA)"
