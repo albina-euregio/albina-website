@@ -29,6 +29,7 @@ export const vProfileMeta = v.object({
   hs_cm: v.optional(v.number()),
   ect_score: v.optional(v.string()),
   rb_score: v.optional(v.string()),
+  kbt_score: v.optional(v.string()),
   application: v.optional(v.string()),
   application_version: v.optional(v.string())
 });
@@ -43,7 +44,7 @@ export const vProfileUpload = v.object({
 });
 
 /**
- * Overall snow-profile stability class, derived from the stored ECT/RB test scores (see backend `deriveStability`). `no-test` means the profile carries no classifiable ECT/RB test. Clients map the class to a display colour (profea's STABILITY_PALETTE). Ordered best → worst.
+ * Overall snow-profile stability class, derived from the stored ECT/RB/KBT test scores (see backend `deriveStability`); the least stable test wins. `no-test` means the profile carries no classifiable ECT/RB/KBT test. Clients map the class to a display colour (profea's STABILITY_PALETTE). Ordered best → worst.
  *
  */
 export const vStability = v.picklist([
@@ -71,6 +72,7 @@ export const vProfileListItem = v.object({
   snowHeight: v.nullish(v.number()),
   ectScore: v.nullish(v.string()),
   rbScore: v.nullish(v.string()),
+  kbtScore: v.nullish(v.string()),
   stability: v.optional(vStability),
   lastEdit: v.nullish(v.pipe(v.string(), v.isoTimestamp()))
 });

@@ -68,6 +68,25 @@ export const vAvalancheSize = v.picklist([
 
 export const vAvalancheType = v.picklist(["slab", "loose", "glide"]);
 
+/**
+ * A blog category; #id() is accepted as `searchCategory` by AbstractBlog#searchBlogPosts.
+ */
+export const vBlogCategory = v.object({
+  id: v.pipe(
+    v.union([v.number(), v.string(), v.bigint()]),
+    v.transform(x => BigInt(x)),
+    v.minValue(
+      BigInt("-9223372036854775808"),
+      "Invalid value: Expected int64 to be >= -9223372036854775808"
+    ),
+    v.maxValue(
+      BigInt("9223372036854775807"),
+      "Invalid value: Expected int64 to be <= 9223372036854775807"
+    )
+  ),
+  name: v.string()
+});
+
 export const vBlogItem = v.object({
   id: v.string(),
   title: v.string(),
@@ -1968,12 +1987,16 @@ export const vAvalancheBulletin = v.intersect([
     tendencyCommentTextcat: v.optional(v.string()),
     generalHeadlineCommentTextcat: v.optional(v.string()),
     synopsisCommentTextcat: v.optional(v.string()),
+    travelAdvisoryHighlightsTextcat: v.optional(v.string()),
+    travelAdvisoryCommentTextcat: v.optional(v.string()),
     avActivityHighlightsNotes: v.optional(v.string()),
     avActivityCommentNotes: v.optional(v.string()),
     snowpackStructureHighlightsNotes: v.optional(v.string()),
     snowpackStructureCommentNotes: v.optional(v.string()),
     tendencyCommentNotes: v.optional(v.string()),
     generalHeadlineCommentNotes: v.optional(v.string()),
+    travelAdvisoryHighlightsNotes: v.optional(v.string()),
+    travelAdvisoryCommentNotes: v.optional(v.string()),
     highlights: v.optional(v.array(vAvalancheBulletinText)),
     avActivityHighlights: v.optional(v.array(vAvalancheBulletinText)),
     avActivityComment: v.optional(v.array(vAvalancheBulletinText)),
@@ -2367,12 +2390,16 @@ export const vAvalancheBulletinWritable = v.intersect([
     tendencyCommentTextcat: v.optional(v.string()),
     generalHeadlineCommentTextcat: v.optional(v.string()),
     synopsisCommentTextcat: v.optional(v.string()),
+    travelAdvisoryHighlightsTextcat: v.optional(v.string()),
+    travelAdvisoryCommentTextcat: v.optional(v.string()),
     avActivityHighlightsNotes: v.optional(v.string()),
     avActivityCommentNotes: v.optional(v.string()),
     snowpackStructureHighlightsNotes: v.optional(v.string()),
     snowpackStructureCommentNotes: v.optional(v.string()),
     tendencyCommentNotes: v.optional(v.string()),
     generalHeadlineCommentNotes: v.optional(v.string()),
+    travelAdvisoryHighlightsNotes: v.optional(v.string()),
+    travelAdvisoryCommentNotes: v.optional(v.string()),
     highlights: v.optional(v.array(vAvalancheBulletinText)),
     avActivityHighlights: v.optional(v.array(vAvalancheBulletinText)),
     avActivityComment: v.optional(v.array(vAvalancheBulletinText)),
@@ -2476,6 +2503,20 @@ export const vDeletePasskeyPath = v.object({
  * testAuth 200 response
  */
 export const vTestAuthResponse = vAuthenticationServiceUsername;
+
+export const vGetBlogCategoriesHeaders = v.object({
+  "If-None-Match": v.nullish(v.string())
+});
+
+export const vGetBlogCategoriesQuery = v.object({
+  region: v.optional(v.string(), "AT-07"),
+  lang: v.optional(vLanguageCode)
+});
+
+/**
+ * getBlogCategories 200 response
+ */
+export const vGetBlogCategoriesResponse = v.array(vBlogCategory);
 
 export const vGetBlogPostHeaders = v.object({
   "If-None-Match": v.nullish(v.string())
