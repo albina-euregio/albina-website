@@ -61,6 +61,11 @@ export const Tooltip = ({
   const referenceRef = useRef<Element>(null);
   const openTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const closeTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  // touch/pen tap state, captured on pointerdown (before focus may open the popover)
+  const tap = useRef<{ touch: boolean; wasOpen: boolean }>({
+    touch: false,
+    wasOpen: false
+  });
 
   const clearTimers = () => {
     clearTimeout(openTimer.current);
@@ -113,6 +118,7 @@ export const Tooltip = ({
         ref?: React.Ref<Element>;
         style?: React.CSSProperties;
         onPointerEnter?: (e: React.PointerEvent) => void;
+        onPointerDown?: (e: React.PointerEvent) => void;
         onPointerLeave?: (e: React.PointerEvent) => void;
         onFocus?: (e: React.FocusEvent) => void;
         onBlur?: (e: React.FocusEvent) => void;
@@ -141,17 +147,30 @@ export const Tooltip = ({
       child.props.onPointerLeave?.(e);
       if (e.pointerType === "mouse") scheduleHide();
     },
+    onPointerDown: e => {
+      child.props.onPointerDown?.(e);
+      tap.current = {
+        touch: e.pointerType !== "mouse",
+        wasOpen: !!popoverRef.current?.matches(":popover-open")
+      };
+    },
     onFocus: e => {
       child.props.onFocus?.(e);
       show(true);
     },
     onBlur: e => {
       child.props.onBlur?.(e);
+      if (popoverRef.current?.contains(e.relatedTarget as Node | null)) return;
       hideImmediate();
     },
     onClick: e => {
       child.props.onClick?.(e);
-      if (enableClick) popoverRef.current?.togglePopover();
+      // no hover on touch devices: tapping the trigger toggles
+      if (tap.current.touch) {
+        if (tap.current.wasOpen) hideImmediate();
+        else show(true);
+      } else if (enableClick) popoverRef.current?.togglePopover();
+      tap.current = { touch: false, wasOpen: false };
     }
   };
 
@@ -170,7 +189,7 @@ export const Tooltip = ({
           onBeforeToggle={e => e.newState === "open" && setRendered(true)}
           onToggle={e => setOpen(e.newState === "open")}
           onPointerEnter={clearTimers}
-          onPointerLeave={scheduleHide}
+          onPointerLeave={e => e.pointerType === "mouse" && scheduleHide()}
           className="tooltip-container"
           style={{
             positionAnchor: anchorName,
