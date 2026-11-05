@@ -8,6 +8,7 @@ import type { Language } from "../../appStore";
 import { fetchJSON } from "../../util/fetch";
 import type { BlogStore } from "../blogStore";
 import type { BlogConfig } from "./blogConfig";
+import type { Category } from "./wordpress";
 import { BlogPostPreviewItem } from "./blogPostPreviewItem";
 import type { BlogProcessor } from "./blogProcessor";
 
@@ -22,6 +23,17 @@ function newSearchParams(query: Record<string, string | undefined>) {
 }
 
 export class AlbinaProcessor implements BlogProcessor {
+  async loadCategories(config: BlogConfig): Promise<Category[]> {
+    const params = newSearchParams({
+      region: config.regions[0],
+      lang: config.lang as Language
+    });
+    return await fetchJSON<Category[]>(
+      `${config.api || window.config.apis.blogs}/categories?${params}`,
+      {}
+    );
+  }
+
   async loadBlogPosts(
     config: BlogConfig,
     state?: BlogStore
@@ -30,6 +42,7 @@ export class AlbinaProcessor implements BlogProcessor {
       region: config.regions[0],
       lang: config.lang as Language,
       searchText: state?.searchText,
+      searchCategory: state?.searchCategory?.[config.name],
       startDate: state?.year ? state.startDate.toString() : undefined,
       endDate: state?.year ? state.endDate.toString() : undefined
     } satisfies GetBlogPostsQuery);
@@ -37,12 +50,7 @@ export class AlbinaProcessor implements BlogProcessor {
       `${config.api || window.config.apis.blogs}/posts?${params}`,
       {}
     );
-    const posts = items.map(item => this.newItem(item, config));
-    // searchCategory expects WordPress term IDs, which no endpoint exposes
-    const category = state?.searchCategoryName;
-    return category
-      ? posts.filter(post => post.categories.includes(category))
-      : posts;
+    return items.map(item => this.newItem(item, config));
   }
 
   async loadBlogPost(

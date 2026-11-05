@@ -111,11 +111,15 @@ export class BlogPostPreviewItem {
   static async loadCategories(
     blogConfigs: BlogConfig[]
   ): Promise<[string, Category[]][]> {
-    const providers = blogConfigs.filter(cfg => cfg.apiType === "wordpress");
+    const providers = blogConfigs.filter(
+      cfg => cfg.apiType === "wordpress" || cfg.apiType === "albina"
+    );
     const loaded = await Promise.allSettled(
       providers.map(cfg =>
         withTimeout(
-          blogProcessors[cfg.apiType as "wordpress"].loadCategories(cfg),
+          blogProcessors[cfg.apiType as "wordpress" | "albina"].loadCategories(
+            cfg
+          ),
           BLOG_PROVIDER_TIMEOUT_MS,
           `categories for ${cfg.name}`
         )

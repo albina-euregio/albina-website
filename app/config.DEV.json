@@ -1,87 +1,4 @@
 {
-  "blogs": [
-    {
-      "lang": "de",
-      "name": "test-de",
-      "apiType": "wordpress",
-      "regions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
-      "params": {
-        "id": "blog.avalanche.report/test"
-      }
-    },
-    {
-      "lang": "en",
-      "name": "test-en",
-      "apiType": "wordpress",
-      "regions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
-      "params": {
-        "id": "blog.avalanche.report/test"
-      }
-    },
-    {
-      "lang": "it",
-      "name": "test-it",
-      "apiType": "wordpress",
-      "regions": ["AT-07", "IT-32-BZ", "IT-32-TN"],
-      "params": {
-        "id": "blog.avalanche.report/test"
-      }
-    },
-    {
-      "lang": "de",
-      "name": "at-07-de",
-      "apiType": "wordpress",
-      "regions": ["AT-07"],
-      "params": {
-        "id": "blog.avalanche.report/at-07"
-      }
-    },
-    {
-      "lang": "de",
-      "name": "niederoesterreich",
-      "apiType": "wordpress",
-      "regions": ["AT-03"],
-      "params": {
-        "id": "niederoesterreich.blog.lawinen-warnung.eu"
-      }
-    },
-    {
-      "lang": "de",
-      "name": "oberoesterreich",
-      "apiType": "wordpress",
-      "regions": ["AT-04"],
-      "params": {
-        "id": "oberoesterreich.blog.lawinen-warnung.eu"
-      }
-    },
-    {
-      "lang": "de",
-      "name": "salzburg",
-      "apiType": "wordpress",
-      "regions": ["AT-05"],
-      "params": {
-        "id": "salzburg.blog.lawinen-warnung.eu"
-      }
-    },
-    {
-      "lang": "de",
-      "name": "steiermark",
-      "apiType": "wordpress",
-      "regions": ["AT-06"],
-      "params": {
-        "id": "steiermark.blog.lawinen-warnung.eu"
-      }
-    },
-    {
-      "lang": "de",
-      "name": "vorarlberg",
-      "apiType": "wordpress",
-      "regions": ["AT-08"],
-      "params": {
-        "id": "vorarlberg.blog.lawinen-warnung.eu"
-      }
-    }
-  ],
   "apis": {
     "baseUrl": "",
     "bulletin": {
@@ -99,7 +16,7 @@
     },
     "push": "/api/push",
     "subscribe": "/api/email",
-    "blogger": "/api/blog/",
+    "blogs": "/api/blogs",
     "incidents": "/api/incidents",
     "profiles": "/profiles-app/api",
     "snobs": "https://extra.avalanche.report/snobs/{date}_snobs.json",
