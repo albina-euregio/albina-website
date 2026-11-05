@@ -66,6 +66,8 @@ function rangeUrlSource(url: string): Source {
   };
 }
 
+export const MAPLIBRE_MIN_ZOOM = 5;
+
 export const MAPLIBRE_STYLE: StyleSpecification = {
   version: 8,
   glyphs: "/fonts/{fontstack}/{range}.pbf",
@@ -74,7 +76,7 @@ export const MAPLIBRE_STYLE: StyleSpecification = {
       type: "raster",
       url: pmtilesUrl("/albina-basemap.pmtiles"),
       tileSize: 256,
-      minzoom: 5,
+      minzoom: MAPLIBRE_MIN_ZOOM,
       maxzoom: 10,
       attribution:
         "© <a href='https://sonny.4lima.de/'>Sonny</a>, CC BY 4.0 | © <a href='https://www.eea.europa.eu/en/datahub/datahubitem-view/d08852bc-7b5f-4835-a776-08362e2fbf4b'>EU-DEM</a>, CC BY 4.0 | © avalanche.report, CC BY 4.0"
@@ -83,12 +85,19 @@ export const MAPLIBRE_STYLE: StyleSpecification = {
       type: "raster",
       tiles: ["https://tile.opentopomap.org/{z}/{x}/{y}.png"],
       tileSize: 256,
+      minzoom: MAPLIBRE_MIN_ZOOM,
       maxzoom: 17,
       attribution:
         "Map data: OpenStreetMap contributors, SRTM | Map style: OpenTopoMap (CC-BY-SA)"
     }
   },
   layers: [
+    {
+      id: "opentopomap-fallback",
+      type: "raster",
+      source: "opentopomap",
+      maxzoom: 10.25
+    },
     {
       id: "basemap",
       type: "raster",
