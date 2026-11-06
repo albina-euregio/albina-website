@@ -340,7 +340,7 @@
     {
       "lang": "de",
       "name": "niederoesterreich",
-      "api": "https://extra.avalanche.report/api/blogs",
+      "api": "https://at-03.lawinen-warnung.eu/api/blogs",
       "apiType": "albina",
       "regions": ["AT-03"],
       "params": {
@@ -350,7 +350,7 @@
     {
       "lang": "de",
       "name": "oberoesterreich",
-      "api": "https://extra.avalanche.report/api/blogs",
+      "api": "https://at-04.lawinen-warnung.eu/api/blogs",
       "apiType": "albina",
       "regions": ["AT-04"],
       "params": {
@@ -360,7 +360,7 @@
     {
       "lang": "de",
       "name": "salzburg",
-      "api": "https://extra.avalanche.report/api/blogs",
+      "api": "https://at-05.lawinen-warnung.eu/api/blogs",
       "apiType": "albina",
       "regions": ["AT-05"],
       "params": {
@@ -370,7 +370,7 @@
     {
       "lang": "de",
       "name": "steiermark",
-      "api": "https://extra.avalanche.report/api/blogs",
+      "api": "https://at-06.lawinen-warnung.eu/api/blogs",
       "apiType": "albina",
       "regions": ["AT-06"],
       "params": {
@@ -380,7 +380,7 @@
     {
       "lang": "de",
       "name": "vorarlberg",
-      "api": "https://extra.avalanche.report/api/blogs",
+      "api": "https://at-08.lawinen-warnung.eu/api/blogs",
       "apiType": "albina",
       "regions": ["AT-08"],
       "params": {
