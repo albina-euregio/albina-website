@@ -10,6 +10,7 @@ import {
   MAPLIBRE_MIN_ZOOM,
   MAPLIBRE_STYLE
 } from "../maplibre/maplibre-style.ts";
+import { useIntl } from "../../i18n";
 import type { IncidentData } from "../../stores/incidentDataStore.ts";
 
 const SOURCE_ID = "incident-geometry";
@@ -42,6 +43,7 @@ function hasGeometry(incident: IncidentData): boolean {
 function IncidentLocationMap({ incident }: { incident: IncidentData }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MlMap | null>(null);
+  const intl = useIntl();
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -84,7 +86,19 @@ function IncidentLocationMap({ incident }: { incident: IncidentData }) {
     }
 
     const map = new MlMap({
+      cooperativeGestures: true,
       dragRotate: false,
+      locale: {
+        "CooperativeGesturesHandler.WindowsHelpText": intl.formatMessage({
+          id: "bulletin:map:gesture:windows"
+        }),
+        "CooperativeGesturesHandler.MacHelpText": intl.formatMessage({
+          id: "bulletin:map:gesture:mac"
+        }),
+        "CooperativeGesturesHandler.MobileHelpText": intl.formatMessage({
+          id: "bulletin:map:gesture:mobile"
+        })
+      },
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
       minZoom: MAPLIBRE_MIN_ZOOM,
