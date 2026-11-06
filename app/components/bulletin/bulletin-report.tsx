@@ -56,6 +56,12 @@ interface LocalizedTextProps {
   showDiff: 0 | 1 | 2;
 }
 
+const splitTravelAdvisory = (comment: string | undefined) =>
+  (comment ?? "")
+    .split(/\n|&lt;br\s*\/?&gt;|<br\s*\/?>/i)
+    .map(line => line.trim())
+    .filter(Boolean);
+
 const toHtml = (text: string) =>
   text.replace(/&lt;br\/&gt;/g, "<br/>").replace(/\n/g, "<br/>");
 
@@ -420,6 +426,9 @@ function BulletinReport({
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
   const bulletinPhotos = getBulletinPhotos(bulletin.customData);
   const bulletinPhotos170000 = getBulletinPhotos(bulletin170000?.customData);
+  const travelAdvisory170000 = splitTravelAdvisory(
+    bulletin170000?.travelAdvisory?.comment
+  );
   // Stable ids so the gallery flipper can walk the photos by index.
   const galleryPhotos: GalleryPhoto[] = bulletinPhotos.map((photo, index) => ({
     ...photo,
@@ -710,7 +719,15 @@ function BulletinReport({
                     bulletin.travelAdvisory?.comment) && (
                     <p className="bulletin-report-public-alert">
                       <span className="bulletin-report-public-alert-text">
-                        {bulletin.travelAdvisory.highlights || (
+                        {bulletin.travelAdvisory.highlights ? (
+                          <LocalizedText
+                            text={bulletin.travelAdvisory.highlights}
+                            text170000={
+                              bulletin170000?.travelAdvisory?.highlights
+                            }
+                            showDiff={showDiff}
+                          />
+                        ) : (
                           <FormattedMessage id="caaml:travelAdvisory.label" />
                         )}
                       </span>
@@ -718,19 +735,26 @@ function BulletinReport({
                   )}
                 {bulletin.travelAdvisory?.comment && (
                   <ul className="okay list-bulletin-report-recommendation">
-                    {bulletin.travelAdvisory.comment
-                      .split(/\n|&lt;br\s*\/?&gt;|<br\s*\/?>/i)
-                      .map(line => line.trim())
-                      .filter(Boolean)
-                      .map((line, index) => (
-                        <li key={index}>
+                    {splitTravelAdvisory(bulletin.travelAdvisory.comment).map(
+                      (line, index) => (
+                        <li
+                          key={index}
+                          className={
+                            showDiff &&
+                            bulletin170000 &&
+                            !travelAdvisory170000[index]
+                              ? "bulletin-update-diff"
+                              : ""
+                          }
+                        >
                           <LocalizedText
                             text={line}
-                            text170000=""
-                            showDiff={0}
+                            text170000={travelAdvisory170000[index]}
+                            showDiff={showDiff}
                           />
                         </li>
-                      ))}
+                      )
+                    )}
                   </ul>
                 )}
               </div>
