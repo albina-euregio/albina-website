@@ -531,7 +531,7 @@ function BulletinReport({
                           bulletin170000?.regions
                         )
                           ? ""
-                          : "bulletin-update-diff-border"
+                          : "bulletin-update-diff"
                       }
                       options={regionOptions}
                       onSelect={handleSelectRegion}
