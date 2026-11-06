@@ -660,18 +660,20 @@ function IncidentDetails({ incident }: { incident: IncidentData }) {
       </header>
 
       <Section
-        title={
-          <>
-            {label("locationInformation")}
-            <AccuracyNote
-              accuracy={tr("locationAccuracy", d.locationAccuracy)}
-              accuracyLabel={accuracyLabel}
-            />
-          </>
-        }
+        title={label("locationInformation")}
         fields={[
           { label: label("location"), value: d.location },
-          { label: label("region"), value: combinedLocation }
+          { label: label("region"), value: combinedLocation },
+          {
+            label: intl.formatMessage({ id: "observation:coordinates" }),
+            value:
+              incident.hasLocation &&
+              withAccuracy(
+                `${intl.formatNumber(incident.lat as number, 5)} / ${intl.formatNumber(incident.lon as number, 5)}`,
+                tr("locationAccuracy", d.locationAccuracy),
+                accuracyLabel
+              )
+          }
         ]}
       >
         <IncidentLocationMap incident={incident} />
