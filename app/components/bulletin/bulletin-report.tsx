@@ -105,13 +105,19 @@ const LocalizedTextDiff: FunctionComponent<LocalizedTextProps> = ({
 // the photo data yet, so those labels are omitted for now.
 const BulletinReportPictureCard: FunctionComponent<{
   photo: BulletinPhoto;
+  isInserted?: boolean;
   onOpen: () => void;
-}> = ({ photo, onOpen }) => {
+}> = ({ photo, isInserted, onOpen }) => {
   const [open, setOpen] = useState(false);
   const hasDetails = !!(photo.date || photo.microRegionId);
   return (
     <li className="bulletin-report-gallery-item">
-      <article className="bulletin-report-picture-card">
+      <article
+        className={
+          "bulletin-report-picture-card" +
+          (isInserted ? " bulletin-update-diff-border" : "")
+        }
+      >
         <a
           href={photo.url}
           className="img avoid-external-icon"
@@ -413,6 +419,7 @@ function BulletinReport({
   const dangerPatterns = getDangerPatterns(bulletin.customData);
   const dangerPatterns170000 = getDangerPatterns(bulletin170000?.customData);
   const bulletinPhotos = getBulletinPhotos(bulletin.customData);
+  const bulletinPhotos170000 = getBulletinPhotos(bulletin170000?.customData);
   // Stable ids so the gallery flipper can walk the photos by index.
   const galleryPhotos: GalleryPhoto[] = bulletinPhotos.map((photo, index) => ({
     ...photo,
@@ -805,6 +812,11 @@ function BulletinReport({
                     <BulletinReportPictureCard
                       key={photo.url + photo.id}
                       photo={photo}
+                      isInserted={
+                        !!showDiff &&
+                        !!bulletin170000 &&
+                        !bulletinPhotos170000.some(p => p.url === photo.url)
+                      }
                       onOpen={() => setGalleryPhotoId(photo.id)}
                     />
                   ))}
