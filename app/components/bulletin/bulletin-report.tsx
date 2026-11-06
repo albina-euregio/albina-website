@@ -461,6 +461,10 @@ function BulletinReport({
     province0 = province0.replace(/-[^-]*$/, "");
   }
   const aws = eawsRegion(province0)?.aws?.[0];
+  // Weather links only for own regions, not for neighbour bulletins.
+  const weatherLinkRegions = config.regionCodes.includes(province0)
+    ? focusRegions
+    : [];
 
   // Micro-regions this report covers, for the region switcher dropdown.
   // Selecting one navigates to that region (re-driving the per-region view).
@@ -852,7 +856,7 @@ function BulletinReport({
                 </div>
               )}
               {(bulletin.weatherForecast?.comment ||
-                focusRegions.length > 0) && (
+                weatherLinkRegions.length > 0) && (
                 <div className="bulletin-additional-weather">
                   <h2 className="subheader">
                     <FormattedMessage id="caaml:synopsis.label" />
@@ -865,9 +869,9 @@ function BulletinReport({
                       />
                     </p>
                   )}
-                  {focusRegions.length > 0 && (
+                  {weatherLinkRegions.length > 0 && (
                     <ul className="list-inline list-buttongroup">
-                      {focusRegions.map(region => (
+                      {weatherLinkRegions.map(region => (
                         <li key={region}>
                           <a
                             className="pure-button secondary"
