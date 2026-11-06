@@ -461,10 +461,12 @@ function BulletinReport({
     province0 = province0.replace(/-[^-]*$/, "");
   }
   const aws = eawsRegion(province0)?.aws?.[0];
-  // Weather links only for own regions, not for neighbour bulletins.
+  // Own regions get all own weather links; neighbours only their own (if any).
   const weatherLinkRegions = config.regionCodes.includes(province0)
     ? focusRegions
-    : [];
+    : ["AT-02"].includes(province0)
+      ? [province0]
+      : [];
 
   // Micro-regions this report covers, for the region switcher dropdown.
   // Selecting one navigates to that region (re-driving the per-region view).
