@@ -7,6 +7,7 @@ import {
 } from "../api/valibot.gen";
 import { $router, redirectPageQuery } from "../components/router";
 import { fetchJSON } from "../util/fetch";
+import { regionApi } from "../util/regionApi";
 import { currentSeasonYear } from "../util/date-season";
 import { getWarnlevelNumber } from "../util/warn-levels";
 import type { DangerRatingValue } from "./bulletin";
@@ -149,7 +150,7 @@ export class IncidentData {
       .filter(a => a.public !== false && a.id)
       .map(a => ({
         ...a,
-        url: `${incidentsApi(this.region)}/${this.id}/attachment/${a.id}`
+        url: `${regionApi(this.region, "incidents")}/${this.id}/attachment/${a.id}`
       }));
   }
 
@@ -176,16 +177,11 @@ export class IncidentData {
   }
 }
 
-function incidentsApi(region: string): string {
-  const byRegion: Record<string, string> = config.apis.incidentsByRegion;
-  return byRegion[region] ?? config.apis.incidents;
-}
-
 async function fetchIncidentsForRegion(
   region: string,
   seasonYear: number
 ): Promise<IncidentData[]> {
-  const url = `${incidentsApi(region)}?region=${encodeURIComponent(region)}&seasonYear=${seasonYear}`;
+  const url = `${regionApi(region, "incidents")}?region=${encodeURIComponent(region)}&seasonYear=${seasonYear}`;
   try {
     const raw = await fetchJSON<RawIncident[]>(url);
     return raw.map(r => new IncidentData(r, region));

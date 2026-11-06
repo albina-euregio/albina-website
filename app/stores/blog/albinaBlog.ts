@@ -6,6 +6,7 @@ import type {
 } from "../../api/valibot.gen";
 import type { Language } from "../../appStore";
 import { fetchJSON } from "../../util/fetch";
+import { regionApi } from "../../util/regionApi";
 import type { BlogStore } from "../blogStore";
 import type { BlogConfig } from "./blogConfig";
 import type { Category } from "./wordpress";
@@ -29,7 +30,7 @@ export class AlbinaProcessor implements BlogProcessor {
       lang: config.lang as Language
     });
     return await fetchJSON<Category[]>(
-      `${config.api || window.config.apis.blogs}/categories?${params}`,
+      `${config.api || regionApi(config.regions[0], "blogs")}/categories?${params}`,
       {}
     );
   }
@@ -47,7 +48,7 @@ export class AlbinaProcessor implements BlogProcessor {
       endDate: state?.year ? state.endDate.toString() : undefined
     } satisfies GetBlogPostsQuery);
     const items = await fetchJSON<BlogItem[]>(
-      `${config.api || window.config.apis.blogs}/posts?${params}`,
+      `${config.api || regionApi(config.regions[0], "blogs")}/posts?${params}`,
       {}
     );
     return items.map(item => this.newItem(item, config));
@@ -63,7 +64,7 @@ export class AlbinaProcessor implements BlogProcessor {
       id: String(postId)
     } satisfies GetBlogPostQuery);
     const item = await fetchJSON<BlogItem>(
-      `${config.api || window.config.apis.blogs}/post?${params}`,
+      `${config.api || regionApi(config.regions[0], "blogs")}/post?${params}`,
       {}
     );
     return this.newItem(item, config);

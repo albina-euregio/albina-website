@@ -340,7 +340,6 @@
     {
       "lang": "de",
       "name": "niederoesterreich",
-      "api": "https://at-03.lawinen-warnung.eu/api/blogs",
       "apiType": "albina",
       "regions": ["AT-03"],
       "params": {
@@ -350,7 +349,6 @@
     {
       "lang": "de",
       "name": "oberoesterreich",
-      "api": "https://at-04.lawinen-warnung.eu/api/blogs",
       "apiType": "albina",
       "regions": ["AT-04"],
       "params": {
@@ -360,7 +358,6 @@
     {
       "lang": "de",
       "name": "salzburg",
-      "api": "https://at-05.lawinen-warnung.eu/api/blogs",
       "apiType": "albina",
       "regions": ["AT-05"],
       "params": {
@@ -370,7 +367,6 @@
     {
       "lang": "de",
       "name": "steiermark",
-      "api": "https://at-06.lawinen-warnung.eu/api/blogs",
       "apiType": "albina",
       "regions": ["AT-06"],
       "params": {
@@ -380,7 +376,6 @@
     {
       "lang": "de",
       "name": "vorarlberg",
-      "api": "https://at-08.lawinen-warnung.eu/api/blogs",
       "apiType": "albina",
       "regions": ["AT-08"],
       "params": {
@@ -420,16 +415,16 @@
     },
     "push": "/api/push",
     "subscribe": "/api/email",
+    "byRegion": {
+      "AT-03": "https://at-03.lawinen-warnung.eu/api",
+      "AT-04": "https://at-04.lawinen-warnung.eu/api",
+      "AT-05": "https://at-05.lawinen-warnung.eu/api",
+      "AT-06": "https://at-06.lawinen-warnung.eu/api",
+      "AT-08": "https://at-08.lawinen-warnung.eu/api",
+      "DE-BY": "https://de-by.lawinen-warnung.eu/api"
+    },
     "blogs": "/api/blogs",
     "incidents": "/api/incidents",
-    "incidentsByRegion": {
-      "AT-03": "https://at-03.lawinen-warnung.eu/api/incidents",
-      "AT-04": "https://at-04.lawinen-warnung.eu/api/incidents",
-      "AT-05": "https://at-05.lawinen-warnung.eu/api/incidents",
-      "AT-06": "https://at-06.lawinen-warnung.eu/api/incidents",
-      "AT-08": "https://at-08.lawinen-warnung.eu/api/incidents",
-      "DE-BY": "https://de-by.lawinen-warnung.eu/api/incidents"
-    },
     "profiles": "/profiles-app/api",
     "snobs": "https://extra.avalanche.report/snobs/{date}_snobs.json",
     "weatherOverlay": [
