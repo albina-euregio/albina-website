@@ -94,8 +94,17 @@
         margin-bottom: 0;
       }
 
+      // Shared heading row, so both tables start at the same y-position even
+      // when one heading carries an info icon.
       .incident-details-section {
         margin-bottom: 0;
+        display: grid;
+        grid-row: span 2;
+        grid-template-rows: subgrid;
+
+        h3 {
+          align-self: end;
+        }
 
         // The columns are narrower than the full-width sections above and
         // below, so the label column needs relatively more room than the
