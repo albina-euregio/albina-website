@@ -149,7 +149,7 @@ export class IncidentData {
       .filter(a => a.public !== false && a.id)
       .map(a => ({
         ...a,
-        url: `${config.apis.incidents}/${this.id}/attachment/${a.id}`
+        url: `${incidentsApi(this.region)}/${this.id}/attachment/${a.id}`
       }));
   }
 
@@ -176,11 +176,16 @@ export class IncidentData {
   }
 }
 
+function incidentsApi(region: string): string {
+  const byRegion: Record<string, string> = config.apis.incidentsByRegion;
+  return byRegion[region] ?? config.apis.incidents;
+}
+
 async function fetchIncidentsForRegion(
   region: string,
   seasonYear: number
 ): Promise<IncidentData[]> {
-  const url = `${config.apis.incidents}?region=${encodeURIComponent(region)}&seasonYear=${seasonYear}`;
+  const url = `${incidentsApi(region)}?region=${encodeURIComponent(region)}&seasonYear=${seasonYear}`;
   try {
     const raw = await fetchJSON<RawIncident[]>(url);
     return raw.map(r => new IncidentData(r, region));

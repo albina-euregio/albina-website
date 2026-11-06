@@ -16,7 +16,18 @@
     "IT-32-TN",
     "AT-08"
   ],
-  "incidentRegions": ["AT-02", "IT-32-BZ", "AT-07", "IT-32-TN"],
+  "incidentRegions": [
+    "AT-02",
+    "AT-03",
+    "AT-04",
+    "AT-05",
+    "AT-06",
+    "AT-07",
+    "AT-08",
+    "DE-BY",
+    "IT-32-BZ",
+    "IT-32-TN"
+  ],
   "stationRegions": [
     "DE-BY",
     "AT-02",
@@ -411,6 +422,14 @@
     "subscribe": "/api/email",
     "blogs": "/api/blogs",
     "incidents": "/api/incidents",
+    "incidentsByRegion": {
+      "AT-03": "https://at-03.lawinen-warnung.eu/api/incidents",
+      "AT-04": "https://at-04.lawinen-warnung.eu/api/incidents",
+      "AT-05": "https://at-05.lawinen-warnung.eu/api/incidents",
+      "AT-06": "https://at-06.lawinen-warnung.eu/api/incidents",
+      "AT-08": "https://at-08.lawinen-warnung.eu/api/incidents",
+      "DE-BY": "https://de-by.lawinen-warnung.eu/api/incidents"
+    },
     "profiles": "/profiles-app/api",
     "snobs": "https://extra.avalanche.report/snobs/{date}_snobs.json",
     "weatherOverlay": [
