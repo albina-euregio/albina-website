@@ -904,6 +904,7 @@ function BulletinReport({
                       <LocalizedText
                         text={bulletin.weatherForecast?.comment}
                         text170000={bulletin170000?.weatherForecast?.comment}
+                        showDiff={showDiff}
                       />
                     </p>
                   )}
