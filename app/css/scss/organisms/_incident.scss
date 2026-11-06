@@ -157,6 +157,12 @@
       width: 34%;
       text-align: left;
       font-size: variables.$tiny-font-size;
+      border-bottom: variables.$border-width variables.$border-style
+        variables.$border-color;
+    }
+
+    tr:last-child th {
+      border-bottom: none;
     }
 
     td {
