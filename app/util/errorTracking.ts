@@ -9,7 +9,8 @@ export function initErrorTracking(dsn: string | undefined) {
   const { protocol, host, pathname, username: key } = new URL(dsn);
   const projectId = pathname.split("/").pop();
   const base = pathname.slice(0, pathname.lastIndexOf("/"));
-  const url = `${protocol}//${host}${base}/api/${projectId}/store/`;
+  // auth via query string and no custom headers: avoids a CORS preflight
+  const url = `${protocol}//${host}${base}/api/${projectId}/store/?sentry_version=7&sentry_key=${key}&sentry_client=albina-website/1.0`;
 
   const send = (error: unknown) => {
     if (++reports > MAX_REPORTS) return;
@@ -17,10 +18,6 @@ export function initErrorTracking(dsn: string | undefined) {
     fetch(url, {
       method: "POST",
       keepalive: true,
-      headers: {
-        "Content-Type": "application/json",
-        "X-Sentry-Auth": `Sentry sentry_version=7, sentry_key=${key}, sentry_client=albina-website/1.0`
-      },
       body: JSON.stringify({
         event_id: crypto.randomUUID().replace(/-/g, ""),
         timestamp: new Date().toISOString(),
