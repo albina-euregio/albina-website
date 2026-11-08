@@ -3,7 +3,7 @@ export function regionApi(
   region: string | undefined,
   path: "blogs" | "incidents"
 ): string {
-  const byRegion: Record<string, string> = config.apis.byRegion;
-  const base = region ? byRegion[region] : undefined;
+  const byRegion: Record<string, string> | undefined = config.apis.byRegion;
+  const base = region ? byRegion?.[region] : undefined;
   return base ? `${base}/${path}` : config.apis[path];
 }
