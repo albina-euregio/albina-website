@@ -11,6 +11,7 @@ import {
   type RangeResponse,
   type Source
 } from "pmtiles";
+import type { AlbinaIntl } from "../../i18n";
 
 // Since v6 MapLibre loads its worker as a separate ES module whose URL bundlers
 // cannot resolve from `import.meta.url`. `?worker&url` routes it through Vite's
@@ -63,6 +64,23 @@ function rangeUrlSource(url: string): Source {
         expires: res.headers.get("Expires") ?? undefined
       };
     }
+  };
+}
+
+/** Localized help texts for `cooperativeGestures`, for MapLibre's `locale` option. */
+export function cooperativeGesturesLocale(
+  intl: AlbinaIntl
+): Record<string, string> {
+  return {
+    "CooperativeGesturesHandler.WindowsHelpText": intl.formatMessage({
+      id: "bulletin:map:gesture:windows"
+    }),
+    "CooperativeGesturesHandler.MacHelpText": intl.formatMessage({
+      id: "bulletin:map:gesture:mac"
+    }),
+    "CooperativeGesturesHandler.MobileHelpText": intl.formatMessage({
+      id: "bulletin:map:gesture:mobile"
+    })
   };
 }
 

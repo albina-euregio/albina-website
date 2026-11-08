@@ -7,6 +7,7 @@ import {
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import {
+  cooperativeGesturesLocale,
   MAPLIBRE_MIN_ZOOM,
   MAPLIBRE_STYLE
 } from "../maplibre/maplibre-style.ts";
@@ -88,17 +89,7 @@ function IncidentLocationMap({ incident }: { incident: IncidentData }) {
     const map = new MlMap({
       cooperativeGestures: true,
       dragRotate: false,
-      locale: {
-        "CooperativeGesturesHandler.WindowsHelpText": intl.formatMessage({
-          id: "bulletin:map:gesture:windows"
-        }),
-        "CooperativeGesturesHandler.MacHelpText": intl.formatMessage({
-          id: "bulletin:map:gesture:mac"
-        }),
-        "CooperativeGesturesHandler.MobileHelpText": intl.formatMessage({
-          id: "bulletin:map:gesture:mobile"
-        })
-      },
+      locale: cooperativeGesturesLocale(intl),
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
       minZoom: MAPLIBRE_MIN_ZOOM,

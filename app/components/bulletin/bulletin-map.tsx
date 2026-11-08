@@ -40,6 +40,7 @@ import {
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import {
+  cooperativeGesturesLocale,
   MAPLIBRE_MIN_ZOOM,
   MAPLIBRE_STYLE,
   pmtilesUrl
@@ -847,15 +848,7 @@ function MapLibreMap({
       cooperativeGestures: true,
       dragRotate: false,
       locale: {
-        "CooperativeGesturesHandler.WindowsHelpText": intl.formatMessage({
-          id: "bulletin:map:gesture:windows"
-        }),
-        "CooperativeGesturesHandler.MacHelpText": intl.formatMessage({
-          id: "bulletin:map:gesture:mac"
-        }),
-        "CooperativeGesturesHandler.MobileHelpText": intl.formatMessage({
-          id: "bulletin:map:gesture:mobile"
-        }),
+        ...cooperativeGesturesLocale(intl),
         "NavigationControl.ZoomIn": intl.formatMessage({
           id: "bulletin:map:zoom-in:hover"
         }),

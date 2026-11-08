@@ -14,7 +14,11 @@ import WeatherStationDialog, { useStationId } from "../station/station-dialog";
 import { useStationData } from "../../stores/stationDataStore";
 import { microRegionBounds } from "../../stores/microRegions";
 import { FormattedMessage, useIntl } from "../../i18n";
-import { MAPLIBRE_MIN_ZOOM, MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
+import {
+  cooperativeGesturesLocale,
+  MAPLIBRE_MIN_ZOOM,
+  MAPLIBRE_STYLE
+} from "../maplibre/maplibre-style";
 import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import { Bulletin, getMainDate } from "../../stores/bulletin";
 import { vObservation, type Observation } from "../../stores/observations";
@@ -395,6 +399,7 @@ function BulletinMiniMap({
     const map = new MlMap({
       dragRotate: false,
       cooperativeGestures: true,
+      locale: cooperativeGesturesLocale(intl),
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
       minZoom: MAPLIBRE_MIN_ZOOM,
