@@ -828,6 +828,11 @@ function MapLibreMap({
       eawsRegionsBounds(focusRegions),
       0.1
     );
+    // extra top padding so the "select region" banner does not cover the
+    // northernmost regions (Tyrol, Bavaria)
+    const fitBoundsOptions = {
+      padding: { top: 60, bottom: 0, left: 0, right: 0 }
+    };
 
     // Base map: the shared raster style (basemap + opentopomap). It sits behind
     // the overlay (pointer-events: none) and is non-interactive — it just
@@ -837,6 +842,7 @@ function MapLibreMap({
       style: MAPLIBRE_STYLE,
       minZoom: MAPLIBRE_MIN_ZOOM,
       maxZoom: 10,
+      fitBoundsOptions,
       bounds: initialBounds,
       interactive: false
     });
@@ -860,6 +866,7 @@ function MapLibreMap({
       style: OVERLAY_STYLE,
       minZoom: MAPLIBRE_MIN_ZOOM,
       maxZoom: 10,
+      fitBoundsOptions,
       bounds: initialBounds
     });
 
