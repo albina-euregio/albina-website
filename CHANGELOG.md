@@ -2,6 +2,33 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [9.2.0] - 2026-11-10
+
+### 🚀 Features
+
+- _(bulletin)_ Update diff: emphasize changed micro-regions with a green background, outline new photos, show changes of the travel advisory and weather forecast
+- _(bulletin)_ Link the LWD Bayern homepage instead of showing its bulletin
+- _(bulletin)_ Add weather link for Carinthia
+- _(bulletin)_ Download the combined PDF for Aran (ES-AR) without micro-region
+- _(map)_ Show OpenTopoMap where the basemap has no coverage
+- _(blog)_ Fetch the AT-03/04/05/06/08 blogs from lawinen-warnung.eu
+- _(incidents)_ Show incidents for all Austrian regions and Bavaria
+- _(incidents)_ Show coordinates with location accuracy; require a modifier key to zoom the location map
+- Add a bug report link to the footer
+
+### 🐛 Bug Fixes
+
+- _(bulletin)_ Pad the map top so the region banner does not cover Tyrol
+- _(bulletin)_ Hide weather links for neighbour bulletins
+- _(bulletin)_ Fix map bounds for external regions
+- _(blog)_ Load categories and filter by category via the ALBINA blogs API
+- _(tooltip)_ Fix touch interaction
+
+### ⚙️ Miscellaneous Tasks
+
+- Update LINEA to v8.31.0
+- Update EAWS regions to v8.7.0
+
 ## [9.1.0] - 2026-10-28
 
 ### 🚀 Features
