@@ -133,7 +133,7 @@ test(
     const map = page.getByLabel("Map").nth(1);
     const pdfLink = page.getByRole("link", { name: "PDF" }).first();
     await expect(async () => {
-      const clickPosition = isMobile ? { x: 245, y: 101 } : { x: 671, y: 91 };
+      const clickPosition = isMobile ? { x: 233, y: 155 } : { x: 667, y: 140 };
       await map.click({ position: clickPosition });
       await expect(pdfLink).toHaveAttribute("href", /microRegionId=AT-07-16/);
     }).toPass();
