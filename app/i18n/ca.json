@@ -576,5 +576,8 @@
   "button:education:avalanche-problems:text": "Problemes d'allaus",
   "button:education:danger-patterns:text": "Patrons de Perill",
   "button:education:handbook:text": "Manual",
-  "date-picker:close-button:caption": "Tancar"
+  "date-picker:close-button:caption": "Tancar",
+  "bugreport:label": "Informar d'un error",
+  "bugreport:issue:title": "",
+  "bugreport:issue:description": ""
 }

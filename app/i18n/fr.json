@@ -576,5 +576,8 @@
   "button:education:avalanche-problems:text": "Situations avalancheuses typiques",
   "button:education:danger-patterns:text": "Modèle de risques",
   "button:education:handbook:text": "Manuel",
-  "date-picker:close-button:caption": "Fermer"
+  "date-picker:close-button:caption": "Fermer",
+  "bugreport:label": "",
+  "bugreport:issue:title": "",
+  "bugreport:issue:description": ""
 }

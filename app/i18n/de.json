@@ -576,5 +576,8 @@
   "button:education:avalanche-problems:text": "Lawinenprobleme",
   "button:education:danger-patterns:text": "Gefahrenmuster",
   "button:education:handbook:text": "Handbuch",
-  "date-picker:close-button:caption": "Schließen"
+  "date-picker:close-button:caption": "Schließen",
+  "bugreport:label": "",
+  "bugreport:issue:title": "",
+  "bugreport:issue:description": ""
 }

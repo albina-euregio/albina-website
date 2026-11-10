@@ -576,5 +576,8 @@
   "button:education:avalanche-problems:text": "Problèmes de lauegi",
   "button:education:danger-patterns:text": "Patrons de perilh",
   "button:education:handbook:text": "Manuau",
-  "date-picker:close-button:caption": "Barrar"
+  "date-picker:close-button:caption": "Barrar",
+  "bugreport:label": "Informar d'un error",
+  "bugreport:issue:title": "",
+  "bugreport:issue:description": ""
 }

@@ -6,7 +6,7 @@
   "menu:blog": "Blog",
   "menu:blog:tech": "Tech Blog",
   "menu:incidents": "Eventi valanghivi",
-  "menu:profiles": "Profili stratografici neve",
+  "menu:profiles": "Profili stratigrafici neve",
   "menu:weather": "Meteo",
   "menu:education": "Formazione",
   "menu:conditions": "Condizioni",
@@ -22,7 +22,7 @@
   "menu:weather:map:": "Carte meteo",
   "menu:weather:archive": "Archivio stazioni meteorologiche",
   "menu:weather:stations": "Stazioni automatiche",
-  "menu:weather:snow-profiles": "Profili stratografici neve",
+  "menu:weather:snow-profiles": "Profili stratigrafici neve",
   "menu:webcam": "Webcam",
   "menu:meteo-report": "Meteo.report",
   "menu:education:danger-scale": "Scala del pericolo",
@@ -576,5 +576,8 @@
   "button:education:avalanche-problems:text": "Probleme Tipici Valanghivi",
   "button:education:danger-patterns:text": "Situazioni tipo",
   "button:education:handbook:text": "Manuale",
-  "date-picker:close-button:caption": "Chiudi"
+  "date-picker:close-button:caption": "Chiudi",
+  "bugreport:label": "",
+  "bugreport:issue:title": "",
+  "bugreport:issue:description": ""
 }
