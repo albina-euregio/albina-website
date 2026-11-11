@@ -799,6 +799,12 @@ function MapLibreMap({
     return ["in", ["get", "id"], ["literal", eawsRegions]];
   }, [activeBulletinCollection?.date, eawsRegions]);
 
+  // Latest filters, for the layers added once the map has loaded.
+  const featureFilterRef = useRef(featureFilter);
+  featureFilterRef.current = featureFilter;
+  const outlineFilterRef = useRef(outlineFilter);
+  outlineFilterRef.current = outlineFilter;
+
   // Create the maps after the first paint, so they don't delay it.
   const [afterPaint, setAfterPaint] = useState(false);
   useEffect(() => {
@@ -880,7 +886,7 @@ function MapLibreMap({
         type: "fill",
         source: "eaws-regions",
         "source-layer": "micro-regions",
-        filter: featureFilter,
+        filter: featureFilterRef.current,
         paint: REGION_FILL_PAINT
       });
       overlay.addLayer({
@@ -888,7 +894,7 @@ function MapLibreMap({
         type: "line",
         source: "eaws-regions",
         "source-layer": "micro-regions",
-        filter: featureFilter,
+        filter: featureFilterRef.current,
         paint: REGION_LINE_PAINT
       });
       // Foreign EAWS providers are styled as a whole outline (grey when the
@@ -898,7 +904,7 @@ function MapLibreMap({
         type: "fill",
         source: "eaws-regions",
         "source-layer": EawsRegionDataLayer.outline,
-        filter: outlineFilter,
+        filter: outlineFilterRef.current,
         paint: REGION_FILL_PAINT
       });
       overlay.addLayer({
@@ -906,7 +912,7 @@ function MapLibreMap({
         type: "line",
         source: "eaws-regions",
         "source-layer": EawsRegionDataLayer.outline,
-        filter: outlineFilter,
+        filter: outlineFilterRef.current,
         paint: REGION_LINE_PAINT
       });
 
