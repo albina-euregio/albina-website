@@ -7,7 +7,8 @@ ignoredOptionalDependencies:
   - "@parcel/watcher"
   - fsevents
 minimumReleaseAgeExclude:
-  - maplibre-gl@6.4.1
+  - "@maplibre/geojson-vt@6.3.1"
+  - maplibre-gl@6.18.0
 overrides:
   vite@*: 'catalog:'
 peerDependencyRules:
