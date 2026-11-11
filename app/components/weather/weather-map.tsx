@@ -9,15 +9,13 @@ import {
   Map as MlMap,
   type MapMouseEvent,
   Marker,
-  ScaleControl,
-  type StyleSpecification
+  ScaleControl
 } from "maplibre-gl";
 import MapLibreMap, {
   CIRCLE_LAYER_ID,
   PinDisplayMode,
   type MarkerItem
 } from "../station/station-map-maplibre";
-import { MAPLIBRE_STYLE } from "../maplibre/maplibre-style";
 import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
@@ -72,17 +70,6 @@ interface Props {
 
 const IMAGE_SOURCE_ID = "weather-overlay";
 const IMAGE_LAYER_ID = "weather-overlay";
-
-// Empty, transparent style: no basemap, no sources. `glyphs` is kept so the
-// stations map (which reuses this) can still render its numeric labels.
-const TRANSPARENT_STYLE: StyleSpecification = {
-  version: 8,
-  glyphs: MAPLIBRE_STYLE.glyphs,
-  sources: {},
-  layers: []
-};
-
-const fill = { position: "absolute", inset: 0 } as const;
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 class WindUtil {
@@ -206,83 +193,19 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   const imageOverlayURLs = useStore(store.imageOverlayURLs);
   const dataOverlays = useStore(store.dataOverlays);
 
-  // Top stations map (the interaction driver) and the two synced maps below it.
   const mapRef = useRef<MlMap | null>(null);
-  const basemapRef = useRef<MlMap | null>(null);
-  const overlayRef = useRef<MlMap | null>(null);
-  const basemapContainerRef = useRef<HTMLDivElement | null>(null);
-  const overlayContainerRef = useRef<HTMLDivElement | null>(null);
   // The transient "data marker" placed on click, and a token so a slow pixel
   // read from an older click can't overwrite a newer one.
   const dataMarkerRef = useRef<Marker | null>(null);
   const clickGenRef = useRef(0);
   const [mapReady, setMapReady] = useState(false);
-  const [overlayReady, setOverlayReady] = useState(false);
 
-  // Create the basemap + weather maps once the stations map exists, and keep
-  // their cameras locked to it. They are non-interactive; the stations map on
-  // top receives every gesture and we mirror it onto these two.
+  // Keep the weather raster overlay in sync with the selected time/domain. It
+  // multiplies against the basemap, beneath the wind arrows and station markers.
   useEffect(() => {
-    const top = mapRef.current;
-    const basemapContainer = basemapContainerRef.current;
-    const overlayContainer = overlayContainerRef.current;
-    if (!mapReady || !top || !basemapContainer || !overlayContainer) return;
-    if (basemapRef.current) return;
-
-    // Both maps are non-interactive and slaved to the top map. The map is
-    // north-up and never tilts (dragRotate off), so center + zoom fully
-    // describe the camera — no bearing/pitch to mirror.
-    const shared = {
-      center: top.getCenter(),
-      zoom: top.getZoom(),
-      interactive: false
-    } as const;
-    // The basemap keeps its own attribution control (bottom-right); the
-    // transparent overlay and the stations map on top suppress theirs.
-    const basemap = new MlMap({
-      ...shared,
-      container: basemapContainer,
-      style: MAPLIBRE_STYLE
-    });
-    const overlay = new MlMap({
-      ...shared,
-      container: overlayContainer,
-      style: TRANSPARENT_STYLE,
-      attributionControl: false
-    });
-    basemapRef.current = basemap;
-    overlayRef.current = overlay;
-    overlay.on("load", () => setOverlayReady(true));
-
-    const synced = [basemap, overlay];
-    const sync = () =>
-      synced.forEach(m =>
-        m.jumpTo({ center: top.getCenter(), zoom: top.getZoom() })
-      );
-    const onResize = () => {
-      synced.forEach(m => m.resize());
-      sync();
-    };
-    top.on("move", sync);
-    top.on("resize", onResize);
-
-    return () => {
-      top.off("move", sync);
-      top.off("resize", onResize);
-      synced.forEach(m => m.remove());
-      basemapRef.current = null;
-      overlayRef.current = null;
-      setOverlayReady(false);
-    };
-  }, [mapReady]);
-
-  // Keep the weather raster overlay (on the middle map) in sync with the
-  // selected time/domain. It multiplies against the basemap below it; the
-  // station markers live on the separate map above, so they stay unaffected.
-  useEffect(() => {
-    const map = overlayRef.current;
+    const map = mapRef.current;
     const [, url] = imageOverlayURLs;
-    if (!overlayReady || !map || !url || !domainConfig) return;
+    if (!mapReady || !map || !url || !domainConfig) return;
 
     // An image published on the Austria Lambert grid can't be placed by its
     // corners, so it is reprojected to Web Mercator first; an older image
@@ -324,12 +247,19 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
 
       if (!map.getSource(IMAGE_SOURCE_ID)) {
         map.addSource(IMAGE_SOURCE_ID, { type: "image", coordinates });
-        map.addLayer({
-          id: IMAGE_LAYER_ID,
-          type: "raster",
-          source: IMAGE_SOURCE_ID,
-          paint: { "raster-opacity": 1, "raster-fade-duration": 0 }
-        });
+        map.addLayer(
+          {
+            id: IMAGE_LAYER_ID,
+            type: "raster",
+            source: IMAGE_SOURCE_ID,
+            paint: {
+              "raster-opacity": 1,
+              "raster-fade-duration": 0,
+              "raster-layer-blend": "multiply"
+            }
+          },
+          map.getLayer(WindUtil.LAYER_ID) ? WindUtil.LAYER_ID : CIRCLE_LAYER_ID
+        );
       }
       const source = map.getSource(IMAGE_SOURCE_ID);
       if (!(source instanceof ImageSource)) return;
@@ -343,7 +273,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     return () => {
       stale = true;
     };
-  }, [domainConfig, imageOverlayURLs, overlayReady]);
+  }, [domainConfig, imageOverlayURLs, mapReady]);
 
   // Wind-direction indicators: a grid of black arrows across the bbox, each
   // sampled from the `windDirection` overlay image. Present only for domains
@@ -502,63 +432,49 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   const itemId = domainConfig.dataId as ParameterType;
   const showStations = !!domainConfig.dataId && !isPlaying;
 
-  // Three stacked maps so the weather raster can multiply against the basemap
-  // while the station markers (and wind arrows) stay crisp on top:
-  //  - bottom (z0): basemap only, non-interactive;
-  //  - middle (z1): the weather image, `mix-blend-mode: multiply`;
-  //  - top (z2): the stations map (transparent style) owning all interaction.
-  // `isolation: isolate` scopes the blend to these layers.
   return (
-    <div style={{ ...fill, isolation: "isolate" }}>
-      <div ref={basemapContainerRef} style={{ ...fill, zIndex: 0 }} />
-      <div
-        ref={overlayContainerRef}
-        style={{ ...fill, zIndex: 1, mixBlendMode: "multiply" }}
+    <div style={{ position: "absolute", inset: 0 }}>
+      <MapLibreMap
+        features={showStations ? stations : []}
+        item={markerItem}
+        itemId={itemId}
+        pinDisplayModes={
+          SHOW_PINS_BY_DEFAULT
+            ? [PinDisplayMode.WithValue, PinDisplayMode.None]
+            : [PinDisplayMode.None, PinDisplayMode.WithValue]
+        }
+        onMarkerSelected={id => onMarkerSelected(id)}
+        onInit={map => {
+          mapRef.current = map;
+          // Restore the search/geolocate/scale controls the weather map lost
+          // in the MapLibre migration (matching the bulletin map). The
+          // NavigationControl and pins toggle are added by MapLibreMap itself.
+          map.addControl(
+            new GeonamesControl({
+              ...config.map.geonames,
+              lang: intl.locale.slice(0, 2),
+              title: intl.formatMessage({ id: "bulletin:map:search" }),
+              placeholder: intl.formatMessage({
+                id: "bulletin:map:search:hover"
+              }),
+              noResults: intl.formatMessage({
+                id: "bulletin:map:search:no-results"
+              })
+            }),
+            "top-left"
+          );
+          map.addControl(
+            new GeolocateControl({
+              positionOptions: { enableHighAccuracy: true },
+              trackUserLocation: false,
+              showAccuracyCircle: true
+            }),
+            "top-left"
+          );
+          map.addControl(new ScaleControl({ unit: "metric" }), "bottom-left");
+          setMapReady(true);
+        }}
       />
-      <div style={{ ...fill, zIndex: 2 }}>
-        <MapLibreMap
-          features={showStations ? stations : []}
-          item={markerItem}
-          itemId={itemId}
-          pinDisplayModes={
-            SHOW_PINS_BY_DEFAULT
-              ? [PinDisplayMode.WithValue, PinDisplayMode.None]
-              : [PinDisplayMode.None, PinDisplayMode.WithValue]
-          }
-          onMarkerSelected={id => onMarkerSelected(id)}
-          mapOptions={{ style: TRANSPARENT_STYLE, attributionControl: false }}
-          onInit={map => {
-            mapRef.current = map;
-            // Restore the search/geolocate/scale controls the weather map lost
-            // in the MapLibre migration (matching the bulletin map). The
-            // NavigationControl and pins toggle are added by MapLibreMap itself.
-            map.addControl(
-              new GeonamesControl({
-                ...config.map.geonames,
-                lang: intl.locale.slice(0, 2),
-                title: intl.formatMessage({ id: "bulletin:map:search" }),
-                placeholder: intl.formatMessage({
-                  id: "bulletin:map:search:hover"
-                }),
-                noResults: intl.formatMessage({
-                  id: "bulletin:map:search:no-results"
-                })
-              }),
-              "top-left"
-            );
-            map.addControl(
-              new GeolocateControl({
-                positionOptions: { enableHighAccuracy: true },
-                trackUserLocation: false,
-                showAccuracyCircle: true
-              }),
-              "top-left"
-            );
-            map.addControl(new ScaleControl({ unit: "metric" }), "bottom-left");
-            setMapReady(true);
-          }}
-        />
-      </div>
     </div>
   );
 };

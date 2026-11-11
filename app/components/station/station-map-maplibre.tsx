@@ -3,7 +3,6 @@ import {
   GeoJSONSource,
   type IControl,
   Map as MlMap,
-  type MapOptions,
   NavigationControl,
   Popup
 } from "maplibre-gl";
@@ -90,13 +89,6 @@ interface Props {
   pinDisplayModes: [PinDisplayMode, PinDisplayMode];
   onMarkerSelected: (id: string) => void;
   onInit?: (map: MlMap) => void;
-  /**
-   * Extra MapLibre constructor options, merged last so they can override the
-   * defaults. The weather map uses this to make a transparent, stations-only
-   * map (no basemap, no attribution control) stacked above a separate basemap
-   * and a `mix-blend-mode` weather overlay.
-   */
-  mapOptions?: Partial<MapOptions>;
 }
 
 const SOURCE_ID = "stations";
@@ -391,8 +383,7 @@ function MapLibreMap({
   itemId,
   pinDisplayModes,
   onMarkerSelected,
-  onInit,
-  mapOptions
+  onInit
 }: Props) {
   const intl = useIntl();
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -451,8 +442,7 @@ function MapLibreMap({
       container: containerRef.current,
       style: MAPLIBRE_STYLE,
       minZoom: MAPLIBRE_MIN_ZOOM,
-      bounds,
-      ...mapOptions
+      bounds
     });
 
     map.addControl(new NavigationControl({ showCompass: false }), "top-left");
