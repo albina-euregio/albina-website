@@ -578,6 +578,6 @@
   "button:education:handbook:text": "Manual",
   "date-picker:close-button:caption": "Cerrar",
   "bugreport:label": "Informar de un error",
-  "bugreport:issue:title": "",
-  "bugreport:issue:description": ""
+  "bugreport:issue:title": "Informe de errores",
+  "bugreport:issue:description": "## Descripción\n\nPor favor, proporciona una descripción detallada del error, incluyendo capturas de pantalla si es posible."
 }

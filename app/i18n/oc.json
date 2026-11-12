@@ -578,6 +578,6 @@
   "button:education:handbook:text": "Manuau",
   "date-picker:close-button:caption": "Barrar",
   "bugreport:label": "Informar d'un error",
-  "bugreport:issue:title": "",
-  "bugreport:issue:description": ""
+  "bugreport:issue:title": "Informe d'errors",
+  "bugreport:issue:description": "## Descripcion\n\nSe vos platz, proporcionatz ua descripcion detalhada der error, en tot includir-i captures de pantalha s'ei possibla."
 }

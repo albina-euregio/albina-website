@@ -578,6 +578,6 @@
   "button:education:handbook:text": "Manual",
   "date-picker:close-button:caption": "Tancar",
   "bugreport:label": "Informar d'un error",
-  "bugreport:issue:title": "",
-  "bugreport:issue:description": ""
+  "bugreport:issue:title": "Informe d'errors",
+  "bugreport:issue:description": "## Descripció\n\nSi us plau, proporcioneu una descripció detallada de l'error, incloent-hi captures de pantalla si és possible."
 }
