@@ -23,6 +23,9 @@
       "eaws": "/eaws_bulletins/{date}/{date}{region}.ratings.json",
       "map": "/bulletins/{date}/{publication}/{file}.webp",
       "pdf": "/api/bulletins/pdf?date={date}&region={region}&microRegionId={microRegionId}&lang={lang}&grayscale=false",
+      "pdfByRegion": {
+        "ES-AR": "/api/bulletins/pdf?date={date}&region=ES-AR&lang={lang}&grayscale=false"
+      },
       "xml": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.xml",
       "json": "/bulletins/{date}/{date}_{region}{lang}_CAAMLv6.json",
       "jsonPublicationDate": "/bulletins/{date}/{publicationDate}/{date}_{region}{lang}_CAAMLv6.json",

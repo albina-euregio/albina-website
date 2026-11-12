@@ -417,6 +417,12 @@ function BulletinReport({
   const intl = useIntl();
   const province = useStore($province);
   const focusRegions = useStore($focusRegions);
+  // e.g. ES-AR downloads the combined PDF without micro-region (#816)
+  const pdfByRegion = (
+    config.apis.bulletin as { pdfByRegion?: Record<string, string> }
+  ).pdfByRegion;
+  const pdfUrl =
+    (province && pdfByRegion?.[province]) || config.apis.bulletin.pdf;
   const [showDiff, setShowDiff] = useState<0 | 1 | 2>(0);
   const [audioOpen, setAudioOpen] = useState(false);
   const [galleryPhotoId, setGalleryPhotoId] = useState<string>("");
@@ -667,7 +673,7 @@ function BulletinReport({
                           className="pure-button inverse tooltip pure-button-icon-text"
                           rel="noopener noreferrer nofollow"
                           target="_blank"
-                          href={config.template(config.apis.bulletin.pdf, {
+                          href={config.template(pdfUrl, {
                             date: bulletin.validTime?.startTime,
                             region: province ?? "EUREGIO",
                             microRegionId: region,
