@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App, { Bulletin, StationDashboard } from "./components/app.jsx";
-import { setLanguage } from "./appStore";
+import { $headless, $province, setLanguage } from "./appStore";
 import { isWebPushSupported } from "./util/isWebPushSupported";
 import { template } from "./util/template";
 import { newRegionRegex } from "./util/newRegionRegex";
@@ -56,6 +56,12 @@ configRequest.then(async configParsed => {
   if (!globalThis.Temporal) {
     await import("temporal-polyfill/global");
   }
+
+  // Set once before the first render, so the initial bulletin load already
+  // uses them; later navigation drops the query params (#726).
+  const search = $router.get()?.search;
+  $province.set(search?.province ?? configParsed.province);
+  $headless.set(!!(search?.headless ?? configParsed.headless));
 
   // Load the view in parallel with the language (needs config and Temporal).
   const bulletinRoutes = [

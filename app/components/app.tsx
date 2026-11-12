@@ -89,33 +89,25 @@ const App = () => {
     });
   });
 
-  const router = useStore($router);
-  const province = router?.search?.province ?? config.province;
-  // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps (run once)
-  useEffect(() => $province.set(province), []);
-  const headless = router?.search?.headless ?? config.headless;
-  // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps (run once)
-  useEffect(() => $headless.set(!!headless), []);
-
   // Follow the stores, not the URL: navigation drops the query params (#726).
-  const provinceStore = useStore($province);
-  const headlessStore = useStore($headless);
+  const province = useStore($province);
+  const headless = useStore($headless);
 
   useEffect(() => {
-    if (provinceStore) {
-      document.body.parentElement?.setAttribute("data-province", provinceStore);
+    if (province) {
+      document.body.parentElement?.setAttribute("data-province", province);
     } else {
       document.body.parentElement?.removeAttribute("data-province");
     }
-  }, [provinceStore]);
+  }, [province]);
 
   useEffect(() => {
-    if (headlessStore) {
+    if (headless) {
       document.body.parentElement?.setAttribute("data-headless", "");
     } else {
       document.body.parentElement?.removeAttribute("data-headless");
     }
-  }, [headlessStore]);
+  }, [headless]);
 
   function component(): React.ReactNode {
     switch (page?.route) {
