@@ -31,6 +31,7 @@ const StateSlashIntern: [
 type StateSlashInternType = `${RegionState}/${boolean}`;
 
 export const REGION_FILL_PAINT = Object.freeze({
+  "fill-layer-blend": "multiply",
   "fill-color": [
     "match",
     State,
@@ -195,6 +196,7 @@ export const REGION_FILL_PAINT = Object.freeze({
 } satisfies FillLayerSpecification["paint"]);
 
 export const REGION_LINE_PAINT = Object.freeze({
+  "line-layer-blend": "multiply",
   "line-color": [
     "match",
     State,

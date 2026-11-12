@@ -445,23 +445,8 @@ $search-width-wide: 300px;
 // shares the same styling.
 #section-bulletin-map,
 .bulletin-report-mini-map {
-  // The overlay map's region fills blend into the base map via multiply. Apply
-  // that blend to the canvas only — not the whole overlay div, whose control
-  // container is a sibling of the canvas: white buttons under multiply would
-  // otherwise blend away to transparent and show the map through them.
-  .bulletin-map-overlay {
-    .maplibregl-canvas {
-      mix-blend-mode: multiply;
-    }
-    .maplibregl-ctrl-bottom-right {
-      display: none;
-    }
-  }
-
-  .maplibregl-map:not(.bulletin-map-overlay) {
-    .maplibregl-ctrl-attrib-button {
-      display: none;
-    }
+  .maplibregl-ctrl-attrib-button {
+    display: none;
   }
 
   .maplibregl-ctrl-top-left {

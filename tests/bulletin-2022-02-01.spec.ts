@@ -130,7 +130,7 @@ test(
   async ({ page, isMobile }) => {
     await page.goto("2022-02-01");
 
-    const map = page.getByLabel("Map").nth(1);
+    const map = page.getByLabel("Map").first();
     const pdfLink = page.getByRole("link", { name: "PDF" }).first();
     await expect(async () => {
       const clickPosition = isMobile ? { x: 233, y: 155 } : { x: 667, y: 140 };

@@ -35,8 +35,7 @@ import {
   type LngLatBoundsLike,
   Map as MlMap,
   NavigationControl,
-  ScaleControl,
-  type StyleSpecification
+  ScaleControl
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import {
@@ -49,16 +48,7 @@ import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import eawsPmtimes from "@eaws/pmtiles/eaws-regions.pmtiles?url";
 import { REGION_FILL_PAINT, REGION_LINE_PAINT } from "./bulletin-map-paint";
 
-// Transparent style for the overlay map that carries the danger-rating fills.
-// It is stacked over the base map with `mix-blend-mode: multiply` (MapLibre has
-// no per-layer blend mode, so the multiply happens between the two canvases).
-const OVERLAY_STYLE: StyleSpecification = {
-  version: 8,
-  sources: {},
-  layers: []
-};
-
-// Registry of the interactive overlay maps currently mounted (e.g. the
+// Registry of the bulletin maps currently mounted (e.g. the
 // earlier/later bulletin maps), kept view-synced so they share one view. Each
 // map registers itself on creation and removes itself on destroy. The
 // `syncingMaps` guard breaks the feedback loop, since jumpTo() on a target map
@@ -118,6 +108,14 @@ function applyFeatureStates(
   hoverActive: string[]
 ) {
   if (!map?.getSource(REGION_SOURCE)) return;
+  // Drop the states of the previous date, so regions without a bulletin now
+  // (e.g. a provider that has not published) do not keep their old rating.
+  for (const sourceLayer of [
+    EawsRegionDataLayer.micro_regions,
+    EawsRegionDataLayer.outline
+  ]) {
+    map.removeFeatureState({ source: REGION_SOURCE, sourceLayer });
+  }
   for (const id of Object.keys(fs.stateById)) {
     map.setFeatureState(regionFeature(fs, id), {
       state: fs.stateById[id],
@@ -532,8 +530,6 @@ function MapLibreMap({
       date: activeBulletinCollection?.date?.toString() || "latest",
       lang: intl.locale.slice(0, 2)
     });
-  const baseRef = useRef<HTMLDivElement | null>(null);
-  const baseMapRef = useRef<MlMap | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const overlayMapRef = useRef<MlMap | null>(null);
   const focusRegions = useStore($focusRegions);
@@ -811,6 +807,12 @@ function MapLibreMap({
     return ["in", ["get", "id"], ["literal", eawsRegions]];
   }, [activeBulletinCollection?.date, eawsRegions]);
 
+  // Latest filters, for the layers added once the map has loaded.
+  const featureFilterRef = useRef(featureFilter);
+  featureFilterRef.current = featureFilter;
+  const outlineFilterRef = useRef(outlineFilter);
+  outlineFilterRef.current = outlineFilter;
+
   // Create the maps after the first paint, so they don't delay it.
   const [afterPaint, setAfterPaint] = useState(false);
   useEffect(() => {
@@ -822,7 +824,7 @@ function MapLibreMap({
 
   useEffect(() => {
     if (!webglSupported || !afterPaint) return;
-    if (!baseRef.current || !overlayRef.current || baseMapRef.current) return;
+    if (!overlayRef.current || overlayMapRef.current) return;
 
     const initialBounds: LngLatBoundsLike = padBounds(
       eawsRegionsBounds(focusRegions),
@@ -834,22 +836,6 @@ function MapLibreMap({
       padding: { top: 60, bottom: 0, left: 0, right: 0 }
     };
 
-    // Base map: the shared raster style (basemap + opentopomap). It sits behind
-    // the overlay (pointer-events: none) and is non-interactive — it just
-    // follows the overlay's view.
-    const base = new MlMap({
-      container: baseRef.current,
-      style: MAPLIBRE_STYLE,
-      minZoom: MAPLIBRE_MIN_ZOOM,
-      maxZoom: 10,
-      fitBoundsOptions,
-      bounds: initialBounds,
-      interactive: false
-    });
-
-    // Overlay map: only the danger-rating fills + region borders, stacked on top
-    // with `mix-blend-mode: multiply` (see the JSX below). It is the interactive
-    // map; the base map is view-synced to it.
     const overlay = new MlMap({
       cooperativeGestures: true,
       dragRotate: false,
@@ -863,7 +849,7 @@ function MapLibreMap({
         })
       },
       container: overlayRef.current,
-      style: OVERLAY_STYLE,
+      style: MAPLIBRE_STYLE,
       minZoom: MAPLIBRE_MIN_ZOOM,
       maxZoom: 10,
       fitBoundsOptions,
@@ -908,7 +894,7 @@ function MapLibreMap({
         type: "fill",
         source: "eaws-regions",
         "source-layer": "micro-regions",
-        filter: featureFilter,
+        filter: featureFilterRef.current,
         paint: REGION_FILL_PAINT
       });
       overlay.addLayer({
@@ -916,7 +902,7 @@ function MapLibreMap({
         type: "line",
         source: "eaws-regions",
         "source-layer": "micro-regions",
-        filter: featureFilter,
+        filter: featureFilterRef.current,
         paint: REGION_LINE_PAINT
       });
       // Foreign EAWS providers are styled as a whole outline (grey when the
@@ -926,7 +912,7 @@ function MapLibreMap({
         type: "fill",
         source: "eaws-regions",
         "source-layer": EawsRegionDataLayer.outline,
-        filter: outlineFilter,
+        filter: outlineFilterRef.current,
         paint: REGION_FILL_PAINT
       });
       overlay.addLayer({
@@ -934,7 +920,7 @@ function MapLibreMap({
         type: "line",
         source: "eaws-regions",
         "source-layer": EawsRegionDataLayer.outline,
-        filter: outlineFilter,
+        filter: outlineFilterRef.current,
         paint: REGION_LINE_PAINT
       });
 
@@ -997,8 +983,7 @@ function MapLibreMap({
       });
     });
 
-    // Keep the base map glued to its overlay's view, and mirror the view onto
-    // any other mounted overlay maps (earlier/later) so they stay in sync.
+    // Mirror the view onto any other mounted maps (earlier/later).
     syncedMaps.push(overlay);
     overlay.on("move", () => {
       const view: JumpToOptions = {
@@ -1007,7 +992,6 @@ function MapLibreMap({
         bearing: overlay.getBearing(),
         pitch: overlay.getPitch()
       };
-      base.jumpTo(view);
       if (syncingMaps) return;
       syncingMaps = true;
       for (const otherMap of syncedMaps) {
@@ -1016,21 +1000,15 @@ function MapLibreMap({
       syncingMaps = false;
     });
 
-    baseMapRef.current = base;
     overlayMapRef.current = overlay;
 
-    const resizeObserver = new ResizeObserver(() => {
-      base.resize();
-      overlay.resize();
-    });
-    resizeObserver.observe(baseRef.current);
+    const resizeObserver = new ResizeObserver(() => overlay.resize());
+    resizeObserver.observe(overlayRef.current);
 
     return () => {
       resizeObserver?.disconnect();
       const index = syncedMaps.indexOf(overlay);
       if (index >= 0) syncedMaps.splice(index, 1);
-      base.remove();
-      baseMapRef.current = null;
       overlay.remove();
       overlayMapRef.current = null;
     };
@@ -1085,15 +1063,7 @@ function MapLibreMap({
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
-      <div
-        ref={baseRef}
-        style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-      />
-      <div
-        ref={overlayRef}
-        className="bulletin-map-overlay"
-        style={{ position: "absolute", inset: 0 }}
-      />
+      <div ref={overlayRef} style={{ position: "absolute", inset: 0 }} />
     </div>
   );
 }
