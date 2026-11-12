@@ -67,20 +67,6 @@ export interface DomainConfig {
   direction: "DW" | false;
 }
 
-/**
- * The live config.json only exposes the wind-speed overlay; the direction
- * overlay has no remote equivalent, so its filename is hardcoded here for
- * the domains that have one. `gust` borrows `wind`'s direction overlay
- * (its own domain has no such file).
- */
-const WIND_DIRECTION_OVERLAY_BY_DOMAIN: Partial<
-  Record<DomainId, { file: string; domain?: DomainId }>
-> = {
-  wind: { file: "{date}_{time}-00_wind-dir.png" },
-  gust: { file: "{date}_{time}-00_wind-dir.png", domain: "wind" },
-  wind700hpa: { file: "{date}_{time}-00_wind-dir700hpa.png" }
-};
-
 /** Where an overlay image is placed: by `bbox`, or on the Lambert grid. */
 export interface OverlayExtent {
   /** The extent of a Web Mercator image. */
@@ -199,6 +185,13 @@ interface RemoteDomainConfig {
   timeRanges: RemoteTimeRange[];
   /** Extent of the overlay images, per period of validity. */
   boundingBoxes: RemoteBoundingBox[];
+  /** Wind direction overlay shown alongside, possibly of another parameter. */
+  windDirection?: {
+    /** URL template of the PNG overlay, with `$year`/`$date`/`$hour`. */
+    overlayURL: string;
+    /** Extent of its images, per period of validity. */
+    boundingBoxes: RemoteBoundingBox[];
+  };
   /** Analysis start timestamp (ISO 8601), read from `startDateURL`. */
   startDate: string;
   /** Last modification time (ISO 8601) of the `startDate.ok` file. */
@@ -249,6 +242,15 @@ function filenameFromRemoteUrl(url: string): string {
 }
 
 /**
+ * The domain directory of an overlay URL template
+ * (`.../{domain}/$year/$date/{file}`).
+ */
+function domainFromRemoteUrl(url: string): DomainId {
+  const parts = url.split("/");
+  return parts[parts.length - 4] as DomainId;
+}
+
+/**
  * Build the runtime `DomainConfig` from structural metadata plus the live
  * remote config and its `timeRanges[]` entry for the active time range.
  * Returns `null` while the config hasn't resolved yet, or if it states no
@@ -262,7 +264,7 @@ function buildDomainConfig(
   remoteTimeRange: RemoteTimeRange | null
 ): DomainConfig | null {
   if (!domainId || !remoteDomainConfig || !remoteTimeRange) return null;
-  const { boundingBoxes } = remoteDomainConfig;
+  const { boundingBoxes, windDirection } = remoteDomainConfig;
   if (!boundingBoxes.length) return null;
 
   const dataId =
@@ -281,12 +283,12 @@ function buildDomainConfig(
       boundingBoxes
     }
   ];
-  const windDirectionOverlay = WIND_DIRECTION_OVERLAY_BY_DOMAIN[domainId];
-  if (windDirectionOverlay) {
+  if (windDirection) {
     dataOverlays.push({
-      ...windDirectionOverlay,
+      file: filenameFromRemoteUrl(windDirection.overlayURL),
+      domain: domainFromRemoteUrl(windDirection.overlayURL),
       type: "windDirection",
-      boundingBoxes
+      boundingBoxes: windDirection.boundingBoxes
     });
   }
 
@@ -301,7 +303,7 @@ function buildDomainConfig(
     dataOverlays,
     // Station wind arrows are drawn exactly for the domains that have a
     // wind-direction overlay.
-    direction: windDirectionOverlay ? "DW" : false
+    direction: windDirection ? "DW" : false
   };
 }
 
