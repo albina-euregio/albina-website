@@ -108,6 +108,14 @@ function applyFeatureStates(
   hoverActive: string[]
 ) {
   if (!map?.getSource(REGION_SOURCE)) return;
+  // Drop the states of the previous date, so regions without a bulletin now
+  // (e.g. a provider that has not published) do not keep their old rating.
+  for (const sourceLayer of [
+    EawsRegionDataLayer.micro_regions,
+    EawsRegionDataLayer.outline
+  ]) {
+    map.removeFeatureState({ source: REGION_SOURCE, sourceLayer });
+  }
   for (const id of Object.keys(fs.stateById)) {
     map.setFeatureState(regionFeature(fs, id), {
       state: fs.stateById[id],
