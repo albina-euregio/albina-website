@@ -11,8 +11,7 @@ import {
 } from "./stationDataStore";
 import {
   type AustriaLambertGrid,
-  austriaLambertGridFraction,
-  isAustriaLambertImage
+  austriaLambertGridFraction
 } from "../util/austria-lambert";
 
 /**
@@ -56,12 +55,15 @@ export interface DomainConfig {
   timeStepHours: number;
   units: string;
   thresholds: RemoteThreshold[];
-  /** The extent the Web Mercator overlay images cover. */
-  bbox: LngLatBounds;
-  /** The grid of the overlay images published on Austria Lambert, if any. */
-  lambertGrid: AustriaLambertGrid | null;
+  /** The extent of the overlay images, per period of validity. */
+  boundingBoxes: RemoteBoundingBox[];
   imageOverlayFile: string;
-  dataOverlays: { file: string; type: OverlayType; domain?: DomainId }[];
+  dataOverlays: {
+    file: string;
+    type: OverlayType;
+    domain?: DomainId;
+    boundingBoxes: RemoteBoundingBox[];
+  }[];
   direction: "DW" | false;
 }
 
@@ -78,6 +80,40 @@ const WIND_DIRECTION_OVERLAY_BY_DOMAIN: Partial<
   gust: { file: "{date}_{time}-00_wind-dir.png", domain: "wind" },
   wind700hpa: { file: "{date}_{time}-00_wind-dir700hpa.png" }
 };
+
+/** Where an overlay image is placed: by `bbox`, or on the Lambert grid. */
+export interface OverlayExtent {
+  /** The extent of a Web Mercator image. */
+  bbox: LngLatBounds;
+  /** The grid of an image published on Austria Lambert, else null. */
+  lambertGrid: AustriaLambertGrid | null;
+}
+
+/**
+ * The extent of the overlay images published at `time`: the bounding box
+ * whose validity covers it, else the latest one.
+ */
+export function overlayExtentAt(
+  boundingBoxes: RemoteBoundingBox[],
+  time: Temporal.Instant | null
+): OverlayExtent | null {
+  const boundingBox =
+    (time &&
+      boundingBoxes.find(
+        ({ validity: [from, to] }) =>
+          Temporal.Instant.compare(Temporal.Instant.from(from), time) <= 0 &&
+          Temporal.Instant.compare(time, Temporal.Instant.from(to)) < 0
+      )) ||
+    boundingBoxes[boundingBoxes.length - 1];
+  if (!boundingBox) return null;
+  const bbox = new LngLatBounds(boundingBox.bbox);
+  return {
+    bbox,
+    lambertGrid: boundingBox.lambert
+      ? { lambert: boundingBox.lambert, bbox }
+      : null
+  };
+}
 
 /**
  * The station dataId each domain/timeRange combination corresponds to.
@@ -134,7 +170,7 @@ interface RemoteTimeRange {
 }
 
 /** A single entry from the live config.json's `boundingBoxes`. */
-interface RemoteBoundingBox {
+export interface RemoteBoundingBox {
   /** Start and end of the period this bounding box applies to (ISO 8601). */
   validity: [string, string];
   /** Extent of the overlay images, as min lng, min lat, max lng, max lat. */
@@ -226,18 +262,8 @@ function buildDomainConfig(
   remoteTimeRange: RemoteTimeRange | null
 ): DomainConfig | null {
   if (!domainId || !remoteDomainConfig || !remoteTimeRange) return null;
-  // The latest Web Mercator extent, for images not (yet) published on the
-  // Austria Lambert grid; `boundingBoxes` is ordered by validity.
-  const boundingBoxes = remoteDomainConfig.boundingBoxes.filter(
-    b => !b.lambert
-  );
-  const boundingBox = boundingBoxes[boundingBoxes.length - 1];
-  if (!boundingBox) return null;
-  const lambertBoundingBoxes = remoteDomainConfig.boundingBoxes.filter(
-    b => b.lambert
-  );
-  const lambertBoundingBox =
-    lambertBoundingBoxes[lambertBoundingBoxes.length - 1];
+  const { boundingBoxes } = remoteDomainConfig;
+  if (!boundingBoxes.length) return null;
 
   const dataId =
     DATA_ID_BY_DOMAIN_TIME_RANGE[domainId]?.[remoteTimeRange.timeRange];
@@ -251,12 +277,17 @@ function buildDomainConfig(
   const dataOverlays: DomainConfig["dataOverlays"] = [
     {
       file: overlayFile(remoteTimeRange.dataOverlayURL),
-      type: OVERLAY_TYPE_BY_DOMAIN[domainId]
+      type: OVERLAY_TYPE_BY_DOMAIN[domainId],
+      boundingBoxes
     }
   ];
   const windDirectionOverlay = WIND_DIRECTION_OVERLAY_BY_DOMAIN[domainId];
   if (windDirectionOverlay) {
-    dataOverlays.push({ ...windDirectionOverlay, type: "windDirection" });
+    dataOverlays.push({
+      ...windDirectionOverlay,
+      type: "windDirection",
+      boundingBoxes
+    });
   }
 
   return {
@@ -265,13 +296,7 @@ function buildDomainConfig(
     timeStepHours: remoteTimeRange.timeStepHours,
     units: remoteDomainConfig.units,
     thresholds: remoteDomainConfig.thresholds,
-    bbox: new LngLatBounds(boundingBox.bbox),
-    lambertGrid: lambertBoundingBox?.lambert
-      ? {
-          lambert: lambertBoundingBox.lambert,
-          bbox: new LngLatBounds(lambertBoundingBox.bbox)
-        }
-      : null,
+    boundingBoxes,
     imageOverlayFile: overlayFile(remoteTimeRange.imageOverlayURL),
     dataOverlays,
     // Station wind arrows are drawn exactly for the domains that have a
@@ -355,21 +380,17 @@ export const domainConfig = computed(
  */
 export class DataOverlay {
   readonly type: OverlayType;
-  private readonly bbox: LngLatBounds;
-  private readonly lambertGrid: AustriaLambertGrid | null;
+  private readonly extent: OverlayExtent | null;
   private readonly url: string;
   private loadedCtx?: Promise<CanvasRenderingContext2D>;
 
   constructor(
-    o: { file: string; type: OverlayType; domain?: DomainId },
+    o: DomainConfig["dataOverlays"][number],
     domainId: DomainId | null,
-    currentTime: Temporal.Instant | null,
-    bbox: LngLatBounds,
-    lambertGrid: AustriaLambertGrid | null
+    currentTime: Temporal.Instant | null
   ) {
     this.type = o.type;
-    this.bbox = bbox;
-    this.lambertGrid = lambertGrid;
+    this.extent = overlayExtentAt(o.boundingBoxes, currentTime);
     [, this.url] = getOverlayURLs(
       currentTime,
       (o.domain || domainId) as DomainId,
@@ -400,18 +421,18 @@ export class DataOverlay {
    * envelope of the Austria Lambert grid for one published on it.
    */
   get bounds(): Promise<LngLatBounds> {
-    return this.ctx.then(
-      ctx =>
-        this.lambertGridOf(ctx.canvas.width, ctx.canvas.height)?.bbox ??
-        this.bbox
-    );
+    const bbox = this.extent?.bbox;
+    return bbox
+      ? Promise.resolve(bbox)
+      : Promise.reject(new Error(`No extent for ${this.url}`));
   }
 
   async valueForPixel(lngLat: LngLatLike): Promise<number | null> {
+    if (!this.extent) return null;
     const resolvedCtx = await this.ctx;
     const w = resolvedCtx.canvas.width;
     const h = resolvedCtx.canvas.height;
-    const lambertGrid = this.lambertGridOf(w, h);
+    const { bbox, lambertGrid } = this.extent;
     if (lambertGrid) {
       const { lng, lat } = LngLat.convert(lngLat);
       const fraction = austriaLambertGridFraction(lng, lat, lambertGrid);
@@ -424,7 +445,6 @@ export class DataOverlay {
     }
     // Normalized position within the bbox, in Web Mercator (linear in lng,
     // non-linear in lat) — matching how the overlay images are projected.
-    const bbox = this.bbox;
     const sw = MercatorCoordinate.fromLngLat(bbox.getSouthWest());
     const ne = MercatorCoordinate.fromLngLat(bbox.getNorthEast());
     const p0 = MercatorCoordinate.fromLngLat(lngLat);
@@ -433,11 +453,6 @@ export class DataOverlay {
     const pixelX = Math.round(Math.max(0, Math.min(1, fx)) * (w - 1));
     const pixelY = Math.round(Math.max(0, Math.min(1, fy)) * (h - 1));
     return this.valueAt(resolvedCtx, pixelX, pixelY);
-  }
-
-  private lambertGridOf(w: number, h: number): AustriaLambertGrid | null {
-    const grid = this.lambertGrid;
-    return grid && isAustriaLambertImage(w, h, grid) ? grid : null;
   }
 
   private valueAt(
@@ -704,14 +719,7 @@ export async function initDomain(
     const currentDomainConfig = domainConfig.get();
     dataOverlays.set(
       currentDomainConfig?.dataOverlays.map(
-        o =>
-          new DataOverlay(
-            o,
-            newDomain,
-            resolvedTime,
-            currentDomainConfig.bbox,
-            currentDomainConfig.lambertGrid
-          )
+        o => new DataOverlay(o, newDomain, resolvedTime)
       ) ?? []
     );
 
@@ -760,6 +768,17 @@ export const imageOverlayURLs = computed(
     if (!domainConfig) return ["", ""] as [string, string];
     return getOverlayURLs(currentTime, domainId, domainConfig.imageOverlayFile);
   }
+);
+
+/*
+ * returns where the image overlay for the current time is placed
+ */
+export const imageOverlayExtent = computed(
+  [currentTime, domainConfig],
+  (currentTime, domainConfig) =>
+    domainConfig
+      ? overlayExtentAt(domainConfig.boundingBoxes, currentTime)
+      : null
 );
 
 function getOverlayURLs(

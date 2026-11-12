@@ -56,21 +56,6 @@ export interface AustriaLambertGrid {
 }
 
 /**
- * Whether an overlay image covers the Austria Lambert grid — told apart from
- * the older Web Mercator images by its aspect ratio, as images of either kind
- * keep being published side by side (and the GIFs at twice the resolution).
- */
-export function isAustriaLambertImage(
-  width: number,
-  height: number,
-  grid: AustriaLambertGrid
-): boolean {
-  const [minX, minY, maxX, maxY] = grid.lambert;
-  const gridAspect = (maxX - minX) / (maxY - minY);
-  return Math.abs(width / height - gridAspect) < 0.01;
-}
-
-/**
  * Position of a WGS84 coordinate within the overlay grid, normalized to
  * [0, 1] from the top left corner, or null outside of it.
  */

@@ -21,10 +21,7 @@ import * as store from "../../stores/weatherMapStore";
 import { useStore } from "@nanostores/react";
 import { useIntl } from "../../i18n";
 import type { ParameterType } from "../station/station-parameter-data";
-import {
-  type AustriaLambertGrid,
-  isAustriaLambertImage
-} from "../../util/austria-lambert";
+import type { AustriaLambertGrid } from "../../util/austria-lambert";
 import type {
   ReprojectionRequest,
   ReprojectionResponse
@@ -191,6 +188,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   const domainConfig = useStore(store.domainConfig);
   const stations = useStore(store.stations);
   const imageOverlayURLs = useStore(store.imageOverlayURLs);
+  const imageOverlayExtent = useStore(store.imageOverlayExtent);
   const dataOverlays = useStore(store.dataOverlays);
 
   const mapRef = useRef<MlMap | null>(null);
@@ -205,7 +203,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
   useEffect(() => {
     const map = mapRef.current;
     const [, url] = imageOverlayURLs;
-    if (!mapReady || !map || !url || !domainConfig) return;
+    if (!mapReady || !map || !url || !imageOverlayExtent) return;
 
     // An image published on the Austria Lambert grid can't be placed by its
     // corners, so it is reprojected to Web Mercator first; an older image
@@ -215,16 +213,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     image.crossOrigin = "anonymous";
     image.onload = async () => {
       if (stale) return;
-      const { lambertGrid } = domainConfig;
-      const lambert =
-        lambertGrid &&
-        isAustriaLambertImage(
-          image.naturalWidth,
-          image.naturalHeight,
-          lambertGrid
-        )
-          ? lambertGrid
-          : null;
+      const { bbox, lambertGrid: lambert } = imageOverlayExtent;
       let overlay: HTMLImageElement | ImageData = image;
       if (lambert) {
         try {
@@ -235,7 +224,6 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
         }
         if (stale) return;
       }
-      const bbox = lambert?.bbox ?? domainConfig.bbox;
       // MapLibre image sources want the four corners as `[lng, lat]` in
       // TL, TR, BR, BL (i.e. NW, NE, SE, SW) order.
       const coordinates: ImageSourceSpecification["coordinates"] = [
@@ -273,7 +261,7 @@ const WeatherMap = ({ isPlaying, onMarkerSelected }: Props) => {
     return () => {
       stale = true;
     };
-  }, [domainConfig, imageOverlayURLs, mapReady]);
+  }, [imageOverlayExtent, imageOverlayURLs, mapReady]);
 
   // Wind-direction indicators: a grid of black arrows across the bbox, each
   // sampled from the `windDirection` overlay image. Present only for domains
