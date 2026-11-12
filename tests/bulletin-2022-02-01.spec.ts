@@ -175,6 +175,7 @@ test("2022-02-01 headless", async ({ page }) => {
   await page.getByRole("link", { name: "31/01" }).click();
 
   await expect(page).toHaveURL("2022-01-31");
+  await expect(page.locator("html")).toHaveAttribute("data-headless", "");
   await expect(page.locator("header.section-centered")).toContainText(
     "Avalanche Forecast"
   );

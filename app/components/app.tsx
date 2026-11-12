@@ -97,21 +97,25 @@ const App = () => {
   // oxlint-disable-next-line eslint-plugin-react-hooks/exhaustive-deps (run once)
   useEffect(() => $headless.set(!!headless), []);
 
+  // Follow the stores, not the URL: navigation drops the query params (#726).
+  const provinceStore = useStore($province);
+  const headlessStore = useStore($headless);
+
   useEffect(() => {
-    if (province) {
-      document.body.parentElement?.setAttribute("data-province", province);
+    if (provinceStore) {
+      document.body.parentElement?.setAttribute("data-province", provinceStore);
     } else {
       document.body.parentElement?.removeAttribute("data-province");
     }
-  }, [province]);
+  }, [provinceStore]);
 
   useEffect(() => {
-    if (headless) {
+    if (headlessStore) {
       document.body.parentElement?.setAttribute("data-headless", "");
     } else {
       document.body.parentElement?.removeAttribute("data-headless");
     }
-  }, [headless]);
+  }, [headlessStore]);
 
   function component(): React.ReactNode {
     switch (page?.route) {
