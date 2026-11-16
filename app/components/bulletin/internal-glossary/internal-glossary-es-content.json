@@ -1,13 +1,13 @@
 {
   "danger-scale-1": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Grado de peligro 1 (Débil)",
+    "text": "<p><b>  Situación de aludes generalmente favorable</p><p>  No se observan signos de alarma. Los aludes solo pueden desencadenarse en casos aislados, especialmente en laderas extremadamente inclinadas</p><p><b>  Recomendaciones para actividades fuera de pista</b></p><p>  Circular por las laderas extremadamente inclinadas de una en una persona y prestar atención al riesgo de caídas.</p>",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-2": {
-    "heading": "",
-    "text": "",
+    "heading": "Grado de peligro 2 (Limitado)",
+    "text": "<p><b>Mayormente, situación de aludes favorable</b></p><p>En casos aislados podrán identificarse señales de alerta. Se pueden desencadenar aludes particularmente en pendientes muy empinadas dentro de las orientaciones y las cotas indicadas en el boletín. Avalanchas grandes o tamaño 3 naturales son improbables.</p><p><b>Recomendaciones para los practicantes del esquí de montña</b></p><p>Las actividades de esquí de montaña han de ser diseñadas cuidadosamente, especialmente en laderas con la orientación y la elevación indicadas en el boletín. Importante cruzar laderas muy empinadas de uno en uno y prestar especial atención a estructuras del manto desfavorables (<a href=\"/education/avalanche-problems#persistent_weak_layers\">capas débiles persistentes</a>).</p></div>",
     "img": "",
     "source": "false"
   },
@@ -31,110 +31,110 @@
   },
   "avalanche-frequency-none": {
     "heading": "",
-    "text": "",
-    "img": "",
+    "text": "<p>  La frecuencia indica el número esperado de lugares propensos al desencadenamiento de aludes para una determinada clase de estabilidad del manto de nieve dentro de la región de aviso. Para la clase <b> ninguna o casi ninguna</b>,  os lugares con una estabilidad del manto nivoso de clase <b>{stabilityClass}</b>  no existen o son tan escasos que no se consideran relevantes para la evaluación de la estabilidad.</p>",
+    "img": "__SIMPLE_SLIDER__|few,some,many|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Frecuencia: pocos",
+    "text": "<p>La frecuencia indica el número esperado de lugares propensos al desencadenamiento de aludes para una determinada clase de estabilidad del manto nivoso dentro de la región de aviso. Para la clase <b>ninguna o casi ninguna</b>, los lugares con una estabilidad del manto nivoso de clase <b>{stabilityClass}</b> no existen o son tan escasos que no se consideran relevantes para la evaluación de la estabilidad.</p>",
+    "img": "__SIMPLE_SLIDER__|few,some,many|0|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Frecuencia: algunos",
+    "text": "<p>La frecuencia indica el número esperado de lugares propensos al desencadenamiento de aludes para una determinada clase de estabilidad del manto nivoso dentro de la región de aviso. Para la clase <b>algunos</b>, los lugares con una estabilidad del manto nivoso de clase <b>{stabilityClass}</b> suelen existir en elementos específicos del terreno con características comunes (es decir, cerca de las crestas, en las vaguadas).</p>",
+    "img": "__SIMPLE_SLIDER__|few,some,many|1|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Frecuencia: muchos",
+    "text": "<p><p>La frecuencia indica el número esperado de lugares propensos al desencadenamiento de aludes para una determinada clase de estabilidad del manto nivoso dentro de la región de aviso. Para la clase <b>muchos</b>, los lugares con una estabilidad del manto nivoso de clase <b>{stabilityClass}</b> son abundantes. </p>",
+    "img": "__SIMPLE_SLIDER__|few,some,many|2|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-very_poor": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Estabilidad del manto nivoso: Muy pobre",
+    "text": "<p>La estabilidad del manto nivoso indica la facilidad con la que puede desencadenarse un alud. Una estabilidad <b>muy pobre</b> significa que los aludes se desencadenan espontáneamente o son muy fáciles de provocar (muy sensibles). Los aludes naturales, las grietas de propagación y los sonidos de colapso («whumpf») son señales claras de una estabilidad <b>muy pobre</b> del manto nivoso.</p><p>La frecuencia y la estabilidad del manto nivoso están estrechamente relacionadas. La frecuencia indica el número esperado de lugares propensos al desencadenamiento de aludes para una determinada clase de estabilidad del manto nivoso, en este caso <b>muy pobre</b>, dentro de la región de aviso.</p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|0|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Estabilidad del manto nivoso: Pobre",
+    "text": "<p>La estabilidad del manto nivoso indica lo fácil que es desencadenar un alud. Una estabilidad <b>pobre</b> del manto nivoso significa que los aludes pueden desencadenarse fácilmente, por ejemplo, por el paso de un solo esquiador. Los sonidos de colapso («whumpf») y las grietas de propagación son señales claras de una estabilidad <b>pobre</b> del manto nivoso.</p><p>La frecuencia y la estabilidad del manto nivoso están estrechamente relacionadas. La frecuencia indica el número esperado de lugares propensos al desencadenamiento de aludes para una determinada clase de estabilidad del manto nivoso, en este caso <b>pobre</b>, dentro de la región de aviso.</p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|1|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Estabilidad del manto nivoso: Regular",
+    "text": "<p>La estabilidad del manto nivoso indica lo fácil que es desencadenar un alud. Una estabilidad <b>regular</b> significa que los aludes son difíciles de desencadenar. Por lo general, se requieren sobrecargas importantes, como varios esquiadores, explosivos o la caída de una cornisa, para desencadenar un alud en condiciones de estabilidad <b>regular</b> del manto nivoso.</p><p>La frecuencia y la estabilidad del manto nivoso están estrechamente relacionadas. La frecuencia indica el número esperado de lugares propensos al desencadenamiento de aludes para una determinada clase de estabilidad del manto nivoso, en este caso <b>regular</b>, dentro de la región de aviso.</p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|2|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Estabilidad del manto nivoso: Buena",
+    "text": "<p>La estabilidad del manto nivoso indica lo fácil que es desencadenar un alud. Una estabilidad <b>buena</b> significa condiciones estables. No hay signos de inestabilidad en condiciones de <b>buena</b> estabilidad del manto nivoso.</p><p>La frecuencia y la estabilidad del manto nivoso están estrechamente relacionadas. La frecuencia indica el número esperado de lugares propensos al desencadenamiento de aludes para una determinada clase de estabilidad del manto nivoso, en este caso <b>buena</b>, dentro de la región de aviso.</p>",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|3|90__END_SLIDER__",
     "source": "false"
   },
   "avalanche-size-1": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Tamaño 1: Alud pequeño",
+    "text": "<p>Con aludes de este tamaño es poco probable que las personas queden sepultadas, excepto en las zonas de depósito con características desfavorables del terreno (por ejemplo, trampas del terreno). En terreno extremadamente inclinado, el peligro de caída predomina sobre el peligro de sepultamiento. Los aludes suelen detenerse antes de alcanzar el final de la ladera.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|0|__END_SLIDER__ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-2": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Tamaño 2: Alud mediano",
+    "text": "<p>Es probable que los aludes de este tamaño puedan sepultar, herir o causar la muerte a una persona. Los aludes de este tamaño corresponden al alud típico desencadenado por un esquiador. Generalmente se detienen al final de la ladera.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|1|__END_SLIDER__ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "avalanche-size-3": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Tamaño 3: Alud grande",
+    "text": "<p>Es probable que los aludes de este tamaño puedan sepultar y destruir un automóvil, dañar un camión, destruir un edificio pequeño o derribar algunos árboles. Cuando los esquiadores quedan atrapados por aludes de este tamaño, la probabilidad de consecuencias graves es muy alta. Los aludes pueden atravesar terreno llano (considerablemente por debajo de 30°) a lo largo de distancias de hasta 50 m.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|2|__END_SLIDER__ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-4": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Tamaño 4: Alud muy grande",
+    "text": "<p>Es probable que los aludes de este tamaño puedan sepultar y destruir un vagón de ferrocarril, un camión de gran tamaño, varios edificios o una extensión de bosque. Los aludes atravesarán terreno llano (considerablemente por debajo de 30°) a lo largo de distancias superiores a 50 m y pueden alcanzar el fondo del valle.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|3|__END_SLIDER__ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-5": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Tamaño 5: Alud extremadamente grande",
+    "text": "<p>Es probable que los aludes de este tamaño puedan modificar significativamente el paisaje y tengan un potencial destructivo catastrófico. Los aludes alcanzarán el fondo del valle y pueden llegar hasta la mayor distancia de recorrido conocida.</p>",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|4|__END_SLIDER__ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "problem-new_snow": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Problema de aludes: Nieve reciente",
+    "text": "<p>El problema de aludes está relacionado con las nevadas actuales o más recientes. La carga adicional que la nieve reciente ejerce sobre el manto nivoso existente es el factor clave del problema de nieve reciente. La criticidad de esta sobrecarga depende de diversos factores, como la temperatura o las características de la superficie del manto nivoso antiguo.</p><p><b>Consejos para la circulación en terreno de montaña</b><br><b>Aludes de placa seca:</b> Espere a que el manto nivoso se estabilice.<br><b>Aludes de nieve suelta seca:</b> El peligro de caída es más importante que el peligro de sepultamiento. Tenga en cuenta las consecuencias en terreno inclinado.</p>",
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "problem-wind_slab": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Problema de aludes: Placas de viento",
+    "text": "<p>El problema de aludes está relacionado con las placas de viento. La nieve puede ser transportada por el viento con o sin nevadas simultáneas.</p><p><b>Recomendaciones de circulación</b><br><b>Evita las acumulaciones de nieve venteada en terreno inclinado, especialmente en zonas donde el espesor del manto nivoso cambia de fino a grueso o donde la nieve pasa de dura a blanda.</b></p>",
+    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "problem-persistent_weak_layers": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Problema de aludes: Capas débiles persistentes",
+    "text": "<p>El problema de aludes está relacionado con la presencia de capas débiles persistentes en el manto nivoso antiguo. Estas capas débiles suelen estar formadas por escarcha de superficie enterrada, escarcha de profundidad o nieve facetada.</p><p><b>Recomendaciones de circulación</b><br><b>Circula de forma conservadora y evita las laderas amplias y empinadas. Ten en cuenta la evolución meteorológica y los procesos del manto nivoso en la zona. Sé especialmente prudente en las áreas con un manto nivoso delgado y en las transiciones entre zonas de poco y mucho espesor de nieve. Este problema es una de las principales causas de accidentes mortales por aludes entre los practicantes de actividades de moentaña invernal.</b></p>",
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-wet_snow": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Problema de aludes: Nieve húmeda",
+    "text": "<p>El problema de aludes está relacionado con el debilitamiento del manto nivoso debido a la presencia de agua líquida. El agua se infiltra en el manto nivoso por fusión o por lluvia.</p><p><b>Recomendaciones de circulación</b><br><b>En presencia de una costra de rehielo, las condiciones suelen ser favorables por la mañana tras noches frías y despejadas debido al rehielo. Después de noches cálidas y cubiertas, el problema suele estar presente ya por la mañana. La lluvia sobre nieve reciente normalmente genera este problema casi de inmediato. Una buena elección del momento de la actividad y una adecuada planificación del itinerario son importantes. Ten en cuenta las zonas de llegada de aludes.</b></p>",
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-gliding_snow": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Problema de aludes: Deslizamientos basales",
+    "text": "<p>El problema de aludes está relacionado con el deslizamiento de todo el manto nivoso sobre el suelo, normalmente sobre superficies lisas, como laderas herbosas o zonas de roca pulida. Una elevada actividad de deslizamientos basales suele estar asociada a un manto nivoso espeso con pocas o ninguna capa débil. Los deslizamientos basales pueden producirse tanto con un manto nivoso frío y seco como con un manto nivoso cálido y húmedo. El desencadenamiento de un deslizamiento basale es difícil de predecir, aunque normalmente se observan grietas de deslizamiento antes de que se produzca.</p><p><b>Recomendaciones de circulación</b><br><b>Evita las zonas próximas a las grietas de deslizamiento.</b></p>",
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "danger-pattern-DP1": {
