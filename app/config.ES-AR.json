@@ -326,6 +326,10 @@
     "minYear": 2025,
     "maxResults": 31
   },
+  "incidents": {
+    "minYear": 2015,
+    "minYearByRegion": {}
+  },
   "languageHostSettings": {},
   "hostLanguageSettings": {}
 }

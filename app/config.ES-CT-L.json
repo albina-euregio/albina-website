@@ -518,6 +518,10 @@
     "minYear": 2020,
     "maxResults": 31
   },
+  "incidents": {
+    "minYear": 2015,
+    "minYearByRegion": {}
+  },
   "footer": {
     "icons": [
       {
