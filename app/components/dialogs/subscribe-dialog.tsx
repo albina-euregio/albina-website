@@ -9,6 +9,7 @@ import SubscribeWhatsappDialog, {
   getWhatsAppUrl
 } from "./subscribe-whatsapp-dialog";
 import SubscribeWebPushDialog from "./subscribe-web-push-dialog";
+import FooterLogos from "../organisms/footer-logos";
 import { isWebPushSupported } from "../../util/isWebPushSupported";
 import { useStore } from "@nanostores/react";
 import { $province } from "../../appStore.ts";
@@ -108,6 +109,13 @@ export default function SubscribeDialog() {
           {selectedDialog === "WhatsApp" && <SubscribeWhatsappDialog />}
           {selectedDialog === "Email" && <SubscribeEmailDialog />}
           {selectedDialog === "App" && <SubscribeAppDialog />}
+
+          {!config.footer.iconsHidden && (
+            <div className="modal-follow">
+              <hr />
+              <FooterLogos />
+            </div>
+          )}
         </div>
       </div>
     </>
