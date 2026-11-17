@@ -186,14 +186,15 @@ function BulletinProblemItem({
     }
   }
 
+  const aspects = problem?.aspects;
   const aspectText = useMemo(
     () =>
       intl.formatMessage({
         id: "bulletin:report:exposition"
       }) +
-      (Array.isArray(problem?.aspects)
+      (Array.isArray(aspects)
         ? ": " +
-          problem?.aspects
+          aspects
             .map(e =>
               intl.formatMessage({
                 id: "bulletin:report:problem:aspect:" + e.toLocaleLowerCase()
@@ -201,7 +202,7 @@ function BulletinProblemItem({
             )
             .join(", ")
         : ""),
-    [problem?.aspects, intl]
+    [aspects, intl]
   );
   const snowpackStabilityText = intl.formatMessage({
     id: "caaml:snowpackStability.label"
