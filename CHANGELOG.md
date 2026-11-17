@@ -2,6 +2,29 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [9.3.0] - 2026-11-17
+
+### 🚀 Features
+
+- _(subscribe)_ Ask for region, channel and language one step at a time
+- _(subscribe)_ Show social media accounts in the subscribe dialog
+- _(season reports)_ Add season report 2025/26 for Tyrol (AT-07)
+- _(education)_ Explain "no snow" and "no rating" in the handbook (en, de, it)
+- _(map)_ Blend map layers with MapLibre instead of stacking maps
+- _(weather)_ Place overlays and wind direction arrows by the bounding boxes from config.json
+
+### 🐛 Bug Fixes
+
+- _(bulletin)_ Clear stale region states when the date changes
+- _(bulletin)_ Apply the latest date filter when region layers are added
+- _(incidents)_ Enable incidents for ES-AR and ES-CT-L
+- _(headless)_ Apply province/headless before the first render and keep it after navigation
+
+### ⚙️ Miscellaneous Tasks
+
+- Update LINEA to v9.1.1
+- Update MapLibre GL to v6.18.0
+
 ## [9.2.0] - 2026-11-10
 
 ### 🚀 Features
