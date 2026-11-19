@@ -400,9 +400,10 @@ function StationDashboard() {
     <>
       {!!data.length && (
         <WeatherStationDialog
-          stationData={[...data, ...observers]}
+          stationData={[...sortedFilteredData, ...regionFilteredObservers]}
           stationId={stationId}
           setStationId={setStationId}
+          keepOrder={viewMode === "table"}
         />
       )}
       <HTMLHeader title={intl.formatMessage({ id: "menu:weather:stations" })} />
