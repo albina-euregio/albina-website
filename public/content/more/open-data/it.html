@@ -2,155 +2,125 @@
 <h1>Open Data</h1>
 
 <section class="section-padding"><header class="section-centered"><ul class="list-inline list-buttongroup-dense">
-<li><a href="#license" title="License" class="secondary pure-button" data-scroll>Licenza</a></li>
-      <li><a href="#xml" title="XML" class="secondary pure-button" data-scroll>XML</a></li>
-      <li><a href="#source-code" title="Source code" class="secondary pure-button" data-scroll>Codice sorgente</a></li>
-      <li><a href="#software" title="Software" class="secondary pure-button" data-scroll>Software esterno</a></li>
-      <li><a href="#geodata" title="Geodata" class="secondary pure-button" data-scroll="">Dati GIS</a></li>
+      <li><a href="#license" title="Licenza" class="secondary pure-button" data-scroll="">Licenza</a></li>
+      <li><a href="#report" title="Bollettini valanghe" class="secondary pure-button" data-scroll>Bollettini valanghe</a></li>
+      <li><a href="#source-code" title="Codice sorgente" class="secondary pure-button" data-scroll="">Codice sorgente</a></li>
+      <li><a href="#geodata" title="Dati geografici" class="secondary pure-button" data-scroll="">Dati geografici</a></li>
+      <li><a href="#software" title="Software esterno" class="secondary pure-button" data-scroll>Software esterno</a></li>
     </ul></header></section><section class="section-centered"><div id="ogd" class="panel">
-    <p>Tutti i dati sviluppati e generati nell'ambito di questo progetto sono liberamente disponibili.&#13;
-      Di seguito sono elencati i dati e le informazioni liberamente accessibili, &#13;
-   nonché le informazioni sulle licenze e sui software esterni aggiuntivi utilizzati</p>
+    <p>Tutti gli sviluppi e i dati nati da questo progetto sono, per quanto possibile, liberamente accessibili. Di seguito sono riportate informazioni sulle licenze e sul software esterno.</p>
   </div>
 </section><section class="section-centered"><div id="license" class="panel">
-    <h2>licenza</h2>
-    <p> Tutto il nostro software è open source. Le licenze corrispondenti possono essere trovate direttamente nei progetti. Tutti i dati forniti, come il bollettino valanghe, i dati delle stazioni meteorologiche, ecc., sono concessi in licenza sotto.
-      <a href="https://creativecommons.org/licenses/by/4.0/deed.en" target="_blank" rel="noopener noreferrer">CC BY 4.0 DEED</a>.</p>
+    <h2>Licenza e utilizzo dei dati</h2>
+    <p>Le presenti condizioni di licenza si applicano ai contenuti e ai dati pubblicati tramite i seguenti domini, compresi tutti i relativi sottodomini:</p>
+    <ul>
+      <li><strong>lawinen.report</strong></li>
+      <li><strong>avalanche.report</strong></li>
+      <li><strong>valanghe.report</strong></li>
+    </ul>
+    <p>Esse comprendono i dati dei seguenti servizi di previsione valanghe (di seguito «Servizi valanghe»):</p>
+    <ul>
+      <li>Servizio Valanghe del Land Tirolo</li>
+      <li>Servizio Prevenzione Valanghe della Provincia Autonoma di Bolzano</li>
+      <li>Servizio Prevenzione Valanghe della Provincia Autonoma di Trento</li>
+      <li>Servizio Valanghe della Carinzia, Ufficio del Governo del Land Carinzia</li>
+    </ul>
+    <p>Nei limiti della licenza di volta in volta indicata, i dati possono essere liberamente utilizzati, riprodotti, distribuiti e modificati, anche a scopi commerciali. Si applicano inoltre le sezioni <a href="#integrity" data-scroll>Integrità dei dati originali</a>, <a href="#attribution" data-scroll>Attribuzione e citazione della fonte</a> e <a href="#fair-use" data-scroll>Linee guida per l’uso corretto (fair use)</a>.</p>
   </div>
-</section><section class="section-centered"><div id="xml-label" class="panel">
-    <h2>Valanghe.report JSON e XML</h2>
-    <p>Il bollettino quotidiano è pubblicato in formato JSON e XML e si trova qui:</p>
-  </div>
-</section><section class="section-centered section-dangerscale"><div id="xml-schema-label" class="panel field border">
-    <div class="grid">
-      <div class="grid-item small-3"><img src="/content_files/json.svg" title="JSON" alt="JSON" class="warning-level-icon"></div>
-      <div class="grid-item small-9">
-        <div class="panel-header">
-          <h4>CAAML v6 JSON</h4>
-        </div>
-        <p>Ogni bollettino è pubblicato in 7 lingue e il corrispondente JSON&#13;
-           I file per il bollettino più recente sono disponibili a questo URL:</p>
-        <ul>
-<li>DE:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_de_CAAMLv6.json" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_de_CAAMLv6.json
-            </a>
-</li>
-          <li>IT:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_it_CAAMLv6.json" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_it_CAAMLv6.json
-            </a>
-</li>
-          <li>EN:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_en_CAAMLv6.json" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_en_CAAMLv6.json
-            </a>
-</li>
-          <li>FR:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_fr_CAAMLv6.json" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_fr_CAAMLv6.json
-            </a>
-</li>
-          <li>ES:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_es_CAAMLv6.json" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_es_CAAMLv6.json
-            </a>
-</li>
-          <li>CA:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_ca_CAAMLv6.json" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_ca_CAAMLv6.json
-            </a>
-</li>
-          <li>OC:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_oc_CAAMLv6.json" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_oc_CAAMLv6.json
-            </a>
-</li>
-        </ul>
-<p>Gli file JSON files usano lo standard
-          <a href="http://caaml.org/Schemas/BulletinEAWS/" target="_blank" rel="noopener noreferrer">CAAML v6</a>
-         Scarica
-          <a href="http://caaml.org/Schemas/BulletinEAWS/v6.0/json/CAAMLv6_BulletinEAWS.json" target="_blank" rel="noopener noreferrer">
-            lo schema file del JSON.
-          </a></p>
-      </div>
+</section><section class="section-centered"><div id="report" class="panel">
+    <h2>Bollettini valanghe (CC BY 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by/4.0/deed.it" rel="license noopener noreferrer" target="_blank">Creative Commons Attribuzione 4.0 Internazionale (CC BY 4.0)</a></p>
+    <p>Titolare dei diritti è il servizio valanghe competente per la rispettiva regione. Ogni bollettino valanghe viene pubblicato in 7 lingue. I file dell’ultimo bollettino valido seguono lo standard <a href="http://caaml.org/Schemas/BulletinEAWS/" target="_blank" rel="noopener noreferrer">CAAML v6</a> (<a href="http://caaml.org/Schemas/BulletinEAWS/v6.0/json/CAAMLv6_BulletinEAWS.json" target="_blank" rel="noopener noreferrer">JSON Schema</a>, <a href="http://caaml.org/Schemas/BulletinEAWS/v6.0/xml/CAAMLv6_BulletinEAWS.xsd" target="_blank" rel="noopener noreferrer">XML Schema</a>).</p>
+    <div class="table-container">
+      <table class="pure-table pure-table-striped full-width">
+        <thead><tr>
+            <th>Lingua</th>
+            <th>JSON</th>
+            <th>XML</th>
+          </tr></thead>
+        <tbody>
+          <tr>
+            <td>DE</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_de_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_de_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_de_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_de_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>IT</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_it_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_it_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_it_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_it_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>EN</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_en_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_en_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_en_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_en_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>FR</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_fr_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_fr_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_fr_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_fr_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>ES</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_es_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_es_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_es_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_es_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>CA</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_ca_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_ca_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_ca_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_ca_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>OC</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_oc_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_oc_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_oc_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_oc_CAAMLv6.xml</a></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div id="xml-schema-label" class="panel field border">
-    <div class="grid">
-      <div class="grid-item small-3"><img src="/content_files/xml.svg" title="XML" alt="XML" class="warning-level-icon"></div>
-      <div class="grid-item small-9">
-        <div class="panel-header">
-          <h4>CAAML v6 XML</h4>
-        </div>
-        <p>Ogni bollettino è pubblicato in 7 lingue e il corrispondente XML&#13;
-           I file per il bollettino più recente sono disponibili a questo URL:</p>
-        <ul>
-<li>DE:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_de_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_de_CAAMLv6.xml
-            </a>
-</li>
-          <li>IT:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_it_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_it_CAAMLv6.xml
-            </a>
-</li>
-          <li>EN:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_en_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_en_CAAMLv6.xml
-            </a>
-</li>
-          <li>FR:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_fr_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_fr_CAAMLv6.xml
-            </a>
-</li>
-          <li>ES:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_es_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_es_CAAMLv6.xml
-            </a>
-</li>
-          <li>CA:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_ca_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_ca_CAAMLv6.xml
-            </a>
-</li>
-          <li>OC:
-            <a href="https://static.avalanche.report/bulletins/latest/EUREGIO_oc_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">
-              https://static.avalanche.report/bulletins/latest/EUREGIO_oc_CAAMLv6.xml
-            </a>
-</li>
-        </ul>
-<p>Gli file XML usano lo standard
-          <a href="http://caaml.org/Schemas/BulletinEAWS/" target="_blank" rel="noopener noreferrer">CAAML v6</a>.
-         Scarica
-          <a href="http://caaml.org/Schemas/BulletinEAWS/v6.0/xml/CAAMLv6_BulletinEAWS.xsd" target="_blank" rel="noopener noreferrer">
-            lo schema del XML file.
-          </a></p>
-      </div>
-    </div>
+</section><section class="section-centered"><div id="avalanche-events" class="panel">
+    <h2>Eventi valanghivi (CC BY 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by/4.0/deed.it" rel="license noopener noreferrer" target="_blank">Creative Commons Attribuzione 4.0 Internazionale (CC BY 4.0)</a></p>
+    <p>Comprende i rapporti sugli eventi valanghivi. Sono esclusi gli eventi valanghivi importati da LAWIS e registrati prima del 1° ottobre 2026. Per foto e allegati si applica la sezione <a href="#media" data-scroll>Foto e media</a>.</p>
+  </div>
+</section><section class="section-centered"><div id="blog" class="panel">
+    <h2>Blog (CC BY 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by/4.0/deed.it" rel="license noopener noreferrer" target="_blank">Creative Commons Attribuzione 4.0 Internazionale (CC BY 4.0)</a></p>
+    <p>Comprende i testi degli articoli del blog. Per le foto del blog si applica la sezione <a href="#media" data-scroll>Foto e media</a>.</p>
+  </div>
+</section><section class="section-centered"><div id="weather-stations" class="panel">
+    <h2>Stazioni meteorologiche dei Servizi valanghe (CC BY 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by/4.0/deed.it" rel="license noopener noreferrer" target="_blank">Creative Commons Attribuzione 4.0 Internazionale (CC BY 4.0)</a></p>
+    <p>Comprende i dati di misura delle stazioni meteorologiche dei Servizi valanghe. La sezione <a href="#integrity" data-scroll>Integrità dei dati originali</a> non si applica in questo caso. Sono esclusi i dati di stazioni meteorologiche di altri gestori e i dati meteorologici di GeoSphere Austria.</p>
+  </div>
+</section><section class="section-centered"><div id="media" class="panel">
+    <h2>Foto e media (CC BY 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by/4.0/deed.it" rel="license noopener noreferrer" target="_blank">Creative Commons Attribuzione 4.0 Internazionale (CC BY 4.0)</a></p>
+    <p>Comprende foto e osservazioni nel bollettino valanghe, profili stratigrafici della neve, foto e allegati di eventi valanghivi e foto del blog, ma solo se sono espressamente contrassegnati con il copyright di uno dei Servizi valanghe (ad es. <strong>© LWD Tirol</strong>, <strong>© Lawinenwarndienst Tirol</strong>).</p>
+    <p>Le fotografie e i media attribuiti ad altri autori o autrici sono esclusi dalla presente licenza. Tutti i diritti restano in capo ai rispettivi titolari. Il riutilizzo richiede il loro consenso, salvo che non sia già consentito dalla legge.</p>
+  </div>
+</section><section class="section-centered"><div id="icons" class="panel">
+    <h2>Icone dei problemi valanghivi (CC BY-ND 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by-nd/4.0/deed.it" rel="license noopener noreferrer" target="_blank">Creative Commons Attribuzione - Non opere derivate 4.0 Internazionale (CC BY-ND 4.0)</a></p>
+    <p>Le icone dei problemi valanghivi possono essere condivise con attribuzione, ma non possono essere modificate. Le icone dell’<a href="https://www.avalanches.org/" target="_blank" rel="noopener noreferrer">EAWS</a> sono escluse dalla presente licenza.</p>
   </div>
 </section><section class="section-centered"><div id="source-code" class="panel">
-    <h2>codice sorgente</h2>
-    <p>Tutto il nostro codice sorgente è ospitato su&#13;
-      <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer">GitLab</a> e può essere trovato&#13;
-      nei seguenti repository:
-</p>
+    <h2>Codice sorgente (AGPL-3.0 / GPL-3.0)</h2>
+    <p><a href="https://www.gnu.org/licenses/agpl-3.0.html" rel="license noopener noreferrer" target="_blank">GNU Affero General Public License 3.0 (AGPL-3.0)</a> / <a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license noopener noreferrer" target="_blank">GNU General Public License 3.0 (GPL-3.0)</a></p>
+    <p>Tutto il nostro codice sorgente è ospitato su <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer">GitLab</a>. Fa fede il file di licenza contenuto nel rispettivo repository.</p>
   </div>
 </section><section class="section-centered section-dangerscale"><div id="server" class="panel field border">
     <div class="grid">
       <div class="grid-item small-3">
-<img src="/content_files/java_bsd.svg" title="Java" alt="Java" class="warning-level-icon" style="margin: 0 0 0.9rem 0;"><p class="small" style="font-size: 0.6rem">Copyright © Sun Microsystems Inc.</p>
+<img src="/content_files/java_bsd.svg" title="Java" alt="Java" class="warning-level-icon" style="margin: 0 0 0.9rem 0"><p class="small" style="font-size: 0.6rem">Copyright © Sun Microsystems Inc.</p>
       </div>
       <div class="grid-item small-9">
         <div class="panel-header">
           <p>JAVA</p>
-          <h4>applicazione server</h4>
+          <h4>Applicazione server</h4>
         </div>
-        <p><a href="https://gitlab.com/albina-euregio/albina-server" target="_blank" rel="noopener noreferrer">&#13;
-            https://gitlab.com/albina-euregio/albina-server&#13;
-          </a></p>
+        <p><a href="https://gitlab.com/albina-euregio/albina-server" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/albina-server</a></p>
+        <p>Licenza: <a href="https://www.gnu.org/licenses/agpl-3.0.html" rel="license noopener noreferrer" target="_blank">AGPL-3.0</a></p>
       </div>
     </div>
   </div>
@@ -163,9 +133,8 @@
           <p>Angular</p>
           <h4>Admin GUI</h4>
         </div>
-        <p><a href="https://gitlab.com/albina-euregio/albina-admin-gui" target="_blank" rel="noopener noreferrer">&#13;
-            https://gitlab.com/albina-euregio/albina-admin-gui&#13;
-          </a></p>
+        <p><a href="https://gitlab.com/albina-euregio/albina-admin-gui" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/albina-admin-gui</a></p>
+        <p>Licenza: <a href="https://www.gnu.org/licenses/agpl-3.0.html" rel="license noopener noreferrer" target="_blank">AGPL-3.0</a></p>
       </div>
     </div>
   </div>
@@ -176,15 +145,14 @@
       <div class="grid-item small-9">
         <div class="panel-header">
           <p>React</p>
-          <h4>Website</h4>
+          <h4>Sito web</h4>
         </div>
-        <p><a href="https://gitlab.com/albina-euregio/albina-website" target="_blank" rel="noopener noreferrer">&#13;
-            https://gitlab.com/albina-euregio/albina-website&#13;
-          </a></p>
+        <p><a href="https://gitlab.com/albina-euregio/albina-website" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/albina-website</a></p>
+        <p>Licenza: <a href="https://www.gnu.org/licenses/agpl-3.0.html" rel="license noopener noreferrer" target="_blank">AGPL-3.0</a></p>
       </div>
       <div class="grid-item small-12">
         <opensourcelicenses></opensourcelicenses>
-</div>
+      </div>
     </div>
   </div>
 
@@ -196,42 +164,17 @@
           <p>Vue.js</p>
           <h4>Catalogo frasi</h4>
         </div>
-        <p><a href="https://gitlab.com/albina-euregio/textcat-ng" target="_blank" rel="noopener noreferrer">&#13;
-            https://gitlab.com/albina-euregio/textcat-ng&#13;
-          </a></p>
+        <p><a href="https://gitlab.com/albina-euregio/textcat-ng" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/textcat-ng</a></p>
+        <p>Licenza: <a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license noopener noreferrer" target="_blank">GPL-3.0</a></p>
       </div>
     </div>
   </div>
-</section><section class="section-centered"><div id="software" class="panel">
-    <h2>Software esterno</h2>
-    <p>Nel nostro progetto viene utilizzato il seguente software esterno:</p>
+</section><section class="section-centered"><div id="geodata" class="panel">
+    <h2>Dati geografici (GPL-3.0 / CC0 1.0)</h2>
+    <p><a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license noopener noreferrer" target="_blank">GNU General Public License 3.0 (GPL-3.0)</a> / <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.it" rel="license noopener noreferrer" target="_blank">Creative Commons Zero 1.0 Universale (CC0 1.0)</a></p>
+    <p>Anche i nostri dati geografici sono liberamente disponibili. Fa fede il file di licenza contenuto nel rispettivo repository.</p>
   </div>
-
-  <div id="geonames" class="panel field border">
-    <div class="grid">
-      <div class="grid-item small-12">
-        <div class="panel-header">
-          <h6><a href="http://mapyrus.sourceforge.net/" target="_blank" rel="noopener noreferrer">&#13;
-              Mapyrus&#13;
-            </a></h6>
-          <p>Le overlay e tutte le altre mappe di allerta sono prodotte da Mapyrus.</p>
-        </div>
-        <div class="panel-header">
-          <h6><a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">&#13;
-              GeoNames&#13;
-            </a></h6>
-          <p>La ricerca delle caratteristiche geografiche nelle mappe è alimentata da&#13;
-            GeoNames.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section><section class="section-centered section-dangerscale"><div id="geodata" class="panel">
-    <h2>Dati GIS</h2>
-    <p>Anche i nostri dati geografici sono disponibili gratuitamente:</p>
-  </div>
-
-  <div id="base-map" class="panel field border">
+</section><section class="section-centered section-dangerscale"><div id="base-map" class="panel field border">
     <div class="grid">
       <div class="grid-item small-3"><img src="/content_files/base-map.webp" title="Base Map" alt="Base Map" class="warning-level-icon"></div>
       <div class="grid-item small-9">
@@ -239,9 +182,8 @@
           <p>GIS</p>
           <h4>Carta base</h4>
         </div>
-        <p><a href="https://gitlab.com/albina-euregio/base-map" target="_blank" rel="noopener noreferrer">&#13;
-            https://gitlab.com/albina-euregio/base-map&#13;
-          </a></p>
+        <p><a href="https://gitlab.com/albina-euregio/base-map" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/base-map</a></p>
+        <p>Licenza: <a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license noopener noreferrer" target="_blank">GPL-3.0</a></p>
       </div>
     </div>
   </div>
@@ -254,9 +196,8 @@
           <p>Poligoni</p>
           <h4>Micro-aree</h4>
         </div>
-        <p><a href="https://gitlab.com/eaws/eaws-regions" target="_blank" rel="noopener noreferrer">&#13;
-            https://gitlab.com/eaws/eaws-regions&#13;
-          </a></p>
+        <p><a href="https://gitlab.com/eaws/eaws-regions" target="_blank" rel="noopener noreferrer">https://gitlab.com/eaws/eaws-regions</a></p>
+        <p>Licenza: <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.it" rel="license noopener noreferrer" target="_blank">CC0 1.0</a></p>
       </div>
     </div>
   </div>
@@ -267,13 +208,96 @@
       <div class="grid-item small-9">
         <div class="panel-header">
           <p>GIS</p>
-          <h4>Carte previsione valanghe</h4>
+          <h4>Carte dei gradi di pericolo</h4>
         </div>
-        <p><a href="https://gitlab.com/albina-euregio/avalanche-warning-maps" target="_blank" rel="noopener noreferrer">&#13;
-            https://gitlab.com/albina-euregio/avalanche-warning-maps&#13;
-          </a></p>
+        <p><a href="https://gitlab.com/albina-euregio/avalanche-warning-maps" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/avalanche-warning-maps</a></p>
+        <p>Licenza: <a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license noopener noreferrer" target="_blank">GPL-3.0</a></p>
       </div>
     </div>
+  </div>
+</section><section class="section-centered"><div id="third-party" class="panel">
+    <h2>Non coperti dalla presente licenza</h2>
+    <p>I seguenti dati provengono da terzi. Non possiamo concedere alcun diritto di utilizzo su di essi; si applicano le condizioni dei rispettivi titolari dei diritti.</p>
+    <ul>
+      <li>Bollettini valanghe di altri membri dell’<a href="https://www.avalanches.org/" target="_blank" rel="noopener noreferrer">EAWS</a> rappresentati in forma aggregata.</li>
+      <li>Dati di stazioni meteorologiche di altri gestori.</li>
+      <li>Dati meteorologici di GeoSphere Austria.</li>
+      <li>Eventi valanghivi importati da LAWIS e registrati prima del 1° ottobre 2026.</li>
+      <li>Profili stratigrafici della neve importati da LAWIS e registrati prima del 1° ottobre 2026.</li>
+      <li>Icone dell’<a href="https://www.avalanches.org/" target="_blank" rel="noopener noreferrer">EAWS</a>.</li>
+      <li>Foto, osservazioni, profili stratigrafici della neve e allegati privi del copyright di uno dei Servizi valanghe.</li>
+    </ul>
+  </div>
+</section><section class="section-centered"><div id="software" class="panel">
+    <h2>Software esterno</h2>
+    <p>Nel nostro progetto viene utilizzato il seguente software esterno:</p>
+    <div class="table-container">
+      <table class="pure-table pure-table-striped full-width">
+        <thead><tr>
+            <th>Software</th>
+            <th>Utilizzo</th>
+          </tr></thead>
+        <tbody>
+          <tr>
+            <td><a href="http://mapyrus.sourceforge.net/" target="_blank" rel="noopener noreferrer">Mapyrus</a></td>
+            <td>L’overlay e tutte le altre carte dei gradi di pericolo vengono disegnati con Mapyrus.</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a></td>
+            <td>La ricerca all’interno della carta avviene tramite GeoNames.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section><section class="section-centered"><div id="integrity" class="panel">
+    <h2>Integrità dei dati originali</h2>
+    <p>I bollettini valanghe sono informazioni ufficiali rilevanti per la sicurezza. La creazione di opere autonome basate su questi dati è espressamente auspicata. Rientrano in particolare in questa categoria commenti, integrazioni, correzioni, traduzioni, analisi e visualizzazioni.</p>
+    <p>Per la riproduzione, la distribuzione e la modifica di bollettini valanghe, rapporti sugli eventi e testi del blog vale quanto segue:</p>
+    <ul>
+      <li>I contenuti riprodotti come bollettino valanghe o come pubblicazione di un Servizio valanghe devono essere ripresi senza modifiche.</li>
+      <li>Le modifiche devono essere indicate.</li>
+      <li>Le informazioni originali devono essere chiaramente distinte da integrazioni, correzioni, traduzioni e valutazioni proprie.</li>
+      <li>Le versioni modificate o ampliate non possono essere presentate come pubblicazioni originali o ufficiali dei Servizi valanghe né suscitare l’impressione di un’approvazione da parte di questi ultimi.</li>
+      <li>La fonte deve essere citata e, ove possibile, deve essere inserito un link all’originale.</li>
+    </ul>
+    <p>Tali obblighi derivano dalle condizioni della licenza CC BY 4.0. In caso di violazione, i diritti concessi dalla licenza si estinguono automaticamente.</p>
+  </div>
+</section><section class="section-centered"><div id="attribution" class="panel">
+    <h2>Attribuzione e citazione della fonte</h2>
+    <p>Per l’utilizzo di materiale di valanghe.report è necessaria un’adeguata citazione della fonte. Questa dovrebbe contenere, ove possibile, la fonte, un link al materiale originale e un’indicazione della licenza utilizzata. Si raccomandano le seguenti citazioni della fonte:</p>
+    <div class="table-container">
+      <table class="pure-table pure-table-striped full-width">
+        <thead><tr>
+            <th>Regione</th>
+            <th>Citazione della fonte</th>
+          </tr></thead>
+        <tbody>
+          <tr>
+            <td>Tirolo</td>
+            <td>Servizio Valanghe del Land Tirolo</td>
+          </tr>
+          <tr>
+            <td>Alto Adige</td>
+            <td>Servizio Prevenzione Valanghe della Provincia Autonoma di Bolzano</td>
+          </tr>
+          <tr>
+            <td>Trentino</td>
+            <td>Servizio Prevenzione Valanghe della Provincia Autonoma di Trento</td>
+          </tr>
+          <tr>
+            <td>Carinzia</td>
+            <td>Servizio Valanghe della Carinzia, Ufficio del Governo del Land Carinzia</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Eventuali modifiche al materiale originale devono essere indicate. La citazione della fonte non deve suscitare l’impressione di un sostegno, di un’approvazione o di una collaborazione ufficiale da parte di valanghe.report o dei Servizi valanghe.</p>
+  </div>
+</section><section class="section-centered"><div id="fair-use" class="panel">
+    <h2>Linee guida per l’uso corretto (fair use)</h2>
+    <p>Le richieste dirette di applicazioni ai nostri server sono consentite nell’ambito di un utilizzo consueto e di normali interazioni degli utenti. Gli scaricamenti di grandi quantità di dati e i download massivi devono essere effettuati, per quanto possibile, al di fuori degli orari di maggiore utilizzo, al fine di non compromettere la disponibilità e le prestazioni dei nostri servizi. Le richieste devono essere identificate con uno User-Agent univoco.</p>
+    <p>In caso di memorizzazione temporanea (caching) dei contenuti, si tenga presente che i bollettini possono essere aggiornati in qualsiasi momento. Per evitare l’utilizzo di informazioni non aggiornate, raccomandiamo pertanto di verificare regolarmente l’attualità dei dati e, in particolare, di recuperarne la versione aggiornata prima di ogni ulteriore utilizzo.</p>
   </div>
 </section>
 </div>
