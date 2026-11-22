@@ -99,29 +99,92 @@ test("2022-02-01", { tag: "@cross-browser" }, async ({ page }) => {
 //   await expect(await bulletin.screenshot()).toMatchSnapshot();
 // });
 
-test("2022-02-01 subscribe", async ({ page }) => {
+test("2022-02-01 subscribe telegram", async ({ page }) => {
   await page.goto("2022-02-01");
   await page
     .locator("#section-bulletin-legendlinkbar")
     .getByRole("link", { name: "Subscribe" })
     .click();
-  await page.getByRole("button", { name: "Telegram", exact: true }).click({
-    force: true
-  });
-  await page.getByRole("button", { name: "Tyrol", exact: true }).click({
-    force: true
-  });
+
+  await page.getByRole("button", { name: "Tyrol", exact: true }).click();
+  await page.getByRole("button", { name: "Telegram" }).click();
   await page.getByRole("dialog").getByRole("button", { name: "DE" }).click();
 
   const pagePromise = page.waitForEvent("popup");
-  await page.getByRole("button", { name: "Subscribe" }).click();
+  await page
+    .getByRole("dialog")
+    .getByRole("link", { name: "Subscribe" })
+    .click();
   const telegram = await pagePromise;
   await expect(await telegram.evaluate("location.href")).toMatch(
     /https:\/\/t.me\/lawinenwarndienst_tirol/
   );
   await telegram.getByRole("link", { name: "Preview channel" }).click();
   await telegram.close();
-  await page.getByRole("button", { name: "Close" }).click();
+  // await page.getByRole("button", { name: "Close" }).click();
+});
+
+test("2022-02-01 subscribe web push", async ({ page }) => {
+  // Web Push: a real pushManager.subscribe() needs a browser push service
+  // (FCM etc.), which headless browsers don't have. Stub PushManager with a
+  // fake subscription so we can check what the app sends to the backend.
+  await page.context().grantPermissions(["notifications"]);
+  await page.addInitScript(() => {
+    let current: PushSubscription | null = null;
+    const fake = {
+      endpoint: "https://push.example.test/fake-endpoint",
+      toJSON: () => ({
+        endpoint: "https://push.example.test/fake-endpoint",
+        keys: { auth: "fake-auth", p256dh: "fake-p256dh" }
+      }),
+      unsubscribe: () => {
+        current = null;
+        return Promise.resolve(true);
+      }
+    } as unknown as PushSubscription;
+    PushManager.prototype.subscribe = () => Promise.resolve((current = fake));
+    PushManager.prototype.getSubscription = () => Promise.resolve(current);
+  });
+  // Never register fake subscriptions with the real backend.
+  await page.route(/\/push\/(un)?subscribe$/, route =>
+    route.fulfill({ status: 200, body: "" })
+  );
+
+  await page.goto("2022-02-01");
+  await page
+    .locator("#section-bulletin-legendlinkbar")
+    .getByRole("link", { name: "Subscribe" })
+    .click();
+
+  await page.getByRole("button", { name: "Tyrol", exact: true }).click();
+  await page.getByRole("button", { name: "Web Push" }).click();
+  await page.getByRole("button", { name: "IT", exact: true }).click();
+
+  const subscribeRequest = page.waitForRequest(/\/push\/subscribe$/);
+  await page.getByRole("button", { name: "Enable Web Push" }).click();
+  const subscribe = await subscribeRequest;
+  expect(subscribe.method()).toBe("POST");
+  expect(subscribe.headers()["content-type"]).toBe("application/json");
+  expect(subscribe.postDataJSON()).toEqual({
+    endpoint: "https://push.example.test/fake-endpoint",
+    auth: "fake-auth",
+    p256dh: "fake-p256dh",
+    language: "it",
+    region: "AT-07"
+  });
+
+  const unsubscribeRequest = page.waitForRequest(/\/push\/unsubscribe$/);
+  await page.getByRole("button", { name: "Disable Web Push" }).click();
+  const unsubscribe = await unsubscribeRequest;
+  expect(unsubscribe.method()).toBe("POST");
+  expect(unsubscribe.postDataJSON()).toEqual({
+    endpoint: "https://push.example.test/fake-endpoint",
+    auth: "fake-auth",
+    p256dh: "fake-p256dh"
+  });
+  await expect(
+    page.getByRole("button", { name: "Enable Web Push" })
+  ).toBeVisible();
 });
 
 test(
