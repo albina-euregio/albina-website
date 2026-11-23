@@ -2,6 +2,20 @@
 
 <!-- Update using `pnpm changelog <TAG>` before creating new tag <TAG> with git. -->
 
+## [9.4.0] - 2026-11-23
+
+### 🚀 Features
+
+- Add Slovenian (sl) language
+- _(bulletin)_ Fall back to English bulletin if not available in current language
+
+### ⚙️ Miscellaneous Tasks
+
+- Update to linea 9.2.0, @eaws packages 9.2.0
+- _(handbook)_ Update lawis.at references to lawinen.report
+- _(education)_ Update graphics with German translations, correct typos
+- _(i18n)_ Update translations
+
 ## [9.3.0] - 2026-11-17
 
 ### 🚀 Features
