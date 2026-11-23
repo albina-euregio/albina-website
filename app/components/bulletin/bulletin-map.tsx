@@ -34,6 +34,7 @@ import {
   type JumpToOptions,
   type LngLatBoundsLike,
   Map as MlMap,
+  type MapGeoJSONFeature,
   NavigationControl,
   ScaleControl
 } from "maplibre-gl";
@@ -85,6 +86,18 @@ const REGION_SOURCE = "eaws-regions";
 
 // Fill layers hit-tested for click / hover, in rendering order (topmost last).
 const FILL_LAYERS = ["eaws-regions-fill", "eaws-outline-fill"];
+
+// Foreign EAWS micro-regions may overlap our own (e.g. AEMET's ES-RI covers
+// ES-AR-12) and be rendered on top, so prefer our own micro-region when hit.
+function pickRegionFeature(
+  features: MapGeoJSONFeature[] | undefined,
+  microRegions: string[]
+): MapGeoJSONFeature | undefined {
+  return (
+    features?.find(f => microRegions.includes(f.properties?.id)) ??
+    features?.[0]
+  );
+}
 
 // Own/extra regions are styled per micro-region, foreign EAWS providers as a
 // whole outline, so a feature-state has to be addressed on the right
@@ -935,9 +948,10 @@ function MapLibreMap({
       // Region interaction, migrated from the former Leaflet PbfLayerOverlay
       // event handlers: select on click (empty space deselects), track hover.
       overlay.on("click", e => {
-        const [feature] = overlay.queryRenderedFeatures(e.point, {
-          layers: FILL_LAYERS
-        });
+        const feature = pickRegionFeature(
+          overlay.queryRenderedFeatures(e.point, { layers: FILL_LAYERS }),
+          microRegionsRef.current
+        );
         const id = feature?.properties?.id ?? "";
         if (!id || microRegionsRef.current.includes(id)) {
           handleSelectRegionRef.current(id);
@@ -968,7 +982,7 @@ function MapLibreMap({
       };
       overlay.on("mousemove", FILL_LAYERS, e => {
         overlay.getCanvas().style.cursor = "pointer";
-        const id = e.features?.[0]?.id;
+        const id = pickRegionFeature(e.features, microRegionsRef.current)?.id;
         if (id == null || String(id) === hoverAnchorRef.current) return;
         hoverAnchorRef.current = String(id);
         const group = featureStatesRef.current.hoverGroup[String(id)] ?? [
