@@ -55,17 +55,8 @@ function involvementMessage(
 }
 
 /**
- * The persons count as it reads inside the involvement phrase: parenthesized,
- * and — being whitespace-free — unbreakable across lines. The parentheses live
- * here rather than in the message so the emphasis can cover them too.
- */
-function countText(count: number, intl: ReturnType<typeof useIntl>): string {
-  return `(${intl.formatNumber(count)})`;
-}
-
-/**
- * An incident's involvement as one short phrase — "Incident with fatalities
- * (2)", "Incident without involvement", … The persons count is set in bold so
+ * An incident's involvement as one short phrase — "Incident with 2
+ * fatalities", "Incident without involvement", … The persons count is set in bold so
  * it reads apart from the label around it. Shared by the incident table and the
  * details dialog; the map's marker tooltip uses `involvementHtml` instead.
  */
@@ -82,7 +73,7 @@ export function involvementText(
           count: createElement(
             "strong",
             { key: "count" },
-            countText(count, intl)
+            intl.formatNumber(count)
           )
         }
       );
@@ -103,5 +94,5 @@ export function involvementHtml(
   if (count === undefined) return escapeHtml(intl.formatMessage({ id }));
   return escapeHtml(
     intl.formatMessage({ id }, { count: COUNT_PLACEHOLDER })
-  ).replace(COUNT_PLACEHOLDER, `<strong>${countText(count, intl)}</strong>`);
+  ).replace(COUNT_PLACEHOLDER, `<strong>${intl.formatNumber(count)}</strong>`);
 }
