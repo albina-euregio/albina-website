@@ -1,200 +1,200 @@
 {
   "danger-scale-1": {
-    "heading": "",
+    "heading": "Grau de perill 1 — Feble",
     "text": "",
-    "img": "",
+    "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-2": {
-    "heading": "",
+    "heading": "Grau de perill 2 — Moderat",
     "text": "",
-    "img": "",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-3": {
-    "heading": "",
+    "heading": "Grau de perill 3 — Marcat",
     "text": "",
-    "img": "",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-4": {
-    "heading": "",
+    "heading": "Grau de perill 4 — Fort",
     "text": "",
-    "img": "",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-5": {
-    "heading": "",
+    "heading": "Grau de perill 5 — Extrem",
     "text": "",
-    "img": "",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "avalanche-frequency-none": {
-    "heading": "",
+    "heading": "Freqüència: Cap o quasi cap",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|few,some,many|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-few": {
-    "heading": "",
+    "heading": "Freqüència: Pocs",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|few,some,many|0|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-some": {
-    "heading": "",
+    "heading": "Freqüència: Alguns",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|few,some,many|1|__END_SLIDER__",
     "source": "false"
   },
   "avalanche-frequency-many": {
-    "heading": "",
+    "heading": "Freqüència: Alguns",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|few,some,many|2|__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-very_poor": {
-    "heading": "",
+    "heading": "Estabilitat del mantell de neu: Molt pobre",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|0|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-poor": {
-    "heading": "",
+    "heading": "Estabilitat del mantell de neu: Pobre",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|1|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-fair": {
-    "heading": "",
+    "heading": "Estabilitat del mantell de neu: Regular",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|2|90__END_SLIDER__",
     "source": "false"
   },
   "snowpack-stability-good": {
-    "heading": "",
+    "heading": "Estabilitat del mantell de neu: Bona",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|very poor,poor,fair,good|3|90__END_SLIDER__",
     "source": "false"
   },
   "avalanche-size-1": {
-    "heading": "",
+    "heading": "Mida 1: Allau petita (purga)",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|0|__END_SLIDER__ <img alt=\"Small avalanche (sluff) - size 1\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-1_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-2": {
-    "heading": "",
+    "heading": "Mida 2: Allau mitjana",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|1|__END_SLIDER__ <img alt=\"Medium avalanche - size 2\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-300x200.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-768x512.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1024x683.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services-1536x1024.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-2_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "avalanche-size-3": {
-    "heading": "",
+    "heading": "Mida 3: Allau gran",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|2|__END_SLIDER__ <img alt=\"Large avalanche - size 3\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1024x768.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services-1536x1152.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-3_lwd-tirol_european-avalanche-warning-services.jpg 2048w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-4": {
-    "heading": "",
+    "heading": "Mida 4: Allau molt gran",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|3|__END_SLIDER__ <img alt=\"Very large avalanche - size 4\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-150x100.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-300x201.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-768x514.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1024x685.jpg 1024w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-1536x1028.jpg 1536w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-2048x1371.jpg 2048w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-4_lwd-tirol_european-avalanche-warning-services-scaled.jpg 2560w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "avalanche-size-5": {
-    "heading": "",
+    "heading": "Mida 5: Allau extremadament gran",
     "text": "",
-    "img": "",
+    "img": "__SIMPLE_SLIDER__|1,2,3,4,5|4|__END_SLIDER__ <img alt=\"Extremely large avalanche - size 5\" class=\"wis-lzload-img\" srcset=\"https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-150x113.jpg 150w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-300x225.jpg 300w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services-768x576.jpg 768w, https://www.avalanches.org/wp-content/uploads/2022/07/glossary_180_avalanche-size-5_no-name_european-avalanche-warning-services.jpg 800w\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\">",
     "source": "false"
   },
   "problem-new_snow": {
-    "heading": "",
+    "heading": "Problema d'allaus: Neu recent",
     "text": "",
-    "img": "",
+    "img": "<img src=\"/content_files/schnee_neuschnee_0-1920.webp\" title=\"New snow\" alt=\"New snow\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "problem-wind_slab": {
-    "heading": "",
+    "heading": "Problema d'allaus: Plaques de vent",
     "text": "",
-    "img": "",
+    "img": "<img src=\"/content_files/schnee_triebschnee_2-1920.webp\" title=\"Wind slab\" alt=\"Wind slab\"  style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\"/>",
     "source": "false"
   },
   "problem-persistent_weak_layers": {
-    "heading": "",
+    "heading": "Problema d'allaus: Capes febles persistents",
     "text": "",
-    "img": "",
+    "img": "<img src=\"/content_files/schnee_altschnee_3-1920.webp\" title=\"Persistent weak layers\" alt=\"Persistent weak layers\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-wet_snow": {
-    "heading": "",
+    "heading": "Problema d'allaus: Neu humida",
     "text": "",
-    "img": "",
+    "img": "<img src=\"/content_files/schnee_nassschnee_0-1920.webp\" title=\"Wet snow\" alt=\"Wet snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "problem-gliding_snow": {
-    "heading": "",
+    "heading": "Problema d'allaus: Lliscaments basals",
     "text": "",
-    "img": "",
+    "img": "<img src=\"/content_files/schnee_gleitschnee_0-1920.webp\" title=\"Gliding snow\" alt=\"Gliding snow\" style=\"width:100%;max-width:1000px;height:auto;display:block;margin:auto;\" />",
     "source": "false"
   },
   "danger-pattern-DP1": {
-    "heading": "",
+    "heading": "pp.1 capa feble persistent profunda",
     "text": "",
-    "img": "",
+    "img": "<img alt=\"dp.1 deep persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP2": {
-    "heading": "",
+    "heading": "pp.2 allaus de lliscament",
     "text": "",
-    "img": "",
+    "img": "<img alt=\"dp.2 gliding snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP3": {
-    "heading": "",
+    "heading": "pp.3 pluja a sobre la neu",
     "text": "",
-    "img": "",
+    "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP4": {
-    "heading": "",
+    "heading": "pp.4 fred a sobre de temperat / temperat a sobre de fred",
     "text": "",
-    "img": "",
+    "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP5": {
-    "heading": "",
+    "heading": "pp.5: nevada després d'un llarg període fred",
     "text": "",
-    "img": "",
+    "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP6": {
-    "heading": "",
+    "heading": "pp.6 neu sense cohesió i vent",
     "text": "",
-    "img": "",
+    "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP7": {
-    "heading": "",
+    "heading": "pp.7 mantell de neu prim vora mantell de neu gruixut",
     "text": "",
-    "img": "",
+    "img": "<img alt=\"dp.7 shallow snow next to deep snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP8": {
-    "heading": "",
+    "heading": "pp.8 gebre enterrat",
     "text": "",
-    "img": "",
+    "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP9": {
-    "heading": "",
+    "heading": "pp.9 neu rodona enterrada",
     "text": "",
-    "img": "",
+    "img": "<img alt=\"dp.9 buried graupel\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP10": {
-    "heading": "",
+    "heading": "pp.10 escenari de primavera",
     "text": "",
-    "img": "",
+    "img": "<img alt=\"dp.10 springtime situation\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/>",
     "source": "false"
   }
 }
