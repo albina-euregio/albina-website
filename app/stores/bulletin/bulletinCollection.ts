@@ -21,6 +21,8 @@ import {
 
 export type Status = "pending" | "ok" | "empty" | "n/a";
 
+const FALLBACK_LANG = "en";
+
 type RegionID = string;
 type RegionLowHighAmPm = `${RegionID}${ColonAmPm}`;
 
@@ -59,16 +61,27 @@ class BulletinCollection {
   eawsMaxDangerRatings: MaxDangerRatings = {};
   eawsAvalancheProblems: EawsAvalancheProblems = {};
 
+  /** Language of the loaded bulletins, English if not published in {@link lang} */
+  dataLang: string;
+
   constructor(
     public readonly date: Temporal.PlainDate,
     public readonly lang: string
-  ) {}
+  ) {
+    this.dataLang = lang;
+  }
+
+  private useFallbackLang(): boolean {
+    if (this.dataLang === FALLBACK_LANG) return false;
+    this.dataLang = FALLBACK_LANG;
+    return true;
+  }
 
   private _getBulletinUrl(
     publicationDate = "",
     regionOverride?: string
   ): string | undefined {
-    if (!this.date || !this.lang) {
+    if (!this.date || !this.dataLang) {
       return;
     }
     return config.template(
@@ -79,7 +92,7 @@ class BulletinCollection {
         date: this.date,
         publicationDate,
         region: `${regionOverride ?? $focusRegions.get()[0]}_`,
-        lang: this.lang
+        lang: this.dataLang
       }
     );
   }
@@ -97,7 +110,8 @@ class BulletinCollection {
         .filter((url): url is string => !!url)
         .map(url => fetchExists(url))
     );
-    return results.some(Boolean) ? "ok" : "n/a";
+    if (results.some(Boolean)) return "ok";
+    return this.useFallbackLang() ? this.loadStatus() : "n/a";
   }
 
   private async fetchFromURL(url: string): Promise<Bulletins> {
@@ -152,6 +166,9 @@ class BulletinCollection {
           );
         }
       }
+    }
+    if (!this.dataRaw?.bulletins?.length && this.useFallbackLang()) {
+      return this.load();
     }
     this.status = this.dataRaw.bulletins.length > 0 ? "ok" : "n/a";
     this.maxDangerRatings = this.computeMaxDangerRatings();

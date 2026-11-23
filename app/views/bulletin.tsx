@@ -166,7 +166,7 @@ const Bulletin = () => {
   const simple = () =>
     config.template(window.config.apis.bulletin.simple, {
       date: collection?.date || "latest",
-      lang
+      lang: collection?.dataLang ?? lang
     });
 
   // Activate the 2026 bulletin styling ([data-bulletin-version="2026"] scope in
