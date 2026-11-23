@@ -1,36 +1,36 @@
 {
   "danger-scale-1": {
-    "heading": "Grado de peligro 1 (Débil)",
+    "heading": "Grado de peligro 1 - Débil",
     "text": "<p><b>  Situación de aludes generalmente favorable</p><p>  No se observan signos de alarma. Los aludes solo pueden desencadenarse en casos aislados, especialmente en laderas extremadamente inclinadas</p><p><b>  Recomendaciones para actividades fuera de pista</b></p><p>  Circular por las laderas extremadamente inclinadas de una en una persona y prestar atención al riesgo de caídas.</p>",
     "img": "<img src=\"/content_files/level_1.webp\" title=\"Danger Level 1\" alt=\"Danger Level 1\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-2": {
-    "heading": "Grado de peligro 2 (Limitado)",
+    "heading": "Grado de peligro 2 - Limitado",
     "text": "<p><b>Mayormente, situación de aludes favorable</b></p><p>En casos aislados podrán identificarse señales de alerta. Se pueden desencadenar aludes particularmente en pendientes muy empinadas dentro de las orientaciones y las cotas indicadas en el boletín. Avalanchas grandes o tamaño 3 naturales son improbables.</p><p><b>Recomendaciones para los practicantes del esquí de montña</b></p><p>Las actividades de esquí de montaña han de ser diseñadas cuidadosamente, especialmente en laderas con la orientación y la elevación indicadas en el boletín. Importante cruzar laderas muy empinadas de uno en uno y prestar especial atención a estructuras del manto desfavorables (<a href=\"/education/avalanche-problems#persistent_weak_layers\">capas débiles persistentes</a>).</p></div>",
-    "img": "",
+    "img": "<img src=\"/content_files/level_2.webp\" title=\"Danger Level 2\" alt=\"Danger Level 2\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-3": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Grado de peligro 3 - Notable",
+    "text": "<p><b>Situación de avalanchas crítica</b></p><p>Será habitual escuchar \"Whumpfs\" y observar fisuras de propagación. Las avalanchas se pueden desencadenar fácilmente, especialmente en laderas inclinadas dentro de las orientaciones y cotas indicadas en el boletín de aludes. Pueden ocurrir avalanchas naturales y desencadenamientos remotos o a distancia. N</p><p><b>Recomendaciones para las actividades de montaña invernal</b></p><p>Se trata de la situación más crítica para la práctica de estas actividades. Manejar el terreno de forma eficiente y seleccionar rutas con la menor exposición posible. Evitar laderas muy empinadas con la orientación y en las cotas descritas en el boletín. Se aconseja a personas sin experiencia permanecer en estaciones de esquí y zonas balizadas.</p></div>",
+    "img": "<img src=\"/content_files/level_3.webp\" title=\"Danger Level 3\" alt=\"Danger Level 3\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-4": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Grado de peligro 4 - Fuerte",
+    "text": "<p><b>Situación de avalanchas muy crítica</b></p><p>Serán habituales las avalanchas naturales que, frecuentemente, serán muy grandes - tamaño 4-. Se pueden desencadenar aludes fácilmente en muchas laderas empinadas. Será habitual el desencadenamiento remoto de avalanchas. Con frecuencia, se escucharán con frecuencia \"Whumpfs\" y se observarán fracturas de propagación.</p><p><b>Recomendaciones para la práctica de actividades de montaña invernal</b></p><p>Permanecer en terreno con pendientes moderadas. Prestar atención a las zonas de llegada de avalanchas grandes. Se aconseja a personas sin experiencia que permanezcan en las pistas de esquí y zonas balizadas. </p></div>",
+    "img": "<img src=\"/content_files/level_4.webp\" title=\"Danger Level 4\" alt=\"Danger Level 4\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "danger-scale-5": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "Grado de peligro 5 - Muy fuerte",
+    "text": "<p><b>Situación de peligro de avalanchas extraordiaria</b></p><p>Se esperan numerosas avalanchas naturales muy grandes y extremadamente grandes - tamaños 4 y 5 -. Éstas, pueden alcanzar carreteras y núcleos de población en el valle.</p><p><b>Recomendaciones para los/as practicantes de las actividades de montaña invernal</b></p><p>Se recomienda no practicar deportes de invierno más allá de las estaciones de esquí y zonas balizadas. </p></div>",
+    "img": "<img src=\"/content_files/level_5.webp\" title=\"Danger Level 5\" alt=\"Danger Level 5\" class=\"warning-level-icon\" style=\"display:block;margin:auto;max-height:100px;padding-bottom:15px;height:auto;\" />",
     "source": "false"
   },
   "avalanche-frequency-none": {
-    "heading": "",
+    "heading": "Frecuencia: Ninguno/a o prácticamente ninguno/a",
     "text": "<p>  La frecuencia indica el número esperado de lugares propensos al desencadenamiento de aludes para una determinada clase de estabilidad del manto de nieve dentro de la región de aviso. Para la clase <b> ninguna o casi ninguna</b>,  os lugares con una estabilidad del manto nivoso de clase <b>{stabilityClass}</b>  no existen o son tan escasos que no se consideran relevantes para la evaluación de la estabilidad.</p>",
     "img": "__SIMPLE_SLIDER__|few,some,many|__END_SLIDER__",
     "source": "false"
@@ -138,63 +138,63 @@
     "source": "false"
   },
   "danger-pattern-DP1": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "dp.1 capa débil persistente profunda",
+    "text": "<p>Al inicio de la temporada invernal, las avalanchas de placa se observan frecuentemente tras la segunda nevada intensa; normalmente en laderas umbrías muy empinadas de cotas altas. Esto se debe a que, en otoño, tras las primeras grandes nevadas, suele instaurarse un periodo largo de tiempo estable con altas presiones. Estas condiciones son las ideales para el inicio del metamorfismo de la nieve hacia cristales poco cohesionados que luego formarán capas débiles persistentes en profundidad. </p><p><a href=\"https://www.youtube.com/watch?v=rdYIWWzOWWY\" target=\"_blank\" rel=\"noopener noreferrer\">Ver vídeo en YouTube</a></p>",
+    "img": "<img alt=\"dp.1 deep persistent weak layer\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm1.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP2": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "dp.2 deslizamientos basales",
+    "text": "<p>Los deslizamientos basales son unas de las avalanchas más difíciles de predecir, ya que pueden desencadenarse en cualquier momento del día, e incluso la noche, hasta en los momentos de más estabilidad. Entre ellos, el día más frío y más caluroso del invierno. Además, los deslizamientos basales no se desencadenan por sobrecargas adicionales.</p><p><a href=\"https://www.youtube.com/watch?v=Pnb-sSwtccc\" target=\"_blank\" rel=\"noopener noreferrer\">Ver el vídeo en YouTube</a></p>",
+    "img": "<img alt=\"dp.2 gliding snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm2.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP3": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "dp.3 lluvia sobre nieve",
+    "text": "<p>Lluvia sobre nieve es una de las señales de alarma más típicas en la ciencia de las avalanchas y de la nieve. Esto se debe a que, por un lado, el peso adicional de la lluvia produce una sobrecarga en todo el manto; y, por otro, se pierde al instante la firmeza y cohesión del manto de nieve. Por todo ello, estas avalanchas son inevitables. Los eventos de lluvia pueden ocurrir en cualquier momento del invierno. Sin embargo, las buenas noticias son que ninguna señal de peligro es tan fácil de reconocer como esta.</p><p><a href=\"https://www.youtube.com/watch?v=Hegy61JcLsQ\" target=\"_blank\" rel=\"noopener noreferrer\">Ver el vídeo en YouTube</a></p>",
+    "img": "<img alt=\"dp.3 rain on snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm3.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP4": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "dp.4 frío sobre cálido / cálido sobre frío",
+    "text": "<p>En la mayoría de las ocasiones, grandes diferencias de temperatura durante la nevada tienen una efecto negativo sobre la estabilidad , ya que favorecen el metamorfismo de la nieve dentro del manto. Como regla general, se forma una capa débil delgada que es muy propensa a desencadenar avalanchas. Esta capa se encuentra frecuentemente en laderas soleadas (??). Esta situación puede ser muy engañosa ya que la capa débil no se forma inmediatamente después de que se deposite la nieve nueva, si no que se forma a lo largo de los días posteriores .</p><p><a href=\"https://www.youtube.com/watch?v=OQWqjRIqf3c\" target=\"_blank\" rel=\"noopener noreferrer\">Ver vídeo en YouTube</a></p>",
+    "img": "<img alt=\"dp.4 cold on warm / warm on cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm4.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP5": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "dp.5 nevada tras un periodo largo de frío",
+    "text": "<p>Entre todas las situaciones de avalanchas esta es la más clásica: tras un periodo largo de frío, empieza a nevar. El problema es que la nieve reciente, transportada por el viento, se deposita en laderas protegidas a sotavento sobre la nieve vieja sin cohesión, que normalmente contiene cubiletes. Las placas de viento y capas débiles persistentes quedan muy débilmente ´cohesionadas entre sí. En esta situación, el manto de nieve simplemente está a la espera de una sobrecarga adicional que desencadene la avalancha.</p><p><a href=\"https://www.youtube.com/watch?v=Eo7BJEVRMqc\" target=\"_blank\" rel=\"noopener noreferrer\" >Ver el vídeo enYouTube</a></p>",
+    "img": "<img alt=\"dp.5 snowfall after long period of cold\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm5.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP6": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "dp.6 nieve suelta y viento",
+    "text": "<p>'El viento es el arquitecto de las avalanchas.' A día de hoy, este proverbio clásico de 1930 de Wilhelm Paulcke, permanece vigente. El viento tiene una influencia tanto sobre la nieve que se está depositando como sobre la que ya está depositada. Es uno de los principales agentes en la formación de avalanchas. Cuando la nieve no tiene cohesión y está seca, el viento la puede transportar, aumentando así el peligro de avalanchas. Cuanto más fría está la nieve transportada por el viento, más reactiva es a las sobrecargas adicionales. Esto se debe a que es más frágil o quebradiza.</p><p><a href=\"https://www.youtube.com/watch?v=CXnfPRZIIao\" target=\"_blank\" rel=\"noopener noreferrer\" >Ver vídeo en YouTube</a></p>",
+    "img": "<img alt=\"dp.6 loose snow and wind\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm6.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP7": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "dp.7 nieve poco profunda junto a nieve profunda",
+    "text": "<p>Las zonas donde el espesor de nieve es menor conforman, normalmente, un manto con capas menos favorables a la estabilidad que las zonas donde el espesor es mayor. Esto se debe a que en mantos delgados los procesos de metamorfismo de la nieve se amplifican. Además, las avalanchas de placa son más fácilmente desencadenables donde el manto es más delgado ya que las capas débiles no están tan enterradas. Al encontrarse más superficiales, son más propensas al desencadenamiento por sobrecargas adicionales. Por esta razón, a menudo se desencadenan avalanchas en zonas de transición entre mantos finos y gruesos.</p><p><a href=\"https://www.youtube.com/watch?v=FIZpZvthr84\" target=\"_blank\" rel=\"noopener noreferrer\" >Ver el vídeo en YouTube</a></p>",
+    "img": "<img alt=\"dp.7 shallow snow next to deep snow\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm7.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP8": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "pp.8 escarcha de superficie enterrada",
+    "text": "<p>La escarcha de superficie es uno de los cristales de nieve más bellos que existen. En sí misma no supone ningún riesgo potencial. Este potencial solamente se hace patente cuando la escarcha queda enterrada por capas de nieve recienten y cohesionada. Es entonces cuando se  vuelve peligrosa. De hecho, se considera una de las capas débiles más críticas de toda la ciencia de la nieve y de las avalanchas.</p><p><a href=\"https://www.youtube.com/watch?v=AYEEA14IVOk\" target=\"_blank\" rel=\"noopener noreferrer\" >Ver vídeo en YouTube</a></p>",
+    "img": "<img alt=\"dp.8 buried surface hoar\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm8.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP9": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "dp.9 nieve granulada enterrada",
+    "text": "<p>Una capa débil dentro del manto se compara a menudo con un juego de canicas. Esta imagen encaja realmente con la nieve granulada o graupel: una precipitación esférica y granular que se deposita durante los episodios de chubascos. Sería la versión invernal del granizo típico de las tormentas de verano. Es fácilmente deducible que las nuevas acumulaciones de nieve sobre una capa de nieve granulada solo pueden quedar pobremente unidas a éste. Por tanto, el peligro de avalanchas aumenta. El graupel se distribuye frecuentemente solo por pequeñas áreas de superficie. Esto hace que, sin examinar los estratos del manto, sea muy difícil encontrar las capas de nieve granulada enterradas incluso para los profesionales. Se trata, por tanto, de una situación un tanto traicionera. Afortunadamente, los problemas de nieve granulada enterrada son de corta duración.</p><p><a href=\"https://www.youtube.com/watch?v=X3vNbaO4lCA\" target=\"_blank\" rel=\"noopener noreferrer\" >Ver vídeo en YouTube</a></p>",
+    "img": "<img alt=\"dp.9 buried graupel\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm9.webp\"/>",
     "source": "false"
   },
   "danger-pattern-DP10": {
-    "heading": "",
-    "text": "",
-    "img": "",
+    "heading": "dp.10 situación de nieve primavera",
+    "text": "<p>El peligro de avalanchas nunca es tan fácil de evaluar como durante los ciclos de estabilidad de fusión-rehielo primaverales. Sin embargo, la magnitud de las avalanchas que podrían tener lugar con estas condiciones ocurren raramente durante el grueso del invierno. Aparte de la estratificación del manto, la compleja interacción entre la temperatura y humedad del aire, la radiación solar y el viento, juegan un papel principal. Para los/as practicantes de esquí de travesía o splitboard, será crucial un buen control de los horarios y ser flexibles con la planificación de la ruta. </p><p><a href=\"https://www.youtube.com/watch?v=MqELgeDEFxY\" target=\"_blank\" rel=\"noopener noreferrer\" >Ver vídeo en YouTube</a></p>",
+    "img": "<img alt=\"dp.10 springtime situation\" class=\"panel-image\" srcset=\"https://avalanche.report/content_files/gm10.webp\"/> ",
     "source": "false"
   }
 }

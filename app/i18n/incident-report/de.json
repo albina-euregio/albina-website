@@ -19,6 +19,14 @@
   },
   "incidentReportUI": {
     "addAttachment": "Anhang hochladen",
+    "attachmentPending": "",
+    "attachmentsStaged": "",
+    "attachmentUploading": "",
+    "attachmentsUploading": "",
+    "attachmentUploadFailed": "",
+    "attachmentsUploadFailed": "",
+    "retryUpload": "",
+    "leaveWithStagedAttachments": "",
     "addAvalancheProblem": "Lawinenproblem hinzufügen",
     "addGroup": "Gruppe hinzufügen",
     "addVictim": "Person hinzufügen",
@@ -416,7 +424,7 @@
   },
   "sourceOfInformation": {
     "PublicObservation": " Öffentliche Beobachtung",
-    "AWSInternal": "Lawienwarndienst intern",
+    "AWSInternal": "Lawinenwarndienst intern",
     "AWSObserver": "Beobachter:in des Lawinenwarndienstes",
     "DispatchCentre": "Leitstelle",
     "Police": "Polizei",

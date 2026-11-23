@@ -51,13 +51,13 @@
   "menu:education:xarxa-observacions": "Réseau d'observations",
   "filter:all": "Tout",
   "filter:search": "Rechercher",
-  "filter:toggle": "",
+  "filter:toggle": "Afficher/masquer les filtres supplémentaires",
   "jumpnav:content": "Aller au contenu",
   "jumpnav:navigation": "Aller à la navigation",
   "jumpnav:footer": "Aller au pied de page",
   "header:languages:title": "Langues",
-  "header:theme:dark": "",
-  "header:theme:light": "",
+  "header:theme:dark": "Passer en mode sombre",
+  "header:theme:light": "Passer en mode clair",
   "header:logo:hover": "Accueil",
   "header:euregio:hover": "Eurorégion Tyrol-Trentin-Haut-Adige",
   "header:hamburger:hover": "Menu",
@@ -568,7 +568,7 @@
   "button:education:danger-patterns:text": "Modèle de risques",
   "button:education:handbook:text": "Manuel",
   "date-picker:close-button:caption": "Fermer",
-  "bugreport:label": "",
-  "bugreport:issue:title": "",
-  "bugreport:issue:description": ""
+  "bugreport:label": "Signaler un bug",
+  "bugreport:issue:title": "Rapport de bug",
+  "bugreport:issue:description": "## Description\n\nVeuillez fournir une description détaillée du bug, accompagnée de captures d'écran si possible."
 }
