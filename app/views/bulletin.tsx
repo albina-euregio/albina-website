@@ -71,7 +71,7 @@ const Bulletin = () => {
   const [collection, setCollection] = useState<BulletinCollection>();
   const [selectedTimePeriod, setSelectedTimePeriod] =
     useState<string>("earlier");
-  if (["de", "en"].includes(router.search.language || "")) {
+  if (["de", "en", "sl"].includes(router.search.language || "")) {
     setLanguage(router.search.language as Language);
   }
   const headless = useStore($headless);

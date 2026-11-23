@@ -10,7 +10,8 @@ const RAW_GLOSSARY_LINKS = Object.freeze({
   en: () => import("./bulletin-glossary-en-links.json").then(d => d.default),
   es: () => import("./bulletin-glossary-es-links.json").then(d => d.default),
   it: () => import("./bulletin-glossary-it-links.json").then(d => d.default),
-  oc: () => import("./bulletin-glossary-oc-links.json").then(d => d.default)
+  oc: () => import("./bulletin-glossary-oc-links.json").then(d => d.default),
+  sl: () => import("./bulletin-glossary-sl-links.json").then(d => d.default)
 });
 
 export const GLOSSARY_CONTENT = Object.freeze({

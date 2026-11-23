@@ -101,7 +101,8 @@ export const vBlogItem = v.object({
     fr: v.optional(v.string()),
     es: v.optional(v.string()),
     ca: v.optional(v.string()),
-    oc: v.optional(v.string())
+    oc: v.optional(v.string()),
+    sl: v.optional(v.string())
   })
 });
 
@@ -1253,7 +1254,8 @@ export const vLanguageCode = v.picklist([
   "fr",
   "es",
   "ca",
-  "oc"
+  "oc",
+  "sl"
 ]);
 
 export const vAvalancheBulletinText = v.object({

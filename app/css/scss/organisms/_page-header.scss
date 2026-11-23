@@ -271,6 +271,12 @@ $page-header-logo-width: 3.25em;
         opacity: 1;
       }
     }
+    .domain-sl & {
+      width: logo.$logo-url-en-width;
+      .url-sl {
+        opacity: 1;
+      }
+    }
 
     span {
       position: absolute;
@@ -317,7 +323,8 @@ $page-header-logo-width: 3.25em;
   .url-oc,
   .url-ca,
   .url-es,
-  .url-fr {
+  .url-fr,
+  .url-sl {
     height: logo.$logo-url-en-height;
     width: logo.$logo-url-en-width;
     background-image: url("../../../images/pro/logos/logo_url_en.svg");

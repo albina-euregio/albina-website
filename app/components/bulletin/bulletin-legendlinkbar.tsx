@@ -7,7 +7,7 @@ import SubscribeDialog from "../dialogs/subscribe-dialog";
 import { $province } from "../../appStore";
 import { BulletinCollection } from "../../stores/bulletin";
 import { useStore } from "@nanostores/react";
-import { EnabledLanguages } from "./bulletin-glossary.js";
+import { EnabledLanguages } from "./internal-glossary/internal-glossary.js";
 const BulletinInternalGlossaryText = React.lazy(
   () => import("./internal-glossary/internal-glossary-text.js")
 );

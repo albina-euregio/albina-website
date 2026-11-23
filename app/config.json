@@ -1,5 +1,5 @@
 {
-  "languages": ["ca", "en", "de", "es", "fr", "it", "oc"],
+  "languages": ["ca", "en", "de", "es", "fr", "it", "oc", "sl"],
   "mainLanguages": ["en", "de", "it"],
   "headless": false,
   "headlessLogo": [],

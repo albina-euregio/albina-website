@@ -38,8 +38,7 @@ function initializeIFrame(element?: HTMLElement) {
   if (location.hostname === "localhost") {
     base = new URL("/", location.href).toString();
   } else if (/EUREGIO|AT-02|AT-07|IT-32-BZ|IT-32-TN/.exec(String(province))) {
-    params.delete("language");
-    const host = {
+    const host: Record<string, string> = {
       en: "avalanche.report",
       ca: "ca.avalanche.report",
       de: "lawinen.report",
@@ -48,12 +47,15 @@ function initializeIFrame(element?: HTMLElement) {
       oc: "oc.avalanche.report",
       it: "valanghe.report"
     };
+    // languages without own domain keep the language parameter
+    if (host[language]) params.delete("language");
+    const languageHost = host[language] ?? host.en;
     if (location.hostname.startsWith("beta.")) {
-      base = `https://beta.${host[language]}/`;
+      base = `https://beta.${languageHost}/`;
     } else if (location.hostname.startsWith("dev.")) {
-      base = `https://dev.${host[language]}/`;
+      base = `https://dev.${languageHost}/`;
     } else {
-      base = `https://${host[language]}/`;
+      base = `https://${languageHost}/`;
     }
   } else {
     base = `https://lawinen-warnung.eu/`;
