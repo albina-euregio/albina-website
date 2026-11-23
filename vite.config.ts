@@ -151,9 +151,9 @@ export default defineConfig({
       "public/content/**/en.html",
       "public/content/**/es.html",
       "public/content/**/fr.html",
-      "public/content/**/fr.html",
       "public/content/**/it.html",
-      "public/content/**/oc.html"
+      "public/content/**/oc.html",
+      "public/content/**/sk.html"
     ]
   },
   lint: {
