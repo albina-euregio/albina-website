@@ -7,7 +7,6 @@ import type {
   IncidentData,
   IncidentInvolvement
 } from "../stores/incidentDataStore";
-import { escapeHtml } from "./escape-html";
 
 /**
  * Involvement categories are labelled from the shared incident-report resource.
@@ -65,14 +64,4 @@ export function involvementText(
   return count === undefined
     ? intl.formatMessage({ id })
     : intl.formatMessage({ id }, { count: intl.formatNumber(count) });
-}
-
-/**
- * `involvementText` as an escaped HTML string, for the map tooltip's `setHTML`.
- */
-export function involvementHtml(
-  incident: IncidentData,
-  intl: ReturnType<typeof useIntl>
-): string {
-  return escapeHtml(involvementText(incident, intl));
 }

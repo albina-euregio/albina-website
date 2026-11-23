@@ -23,8 +23,8 @@ import { useIncidentReportMessages } from "../../i18n/incident-report";
 import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { escapeHtml } from "../../util/escape-html.ts";
 import {
-  involvementHtml,
-  involvementLabel
+  involvementLabel,
+  involvementText
 } from "../../util/incident-involvement.ts";
 import { incidentBadges } from "../../util/incident-badges.ts";
 import { incidentBadgeClassName } from "./incident-badge.tsx";
@@ -120,7 +120,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
 
       // Only show the outcome when a persons count is known.
       const outcomeText = incident.numberInvolved
-        ? involvementHtml(incident, intl)
+        ? escapeHtml(involvementText(incident, intl))
         : undefined;
       const outcome = outcomeText
         ? `<p class="incident-tooltip__outcome">${outcomeText}</p>`
