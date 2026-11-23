@@ -249,7 +249,7 @@
     "signsOfInstability": "Alarmzeichen",
     "recentLoading": "Frische Zusatzbelastung",
     "criticalWarming": "Kritische Erwärmung",
-    "warningSigns": "",
+    "warningSigns": "Warnzeichen",
     "incidentAnalysisComment": "Kommentar zur Ereignisanalyse",
     "uuid": "UUID",
     "dateAdded": "Datum hinzugefügt",
@@ -844,23 +844,23 @@
     "Major": "schwerverletzt"
   },
   "recentSlabAvalanches": {
-    "Present": "Anwesend",
-    "Absent": "Abwesend",
+    "Present": "vorhanden",
+    "Absent": "nicht vorhanden",
     "Unknown": "unbekannt"
   },
   "signsOfInstability": {
-    "Present": "Anwesend",
-    "Absent": "Abwesend",
+    "Present": "vorhanden",
+    "Absent": "nicht vorhanden",
     "Unknown": "unbekannt"
   },
   "recentLoading": {
-    "Present": "Anwesend",
-    "Absent": "Abwesend",
+    "Present": "vorhanden",
+    "Absent": "nicht vorhanden",
     "Unknown": "unbekannt"
   },
   "criticalWarming": {
-    "Present": "Anwesend",
-    "Absent": "Abwesend",
+    "Present": "vorhanden",
+    "Absent": "nicht vorhanden",
     "Unknown": "unbekannt"
   },
   "attachmentTags": {
