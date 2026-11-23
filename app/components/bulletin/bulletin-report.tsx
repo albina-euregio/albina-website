@@ -54,6 +54,7 @@ interface LocalizedTextProps {
   text: string;
   text170000: string;
   showDiff: 0 | 1 | 2;
+  lang?: string;
 }
 
 const splitTravelAdvisory = (comment: string | undefined) =>
@@ -82,10 +83,11 @@ const LocalizedText: FunctionComponent<LocalizedTextProps> = props => {
 const LocalizedTextDiff: FunctionComponent<LocalizedTextProps> = ({
   text,
   text170000,
-  showDiff
+  showDiff,
+  lang
 }) => {
   const intl = useIntl();
-  const lang = intl.locale.slice(0, 2);
+  lang ??= intl.locale.slice(0, 2);
   text = toHtml(text);
   if (text !== text170000 && text170000 && showDiff > 0) {
     const { wordDiff, DiffMatchPatch } = use(
@@ -677,7 +679,7 @@ function BulletinReport({
                             date: bulletin.validTime?.startTime,
                             region: province ?? "EUREGIO",
                             microRegionId: region,
-                            lang: intl.locale.slice(0, 2)
+                            lang: bulletin.lang ?? intl.locale.slice(0, 2)
                           })}
                         >
                           <span className="icon icon-download"></span>
@@ -727,6 +729,7 @@ function BulletinReport({
                       <span className="bulletin-report-public-alert-text">
                         {bulletin.travelAdvisory.highlights ? (
                           <LocalizedText
+                            lang={bulletin.lang}
                             text={bulletin.travelAdvisory.highlights}
                             text170000={
                               bulletin170000?.travelAdvisory?.highlights
@@ -754,6 +757,7 @@ function BulletinReport({
                           }
                         >
                           <LocalizedText
+                            lang={bulletin.lang}
                             text={line}
                             text170000={travelAdvisory170000[index]}
                             showDiff={showDiff}
@@ -816,6 +820,7 @@ function BulletinReport({
             <div className="bulletin-report-text">
               <h2 className="subheader">
                 <LocalizedText
+                  lang={bulletin.lang}
                   text={bulletin.avalancheActivity?.highlights}
                   text170000={bulletin170000?.avalancheActivity?.highlights}
                   showDiff={showDiff}
@@ -823,6 +828,7 @@ function BulletinReport({
               </h2>
               <p>
                 <LocalizedText
+                  lang={bulletin.lang}
                   text={bulletin.avalancheActivity?.comment}
                   text170000={bulletin170000?.avalancheActivity?.comment}
                   showDiff={showDiff}
@@ -892,6 +898,7 @@ function BulletinReport({
                   </div>
                   <p>
                     <LocalizedText
+                      lang={bulletin.lang}
                       text={bulletin.snowpackStructure?.comment}
                       text170000={bulletin170000?.snowpackStructure?.comment}
                       showDiff={showDiff}
@@ -908,6 +915,7 @@ function BulletinReport({
                   {bulletin.weatherForecast?.comment && (
                     <p>
                       <LocalizedText
+                        lang={bulletin.lang}
                         text={bulletin.weatherForecast?.comment}
                         text170000={bulletin170000?.weatherForecast?.comment}
                         showDiff={showDiff}
@@ -1015,6 +1023,7 @@ function BulletinReport({
                     bulletin.tendency.map((tendency, index) => (
                       <p key={index}>
                         <LocalizedText
+                          lang={bulletin.lang}
                           text={tendency?.highlights}
                           text170000={
                             bulletin170000?.tendency?.[index]?.highlights

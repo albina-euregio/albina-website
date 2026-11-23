@@ -7,7 +7,7 @@ import SubscribeDialog from "../dialogs/subscribe-dialog";
 import { $province } from "../../appStore";
 import { BulletinCollection } from "../../stores/bulletin";
 import { useStore } from "@nanostores/react";
-import { EnabledLanguages } from "./bulletin-glossary.js";
+import { EnabledLanguages } from "./internal-glossary/internal-glossary.js";
 const BulletinInternalGlossaryText = React.lazy(
   () => import("./internal-glossary/internal-glossary-text.js")
 );
@@ -26,14 +26,14 @@ function BulletinLegendLinkbar({ activeBulletinCollection }: Props) {
     config.template(config.apis.bulletin.xml, {
       date: activeBulletinCollection.date.toString(),
       region: `${province || "EUREGIO"}_`,
-      lang: intl.locale.slice(0, 2)
+      lang: activeBulletinCollection.dataLang
     });
   const caamlJSON =
     activeBulletinCollection &&
     config.template(config.apis.bulletin.json, {
       date: activeBulletinCollection.date.toString(),
       region: `${province || "EUREGIO"}_`,
-      lang: intl.locale.slice(0, 2)
+      lang: activeBulletinCollection.dataLang
     });
   return (
     <section

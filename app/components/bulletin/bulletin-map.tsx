@@ -528,7 +528,7 @@ function MapLibreMap({
   const simpleBulletinUrl = () =>
     config.template(window.config.apis.bulletin.simple, {
       date: activeBulletinCollection?.date?.toString() || "latest",
-      lang: intl.locale.slice(0, 2)
+      lang: activeBulletinCollection?.dataLang ?? intl.locale.slice(0, 2)
     });
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const overlayMapRef = useRef<MlMap | null>(null);

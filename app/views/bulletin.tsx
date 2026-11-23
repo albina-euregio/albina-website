@@ -71,7 +71,7 @@ const Bulletin = () => {
   const [collection, setCollection] = useState<BulletinCollection>();
   const [selectedTimePeriod, setSelectedTimePeriod] =
     useState<string>("earlier");
-  if (["de", "en"].includes(router.search.language || "")) {
+  if (["de", "en", "sl"].includes(router.search.language || "")) {
     setLanguage(router.search.language as Language);
   }
   const headless = useStore($headless);
@@ -166,7 +166,7 @@ const Bulletin = () => {
   const simple = () =>
     config.template(window.config.apis.bulletin.simple, {
       date: collection?.date || "latest",
-      lang
+      lang: collection?.dataLang ?? lang
     });
 
   // Activate the 2026 bulletin styling ([data-bulletin-version="2026"] scope in

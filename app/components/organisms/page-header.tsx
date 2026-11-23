@@ -32,7 +32,10 @@ function PageHeader() {
   const handleChangeLanguage = (
     newLanguage: keyof typeof languageNameInNativeLanguage
   ) => {
-    const newHost = config.languageHostSettings[newLanguage];
+    const newHost: string | undefined =
+      config.languageHostSettings[
+        newLanguage as keyof typeof config.languageHostSettings
+      ];
     const shouldRedirect =
       // on localhost, don't redirect
       !import.meta.env.DEV &&
@@ -175,7 +178,8 @@ function PageHeader() {
     en: "English",
     es: "Español",
     fr: "Français",
-    it: "Italiano"
+    it: "Italiano",
+    sl: "Slovenščina"
   };
 
   return (
@@ -376,7 +380,7 @@ function PageHeader() {
                   <a
                     role="button"
                     tabIndex={0}
-                    // className used: language-trigger-oc language-trigger-ca language-trigger-de language-trigger-en language-trigger-es language-trigger-fr language-trigger-it
+                    // className used: language-trigger-oc language-trigger-ca language-trigger-de language-trigger-en language-trigger-es language-trigger-fr language-trigger-it language-trigger-sl
                     className={`language-trigger-${l}`}
                     onClick={() =>
                       handleChangeLanguage(

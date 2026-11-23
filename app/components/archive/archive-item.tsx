@@ -40,6 +40,7 @@ function ArchiveItem({ date, status, region }: Props) {
         case "es":
         case "ca":
         case "oc":
+        case "sl":
           return "en";
         default:
           return lang;
@@ -233,6 +234,7 @@ function BulletinMap({
         case "es":
         case "ca":
         case "oc":
+        case "sl":
           return false;
         default:
           return true;
