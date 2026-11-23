@@ -1,259 +1,303 @@
 <div>
-  <h1>Otvorené dáta</h1>
+<h1>Otvorené dáta</h1>
 
-  <section class="section-padding">
-    <header class="section-centered">
-      <ul class="list-inline list-buttongroup-dense">
-        <li>
-          <a
-            href="#license"
-            title="License"
-            class="secondary pure-button"
-            data-scroll
-            >Licencia</a
-          >
-        </li>
-        <li>
-          <a href="#xml" title="XML" class="secondary pure-button" data-scroll
-            >XML</a
-          >
-        </li>
-        <li>
-          <a
-            href="#source-code"
-            title="Source code"
-            class="secondary pure-button"
-            data-scroll
-            >Zdrojový kód</a
-          >
-        </li>
-        <li>
-          <a
-            href="#software"
-            title="Software"
-            class="secondary pure-button"
-            data-scroll
-            >Externý Software</a
-          >
-        </li>
-        <li>
-          <a
-            href="#geodata"
-            title="Geodata"
-            class="secondary pure-button"
-            data-scroll
-            >Geodáta</a
-          >
-        </li>
-      </ul>
-    </header>
-  </section>
-  <section class="section-centered">
-    <div id="ogd" class="panel">
-      <p>
-        Všetký dáta vyvíjané a generované vrámci tohto projektu sú voľne
-        dostupné. Uvádzame zoznam voľne dostupných dát a informácií ako aj
-        informácie o licenciách a ďalšom použitom externom softvéri.
-      </p>
+<section class="section-padding"><header class="section-centered"><ul class="list-inline list-buttongroup-dense">
+      <li><a href="#license" title="Licencia" class="secondary pure-button" data-scroll="">Licencia</a></li>
+      <li><a href="#report" title="Lavínové správy" class="secondary pure-button" data-scroll>Lavínové správy</a></li>
+      <li><a href="#source-code" title="Zdrojový kód" class="secondary pure-button" data-scroll="">Zdrojový kód</a></li>
+      <li><a href="#geodata" title="Geodáta" class="secondary pure-button" data-scroll="">Geodáta</a></li>
+      <li><a href="#software" title="Externý softvér" class="secondary pure-button" data-scroll>Externý softvér</a></li>
+    </ul></header></section><section class="section-centered"><div id="ogd" class="panel">
+    <p>Všetky vývojové výstupy a dáta, ktoré vznikli v rámci tohto projektu, sú podľa možnosti voľne dostupné. Nižšie nájdete informácie o licenciách a externom softvéri.</p>
+  </div>
+</section><section class="section-centered"><div id="license" class="panel">
+    <h2>Licencia a používanie dát</h2>
+    <p>Tieto licenčné podmienky sa vzťahujú na obsah a dáta zverejňované prostredníctvom nasledujúcich domén vrátane všetkých ich subdomén:</p>
+    <ul>
+      <li><strong>lawinen.report</strong></li>
+      <li><strong>avalanche.report</strong></li>
+      <li><strong>valanghe.report</strong></li>
+    </ul>
+    <p>Zahŕňajú dáta nasledujúcich lavínových výstražných služieb (ďalej len „lavínové výstražné služby“):</p>
+    <ul>
+      <li>Lavínová výstražná služba spolkovej krajiny Tirolsko</li>
+      <li>Lavínová výstražná služba Autonómnej provincie Bolzano</li>
+      <li>Lavínová výstražná služba Autonómnej provincie Trento</li>
+      <li>Lavínová výstražná služba Korutánsko, Úrad korutánskej krajinskej vlády</li>
+    </ul>
+    <p>V rozsahu príslušnej uvedenej licencie sa dáta môžu voľne používať, rozmnožovať, šíriť a upravovať, a to aj na komerčné účely. Okrem toho platia oddiely <a href="#integrity" data-scroll>Integrita pôvodných dát</a>, <a href="#attribution" data-scroll>Uvedenie autorstva a zdroja</a> a <a href="#fair-use" data-scroll>Zásady primeraného používania (fair use)</a>.</p>
+  </div>
+</section><section class="section-centered"><div id="report" class="panel">
+    <h2>Lavínové správy (CC BY 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by/4.0/deed.sk" rel="license noopener noreferrer" target="_blank">Creative Commons Uveďte pôvod 4.0 Medzinárodná (CC BY 4.0)</a></p>
+    <p>Nositeľom práv je lavínová výstražná služba príslušná pre daný región. Každá lavínová správa sa zverejňuje v 7 jazykoch. Súbory poslednej platnej správy zodpovedajú štandardu <a href="http://caaml.org/Schemas/BulletinEAWS/" target="_blank" rel="noopener noreferrer">CAAML v6</a> (<a href="http://caaml.org/Schemas/BulletinEAWS/v6.0/json/CAAMLv6_BulletinEAWS.json" target="_blank" rel="noopener noreferrer">JSON Schema</a>, <a href="http://caaml.org/Schemas/BulletinEAWS/v6.0/xml/CAAMLv6_BulletinEAWS.xsd" target="_blank" rel="noopener noreferrer">XML Schema</a>).</p>
+    <div class="table-container">
+      <table class="pure-table pure-table-striped full-width">
+        <thead><tr>
+            <th>Jazyk</th>
+            <th>JSON</th>
+            <th>XML</th>
+          </tr></thead>
+        <tbody>
+          <tr>
+            <td>DE</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_de_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_de_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_de_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_de_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>IT</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_it_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_it_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_it_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_it_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>EN</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_en_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_en_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_en_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_en_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>FR</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_fr_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_fr_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_fr_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_fr_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>ES</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_es_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_es_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_es_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_es_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>CA</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_ca_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_ca_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_ca_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_ca_CAAMLv6.xml</a></td>
+          </tr>
+          <tr>
+            <td>OC</td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_oc_CAAMLv6.json" target="_blank" rel="noopener noreferrer">EUREGIO_oc_CAAMLv6.json</a></td>
+            <td><a href="https://static.avalanche.report/bulletins/latest/EUREGIO_oc_CAAMLv6.xml" target="_blank" rel="noopener noreferrer">EUREGIO_oc_CAAMLv6.xml</a></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </section>
-  <section class="section-centered">
-    <div id="license" class="panel">
-      <h2>Licencia</h2>
-      <p></p>
-    </div>
-  </section>
-  <section class="section-centered">
-    <div id="xml-label" class="panel">
-      <h2></h2>
-      <p></p>
-    </div>
-  </section>
-  <section class="section-centered section-dangerscale">
-    <div id="xml-schema-label" class="panel field border">
-      <div class="grid">
-        <div class="grid-item small-3"></div>
-        <div class="grid-item small-9">
-          <div class="panel-header">
-            <h4></h4>
-          </div>
-          <p></p>
-          <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-          <p></p>
+  </div>
+</section><section class="section-centered"><div id="avalanche-events" class="panel">
+    <h2>Lavínové udalosti (CC BY 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by/4.0/deed.sk" rel="license noopener noreferrer" target="_blank">Creative Commons Uveďte pôvod 4.0 Medzinárodná (CC BY 4.0)</a></p>
+    <p>Zahŕňa správy o lavínových udalostiach. Vylúčené sú lavínové udalosti importované zo systému LAWIS, ktoré boli zaznamenané pred 1. októbrom 2026. Na fotografie a prílohy sa vzťahuje oddiel <a href="#media" data-scroll>Fotografie a médiá</a>.</p>
+  </div>
+</section><section class="section-centered"><div id="blog" class="panel">
+    <h2>Blog (CC BY 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by/4.0/deed.sk" rel="license noopener noreferrer" target="_blank">Creative Commons Uveďte pôvod 4.0 Medzinárodná (CC BY 4.0)</a></p>
+    <p>Zahŕňa texty blogových príspevkov. Na fotografie z blogu sa vzťahuje oddiel <a href="#media" data-scroll>Fotografie a médiá</a>.</p>
+  </div>
+</section><section class="section-centered"><div id="weather-stations" class="panel">
+    <h2>Meteostanice lavínových výstražných služieb (CC BY 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by/4.0/deed.sk" rel="license noopener noreferrer" target="_blank">Creative Commons Uveďte pôvod 4.0 Medzinárodná (CC BY 4.0)</a></p>
+    <p>Zahŕňa namerané údaje z meteostaníc lavínových výstražných služieb. Oddiel <a href="#integrity" data-scroll>Integrita pôvodných dát</a> sa tu neuplatňuje. Vylúčené sú údaje z meteostaníc iných prevádzkovateľov a meteorologické údaje od GeoSphere Austria.</p>
+  </div>
+</section><section class="section-centered"><div id="media" class="panel">
+    <h2>Fotografie a médiá (CC BY 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by/4.0/deed.sk" rel="license noopener noreferrer" target="_blank">Creative Commons Uveďte pôvod 4.0 Medzinárodná (CC BY 4.0)</a></p>
+    <p>Zahŕňa fotografie a pozorovania v lavínovej správe, snehové profily, fotografie a prílohy lavínových udalostí, ako aj fotografie z blogu – avšak len vtedy, ak sú výslovne označené copyrightom niektorej z lavínových výstražných služieb (napr. <strong>© LWD Tirol</strong>, <strong>© Lawinenwarndienst Tirol</strong>).</p>
+    <p>Fotografie a médiá pripísané iným autorkám alebo autorom sú z tejto licencie vylúčené. Všetky práva zostávajú príslušným nositeľkám a nositeľom práv. Ďalšie použitie si vyžaduje ich súhlas, pokiaľ nie je už dovolené zákonom.</p>
+  </div>
+</section><section class="section-centered"><div id="icons" class="panel">
+    <h2>Ikony lavínových problémov (CC BY-ND 4.0)</h2>
+    <p><a href="https://creativecommons.org/licenses/by-nd/4.0/deed.sk" rel="license noopener noreferrer" target="_blank">Creative Commons Uveďte pôvod – Nespracúvajte 4.0 Medzinárodná (CC BY-ND 4.0)</a></p>
+    <p>Ikony lavínových problémov sa môžu šíriť s uvedením autorstva, nesmú sa však upravovať. Ikony <a href="https://www.avalanches.org/" target="_blank" rel="noopener noreferrer">EAWS</a> sú z tejto licencie vylúčené.</p>
+  </div>
+</section><section class="section-centered"><div id="source-code" class="panel">
+    <h2>Zdrojový kód (AGPL-3.0 / GPL-3.0)</h2>
+    <p><a href="https://www.gnu.org/licenses/agpl-3.0.html" rel="license noopener noreferrer" target="_blank">GNU Affero General Public License 3.0 (AGPL-3.0)</a> / <a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license noopener noreferrer" target="_blank">GNU General Public License 3.0 (GPL-3.0)</a></p>
+    <p>Všetok náš zdrojový kód je uložený na <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer">GitLabe</a>. Rozhodujúci je licenčný súbor v príslušnom repozitári.</p>
+  </div>
+</section><section class="section-centered section-dangerscale"><div id="server" class="panel field border">
+    <div class="grid">
+      <div class="grid-item small-3">
+<img src="/content_files/java_bsd.svg" title="Java" alt="Java" class="warning-level-icon" style="margin: 0 0 0.9rem 0"><p class="small" style="font-size: 0.6rem">Copyright © Sun Microsystems Inc.</p>
+      </div>
+      <div class="grid-item small-9">
+        <div class="panel-header">
+          <p>JAVA</p>
+          <h4>Serverová aplikácia</h4>
         </div>
+        <p><a href="https://gitlab.com/albina-euregio/albina-server" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/albina-server</a></p>
+        <p>Licencia: <a href="https://www.gnu.org/licenses/agpl-3.0.html" rel="license noopener noreferrer" target="_blank">AGPL-3.0</a></p>
       </div>
     </div>
-    <div id="xml-schema-label" class="panel field border">
-      <div class="grid">
-        <div class="grid-item small-3">
-          <img
-            src="/content_files/xml.svg"
-            title="XML"
-            alt="XML"
-            class="warning-level-icon"
-          />
-        </div>
-        <div class="grid-item small-9">
-          <div class="panel-header">
-            <h4></h4>
-          </div>
-          <p></p>
-          <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-          <p></p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="section-centered">
-    <div id="source-code" class="panel">
-      <h2>Zdrojový kód</h2>
-      <p>
-        Všetok náš zdrojový kód je na
-        <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer"
-          >GitLabe</a
-        >
-        a môžete ho nájsť na týchto repozitároch:
-      </p>
-    </div>
-  </section>
-  <section class="section-centered section-dangerscale">
-    <div id="server" class="panel field border">
-      <div class="grid">
-        <div class="grid-item small-3">
-          <p class="small" style="font-size: 0.6rem"></p>
-        </div>
-        <div class="grid-item small-9">
-          <div class="panel-header">
-            <p></p>
-            <h4>Serverová aplikácia</h4>
-          </div>
-          <p></p>
-        </div>
-      </div>
-    </div>
+  </div>
 
-    <div id="admin-gui" class="panel field border">
-      <div class="grid">
-        <div class="grid-item small-3"></div>
-        <div class="grid-item small-9">
-          <div class="panel-header">
-            <p></p>
-            <h4>Administračné rozhranie</h4>
-          </div>
-          <p></p>
+  <div id="admin-gui" class="panel field border">
+    <div class="grid">
+      <div class="grid-item small-3"><img src="/content_files/angular.svg" title="Angular" alt="Angular" class="warning-level-icon"></div>
+      <div class="grid-item small-9">
+        <div class="panel-header">
+          <p>Angular</p>
+          <h4>Administračné rozhranie</h4>
         </div>
+        <p><a href="https://gitlab.com/albina-euregio/albina-admin-gui" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/albina-admin-gui</a></p>
+        <p>Licencia: <a href="https://www.gnu.org/licenses/agpl-3.0.html" rel="license noopener noreferrer" target="_blank">AGPL-3.0</a></p>
       </div>
     </div>
+  </div>
 
-    <div id="website" class="panel field border">
-      <div class="grid">
-        <div class="grid-item small-3"></div>
-        <div class="grid-item small-9">
-          <div class="panel-header">
-            <p></p>
-            <h4>Webová stránka</h4>
-          </div>
-          <p></p>
+  <div id="website" class="panel field border">
+    <div class="grid">
+      <div class="grid-item small-3"><img src="/content_files/react.svg" title="React" alt="React" class="warning-level-icon"></div>
+      <div class="grid-item small-9">
+        <div class="panel-header">
+          <p>React</p>
+          <h4>Webová stránka</h4>
         </div>
-        <div class="grid-item small-12">
-          <opensourcelicenses></opensourcelicenses>
-        </div>
+        <p><a href="https://gitlab.com/albina-euregio/albina-website" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/albina-website</a></p>
+        <p>Licencia: <a href="https://www.gnu.org/licenses/agpl-3.0.html" rel="license noopener noreferrer" target="_blank">AGPL-3.0</a></p>
+      </div>
+      <div class="grid-item small-12">
+        <opensourcelicenses></opensourcelicenses>
       </div>
     </div>
+  </div>
 
-    <div id="cop" class="panel field border">
-      <div class="grid">
-        <div class="grid-item small-3"></div>
-        <div class="grid-item small-9">
-          <div class="panel-header">
-            <p></p>
-            <h4>Katalóg fráz</h4>
-          </div>
-          <p></p>
+  <div id="cop" class="panel field border">
+    <div class="grid">
+      <div class="grid-item small-3"><img src="/content_files/vue.svg" title="Vue.js" alt="Vue.js" class="warning-level-icon"></div>
+      <div class="grid-item small-9">
+        <div class="panel-header">
+          <p>Vue.js</p>
+          <h4>Katalóg fráz</h4>
         </div>
+        <p><a href="https://gitlab.com/albina-euregio/textcat-ng" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/textcat-ng</a></p>
+        <p>Licencia: <a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license noopener noreferrer" target="_blank">GPL-3.0</a></p>
       </div>
     </div>
-  </section>
-  <section class="section-centered">
-    <div id="software" class="panel">
-      <h2>Externý softvér</h2>
-      <p>Nasledujúci externý softvér sa používa v našom projekte:</p>
+  </div>
+</section><section class="section-centered"><div id="geodata" class="panel">
+    <h2>Geodáta (GPL-3.0 / CC0 1.0)</h2>
+    <p><a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license noopener noreferrer" target="_blank">GNU General Public License 3.0 (GPL-3.0)</a> / <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.sk" rel="license noopener noreferrer" target="_blank">Creative Commons Zero 1.0 Univerzálna (CC0 1.0)</a></p>
+    <p>Aj naše geografické dáta sú voľne dostupné. Rozhodujúci je licenčný súbor v príslušnom repozitári.</p>
+  </div>
+</section><section class="section-centered section-dangerscale"><div id="base-map" class="panel field border">
+    <div class="grid">
+      <div class="grid-item small-3"><img src="/content_files/base-map.webp" title="Base Map" alt="Base Map" class="warning-level-icon"></div>
+      <div class="grid-item small-9">
+        <div class="panel-header">
+          <p>GIS</p>
+          <h4>Základná mapa</h4>
+        </div>
+        <p><a href="https://gitlab.com/albina-euregio/base-map" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/base-map</a></p>
+        <p>Licencia: <a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license noopener noreferrer" target="_blank">GPL-3.0</a></p>
+      </div>
     </div>
+  </div>
 
-    <div id="geonames" class="panel field border">
-      <div class="grid">
-        <div class="grid-item small-12">
-          <div class="panel-header">
-            <h6></h6>
-            <p>Vrstvy ako aj všetky ďalšie mapy sú kreslené Mapyrusom.</p>
-          </div>
-          <div class="panel-header">
-            <h6></h6>
-            <p>Hľadanie geografických názvov je zabezpečuje služba GeoNames.</p>
-          </div>
+  <div id="micro-regions" class="panel field border">
+    <div class="grid">
+      <div class="grid-item small-3"><img src="/content_files/micro-regions.webp" title="Micro Regions" alt="Micro Regions" class="warning-level-icon"></div>
+      <div class="grid-item small-9">
+        <div class="panel-header">
+          <p>Polygóny</p>
+          <h4>Mikroregióny</h4>
         </div>
+        <p><a href="https://gitlab.com/eaws/eaws-regions" target="_blank" rel="noopener noreferrer">https://gitlab.com/eaws/eaws-regions</a></p>
+        <p>Licencia: <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.sk" rel="license noopener noreferrer" target="_blank">CC0 1.0</a></p>
       </div>
     </div>
-  </section>
-  <section class="section-centered section-dangerscale">
-    <div id="geodata" class="panel">
-      <h2>Geodáta</h2>
-      <p>Všetky naše geografické dáta sú voľne dostupné:</p>
-    </div>
+  </div>
 
-    <div id="base-map" class="panel field border">
-      <div class="grid">
-        <div class="grid-item small-3"></div>
-        <div class="grid-item small-9">
-          <div class="panel-header">
-            <p>GIS</p>
-            <h4>Základná mapa</h4>
-          </div>
-          <p></p>
+  <div id="awm" class="panel field border">
+    <div class="grid">
+      <div class="grid-item small-3"><img src="/content_files/avalanche-warning-map.webp" title="Avalanche Warning Maps" alt="Avalanche Warning Maps" class="warning-level-icon"></div>
+      <div class="grid-item small-9">
+        <div class="panel-header">
+          <p>GIS</p>
+          <h4>Mapy stupňov lavínového nebezpečenstva</h4>
         </div>
+        <p><a href="https://gitlab.com/albina-euregio/avalanche-warning-maps" target="_blank" rel="noopener noreferrer">https://gitlab.com/albina-euregio/avalanche-warning-maps</a></p>
+        <p>Licencia: <a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license noopener noreferrer" target="_blank">GPL-3.0</a></p>
       </div>
     </div>
-
-    <div id="micro-regions" class="panel field border">
-      <div class="grid">
-        <div class="grid-item small-3"></div>
-        <div class="grid-item small-9">
-          <div class="panel-header">
-            <p>Polygóny</p>
-            <h4>Mikro regióny</h4>
-          </div>
-          <p></p>
-        </div>
-      </div>
+  </div>
+</section><section class="section-centered"><div id="third-party" class="panel">
+    <h2>Nie je predmetom tejto licencie</h2>
+    <p>Nasledujúce dáta pochádzajú od tretích strán. Nemôžeme k nim udeliť žiadne práva na použitie; platia podmienky príslušných nositeliek a nositeľov práv.</p>
+    <ul>
+      <li>Lavínové správy iných členov <a href="https://www.avalanches.org/" target="_blank" rel="noopener noreferrer">EAWS</a>, ktoré sa zobrazujú v agregovanej podobe.</li>
+      <li>Údaje z meteostaníc iných prevádzkovateľov.</li>
+      <li>Meteorologické údaje od GeoSphere Austria.</li>
+      <li>Lavínové udalosti importované zo systému LAWIS, ktoré boli zaznamenané pred 1. októbrom 2026.</li>
+      <li>Snehové profily importované zo systému LAWIS, ktoré boli zaznamenané pred 1. októbrom 2026.</li>
+      <li>Ikony <a href="https://www.avalanches.org/" target="_blank" rel="noopener noreferrer">EAWS</a>.</li>
+      <li>Fotografie, pozorovania, snehové profily a prílohy bez copyrightu niektorej z lavínových výstražných služieb.</li>
+    </ul>
+  </div>
+</section><section class="section-centered"><div id="software" class="panel">
+    <h2>Externý softvér</h2>
+    <p>V našom projekte sa používa nasledujúci externý softvér:</p>
+    <div class="table-container">
+      <table class="pure-table pure-table-striped full-width">
+        <thead><tr>
+            <th>Softvér</th>
+            <th>Použitie</th>
+          </tr></thead>
+        <tbody>
+          <tr>
+            <td><a href="http://mapyrus.sourceforge.net/" target="_blank" rel="noopener noreferrer">Mapyrus</a></td>
+            <td>Prekryvná vrstva, ako aj všetky ostatné mapy stupňov lavínového nebezpečenstva sa vykresľujú pomocou Mapyrusu.</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a></td>
+            <td>Vyhľadávanie v mape zabezpečuje služba GeoNames.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-    <div id="awm" class="panel field border">
-      <div class="grid">
-        <div class="grid-item small-3"></div>
-        <div class="grid-item small-9">
-          <div class="panel-header">
-            <p>GIS</p>
-            <h4>Mapy na lavínové výstrahy</h4>
-          </div>
-          <p></p>
-        </div>
-      </div>
+  </div>
+</section><section class="section-centered"><div id="integrity" class="panel">
+    <h2>Integrita pôvodných dát</h2>
+    <p>Lavínové správy sú úradné informácie dôležité pre bezpečnosť. Tvorba samostatných diel na základe týchto dát je výslovne vítaná. Patria k nim najmä komentáre, doplnenia, opravy, preklady, analýzy a vizualizácie.</p>
+    <p>Pri rozmnožovaní, šírení a úprave lavínových správ, správ o udalostiach a textov blogu platí:</p>
+    <ul>
+      <li>Obsah, ktorý sa reprodukuje ako lavínová správa alebo ako publikácia lavínovej výstražnej služby, sa musí prevziať bez zmien.</li>
+      <li>Zmeny musia byť vyznačené.</li>
+      <li>Pôvodné informácie musia byť jednoznačne odlíšené od doplnení, opráv, prekladov a vlastných hodnotení.</li>
+      <li>Upravené alebo rozšírené verzie sa nesmú vydávať za pôvodné alebo oficiálne publikácie lavínových výstražných služieb a nesmú vyvolávať dojem, že ich tieto služby schválili.</li>
+      <li>Musí sa uviesť zdroj a podľa možnosti odkaz na originál.</li>
+    </ul>
+    <p>Tieto povinnosti vyplývajú z podmienok licencie CC BY 4.0. Pri porušení zanikajú práva udelené licenciou automaticky.</p>
+  </div>
+</section><section class="section-centered"><div id="attribution" class="panel">
+    <h2>Uvedenie autorstva a zdroja</h2>
+    <p>Pri používaní materiálu z avalanche.report je potrebné primerane uviesť zdroj. Uvedenie by malo podľa možnosti obsahovať zdroj, odkaz na pôvodný materiál a informáciu o použitej licencii. Odporúčame nasledujúce uvedenie zdroja:</p>
+    <div class="table-container">
+      <table class="pure-table pure-table-striped full-width">
+        <thead><tr>
+            <th>Región</th>
+            <th>Uvedenie zdroja</th>
+          </tr></thead>
+        <tbody>
+          <tr>
+            <td>Tirolsko</td>
+            <td>Lavínová výstražná služba spolkovej krajiny Tirolsko</td>
+          </tr>
+          <tr>
+            <td>Južné Tirolsko</td>
+            <td>Lavínová výstražná služba Autonómnej provincie Bolzano</td>
+          </tr>
+          <tr>
+            <td>Trentino</td>
+            <td>Lavínová výstražná služba Autonómnej provincie Trento</td>
+          </tr>
+          <tr>
+            <td>Korutánsko</td>
+            <td>Lavínová výstražná služba Korutánsko, Úrad korutánskej krajinskej vlády</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </section>
+    <p>Prípadné zmeny pôvodného materiálu musia byť vyznačené. Uvedenie zdroja nesmie vyvolávať dojem podpory, schválenia alebo oficiálnej spolupráce zo strany avalanche.report alebo lavínových výstražných služieb.</p>
+  </div>
+</section><section class="section-centered"><div id="fair-use" class="panel">
+    <h2>Zásady primeraného používania (fair use)</h2>
+    <p>Priame požiadavky aplikácií na naše servery sú prípustné v rámci bežného používania a bežnej interakcie používateľov. Rozsiahle sťahovanie dát a hromadné sťahovanie sa má podľa možnosti vykonávať mimo hlavných časov používania, aby sa neohrozila dostupnosť a výkon našich služieb. Požiadavky musia byť označené jednoznačným User-Agentom.</p>
+    <p>Pri ukladaní obsahu do vyrovnávacej pamäte (caching) treba mať na pamäti, že správy sa môžu kedykoľvek aktualizovať. Aby sa predišlo používaniu neaktuálnych informácií, odporúčame preto pravidelne overovať aktuálnosť dát a najmä pred ďalším použitím si vyžiadať ich aktuálny stav.</p>
+  </div>
+</section>
 </div>
