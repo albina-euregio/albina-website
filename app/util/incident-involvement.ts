@@ -1,4 +1,3 @@
-import { createElement, type ReactNode } from "react";
 import type { MessageId, useIntl } from "../i18n";
 import {
   translateIncidentValue,
@@ -56,32 +55,17 @@ function involvementMessage(
 
 /**
  * An incident's involvement as one short phrase — "Incident with 2
- * fatalities", "Incident without involvement", … The persons count is set in bold so
- * it reads apart from the label around it. Shared by the incident table and the
- * details dialog; the map's marker tooltip uses `involvementHtml` instead.
+ * fatalities", "Incident without involvement", …
  */
 export function involvementText(
   incident: IncidentData,
   intl: ReturnType<typeof useIntl>
-): ReactNode {
+): string {
   const [id, count] = involvementMessage(incident);
   return count === undefined
     ? intl.formatMessage({ id })
-    : intl.formatMessage(
-        { id },
-        {
-          count: createElement(
-            "strong",
-            { key: "count" },
-            intl.formatNumber(count)
-          )
-        }
-      );
+    : intl.formatMessage({ id }, { count: intl.formatNumber(count) });
 }
-
-// Stands in for the count while the phrase around it is escaped, so the
-// emphasis markup can be injected afterwards without being escaped too.
-const COUNT_PLACEHOLDER = "\u0000";
 
 /**
  * `involvementText` as an escaped HTML string, for the map tooltip's `setHTML`.
@@ -90,9 +74,5 @@ export function involvementHtml(
   incident: IncidentData,
   intl: ReturnType<typeof useIntl>
 ): string {
-  const [id, count] = involvementMessage(incident);
-  if (count === undefined) return escapeHtml(intl.formatMessage({ id }));
-  return escapeHtml(
-    intl.formatMessage({ id }, { count: COUNT_PLACEHOLDER })
-  ).replace(COUNT_PLACEHOLDER, `<strong>${intl.formatNumber(count)}</strong>`);
+  return escapeHtml(involvementText(incident, intl));
 }
