@@ -68,7 +68,7 @@ function PageHeader() {
       apply();
     }
     setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
+    sessionStorage.setItem("theme", newTheme);
   };
 
   // CSS follows the OS by itself; keep the toggle icon in sync
