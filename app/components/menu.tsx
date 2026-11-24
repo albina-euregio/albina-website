@@ -48,7 +48,11 @@ function Menu(props: Props) {
     (async () => {
       if (!props.entries.some(e => e.showNumberNewPosts)) return;
       const posts = await BlogPostPreviewItem.loadBlogPosts(
-        window.config.blogs.filter(cfg => cfg.lang === lang)
+        window.config.blogs.filter(
+          cfg =>
+            cfg.lang === lang &&
+            cfg.regions.some(r => config.regionCodes.includes(r))
+        )
       );
       const postItems = posts.map(([, p]) => p).flat();
       setNumberNewPosts(postItems.filter(p => Date.now() < p.newUntil).length);
