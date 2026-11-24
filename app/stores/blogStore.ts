@@ -8,7 +8,12 @@ import { Language } from "../appStore";
 
 export const isTechBlog = atom<boolean>(false);
 export const isProfileBlog = atom<boolean>(false);
-export const region = atom<string | "all">("all");
+export const defaultRegion: string | "all" = config.blogRegions?.includes(
+  "EUREGIO"
+)
+  ? "EUREGIO"
+  : "all";
+export const region = atom<string | "all">(defaultRegion);
 export const language = atom<"de" | "it" | "en">("en");
 export const year = atom("" as number | "");
 export const month = atom("" as number | "");
@@ -46,7 +51,13 @@ export const blogConfigs = computed(
     }
     return window.config.blogs
       .filter(cfg => [cfg.lang, "all", ""].includes(language))
-      .filter(cfg => cfg.regions.some(r => [r, "all", ""].includes(region)));
+      .filter(cfg =>
+        cfg.regions.some(r =>
+          region === "EUREGIO"
+            ? config.regionCodes.includes(r)
+            : [r, "all", ""].includes(region)
+        )
+      );
   }
 );
 
@@ -113,7 +124,7 @@ export const searchParams = computed(
       params.set("page", String(page));
     }
     params.set("problem", problem);
-    params.set("region", region);
+    params.set("region", region || "all");
     params.set("searchCategory", searchCategory || "");
     params.set("searchLang", language);
     params.set("searchText", searchText || "");
@@ -146,7 +157,10 @@ export function validateYear(valueToValidate: string): number | "" {
 }
 
 export function validateRegion(valueToValidate: string): string {
-  return config.regionCodes.includes(valueToValidate) ? valueToValidate : "all";
+  return valueToValidate === "all" ||
+    (config.blogRegions ?? config.regionCodes).includes(valueToValidate)
+    ? valueToValidate
+    : defaultRegion;
 }
 
 export function validateLanguage(

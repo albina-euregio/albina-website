@@ -176,7 +176,7 @@ const BlogPostList = ({ isTechBlog, isProfileBlog }: Props) => {
             handleChange={handleChangeRegion}
             regionCodes={config.blogRegions}
             value={region}
-            className={region !== "all" ? classChanged : ""}
+            className={region !== BLOG_STORE.defaultRegion ? classChanged : ""}
           />
         )}
         <div>
