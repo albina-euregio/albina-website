@@ -8,7 +8,11 @@ import { setLanguage } from "../../appStore";
 function PageHeader() {
   const langButtonRef = useRef<HTMLAnchorElement>(null);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-  const [theme, setTheme] = useState(document.documentElement.dataset.theme);
+  const [theme, setTheme] = useState(
+    () =>
+      document.documentElement.dataset.theme ??
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+  );
   const intl = useIntl();
   const lang = intl.locale.slice(0, 2);
   const openDropdownMenu = " ";
@@ -52,7 +56,8 @@ function PageHeader() {
     }
   };
 
-  const applyTheme = (newTheme: string) => {
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
     const apply = () => (document.documentElement.dataset.theme = newTheme);
     if (
       document.startViewTransition &&
@@ -63,20 +68,15 @@ function PageHeader() {
       apply();
     }
     setTheme(newTheme);
-  };
-
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    applyTheme(newTheme);
     localStorage.setItem("theme", newTheme);
   };
 
-  // follow OS changes unless the user has chosen a theme
+  // CSS follows the OS by itself; keep the toggle icon in sync
   useEffect(() => {
     const query = matchMedia("(prefers-color-scheme: dark)");
     function handleChange() {
-      if (localStorage.getItem("theme")) return;
-      applyTheme(query.matches ? "dark" : "light");
+      if (document.documentElement.dataset.theme) return;
+      setTheme(query.matches ? "dark" : "light");
     }
     query.addEventListener("change", handleChange);
     return () => query.removeEventListener("change", handleChange);

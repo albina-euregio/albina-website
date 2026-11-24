@@ -197,7 +197,10 @@ mark {
   text-decoration: none;
 }
 ins {
-  background-color: color.adjust(variables.$green, $lightness: 52%);
+  background-color: light-dark(
+    color.adjust(variables.$green, $lightness: 52%),
+    color-mix(in srgb, variables.$green 30%, variables.$white)
+  );
 }
 mark {
   background-color: variables.$yellow;
@@ -205,19 +208,10 @@ mark {
 
 del {
   color: variables.$grey;
-  background-color: color.adjust(variables.$red, $lightness: 46%);
-}
-html[data-theme="dark"] {
-  ins {
-    background-color: color-mix(
-      in srgb,
-      variables.$green 30%,
-      variables.$white
-    );
-  }
-  del {
-    background-color: color-mix(in srgb, variables.$red 30%, variables.$white);
-  }
+  background-color: light-dark(
+    color.adjust(variables.$red, $lightness: 46%),
+    color-mix(in srgb, variables.$red 30%, variables.$white)
+  );
 }
 
 code,

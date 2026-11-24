@@ -641,7 +641,7 @@ $selectric-max-width: 20em;
   }
 }
 
-html[data-theme="dark"] input:-webkit-autofill {
-  -webkit-text-fill-color: variables.$text-color;
-  box-shadow: 0 0 0 1000px variables.$white inset;
+input:-webkit-autofill {
+  -webkit-text-fill-color: light-dark(currentColor, variables.$text-color);
+  box-shadow: 0 0 0 1000px light-dark(transparent, variables.$white) inset;
 }

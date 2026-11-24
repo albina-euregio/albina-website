@@ -47,20 +47,16 @@ html[data-province="ES-CT-L"] {
   --brand-very-very-light: #ff4184;
 }
 
+// follows the OS; data-theme is only set by the header toggle
+html {
+  color-scheme: light dark;
+  background-color: light-dark(transparent, #14191c);
+}
+html[data-theme="light"] {
+  color-scheme: light;
+}
 html[data-theme="dark"] {
   color-scheme: dark;
-  background-color: var(--grey-very-very-light);
-  // cards ($white) lighter than the page ($grey-very-very-light)
-  --white: #1b2226;
-  --grey-very-very-light: #14191c;
-  --grey-very-light: #273036;
-  --grey-medium-light: #323d43;
-  --grey-light: #4f5d63;
-  --grey: #8a989b;
-  --grey-dark: #c9d3d7;
-  --grey-very-dark: #eef3f5;
-  --brand-very-light: color-mix(in srgb, var(--brand) 45%, var(--white));
-  --brand-very-very-light: color-mix(in srgb, var(--brand) 25%, var(--white));
 }
 
 html,

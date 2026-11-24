@@ -22,14 +22,15 @@ $trans-color-dark: color.adjust($trans-color, $lightness: -10%);
 
 //neutral
 $black: #000;
-$grey-very-dark: var(--grey-very-dark, #222);
-$grey-dark: var(--grey-dark, #565f61);
-$grey: var(--grey, #839194);
-$grey-light: var(--grey-light, #b1c1c7);
-$grey-medium-light: var(--grey-medium-light, #dae2e6);
-$grey-very-light: var(--grey-very-light, #e6eef2);
-$grey-very-very-light: var(--grey-very-very-light, #f2f7fa);
-$white: var(--white, #fff);
+$grey-very-dark: light-dark(#222, #eef3f5);
+$grey-dark: light-dark(#565f61, #c9d3d7);
+$grey: light-dark(#839194, #8a989b);
+$grey-light: light-dark(#b1c1c7, #4f5d63);
+$grey-medium-light: light-dark(#dae2e6, #323d43);
+$grey-very-light: light-dark(#e6eef2, #273036);
+$grey-very-very-light: light-dark(#f2f7fa, #14191c);
+// dark: cards ($white) lighter than the page ($grey-very-very-light)
+$white: light-dark(#fff, #1b2226);
 // stays white in dark mode, e.g. text on brand or danger-level surfaces
 $white-fixed: #fff;
 $grey-dark-fixed: #565f61;
@@ -40,8 +41,14 @@ $brand-very-very-dark: var(--brand-very-very-dark, #062a3f);
 $brand-very-dark: var(--brand-very-dark, #0f6799);
 $brand-dark: var(--brand-dark, #1489cc);
 $brand-light: var(--brand-light, #66c7ff);
-$brand-very-light: var(--brand-very-light, #99daff);
-$brand-very-very-light: var(--brand-very-very-light, #ccecff);
+$brand-very-light: light-dark(
+  var(--brand-very-light, #99daff),
+  color-mix(in srgb, $brand 45%, $white)
+);
+$brand-very-very-light: light-dark(
+  var(--brand-very-very-light, #ccecff),
+  color-mix(in srgb, $brand 25%, $white)
+);
 
 $brand-2: $grey;
 
