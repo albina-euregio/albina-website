@@ -153,7 +153,8 @@ export default defineConfig({
       "public/content/**/fr.html",
       "public/content/**/it.html",
       "public/content/**/oc.html",
-      "public/content/**/sk.html"
+      "public/content/**/sk.html",
+      "public/content/**/sl.html"
     ]
   },
   lint: {
