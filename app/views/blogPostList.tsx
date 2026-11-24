@@ -174,14 +174,9 @@ const BlogPostList = ({ isTechBlog, isProfileBlog }: Props) => {
             })}
             all={intl.formatMessage({ id: "filter:all" })}
             handleChange={handleChangeRegion}
-            regionCodes={[
-              ...new Set([
-                BLOG_STORE.defaultRegion,
-                ...(config.blogRegions ?? [])
-              ])
-            ]}
+            regionCodes={config.blogRegions}
             value={region}
-            className={region !== BLOG_STORE.defaultRegion ? classChanged : ""}
+            className={region !== "all" ? classChanged : ""}
           />
         )}
         <div>
