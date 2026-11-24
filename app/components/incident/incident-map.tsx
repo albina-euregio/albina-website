@@ -14,7 +14,7 @@ import {
 } from "../../stores/eawsRegionsBounds.ts";
 import {
   MAPLIBRE_MIN_ZOOM,
-  MAPLIBRE_STYLE
+  maplibreStyle
 } from "../maplibre/maplibre-style.ts";
 import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
 import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
@@ -170,7 +170,7 @@ function IncidentMapLibreMap({ incidents, onIncidentSelected }: Props) {
     const map = new MlMap({
       dragRotate: false,
       container: containerRef.current,
-      style: MAPLIBRE_STYLE,
+      style: maplibreStyle(),
       minZoom: MAPLIBRE_MIN_ZOOM,
       bounds
     });

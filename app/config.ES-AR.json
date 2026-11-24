@@ -284,7 +284,7 @@
     },
     "tileLayer": {
       "id": "ALBINA",
-      "url": "http://www.ign.es/wms-inspire/mapa-raster",
+      "url": "https://www.ign.es/wms-inspire/mapa-raster",
       "layers": "mtn_rasterizado",
       "maxZoom": 10,
       "minZoom": 5,

@@ -17,7 +17,7 @@ import { DATE_TIME_FORMAT_SHORT } from "../../util/date";
 import { escapeHtml } from "../../util/escape-html.ts";
 import {
   MAPLIBRE_MIN_ZOOM,
-  MAPLIBRE_STYLE
+  maplibreStyle
 } from "../maplibre/maplibre-style.ts";
 import MapLegend, { type MapLegendItem } from "../maplibre/map-legend.tsx";
 import { coloredCircleLayer } from "../maplibre/colored-circle-layer.ts";
@@ -171,7 +171,7 @@ function SnowProfileMapLibreMap({
     const map = new MlMap({
       dragRotate: false,
       container: containerRef.current,
-      style: MAPLIBRE_STYLE,
+      style: maplibreStyle(),
       minZoom: MAPLIBRE_MIN_ZOOM,
       bounds
     });
