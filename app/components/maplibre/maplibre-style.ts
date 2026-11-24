@@ -155,7 +155,14 @@ export function maplibreStyle(): StyleSpecification {
     sources: { ...MAPLIBRE_STYLE.sources, wms },
     layers: [
       ...MAPLIBRE_STYLE.layers,
-      { id: "wms", type: "raster", source: "wms" }
+      {
+        id: "wms",
+        type: "raster",
+        source: "wms",
+        // muted like the former Leaflet `filter: opacity(50%) grayscale(90%)`
+        // (brightness-min 0.5 = 50 % blend with white, without the basemap showing through)
+        paint: { "raster-saturation": -0.9, "raster-brightness-min": 0.5 }
+      }
     ]
   };
 }
