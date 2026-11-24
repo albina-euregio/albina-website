@@ -124,12 +124,15 @@ class BulletinCollection {
     regions: string[]
   ): Promise<Bulletins> {
     const bulletinMap = new Map<string, Bulletin>();
+    let customData: Bulletins["customData"];
     await Promise.all(
       regions.map(async r => {
         const url = this._getBulletinUrl(publicationDate, r);
         if (!url) return;
         try {
           const data = await this.fetchFromURL(url);
+          // Collection-level data (e.g. the general headline) cannot be merged across regions
+          if (regions.length === 1) customData = data?.customData;
           data?.bulletins.forEach(b => {
             this.upgradeLegacyCAAML(b);
             bulletinMap.set(b.bulletinID, b);
@@ -144,7 +147,7 @@ class BulletinCollection {
         }
       })
     );
-    return { bulletins: [...bulletinMap.values()] };
+    return { bulletins: [...bulletinMap.values()], customData };
   }
 
   async load(): Promise<void> {
