@@ -99,6 +99,15 @@ class BulletinCollection {
 
   /** Returns region codes to load: individual regionCodes when no province, or [province] when set. */
   private _getLoadRegions(): string[] {
+    // Until 2022-12-09, only the combined EUREGIO CAAML was published
+    const date = this.date.toString();
+    if (
+      config.regionCodes.length > 1 &&
+      date >= "2018-12-01" &&
+      date <= "2022-12-09"
+    ) {
+      return ["EUREGIO"];
+    }
     return $focusRegions.get();
   }
 
@@ -153,23 +162,6 @@ class BulletinCollection {
   async load(): Promise<void> {
     const regions = this._getLoadRegions();
     this.dataRaw = await this.fetchAndMergeRegions("", regions);
-    if (this.dataRaw.bulletins.length === 0 && regions.length > 1) {
-      // No individual CAAMLs found — fall back to the combined EUREGIO CAAML
-      try {
-        const url = this._getBulletinUrl("", "EUREGIO");
-        if (url) {
-          this.dataRaw = await this.fetchFromURL(url);
-          this.dataRaw?.bulletins.forEach(b => this.upgradeLegacyCAAML(b));
-        }
-      } catch (error) {
-        if (!(error instanceof NotFoundError)) {
-          console.error(
-            `Cannot load EUREGIO bulletin for date ${this.date}`,
-            error
-          );
-        }
-      }
-    }
     if (!this.dataRaw?.bulletins?.length && this.useFallbackLang()) {
       return this.load();
     }
