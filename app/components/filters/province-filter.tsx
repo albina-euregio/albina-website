@@ -16,7 +16,10 @@ export default function ProvinceFilter(props: Props) {
   const regions = (props.regionCodes ?? config.regionCodes)
     .map(region => ({
       region,
-      label: intl.formatMessage({ id: `region:${region}` })
+      label: region
+        .split("+")
+        .map(r => intl.formatMessage({ id: `region:${r}` }))
+        .join(" + ")
     }))
     .sort((a, b) => a.label.localeCompare(b.label, intl.locale));
   if (props.buttongroup) {
