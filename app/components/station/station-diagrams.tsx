@@ -1,5 +1,5 @@
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FormattedMessage, useIntl } from "../../i18n";
 import { StationData } from "../../stores/stationDataStore";
 import { Tooltip } from "../tooltips/tooltip";
@@ -44,6 +44,8 @@ export interface Props {
   stationData: (StationData | Feature)[];
   stationId: string;
   setStationId: (rowId: string) => void;
+  /** Flip in the given order instead of north-west to south-east. */
+  keepOrder?: boolean;
 }
 
 const StationFlipper: React.FC<{
@@ -260,11 +262,26 @@ const StationOperator: React.FC<{
 const WeatherStationDiagrams: React.FC<Props> = ({
   stationData,
   stationId,
-  setStationId
+  setStationId,
+  keepOrder
 }) => {
   const intl = useIntl();
   const myRef = useRef<HTMLDivElement>();
   const [timeRange, setTimeRange] = useState<TimeRange>("week");
+
+  // north to south, then west to east
+  const sortedStations = useMemo(
+    () =>
+      keepOrder
+        ? stationData
+        : [...stationData].sort(
+            (a, b) =>
+              a.properties.microRegionID?.localeCompare(
+                b.properties.microRegionID ?? ""
+              ) || a.geometry.coordinates[0] - b.geometry.coordinates[0]
+          ),
+    [stationData, keepOrder]
+  );
 
   const {
     index: stationIndex,
@@ -273,7 +290,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
     previous,
     next,
     swipeHandlers
-  } = useDialogFlipper(stationData, stationId, setStationId);
+  } = useDialogFlipper(sortedStations, stationId, setStationId);
 
   useEffect(() => {
     // Close the dialog if the selected station is not present in the current data snapshot.
@@ -283,7 +300,7 @@ const WeatherStationDiagrams: React.FC<Props> = ({
   }, [setStationId, stationData.length, stationId, stationIndex]);
 
   if (!stationData) return <div></div>;
-  const station = stationData[stationIndex];
+  const station = sortedStations[stationIndex];
   if (!station) return <div></div>;
   const isStation = station instanceof StationData;
   const [microRegionId] = isStation ? station.microRegion.split(" ") : "";
