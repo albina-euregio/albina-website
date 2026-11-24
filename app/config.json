@@ -673,6 +673,7 @@
     "es": "es.avalanche.report",
     "fr": "fr.avalanche.report",
     "oc": "oc.avalanche.report",
+    "sl": "sl.avalanche.report",
     "it": "valanghe.report"
   },
   "hostLanguageSettings": {
@@ -683,6 +684,7 @@
     "fr.avalanche.report": "fr",
     "it.avalanche.report": "it",
     "oc.avalanche.report": "oc",
+    "sl.avalanche.report": "sl",
     "avalanches.report": "en",
     "lawine.report": "de",
     "lawinen.report": "de",

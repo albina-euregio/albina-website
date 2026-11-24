@@ -45,6 +45,7 @@ function initializeIFrame(element?: HTMLElement) {
       es: "es.avalanche.report",
       fr: "fr.avalanche.report",
       oc: "oc.avalanche.report",
+      sl: "sl.avalanche.report",
       it: "valanghe.report"
     };
     // languages without own domain keep the language parameter

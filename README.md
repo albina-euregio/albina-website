@@ -7,6 +7,7 @@
 - https://ca.avalanche.report/
 - https://es.avalanche.report/
 - https://oc.avalanche.report/
+- https://sl.avalanche.report/
 
 ## Development
 
