@@ -670,6 +670,7 @@
   "incidents": {
     "minYear": 2015,
     "minYearByRegion": {
+      "AT-02": 2009,
       "AT-07": 1992
     }
   },
