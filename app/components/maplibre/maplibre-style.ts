@@ -1,6 +1,7 @@
 import {
   addProtocol,
   setWorkerUrl,
+  type RasterSourceSpecification,
   type StyleSpecification
 } from "maplibre-gl";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
@@ -108,7 +109,65 @@ addProtocol("basemap", async ({ url }, { signal }) => {
   return { data: await res.arrayBuffer() };
 });
 
-export const MAPLIBRE_STYLE: StyleSpecification = {
+/**
+ * WMS base map configured per region in `config.map.tileLayer` (`wms: true`),
+ * e.g. "Cartografía Ráster del IGN" for ES-AR. Drawn on top of the shared
+ * basemap: the WMS is transparent outside its coverage.
+ */
+function wmsSource(): RasterSourceSpecification | undefined {
+  const { wms, url, layers } = (config.map.tileLayer ?? {}) as {
+    wms?: boolean;
+    url?: string;
+    layers?: string;
+  };
+  if (!wms || !url || !layers) return undefined;
+  const params = new URLSearchParams({
+    SERVICE: "WMS",
+    REQUEST: "GetMap",
+    VERSION: "1.3.0",
+    LAYERS: layers,
+    STYLES: "",
+    FORMAT: "image/png",
+    TRANSPARENT: "TRUE",
+    CRS: "EPSG:3857",
+    WIDTH: "256",
+    HEIGHT: "256"
+  });
+  return {
+    type: "raster",
+    // MapLibre substitutes {bbox-epsg-3857}; it must not be URL-encoded
+    tiles: [
+      `${url.replace(/^http:/, "https:")}?${params}&BBOX={bbox-epsg-3857}`
+    ],
+    tileSize: 256,
+    minzoom: MAPLIBRE_MIN_ZOOM,
+    maxzoom: 17,
+    attribution: config.map.attribution
+  };
+}
+
+/** MapLibre style with the shared raster basemap and the region's WMS (if configured). */
+export function maplibreStyle(): StyleSpecification {
+  const wms = wmsSource();
+  if (!wms) return MAPLIBRE_STYLE;
+  return {
+    ...MAPLIBRE_STYLE,
+    sources: { ...MAPLIBRE_STYLE.sources, wms },
+    layers: [
+      ...MAPLIBRE_STYLE.layers,
+      {
+        id: "wms",
+        type: "raster",
+        source: "wms",
+        // muted like the former Leaflet `filter: opacity(50%) grayscale(90%)`
+        // (brightness-min 0.5 = 50 % blend with white, without the basemap showing through)
+        paint: { "raster-saturation": -0.9, "raster-brightness-min": 0.5 }
+      }
+    ]
+  };
+}
+
+const MAPLIBRE_STYLE: StyleSpecification = {
   version: 8,
   glyphs: "/fonts/{fontstack}/{range}.pbf",
   sources: {

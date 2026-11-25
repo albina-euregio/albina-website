@@ -42,7 +42,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import {
   cooperativeGesturesLocale,
   MAPLIBRE_MIN_ZOOM,
-  MAPLIBRE_STYLE,
+  maplibreStyle,
   pmtilesUrl
 } from "../maplibre/maplibre-style";
 import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
@@ -862,7 +862,7 @@ function MapLibreMap({
         })
       },
       container: overlayRef.current,
-      style: MAPLIBRE_STYLE,
+      style: maplibreStyle(),
       minZoom: MAPLIBRE_MIN_ZOOM,
       maxZoom: 10,
       fitBoundsOptions,

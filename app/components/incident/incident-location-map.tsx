@@ -9,7 +9,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import {
   cooperativeGesturesLocale,
   MAPLIBRE_MIN_ZOOM,
-  MAPLIBRE_STYLE
+  maplibreStyle
 } from "../maplibre/maplibre-style.ts";
 import { useIntl } from "../../i18n";
 import type { IncidentData } from "../../stores/incidentDataStore.ts";
@@ -91,7 +91,7 @@ function IncidentLocationMap({ incident }: { incident: IncidentData }) {
       dragRotate: false,
       locale: cooperativeGesturesLocale(intl),
       container: containerRef.current,
-      style: MAPLIBRE_STYLE,
+      style: maplibreStyle(),
       minZoom: MAPLIBRE_MIN_ZOOM,
       center: allPoints[0] ?? [11.404, 47.268],
       zoom: 12,

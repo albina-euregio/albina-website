@@ -17,7 +17,7 @@ import { FormattedMessage, useIntl } from "../../i18n";
 import {
   cooperativeGesturesLocale,
   MAPLIBRE_MIN_ZOOM,
-  MAPLIBRE_STYLE
+  maplibreStyle
 } from "../maplibre/maplibre-style";
 import { GeonamesControl } from "../maplibre/maplibre-geonames-control";
 import { Bulletin, getMainDate } from "../../stores/bulletin";
@@ -324,7 +324,7 @@ function useIncidents(date: string, enabled: boolean) {
 /**
  * Mini map (MapLibre GL) showing the micro-region's weather stations plus the
  * observations, snow profiles and incidents as colored circle markers over the
- * shared raster basemap (MAPLIBRE_STYLE). Hovering a marker shows a tooltip;
+ * shared raster basemap (maplibreStyle()). Hovering a marker shows a tooltip;
  * clicking a station opens its diagrams, clicking any of the others opens its
  * details dialog. The four layers are toggled via the `show*` props.
  */
@@ -401,7 +401,7 @@ function BulletinMiniMap({
       cooperativeGestures: true,
       locale: cooperativeGesturesLocale(intl),
       container: containerRef.current,
-      style: MAPLIBRE_STYLE,
+      style: maplibreStyle(),
       minZoom: MAPLIBRE_MIN_ZOOM,
       ...(bounds ? { bounds } : {})
     });
