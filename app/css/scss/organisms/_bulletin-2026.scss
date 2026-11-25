@@ -99,6 +99,8 @@ $bulletin-report-header-breakpoint: variables.breakpoint-up(normal);
     top: variables.$padding;
     left: 50%;
     transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 6rem); // keep clear of map controls on both sides
     pointer-events: none;
     z-index: 1000;
     padding: (variables.$padding * 0.5) (variables.$padding);
