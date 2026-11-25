@@ -1494,6 +1494,46 @@ $search-width-wide: 300px;
   &:active {
     transform: translateX(-50%);
   }
+
+  // On phones the centred pill would collide with the map legend in the
+  // bottom-left, so shrink it to a round "+" button in the bottom-right.
+  @media #{variables.$screen} and (max-width: 34.375em) {
+    left: auto;
+    right: calc(#{variables.$padding} + 10px);
+    transform: none;
+    justify-content: center;
+    width: $controls-width-height * 1.5;
+    height: $controls-width-height * 1.5;
+    padding: 0;
+    border-radius: 50%;
+
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: none;
+    }
+
+    .snowprofile-add-fab__label {
+      @include mixins.visually-hidden;
+    }
+  }
+}
+
+// Pin the snow profile and incident map legends to the viewport (like the add
+// button), so a phone's bottom browser bar can't cover them.
+.snowprofile-map .map-legend,
+.incident-map .map-legend {
+  position: fixed;
+  left: calc(#{variables.$padding} + 10px);
+  bottom: calc(#{variables.$padding} + 12px);
 }
 
 // The table is an internally-scrolling viewport (max-height: 80vh), so shrink
