@@ -81,11 +81,15 @@ export default function SubscribeDialog() {
   const province = useStore($province);
   const router = useStore($router);
   const mapRegion = String(router?.search?.region ?? "");
+  const regionCodes =
+    province && !config.regionCodes.includes(province)
+      ? [...config.regionCodes, province]
+      : config.regionCodes;
   const [region, setRegion] = useState(
     () =>
-      config.regionCodes.find(r => mapRegion.startsWith(r)) ||
+      regionCodes.find(r => mapRegion.startsWith(r)) ||
       province ||
-      (config.regionCodes.length === 1 ? config.regionCodes[0] : "")
+      (regionCodes.length === 1 ? regionCodes[0] : "")
   );
   const [channel, setChannel] = useState<Channel>();
   const [language, setLanguage] = useState<Language | undefined>(
@@ -113,7 +117,7 @@ export default function SubscribeDialog() {
         </div>
 
         <div className="pure-form pure-form-stacked">
-          {config.regionCodes.length > 1 && (
+          {regionCodes.length > 1 && (
             <>
               <label>
                 <FormattedMessage
@@ -126,6 +130,7 @@ export default function SubscribeDialog() {
               </label>
               <ProvinceFilter
                 buttongroup={true}
+                regionCodes={regionCodes}
                 handleChange={setRegion}
                 value={region}
               />
