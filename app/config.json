@@ -517,6 +517,13 @@
       "stationsArchiveOperators": "---"
     },
     {
+      "dataProviderID": "IT-32-TN",
+      "png": "",
+      "pngOperators": "---",
+      "stationsArchiveFile": "",
+      "stationsArchiveOperators": "---"
+    },
+    {
       "dataProviderID": "IT-34",
       "png": "",
       "pngOperators": "---",
