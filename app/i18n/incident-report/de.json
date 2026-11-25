@@ -85,7 +85,13 @@
     "saveStateSaving": "Speichern ...",
     "saveStateSaved": "Erfolgreich gespeichert",
     "saveStateError": "Fehler beim Speichern",
-    "saveStateBlocked": "Pflichtfelder wurden nicht ausgefüllt"
+    "saveStateBlocked": "Pflichtfelder wurden nicht ausgefüllt",
+    "forbidden": "",
+    "saveStateForbidden": "",
+    "deleteIncidentError": "",
+    "publishIncidentError": "",
+    "unpublishIncidentError": "",
+    "removeAttachmentError": ""
   },
   "incidentReport": {
     "incidentReport": "Ereignisdokumentation",
@@ -244,7 +250,7 @@
     "snowpackDescriptionPublic": "Beschreibung der Schneedecke veröffentlichen?",
     "snowpackDescription": "Beschreibung der Schneedecke",
     "takeAwaysPublic": "Wichtigste Erkenntnisse veröffentlichen?",
-    "takeAways": "Wichtigsten Erkenntnisse",
+    "takeAways": "Wichtigste Erkenntnisse",
     "recentSlabAvalanches": "Frische Schneebrettlawinen",
     "signsOfInstability": "Alarmzeichen",
     "recentLoading": "Frische Zusatzbelastung",
@@ -360,7 +366,7 @@
     "relevantAvalancheProblem": "Wähle das relevanteste EAWS Lawinenproblem aus.",
     "trigger": "Spontan: Ohne menschlichen Einfluss ausgelöst. Person: Durch eine oder mehrere Personen ausgelöst. Sprengung: Durch Sprengstoff, Artillerie oder Gas ausgelöst. Fahrzeug: Durch ein Fahrzeug ausgelöst (z. B. Pistenfahrzeug oder Hubschrauber). Unbekannt: Auslöser ist unbekannt oder unklar.",
     "natural": "Spontan: Ausgelöst durch Wetterereignisse (z. B. Schneefall, Wind, Temperatur); Wechtenbruch: Ausgelöst durch den spontanen Bruch einer Wechte; Erdbeben: Ausgelöst durch ein Erdbeben; Eissturz: Ausgelöst durch das Abbrechen von Eis; Steinschlag: Ausgelöst durch einen Steinschlag",
-    "person": "Unbeabsichtigt: z. B. Skifahrer:in, Snowboardfahrer:in, Wanderer:in, Kletterer:in.\nAbsichtlich: z. B. ein Skifahrer:in, der einen Hang oder eine Wechte durch Ski Cutting gezielt auslöst.",
+    "person": "Unbeabsichtigt: z. B. Skifahrer:in, Snowboardfahrer:in, Wanderer:in, Kletterer:in.\nBeabsichtigt: z. B. ein Skifahrer:in, der einen Hang oder eine Wechte durch Ski Cutting gezielt auslöst.",
     "additionalLoad": "Geringe Zusatzbelastung: Einzelne Skifahrer:in oder Snowboarder:in, Guppe mit mindestens 10 m Abstand zwischen den Personen oder einzelne Schneeschuhgeher:in. Große Zusatzbelastung: Eng beieinander gehende Gruppe mit weniger als 10 m Abstand, einzelne Person zu Fuß oder stürzende Skifahrer:in bzw. Snowboarder:in.",
     "explosives": "",
     "vehicle": "",
