@@ -561,8 +561,13 @@ function buildRelativeSnowFallbackConfig(): RemoteDomainConfig {
     // domains' overlays do — `validity[0]` is also where the timeline begins.
     boundingBoxes: [
       {
-        validity: ["2021-01-01T00:00:00Z", "2100-01-01T00:00:00Z"],
+        validity: ["2021-01-01T00:00:00Z", "2026-10-07T00:00:00Z"],
         bbox: [9.4, 45.6167, 13.0333, 47.8167]
+      },
+      {
+        validity: ["2026-10-07T00:00:00Z", "2100-01-01T00:00:00Z"],
+        bbox: [8.10559, 45.50767, 17.74135, 49.47441],
+        lambert: [20500, 190500, 719500, 619500]
       }
     ],
     startDate: now,
