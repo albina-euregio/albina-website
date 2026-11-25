@@ -313,7 +313,9 @@ function SnowProfileDashboard() {
           <line x1="9" y1="3" x2="9" y2="15" />
           <line x1="3" y1="9" x2="15" y2="9" />
         </svg>
-        {intl.formatMessage({ id: "profiles:add" })}
+        <span className="snowprofile-add-fab__label">
+          {intl.formatMessage({ id: "profiles:add" })}
+        </span>
       </button>
 
       <button
