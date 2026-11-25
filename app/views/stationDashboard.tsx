@@ -59,9 +59,9 @@ function parseDateTimeSearchParam(dateTime?: string) {
   }
 
   try {
-    return Temporal.PlainDateTime.from(dateTime).toZonedDateTime(
-      "Europe/Vienna"
-    );
+    return Temporal.PlainDateTime.from(dateTime)
+      .round({ smallestUnit: "hour", roundingMode: "floor" })
+      .toZonedDateTime("Europe/Vienna");
   } catch {
     return;
   }
@@ -135,7 +135,9 @@ function StationDashboard() {
   const dateTimeQuery = router?.search?.dateTime;
   const selectedDateTime = parseDateTimeSearchParam(dateTimeQuery);
   const setSelectedDateTime = (nextDateTime: string) =>
-    redirectPageQuery({ dateTime: nextDateTime });
+    redirectPageQuery({
+      dateTime: formatDateTimeForInput(parseDateTimeSearchParam(nextDateTime))
+    });
   const [isFiltersExpanded, setIsFiltersExpanded] = useState(false);
   const { filterRef, offsetStyle, topStyle } = useFilterBarOffset();
 
