@@ -222,7 +222,10 @@ const BulletinMap = (props: Props) => {
   }) => (
     <div className="bulletin-map-details-buttons">
       {(aws || []).map((link, index) => {
-        const href = link.url[language] || Object.values(link.url)[0];
+        const href =
+          link.url[language] ||
+          link.url.en ||
+          Object.values(link.url).find(v => typeof v === "string");
         return (
           <Tooltip key={`tp-aws-link-${index}`} label={href}>
             <a
