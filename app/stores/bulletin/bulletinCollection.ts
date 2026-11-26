@@ -12,6 +12,7 @@ import {
 } from ".";
 import * as v from "valibot";
 import { $extraRegions, $focusRegions } from "../../appStore";
+import { eawsRegion } from "../eawsRegions";
 import { fetchExists, fetchJSON, NotFoundError } from "../../util/fetch.js";
 import {
   getDangerRatingValue,
@@ -223,9 +224,15 @@ class BulletinCollection {
               date: this.date,
               lang
             });
+          // e.g. SI publishes sl_SI, which pyAvaCore does not mirror
+          const awsUrl = eawsRegion(id)?.aws[0]?.url[`api:date:${this.lang}`];
           let data: Bulletins;
           try {
-            data = await this.fetchFromURL(template(`.${this.lang}`));
+            data = await this.fetchFromURL(
+              typeof awsUrl === "string"
+                ? config.template(awsUrl, { date: this.date, region: id })
+                : template(`.${this.lang}`)
+            );
           } catch (e) {
             if (!(e instanceof NotFoundError)) throw e;
             data = await this.fetchFromURL(template("")); // fallback lang
