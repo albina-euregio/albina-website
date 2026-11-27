@@ -36,8 +36,8 @@
   },
   "dependencies": {
     "@albina-euregio/linea": "^9.3.0",
-    "@eaws/micro-regions_names": "^9.3.3",
-    "@eaws/micro-regions_properties": "^9.3.3",
+    "@eaws/micro-regions_names": "^9.3.4",
+    "@eaws/micro-regions_properties": "^9.3.4",
     "@eaws/outline_properties": "^9.3.3",
     "@eaws/pmtiles": "^9.3.3",
     "@iframe-resizer/child": "^5.5.1",

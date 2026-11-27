@@ -182,11 +182,11 @@ importers:
         specifier: ^9.3.0
         version: 9.3.0(valibot@1.5.0(typescript@6.0.3))
       '@eaws/micro-regions_names':
-        specifier: ^9.3.3
-        version: 9.3.3
+        specifier: ^9.3.4
+        version: 9.3.4
       '@eaws/micro-regions_properties':
-        specifier: ^9.3.3
-        version: 9.3.3
+        specifier: ^9.3.4
+        version: 9.3.4
       '@eaws/outline_properties':
         specifier: ^9.3.3
         version: 9.3.3
@@ -310,11 +310,11 @@ packages:
   '@blazediff/core@1.10.0':
     resolution: {integrity: sha512-AOQff0zgR7cGsZL+4E7hVkmujoPUpm0J9xzWGWZj5wCjd3gmxESXAPfKyuzs93VdpQNFhHlBhfOjrcZ+XTERtQ==}
 
-  '@eaws/micro-regions_names@9.3.3':
-    resolution: {integrity: sha1-Xgr3rQVT2p45j94e/NnpmHQI2vA=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-9.3.3.tgz}
+  '@eaws/micro-regions_names@9.3.4':
+    resolution: {integrity: sha1-Zy2zH98ohEA/YHWELfaNX3pYrp4=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_names/-/@eaws/micro-regions_names-9.3.4.tgz}
 
-  '@eaws/micro-regions_properties@9.3.3':
-    resolution: {integrity: sha1-wGN4CC3AyHLGbx1M+nFXHOM7j9Y=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-9.3.3.tgz}
+  '@eaws/micro-regions_properties@9.3.4':
+    resolution: {integrity: sha1-YjEVqSRESaHkUxgyqO0/NaxIeDA=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-9.3.4.tgz}
 
   '@eaws/outline_properties@9.3.3':
     resolution: {integrity: sha1-mBWTNldgQH4/2fHgwbAJeCg+6CU=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-9.3.3.tgz}
@@ -1926,9 +1926,9 @@ snapshots:
 
   '@blazediff/core@1.10.0': {}
 
-  '@eaws/micro-regions_names@9.3.3': {}
+  '@eaws/micro-regions_names@9.3.4': {}
 
-  '@eaws/micro-regions_properties@9.3.3': {}
+  '@eaws/micro-regions_properties@9.3.4': {}
 
   '@eaws/outline_properties@9.3.3': {}
 
