@@ -67,7 +67,7 @@
     "@types/react": "^19.3.3",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
-    "git-cliff": "^2.10.1",
+    "git-cliff": "^2.14.2",
     "oxc-transform-react": "^0.158.0",
     "sass": "^1.99.0",
     "valibot": "^1.5.0",
