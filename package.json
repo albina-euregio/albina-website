@@ -50,7 +50,7 @@
     "maplibre-gl": "^6.19.0",
     "nanostores": "^1.5.4",
     "normalize.css": "^8.0.1",
-    "pmtiles": "^4.4.1",
+    "pmtiles": "^4.5.0",
     "purecss-sass": "3.0.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",

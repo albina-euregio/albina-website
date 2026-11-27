@@ -224,8 +224,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1
       pmtiles:
-        specifier: ^4.4.1
-        version: 4.4.1
+        specifier: ^4.5.0
+        version: 4.5.0
       purecss-sass:
         specifier: 3.0.1
         version: 3.0.1
@@ -1628,8 +1628,8 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  pmtiles@4.4.1:
-    resolution: {integrity: sha512-5oTeQc/yX/ft1evbpIlnoCZugQuug/iYIAj/ZTqIqzdGek4uZEho99En890EE6NOSI3JTI3IG8R7r8+SltphxA==}
+  pmtiles@4.5.0:
+    resolution: {integrity: sha512-CBeD4SoUluFziGdy/8k7FOjQxQy486n+929W/tWophauvMICpkZ26vGBWhDt/6b1FZQWNaf4jFdT/5+q0Wii5w==}
 
   pngjs@7.0.0:
     resolution: {integrity: sha512-LKWqWJRhstyYo9pGvgor/ivk2w94eSjE3RGVuzLGlr3NmD8bf7RcYGze1mNdEHRP6TRP6rMuDHk5t44hnTRyow==}
@@ -2957,7 +2957,7 @@ snapshots:
     dependencies:
       playwright-core: 1.65.1
 
-  pmtiles@4.4.1:
+  pmtiles@4.5.0:
     dependencies:
       fflate: 0.8.3
 
