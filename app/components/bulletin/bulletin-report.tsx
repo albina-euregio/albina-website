@@ -49,6 +49,7 @@ import { useDragScroll } from "../dialogs/use-drag-scroll";
 import { eawsRegion } from "../../stores/eawsRegions";
 
 let wordDiffModule: Promise<typeof import("../../util/wordDiff")>;
+const loadWordDiff = () => (wordDiffModule ??= import("../../util/wordDiff"));
 
 interface LocalizedTextProps {
   text: string;
@@ -90,9 +91,7 @@ const LocalizedTextDiff: FunctionComponent<LocalizedTextProps> = ({
   lang ??= intl.locale.slice(0, 2);
   text = toHtml(text);
   if (text !== text170000 && text170000 && showDiff > 0) {
-    const { wordDiff, DiffMatchPatch } = use(
-      (wordDiffModule ??= import("../../util/wordDiff"))
-    );
+    const { wordDiff, DiffMatchPatch } = use(loadWordDiff());
     text = wordDiff(text170000, text)
       .map(([diff, value]) =>
         diff === DiffMatchPatch.DIFF_INSERT
