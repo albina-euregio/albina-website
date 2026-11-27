@@ -69,7 +69,7 @@
     "@vitejs/plugin-react": "^6.3.0",
     "git-cliff": "^2.14.2",
     "oxc-transform-react": "^0.158.0",
-    "sass": "^1.99.0",
+    "sass": "^1.108.2",
     "valibot": "^1.5.0",
     "vite": "catalog:",
     "vite-plus": "catalog:"
