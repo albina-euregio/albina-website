@@ -137,7 +137,7 @@ deploy:www2:
 
 .playwright:
   stage: playwright
-  image: mcr.microsoft.com/playwright:v1.61.1
+  image: mcr.microsoft.com/playwright:v1.65.1
   parallel: 2
   artifacts:
     when: always
