@@ -188,11 +188,11 @@ importers:
         specifier: ^9.3.4
         version: 9.3.4
       '@eaws/outline_properties':
-        specifier: ^9.3.3
-        version: 9.3.3
+        specifier: ^9.3.4
+        version: 9.3.4
       '@eaws/pmtiles':
-        specifier: ^9.3.3
-        version: 9.3.3
+        specifier: ^9.3.4
+        version: 9.3.4
       '@iframe-resizer/child':
         specifier: ^5.5.1
         version: 5.5.7
@@ -316,11 +316,11 @@ packages:
   '@eaws/micro-regions_properties@9.3.4':
     resolution: {integrity: sha1-YjEVqSRESaHkUxgyqO0/NaxIeDA=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/micro-regions_properties/-/@eaws/micro-regions_properties-9.3.4.tgz}
 
-  '@eaws/outline_properties@9.3.3':
-    resolution: {integrity: sha1-mBWTNldgQH4/2fHgwbAJeCg+6CU=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-9.3.3.tgz}
+  '@eaws/outline_properties@9.3.4':
+    resolution: {integrity: sha1-uV+dKY4/KGimmxP18vkdYHTdTaQ=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/outline_properties/-/@eaws/outline_properties-9.3.4.tgz}
 
-  '@eaws/pmtiles@9.3.3':
-    resolution: {integrity: sha1-VkuyT89grang9qzJvvRD2wrqYcM=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/pmtiles/-/@eaws/pmtiles-9.3.3.tgz}
+  '@eaws/pmtiles@9.3.4':
+    resolution: {integrity: sha1-VFK0YEANUfBKEMfDtnvkAMtET6I=, tarball: https://gitlab.com/api/v4/projects/25330421/packages/npm/@eaws/pmtiles/-/@eaws/pmtiles-9.3.4.tgz}
 
   '@hey-api/codegen-core@0.9.1':
     resolution: {integrity: sha512-s97jL1dgTMuiMHv2BZ1X4Tgd99Mf9GOvGdNqNcGwIMmnR+PgYNoraj4Zvp134MKsNCap/m7k0r0vKKnl56pj4w==}
@@ -1945,9 +1945,9 @@ snapshots:
 
   '@eaws/micro-regions_properties@9.3.4': {}
 
-  '@eaws/outline_properties@9.3.3': {}
+  '@eaws/outline_properties@9.3.4': {}
 
-  '@eaws/pmtiles@9.3.3': {}
+  '@eaws/pmtiles@9.3.4': {}
 
   '@hey-api/codegen-core@0.9.1':
     dependencies:
